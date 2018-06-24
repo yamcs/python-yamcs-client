@@ -2,7 +2,7 @@ import io
 
 import setuptools
 
-with io.open('README.rst', encoding='utf-8') as f:
+with io.open('README.md', encoding='utf-8') as f:
     readme = f.read()
 
 packages = [
