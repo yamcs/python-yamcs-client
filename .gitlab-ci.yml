@@ -1,9 +1,0 @@
-stages:
-  - analyze
-
-image: nexus.spaceapplications.com/repository/docker-cdc/ci-base
-  
-sonar:
-  stage: analyze
-  script:
-    - sonar-scanner -Dsonar.projectKey=yamcs-pythonclient -Dsonar.sources=. -Dsonar.host.url=${SONAR_SERVER}  -Dsonar.login=${SONAR_KEY}
