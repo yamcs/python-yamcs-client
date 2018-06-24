@@ -1,6 +1,4 @@
-# yamcs-python-client
-
-This is a Python wrapper for using yamcs' REST and WebSocket interfaces.
+Client library for Yamcs.
 
 Example:
 

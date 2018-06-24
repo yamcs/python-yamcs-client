@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-client',
-    version='1.0.0',
+    version='1.0.1b1',
     description='Yamcs API client library',
     long_description=readme,
     url='https://github.com/yamcs/yamcs-python-client',
