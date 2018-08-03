@@ -34,7 +34,7 @@ class YamcsClient(object):
         return self.request('patch', api_path)
 
     def post(self, api_path):
-        return self.request('post', api_path)        
+        return self.request('post', api_path)
 
     def request(self, method, api_path):
         response = requests.request('get', '{}{}'.format(self.api_root, api_path), headers={
