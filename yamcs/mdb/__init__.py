@@ -1,1 +1,1 @@
-from yamcs.mdb.client import Client
+from yamcs.mdb.client import MDBClient

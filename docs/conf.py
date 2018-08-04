@@ -86,7 +86,7 @@ html_theme_options = {
     'description': 'Yamcs Client Libraries for Python',
     'github_user': 'yamcs',
     'github_repo': 'yamcs-python-client',
-    'github_banner': True,
+    'github_banner': False,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
