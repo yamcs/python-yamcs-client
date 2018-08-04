@@ -6,8 +6,9 @@ Yamcs Client for Python
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   
-   mdb/client
+   :numbered:
+
+   mdb/api
 
 Indices and tables
 ==================

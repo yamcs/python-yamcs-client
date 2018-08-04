@@ -6,14 +6,14 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+import pkg_resources
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
 # sys.path.insert(0, os.path.abspath('.'))
 
 
@@ -25,8 +25,10 @@ author = u'Space Applications Services'
 
 # The short X.Y version
 version = u''
+
 # The full version, including alpha/beta/rc tags
-release = u'1.0.0'
+dist = pkg_resources.get_distribution('yamcs-client')
+release = dist.version
 
 
 # -- General configuration ---------------------------------------------------
@@ -41,6 +43,8 @@ release = u'1.0.0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
+    'sphinx.ext.doctest',
+    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -76,17 +80,14 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'alabaster'
+html_theme = 'classic'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    'description': 'Yamcs Client Libraries for Python',
-    'github_user': 'yamcs',
-    'github_repo': 'yamcs-python-client',
-    'github_banner': False,
+    'stickysidebar': True,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -160,3 +161,6 @@ texinfo_documents = [
      author, 'YamcsPythonClient', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+def setup(app):
+    app.add_stylesheet('css-overrides.css')
