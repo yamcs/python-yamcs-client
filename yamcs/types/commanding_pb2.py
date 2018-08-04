@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='commanding.proto',
   package='commanding',
   syntax='proto2',
-  serialized_pb=_b('\n\x10\x63ommanding.proto\x12\ncommanding\x1a\x0byamcs.proto\x1a\tmdb.proto\"`\n\tCommandId\x12\x16\n\x0egenerationTime\x18\x01 \x02(\x03\x12\x0e\n\x06origin\x18\x02 \x02(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x02(\x05\x12\x13\n\x0b\x63ommandName\x18\x04 \x01(\t\"\xf0\x01\n\x10\x43ommandQueueInfo\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x15\n\rprocessorName\x18\x02 \x02(\t\x12\x0c\n\x04name\x18\x03 \x02(\t\x12%\n\x05state\x18\x04 \x01(\x0e\x32\x16.commanding.QueueState\x12\x16\n\x0enbSentCommands\x18\x05 \x02(\x05\x12\x1a\n\x12nbRejectedCommands\x18\x06 \x02(\x05\x12\x1c\n\x14stateExpirationTimeS\x18\x07 \x01(\x05\x12,\n\x05\x65ntry\x18\x08 \x03(\x0b\x32\x1d.commanding.CommandQueueEntry\"\xe8\x01\n\x11\x43ommandQueueEntry\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x15\n\rprocessorName\x18\x02 \x02(\t\x12\x11\n\tqueueName\x18\x03 \x02(\t\x12$\n\x05\x63mdId\x18\x04 \x02(\x0b\x32\x15.commanding.CommandId\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x0e\n\x06\x62inary\x18\x06 \x01(\x0c\x12\x10\n\x08username\x18\x07 \x01(\t\x12\x16\n\x0egenerationTime\x18\x08 \x01(\x03\x12\x19\n\x11generationTimeUTC\x18\n \x01(\t\x12\x0c\n\x04uuid\x18\t \x01(\t\"\xb5\x01\n\x11\x43ommandQueueEvent\x12\x30\n\x04type\x18\x01 \x01(\x0e\x32\".commanding.CommandQueueEvent.Type\x12+\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x1d.commanding.CommandQueueEntry\"A\n\x04Type\x12\x11\n\rCOMMAND_ADDED\x10\x01\x12\x14\n\x10\x43OMMAND_REJECTED\x10\x02\x12\x10\n\x0c\x43OMMAND_SENT\x10\x03\"\x91\x01\n\x13\x43ommandQueueRequest\x12/\n\tqueueInfo\x18\x01 \x01(\x0b\x32\x1c.commanding.CommandQueueInfo\x12\x31\n\nqueueEntry\x18\x02 \x01(\x0b\x32\x1d.commanding.CommandQueueEntry\x12\x16\n\x07rebuild\x18\x03 \x01(\x08:\x05\x66\x61lse\"Z\n\x13\x43ommandSignificance\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\x05\x12+\n\x0csignificance\x18\x02 \x01(\x0b\x32\x15.mdb.SignificanceInfo\"R\n\x17\x43ommandHistoryAttribute\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1b\n\x05value\x18\x02 \x01(\x0b\x32\x0c.yamcs.Value\x12\x0c\n\x04time\x18\x03 \x01(\x03\"\x8d\x01\n\x13\x43ommandHistoryEntry\x12(\n\tcommandId\x18\x01 \x02(\x0b\x32\x15.commanding.CommandId\x12\x31\n\x04\x61ttr\x18\x03 \x03(\x0b\x32#.commanding.CommandHistoryAttribute\x12\x19\n\x11generationTimeUTC\x18\x04 \x01(\t*4\n\nQueueState\x12\x0b\n\x07\x42LOCKED\x10\x01\x12\x0c\n\x08\x44ISABLED\x10\x02\x12\x0b\n\x07\x45NABLED\x10\x03\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n\x10\x63ommanding.proto\x12\ncommanding\x1a\x0byamcs.proto\x1a\tmdb.proto\"`\n\tCommandId\x12\x16\n\x0egenerationTime\x18\x01 \x02(\x03\x12\x0e\n\x06origin\x18\x02 \x02(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x02(\x05\x12\x13\n\x0b\x63ommandName\x18\x04 \x01(\t\"\xf0\x01\n\x10\x43ommandQueueInfo\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x15\n\rprocessorName\x18\x02 \x02(\t\x12\x0c\n\x04name\x18\x03 \x02(\t\x12%\n\x05state\x18\x04 \x01(\x0e\x32\x16.commanding.QueueState\x12\x16\n\x0enbSentCommands\x18\x05 \x02(\x05\x12\x1a\n\x12nbRejectedCommands\x18\x06 \x02(\x05\x12\x1c\n\x14stateExpirationTimeS\x18\x07 \x01(\x05\x12,\n\x05\x65ntry\x18\x08 \x03(\x0b\x32\x1d.commanding.CommandQueueEntry\"\xe8\x01\n\x11\x43ommandQueueEntry\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x15\n\rprocessorName\x18\x02 \x02(\t\x12\x11\n\tqueueName\x18\x03 \x02(\t\x12$\n\x05\x63mdId\x18\x04 \x02(\x0b\x32\x15.commanding.CommandId\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x0e\n\x06\x62inary\x18\x06 \x01(\x0c\x12\x10\n\x08username\x18\x07 \x01(\t\x12\x16\n\x0egenerationTime\x18\x08 \x01(\x03\x12\x19\n\x11generationTimeUTC\x18\n \x01(\t\x12\x0c\n\x04uuid\x18\t \x01(\t\"\xb5\x01\n\x11\x43ommandQueueEvent\x12\x30\n\x04type\x18\x01 \x01(\x0e\x32\".commanding.CommandQueueEvent.Type\x12+\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32\x1d.commanding.CommandQueueEntry\"A\n\x04Type\x12\x11\n\rCOMMAND_ADDED\x10\x01\x12\x14\n\x10\x43OMMAND_REJECTED\x10\x02\x12\x10\n\x0c\x43OMMAND_SENT\x10\x03\"\x91\x01\n\x13\x43ommandQueueRequest\x12/\n\tqueueInfo\x18\x01 \x01(\x0b\x32\x1c.commanding.CommandQueueInfo\x12\x31\n\nqueueEntry\x18\x02 \x01(\x0b\x32\x1d.commanding.CommandQueueEntry\x12\x16\n\x07rebuild\x18\x03 \x01(\x08:\x05\x66\x61lse\"Z\n\x13\x43ommandSignificance\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\x05\x12+\n\x0csignificance\x18\x02 \x01(\x0b\x32\x15.mdb.SignificanceInfo\"R\n\x17\x43ommandHistoryAttribute\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x1b\n\x05value\x18\x02 \x01(\x0b\x32\x0c.yamcs.Value\x12\x0c\n\x04time\x18\x03 \x01(\x03\"\x8d\x01\n\x13\x43ommandHistoryEntry\x12(\n\tcommandId\x18\x01 \x02(\x0b\x32\x15.commanding.CommandId\x12\x31\n\x04\x61ttr\x18\x03 \x03(\x0b\x32#.commanding.CommandHistoryAttribute\x12\x19\n\x11generationTimeUTC\x18\x04 \x01(\t\"F\n\x14ListCommandsResponse\x12.\n\x05\x65ntry\x18\x01 \x03(\x0b\x32\x1f.commanding.CommandHistoryEntry\"(\n\x17\x45\x64itCommandQueueRequest\x12\r\n\x05state\x18\x01 \x01(\t\"H\n\x19ListCommandQueuesResponse\x12+\n\x05queue\x18\x01 \x03(\x0b\x32\x1c.commanding.CommandQueueInfo\"G\n\x17ListCommandQueueEntries\x12,\n\x05\x65ntry\x18\x01 \x03(\x0b\x32\x1d.commanding.CommandQueueEntry\"-\n\x1c\x45\x64itCommandQueueEntryRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xc9\x01\n\x13IssueCommandRequest\x12>\n\nassignment\x18\x01 \x03(\x0b\x32*.commanding.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"}\n\x14IssueCommandResponse\x12\x38\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32\x1d.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xb3\x01\n\x1bUpdateCommandHistoryRequest\x12$\n\x05\x63mdId\x18\x01 \x02(\x0b\x32\x15.commanding.CommandId\x12\x46\n\x0chistoryEntry\x18\x02 \x03(\x0b\x32\x30.commanding.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t*4\n\nQueueState\x12\x0b\n\x07\x42LOCKED\x10\x01\x12\x0c\n\x08\x44ISABLED\x10\x02\x12\x0b\n\x07\x45NABLED\x10\x03\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs__pb2.DESCRIPTOR,mdb__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -48,8 +48,8 @@ _QUEUESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=1284,
-  serialized_end=1336,
+  serialized_start=2105,
+  serialized_end=2157,
 )
 _sym_db.RegisterEnumDescriptor(_QUEUESTATE)
 
@@ -523,6 +523,384 @@ _COMMANDHISTORYENTRY = _descriptor.Descriptor(
   serialized_end=1282,
 )
 
+
+_LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
+  name='ListCommandsResponse',
+  full_name='commanding.ListCommandsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='entry', full_name='commanding.ListCommandsResponse.entry', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1284,
+  serialized_end=1354,
+)
+
+
+_EDITCOMMANDQUEUEREQUEST = _descriptor.Descriptor(
+  name='EditCommandQueueRequest',
+  full_name='commanding.EditCommandQueueRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='state', full_name='commanding.EditCommandQueueRequest.state', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1356,
+  serialized_end=1396,
+)
+
+
+_LISTCOMMANDQUEUESRESPONSE = _descriptor.Descriptor(
+  name='ListCommandQueuesResponse',
+  full_name='commanding.ListCommandQueuesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='queue', full_name='commanding.ListCommandQueuesResponse.queue', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1398,
+  serialized_end=1470,
+)
+
+
+_LISTCOMMANDQUEUEENTRIES = _descriptor.Descriptor(
+  name='ListCommandQueueEntries',
+  full_name='commanding.ListCommandQueueEntries',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='entry', full_name='commanding.ListCommandQueueEntries.entry', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1472,
+  serialized_end=1543,
+)
+
+
+_EDITCOMMANDQUEUEENTRYREQUEST = _descriptor.Descriptor(
+  name='EditCommandQueueEntryRequest',
+  full_name='commanding.EditCommandQueueEntryRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='state', full_name='commanding.EditCommandQueueEntryRequest.state', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1545,
+  serialized_end=1590,
+)
+
+
+_ISSUECOMMANDREQUEST_ASSIGNMENT = _descriptor.Descriptor(
+  name='Assignment',
+  full_name='commanding.IssueCommandRequest.Assignment',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='commanding.IssueCommandRequest.Assignment.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='commanding.IssueCommandRequest.Assignment.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1753,
+  serialized_end=1794,
+)
+
+_ISSUECOMMANDREQUEST = _descriptor.Descriptor(
+  name='IssueCommandRequest',
+  full_name='commanding.IssueCommandRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='assignment', full_name='commanding.IssueCommandRequest.assignment', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='origin', full_name='commanding.IssueCommandRequest.origin', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='commanding.IssueCommandRequest.sequenceNumber', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='dryRun', full_name='commanding.IssueCommandRequest.dryRun', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='comment', full_name='commanding.IssueCommandRequest.comment', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_ISSUECOMMANDREQUEST_ASSIGNMENT, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1593,
+  serialized_end=1794,
+)
+
+
+_ISSUECOMMANDRESPONSE = _descriptor.Descriptor(
+  name='IssueCommandResponse',
+  full_name='commanding.IssueCommandResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='commandQueueEntry', full_name='commanding.IssueCommandResponse.commandQueueEntry', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='commanding.IssueCommandResponse.source', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='hex', full_name='commanding.IssueCommandResponse.hex', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='binary', full_name='commanding.IssueCommandResponse.binary', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1796,
+  serialized_end=1921,
+)
+
+
+_UPDATECOMMANDHISTORYREQUEST_KEYVALUE = _descriptor.Descriptor(
+  name='KeyValue',
+  full_name='commanding.UpdateCommandHistoryRequest.KeyValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='commanding.UpdateCommandHistoryRequest.KeyValue.key', index=0,
+      number=1, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='commanding.UpdateCommandHistoryRequest.KeyValue.value', index=1,
+      number=2, type=9, cpp_type=9, label=2,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2065,
+  serialized_end=2103,
+)
+
+_UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
+  name='UpdateCommandHistoryRequest',
+  full_name='commanding.UpdateCommandHistoryRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='cmdId', full_name='commanding.UpdateCommandHistoryRequest.cmdId', index=0,
+      number=1, type=11, cpp_type=10, label=2,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='historyEntry', full_name='commanding.UpdateCommandHistoryRequest.historyEntry', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[_UPDATECOMMANDHISTORYREQUEST_KEYVALUE, ],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1924,
+  serialized_end=2103,
+)
+
 _COMMANDQUEUEINFO.fields_by_name['state'].enum_type = _QUEUESTATE
 _COMMANDQUEUEINFO.fields_by_name['entry'].message_type = _COMMANDQUEUEENTRY
 _COMMANDQUEUEENTRY.fields_by_name['cmdId'].message_type = _COMMANDID
@@ -535,6 +913,15 @@ _COMMANDSIGNIFICANCE.fields_by_name['significance'].message_type = mdb__pb2._SIG
 _COMMANDHISTORYATTRIBUTE.fields_by_name['value'].message_type = yamcs__pb2._VALUE
 _COMMANDHISTORYENTRY.fields_by_name['commandId'].message_type = _COMMANDID
 _COMMANDHISTORYENTRY.fields_by_name['attr'].message_type = _COMMANDHISTORYATTRIBUTE
+_LISTCOMMANDSRESPONSE.fields_by_name['entry'].message_type = _COMMANDHISTORYENTRY
+_LISTCOMMANDQUEUESRESPONSE.fields_by_name['queue'].message_type = _COMMANDQUEUEINFO
+_LISTCOMMANDQUEUEENTRIES.fields_by_name['entry'].message_type = _COMMANDQUEUEENTRY
+_ISSUECOMMANDREQUEST_ASSIGNMENT.containing_type = _ISSUECOMMANDREQUEST
+_ISSUECOMMANDREQUEST.fields_by_name['assignment'].message_type = _ISSUECOMMANDREQUEST_ASSIGNMENT
+_ISSUECOMMANDRESPONSE.fields_by_name['commandQueueEntry'].message_type = _COMMANDQUEUEENTRY
+_UPDATECOMMANDHISTORYREQUEST_KEYVALUE.containing_type = _UPDATECOMMANDHISTORYREQUEST
+_UPDATECOMMANDHISTORYREQUEST.fields_by_name['cmdId'].message_type = _COMMANDID
+_UPDATECOMMANDHISTORYREQUEST.fields_by_name['historyEntry'].message_type = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE
 DESCRIPTOR.message_types_by_name['CommandId'] = _COMMANDID
 DESCRIPTOR.message_types_by_name['CommandQueueInfo'] = _COMMANDQUEUEINFO
 DESCRIPTOR.message_types_by_name['CommandQueueEntry'] = _COMMANDQUEUEENTRY
@@ -543,6 +930,14 @@ DESCRIPTOR.message_types_by_name['CommandQueueRequest'] = _COMMANDQUEUEREQUEST
 DESCRIPTOR.message_types_by_name['CommandSignificance'] = _COMMANDSIGNIFICANCE
 DESCRIPTOR.message_types_by_name['CommandHistoryAttribute'] = _COMMANDHISTORYATTRIBUTE
 DESCRIPTOR.message_types_by_name['CommandHistoryEntry'] = _COMMANDHISTORYENTRY
+DESCRIPTOR.message_types_by_name['ListCommandsResponse'] = _LISTCOMMANDSRESPONSE
+DESCRIPTOR.message_types_by_name['EditCommandQueueRequest'] = _EDITCOMMANDQUEUEREQUEST
+DESCRIPTOR.message_types_by_name['ListCommandQueuesResponse'] = _LISTCOMMANDQUEUESRESPONSE
+DESCRIPTOR.message_types_by_name['ListCommandQueueEntries'] = _LISTCOMMANDQUEUEENTRIES
+DESCRIPTOR.message_types_by_name['EditCommandQueueEntryRequest'] = _EDITCOMMANDQUEUEENTRYREQUEST
+DESCRIPTOR.message_types_by_name['IssueCommandRequest'] = _ISSUECOMMANDREQUEST
+DESCRIPTOR.message_types_by_name['IssueCommandResponse'] = _ISSUECOMMANDRESPONSE
+DESCRIPTOR.message_types_by_name['UpdateCommandHistoryRequest'] = _UPDATECOMMANDHISTORYREQUEST
 DESCRIPTOR.enum_types_by_name['QueueState'] = _QUEUESTATE
 
 CommandId = _reflection.GeneratedProtocolMessageType('CommandId', (_message.Message,), dict(
@@ -600,6 +995,78 @@ CommandHistoryEntry = _reflection.GeneratedProtocolMessageType('CommandHistoryEn
   # @@protoc_insertion_point(class_scope:commanding.CommandHistoryEntry)
   ))
 _sym_db.RegisterMessage(CommandHistoryEntry)
+
+ListCommandsResponse = _reflection.GeneratedProtocolMessageType('ListCommandsResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTCOMMANDSRESPONSE,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.ListCommandsResponse)
+  ))
+_sym_db.RegisterMessage(ListCommandsResponse)
+
+EditCommandQueueRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueRequest', (_message.Message,), dict(
+  DESCRIPTOR = _EDITCOMMANDQUEUEREQUEST,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.EditCommandQueueRequest)
+  ))
+_sym_db.RegisterMessage(EditCommandQueueRequest)
+
+ListCommandQueuesResponse = _reflection.GeneratedProtocolMessageType('ListCommandQueuesResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTCOMMANDQUEUESRESPONSE,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.ListCommandQueuesResponse)
+  ))
+_sym_db.RegisterMessage(ListCommandQueuesResponse)
+
+ListCommandQueueEntries = _reflection.GeneratedProtocolMessageType('ListCommandQueueEntries', (_message.Message,), dict(
+  DESCRIPTOR = _LISTCOMMANDQUEUEENTRIES,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.ListCommandQueueEntries)
+  ))
+_sym_db.RegisterMessage(ListCommandQueueEntries)
+
+EditCommandQueueEntryRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueEntryRequest', (_message.Message,), dict(
+  DESCRIPTOR = _EDITCOMMANDQUEUEENTRYREQUEST,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.EditCommandQueueEntryRequest)
+  ))
+_sym_db.RegisterMessage(EditCommandQueueEntryRequest)
+
+IssueCommandRequest = _reflection.GeneratedProtocolMessageType('IssueCommandRequest', (_message.Message,), dict(
+
+  Assignment = _reflection.GeneratedProtocolMessageType('Assignment', (_message.Message,), dict(
+    DESCRIPTOR = _ISSUECOMMANDREQUEST_ASSIGNMENT,
+    __module__ = 'commanding_pb2'
+    # @@protoc_insertion_point(class_scope:commanding.IssueCommandRequest.Assignment)
+    ))
+  ,
+  DESCRIPTOR = _ISSUECOMMANDREQUEST,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.IssueCommandRequest)
+  ))
+_sym_db.RegisterMessage(IssueCommandRequest)
+_sym_db.RegisterMessage(IssueCommandRequest.Assignment)
+
+IssueCommandResponse = _reflection.GeneratedProtocolMessageType('IssueCommandResponse', (_message.Message,), dict(
+  DESCRIPTOR = _ISSUECOMMANDRESPONSE,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.IssueCommandResponse)
+  ))
+_sym_db.RegisterMessage(IssueCommandResponse)
+
+UpdateCommandHistoryRequest = _reflection.GeneratedProtocolMessageType('UpdateCommandHistoryRequest', (_message.Message,), dict(
+
+  KeyValue = _reflection.GeneratedProtocolMessageType('KeyValue', (_message.Message,), dict(
+    DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE,
+    __module__ = 'commanding_pb2'
+    # @@protoc_insertion_point(class_scope:commanding.UpdateCommandHistoryRequest.KeyValue)
+    ))
+  ,
+  DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST,
+  __module__ = 'commanding_pb2'
+  # @@protoc_insertion_point(class_scope:commanding.UpdateCommandHistoryRequest)
+  ))
+_sym_db.RegisterMessage(UpdateCommandHistoryRequest)
+_sym_db.RegisterMessage(UpdateCommandHistoryRequest.KeyValue)
 
 
 DESCRIPTOR.has_options = True

@@ -1,12 +1,10 @@
-import json
-
-
 class Iterator(object):
 
-    def __init__(self, client, path, params, items_key='items'):
+    def __init__(self, client, path, params, response_class, items_key='items'):
         self.client = client
         self.path = path
         self.params = params
+        self.response_class = response_class
         self.items_key = items_key
 
         self.num_results = 0
@@ -33,9 +31,11 @@ class Iterator(object):
             if self._continuation_token is not None:
                 params['continue'] = self._continuation_token
 
-            response = self.client._get(path=self.path, params=params)
-            response_dict = json.loads(response.content)
-
-            items = response_dict.get(self.items_key, [])
-            self._continuation_token = response_dict.get('continuationToken')
+            response = self.client._get_proto(path=self.path, params=params)
+            message = self.response_class()
+            message.ParseFromString(response.content)
+            items = getattr(message, self.items_key)
+            self._continuation_token = getattr(message, 'continuationToken')
             return items
+        else:
+            return None

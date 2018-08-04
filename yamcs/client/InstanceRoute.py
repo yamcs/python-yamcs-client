@@ -1,9 +1,9 @@
 import logging
 
 from websocket import create_connection
+from yamcs.proto.mdb_pb2 import ListParametersResponse
 
 from .exceptions import ConnectionError
-from .proto.rest_pb2 import ListParameterInfoResponse
 
 
 class InstanceRoute(object):
@@ -23,7 +23,7 @@ class InstanceRoute(object):
 
     def get_parameters(self):
         response = self.client.get('/mdb/{}/parameters'.format(self.instance))
-        msg = ListParameterInfoResponse()
+        msg = ListParametersResponse()
         msg.ParseFromString(response.content)
         return msg.parameter
 
