@@ -22,12 +22,12 @@ class ManagementClient(BaseClient):
         Data links are returned in random order.
 
         :param str parent: The instance name
-        :rtype: Link iterator
+        :rtype: LinkInfo iterator
         """
 
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self._get_proto(path='/links/' + parent)
+        response = self._get_proto(path='links/' + parent)
         message = management_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
@@ -40,7 +40,7 @@ class ManagementClient(BaseClient):
         :param str name: The name of the data link. For example: ``links/:instance/:link``
         :rtype: :class:`yamcs.types.management_pb2.LinkInfo`
         """
-        response = self._get_proto('/' + name)
+        response = self._get_proto(name)
         message = management_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return message
