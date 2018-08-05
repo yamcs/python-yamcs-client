@@ -1,5 +1,3 @@
-.. Yamcs Python Client documentation master file
-
 Yamcs Client for Python
 =======================
 
@@ -9,6 +7,8 @@ Yamcs Client for Python
    :numbered:
 
    mdb/api
+   tmtc/api
+   management/api
 
 Indices and tables
 ==================

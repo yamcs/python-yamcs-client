@@ -53,8 +53,7 @@ class MDBClient(BaseClient):
 
         Parameters are returned in lexicographical order.
 
-        :type parameter_type: str
-        :param parameter_type: (Optional) The type of parameter
+        :param str parameter_type: (Optional) The type of parameter
         """
         params = {}
 

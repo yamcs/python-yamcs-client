@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='management.proto',
   package='management',
   syntax='proto2',
-  serialized_pb=_b('\n\x10management.proto\x12\nmanagement\x1a\rarchive.proto\x1a\tmdb.proto\x1a\x0byamcs.proto\"=\n\x0eYamcsInstances\x12+\n\x08instance\x18\x01 \x03(\x0b\x32\x19.management.YamcsInstance\"\xd3\x02\n\rYamcsInstance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12-\n\x0fmissionDatabase\x18\x03 \x01(\x0b\x32\x14.mdb.MissionDatabase\x12,\n\tprocessor\x18\x04 \x03(\x0b\x32\x19.management.ProcessorInfo\x12\x36\n\x05state\x18\x0b \x01(\x0e\x32\'.management.YamcsInstance.InstanceState\x12\x14\n\x0c\x66\x61ilureCause\x18\t \x01(\t\x12\x13\n\x0bmissionTime\x18\n \x01(\t\"t\n\rInstanceState\x12\x0b\n\x07OFFLINE\x10\x00\x12\x10\n\x0cINITIALIZING\x10\x01\x12\x0f\n\x0bINITIALIZED\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x0b\n\x07RUNNING\x10\x04\x12\x0c\n\x08STOPPING\x10\x05\x12\n\n\x06\x46\x41ILED\x10\x06\"\xf2\x02\n\rProcessorInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0f\n\x07\x63reator\x18\x05 \x01(\t\x12\x11\n\thasAlarms\x18\x06 \x01(\x08\x12\x15\n\rhasCommanding\x18\x07 \x01(\x08\x12\'\n\x05state\x18\x08 \x01(\x0e\x32\x18.management.ServiceState\x12-\n\rreplayRequest\x18\t \x01(\x0b\x32\x16.archive.ReplayRequest\x12\x36\n\x0breplayState\x18\n \x01(\x0e\x32!.archive.ReplayStatus.ReplayState\x12(\n\x07service\x18\x10 \x03(\x0b\x32\x17.management.ServiceInfo\x12\x12\n\npersistent\x18\x11 \x01(\x08\x12\x0c\n\x04time\x18\x12 \x01(\t\x12\x0e\n\x06replay\x18\x13 \x01(\x08\"\xf8\x01\n\nClientInfo\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x17\n\x0f\x61pplicationName\x18\x04 \x01(\t\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x05 \x01(\t\x12\x31\n\x05state\x18\x06 \x01(\x0e\x32\".management.ClientInfo.ClientState\x12\x11\n\tloginTime\x18\x08 \x01(\x03\x12\x14\n\x0cloginTimeUTC\x18\t \x01(\t\".\n\x0b\x43lientState\x12\r\n\tCONNECTED\x10\x00\x12\x10\n\x0c\x44ISCONNECTED\x10\x01\"3\n\x13ObjectPrivilegeInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06object\x18\x02 \x03(\t\"\xab\x01\n\x08UserInfo\x12\r\n\x05login\x18\x01 \x01(\t\x12*\n\nclientInfo\x18\x02 \x03(\x0b\x32\x16.management.ClientInfo\x12\x17\n\x0fsystemPrivilege\x18\x0b \x03(\t\x12\x38\n\x0fobjectPrivilege\x18\x0c \x03(\x0b\x32\x1f.management.ObjectPrivilegeInfo\x12\x11\n\tsuperuser\x18\r \x01(\x08\"\xbf\x01\n\x0cTmStatistics\x12\x12\n\npacketName\x18\x01 \x01(\t\x12\x17\n\x0freceivedPackets\x18\x02 \x01(\x03\x12\x14\n\x0clastReceived\x18\x03 \x01(\x03\x12\x17\n\x0flastReceivedUTC\x18\x08 \x01(\t\x12\x16\n\x0elastPacketTime\x18\x04 \x01(\x03\x12\x19\n\x11lastPacketTimeUTC\x18\x07 \x01(\t\x12 \n\x18subscribedParameterCount\x18\x06 \x01(\x05\"\x8e\x01\n\nStatistics\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x16\n\x0eyProcessorName\x18\x02 \x01(\t\x12)\n\x07tmstats\x18\x03 \x03(\x0b\x32\x18.management.TmStatistics\x12\x13\n\x0blastUpdated\x18\x04 \x01(\x03\x12\x16\n\x0elastUpdatedUTC\x18\x05 \x01(\t\"\x89\x02\n\x1aProcessorManagementRequest\x12\x43\n\toperation\x18\x01 \x01(\x0e\x32\x30.management.ProcessorManagementRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x19\n\npersistent\x18\x07 \x01(\x08:\x05\x66\x61lse\";\n\tOperation\x12\x14\n\x10\x43REATE_PROCESSOR\x10\x00\x12\x18\n\x14\x43ONNECT_TO_PROCESSOR\x10\x01\"\xea\x01\n\x10ProcessorRequest\x12\x39\n\toperation\x18\x01 \x01(\x0e\x32&.management.ProcessorRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08seekTime\x18\x04 \x01(\x03\x12)\n\x0breplaySpeed\x18\x05 \x01(\x0b\x32\x14.archive.ReplaySpeed\">\n\tOperation\x12\t\n\x05PAUSE\x10\x02\x12\n\n\x06RESUME\x10\x03\x12\x08\n\x04SEEK\x10\x04\x12\x10\n\x0c\x43HANGE_SPEED\x10\x05\"\xa3\x01\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0e\n\x06stream\x18\x05 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x11\n\tdataCount\x18\x08 \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\"\x94\x01\n\tLinkEvent\x12(\n\x04type\x18\x01 \x01(\x0e\x32\x1a.management.LinkEvent.Type\x12&\n\x08linkInfo\x18\x02 \x01(\x0b\x32\x14.management.LinkInfo\"5\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\":\n\x14ListLinkInfoResponse\x12\"\n\x04link\x18\x01 \x03(\x0b\x32\x14.management.LinkInfo\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"|\n\x0bServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\'\n\x05state\x18\x03 \x01(\x0e\x32\x18.management.ServiceState\x12\x11\n\tclassName\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\"C\n\x17ListServiceInfoResponse\x12(\n\x07service\x18\x01 \x03(\x0b\x32\x17.management.ServiceInfo\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"=\n\x13ListClientsResponse\x12&\n\x06\x63lient\x18\x01 \x03(\x0b\x32\x16.management.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"F\n\x16ListProcessorsResponse\x12,\n\tprocessor\x18\x01 \x03(\x0b\x32\x19.management.ProcessorInfo\"D\n\x15ListInstancesResponse\x12+\n\x08instance\x18\x01 \x03(\x0b\x32\x19.management.YamcsInstance\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"M\n\x1dProcessorSubscriptionResponse\x12,\n\tprocessor\x18\x01 \x01(\x0b\x32\x19.management.ProcessorInfo\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"\xa3\x01\n\x1cParameterSubscriptionRequest\x12 \n\x02id\x18\x01 \x03(\x0b\x32\x14.yamcs.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x02 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x03 \x01(\x08\x12\x15\n\rsendFromCache\x18\x04 \x01(\x08\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"^\n\x1dParameterSubscriptionResponse\x12%\n\x07invalid\x18\x02 \x03(\x0b\x32\x14.yamcs.NamedObjectId\x12\x16\n\x0esubscriptionId\x18\x03 \x01(\x05\"+\n\x17LinkSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"K\n\x1cProcessorSubscriptionRequest\x12\x15\n\rallProcessors\x18\x01 \x01(\x08\x12\x14\n\x0c\x61llInstances\x18\x02 \x01(\x08\"P\n\x1dManagementSubscriptionRequest\x12\x12\n\nclientInfo\x18\x01 \x01(\x08\x12\x1b\n\x13processorStatistics\x18\x03 \x01(\x08*\\\n\x0cServiceState\x12\x07\n\x03NEW\x10\x00\x12\x0c\n\x08STARTING\x10\x01\x12\x0b\n\x07RUNNING\x10\x02\x12\x0c\n\x08STOPPING\x10\x03\x12\x0e\n\nTERMINATED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n\x10management.proto\x12\nmanagement\x1a\rarchive.proto\x1a\tmdb.proto\x1a\x0byamcs.proto\"=\n\x0eYamcsInstances\x12+\n\x08instance\x18\x01 \x03(\x0b\x32\x19.management.YamcsInstance\"\xd3\x02\n\rYamcsInstance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12-\n\x0fmissionDatabase\x18\x03 \x01(\x0b\x32\x14.mdb.MissionDatabase\x12,\n\tprocessor\x18\x04 \x03(\x0b\x32\x19.management.ProcessorInfo\x12\x36\n\x05state\x18\x0b \x01(\x0e\x32\'.management.YamcsInstance.InstanceState\x12\x14\n\x0c\x66\x61ilureCause\x18\t \x01(\t\x12\x13\n\x0bmissionTime\x18\n \x01(\t\"t\n\rInstanceState\x12\x0b\n\x07OFFLINE\x10\x00\x12\x10\n\x0cINITIALIZING\x10\x01\x12\x0f\n\x0bINITIALIZED\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x0b\n\x07RUNNING\x10\x04\x12\x0c\n\x08STOPPING\x10\x05\x12\n\n\x06\x46\x41ILED\x10\x06\"\xf2\x02\n\rProcessorInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0f\n\x07\x63reator\x18\x05 \x01(\t\x12\x11\n\thasAlarms\x18\x06 \x01(\x08\x12\x15\n\rhasCommanding\x18\x07 \x01(\x08\x12\'\n\x05state\x18\x08 \x01(\x0e\x32\x18.management.ServiceState\x12-\n\rreplayRequest\x18\t \x01(\x0b\x32\x16.archive.ReplayRequest\x12\x36\n\x0breplayState\x18\n \x01(\x0e\x32!.archive.ReplayStatus.ReplayState\x12(\n\x07service\x18\x10 \x03(\x0b\x32\x17.management.ServiceInfo\x12\x12\n\npersistent\x18\x11 \x01(\x08\x12\x0c\n\x04time\x18\x12 \x01(\t\x12\x0e\n\x06replay\x18\x13 \x01(\x08\"\xf8\x01\n\nClientInfo\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x17\n\x0f\x61pplicationName\x18\x04 \x01(\t\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x05 \x01(\t\x12\x31\n\x05state\x18\x06 \x01(\x0e\x32\".management.ClientInfo.ClientState\x12\x11\n\tloginTime\x18\x08 \x01(\x03\x12\x14\n\x0cloginTimeUTC\x18\t \x01(\t\".\n\x0b\x43lientState\x12\r\n\tCONNECTED\x10\x00\x12\x10\n\x0c\x44ISCONNECTED\x10\x01\"3\n\x13ObjectPrivilegeInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06object\x18\x02 \x03(\t\"\xab\x01\n\x08UserInfo\x12\r\n\x05login\x18\x01 \x01(\t\x12*\n\nclientInfo\x18\x02 \x03(\x0b\x32\x16.management.ClientInfo\x12\x17\n\x0fsystemPrivilege\x18\x0b \x03(\t\x12\x38\n\x0fobjectPrivilege\x18\x0c \x03(\x0b\x32\x1f.management.ObjectPrivilegeInfo\x12\x11\n\tsuperuser\x18\r \x01(\x08\"\xbf\x01\n\x0cTmStatistics\x12\x12\n\npacketName\x18\x01 \x01(\t\x12\x17\n\x0freceivedPackets\x18\x02 \x01(\x03\x12\x14\n\x0clastReceived\x18\x03 \x01(\x03\x12\x17\n\x0flastReceivedUTC\x18\x08 \x01(\t\x12\x16\n\x0elastPacketTime\x18\x04 \x01(\x03\x12\x19\n\x11lastPacketTimeUTC\x18\x07 \x01(\t\x12 \n\x18subscribedParameterCount\x18\x06 \x01(\x05\"\x8e\x01\n\nStatistics\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x16\n\x0eyProcessorName\x18\x02 \x01(\t\x12)\n\x07tmstats\x18\x03 \x03(\x0b\x32\x18.management.TmStatistics\x12\x13\n\x0blastUpdated\x18\x04 \x01(\x03\x12\x16\n\x0elastUpdatedUTC\x18\x05 \x01(\t\"\x89\x02\n\x1aProcessorManagementRequest\x12\x43\n\toperation\x18\x01 \x01(\x0e\x32\x30.management.ProcessorManagementRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x19\n\npersistent\x18\x07 \x01(\x08:\x05\x66\x61lse\";\n\tOperation\x12\x14\n\x10\x43REATE_PROCESSOR\x10\x00\x12\x18\n\x14\x43ONNECT_TO_PROCESSOR\x10\x01\"\xea\x01\n\x10ProcessorRequest\x12\x39\n\toperation\x18\x01 \x01(\x0e\x32&.management.ProcessorRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08seekTime\x18\x04 \x01(\x03\x12)\n\x0breplaySpeed\x18\x05 \x01(\x0b\x32\x14.archive.ReplaySpeed\">\n\tOperation\x12\t\n\x05PAUSE\x10\x02\x12\n\n\x06RESUME\x10\x03\x12\x08\n\x04SEEK\x10\x04\x12\x10\n\x0c\x43HANGE_SPEED\x10\x05\"\xa3\x01\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0e\n\x06stream\x18\x05 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x11\n\tdataCount\x18\x08 \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\"\x94\x01\n\tLinkEvent\x12(\n\x04type\x18\x01 \x01(\x0e\x32\x1a.management.LinkEvent.Type\x12&\n\x08linkInfo\x18\x02 \x01(\x0b\x32\x14.management.LinkInfo\"5\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\"7\n\x11ListLinksResponse\x12\"\n\x04link\x18\x01 \x03(\x0b\x32\x14.management.LinkInfo\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"|\n\x0bServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\'\n\x05state\x18\x03 \x01(\x0e\x32\x18.management.ServiceState\x12\x11\n\tclassName\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\"@\n\x14ListServicesResponse\x12(\n\x07service\x18\x01 \x03(\x0b\x32\x17.management.ServiceInfo\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"=\n\x13ListClientsResponse\x12&\n\x06\x63lient\x18\x01 \x03(\x0b\x32\x16.management.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"F\n\x16ListProcessorsResponse\x12,\n\tprocessor\x18\x01 \x03(\x0b\x32\x19.management.ProcessorInfo\"D\n\x15ListInstancesResponse\x12+\n\x08instance\x18\x01 \x03(\x0b\x32\x19.management.YamcsInstance\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"M\n\x1dProcessorSubscriptionResponse\x12,\n\tprocessor\x18\x01 \x01(\x0b\x32\x19.management.ProcessorInfo\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"\xa3\x01\n\x1cParameterSubscriptionRequest\x12 \n\x02id\x18\x01 \x03(\x0b\x32\x14.yamcs.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x02 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x03 \x01(\x08\x12\x15\n\rsendFromCache\x18\x04 \x01(\x08\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"^\n\x1dParameterSubscriptionResponse\x12%\n\x07invalid\x18\x02 \x03(\x0b\x32\x14.yamcs.NamedObjectId\x12\x16\n\x0esubscriptionId\x18\x03 \x01(\x05\"+\n\x17LinkSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"K\n\x1cProcessorSubscriptionRequest\x12\x15\n\rallProcessors\x18\x01 \x01(\x08\x12\x14\n\x0c\x61llInstances\x18\x02 \x01(\x08\"P\n\x1dManagementSubscriptionRequest\x12\x12\n\nclientInfo\x18\x01 \x01(\x08\x12\x1b\n\x13processorStatistics\x18\x03 \x01(\x08*\\\n\x0cServiceState\x12\x07\n\x03NEW\x10\x00\x12\x0c\n\x08STARTING\x10\x01\x12\x0b\n\x07RUNNING\x10\x02\x12\x0c\n\x08STOPPING\x10\x03\x12\x0e\n\nTERMINATED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[archive__pb2.DESCRIPTOR,mdb__pb2.DESCRIPTOR,yamcs__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -61,8 +61,8 @@ _SERVICESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=3840,
-  serialized_end=3932,
+  serialized_start=3834,
+  serialized_end=3926,
 )
 _sym_db.RegisterEnumDescriptor(_SERVICESTATE)
 
@@ -1008,15 +1008,15 @@ _LINKEVENT = _descriptor.Descriptor(
 )
 
 
-_LISTLINKINFORESPONSE = _descriptor.Descriptor(
-  name='ListLinkInfoResponse',
-  full_name='management.ListLinkInfoResponse',
+_LISTLINKSRESPONSE = _descriptor.Descriptor(
+  name='ListLinksResponse',
+  full_name='management.ListLinksResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='link', full_name='management.ListLinkInfoResponse.link', index=0,
+      name='link', full_name='management.ListLinksResponse.link', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1035,7 +1035,7 @@ _LISTLINKINFORESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2488,
-  serialized_end=2546,
+  serialized_end=2543,
 )
 
 
@@ -1065,8 +1065,8 @@ _EDITLINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2548,
-  serialized_end=2580,
+  serialized_start=2545,
+  serialized_end=2577,
 )
 
 
@@ -1124,20 +1124,20 @@ _SERVICEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2582,
-  serialized_end=2706,
+  serialized_start=2579,
+  serialized_end=2703,
 )
 
 
-_LISTSERVICEINFORESPONSE = _descriptor.Descriptor(
-  name='ListServiceInfoResponse',
-  full_name='management.ListServiceInfoResponse',
+_LISTSERVICESRESPONSE = _descriptor.Descriptor(
+  name='ListServicesResponse',
+  full_name='management.ListServicesResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='service', full_name='management.ListServiceInfoResponse.service', index=0,
+      name='service', full_name='management.ListServicesResponse.service', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1155,8 +1155,8 @@ _LISTSERVICEINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2708,
-  serialized_end=2775,
+  serialized_start=2705,
+  serialized_end=2769,
 )
 
 
@@ -1186,8 +1186,8 @@ _EDITSERVICEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2777,
-  serialized_end=2812,
+  serialized_start=2771,
+  serialized_end=2806,
 )
 
 
@@ -1217,8 +1217,8 @@ _LISTCLIENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2814,
-  serialized_end=2875,
+  serialized_start=2808,
+  serialized_end=2869,
 )
 
 
@@ -1255,8 +1255,8 @@ _EDITCLIENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2877,
-  serialized_end=2933,
+  serialized_start=2871,
+  serialized_end=2927,
 )
 
 
@@ -1286,8 +1286,8 @@ _LISTPROCESSORSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2935,
-  serialized_end=3005,
+  serialized_start=2929,
+  serialized_end=2999,
 )
 
 
@@ -1317,8 +1317,8 @@ _LISTINSTANCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3007,
-  serialized_end=3075,
+  serialized_start=3001,
+  serialized_end=3069,
 )
 
 
@@ -1376,8 +1376,8 @@ _CREATEPROCESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3077,
-  serialized_end=3183,
+  serialized_start=3071,
+  serialized_end=3177,
 )
 
 
@@ -1421,8 +1421,8 @@ _EDITPROCESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3185,
-  serialized_end=3251,
+  serialized_start=3179,
+  serialized_end=3245,
 )
 
 
@@ -1452,8 +1452,8 @@ _PROCESSORSUBSCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3253,
-  serialized_end=3330,
+  serialized_start=3247,
+  serialized_end=3324,
 )
 
 
@@ -1483,8 +1483,8 @@ _STREAMSUBSCRIBEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3332,
-  serialized_end=3372,
+  serialized_start=3326,
+  serialized_end=3366,
 )
 
 
@@ -1542,8 +1542,8 @@ _PARAMETERSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3375,
-  serialized_end=3538,
+  serialized_start=3369,
+  serialized_end=3532,
 )
 
 
@@ -1580,8 +1580,8 @@ _PARAMETERSUBSCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3540,
-  serialized_end=3634,
+  serialized_start=3534,
+  serialized_end=3628,
 )
 
 
@@ -1611,8 +1611,8 @@ _LINKSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3636,
-  serialized_end=3679,
+  serialized_start=3630,
+  serialized_end=3673,
 )
 
 
@@ -1649,8 +1649,8 @@ _PROCESSORSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3681,
-  serialized_end=3756,
+  serialized_start=3675,
+  serialized_end=3750,
 )
 
 
@@ -1687,8 +1687,8 @@ _MANAGEMENTSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3758,
-  serialized_end=3838,
+  serialized_start=3752,
+  serialized_end=3832,
 )
 
 _YAMCSINSTANCES.fields_by_name['instance'].message_type = _YAMCSINSTANCE
@@ -1713,9 +1713,9 @@ _PROCESSORREQUEST_OPERATION.containing_type = _PROCESSORREQUEST
 _LINKEVENT.fields_by_name['type'].enum_type = _LINKEVENT_TYPE
 _LINKEVENT.fields_by_name['linkInfo'].message_type = _LINKINFO
 _LINKEVENT_TYPE.containing_type = _LINKEVENT
-_LISTLINKINFORESPONSE.fields_by_name['link'].message_type = _LINKINFO
+_LISTLINKSRESPONSE.fields_by_name['link'].message_type = _LINKINFO
 _SERVICEINFO.fields_by_name['state'].enum_type = _SERVICESTATE
-_LISTSERVICEINFORESPONSE.fields_by_name['service'].message_type = _SERVICEINFO
+_LISTSERVICESRESPONSE.fields_by_name['service'].message_type = _SERVICEINFO
 _LISTCLIENTSRESPONSE.fields_by_name['client'].message_type = _CLIENTINFO
 _LISTPROCESSORSRESPONSE.fields_by_name['processor'].message_type = _PROCESSORINFO
 _LISTINSTANCESRESPONSE.fields_by_name['instance'].message_type = _YAMCSINSTANCE
@@ -1734,10 +1734,10 @@ DESCRIPTOR.message_types_by_name['ProcessorManagementRequest'] = _PROCESSORMANAG
 DESCRIPTOR.message_types_by_name['ProcessorRequest'] = _PROCESSORREQUEST
 DESCRIPTOR.message_types_by_name['LinkInfo'] = _LINKINFO
 DESCRIPTOR.message_types_by_name['LinkEvent'] = _LINKEVENT
-DESCRIPTOR.message_types_by_name['ListLinkInfoResponse'] = _LISTLINKINFORESPONSE
+DESCRIPTOR.message_types_by_name['ListLinksResponse'] = _LISTLINKSRESPONSE
 DESCRIPTOR.message_types_by_name['EditLinkRequest'] = _EDITLINKREQUEST
 DESCRIPTOR.message_types_by_name['ServiceInfo'] = _SERVICEINFO
-DESCRIPTOR.message_types_by_name['ListServiceInfoResponse'] = _LISTSERVICEINFORESPONSE
+DESCRIPTOR.message_types_by_name['ListServicesResponse'] = _LISTSERVICESRESPONSE
 DESCRIPTOR.message_types_by_name['EditServiceRequest'] = _EDITSERVICEREQUEST
 DESCRIPTOR.message_types_by_name['ListClientsResponse'] = _LISTCLIENTSRESPONSE
 DESCRIPTOR.message_types_by_name['EditClientRequest'] = _EDITCLIENTREQUEST
@@ -1838,12 +1838,12 @@ LinkEvent = _reflection.GeneratedProtocolMessageType('LinkEvent', (_message.Mess
   ))
 _sym_db.RegisterMessage(LinkEvent)
 
-ListLinkInfoResponse = _reflection.GeneratedProtocolMessageType('ListLinkInfoResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTLINKINFORESPONSE,
+ListLinksResponse = _reflection.GeneratedProtocolMessageType('ListLinksResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTLINKSRESPONSE,
   __module__ = 'management_pb2'
-  # @@protoc_insertion_point(class_scope:management.ListLinkInfoResponse)
+  # @@protoc_insertion_point(class_scope:management.ListLinksResponse)
   ))
-_sym_db.RegisterMessage(ListLinkInfoResponse)
+_sym_db.RegisterMessage(ListLinksResponse)
 
 EditLinkRequest = _reflection.GeneratedProtocolMessageType('EditLinkRequest', (_message.Message,), dict(
   DESCRIPTOR = _EDITLINKREQUEST,
@@ -1859,12 +1859,12 @@ ServiceInfo = _reflection.GeneratedProtocolMessageType('ServiceInfo', (_message.
   ))
 _sym_db.RegisterMessage(ServiceInfo)
 
-ListServiceInfoResponse = _reflection.GeneratedProtocolMessageType('ListServiceInfoResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSERVICEINFORESPONSE,
+ListServicesResponse = _reflection.GeneratedProtocolMessageType('ListServicesResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTSERVICESRESPONSE,
   __module__ = 'management_pb2'
-  # @@protoc_insertion_point(class_scope:management.ListServiceInfoResponse)
+  # @@protoc_insertion_point(class_scope:management.ListServicesResponse)
   ))
-_sym_db.RegisterMessage(ListServiceInfoResponse)
+_sym_db.RegisterMessage(ListServicesResponse)
 
 EditServiceRequest = _reflection.GeneratedProtocolMessageType('EditServiceRequest', (_message.Message,), dict(
   DESCRIPTOR = _EDITSERVICEREQUEST,
