@@ -1,4 +1,5 @@
 from yamcs.core.client import BaseClient
+from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.types import management_pb2
 
 
@@ -44,3 +45,18 @@ class ManagementClient(BaseClient):
         message = management_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return message
+    
+    def subscribe_time(self, instance, callback):
+        """
+        Create a new subscription for receiving time updates of an instance.
+        Time updates are emitted at 1Hz.
+
+        This method returns a future, then returns immediately. Stop the
+        subscription by canceling the future.
+
+        :rtype: :class:`yamcs.core.futures.Future` A Future object that can be
+                used to manage the background websocket subscription.
+        """
+        manager = WebSocketSubscriptionManager(self, None)
+        
+        manager.open(callback)
