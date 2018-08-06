@@ -15,10 +15,10 @@ Query the Mission Database:
     mdb_client = MDBClient('localhost', 8090, instance='simulator')
 
     for parameter in mdb_client.list_parameters():
-        print parameter.qualifiedName
+        print(parameter.qualifiedName)
 
     for command in mdb_client.list_commands():
-        print command.qualifiedName
+        print(command.qualifiedName)
 
 
 Fetch the MDB definition of a single item:

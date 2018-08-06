@@ -1,59 +1,56 @@
+from __future__ import print_function
+
 import websocket
+
 ws = websocket.WebSocket()
 wsaddr = "ws://localhost:8090/_websocket/simulator"
-print "Connecting to "+wsaddr + "...",
 ws.connect(wsaddr)
-print "connected"
 
-
-print "current timeout", ws.gettimeout()
+print("current timeout", ws.gettimeout())
 ws.settimeout(3)
-print "new timeout", ws.gettimeout()
+print("new timeout", ws.gettimeout())
 
 
-print "Receiving while not subscribed..."
+print("Receiving while not subscribed...")
 try:
     result = ws.recv()
-    print "Bad, received '%s'" % result    
+    print("Bad, received '%s'" % result)
 except:
-    print "Good, nothing received"
-    pass
+    print("Good, nothing received")
 
-
-
-print "Subscribing parameters...",
+print('Subscribing parameters...')
 ws.send('[1,1,3, {"parameter": "subscribe", "data": { "list" : [ \
            {"name": "/YSS/SIMULATOR/Alpha"},\
            {"name": "/YSS/SIMULATOR/Heading"}, \
            {"name": "SIMULATOR_PrimBusVoltage1", "namespace": "MDB:OPS Name"}\
         ]}}]')
-print "subscribed"
+print("subscribed")
 i = 0
 while i < 3:
-    i = i+1
-    result =  ws.recv()
-    print "Received '%s'" % result
+    i = i + 1
+    result = ws.recv()
+    print("Received '%s'" % result)
 
 
-print "Unsubcribing parameters...",
+print("Unsubscribing parameters...")
 ws.send('[1,1,3, {"parameter": "unsubscribe", "data": { "list" : [ \
            {"name": "/YSS/SIMULATOR/Alpha"},\
            {"name": "/YSS/SIMULATOR/Heading"}, \
            {"name": "SIMULATOR_PrimBusVoltage1", "namespace": "MDB:OPS Name"}\
         ]}}]')
-print "unsubscribed, listening for data"
+print("unsubscribed, listening for data")
 
-result =  ws.recv()
-print "Ok, received '%s'" % result
+result = ws.recv()
+print("Ok, received '%s'" % result)
 
 i = 0
 while i < 3:
-    i = i+1
+    i = i + 1
     try:
-        result =  ws.recv()
+        result = ws.recv()
     except:
-        print "Good, nothing received"
+        print("Good, nothing received")
         break
-    print "Bad, Received '%s'" % result
+    print("Bad, Received '%s'" % result)
 
-ws.close();
+ws.close()
