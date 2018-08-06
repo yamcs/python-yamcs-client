@@ -139,11 +139,12 @@ class WebSocketSubscriptionFuture(Future):
                 self._result is not None)
 
 
+    # pylint: disable-msg=E0702
     def result(self, timeout=None):
         err = self.exception(timeout=timeout)
         if err is None:
             return self._result
-        raise err  # pylint: disable-msg=E0702
+        raise err
 
     def exception(self, timeout=None):
         # Wait until the future is done. We do not use wait() without timeout
@@ -166,7 +167,7 @@ class WebSocketSubscriptionFuture(Future):
 
     def add_done_callback(self, fn):
         if self.done():
-            return fn(self)
+            fn(self)
         self._callbacks.append(fn)
 
     def set_result(self, result):

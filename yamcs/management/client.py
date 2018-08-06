@@ -1,7 +1,20 @@
-from yamcs.core.client import BaseClient
-from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.types import management_pb2
+import functools
 
+from yamcs.core.client import BaseClient
+from yamcs.core.futures import WebSocketSubscriptionFuture
+from yamcs.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.types import management_pb2, yamcs_pb2
+
+
+def _wrap_callback_parse_time_info(callback, message):
+    """
+    Wraps a user callback to parse TimeInfo
+    from a WebSocket data message
+    """
+    if message.type == message.DATA:
+        if message.data.type == yamcs_pb2.TIME_INFO:
+            time_message = getattr(message.data, 'timeInfo')
+            callback(time_message)
 
 class ManagementClient(BaseClient):
 
@@ -45,7 +58,7 @@ class ManagementClient(BaseClient):
         message = management_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return message
-    
+
     def subscribe_time(self, instance, callback):
         """
         Create a new subscription for receiving time updates of an instance.
@@ -58,5 +71,9 @@ class ManagementClient(BaseClient):
                 used to manage the background websocket subscription.
         """
         manager = WebSocketSubscriptionManager(self, None)
-        
-        manager.open(callback)
+        future = WebSocketSubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_time_info, callback)
+        manager.open(wrapped_callback)
+        return future

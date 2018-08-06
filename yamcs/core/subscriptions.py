@@ -1,9 +1,11 @@
 from __future__ import absolute_import
 
+import logging
 import threading
 
 import websocket
 from yamcs.core.exceptions import ConnectionFailure
+from yamcs.types import web_pb2
 
 
 class WebSocketSubscriptionManager(object):
@@ -41,6 +43,7 @@ class WebSocketSubscriptionManager(object):
             on_open=self._on_websocket_open,
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
+            subprotocols=['protobuf'],
         )
         self._consumer = threading.Thread(target=self._websocket.run_forever)
         # self._consumer.daemon = True
@@ -69,10 +72,22 @@ class WebSocketSubscriptionManager(object):
                 cb(self, reason)
 
     def _on_websocket_open(self, ws):
-        self._websocket.send('[1,1,1,{"time":"subscribe"}]')
+        message = web_pb2.WebSocketClientMessage()
+        message.protocolVersion = 1
+        message.sequenceNumber = 1
+        message.resource = 'time'
+        message.operation = 'subscribe'
+        self._websocket.send(message.SerializeToString())
 
     def _on_websocket_message(self, ws, message):
-        self._callback(message)
+        pb2_message = web_pb2.WebSocketServerMessage()
+        pb2_message.ParseFromString(message)
+
+        if pb2_message.type == pb2_message.EXCEPTION:
+            logging.warn('Server is reporting an exception: %s',
+                         pb2_message.exception)
+
+        self._callback(pb2_message)
 
     def _on_websocket_error(self, ws, error):
 
