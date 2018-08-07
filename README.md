@@ -1,10 +1,14 @@
 Client library for Yamcs.
 
-## Example:
+## Development Setup
+
+Install dependencies:
+
+    pip install websocket-client requests
 
 
+Install `yamcs-client` from the source base:
 
-Monitor a processor:
+    python setup.py develop
 
-    from yamcs.client import YamcsClient
-    client = YamcsClient(host='localhost', port=8090)
+Changes to any source file have immediate impact.

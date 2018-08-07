@@ -4,6 +4,7 @@ import logging
 import threading
 
 import websocket
+
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.types import web_pb2
 
@@ -46,7 +47,11 @@ class WebSocketSubscriptionManager(object):
             subprotocols=['protobuf'],
         )
         self._consumer = threading.Thread(target=self._websocket.run_forever)
-        # self._consumer.daemon = True
+
+        # Running this as a daemon thread improves possibilities
+        # for consumers of our API to control shutdown.
+        # (example: can just use time.sleep on the main thread instead of blocking on the future)
+        self._consumer.daemon = True
 
         self._consumer.start()
 

@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+from time import sleep
+
 from yamcs.management import ManagementClient
 
 
@@ -9,10 +11,9 @@ def callback(message):
 
 if __name__ == '__main__':
     client = ManagementClient('localhost', 8090)
-    future = client.subscribe_time('simulator', callback)
+    client.subscribe_time('simulator', callback)
 
-    # Receive subscription updates indefinitely
-    try:
-        future.result()
-    except KeyboardInterrupt:
-        future.cancel()
+    # The subscription is non-blocking. Prevent the main
+    # thread from exiting
+    while True:
+        sleep(10)
