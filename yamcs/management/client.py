@@ -25,9 +25,9 @@ class ManagementClient(BaseClient):
         """
         return 'links/{}/{}'.format(instance, link)
 
-    def __init__(self, host, port, credentials=None):
+    def __init__(self, address, credentials=None):
         super(ManagementClient, self).__init__(
-            host=host, port=port, credentials=credentials)
+            address, credentials=credentials)
 
     def list_data_links(self, parent):
         """
@@ -67,7 +67,7 @@ class ManagementClient(BaseClient):
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :rtype: :class:`yamcs.core.futures.Future` A Future object that can be
+        :rtype: A :class:`~yamcs.core.futures.Future` object that can be
                 used to manage the background websocket subscription.
         """
         manager = WebSocketSubscriptionManager(self, None)

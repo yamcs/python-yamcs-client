@@ -3,12 +3,15 @@ import requests
 
 class BaseClient(object):
 
-    def __init__(self, host, port, credentials):
-        self.host = host
-        self.port = port
+    def __init__(self, address, credentials):
+        """
+        :param str address: The address of Yamcs in the format 'hostname:port'
+        """
+        self.address = address
         self.credentials = credentials
 
-        self.api_root = 'http://{}:{}/api'.format(host, port)
+        self.api_root = 'http://{}/api'.format(address)
+        self.ws_root = 'ws://{}/_websocket'.format(address)
 
     def _get_proto(self, path, params=None, headers=None):
         if headers is None:

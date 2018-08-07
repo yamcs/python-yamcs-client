@@ -10,7 +10,7 @@ def callback(message):
 
 
 if __name__ == '__main__':
-    client = ManagementClient('localhost', 8090)
+    client = ManagementClient('localhost:8090')
     client.subscribe_time('simulator', callback)
 
     # The subscription is non-blocking. Prevent the main

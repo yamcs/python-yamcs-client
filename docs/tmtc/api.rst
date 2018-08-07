@@ -10,26 +10,23 @@ Query the Mission Database:
 
 .. code-block:: python
 
-    from yamcs.mdb.client import MDBClient
+    from yamcs.tmtc import ProcessorClient
 
-    mdb_client = MDBClient('localhost', 8090, instance='simulator')
+    client = ProcessorClient('localhost:8090')
 
-    for parameter in mdb_client.list_parameters():
+    for parameter in client.list_parameters():
         print(parameter.qualifiedName)
-
-    for command in mdb_client.list_commands():
-        print(command.qualifiedName)
 
 
 Fetch the MDB definition of a single item:
 
 .. code-block:: python
 
-    from yamcs.mdb.client import MDBClient
+    from yamcs.mdb import MDBClient
 
-    mdb_client = MDBClient('localhost', 8090, instance='simulator')
+    client = MDBClient('localhost', 8090, instance='simulator')
 
-    voltage1 = mdb_client.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
+    voltage1 = client.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
 
 ProcessorClient
 ---------------

@@ -27,7 +27,7 @@ Fetch the info of a single data link:
 
     from yamcs.management import ManagementClient
 
-    client = ManagementClient('localhost', 8090)
+    client = ManagementClient('localhost:8090')
     name = ManagementClient.data_link_path('[INSTANCE]', '[LINK]')
     response = client.get_data_link(name)
 

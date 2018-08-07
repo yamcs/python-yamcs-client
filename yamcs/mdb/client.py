@@ -112,9 +112,9 @@ class MDBClient(BaseClient):
             return '/' + namespace + '/' + name
         return name
 
-    def __init__(self, host, port, credentials=None):
+    def __init__(self, address, credentials=None):
         super(MDBClient, self).__init__(
-            host=host, port=port, credentials=credentials)
+            address, credentials=credentials)
 
     def list_space_systems(self, parent, page_size=None):
         """

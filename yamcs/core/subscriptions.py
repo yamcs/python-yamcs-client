@@ -32,15 +32,21 @@ class WebSocketSubscriptionManager(object):
         """
         self._close_callbacks.append(callback)
 
-    def open(self, callback):
+    def open(self, callback, instance=None):
         """
         Begin consuming messages.
+
+        :param string instance: (Optional) instance to use in the WebSocket URL
         """
         assert not self._closed
 
+        ws_url = self._client.ws_root
+        if instance:
+            ws_url += '/' + instance
+
         self._callback = callback
         self._websocket = websocket.WebSocketApp(
-            'ws://localhost:8090/_websocket/simulator',
+            ws_url,
             on_open=self._on_websocket_open,
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
