@@ -11,9 +11,10 @@ from yamcs.types import web_pb2
 
 class WebSocketSubscriptionManager(object):
 
-    def __init__(self, client, subscription):
+    def __init__(self, client, resource, options=None):
         self._client = client
-        self._subscription = subscription
+        self._resource = resource
+        self._options = options
 
         self._websocket = None
         self._callback = None
@@ -22,6 +23,9 @@ class WebSocketSubscriptionManager(object):
         self._closing = threading.Lock()
         self._closed = False
         """True if this manager has already been closed."""
+
+        self._request_counter = 0
+        self._request_counter_lock = threading.Lock()
 
         # Thread created in ``.open()``
         self._consumer = None
@@ -82,13 +86,22 @@ class WebSocketSubscriptionManager(object):
             for cb in self._close_callbacks:
                 cb(self, reason)
 
-    def _on_websocket_open(self, ws):
+    def send(self, operation, options=None):
         message = web_pb2.WebSocketClientMessage()
         message.protocolVersion = 1
-        message.sequenceNumber = 1
-        message.resource = 'time'
-        message.operation = 'subscribe'
-        self._websocket.send(message.SerializeToString())
+        message.sequenceNumber = self._next_sequence_number()
+        message.resource = self._resource
+        message.operation = operation
+
+        if options:
+            data = options.SerializeToString()
+            message.data = data
+
+        frame_data = message.SerializeToString()
+        self._websocket.send(frame_data, websocket.ABNF.OPCODE_BINARY)
+
+    def _on_websocket_open(self, ws):
+        self.send('subscribe', self._options)
 
     def _on_websocket_message(self, ws, message):
         pb2_message = web_pb2.WebSocketServerMessage()
@@ -103,7 +116,7 @@ class WebSocketSubscriptionManager(object):
     def _on_websocket_error(self, ws, error):
 
         # Generate our own exception.
-        # (the default message is a bit misleading 'connection is already closed')
+        # (the default message is misleading 'connection is already closed')
         if isinstance(error, websocket.WebSocketConnectionClosedException):
             error = ConnectionFailure('Connection closed')
 
@@ -114,3 +127,8 @@ class WebSocketSubscriptionManager(object):
         )
         closer.daemon = True
         closer.start()
+
+    def _next_sequence_number(self):
+        with self._request_counter_lock:
+            self._request_counter += 1
+            return self._request_counter

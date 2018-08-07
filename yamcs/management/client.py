@@ -75,5 +75,5 @@ class ManagementClient(BaseClient):
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_time_info, callback)
-        manager.open(wrapped_callback)
+        manager.open(wrapped_callback, instance)
         return future
