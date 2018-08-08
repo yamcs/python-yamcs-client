@@ -5,18 +5,19 @@ from time import sleep
 from yamcs import YamcsClient
 
 
-def callback(message):
-    print('got a message', message)
+def print_value(data):
+    for parameter in data.parameter:
+        print('{} {} {}'.format(parameter.generationTimeUTC, parameter.id.name,
+                                parameter.engValue.uint32Value))
 
 
 if __name__ == '__main__':
-
     client = YamcsClient('localhost:8090')
 
     processor = client.get_processor('simulator', 'realtime')
     subscription = processor.create_parameter_subscription([
         '/YSS/SIMULATOR/BatteryVoltage1',
-    ], on_delivery=callback)
+    ], on_data=print_value)
 
     sleep(5)
 

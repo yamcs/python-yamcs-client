@@ -17,6 +17,8 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.PARAMETER:
             parameter_data_message = getattr(message.data, 'parameterData')
+            #pylint: disable=protected-access
+            subscription._process(parameter_data_message)
             if on_data:
                 on_data(parameter_data_message)
 
@@ -51,9 +53,18 @@ def _build_named_object_ids(parameters):
 
 
 class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
+    """
+    Local object representing a subscription of zero or more parameters.
+
+    A subscription object stores the last received value of each
+    subscribed parameter.
+    """
 
     def __init__(self, manager):
         super(ParameterSubscriptionFuture, self).__init__(manager)
+        self.value_cache = {}
+
+        # The actual subscription_id is set async after server reply
         self.subscription_id = -1
 
     def add(self,
@@ -106,6 +117,16 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         options.id.extend(_build_named_object_ids(parameters))
 
         self._manager.send('unsubscribe', options)
+
+    def get_value(self, parameter):
+        pass
+
+    def _process(self, parameter_data):
+        for pval in parameter_data.parameter:
+            name = pval.id.name
+            if pval.id.namespace:
+                name = pval.id.namespace + '/' + name
+            self.value_cache[name] = pval
 
 
 class ProcessorClient(object):
