@@ -15,7 +15,7 @@ setuptools.setup(
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
-    url='https://github.com/yamcs/yamcs-python-client',
+    url='https://github.com/yamcs/yamcs-python',
     author='Space Applications Services',
     author_email='yamcs@spaceapplications.com',
     license='LGPL',
@@ -32,6 +32,7 @@ setuptools.setup(
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
+        'protobuf',
         'requests',
         'websocket-client',
     ],
