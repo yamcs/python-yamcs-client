@@ -16,7 +16,6 @@ if __name__ == '__main__':
     processor = client.processor_path('simulator', 'realtime')
     subscription = client.create_parameter_subscription(processor, parameters=[
         '/YSS/SIMULATOR/BatteryVoltage1',
-        # client.name_alias('MDB:OPS Name', 'SIMULATOR_PrimBusVoltage1')
     ], callback=callback)
 
     sleep(5)
@@ -24,6 +23,7 @@ if __name__ == '__main__':
     subscription.add([
         '/YSS/SIMULATOR/Alpha',
         '/YSS/SIMULATOR/BatteryVoltage2',
+        'MDB:OPS Name/SIMULATOR_PrimBusVoltage1',
     ])
 
     sleep(5)

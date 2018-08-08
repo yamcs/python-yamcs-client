@@ -3,24 +3,22 @@ from yamcs.core.client import BaseClient
 from yamcs.types import mdb_pb2
 
 
+def _adapt_name_for_rest(name):
+    """
+    Modifies a user-provided name for use in API calls.
+    Basically we want an alias like 'MDB:OPS Name/SIMULATOR_BatteryVoltage2'
+    to be prepended with a slash.
+    """
+    if name.startswith('/'):
+        return name
+    elif not '/' in name:
+        raise ValueError('Provided name is not a fully-qualified XTCE name.')
+    return '/' + name
+
+
 class MDBClient(BaseClient):
     """
     Client for accessing a Mission Database served by Yamcs.
-
-    An MDB groups telemetry and command definitions for one or more space systems.
-    It provides a transversal role:
-
-        * Instructs Yamcs how to process incoming packets
-        * Describes items in Yamcs Archive
-        * Instructs Yamcs how to compose telecommands
-
-    Space systems form a hierarchical multi-rooted tree. Each level of the tree
-    may contain any number of definitions. These break down in:
-
-    * parameters
-    * containers
-    * commands
-    * algorithms
 
     The only state managed by this client is its connection info to Yamcs. Therefore a
     single client may be used to access the content of any number of available MDBs.
@@ -34,29 +32,6 @@ class MDBClient(BaseClient):
         Return a fully-qualified MDB resource string
         """
         return 'mdb/' + instance
-
-    @classmethod
-    def name_alias(cls, namespace, name):
-        """
-        Return an alternative name of an MDB entry.
-
-        Support for particular aliases is dependent on the MDB definition.
-        Typically (and preferredly) MDB entries do not have any aliases and only
-        fully qualified XTCE names are used for identification.
-
-        Example: assume parameter with XTCE name ``/YSS/SIMULATOR/BatteryVoltage2`` is
-        also uniquely known as ``SIMULATOR_BatteryVoltage2`` under the namespace
-        ``MDB:OPS Name``, then you can use this alias in other methods of this
-        class by obtaining its resource name via::
-
-            alias = name_alias('MDB:OPS Name', 'SIMULATOR_BatteryVoltage2')
-            parameter = client.get_parameter('MDB_ID', alias)
-
-        :rtype: str
-        """
-        if namespace is not None:
-            return '/' + namespace + '/' + name
-        return name
 
     def __init__(self, address, credentials=None):
         super(MDBClient, self).__init__(
@@ -89,8 +64,7 @@ class MDBClient(BaseClient):
         Gets a single space system by its unique name.
 
         :param str parent: The MDB resource name
-        :param str name: Either a fully-qualified XTCE name or an alias obtained
-                         via :meth:`name_alias`.
+        :param str name: A fully-qualified XTCE name
         """
         url = '{}/space-systems{}'.format(parent, name)
         response = self._get_proto(url)
@@ -127,9 +101,10 @@ class MDBClient(BaseClient):
         Gets a single parameter by its name.
 
         :param str parent: The MDB resource name
-        :param str name: Either a fully-qualified XTCE name or an alias obtained
-                         via :meth:`name_alias`.
+        :param str name: Either a fully-qualified XTCE name or an alias in the
+                         format ``NAMESPACE/NAME``.
         """
+        name = _adapt_name_for_rest(name)
         url = '{}/parameters{}'.format(parent, name)
         response = self._get_proto(url)
         message = mdb_pb2.ParameterInfo()
@@ -163,9 +138,10 @@ class MDBClient(BaseClient):
         Gets a single container by its unique name.
 
         :param str parent: The MDB resource name
-        :param str name: Either a fully-qualified XTCE name or an alias obtained
-                         via :meth:`name_alias`.
+        :param str name: Either a fully-qualified XTCE name or an alias in the
+                         format ``NAMESPACE/NAME``.
         """
+        name = _adapt_name_for_rest(name)
         url = '{}/containers{}'.format(parent, name)
         response = self._get_proto(url)
         message = mdb_pb2.ContainerInfo()
@@ -199,9 +175,10 @@ class MDBClient(BaseClient):
         Gets a single command by its unique name.
 
         :param str parent: The MDB resource name
-        :param str name: Either a fully-qualified XTCE name or an alias obtained
-                         via :meth:`name_alias`.
+        :param str name: Either a fully-qualified XTCE name or an alias in the
+                         format ``NAMESPACE/NAME``.
         """
+        name = _adapt_name_for_rest(name)
         url = '{}/commands{}'.format(parent, name)
         response = self._get_proto(url)
         message = mdb_pb2.CommandInfo()
@@ -235,9 +212,10 @@ class MDBClient(BaseClient):
         Gets a single algorithm by its unique name.
 
         :param str parent: The MDB resource name
-        :param str name: Either a fully-qualified XTCE name or an alias obtained
-                         via :meth:`name_alias`.
+        :param str name: Either a fully-qualified XTCE name or an alias in the
+                         format ``NAMESPACE/NAME``.
         """
+        name = _adapt_name_for_rest(name)
         url = '{}/algorithms{}'.format(parent, name)
         response = self._get_proto(url)
         message = mdb_pb2.AlgorithmInfo()

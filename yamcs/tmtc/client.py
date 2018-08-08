@@ -21,6 +21,35 @@ def _wrap_callback_parse_parameter_data(subscription, callback, message):
             callback(parameter_data_message)
 
 
+def _build_named_object_ids(parameters):
+    """
+    Builds a list of NamedObjectId. This is a bit more complex than it really
+    should be. In Python (for convenience) we allow the user to simply address
+    entries by their alias via the NAMESPACE/NAME convention. Yamcs is not
+    aware of this convention so we decompose it into distinct namespace and
+    name fields.
+    """
+    if isinstance(parameters, str):
+        parameters = [parameters]
+
+    named_object_list = []
+    for parameter in parameters:
+        named_object_id = yamcs_pb2.NamedObjectId()
+        if parameter.startswith('/'):
+            named_object_id.name = parameter
+        else:
+            parts = parameter.split('/', 1)
+            if len(parts) < 2:
+                raise ValueError('Failed to process {}. Use fully-qualified '
+                                 'XTCE names or, alternatively, an alias in '
+                                 'in the format NAMESPACE/NAME'
+                                 .format(parameter))
+            named_object_id.namespace = parts[0]
+            named_object_id.name = parts[1]
+        named_object_list.append(named_object_id)
+    return named_object_list
+
+
 class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
 
     def __init__(self, manager):
@@ -55,13 +84,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         options.subscriptionId = self.subscription_id
         options.abortOnInvalid = abort_on_invalid
         options.sendFromCache = send_from_cache
-        if isinstance(parameters, str):
-            named_object_id = options.id.add()
-            named_object_id.name = parameters
-        else:
-            for parameter in parameters:
-                named_object_id = options.id.add()
-                named_object_id.name = parameter
+        options.id.extend(_build_named_object_ids(parameters))
 
         self._manager.send('subscribe', options)
 
@@ -80,13 +103,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
 
         options = management_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = self.subscription_id
-        if isinstance(parameters, str):
-            named_object_id = options.id.add()
-            named_object_id.name = parameters
-        else:
-            for parameter in parameters:
-                named_object_id = options.id.add()
-                named_object_id.name = parameter
+        options.id.extend(_build_named_object_ids(parameters))
 
         self._manager.send('unsubscribe', options)
 
@@ -139,13 +156,7 @@ class ProcessorClient(BaseClient):
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
         options.sendFromCache = send_from_cache
-        if isinstance(parameters, str):
-            named_object_id = options.id.add()
-            named_object_id.name = parameters
-        else:
-            for parameter in parameters:
-                named_object_id = options.id.add()
-                named_object_id.name = parameter
+        options.id.extend(_build_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
             self, resource='parameter', options=options)
