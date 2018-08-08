@@ -1,5 +1,4 @@
 from yamcs.core import pagination
-from yamcs.core.client import BaseClient
 from yamcs.types import mdb_pb2
 
 
@@ -16,34 +15,19 @@ def _adapt_name_for_rest(name):
     return '/' + name
 
 
-class MDBClient(BaseClient):
-    """
-    Client for accessing a Mission Database served by Yamcs.
+class MDBClient(object):
 
-    The only state managed by this client is its connection info to Yamcs. Therefore a
-    single client may be used to access the content of any number of available MDBs.
+    def __init__(self, client, instance):
+        super(MDBClient, self).__init__()
+        self._client = client
+        self._instance = instance
 
-    :param str address: The address to the Yamcs server in the format 'host:port'
-    """
-
-    @classmethod
-    def mdb_path(cls, instance):
-        """
-        Return a fully-qualified MDB resource string
-        """
-        return 'mdb/' + instance
-
-    def __init__(self, address, credentials=None):
-        super(MDBClient, self).__init__(
-            address, credentials=credentials)
-
-    def list_space_systems(self, parent, page_size=None):
+    def list_space_systems(self, page_size=None):
         """
         Lists the space systems visible to this client.
 
         Space systems are returned in lexicographical order.
 
-        :param str parent: The MDB resource name
         :rtype: SpaceSystemInfo iterator
         """
         params = {}
@@ -52,32 +36,30 @@ class MDBClient(BaseClient):
             params['limit'] = page_size
 
         return pagination.Iterator(
-            client=self,
-            path=parent + '/space-systems',
+            client=self._client,
+            path='/mdb/{}/space-systems'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
             items_key='spaceSystem',
         )
 
-    def get_space_system(self, parent, name):
+    def get_space_system(self, name):
         """
         Gets a single space system by its unique name.
 
-        :param str parent: The MDB resource name
         :param str name: A fully-qualified XTCE name
         """
-        url = '{}/space-systems{}'.format(parent, name)
-        response = self._get_proto(url)
+        url = '/mdb/{}/space-systems{}'.format(self._instance, name)
+        response = self._client._get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
         return message
 
-    def list_parameters(self, parent, parameter_type=None, page_size=None):
+    def list_parameters(self, parameter_type=None, page_size=None):
         """Lists the parameters visible to this client.
 
         Parameters are returned in lexicographical order.
 
-        :param str parent: The MDB resource name
         :param str parameter_type: (Optional) The type of parameter
         :rtype: ParameterInfo iterator
         """
@@ -89,35 +71,33 @@ class MDBClient(BaseClient):
             params['limit'] = page_size
 
         return pagination.Iterator(
-            client=self,
-            path=parent + '/parameters',
+            client=self._client,
+            path='/mdb/{}/parameters'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
             items_key='parameter',
         )
 
-    def get_parameter(self, parent, name):
+    def get_parameter(self, name):
         """
         Gets a single parameter by its name.
 
-        :param str parent: The MDB resource name
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
         name = _adapt_name_for_rest(name)
-        url = '{}/parameters{}'.format(parent, name)
-        response = self._get_proto(url)
+        url = '/mdb/{}/parameters{}'.format(self._instance, name)
+        response = self._client._get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
         return message
 
-    def list_containers(self, parent, page_size=None):
+    def list_containers(self, page_size=None):
         """
         Lists the containers visible to this client.
 
         Containers are returned in lexicographical order.
 
-        :param str parent: The MDB name
         :rtype: ContainerInfo iterator
         """
         params = {}
@@ -126,35 +106,33 @@ class MDBClient(BaseClient):
             params['limit'] = page_size
 
         return pagination.Iterator(
-            client=self,
-            path=parent + '/containers',
+            client=self._client,
+            path='/mdb/{}/containers'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
             items_key='container',
         )
 
-    def get_container(self, parent, name):
+    def get_container(self, name):
         """
         Gets a single container by its unique name.
 
-        :param str parent: The MDB resource name
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
         name = _adapt_name_for_rest(name)
-        url = '{}/containers{}'.format(parent, name)
-        response = self._get_proto(url)
+        url = '/mdb/{}/containers{}'.format(self._instance, name)
+        response = self._client._get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
         return message
 
-    def list_commands(self, parent, page_size=None):
+    def list_commands(self, page_size=None):
         """
         Lists the commands visible to this client.
 
         Commands are returned in lexicographical order.
 
-        :param str parent: The MDB name
         :rtype: CommandInfo iterator
         """
         params = {}
@@ -163,35 +141,33 @@ class MDBClient(BaseClient):
             params['limit'] = page_size
 
         return pagination.Iterator(
-            client=self,
-            path=parent + '/commands',
+            client=self._client,
+            path='/mdb/{}/commands'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
             items_key='command',
         )
 
-    def get_command(self, parent, name):
+    def get_command(self, name):
         """
         Gets a single command by its unique name.
 
-        :param str parent: The MDB resource name
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
         name = _adapt_name_for_rest(name)
-        url = '{}/commands{}'.format(parent, name)
-        response = self._get_proto(url)
+        url = '/mdb/{}/commands{}'.format(self._instance, name)
+        response = self._client._get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
         return message
 
-    def list_algorithms(self, parent, page_size=None):
+    def list_algorithms(self, page_size=None):
         """
         Lists the algorithms visible to this client.
 
         Algorithms are returned in lexicographical order.
 
-        :param str parent: The MDB name
         :rtype: AlgorithmInfo iterator
         """
         params = {}
@@ -200,24 +176,23 @@ class MDBClient(BaseClient):
             params['limit'] = page_size
 
         return pagination.Iterator(
-            client=self,
-            path=parent + '/algorithms',
+            client=self._client,
+            path='/mdb/{}/algorithms'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
             items_key='algorithm',
         )
 
-    def get_algorithm(self, parent, name):
+    def get_algorithm(self, name):
         """
         Gets a single algorithm by its unique name.
 
-        :param str parent: The MDB resource name
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
         name = _adapt_name_for_rest(name)
-        url = '{}/algorithms{}'.format(parent, name)
-        response = self._get_proto(url)
+        url = '/mdb/{}/algorithms{}'.format(self._instance, name)
+        response = self._client._get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
         return message

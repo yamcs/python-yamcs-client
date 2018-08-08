@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from time import sleep
 
-from yamcs.tmtc import ProcessorClient
+from yamcs import YamcsClient
 
 
 def callback(message):
@@ -11,12 +11,12 @@ def callback(message):
 
 if __name__ == '__main__':
 
-    client = ProcessorClient('localhost:8090')
+    client = YamcsClient('localhost:8090')
 
-    processor = client.processor_path('simulator', 'realtime')
-    subscription = client.create_parameter_subscription(processor, parameters=[
+    processor = client.get_processor('simulator', 'realtime')
+    subscription = processor.create_parameter_subscription([
         '/YSS/SIMULATOR/BatteryVoltage1',
-    ], callback=callback)
+    ], on_delivery=callback)
 
     sleep(5)
 

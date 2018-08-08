@@ -1,14 +1,13 @@
 import functools
 
-from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.types import management_pb2, yamcs_pb2
 
 
-def _wrap_callback_parse_parameter_data(subscription, callback, message):
+def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     """
-    Wraps a user callback to parse ParameterData
+    Wraps an (optional) user callback to parse ParameterData
     from a WebSocket data message
     """
     if message.type == message.REPLY:
@@ -18,7 +17,8 @@ def _wrap_callback_parse_parameter_data(subscription, callback, message):
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.PARAMETER:
             parameter_data_message = getattr(message.data, 'parameterData')
-            callback(parameter_data_message)
+            if on_data:
+                on_data(parameter_data_message)
 
 
 def _build_named_object_ids(parameters):
@@ -108,23 +108,20 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         self._manager.send('unsubscribe', options)
 
 
-class ProcessorClient(BaseClient):
+class ProcessorClient(object):
 
-    @classmethod
-    def processor_path(cls, instance, processor):
-        """
-        Return the resource path for a processor.
-        """
-        return 'processors/{}/{}'.format(instance, processor)
+    def __init__(self, client, instance, processor):
+        super(ProcessorClient, self).__init__()
+        self._client = client
+        self._instance = instance
+        self._processor = processor
 
-    def __init__(self, address, credentials=None):
-        super(ProcessorClient, self).__init__(
-            address, credentials=credentials)
+    def issue_command(self, command, args):
+        pass
 
     def create_parameter_subscription(self,
-                                      processor,
                                       parameters,
-                                      callback,
+                                      on_data=None,
                                       abort_on_invalid=True,
                                       update_on_expiration=False,
                                       send_from_cache=True):
@@ -132,8 +129,6 @@ class ProcessorClient(BaseClient):
         Create a new parameter subscription. This method blocks and returns
         the assigned subscription id.
 
-        :param str processor: Fully-qualified processor resource name.
-                              Example: ``processors/INSTANCE_ID/PROCESSOR_ID``
         :param str[] parameters: Parameter names (or aliases).
         :param bool abort_on_invalid: If ``True`` an error is generated when
                                       invalid parameters are specified.
@@ -159,13 +154,13 @@ class ProcessorClient(BaseClient):
         options.id.extend(_build_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
-            self, resource='parameter', options=options)
+            self._client, resource='parameter', options=options)
 
         # Represent subscription as a future
         subscription = ParameterSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_parameter_data, subscription, callback)
+            _wrap_callback_parse_parameter_data, subscription, on_data)
 
-        manager.open(wrapped_callback, instance='simulator')
+        manager.open(wrapped_callback, instance=self._instance)
         return subscription

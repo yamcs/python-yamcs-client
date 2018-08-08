@@ -57,7 +57,7 @@ class BaseClient(object):
         return self._request('delete', path, params, headers)
 
     def _request(self, method, path, params=None, headers=None):
-        path = '{}/{}'.format(self.api_root, path)
+        path = '{}{}'.format(self.api_root, path)
         response = requests.request(
             method, path, params=params, headers=headers)
         response.raise_for_status()

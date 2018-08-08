@@ -1,19 +1,18 @@
 from __future__ import print_function
 
-from yamcs.mdb import MDBClient
+from yamcs import YamcsClient
 
-client = MDBClient('localhost:8090')
+client = YamcsClient('localhost:8090')
 
-instance = 'simulator'
-mdb = client.mdb_path(instance)
+mdb = client.get_mdb(instance='simulator')
 
-for parameter in client.list_parameters(mdb, parameter_type='float'):
+for parameter in mdb.list_parameters(parameter_type='float'):
     print(parameter.qualifiedName)
 
 print('---')
 
-p1 = client.get_parameter(mdb, '/YSS/SIMULATOR/BatteryVoltage2')
-p2 = client.get_parameter(mdb, 'MDB:OPS Name/SIMULATOR_BatteryVoltage2')
+p1 = mdb.get_parameter('/YSS/SIMULATOR/BatteryVoltage2')
+p2 = mdb.get_parameter('MDB:OPS Name/SIMULATOR_BatteryVoltage2')
 
 # Should be same
 print(p1.qualifiedName)
