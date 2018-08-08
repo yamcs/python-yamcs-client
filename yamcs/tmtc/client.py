@@ -2,6 +2,7 @@ import functools
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.tmtc.model import ParameterData
 from yamcs.types import management_pb2, yamcs_pb2
 
 
@@ -16,11 +17,11 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
         subscription.subscription_id = data.subscriptionId
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.PARAMETER:
-            parameter_data_message = getattr(message.data, 'parameterData')
+            parameter_data = ParameterData(getattr(message.data, 'parameterData'))
             #pylint: disable=protected-access
-            subscription._process(parameter_data_message)
+            subscription._process(parameter_data)
             if on_data:
-                on_data(parameter_data_message)
+                on_data(parameter_data)
 
 
 def _build_named_object_ids(parameters):
@@ -62,10 +63,17 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
 
     def __init__(self, manager):
         super(ParameterSubscriptionFuture, self).__init__(manager)
+
         self.value_cache = {}
+        """Value cache keyed by parameter name."""
+
+        self.delivery_count = 0
+        """The number of parameter deliveries."""
 
         # The actual subscription_id is set async after server reply
         self.subscription_id = -1
+        """Subscription number assigned by the server. This is set async,
+        so may not be immediately available."""
 
     def add(self,
             parameters,
@@ -119,14 +127,15 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         self._manager.send('unsubscribe', options)
 
     def get_value(self, parameter):
-        pass
+        """
+        Returns the last value of a specific parameter from local cache.
+        """
+        return self.value_cache[parameter]
 
     def _process(self, parameter_data):
-        for pval in parameter_data.parameter:
-            name = pval.id.name
-            if pval.id.namespace:
-                name = pval.id.namespace + '/' + name
-            self.value_cache[name] = pval
+        self.delivery_count += 1
+        for pval in parameter_data.parameters:
+            self.value_cache[pval.name] = pval
 
 
 class ProcessorClient(object):
