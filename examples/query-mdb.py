@@ -5,17 +5,18 @@ from yamcs.mdb import MDBClient
 client = MDBClient('localhost:8090')
 
 instance = 'simulator'
-mdb_name = client.mdb_path(instance)
+mdb = client.mdb_path(instance)
 
-for parameter in client.list_parameters(mdb_name, parameter_type='float'):
+for parameter in client.list_parameters(mdb, parameter_type='float'):
     print(parameter.qualifiedName)
 
 print('---')
 
-pname = MDBClient.parameter_path(instance, '/YSS/SIMULATOR/BatteryVoltage2')
-print(client.get_parameter(pname).qualifiedName)
+p1 = client.get_parameter(mdb, '/YSS/SIMULATOR/BatteryVoltage2')
 
-print('---')
-alias = MDBClient.name_alias('MDB:OPS Name', 'SIMULATOR_BatteryVoltage2')
-pname = MDBClient.parameter_path(instance, alias)
-print(client.get_parameter(pname).qualifiedName)
+alias = client.name_alias('MDB:OPS Name', 'SIMULATOR_BatteryVoltage2')
+p2 = client.get_parameter(mdb, alias)
+
+# Should be same
+print(p1.qualifiedName)
+print(p2.qualifiedName)

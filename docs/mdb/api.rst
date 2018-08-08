@@ -16,12 +16,15 @@ Query the Mission Database:
 
     from yamcs.mdb import MDBClient
 
-    mdb_client = MDBClient('localhost', 8090, instance='simulator')
+    client = MDBClient('localhost:8090')
 
-    for parameter in mdb_client.list_parameters():
+    # Get the resource name for the MDB of a particular instance
+    mdb = client.mdb_path(instance='simulator')
+
+    for parameter in client.list_parameters(mdb):
         print(parameter.qualifiedName)
 
-    for command in mdb_client.list_commands():
+    for command in mdb_client.list_commands(mdb):
         print(command.qualifiedName)
 
 
@@ -31,14 +34,26 @@ Fetch the MDB definition of a single item:
 
     from yamcs.mdb import MDBClient
 
-    mdb_client = MDBClient('localhost', 8090, instance='simulator')
+    client = MDBClient('localhost:8090')
 
-    voltage1 = mdb_client.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
+    # Get the resource name for the MDB of a particular instance
+    mdb = client.mdb_path(instance='simulator')
+
+    voltage1 = client.get_parameter(mdb, '/YSS/SIMULATOR/BatteryVoltage1')
+
+.. autopb2:: hah3
 
 MDBClient
 ---------
 
-.. automodule:: yamcs.mdb.client
+.. autoclass:: yamcs.mdb.MDBClient
     :members:
     :undoc-members:
     :show-inheritance:
+
+ParameterInfo
+-------------
+
+.. class:: yamcs.types.mdb_pb2.ParameterInfo
+
+    .. attribute:: qualifiedName

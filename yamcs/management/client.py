@@ -70,7 +70,7 @@ class ManagementClient(BaseClient):
         :rtype: A :class:`~yamcs.core.futures.Future` object that can be
                 used to manage the background websocket subscription.
         """
-        manager = WebSocketSubscriptionManager(self, None)
+        manager = WebSocketSubscriptionManager(self, resource='time')
         future = WebSocketSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(

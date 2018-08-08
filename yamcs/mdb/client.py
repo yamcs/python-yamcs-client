@@ -24,6 +24,8 @@ class MDBClient(BaseClient):
 
     The only state managed by this client is its connection info to Yamcs. Therefore a
     single client may be used to access the content of any number of available MDBs.
+
+    :param str address: The address to the Yamcs server in the format 'host:port'
     """
 
     @classmethod
@@ -32,61 +34,6 @@ class MDBClient(BaseClient):
         Return a fully-qualified MDB resource string
         """
         return 'mdb/' + instance
-
-    @classmethod
-    def space_system_path(cls, instance, space_system):
-        """
-        Return a fully-qualified space system resource string.
-
-        :param str instance: Instance name
-        :param str space_system: Either a fully-qualified XTCE name or an alias obtained
-                                 via :meth:`name_alias`.
-        """
-        return 'mdb/{}/space-systems{}'.format(instance, space_system)
-
-    @classmethod
-    def parameter_path(cls, instance, parameter):
-        """
-        Return a fully-qualified parameter resource string.
-
-        :param str instance: Instance name
-        :param str parameter: Either a fully-qualified XTCE name or an alias obtained
-                              via :meth:`name_alias`.
-        """
-        return 'mdb/{}/parameters{}'.format(instance, parameter)
-
-    @classmethod
-    def container_path(cls, instance, container):
-        """
-        Return a fully-qualified container resource string.
-
-        :param str instance: Instance name
-        :param str container: Either a fully-qualified XTCE name or an alias obtained
-                              via :meth:`name_alias`.
-        """
-        return 'mdb/{}/containers{}'.format(instance, container)
-
-    @classmethod
-    def command_path(cls, instance, command):
-        """
-        Return a fully-qualified command resource string.
-
-        :param str instance: Instance name
-        :param str command: Either a fully-qualified XTCE name or an alias obtained
-                            via :meth:`name_alias`.
-        """
-        return 'mdb/{}/commands{}'.format(instance, command)
-
-    @classmethod
-    def algorithm_path(cls, instance, algorithm):
-        """
-        Return a fully-qualified algorithm resource string.
-
-        :param str instance: Instance name
-        :param str algorithm: Either a fully-qualified XTCE name or an alias obtained
-                              via :meth:`name_alias`.
-        """
-        return 'mdb/{}/algorithms{}'.format(instance, algorithm)
 
     @classmethod
     def name_alias(cls, namespace, name):
@@ -103,8 +50,7 @@ class MDBClient(BaseClient):
         class by obtaining its resource name via::
 
             alias = name_alias('MDB:OPS Name', 'SIMULATOR_BatteryVoltage2')
-            resource_name = parameter_path('INSTANCE', alias)
-            parameter = client.get_parameter(resource_name)
+            parameter = client.get_parameter('MDB_ID', alias)
 
         :rtype: str
         """
@@ -122,7 +68,7 @@ class MDBClient(BaseClient):
 
         Space systems are returned in lexicographical order.
 
-        :param str parent: The MDB name
+        :param str parent: The MDB resource name
         :rtype: SpaceSystemInfo iterator
         """
         params = {}
@@ -138,14 +84,16 @@ class MDBClient(BaseClient):
             items_key='spaceSystem',
         )
 
-    def get_space_system(self, name):
+    def get_space_system(self, parent, name):
         """
         Gets a single space system by its unique name.
 
-        :param str name: The space system name.
-                         For example: ``mdb/INSTANCE_ID/space-systems/SPACE_SYSTEM_ID``
+        :param str parent: The MDB resource name
+        :param str name: Either a fully-qualified XTCE name or an alias obtained
+                         via :meth:`name_alias`.
         """
-        response = self._get_proto(name)
+        url = '{}/space-systems{}'.format(parent, name)
+        response = self._get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
         return message
@@ -155,7 +103,7 @@ class MDBClient(BaseClient):
 
         Parameters are returned in lexicographical order.
 
-        :param str parent: The MDB name
+        :param str parent: The MDB resource name
         :param str parameter_type: (Optional) The type of parameter
         :rtype: ParameterInfo iterator
         """
@@ -174,14 +122,16 @@ class MDBClient(BaseClient):
             items_key='parameter',
         )
 
-    def get_parameter(self, name):
+    def get_parameter(self, parent, name):
         """
-        Gets a single parameter by its unique name.
+        Gets a single parameter by its name.
 
-        :param str name: The parameter name.
-                         For example: ``mdb/INSTANCE_ID/parameters/PARAMETER_ID``
+        :param str parent: The MDB resource name
+        :param str name: Either a fully-qualified XTCE name or an alias obtained
+                         via :meth:`name_alias`.
         """
-        response = self._get_proto(name)
+        url = '{}/parameters{}'.format(parent, name)
+        response = self._get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
         return message
@@ -208,14 +158,16 @@ class MDBClient(BaseClient):
             items_key='container',
         )
 
-    def get_container(self, name):
+    def get_container(self, parent, name):
         """
         Gets a single container by its unique name.
 
-        :param str name: The container name.
-                         For example: ``mdb/INSTANCE_ID/containers/CONTAINER_ID``
+        :param str parent: The MDB resource name
+        :param str name: Either a fully-qualified XTCE name or an alias obtained
+                         via :meth:`name_alias`.
         """
-        response = self._get_proto(name)
+        url = '{}/containers{}'.format(parent, name)
+        response = self._get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
         return message
@@ -242,14 +194,16 @@ class MDBClient(BaseClient):
             items_key='command',
         )
 
-    def get_command(self, name):
+    def get_command(self, parent, name):
         """
         Gets a single command by its unique name.
 
-        :param str name: The command name.
-                         For example: ``mdb/INSTANCE_ID/commands/COMMAND_ID``
+        :param str parent: The MDB resource name
+        :param str name: Either a fully-qualified XTCE name or an alias obtained
+                         via :meth:`name_alias`.
         """
-        response = self._get_proto(name)
+        url = '{}/commands{}'.format(parent, name)
+        response = self._get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
         return message
@@ -276,14 +230,16 @@ class MDBClient(BaseClient):
             items_key='algorithm',
         )
 
-    def get_algorithm(self, name):
+    def get_algorithm(self, parent, name):
         """
         Gets a single algorithm by its unique name.
 
-        :param str name: The algorithm name.
-                         For example: ``mdb/INSTANCE_ID/algorithms/ALGORITHM_ID``
+        :param str parent: The MDB resource name
+        :param str name: Either a fully-qualified XTCE name or an alias obtained
+                         via :meth:`name_alias`.
         """
-        response = self._get_proto(name)
+        url = '{}/algorithms{}'.format(parent, name)
+        response = self._get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
         return message

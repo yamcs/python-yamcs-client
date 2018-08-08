@@ -139,9 +139,13 @@ class ProcessorClient(BaseClient):
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
         options.sendFromCache = send_from_cache
-        for parameter in parameters:
+        if isinstance(parameters, str):
             named_object_id = options.id.add()
-            named_object_id.name = parameter
+            named_object_id.name = parameters
+        else:
+            for parameter in parameters:
+                named_object_id = options.id.add()
+                named_object_id.name = parameter
 
         manager = WebSocketSubscriptionManager(
             self, resource='parameter', options=options)
