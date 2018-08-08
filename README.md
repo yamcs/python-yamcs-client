@@ -2,9 +2,9 @@ Client library for Yamcs.
 
 ## Development Setup
 
-Install dependencies:
+Install build dependencies (you may want to do this in a virtualenv):
 
-    pip install websocket-client requests
+    pip install -r requirements.txt
 
 
 Install `yamcs-client` from the source base:
