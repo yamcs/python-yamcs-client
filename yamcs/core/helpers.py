@@ -45,3 +45,16 @@ def parse_value(proto):
     else:
         logging.warn('Unrecognized value type for update %s', proto)
         return None
+
+
+def adapt_name_for_rest(name):
+    """
+    Modifies a user-provided name for use in API calls.
+    Basically we want an alias like 'MDB:OPS Name/SIMULATOR_BatteryVoltage2'
+    to be prepended with a slash.
+    """
+    if name.startswith('/'):
+        return name
+    elif not '/' in name:
+        raise ValueError('Provided name is not a fully-qualified XTCE name.')
+    return '/' + name

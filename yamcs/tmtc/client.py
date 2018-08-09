@@ -1,9 +1,23 @@
 import functools
+import threading
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
+from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.tmtc.model import ParameterData
-from yamcs.types import management_pb2, yamcs_pb2
+from yamcs.types import commanding_pb2, management_pb2, yamcs_pb2
+
+
+class SequenceGenerator(object):
+    """Static atomic counter."""
+    _counter = 0
+    _lock = threading.Lock()
+
+    @classmethod
+    def next(cls):
+        with cls._lock:
+            cls._counter += 1
+            return cls._counter
 
 
 def _wrap_callback_parse_parameter_data(subscription, on_data, message):
@@ -146,8 +160,25 @@ class ProcessorClient(object):
         self._instance = instance
         self._processor = processor
 
-    def issue_command(self, command, args):
-        pass
+    def issue_command(self, command, args=None, dry_run=False, comment=None):
+        req = commanding_pb2.IssueCommandRequest()
+        req.sequenceNumber = SequenceGenerator.next()
+        req.dryRun = dry_run
+        if comment:
+            req.comment = comment
+        if args:
+            for key in args:
+                assignment = req.assignment.add()
+                assignment.name = key
+                assignment.value = str(args[key])
+
+        command = adapt_name_for_rest(command)
+        url = '/processors/{}/{}/commands{}'.format(
+            self._instance, self._processor, command)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        message = commanding_pb2.IssueCommandResponse()
+        message.ParseFromString(response.content)
+        return message
 
     def create_parameter_subscription(self,
                                       parameters,

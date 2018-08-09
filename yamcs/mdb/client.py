@@ -1,18 +1,6 @@
 from yamcs.core import pagination
+from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.types import mdb_pb2
-
-
-def _adapt_name_for_rest(name):
-    """
-    Modifies a user-provided name for use in API calls.
-    Basically we want an alias like 'MDB:OPS Name/SIMULATOR_BatteryVoltage2'
-    to be prepended with a slash.
-    """
-    if name.startswith('/'):
-        return name
-    elif not '/' in name:
-        raise ValueError('Provided name is not a fully-qualified XTCE name.')
-    return '/' + name
 
 
 class MDBClient(object):
@@ -85,7 +73,7 @@ class MDBClient(object):
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
-        name = _adapt_name_for_rest(name)
+        name = adapt_name_for_rest(name)
         url = '/mdb/{}/parameters{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ParameterInfo()
@@ -120,7 +108,7 @@ class MDBClient(object):
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
-        name = _adapt_name_for_rest(name)
+        name = adapt_name_for_rest(name)
         url = '/mdb/{}/containers{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ContainerInfo()
@@ -155,7 +143,7 @@ class MDBClient(object):
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
-        name = _adapt_name_for_rest(name)
+        name = adapt_name_for_rest(name)
         url = '/mdb/{}/commands{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.CommandInfo()
@@ -190,7 +178,7 @@ class MDBClient(object):
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
         """
-        name = _adapt_name_for_rest(name)
+        name = adapt_name_for_rest(name)
         url = '/mdb/{}/algorithms{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
