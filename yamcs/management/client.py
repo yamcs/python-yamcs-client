@@ -16,7 +16,7 @@ def _wrap_callback_parse_time_info(callback, message):
             time_message = getattr(message.data, 'timeInfo')
             callback(time_message)
 
-class ManagementClient(BaseClient):
+class ManagementClient(object):
 
     @classmethod
     def data_link_path(cls, instance, link):
@@ -25,9 +25,9 @@ class ManagementClient(BaseClient):
         """
         return 'links/{}/{}'.format(instance, link)
 
-    def __init__(self, address, credentials=None):
-        super(ManagementClient, self).__init__(
-            address, credentials=credentials)
+    def __init__(self, address, **kwargs):
+        super(ManagementClient, self).__init__(address, **kwargs)
+        self._client = BaseClient(address, **kwargs)
 
     def list_data_links(self, parent):
         """
@@ -41,7 +41,7 @@ class ManagementClient(BaseClient):
 
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self._get_proto(path='links/' + parent)
+        response = self._client.get_proto(path='links/' + parent)
         message = management_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
@@ -54,7 +54,7 @@ class ManagementClient(BaseClient):
         :param str name: The name of the data link. For example: ``links/:instance/:link``
         :rtype: :class:`yamcs.types.management_pb2.LinkInfo`
         """
-        response = self._get_proto(name)
+        response = self._client.get_proto(name)
         message = management_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return message
@@ -70,7 +70,7 @@ class ManagementClient(BaseClient):
         :rtype: A :class:`~yamcs.core.futures.Future` object that can be
                 used to manage the background websocket subscription.
         """
-        manager = WebSocketSubscriptionManager(self, resource='time')
+        manager = WebSocketSubscriptionManager(self._client, resource='time')
         future = WebSocketSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(

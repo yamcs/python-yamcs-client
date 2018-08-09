@@ -12,9 +12,8 @@ class YamcsClient(BaseClient):
     :param str address: The address to the Yamcs server in the format 'host:port'
     """
 
-    def __init__(self, address, credentials=None):
-        super(YamcsClient, self).__init__(
-            address, credentials=credentials)
+    def __init__(self, address, **kwargs):
+        super(YamcsClient, self).__init__(address, **kwargs)
 
     def get_mdb(self, instance):
         """

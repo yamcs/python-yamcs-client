@@ -50,7 +50,7 @@ class MDBClient(object):
         :param str name: A fully-qualified XTCE name
         """
         url = '/mdb/{}/space-systems{}'.format(self._instance, name)
-        response = self._client._get_proto(url)
+        response = self._client.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
         return message
@@ -87,7 +87,7 @@ class MDBClient(object):
         """
         name = _adapt_name_for_rest(name)
         url = '/mdb/{}/parameters{}'.format(self._instance, name)
-        response = self._client._get_proto(url)
+        response = self._client.get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
         return message
@@ -122,7 +122,7 @@ class MDBClient(object):
         """
         name = _adapt_name_for_rest(name)
         url = '/mdb/{}/containers{}'.format(self._instance, name)
-        response = self._client._get_proto(url)
+        response = self._client.get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
         return message
@@ -157,7 +157,7 @@ class MDBClient(object):
         """
         name = _adapt_name_for_rest(name)
         url = '/mdb/{}/commands{}'.format(self._instance, name)
-        response = self._client._get_proto(url)
+        response = self._client.get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
         return message
@@ -192,7 +192,7 @@ class MDBClient(object):
         """
         name = _adapt_name_for_rest(name)
         url = '/mdb/{}/algorithms{}'.format(self._instance, name)
-        response = self._client._get_proto(url)
+        response = self._client.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
         return message

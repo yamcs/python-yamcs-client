@@ -31,7 +31,7 @@ class Iterator(object):
             if self._continuation_token is not None:
                 params['continue'] = self._continuation_token
 
-            response = self.client._get_proto(path=self.path, params=params)
+            response = self.client.get_proto(path=self.path, params=params)
             message = self.response_class()
             message.ParseFromString(response.content)
             items = getattr(message, self.items_key)
