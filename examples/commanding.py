@@ -7,16 +7,14 @@ from yamcs import YamcsClient
 
 def tm_callback(delivery):
     for parameter in delivery.parameters:
-        print('TM', parameter)
+        print('TM:', parameter)
+
 
 def tc_callback(rec):
-    try:
-        print(rec)
-    except Exception as e:
-        print(e)
+    print('TC:', rec)
+
 
 if __name__ == '__main__':
-    
 
     client = YamcsClient('localhost:8090')
 
@@ -24,6 +22,7 @@ if __name__ == '__main__':
 
     tc_subscription = processor.create_command_history_subscription(on_data=tc_callback)
 
+    print('Issuing command')
     response = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
         'voltage_num': 1,
     }, comment='im a comment')

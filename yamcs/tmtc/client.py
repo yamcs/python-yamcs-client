@@ -226,7 +226,7 @@ class ProcessorClient(object):
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
-    def create_command_history_subscription(self, on_data):
+    def create_command_history_subscription(self, on_data, timeout=60):
         """
         Create a new command history subscription.
 
@@ -243,6 +243,10 @@ class ProcessorClient(object):
             _wrap_callback_parse_cmdhist_data, subscription, on_data)
 
         manager.open(wrapped_callback, instance=self._instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
         return subscription
 
     def create_parameter_subscription(self,

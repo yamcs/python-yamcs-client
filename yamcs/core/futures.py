@@ -1,8 +1,7 @@
 import abc
-import logging
 import threading
 
-from yamcs.core.exceptions import TimeoutError
+from yamcs.core.exceptions import TimeoutError, YamcsError
 
 
 class Future(object):
@@ -129,8 +128,6 @@ class WebSocketSubscriptionFuture(Future):
         # multiple parallel subscriptions in mind. We don't use this
         # notion, so close the connection.
         if exception:
-            logging.warn('Closing subscription due to server exception: %s',
-                         exception.message)
             closer = threading.Thread(
                 target=self._manager.close,
                 kwargs={'reason': exception},
@@ -173,7 +170,8 @@ class WebSocketSubscriptionFuture(Future):
         """
         self._wait_on_signal(self._response_received)
         if self._response_exception is not None:
-            raise YamcsError(self._response_exception)
+            msg = self._response_exception.message
+            raise YamcsError(msg)
         return self._response_reply
 
     # pylint: disable-msg=E0702
