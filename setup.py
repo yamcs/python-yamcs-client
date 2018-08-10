@@ -20,6 +20,7 @@ setuptools.setup(
     author_email='yamcs@spaceapplications.com',
     license='LGPL',
     packages=packages,
+    namespace_packages=['yamcs'],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
