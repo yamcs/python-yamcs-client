@@ -226,11 +226,12 @@ class ProcessorClient(object):
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
+
     def create_command_history_subscription(self, on_data, timeout=60):
         """
         Create a new command history subscription.
 
-        :rtype: A :class:`~yamcs.core.futures.Future` object that can be
+        :rtype: A :class:`CommandHistorySubscriptionFuture` object that can be
                 used to manage the background websocket subscription.
         """
         manager = WebSocketSubscriptionManager(
@@ -254,7 +255,8 @@ class ProcessorClient(object):
                                       on_data=None,
                                       abort_on_invalid=True,
                                       update_on_expiration=False,
-                                      send_from_cache=True):
+                                      send_from_cache=True,
+                                      timeout=60):
         """
         Create a new parameter subscription.
 
@@ -292,4 +294,8 @@ class ProcessorClient(object):
             _wrap_callback_parse_parameter_data, subscription, on_data)
 
         manager.open(wrapped_callback, instance=self._instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
         return subscription
