@@ -1,6 +1,6 @@
 from yamcs.core import pagination
 from yamcs.core.helpers import adapt_name_for_rest
-from yamcs.types import mdb_pb2
+from yamcs.protobuf.mdb import mdb_pb2
 
 
 class MDBClient(object):

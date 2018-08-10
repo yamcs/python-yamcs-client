@@ -83,6 +83,6 @@ MDBClient
 ParameterInfo
 -------------
 
-.. class:: yamcs.types.mdb_pb2.ParameterInfo
+.. class:: yamcs.protobuf.mdb.mdb_pb2.ParameterInfo
 
     .. attribute:: qualifiedName

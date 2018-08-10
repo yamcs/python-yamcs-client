@@ -6,7 +6,7 @@ import threading
 import websocket
 
 from yamcs.core.exceptions import ConnectionFailure
-from yamcs.types import web_pb2
+from yamcs.protobuf.web import web_pb2
 
 
 class WebSocketSubscriptionManager(object):

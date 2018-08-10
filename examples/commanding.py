@@ -5,24 +5,32 @@ from time import sleep
 from yamcs import YamcsClient
 
 
-def callback(delivery):
-    for parameter in delivery.parameter:
-        print('got an update', parameter)
+def tm_callback(delivery):
+    for parameter in delivery.parameters:
+        print('TM', parameter)
 
+def tc_callback(rec):
+    try:
+        print(rec)
+    except Exception as e:
+        print(e)
 
 if __name__ == '__main__':
+    
 
     client = YamcsClient('localhost:8090')
 
     processor = client.get_processor('simulator', 'realtime')
 
+    tc_subscription = processor.create_command_history_subscription(on_data=tc_callback)
+
     response = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
         'voltage_num': 1,
-    })
-    print response
+    }, comment='im a comment')
+    print('Issued', response)
 
     subscription = processor.create_parameter_subscription([
         '/YSS/SIMULATOR/BatteryVoltage1',
-    ], on_data=callback)
+    ], on_data=tm_callback)
 
-    sleep(10)
+    sleep(20)

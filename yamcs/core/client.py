@@ -3,7 +3,7 @@ import requests
 
 class BaseClient(object):
 
-    def __init__(self, address, credentials, ssl=False):
+    def __init__(self, address, credentials=None, ssl=False):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         """

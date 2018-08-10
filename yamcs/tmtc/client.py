@@ -4,8 +4,10 @@ import threading
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.tmtc.model import ParameterData
-from yamcs.types import commanding_pb2, management_pb2, yamcs_pb2
+from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.commanding import commanding_pb2
+from yamcs.protobuf.management import management_pb2
+from yamcs.tmtc.model import CommandHistoryRecord, IssuedCommand, ParameterData
 
 
 class SequenceGenerator(object):
@@ -29,13 +31,27 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
         data = management_pb2.ParameterSubscriptionResponse()
         data.ParseFromString(message.reply.data)
         subscription.subscription_id = data.subscriptionId
-    elif message.type == message.DATA:
-        if message.data.type == yamcs_pb2.PARAMETER:
-            parameter_data = ParameterData(getattr(message.data, 'parameterData'))
-            #pylint: disable=protected-access
-            subscription._process(parameter_data)
-            if on_data:
-                on_data(parameter_data)
+    elif (message.type == message.DATA and
+          message.data.type == yamcs_pb2.PARAMETER):
+        parameter_data = ParameterData(getattr(message.data, 'parameterData'))
+        #pylint: disable=protected-access
+        subscription._process(parameter_data)
+        if on_data:
+            on_data(parameter_data)
+
+
+def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse CommandHistoryEntry
+    from a WebSocket data message
+    """
+    if (message.type == message.DATA and
+            message.data.type == yamcs_pb2.CMD_HISTORY):
+        entry = getattr(message.data, 'command')
+        #pylint: disable=protected-access
+        rec = subscription._process(entry)
+        if on_data:
+            on_data(rec)
 
 
 def _build_named_object_ids(parameters):
@@ -65,6 +81,35 @@ def _build_named_object_ids(parameters):
             named_object_id.name = parts[1]
         named_object_list.append(named_object_id)
     return named_object_list
+
+
+class CommandHistorySubscriptionFuture(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to command history updates.
+    """
+
+    @staticmethod
+    def _cache_key(cmd_id):
+        """commandId is a tuple. Make a 'unique' key for it."""
+        return '{}__{}__{}__{}'.format(
+            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
+            cmd_id.commandName)
+
+    def __init__(self, manager):
+        super(CommandHistorySubscriptionFuture, self).__init__(manager)
+        self._cache = {}
+
+    def _process(self, entry):
+        key = self._cache_key(entry.commandId)
+        if key in self._cache:
+            rec = self._cache[key]
+        else:
+            rec = CommandHistoryRecord()
+            self._cache[key] = rec
+
+        #pylint: disable=protected-access
+        rec._update(entry.attr)
+        return rec
 
 
 class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
@@ -163,6 +208,7 @@ class ProcessorClient(object):
     def issue_command(self, command, args=None, dry_run=False, comment=None):
         req = commanding_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
+        req.origin = 'uhuh'
         req.dryRun = dry_run
         if comment:
             req.comment = comment
@@ -176,9 +222,28 @@ class ProcessorClient(object):
         url = '/processors/{}/{}/commands{}'.format(
             self._instance, self._processor, command)
         response = self._client.post_proto(url, data=req.SerializeToString())
-        message = commanding_pb2.IssueCommandResponse()
-        message.ParseFromString(response.content)
-        return message
+        proto = commanding_pb2.IssueCommandResponse()
+        proto.ParseFromString(response.content)
+        return IssuedCommand(proto)
+
+    def create_command_history_subscription(self, on_data):
+        """
+        Create a new command history subscription.
+
+        :rtype: A :class:`~yamcs.core.futures.Future` object that can be
+                used to manage the background websocket subscription.
+        """
+        manager = WebSocketSubscriptionManager(
+            self._client, resource='cmdhistory')
+
+        # Represent subscription as a future
+        subscription = CommandHistorySubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_cmdhist_data, subscription, on_data)
+
+        manager.open(wrapped_callback, instance=self._instance)
+        return subscription
 
     def create_parameter_subscription(self,
                                       parameters,
@@ -187,8 +252,7 @@ class ProcessorClient(object):
                                       update_on_expiration=False,
                                       send_from_cache=True):
         """
-        Create a new parameter subscription. This method blocks and returns
-        the assigned subscription id.
+        Create a new parameter subscription.
 
         :param str[] parameters: Parameter names (or aliases).
         :param bool abort_on_invalid: If ``True`` an error is generated when

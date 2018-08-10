@@ -9,7 +9,7 @@
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=yamcs/types
+ignore=yamcs/protobuf
 
 # Add files or directories matching the regex patterns to the blacklist. The
 # regex matches against base names, not paths.
@@ -282,7 +282,7 @@ ignore-mixin-members=yes
 # (useful for modules/projects where namespaces are manipulated during runtime
 # and thus existing member attributes cannot be deduced by static analysis. It
 # supports qualified module names, as well as Unix pattern matching.
-ignored-modules=yamcs.types.*
+ignored-modules=yamcs.protobuf.*
 
 # List of class names for which member attributes should not be checked (useful
 # for classes with dynamically set attributes). This supports the use of

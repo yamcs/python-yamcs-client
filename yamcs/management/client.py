@@ -3,7 +3,8 @@ import functools
 from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.types import management_pb2, yamcs_pb2
+from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.management import management_pb2
 
 
 def _wrap_callback_parse_time_info(callback, message):
@@ -26,7 +27,7 @@ class ManagementClient(object):
         return 'links/{}/{}'.format(instance, link)
 
     def __init__(self, address, **kwargs):
-        super(ManagementClient, self).__init__(address, **kwargs)
+        super(ManagementClient, self).__init__()
         self._client = BaseClient(address, **kwargs)
 
     def list_data_links(self, parent):
@@ -52,7 +53,7 @@ class ManagementClient(object):
         Gets a single data link by its unique name.
 
         :param str name: The name of the data link. For example: ``links/:instance/:link``
-        :rtype: :class:`yamcs.types.management_pb2.LinkInfo`
+        :rtype: :class:`yamcs.protobuf.management.management_pb2.LinkInfo`
         """
         response = self._client.get_proto(name)
         message = management_pb2.LinkInfo()
