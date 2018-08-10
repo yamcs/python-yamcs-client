@@ -1,3 +1,7 @@
+## Dependencies
+
+    pip install wheel twine
+
 ## Build Release
 
 Build source, binary wheel and rpm to `dist/`:
