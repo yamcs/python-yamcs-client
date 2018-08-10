@@ -1,4 +1,5 @@
 import abc
+import logging
 import threading
 
 from yamcs.core.exceptions import TimeoutError
@@ -102,14 +103,40 @@ class WebSocketSubscriptionFuture(Future):
     def __init__(self, manager):
         super(WebSocketSubscriptionFuture, self).__init__()
         self._manager = manager
+        self._manager.add_response_callback(self._on_response_callback)
         self._manager.add_close_callback(self._on_close_callback)
+
+        # Yamcs send either a 'reply' message or an 'exception' message on
+        # every websocket subscription. If the ``_response_received`` event
+        # is set it means either of these two has arrived.
+        self._response_received = threading.Event()
+        self._response_reply = None
+        self._response_exception = None
 
         self._result = None
         self._exception = None
         self._callbacks = []
+        
         self._completed = threading.Event()
         self._cancelled = False
 
+    def _on_response_callback(self, manager, reply=None, exception=None):
+        self._response_reply = reply
+        self._response_exception = exception
+        self._response_received.set()
+
+        # Yamcs leaves the socket open because it was designed with
+        # multiple parallel subscriptions in mind. We don't use this
+        # notion, so close the connection.
+        if exception:
+            logging.warn('Closing subscription due to server exception: %s',
+                         exception.message)
+            closer = threading.Thread(
+                target=self._manager.close,
+                kwargs={'reason': exception},
+            )
+            closer.daemon = True
+            closer.start()
 
     def _on_close_callback(self, manager, result):
         if result is None:
@@ -138,6 +165,16 @@ class WebSocketSubscriptionFuture(Future):
         return (self._exception is not None or
                 self._result is not None)
 
+    def reply(self, timeout=None):
+        """
+        Returns the initial reply. This is emitted before any subscription
+        data is emitted. This function raises an exception if the subscription
+        attempt failed.
+        """
+        self._wait_on_signal(self._response_received)
+        if self._response_exception is not None:
+            raise YamcsError(self._response_exception)
+        return self._response_reply
 
     # pylint: disable-msg=E0702
     def result(self, timeout=None):
@@ -147,28 +184,35 @@ class WebSocketSubscriptionFuture(Future):
         raise err
 
     def exception(self, timeout=None):
-        # Wait until the future is done. We do not use wait() without timeout
-        # because on Python 2.x this does not generate ``KeyboardInterrupt``.
-        # https://bugs.python.org/issue8844
-        if timeout is not None:
-            if not self._completed.wait(timeout=timeout):
-                # Remark that a timeout does *not* mean that the underlying
-                # work is canceled.
-                raise TimeoutError('Timed out waiting for result.')
-        else:
-            # The actual timeout value does not have any impact
-            while not self._completed.wait(timeout=10):
-                pass  # tick
+        self._wait_on_event(self._completed)
 
         if self._result is not None:
             return None
 
         return self._exception
 
+    def _wait_on_signal(self, event, timeout=None):
+        # Wait until the future is done. We do not use wait() without timeout
+        # because on Python 2.x this does not generate ``KeyboardInterrupt``.
+        # https://bugs.python.org/issue8844
+        if timeout is not None:
+            if not event.wait(timeout=timeout):
+                # Remark that a timeout does *not* mean that the underlying
+                # work is canceled.
+                raise TimeoutError('Timed out.')
+        else:
+            # The actual timeout value does not have any impact
+            while not event.wait(timeout=10):
+                pass  # tick
+
     def add_done_callback(self, fn):
         if self.done():
             fn(self)
         self._callbacks.append(fn)
+
+    def set_reply(self, reply):
+        self._reply = reply
+        self._replied.set()
 
     def set_result(self, result):
         assert not self.done()

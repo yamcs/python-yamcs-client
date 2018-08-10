@@ -17,6 +17,7 @@ def _wrap_callback_parse_time_info(callback, message):
             time_message = getattr(message.data, 'timeInfo')
             callback(time_message)
 
+
 class ManagementClient(object):
 
     @classmethod

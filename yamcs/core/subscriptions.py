@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-import logging
 import threading
 
 import websocket
@@ -18,6 +17,7 @@ class WebSocketSubscriptionManager(object):
 
         self._websocket = None
         self._callback = None
+        self._response_callbacks = []
         self._close_callbacks = []
 
         self._closing = threading.Lock()
@@ -29,6 +29,12 @@ class WebSocketSubscriptionManager(object):
 
         # Thread created in ``.open()``
         self._consumer = None
+
+    def add_response_callback(self, callback):
+        """
+        Schedules a callable when a response was received.
+        """
+        self._response_callbacks.append(callback)
 
     def add_close_callback(self, callback):
         """
@@ -107,9 +113,12 @@ class WebSocketSubscriptionManager(object):
         pb2_message = web_pb2.WebSocketServerMessage()
         pb2_message.ParseFromString(message)
 
-        if pb2_message.type == pb2_message.EXCEPTION:
-            logging.warn('Server is reporting an exception: %s',
-                         pb2_message.exception)
+        if pb2_message.type == pb2_message.REPLY:
+            for cb in self._response_callbacks:
+                cb(self, reply=pb2_message.reply)
+        elif pb2_message.type == pb2_message.EXCEPTION:
+            for cb in self._response_callbacks:
+                cb(self, exception=pb2_message.exception)
 
         self._callback(pb2_message)
 
