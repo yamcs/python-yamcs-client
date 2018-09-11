@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-cli',
-    version='1.0.0',
+    version='1.1.0a1',
     description='Yamcs Command-Line Tools',
     long_description=readme,
     long_description_content_type='text/markdown',
