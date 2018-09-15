@@ -1,7 +1,7 @@
 Mission Database
 ================
 
-The Mission Database API provides methods that you can use to programmatically retrieve the content of a Yamcs Mission Database (MDB).
+The Mission Database API provides methods for reading the entries in a Yamcs Mission Database (MDB).
 
 .. note::
 
@@ -29,7 +29,7 @@ For example, in an MDB that contains these parameter entries::
             ├── BatteryVoltage1
             └── BatteryVoltage2
 
-we find two space systems ``/YSS`` and ``/YSS/SIMULATOR`` and two parameter entries``/YSS/SIMULATOR/BatteryVoltage1`` and ``/YSS/SIMULATOR/BatteryVoltage2``.
+we find two space systems ``/YSS`` and ``/YSS/SIMULATOR`` and two parameter entries ``/YSS/SIMULATOR/BatteryVoltage1`` and ``/YSS/SIMULATOR/BatteryVoltage2``.
 
 Some MDB entries may also define an alias. An alias is a unique name to address the entry under a custom namespace (unrelated to XTCE space systems).
 
@@ -43,17 +43,17 @@ Query the Mission Database:
 
 .. code-block:: python
 
-    from yamcs.mdb import MDBClient
+    from yamcs import YamcsClient
 
-    client = MDBClient('localhost:8090')
+    client = YamcsClient('localhost:8090')
 
-    # Get the resource name for the MDB of a particular instance
-    mdb = client.mdb_path(instance='simulator')
+    # Get the MDB of a particular instance
+    mdb = client.get_mdb(instance='simulator')
 
-    for parameter in client.list_parameters(mdb):
+    for parameter in mdb.list_parameters():
         print(parameter.qualifiedName)
 
-    for command in mdb_client.list_commands(mdb):
+    for command in mdb.list_commands():
         print(command.qualifiedName)
 
 
@@ -61,16 +61,14 @@ Fetch the MDB definition of a single item:
 
 .. code-block:: python
 
-    from yamcs.mdb import MDBClient
+    from yamcs import YamcsClient
 
-    client = MDBClient('localhost:8090')
+    client = YamcsClient('localhost:8090')
 
-    # Get the resource name for the MDB of a particular instance
-    mdb = client.mdb_path(instance='simulator')
+    # Get the MDB of a particular instance
+    mdb = client.get_mdb(instance='simulator')
 
-    voltage1 = client.get_parameter(mdb, '/YSS/SIMULATOR/BatteryVoltage1')
-
-.. autopb2:: hah3
+    voltage1 = mdb.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
 
 MDBClient
 ---------
