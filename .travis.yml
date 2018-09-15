@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.6"
+
+install:
+  - pip install -r yamcs-client/requirements.txt
+  - pip install sphinx
+
+script:
+  - cd yamcs-client
+  - python setup.py install
+  - cd docs
+  - make html
+
+deploy:
+  provider: pages
+  skip-cleanup: true  # Keep HTML files generated during 'script'
+  local-dir: yamcs-client/docs/_build/html
+  github-token: $GITHUB_TOKEN
+  keep-history: false  # Force update single commit on gh-pages branch
+  on:
+    branch: master
