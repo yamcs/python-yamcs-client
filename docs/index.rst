@@ -1,10 +1,10 @@
-Python Libraries for Yamcs
+Yamcs Libraries for Python
 ==========================
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 5
 
-  yamcs-client/index
+  Yamcs Client <yamcs-client/index>
 
 Indices and tables
 ==================

@@ -21,7 +21,7 @@ import pkg_resources
 
 # -- Project information -----------------------------------------------------
 
-project = u'yamcs-python'
+project = u'Yamcs'
 copyright = u'2018, Space Applications Services'
 author = u'Space Applications Services'
 
@@ -46,7 +46,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
-    'sphinx.ext.viewcode',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -82,14 +81,19 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic'
+html_theme = 'alabaster'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
 html_theme_options = {
-    'stickysidebar': True,
+    'description': 'Python Libraries',
+    'github_user': 'yamcs',
+    'github_repo': 'yamcs-python',
+    'github_banner': False,
+    'fixed_sidebar': True,
+    'show_powered_by': False,
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -106,6 +110,8 @@ html_static_path = ['_static']
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
+html_show_sourcelink = False
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
