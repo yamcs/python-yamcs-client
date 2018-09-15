@@ -12,6 +12,9 @@ script:
   - cd docs
   - make html
 
+  # Prevent Jekyll from triggering
+  - touch _build/html/.nojekyll
+
 deploy:
   provider: pages
   skip-cleanup: true  # Keep HTML files generated during 'script'
