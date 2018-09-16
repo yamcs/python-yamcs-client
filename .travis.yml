@@ -7,12 +7,16 @@ install:
   - pip install sphinx
 
 script:
-  - cd yamcs-client; python setup.py install; cd ..
+  - cd yamcs-client
+  - python setup.py install
   - cd docs
   - make html
 
-  # Prevent Jekyll from triggering
-  - touch _build/html/.nojekyll
+  # Intention here is to ensure 'yamcs-client' appears in the URL
+  # (instead of only 'yamcs-python')
+  - mkdir -p ../../docs/
+  - mv _build/html ../../docs/yamcs-client/
+  - touch ../../docs/.nojekyll
 
 deploy:
   provider: pages

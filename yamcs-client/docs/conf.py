@@ -21,7 +21,7 @@ import pkg_resources
 
 # -- Project information -----------------------------------------------------
 
-project = u'Yamcs'
+project = u'yamcs-client'
 copyright = u'2018, Space Applications Services'
 author = u'Space Applications Services'
 
@@ -88,10 +88,10 @@ html_theme = 'alabaster'
 # documentation.
 #
 html_theme_options = {
-    'description': 'Python Libraries',
-    'github_user': 'yamcs',
-    'github_repo': 'yamcs-python',
-    'github_banner': False,
+    'description': 'Yamcs Client Library for Python',
+    #'github_user': 'yamcs',
+    #'github_repo': 'yamcs-python',
+    #'github_banner': False,
     'fixed_sidebar': True,
     'show_powered_by': False,
 }
