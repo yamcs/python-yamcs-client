@@ -94,6 +94,7 @@ html_theme_options = {
     #'github_banner': False,
     'fixed_sidebar': True,
     'show_powered_by': False,
+    'analytics_id': 'UA-123272152-1',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
