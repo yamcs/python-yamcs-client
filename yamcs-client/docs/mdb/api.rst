@@ -51,10 +51,10 @@ Query the Mission Database:
     mdb = client.get_mdb(instance='simulator')
 
     for parameter in mdb.list_parameters():
-        print(parameter.qualifiedName)
+        print(parameter.qualified_name)
 
     for command in mdb.list_commands():
-        print(command.qualifiedName)
+        print(command.qualified_name)
 
 
 Fetch the MDB definition of a single item:
@@ -78,9 +78,9 @@ MDBClient
     :undoc-members:
     :show-inheritance:
 
-ParameterInfo
--------------
+Parameter
+---------
 
-.. class:: yamcs.protobuf.mdb.mdb_pb2.ParameterInfo
-
-    .. attribute:: qualifiedName
+.. autoclass:: yamcs.mdb.model.Parameter
+    :members:
+    :undoc-members:

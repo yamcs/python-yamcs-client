@@ -49,7 +49,7 @@ class MDBClient(object):
         Parameters are returned in lexicographical order.
 
         :param str parameter_type: (Optional) The type of parameter
-        :rtype: ParameterInfo iterator
+        :rtype: Parameter iterator
         """
         params = {}
 
