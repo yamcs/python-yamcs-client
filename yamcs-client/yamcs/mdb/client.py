@@ -1,5 +1,7 @@
 from yamcs.core import pagination
 from yamcs.core.helpers import adapt_name_for_rest
+from yamcs.mdb.model import (Algorithm, Command, Container, Parameter,
+                             SpaceSystem)
 from yamcs.protobuf.mdb import mdb_pb2
 
 
@@ -16,7 +18,7 @@ class MDBClient(object):
 
         Space systems are returned in lexicographical order.
 
-        :rtype: SpaceSystemInfo iterator
+        :rtype: :class:`.SpaceSystem` iterator
         """
         params = {}
 
@@ -29,6 +31,7 @@ class MDBClient(object):
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
             items_key='spaceSystem',
+            item_mapper=SpaceSystem,
         )
 
     def get_space_system(self, name):
@@ -36,12 +39,13 @@ class MDBClient(object):
         Gets a single space system by its unique name.
 
         :param str name: A fully-qualified XTCE name
+        :rtype: :class:`.SpaceSystem`
         """
         url = '/mdb/{}/space-systems{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
-        return message
+        return SpaceSystem(message)
 
     def list_parameters(self, parameter_type=None, page_size=None):
         """Lists the parameters visible to this client.
@@ -49,7 +53,7 @@ class MDBClient(object):
         Parameters are returned in lexicographical order.
 
         :param str parameter_type: (Optional) The type of parameter
-        :rtype: Parameter iterator
+        :rtype: :class:`.Parameter` iterator
         """
         params = {}
 
@@ -64,6 +68,7 @@ class MDBClient(object):
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
             items_key='parameter',
+            item_mapper=Parameter,
         )
 
     def get_parameter(self, name):
@@ -72,13 +77,14 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
+        :rtype: :class:`.Parameter`
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/parameters{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
-        return message
+        return Parameter(message)
 
     def list_containers(self, page_size=None):
         """
@@ -86,7 +92,7 @@ class MDBClient(object):
 
         Containers are returned in lexicographical order.
 
-        :rtype: ContainerInfo iterator
+        :rtype: :class:`.Container` iterator
         """
         params = {}
 
@@ -99,6 +105,7 @@ class MDBClient(object):
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
             items_key='container',
+            item_mapper=Container,
         )
 
     def get_container(self, name):
@@ -107,13 +114,14 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
+        :rtype: :class:`.Container`
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/containers{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
-        return message
+        return Container(message)
 
     def list_commands(self, page_size=None):
         """
@@ -121,7 +129,7 @@ class MDBClient(object):
 
         Commands are returned in lexicographical order.
 
-        :rtype: CommandInfo iterator
+        :rtype: :class:`.Command` iterator
         """
         params = {}
 
@@ -134,6 +142,7 @@ class MDBClient(object):
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
             items_key='command',
+            item_mapper=Command,
         )
 
     def get_command(self, name):
@@ -142,13 +151,14 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
+        :rtype: :class:`.Command`
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/commands{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
-        return message
+        return Command(message)
 
     def list_algorithms(self, page_size=None):
         """
@@ -156,7 +166,7 @@ class MDBClient(object):
 
         Algorithms are returned in lexicographical order.
 
-        :rtype: AlgorithmInfo iterator
+        :rtype: :class:`.Algorithm` iterator
         """
         params = {}
 
@@ -169,6 +179,7 @@ class MDBClient(object):
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
             items_key='algorithm',
+            item_mapper=Algorithm,
         )
 
     def get_algorithm(self, name):
@@ -177,10 +188,11 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
+        :rtype: :class:`.Algorithm`
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/algorithms{}'.format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
-        return message
+        return Algorithm(message)

@@ -206,6 +206,11 @@ class ProcessorClient(object):
         self._processor = processor
 
     def issue_command(self, command, args=None, dry_run=False, comment=None):
+        """
+        Issue the given command
+
+        :rtype: :class:`.IssuedCommand`
+        """
         req = commanding_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
         req.origin = 'uhuh'
@@ -226,12 +231,11 @@ class ProcessorClient(object):
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
-
     def create_command_history_subscription(self, on_data, timeout=60):
         """
         Create a new command history subscription.
 
-        :rtype: A :class:`CommandHistorySubscriptionFuture` object that can be
+        :rtype: A :class:`.CommandHistorySubscriptionFuture` object that can be
                 used to manage the background websocket subscription.
         """
         manager = WebSocketSubscriptionManager(
@@ -274,7 +278,7 @@ class ProcessorClient(object):
                                      When ``False`` only newly processed
                                      parameters are received.
 
-        :rtype: A :class:`~yamcs.core.futures.Future` object that can be
+        :rtype: A :class:`.ParameterSubscriptionFuture` object that can be
                 used to manage the background websocket subscription.
         """
         options = management_pb2.ParameterSubscriptionRequest()

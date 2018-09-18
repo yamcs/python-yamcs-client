@@ -70,17 +70,47 @@ Fetch the MDB definition of a single item:
 
     voltage1 = mdb.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
 
-MDBClient
+Reference
 ---------
+
+MDBClient
+^^^^^^^^^
 
 .. autoclass:: yamcs.mdb.MDBClient
     :members:
     :undoc-members:
-    :show-inheritance:
+
+Algorithm
+^^^^^^^^^
+
+.. autoclass:: yamcs.mdb.model.Algorithm
+    :members:
+    :undoc-members:
+
+Command
+^^^^^^^
+
+.. autoclass:: yamcs.mdb.model.Command
+    :members:
+    :undoc-members:
+
+Container
+^^^^^^^^^
+
+.. autoclass:: yamcs.mdb.model.Container
+    :members:
+    :undoc-members:
 
 Parameter
----------
+^^^^^^^^^
 
 .. autoclass:: yamcs.mdb.model.Parameter
+    :members:
+    :undoc-members:
+
+SpaceSystem
+^^^^^^^^^^^
+
+.. autoclass:: yamcs.mdb.model.SpaceSystem
     :members:
     :undoc-members:

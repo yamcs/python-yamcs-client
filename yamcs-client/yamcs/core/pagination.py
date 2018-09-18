@@ -1,11 +1,13 @@
 class Iterator(object):
 
-    def __init__(self, client, path, params, response_class, items_key='items'):
+    def __init__(self, client, path, params, response_class, items_key='items',
+                 item_mapper=None):
         self.client = client
         self.path = path
         self.params = params
         self.response_class = response_class
         self.items_key = items_key
+        self.item_mapper = item_mapper
 
         self.num_results = 0
         self.page_number = 0
@@ -18,7 +20,10 @@ class Iterator(object):
 
             for item in page_items:
                 self.num_results += 1
-                yield item
+                if self.item_mapper:
+                    yield self.item_mapper(item)
+                else:
+                    yield item
 
             page_items = self._next_page()
 

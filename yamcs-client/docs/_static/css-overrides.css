@@ -1,3 +1,7 @@
 div.body {
     max-width: none !important;
 }
+
+.attribute code.descname, .method code.descname {
+    background-color: #ffe4b5;
+}

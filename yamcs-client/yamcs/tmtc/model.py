@@ -88,7 +88,7 @@ class IssuedCommand(object):
     @property
     def name(self):
         """
-        Return the fully-qualified name of the issued command.
+        The fully-qualified name of the issued command.
         """
         entry = self._proto.commandQueueEntry
         return entry.cmdId.commandName
@@ -96,7 +96,7 @@ class IssuedCommand(object):
     @property
     def generation_time(self):
         """
-        Return the generation time as set by Yamcs.
+        The generation time as set by Yamcs.
 
         :rtype: :class:`~datetime.datetime`
         """
@@ -108,7 +108,7 @@ class IssuedCommand(object):
     @property
     def username(self):
         """
-        Return the username of the issuer
+        The username of the issuer
         """
         entry = self._proto.commandQueueEntry
         if entry.HasField('username'):
@@ -117,7 +117,7 @@ class IssuedCommand(object):
 
     @property
     def queue(self):
-        """Return the name of the queue that the command was assigned to."""
+        """The name of the queue that the command was assigned to."""
         entry = self._proto.commandQueueEntry
         if entry.HasField('queueName'):
             return entry.queueName
@@ -126,7 +126,7 @@ class IssuedCommand(object):
     @property
     def origin(self):
         """
-        Return the origin of the issued command. This is often empty, but may
+        The origin of the issued command. This is often empty, but may
         also be a hostname.
         """
         entry = self._proto.commandQueueEntry
@@ -137,7 +137,7 @@ class IssuedCommand(object):
     @property
     def sequence_number(self):
         """
-        Return the sequence number of the issued command. This is the sequence
+        The sequence number of the issued command. This is the sequence
         number assigned by the issuing client.
         """
         entry = self._proto.commandQueueEntry
@@ -148,7 +148,7 @@ class IssuedCommand(object):
     @property
     def source(self):
         """
-        Return the source of the command. This may be simply the username,
+        The source of the command. This may be simply the username,
         or in some cases a string in the fomat 'USER@HOST'.
         """
         if self._proto.HasField('source'):
@@ -157,14 +157,14 @@ class IssuedCommand(object):
 
     @property
     def hex(self):
-        """Return a hexadecimal string representation of this command."""
+        """Hexadecimal string representation of this command."""
         if self._proto.HasField('hex'):
             return self._proto.hex
         return None
 
     @property
     def binary(self):
-        """Return the binary representation of this command."""
+        """Binary representation of this command."""
         if self._proto.HasField('binary'):
             return self._proto.binary
         return None
@@ -204,7 +204,7 @@ class ParameterValue(object):
     @property
     def generation_time(self):
         """
-        Returns the time when the parameter was generated. If the parameter
+        The time when the parameter was generated. If the parameter
         was extracted from a packet, this usually returns the packet time.
 
         :rtype: :class:`~datetime.datetime`
@@ -216,7 +216,7 @@ class ParameterValue(object):
     @property
     def reception_time(self):
         """
-        Return the time when the parameter value was received by Yamcs.
+        The time when the parameter value was received by Yamcs.
 
         :rtype: :class:`~datetime.datetime`
         """
@@ -227,7 +227,7 @@ class ParameterValue(object):
     @property
     def validity_duration(self):
         """
-        Return how long this parameter value is valid.
+        How long this parameter value is valid.
 
         .. note: There is also an option when subscribing to get updated when
                  the parameter values expire.
@@ -241,7 +241,7 @@ class ParameterValue(object):
     @property
     def raw_value(self):
         """
-        Return the raw (uncalibrated) value.
+        The raw (uncalibrated) value.
 
         :rtype: any
         """
@@ -252,7 +252,7 @@ class ParameterValue(object):
     @property
     def eng_value(self):
         """
-        Return the engineering (calibrated) value.
+        The engineering (calibrated) value.
 
         :rtype: any
         """

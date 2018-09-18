@@ -28,6 +28,49 @@ Fetch the MDB definition of a single item:
 
     voltage1 = client.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
 
-ProcessorClient
----------------
+Reference
+---------
 
+ProcessorClient
+^^^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.ProcessorClient
+    :members:
+    :undoc-members:
+
+IssuedCommand
+^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.model.IssuedCommand
+    :members:
+    :undoc-members:
+
+ParameterData
+^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.model.ParameterData
+    :members:
+    :undoc-members:
+
+ParameterValue
+^^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.model.ParameterValue
+    :members:
+    :undoc-members:
+
+CommandHistorySubscriptionFuture
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.client.CommandHistorySubscriptionFuture
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+ParameterSubscriptionFuture
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. autoclass:: yamcs.tmtc.client.ParameterSubscriptionFuture
+    :members:
+    :undoc-members:
+    :show-inheritance:
