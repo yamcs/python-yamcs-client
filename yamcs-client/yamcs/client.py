@@ -1,3 +1,4 @@
+from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.mdb.client import MDBClient
 from yamcs.tmtc.client import ProcessorClient
@@ -22,6 +23,14 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         """
         return MDBClient(self, instance)
+
+    def get_archive(self, instance):
+        """
+        Return an object for working with the Archive of the specified instance.
+
+        :param str instance: A Yamcs instance name.
+        """
+        return ArchiveClient(self, instance)
 
     def get_processor(self, instance, processor):
         """

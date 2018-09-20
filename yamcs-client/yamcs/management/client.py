@@ -4,8 +4,9 @@ from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.management import management_pb2
-from yamcs.protobuf.monitoring import monitoring_pb2
+from yamcs.protobuf.rest import rest_pb2
+from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
 def _wrap_callback_parse_time_info(callback, message):
@@ -14,7 +15,7 @@ def _wrap_callback_parse_time_info(callback, message):
     from a WebSocket data message
     """
     if message.type == message.REPLY:
-        time_response = monitoring_pb2.TimeSubscriptionResponse()
+        time_response = web_pb2.TimeSubscriptionResponse()
         time_response.ParseFromString(message.reply.data)
         callback(time_response.timeInfo)
     elif message.type == message.DATA:
@@ -49,7 +50,7 @@ class ManagementClient(object):
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self._client.get_proto(path='links/' + parent)
-        message = management_pb2.ListLinksResponse()
+        message = rest_pb2.ListLinkInfoResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
         return iter(links)
@@ -59,10 +60,10 @@ class ManagementClient(object):
         Gets a single data link by its unique name.
 
         :param str name: The name of the data link. For example: ``links/:instance/:link``
-        :rtype: :class:`yamcs.protobuf.management.management_pb2.LinkInfo`
+        :rtype: :class:`yamcs.protobuf.rest.rest_pb2.LinkInfo`
         """
         response = self._client.get_proto(name)
-        message = management_pb2.LinkInfo()
+        message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return message
 

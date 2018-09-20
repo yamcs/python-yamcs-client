@@ -1,6 +1,7 @@
+from yamcs.archive.model import IndexChunk
 from yamcs.core import pagination
-from yamcs.core.helpers import adapt_name_for_rest
-from yamcs.protobuf.mdb import mdb_pb2
+from yamcs.core.helpers import to_isostring
+from yamcs.protobuf.archive import archive_pb2
 
 
 class ArchiveClient(object):
@@ -10,40 +11,171 @@ class ArchiveClient(object):
         self._client = client
         self._instance = instance
 
-    def calculate_completeness(self, start, stop):
+    def list_packet_names(self):
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        path = '/archive/{}/packet-names'.format(self._instance)
+        response = self._client.get_proto(path=path)
+        message = archive_pb2.GetPacketNamesResponse()
+        message.ParseFromString(response.content)
+        names = getattr(message, 'name')
+        return iter(names)
+
+
+    def list_packet_histogram(self, name=None, start=None, stop=None, merge_time=2000):
         """
-        Calculates the percentual completion of a range.
+        Reads packet-related index records between the specified start and stop
+        time.
 
-        Parameters are returned in lexicographical order.
+        Each iteration returns a chunk of chronologically-sorted records.
 
-        :param str parameter_type: (Optional) The type of parameter
-        :rtype: ParameterInfo iterator
+        :rtype: :class:`.IndexChunk` iterator
         """
         params = {}
-
-        if parameter_type is not None:
-            params['type'] = parameter_type
-        if page_size is not None:
-            params['limit'] = page_size
+        if name is not None:
+            params['name'] = name
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if merge_time is not None:
+            params['mergeTime'] = merge_time
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/parameters'.format(self._instance),
+            path='/archive/{}/packet-index'.format(self._instance),
             params=params,
-            response_class=mdb_pb2.ListParametersResponse,
-            items_key='parameter',
+            response_class=archive_pb2.IndexResponse,
+            items_key='group',
+            item_mapper=IndexChunk,
         )
 
-    def get_parameter(self, name):
-        """
-        Gets a single parameter by its name.
-
-        :param str name: Either a fully-qualified XTCE name or an alias in the
-                         format ``NAMESPACE/NAME``.
-        """
-        name = adapt_name_for_rest(name)
-        url = '/mdb/{}/parameters{}'.format(self._instance, name)
-        response = self._client.get_proto(url)
-        message = mdb_pb2.ParameterInfo()
+    def list_processed_parameter_groups(self):
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        path = '/archive/{}/parameter-groups'.format(self._instance)
+        response = self._client.get_proto(path=path)
+        message = archive_pb2.ParameterGroupInfo()
         message.ParseFromString(response.content)
-        return message
+        groups = getattr(message, 'group')
+        return iter(groups)
+
+    def list_processed_parameter_group_histogram(self, group=None, start=None, stop=None, merge_time=None):
+        """
+        Reads index records related to processed parameter groups between the
+        specified start and stop time.
+
+        Each iteration returns a chunk of chronologically-sorted records.
+
+        :rtype: :class:`.IndexChunk` iterator
+        """
+        params = {}
+        if group is not None:
+            params['group'] = group
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if merge_time is not None:
+            params['mergeTime'] = merge_time
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/parameter-index'.format(self._instance),
+            params=params,
+            response_class=archive_pb2.IndexResponse,
+            items_key='group',
+            item_mapper=IndexChunk,
+        )
+
+    def list_event_sources(self):
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        path = '/archive/{}/events/sources'.format(self._instance)
+        response = self._client.get_proto(path=path)
+        message = archive_pb2.EventSourceInfo()
+        message.ParseFromString(response.content)
+        sources = getattr(message, 'source')
+        return iter(sources)
+
+    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=None):
+        """
+        Reads event-related index records between the specified start and stop
+        time.
+
+        Each iteration returns a chunk of chronologically-sorted records.
+
+        :rtype: :class:`.IndexChunk` iterator
+        """
+        params = {}
+        if source is not None:
+            params['source'] = source
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if merge_time is not None:
+            params['mergeTime'] = merge_time
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/event-index'.format(self._instance),
+            params=params,
+            response_class=archive_pb2.IndexResponse,
+            items_key='group',
+            item_mapper=IndexChunk,
+        )
+
+    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=None):
+        """
+        Reads command-related index records between the specified start and stop
+        time.
+
+        Each iteration returns a chunk of chronologically-sorted records.
+
+        :rtype: :class:`.IndexChunk` iterator
+        """
+        params = {}
+        if name is not None:
+            params['name'] = name
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if merge_time is not None:
+            params['mergeTime'] = merge_time
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/command-index'.format(self._instance),
+            params=params,
+            response_class=archive_pb2.IndexResponse,
+            items_key='group',
+            item_mapper=IndexChunk,
+        )
+
+    def list_completeness_index(self, start=None, stop=None):
+        """
+        Reads completeness index records between the specified start and stop
+        time.
+
+        Each iteration returns a chunk of chronologically-sorted records.
+
+        :rtype: :class:`.IndexChunk` iterator
+        """
+        params = {}
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+
+        print(params)
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/completeness-index'.format(self._instance),
+            params=params,
+            response_class=archive_pb2.IndexResponse,
+            items_key='group',
+            item_mapper=IndexChunk,
+        )

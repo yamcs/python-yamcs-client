@@ -6,7 +6,7 @@
 # Details: https://github.com/google/protobuf/issues/1491
 
 rm -rf yamcs/protobuf/
-cp -r ../yamcs/yamcs-api/src/main/proto/ .
+cp -r ../../yamcs/yamcs-api/src/main/proto/ .
 
 protoc --proto_path=. --python_out=. `find yamcs/protobuf -name '*.proto'`
 

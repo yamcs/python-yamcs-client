@@ -31,10 +31,10 @@ class Iterator(object):
         if self.page_number == 0 or self._continuation_token:
             params = dict(self.params)
 
-            # 'continue' is only allowed to be used by this class
-            params.pop('continue', None)
+            # 'next' is only allowed to be used by this class
+            params.pop('next', None)
             if self._continuation_token is not None:
-                params['continue'] = self._continuation_token
+                params['next'] = self._continuation_token
 
             response = self.client.get_proto(path=self.path, params=params)
             message = self.response_class()

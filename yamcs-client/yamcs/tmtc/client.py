@@ -6,7 +6,7 @@ from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.commanding import commanding_pb2
-from yamcs.protobuf.management import management_pb2
+from yamcs.protobuf.web import web_pb2
 from yamcs.tmtc.model import CommandHistoryRecord, IssuedCommand, ParameterData
 
 
@@ -28,7 +28,7 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     from a WebSocket data message
     """
     if message.type == message.REPLY:
-        data = management_pb2.ParameterSubscriptionResponse()
+        data = web_pb2.ParameterSubscriptionResponse()
         data.ParseFromString(message.reply.data)
         subscription.subscription_id = data.subscriptionId
     elif (message.type == message.DATA and
@@ -158,7 +158,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         if not parameters:
             return
 
-        options = management_pb2.ParameterSubscriptionRequest()
+        options = web_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = self.subscription_id
         options.abortOnInvalid = abort_on_invalid
         options.sendFromCache = send_from_cache
@@ -179,7 +179,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         if not parameters:
             return
 
-        options = management_pb2.ParameterSubscriptionRequest()
+        options = web_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = self.subscription_id
         options.id.extend(_build_named_object_ids(parameters))
 
@@ -281,7 +281,7 @@ class ProcessorClient(object):
         :rtype: A :class:`.ParameterSubscriptionFuture` object that can be
                 used to manage the background websocket subscription.
         """
-        options = management_pb2.ParameterSubscriptionRequest()
+        options = web_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = -1  # This means 'create a new subscription'
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
