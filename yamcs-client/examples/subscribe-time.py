@@ -5,15 +5,21 @@ from time import sleep
 from yamcs.client import YamcsClient
 
 
-def callback(message):
-    print('Mission time: {}'.format(message.currentTimeUTC))
+def callback(dt):
+    print('Mission time:', dt)
 
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
-    client.create_time_subscription('simulator', callback)
+    subscription = client.create_time_subscription('simulator', callback)
 
-    # The subscription is non-blocking. Prevent the main
-    # thread from exiting
-    while True:
-        sleep(10)
+    sleep(6)
+
+    print('-----')
+    # You don't have to use the on_data callback. You can also
+    # directly retrieve the latest data link state from a local cache:
+    print('Last time from cache:', subscription.time)
+
+    # But then you maybe don't need a subscription, so do simply:
+    time = client.get_time('simulator')
+    print('Mission time (fresh from server)', time)

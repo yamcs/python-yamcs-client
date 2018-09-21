@@ -3,6 +3,7 @@ import functools
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
+from yamcs.core.helpers import parse_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
 from yamcs.model import Link, LinkEvent
@@ -13,7 +14,7 @@ from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
 
-def _wrap_callback_parse_time_info(on_data, message):
+def _wrap_callback_parse_time_info(subscription, on_data, message):
     """
     Wraps a user callback to parse TimeInfo
     from a WebSocket data message
@@ -21,11 +22,19 @@ def _wrap_callback_parse_time_info(on_data, message):
     if message.type == message.REPLY:
         time_response = web_pb2.TimeSubscriptionResponse()
         time_response.ParseFromString(message.reply.data)
-        on_data(time_response.timeInfo)
+        time = parse_isostring(time_response.timeInfo.currentTimeUTC)
+        #pylint: disable=protected-access
+        subscription._process(time)
+        if on_data:
+            on_data(time)
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.TIME_INFO:
             time_message = getattr(message.data, 'timeInfo')
-            on_data(time_message)
+            time = parse_isostring(time_message.currentTimeUTC)
+            #pylint: disable=protected-access
+            subscription._process(time)
+            if on_data:
+                on_data(time)
 
 
 def _wrap_callback_parse_link_event(subscription, on_data, message):
@@ -41,6 +50,23 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
             subscription._process(link_event)
             if on_data:
                 on_data(link_event)
+
+
+class TimeSubscriptionFuture(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to time updates.
+
+    A subscription object stores the last time info.
+    """
+
+    def __init__(self, manager):
+        super(TimeSubscriptionFuture, self).__init__(manager)
+
+        self.time = None
+        """The last time info."""
+
+    def _process(self, time):
+        self.time = time
 
 
 class DataLinkSubscriptionFuture(WebSocketSubscriptionFuture):
@@ -89,6 +115,19 @@ class YamcsClient(BaseClient):
 
     def __init__(self, address, **kwargs):
         super(YamcsClient, self).__init__(address, **kwargs)
+
+    def get_time(self, instance):
+        """
+        Return the current mission time for the specified instance.
+        :rtype :class:`datetime`
+        """
+        url = '/instances/{}'.format(instance)
+        response = self.get_proto(url)
+        message = yamcsManagement_pb2.YamcsInstance()
+        message.ParseFromString(response.content)
+        if message.HasField('missionTime'):
+            return parse_isostring(message.missionTime)
+        return None
 
     def get_mdb(self, instance):
         """
@@ -181,7 +220,7 @@ class YamcsClient(BaseClient):
         return subscription
 
 
-    def create_time_subscription(self, instance, on_data, timeout=60):
+    def create_time_subscription(self, instance, on_data=None, timeout=60):
         """
         Create a new subscription for receiving time updates of an instance.
         Time updates are emitted at 1Hz.
@@ -193,15 +232,17 @@ class YamcsClient(BaseClient):
         :param on_data: Function that gets called on each message.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.WebSocketSubscriptionFuture`
+        :rtype: A :class:`.TimeSubscriptionFuture`
                 object that can be used to manage the background websocket
                 subscription.
         """
         manager = WebSocketSubscriptionManager(self, resource='time')
-        subscription = WebSocketSubscriptionFuture(manager)
+
+        # Represent subscription as a future
+        subscription = TimeSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_time_info, on_data)
+            _wrap_callback_parse_time_info, subscription, on_data)
 
         manager.open(wrapped_callback, instance)
 
