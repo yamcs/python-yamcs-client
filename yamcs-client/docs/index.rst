@@ -7,6 +7,7 @@ Yamcs Client Library for Python
 
    mdb/api
    tmtc/api
+   archive/api
    management/api
 
 Getting Started
