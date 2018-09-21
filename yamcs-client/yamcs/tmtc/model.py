@@ -142,7 +142,7 @@ class IssuedCommand(object):
         """
         entry = self._proto.commandQueueEntry
         if entry.cmdId.HasField('sequenceNumber'):
-            return parse_isostring(entry.cmdId.sequenceNumber)
+            return entry.cmdId.sequenceNumber
         return None
 
     @property

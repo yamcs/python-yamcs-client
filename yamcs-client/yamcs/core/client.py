@@ -1,3 +1,5 @@
+from exceptions import NotFound
+
 import requests
 
 
@@ -53,5 +55,8 @@ class BaseClient(object):
     def request(self, method, path, **kwargs):
         path = '{}{}'.format(self.api_root, path)
         response = requests.request(method, path, **kwargs)
-        response.raise_for_status()
+        if response.status_code == 404:
+            raise NotFound()
+        else:
+            response.raise_for_status()
         return response

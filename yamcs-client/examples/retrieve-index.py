@@ -66,3 +66,18 @@ for apid, records in records_by_apid.iteritems():
     for rec in records:
         count += rec.count
     print('  {: <40} {: >20}'.format(apid, count))
+
+count = 0
+for packet in archive.list_packets(start=now - timedelta(hours=1), stop=now, page_size=1000):
+    count += 1
+    # print(packet)
+
+print('total ', count)
+
+first_packet = next(iter(archive.list_packets()))
+last_packet = next(iter(archive.list_packets(descending=True)))
+print('First packet:', first_packet)
+print('Last packet:', last_packet)
+
+same_packet = archive.get_packet(last_packet.generation_time, 123)
+print('same? ', same_packet)

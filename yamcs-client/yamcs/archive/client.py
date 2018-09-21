@@ -1,7 +1,9 @@
-from yamcs.archive.model import IndexChunk
+from yamcs.archive.model import IndexChunk, Packet
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
+from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
+from yamcs.protobuf.rest import rest_pb2
 
 
 class ArchiveClient(object):
@@ -60,7 +62,7 @@ class ArchiveClient(object):
         groups = getattr(message, 'group')
         return iter(groups)
 
-    def list_processed_parameter_group_histogram(self, group=None, start=None, stop=None, merge_time=None):
+    def list_processed_parameter_group_histogram(self, group=None, start=None, stop=None, merge_time=20000):
         """
         Reads index records related to processed parameter groups between the
         specified start and stop time.
@@ -98,7 +100,7 @@ class ArchiveClient(object):
         sources = getattr(message, 'source')
         return iter(sources)
 
-    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=None):
+    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=2000):
         """
         Reads event-related index records between the specified start and stop
         time.
@@ -126,7 +128,7 @@ class ArchiveClient(object):
             item_mapper=IndexChunk,
         )
 
-    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=None):
+    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=2000):
         """
         Reads command-related index records between the specified start and stop
         time.
@@ -179,3 +181,47 @@ class ArchiveClient(object):
             items_key='group',
             item_mapper=IndexChunk,
         )
+
+    def list_packets(self, name=None, start=None, stop=None, page_size=500, descending=False):
+        """
+        Reads packet information between the specified start and stop
+        time.
+
+        Packets are sorted by generation time and sequence number.
+
+        :rtype: :class:`.Packet` iterator
+        """
+        params = {
+            'order': 'desc' if descending else 'asc',
+        }
+        if name is not None:
+            params['name'] = name
+        if page_size is not None:
+            params['limit'] = page_size
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/packets'.format(self._instance),
+            params=params,
+            response_class=rest_pb2.ListPacketsResponse,
+            items_key='packet',
+            item_mapper=Packet,
+        )
+
+    def get_packet(self, generation_time, sequenceNumber):
+        """
+        Gets a single packet by its identifying key (gentime, seqNum).
+
+        :param generation_time: datetime.
+        :rtype: :class:`.Packet`
+        """
+        url = '/archive/{}/packets/{}/{}'.format(
+            self._instance, to_isostring(generation_time), sequenceNumber)
+        response = self._client.get_proto(url)
+        message = yamcs_pb2.TmPacketData()
+        message.ParseFromString(response.content)
+        return Packet(message)
