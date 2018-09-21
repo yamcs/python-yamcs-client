@@ -11,7 +11,7 @@ def callback(message):
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
-    client.subscribe_time('simulator', callback)
+    client.create_time_subscription('simulator', callback)
 
     # The subscription is non-blocking. Prevent the main
     # thread from exiting

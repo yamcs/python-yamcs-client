@@ -235,6 +235,9 @@ class ProcessorClient(object):
         """
         Create a new command history subscription.
 
+        :param on_data: Function that gets called on each message.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
         :rtype: A :class:`.CommandHistorySubscriptionFuture` object that can be
                 used to manage the background websocket subscription.
         """
@@ -265,6 +268,7 @@ class ProcessorClient(object):
         Create a new parameter subscription.
 
         :param str[] parameters: Parameter names (or aliases).
+        :param on_data: Function that gets called on each message.
         :param bool abort_on_invalid: If ``True`` an error is generated when
                                       invalid parameters are specified.
         :param bool update_on_expiration: If ``True`` an update is received
@@ -277,6 +281,8 @@ class ProcessorClient(object):
                                      value is sent from parameter cache.
                                      When ``False`` only newly processed
                                      parameters are received.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
 
         :rtype: A :class:`.ParameterSubscriptionFuture` object that can be
                 used to manage the background websocket subscription.

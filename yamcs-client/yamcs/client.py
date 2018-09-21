@@ -5,6 +5,7 @@ from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
+from yamcs.model import Link, LinkEvent
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -12,7 +13,7 @@ from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
 
-def _wrap_callback_parse_time_info(callback, message):
+def _wrap_callback_parse_time_info(on_data, message):
     """
     Wraps a user callback to parse TimeInfo
     from a WebSocket data message
@@ -20,11 +21,61 @@ def _wrap_callback_parse_time_info(callback, message):
     if message.type == message.REPLY:
         time_response = web_pb2.TimeSubscriptionResponse()
         time_response.ParseFromString(message.reply.data)
-        callback(time_response.timeInfo)
+        on_data(time_response.timeInfo)
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.TIME_INFO:
             time_message = getattr(message.data, 'timeInfo')
-            callback(time_message)
+            on_data(time_message)
+
+
+def _wrap_callback_parse_link_event(subscription, on_data, message):
+    """
+    Wraps a user callback to parse LinkEvents
+    from a WebSocket data message
+    """
+    if message.type == message.DATA:
+        if message.data.type == yamcs_pb2.LINK_EVENT:
+            link_message = getattr(message.data, 'linkEvent')
+            link_event = LinkEvent(link_message)
+            #pylint: disable=protected-access
+            subscription._process(link_event)
+            if on_data:
+                on_data(link_event)
+
+
+class DataLinkSubscriptionFuture(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to data link updates.
+
+    A subscription object stores the last link info for
+    each link.
+    """
+
+    def __init__(self, manager):
+        super(DataLinkSubscriptionFuture, self).__init__(manager)
+
+        self._cache = {}
+        """Link cache keyed by name."""
+
+    def get_data_link(self, name):
+        """
+        Returns the latest link info.
+        """
+        if name in self._cache:
+            return self._cache[name]
+        return None
+
+    def list_data_links(self):
+        """
+        Returns a snapshot of all instance links.
+        """
+        return [self._cache[k] for k in self._cache]
+
+    def _process(self, link_event):
+        if link_event.event_type == 'UNREGISTERED':
+            del self._cache[link_event.link.name]
+        else:
+            self._cache[link_event.link.name] = link_event.link
 
 
 class YamcsClient(BaseClient):
@@ -35,13 +86,6 @@ class YamcsClient(BaseClient):
 
     :param str address: The address to the Yamcs server in the format 'host:port'
     """
-
-    @classmethod
-    def data_link_path(cls, instance, link):
-        """
-        Return  the resource path for a data link.
-        """
-        return 'links/{}/{}'.format(instance, link)
 
     def __init__(self, address, **kwargs):
         super(YamcsClient, self).__init__(address, **kwargs)
@@ -74,37 +118,70 @@ class YamcsClient(BaseClient):
         """
         return ProcessorClient(self, instance, processor)
 
-    def list_data_links(self, parent):
+    def list_data_links(self, instance):
         """
         Lists the data links visible to this client.
 
         Data links are returned in random order.
 
-        :param str parent: The instance name
-        :rtype: :class:`yamcs.protobuf.rest.rest_pb2.LinkInfo` iterator
+        :param str instance: A Yamcs instance name
+        :rtype: :class:`.LinkEvent` iterator
         """
 
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='links/' + parent)
+        response = self.get_proto(path='links/' + instance)
         message = rest_pb2.ListLinkInfoResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
         return iter(links)
 
-    def get_data_link(self, name):
+    def get_data_link(self, instance, link):
         """
-        Gets a single data link by its unique name.
+        Gets a single data link.
 
-        :param str name: The name of the data link. For example: ``links/:instance/:link``
-        :rtype: :class:`yamcs.protobuf.rest.rest_pb2.LinkInfo`
+        :param str instance: A Yamcs instance name
+        :param str link: The name of the data link.
+        :rtype: :class:`.Link`
         """
-        response = self.get_proto(name)
+        response = self.get_proto('links/{}/{}'.format(instance, link))
         message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
-        return message
+        return Link(message)
 
-    def subscribe_time(self, instance, callback, timeout=60):
+
+    def create_data_link_subscription(self, instance, on_data=None, timeout=60):
+        """
+        Create a new subscription for receiving data link updates of an instance.
+
+        This method returns a future, then returns immediately. Stop the
+        subscription by canceling the future.
+
+        :param str instance: A Yamcs instance name
+        :param on_data: Function that gets called on each message.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :rtype: A :class:`.DataLinkSubscriptionFuture`
+                object that can be used to manage the background websocket
+                subscription.
+        """
+        manager = WebSocketSubscriptionManager(self, resource='links')
+        
+        # Represent subscription as a future
+        subscription = DataLinkSubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_link_event, subscription, on_data)
+
+        manager.open(wrapped_callback, instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+
+    def create_time_subscription(self, instance, on_data, timeout=60):
         """
         Create a new subscription for receiving time updates of an instance.
         Time updates are emitted at 1Hz.
@@ -112,7 +189,11 @@ class YamcsClient(BaseClient):
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :rtype: A :class:`~yamcs.core.futures.WebSocketSubscriptionFuture`
+        :param str instance: A Yamcs instance name
+        :param on_data: Function that gets called on each message.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :rtype: A :class:`.WebSocketSubscriptionFuture`
                 object that can be used to manage the background websocket
                 subscription.
         """
@@ -120,7 +201,7 @@ class YamcsClient(BaseClient):
         subscription = WebSocketSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_time_info, callback)
+            _wrap_callback_parse_time_info, on_data)
 
         manager.open(wrapped_callback, instance)
 
