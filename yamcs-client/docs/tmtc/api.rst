@@ -10,23 +10,11 @@ Query the Mission Database:
 
 .. code-block:: python
 
-    from yamcs.tmtc import ProcessorClient
+    from yamcs.client import YamcsClient
 
-    client = ProcessorClient('localhost:8090')
+    client = YamcsClient('localhost:8090')
+    processor = client.get_processor(instance='simulator', processor='realtime')
 
-    for parameter in client.list_parameters():
-        print(parameter.qualifiedName)
-
-
-Fetch the MDB definition of a single item:
-
-.. code-block:: python
-
-    from yamcs.mdb import MDBClient
-
-    client = MDBClient('localhost', 8090, instance='simulator')
-
-    voltage1 = client.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
 
 Reference
 ---------
@@ -34,7 +22,7 @@ Reference
 ProcessorClient
 ^^^^^^^^^^^^^^^
 
-.. autoclass:: yamcs.tmtc.ProcessorClient
+.. autoclass:: yamcs.tmtc.client.ProcessorClient
     :members:
     :undoc-members:
 

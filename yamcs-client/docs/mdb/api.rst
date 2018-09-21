@@ -43,7 +43,7 @@ Query the Mission Database:
 
 .. code-block:: python
 
-    from yamcs import YamcsClient
+    from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
 
@@ -61,7 +61,7 @@ Fetch the MDB definition of a single item:
 
 .. code-block:: python
 
-    from yamcs import YamcsClient
+    from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
 
@@ -76,7 +76,7 @@ Reference
 MDBClient
 ^^^^^^^^^
 
-.. autoclass:: yamcs.mdb.MDBClient
+.. autoclass:: yamcs.mdb.client.MDBClient
     :members:
     :undoc-members:
 

@@ -6,17 +6,17 @@ The Archive API provides methods that you can use to programmatically retrieve t
 Usage
 -----
 
-Query the Mission Database:
+Query the Archive of an instance:
 
 .. code-block:: python
 
     from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
-    archive = client.get_archive('simulator')
+    archive = client.get_archive(instance='simulator')
 
-    for parameter in client.list_parameters():
-        print(parameter.qualifiedName)
+    for name in client.list_packet_names():
+        print(name)
 
 
 Reference
@@ -25,7 +25,7 @@ Reference
 ArchiveClient
 ^^^^^^^^^^^^^
 
-.. autoclass:: yamcs.archive.ArchiveClient
+.. autoclass:: yamcs.archive.client.ArchiveClient
     :members:
     :undoc-members:
 
