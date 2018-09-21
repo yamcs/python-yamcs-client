@@ -1,6 +1,7 @@
 from yamcs.archive.model import IndexChunk, Packet
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
+from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.rest import rest_pb2
@@ -171,8 +172,6 @@ class ArchiveClient(object):
         if stop is not None:
             params['stop'] = to_isostring(stop)
 
-        print(params)
-
         return pagination.Iterator(
             client=self._client,
             path='/archive/{}/completeness-index'.format(self._instance),
@@ -225,3 +224,37 @@ class ArchiveClient(object):
         message = yamcs_pb2.TmPacketData()
         message.ParseFromString(response.content)
         return Packet(message)
+
+    def list_events(self, source=None, severity=None, text_filter=None,
+                    start=None, stop=None, page_size=500, descending=False):
+        """
+        Reads events between the specified start and stop time.
+
+        Events are sorted by generation time and sequence number.
+
+        :rtype: :class:`.Event` iterator
+        """
+        params = {
+            'order': 'desc' if descending else 'asc',
+        }
+        if source is not None:
+            params['source'] = source
+        if page_size is not None:
+            params['limit'] = page_size
+        if severity is not None:
+            params['severity'] = severity
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if text_filter is not None:
+            params['q'] = text_filter
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/events'.format(self._instance),
+            params=params,
+            response_class=rest_pb2.ListEventsResponse,
+            items_key='event',
+            item_mapper=Event,
+        )

@@ -1,3 +1,6 @@
+from yamcs.protobuf.mdb import mdb_pb2
+
+
 class Algorithm(object):
 
     def __init__(self, proto):
@@ -74,7 +77,7 @@ class Parameter(object):
     def data_source(self):
         """Specifies how this parameter originated (example: ``TELEMETERED``)"""
         if self._proto.HasField('dataSource'):
-            return self._proto.dataSource
+            return mdb_pb2.DataSourceType.Name(self._proto.dataSource)
         return None
 
     def __str__(self):

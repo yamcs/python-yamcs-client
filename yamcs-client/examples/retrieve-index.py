@@ -3,7 +3,6 @@ from __future__ import print_function
 from datetime import datetime, timedelta
 
 from yamcs.client import YamcsClient
-from yamcs.core.helpers import to_isostring
 
 client = YamcsClient('localhost:8090')
 
@@ -79,5 +78,9 @@ last_packet = next(iter(archive.list_packets(descending=True)))
 print('First packet:', first_packet)
 print('Last packet:', last_packet)
 
-same_packet = archive.get_packet(last_packet.generation_time, 123)
-print('same? ', same_packet)
+count = 0
+for packet in archive.list_events(start=now - timedelta(hours=1), stop=now, page_size=1000):
+    count += 1
+    # print(packet)
+
+print('total events ', count)

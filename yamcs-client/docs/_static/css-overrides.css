@@ -5,3 +5,9 @@ div.body {
 .attribute code.descname, .method code.descname {
     background-color: #ffe4b5;
 }
+
+a.reference .pre {
+    font-weight: normal;
+    border-bottom: 1px dotted#004B6B;
+    color: #004B6B;
+}

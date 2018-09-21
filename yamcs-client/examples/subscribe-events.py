@@ -1,12 +1,19 @@
 from __future__ import print_function
 
-import websocket
+from time import sleep
 
-ws = websocket.WebSocket()
-wsaddr = "ws://localhost:8090/_websocket/simulator"
-ws.connect(wsaddr)
+from yamcs.client import YamcsClient
 
-ws.send('[1,1,3, {"events": "subscribe"}]')
-while True:
-    result = ws.recv()
-    print("Received '%s'" % result)
+
+def callback(event):
+    print('Event:', event)
+
+
+if __name__ == '__main__':
+    client = YamcsClient('localhost:8090')
+    subscription = client.create_event_subscription('simulator', callback)
+
+    # The subscription is non-blocking. Prevent the main
+    # thread from exiting
+    while True:
+        sleep(10)

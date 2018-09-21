@@ -6,7 +6,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import Link, LinkEvent
+from yamcs.model import Event, Link, LinkEvent
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -35,6 +35,18 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
             subscription._process(time)
             if on_data:
                 on_data(time)
+
+
+def _wrap_callback_parse_event(on_data, message):
+    """
+    Wraps a user callback to parse Events
+    from a WebSocket data message
+    """
+    if message.type == message.DATA:
+        if message.data.type == yamcs_pb2.EVENT:
+            event = Event(getattr(message.data, 'event'))
+            #pylint: disable=protected-access
+            on_data(event)
 
 
 def _wrap_callback_parse_link_event(subscription, on_data, message):
@@ -188,7 +200,6 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         return Link(message)
 
-
     def create_data_link_subscription(self, instance, on_data=None, timeout=60):
         """
         Create a new subscription for receiving data link updates of an instance.
@@ -219,7 +230,6 @@ class YamcsClient(BaseClient):
 
         return subscription
 
-
     def create_time_subscription(self, instance, on_data=None, timeout=60):
         """
         Create a new subscription for receiving time updates of an instance.
@@ -243,6 +253,36 @@ class YamcsClient(BaseClient):
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_time_info, subscription, on_data)
+
+        manager.open(wrapped_callback, instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def create_event_subscription(self, instance, on_data, timeout=60):
+        """
+        Create a new subscription for receiving events of an instance.
+
+        This method returns a future, then returns immediately. Stop the
+        subscription by canceling the future.
+
+        :param str instance: A Yamcs instance name
+        :param on_data: Function that gets called on each message.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :rtype: A :class:`.WebSocketSubscriptionFuture`
+                object that can be used to manage the background websocket
+                subscription.
+        """
+        manager = WebSocketSubscriptionManager(self, resource='events')
+
+        # Represent subscription as a future
+        subscription = WebSocketSubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_event, on_data)
 
         manager.open(wrapped_callback, instance)
 
