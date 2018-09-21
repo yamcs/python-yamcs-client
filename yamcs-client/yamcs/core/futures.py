@@ -6,9 +6,10 @@ from yamcs.core.exceptions import TimeoutError, YamcsError
 
 class Future(object):
 
-    """Future for capturing the asynchronous execution.
+    """Future for capturing asynchronous execution.
 
-    This interface is based on :class:`concurrent.futures.Future` available in Python 3.
+    This interface is based on :class:`concurrent.futures.Future` available in Python 3 (not
+    in Python 2).
     """
 
     @abc.abstractmethod
@@ -115,7 +116,7 @@ class WebSocketSubscriptionFuture(Future):
         self._result = None
         self._exception = None
         self._callbacks = []
-        
+
         self._completed = threading.Event()
         self._cancelled = False
 
@@ -182,7 +183,7 @@ class WebSocketSubscriptionFuture(Future):
         raise err
 
     def exception(self, timeout=None):
-        self._wait_on_event(self._completed)
+        self._wait_on_signal(self._completed, timeout)
 
         if self._result is not None:
             return None
@@ -207,10 +208,6 @@ class WebSocketSubscriptionFuture(Future):
         if self.done():
             fn(self)
         self._callbacks.append(fn)
-
-    def set_reply(self, reply):
-        self._reply = reply
-        self._replied.set()
 
     def set_result(self, result):
         assert not self.done()

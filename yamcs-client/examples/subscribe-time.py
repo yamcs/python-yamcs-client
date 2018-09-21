@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from time import sleep
 
-from yamcs.management import ManagementClient
+from yamcs.client import YamcsClient
 
 
 def callback(message):
@@ -10,7 +10,7 @@ def callback(message):
 
 
 if __name__ == '__main__':
-    client = ManagementClient('localhost:8090')
+    client = YamcsClient('localhost:8090')
     client.subscribe_time('simulator', callback)
 
     # The subscription is non-blocking. Prevent the main

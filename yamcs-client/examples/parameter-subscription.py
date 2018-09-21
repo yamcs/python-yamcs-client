@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from time import sleep
 
-from yamcs import YamcsClient
+from yamcs.client import YamcsClient
 
 
 def print_data(data):
