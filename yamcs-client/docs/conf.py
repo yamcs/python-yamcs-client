@@ -44,8 +44,8 @@ release = dist.version
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
     'sphinx.ext.doctest',
+    'sphinx.ext.intersphinx',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -170,6 +170,13 @@ texinfo_documents = [
      author, 'YamcsPythonClient', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+autoclass_content = 'both'
+
+intersphinx_mapping = {
+    'requests': ('http://docs.python-requests.org/en/master/', None),
+    'python': ('https://docs.python.org/3', None),
+}
 
 def setup(app):
     app.add_stylesheet('css-overrides.css')
