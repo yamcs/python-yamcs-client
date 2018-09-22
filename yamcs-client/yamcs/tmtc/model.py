@@ -5,7 +5,6 @@ from yamcs.protobuf.pvalue import pvalue_pb2
 
 
 class CommandHistoryEvent(object):
-
     def __init__(self, name, time, status):
         self.name = name
         self.time = time
@@ -18,7 +17,7 @@ class CommandHistoryEvent(object):
         return self.__repr__()
 
 
-class CommandHistoryRecord(object):
+class CommandHistory(object):
 
     # TODO Getter for 'ccsds-seqcount' required?
 
@@ -180,6 +179,9 @@ class ParameterData(object):
 
     @property
     def parameters(self):
+        """
+        :type: List[:class:`.ParameterValue`]
+        """
         return [ParameterValue(p) for p in self._proto.parameter]
 
 
@@ -262,6 +264,9 @@ class ParameterValue(object):
 
     @property
     def range_condition(self):
+        """
+        If the value is out of limits, this indicates ``LOW`` or ``HIGH``.
+        """
         if self._proto.HasField('rangeCondition'):
             return pvalue_pb2.RangeCondition.Name(self._proto.rangeCondition)
         return None

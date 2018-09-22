@@ -39,7 +39,7 @@ class MDBClient(object):
         Gets a single space system by its unique name.
 
         :param str name: A fully-qualified XTCE name
-        :rtype: :class:`.SpaceSystem`
+        :rtype: .SpaceSystem
         """
         url = '/mdb/{}/space-systems{}'.format(self._instance, name)
         response = self._client.get_proto(url)
@@ -77,7 +77,7 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
-        :rtype: :class:`.Parameter`
+        :rtype: .Parameter
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/parameters{}'.format(self._instance, name)
@@ -114,7 +114,7 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
-        :rtype: :class:`.Container`
+        :rtype: .Container
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/containers{}'.format(self._instance, name)
@@ -151,7 +151,7 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
-        :rtype: :class:`.Command`
+        :rtype: .Command
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/commands{}'.format(self._instance, name)
@@ -188,7 +188,7 @@ class MDBClient(object):
 
         :param str name: Either a fully-qualified XTCE name or an alias in the
                          format ``NAMESPACE/NAME``.
-        :rtype: :class:`.Algorithm`
+        :rtype: .Algorithm
         """
         name = adapt_name_for_rest(name)
         url = '/mdb/{}/algorithms{}'.format(self._instance, name)

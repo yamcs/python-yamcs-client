@@ -64,7 +64,7 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
                 on_data(link_event)
 
 
-class TimeSubscriptionFuture(WebSocketSubscriptionFuture):
+class TimeSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to time updates.
 
@@ -72,7 +72,7 @@ class TimeSubscriptionFuture(WebSocketSubscriptionFuture):
     """
 
     def __init__(self, manager):
-        super(TimeSubscriptionFuture, self).__init__(manager)
+        super(TimeSubscription, self).__init__(manager)
 
         self.time = None
         """The last time info."""
@@ -81,7 +81,7 @@ class TimeSubscriptionFuture(WebSocketSubscriptionFuture):
         self.time = time
 
 
-class DataLinkSubscriptionFuture(WebSocketSubscriptionFuture):
+class DataLinkSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to data link updates.
 
@@ -90,7 +90,7 @@ class DataLinkSubscriptionFuture(WebSocketSubscriptionFuture):
     """
 
     def __init__(self, manager):
-        super(DataLinkSubscriptionFuture, self).__init__(manager)
+        super(DataLinkSubscription, self).__init__(manager)
 
         self._cache = {}
         """Link cache keyed by name."""
@@ -211,14 +211,14 @@ class YamcsClient(BaseClient):
         :param on_data: Function that gets called on each message.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.DataLinkSubscriptionFuture`
+        :rtype: A :class:`.DataLinkSubscription`
                 object that can be used to manage the background websocket
                 subscription.
         """
         manager = WebSocketSubscriptionManager(self, resource='links')
         
         # Represent subscription as a future
-        subscription = DataLinkSubscriptionFuture(manager)
+        subscription = DataLinkSubscription(manager)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_link_event, subscription, on_data)
@@ -242,14 +242,14 @@ class YamcsClient(BaseClient):
         :param on_data: Function that gets called on each message.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.TimeSubscriptionFuture`
+        :rtype: A :class:`.TimeSubscription`
                 object that can be used to manage the background websocket
                 subscription.
         """
         manager = WebSocketSubscriptionManager(self, resource='time')
 
         # Represent subscription as a future
-        subscription = TimeSubscriptionFuture(manager)
+        subscription = TimeSubscription(manager)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_time_info, subscription, on_data)

@@ -8,10 +8,10 @@ The Archive API provides methods that you can use to programmatically retrieve t
     client
     model
 
-Examples
+Snippets
 --------
 
-Query the Archive of an instance:
+Create an :class:`.ArchiveClient` for a specific instance:
 
 .. code-block:: python
 
@@ -20,7 +20,70 @@ Query the Archive of an instance:
     client = YamcsClient('localhost:8090')
     archive = client.get_archive(instance='simulator')
 
-    for name in client.list_packet_names():
-        print(name)
 
-.. literalinclude:: ../../examples/retrieve-index.py
+Packet Retrieval
+^^^^^^^^^^^^^^^^
+
+Print the last 10 packets:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: print_last_packets
+    :start-after: """
+    :dedent: 4
+
+Print available range of archived packets:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: print_packet_range
+    :start-after: """
+    :dedent: 4
+
+Iterate a specific range of packets:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: iterate_specific_packet_range
+    :start-after: """
+    :dedent: 4
+
+
+Event Retrieval
+^^^^^^^^^^^^^^^
+
+Iterate a specific range of events:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: iterate_specific_event_range
+    :start-after: """
+    :dedent: 4
+
+
+Histogram Retrieval
+^^^^^^^^^^^^^^^^^^^
+
+Print the number of packets grouped by packet name:
+
+.. literalinclude:: ../../examples/archive-breakdown.py
+    :pyobject: print_packet_count
+    :start-after: """
+    :dedent: 4
+
+Print the number of events grouped by source:
+
+.. literalinclude:: ../../examples/archive-breakdown.py
+    :pyobject: print_event_count
+    :start-after: """
+    :dedent: 4
+
+Print the number of processed parameter frames grouped by group name:
+
+.. literalinclude:: ../../examples/archive-breakdown.py
+    :pyobject: print_pp_groups
+    :start-after: """
+    :dedent: 4
+
+Print the number of commands grouped by name:
+
+.. literalinclude:: ../../examples/archive-breakdown.py
+    :pyobject: print_command_count
+    :start-after: """
+    :dedent: 4

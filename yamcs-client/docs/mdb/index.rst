@@ -3,9 +3,10 @@ Mission Database
 
 The Mission Database API provides methods for reading the entries in a Yamcs Mission Database (MDB).
 
-.. note::
+.. toctree::
 
-    This API does not currently provide offline access to an MDB export.
+    client
+    model
 
 An MDB groups telemetry and command definitions for one or more *space systems*. The MDB is used to:
 
@@ -36,81 +37,42 @@ Some MDB entries may also define an alias. An alias is a unique name to address 
 When it comes to addressing entries via this API, it is usually allowed to provide either the fully-qualified XTCE name in the format ``/YSS/SIMULATOR/BatteryVoltage1`` or an alias in the format ``NAMESPACE/NAME``.
 
 
-Usage
------
+Snippets
+--------
 
-Query the Mission Database:
-
-.. code-block:: python
-
-    from yamcs.client import YamcsClient
-
-    client = YamcsClient('localhost:8090')
-
-    # Get the MDB of a particular instance
-    mdb = client.get_mdb(instance='simulator')
-
-    for parameter in mdb.list_parameters():
-        print(parameter.qualified_name)
-
-    for command in mdb.list_commands():
-        print(command.qualified_name)
-
-
-Fetch the MDB definition of a single item:
+Create an :class:`.MDBClient` for a specific instance:
 
 .. code-block:: python
 
     from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
-
-    # Get the MDB of a particular instance
     mdb = client.get_mdb(instance='simulator')
 
-    voltage1 = mdb.get_parameter('/YSS/SIMULATOR/BatteryVoltage1')
+Print all space systems:
 
-Reference
----------
+.. literalinclude:: ../../examples/query-mdb.py
+    :pyobject: print_space_systems
+    :start-after: """
+    :dedent: 4
 
-MDBClient
-^^^^^^^^^
+Print all parameters of type ``float``:
 
-.. autoclass:: yamcs.mdb.client.MDBClient
-    :members:
-    :undoc-members:
+.. literalinclude:: ../../examples/query-mdb.py
+    :pyobject: print_parameters
+    :start-after: """
+    :dedent: 4
 
-Algorithm
-^^^^^^^^^
+Print all commands:
 
-.. autoclass:: yamcs.mdb.model.Algorithm
-    :members:
-    :undoc-members:
+.. literalinclude:: ../../examples/query-mdb.py
+    :pyobject: print_commands
+    :start-after: """
+    :dedent: 4
 
-Command
-^^^^^^^
+Find a parameter by qualified name or alias:
 
-.. autoclass:: yamcs.mdb.model.Command
-    :members:
-    :undoc-members:
-
-Container
-^^^^^^^^^
-
-.. autoclass:: yamcs.mdb.model.Container
-    :members:
-    :undoc-members:
-
-Parameter
-^^^^^^^^^
-
-.. autoclass:: yamcs.mdb.model.Parameter
-    :members:
-    :undoc-members:
-
-SpaceSystem
-^^^^^^^^^^^
-
-.. autoclass:: yamcs.mdb.model.SpaceSystem
-    :members:
-    :undoc-members:
+.. literalinclude:: ../../examples/query-mdb.py
+    :pyobject: find_parameter
+    :start-after: """
+    :dedent: 4

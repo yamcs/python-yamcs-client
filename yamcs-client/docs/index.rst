@@ -7,9 +7,10 @@ Yamcs Client Library for Python
    :hidden:
 
    general/index
-   mdb/api
-   tmtc/api
+   mdb/index
+   tmtc/index
    archive/index
+   examples/index
 
 Getting Started
 ---------------

@@ -5,9 +5,9 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.commanding import commanding_pb2
+from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import CommandHistoryRecord, IssuedCommand, ParameterData
+from yamcs.tmtc.model import CommandHistory, IssuedCommand, ParameterData
 
 
 class SequenceGenerator(object):
@@ -83,7 +83,7 @@ def _build_named_object_ids(parameters):
     return named_object_list
 
 
-class CommandHistorySubscriptionFuture(WebSocketSubscriptionFuture):
+class CommandHistorySubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to command history updates.
     """
@@ -96,7 +96,7 @@ class CommandHistorySubscriptionFuture(WebSocketSubscriptionFuture):
             cmd_id.commandName)
 
     def __init__(self, manager):
-        super(CommandHistorySubscriptionFuture, self).__init__(manager)
+        super(CommandHistorySubscription, self).__init__(manager)
         self._cache = {}
 
     def _process(self, entry):
@@ -104,7 +104,7 @@ class CommandHistorySubscriptionFuture(WebSocketSubscriptionFuture):
         if key in self._cache:
             rec = self._cache[key]
         else:
-            rec = CommandHistoryRecord()
+            rec = CommandHistory()
             self._cache[key] = rec
 
         #pylint: disable=protected-access
@@ -112,7 +112,7 @@ class CommandHistorySubscriptionFuture(WebSocketSubscriptionFuture):
         return rec
 
 
-class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
+class ParameterSubscription(WebSocketSubscriptionFuture):
     """
     Local object representing a subscription of zero or more parameters.
 
@@ -121,7 +121,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
     """
 
     def __init__(self, manager):
-        super(ParameterSubscriptionFuture, self).__init__(manager)
+        super(ParameterSubscription, self).__init__(manager)
 
         self.value_cache = {}
         """Value cache keyed by parameter name."""
@@ -190,6 +190,8 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
     def get_value(self, parameter):
         """
         Returns the last value of a specific parameter from local cache.
+
+        :rtype: .ParameterValue
         """
         return self.value_cache[parameter]
 
@@ -200,6 +202,7 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
 
 
 class ProcessorClient(object):
+    """Client object that groups operations linked to a specific processor."""
 
     def __init__(self, client, instance, processor):
         super(ProcessorClient, self).__init__()
@@ -213,7 +216,7 @@ class ProcessorClient(object):
 
         :rtype: .IssuedCommand
         """
-        req = commanding_pb2.IssueCommandRequest()
+        req = rest_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
         req.origin = 'uhuh'
         req.dryRun = dry_run
@@ -229,7 +232,7 @@ class ProcessorClient(object):
         url = '/processors/{}/{}/commands{}'.format(
             self._instance, self._processor, command)
         response = self._client.post_proto(url, data=req.SerializeToString())
-        proto = commanding_pb2.IssueCommandResponse()
+        proto = rest_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
@@ -237,17 +240,19 @@ class ProcessorClient(object):
         """
         Create a new command history subscription.
 
-        :param on_data: Function that gets called on each message.
+
+        :param on_data: Function that gets called with  :class:`.CommandHistory`
+                        updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
         :return: Future that can be used to manage the background websocket subscription
-        :rtype: .CommandHistorySubscriptionFuture
+        :rtype: .CommandHistorySubscription
         """
         manager = WebSocketSubscriptionManager(
             self._client, resource='cmdhistory')
 
         # Represent subscription as a future
-        subscription = CommandHistorySubscriptionFuture(manager)
+        subscription = CommandHistorySubscription(manager)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_cmdhist_data, subscription, on_data)
@@ -270,7 +275,8 @@ class ProcessorClient(object):
         Create a new parameter subscription.
 
         :param str[] parameters: Parameter names (or aliases).
-        :param on_data: Function that gets called on each message.
+        :param on_data: Function that gets called with  :class:`.ParameterData`
+                        updates.
         :param bool abort_on_invalid: If ``True`` an error is generated when
                                       invalid parameters are specified.
         :param bool update_on_expiration: If ``True`` an update is received
@@ -288,7 +294,7 @@ class ProcessorClient(object):
 
         :return: A Future that can be used to manage the background websocket
                  subscription.
-        :rtype: .ParameterSubscriptionFuture
+        :rtype: .ParameterSubscription
         """
         options = web_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = -1  # This means 'create a new subscription'
@@ -301,7 +307,7 @@ class ProcessorClient(object):
             self._client, resource='parameter', options=options)
 
         # Represent subscription as a future
-        subscription = ParameterSubscriptionFuture(manager)
+        subscription = ParameterSubscription(manager)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_parameter_data, subscription, on_data)
