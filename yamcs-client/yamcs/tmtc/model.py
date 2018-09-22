@@ -5,10 +5,16 @@ from yamcs.protobuf.pvalue import pvalue_pb2
 
 
 class CommandHistoryEvent(object):
+
     def __init__(self, name, time, status):
         self.name = name
+        """Name of this event."""
+
         self.time = time
+        """Time associated with this event."""
+
         self.status = status
+        """Status associated with this event."""
 
     def __repr__(self):
         return '{}: {} at {}'.format(self.name, self.status, self.time)
@@ -26,22 +32,27 @@ class CommandHistory(object):
 
     @property
     def name(self):
+        """Name of the command."""
         return self.attributes.get('cmdName')
 
     @property
     def username(self):
+        """Username of the issuer."""
         return self.attributes.get('username')
 
     @property
     def source(self):
+        """String representation of the command."""
         return self.attributes.get('source')
 
     @property
     def binary(self):
+        """Binary representation of the command."""
         return self.attributes.get('binary')
 
     @property
     def comment(self):
+        """Optional user comment attached when issuing the command."""
         return self.attributes.get('Comment')
 
     @property
@@ -50,16 +61,31 @@ class CommandHistory(object):
 
     @property
     def acknowledge_event(self):
+        """
+        Event indicating the command was acknowledged.
+
+        :type: :class:`.CommandHistoryEvent`
+        """
         return self._assemble_event('Acknowledge_Sent')
 
     @property
     def verification_events(self):
+        """
+        Events related to command verification.
+
+        :type: List[:class:`.CommandHistoryEvent`]
+        """
         queued = self._assemble_event('Verifier_Queued')
         started = self._assemble_event('Verifier_Started')
         return [x for x in [queued, started] if x]
 
     @property
     def events(self):
+        """
+        All events.
+
+        :type: List[:class:`.CommandHistoryEvent`]
+        """
         events = [self.acknowledge_event] + self.verification_events
         return [x for x in events if x]
 
@@ -87,7 +113,7 @@ class IssuedCommand(object):
     @property
     def name(self):
         """
-        The fully-qualified name of the issued command.
+        The fully-qualified name of this command.
         """
         entry = self._proto.commandQueueEntry
         return entry.cmdId.commandName
@@ -106,9 +132,7 @@ class IssuedCommand(object):
 
     @property
     def username(self):
-        """
-        The username of the issuer
-        """
+        """The username of the issuer."""
         entry = self._proto.commandQueueEntry
         if entry.HasField('username'):
             return entry.username
@@ -116,7 +140,7 @@ class IssuedCommand(object):
 
     @property
     def queue(self):
-        """The name of the queue that the command was assigned to."""
+        """The name of the queue that this command was assigned to."""
         entry = self._proto.commandQueueEntry
         if entry.HasField('queueName'):
             return entry.queueName
@@ -125,7 +149,7 @@ class IssuedCommand(object):
     @property
     def origin(self):
         """
-        The origin of the issued command. This is often empty, but may
+        The origin of this command. This is often empty, but may
         also be a hostname.
         """
         entry = self._proto.commandQueueEntry
@@ -136,7 +160,7 @@ class IssuedCommand(object):
     @property
     def sequence_number(self):
         """
-        The sequence number of the issued command. This is the sequence
+        The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
         entry = self._proto.commandQueueEntry
@@ -146,10 +170,7 @@ class IssuedCommand(object):
 
     @property
     def source(self):
-        """
-        The source of the command. This may be simply the username,
-        or in some cases a string in the fomat ``USER@HOST``.
-        """
+        """String representation of this command."""
         if self._proto.HasField('source'):
             return self._proto.source
         return None

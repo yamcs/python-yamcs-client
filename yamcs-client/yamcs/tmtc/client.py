@@ -86,6 +86,19 @@ def _build_named_object_ids(parameters):
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to command history updates.
+
+    This object buffers all received command history. This is needed
+    to stitch together incremental command history events.
+
+    If you expect to receive a lot of command history updates
+    you should periodically clear local cache via ``clear_cache()``.
+    In future work, we may add automated buffer management within
+    configurable watermarks.
+
+    .. warning::
+        If command history updates are received for commands
+        that are not currently in the local cache, the returned
+        information may be incomplete.
     """
 
     @staticmethod
@@ -95,9 +108,29 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
             cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
             cmd_id.commandName)
 
-    def __init__(self, manager):
+    def __init__(self, manager, buffer_size=100):
         super(CommandHistorySubscription, self).__init__(manager)
         self._cache = {}
+
+    def clear_cache(self):
+        """
+        Clears local command history cache.
+        """
+        self._cache = {}
+
+    def get_command_history(self, issued_command):
+        """
+        Gets locally cached CommandHistory for the specified command.
+
+        :param .IssuedCommand issued_command: object representing a previously issued command.
+        :rtype: .CommandHistory
+        """
+        #pylint: disable=protected-access
+        entry = issued_command._proto.commandQueueEntry
+        key = self._cache_key(entry.cmdId)
+        if key in self._cache:
+            return self._cache[key]
+        return None
 
     def _process(self, entry):
         key = self._cache_key(entry.commandId)
@@ -236,7 +269,7 @@ class ProcessorClient(object):
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
-    def create_command_history_subscription(self, on_data, timeout=60):
+    def create_command_history_subscription(self, on_data=None, timeout=60):
         """
         Create a new command history subscription.
 
