@@ -73,9 +73,8 @@ def _build_named_object_id(parameter):
         parts = parameter.split('/', 1)
         if len(parts) < 2:
             raise ValueError('Failed to process {}. Use fully-qualified '
-                                'XTCE names or, alternatively, an alias in '
-                                'in the format NAMESPACE/NAME'
-                                .format(parameter))
+                             'XTCE names or, alternatively, an alias in '
+                             'in the format NAMESPACE/NAME'.format(parameter))
         named_object_id.namespace = parts[0]
         named_object_id.name = parts[1]
     return named_object_id
@@ -85,7 +84,7 @@ def _build_named_object_ids(parameters):
     """Builds a list of NamedObjectId."""
     if isinstance(parameters, str):
         return [_build_named_object_id(parameters)]
-    return [ _build_named_object_id(parameter) for parameter in parameters ]
+    return [_build_named_object_id(parameter) for parameter in parameters]
 
 
 def _build_value_proto(value):
@@ -428,7 +427,8 @@ class ProcessorClient(object):
         wrapped_callback = functools.partial(
             _wrap_callback_parse_cmdhist_data, subscription, on_data)
 
-        manager.open(wrapped_callback, instance=self._instance)
+        manager.open(wrapped_callback, instance=self._instance,
+                     processor=self._processor)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -483,7 +483,8 @@ class ProcessorClient(object):
         wrapped_callback = functools.partial(
             _wrap_callback_parse_parameter_data, subscription, on_data)
 
-        manager.open(wrapped_callback, instance=self._instance)
+        manager.open(wrapped_callback, instance=self._instance,
+                     processor=self._processor)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
