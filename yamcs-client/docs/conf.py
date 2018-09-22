@@ -95,6 +95,8 @@ html_theme_options = {
     'fixed_sidebar': True,
     'show_powered_by': False,
     'analytics_id': 'UA-123272152-1',
+    'font_family': 'Helvetica,Arial,sans-serif',
+    'font_size': '15px',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,

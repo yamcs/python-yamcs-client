@@ -98,7 +98,7 @@ class IssuedCommand(object):
         """
         The generation time as set by Yamcs.
 
-        :rtype: :class:`~datetime.datetime`
+        :rtype: ~datetime.datetime
         """
         entry = self._proto.commandQueueEntry
         if entry.HasField('generationTimeUTC'):
@@ -149,7 +149,7 @@ class IssuedCommand(object):
     def source(self):
         """
         The source of the command. This may be simply the username,
-        or in some cases a string in the fomat 'USER@HOST'.
+        or in some cases a string in the fomat ``USER@HOST``.
         """
         if self._proto.HasField('source'):
             return self._proto.source
@@ -194,8 +194,6 @@ class ParameterValue(object):
         An identifying name for the parameter value. Typically this is the
         fully-qualified XTCE name, but it may also be an alias depending
         on how the parameter update was requested.
-
-        :rtype: str
         """
         if self._proto.id.namespace:
             return self._proto.id.namespace + '/' + self._proto.id.name
@@ -207,7 +205,7 @@ class ParameterValue(object):
         The time when the parameter was generated. If the parameter
         was extracted from a packet, this usually returns the packet time.
 
-        :rtype: :class:`~datetime.datetime`
+        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField('generationTimeUTC'):
             return parse_isostring(self._proto.generationTimeUTC)
@@ -218,7 +216,7 @@ class ParameterValue(object):
         """
         The time when the parameter value was received by Yamcs.
 
-        :rtype: :class:`~datetime.datetime`
+        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField('acquisitionTimeUTC'):
             return parse_isostring(self._proto.acquisitionTimeUTC)
@@ -232,7 +230,7 @@ class ParameterValue(object):
         .. note: There is also an option when subscribing to get updated when
                  the parameter values expire.
 
-        :rtype: :class:`~datetime.timedelta`
+        :type: :class:`~datetime.timedelta`
         """
         if self._proto.HasField('expireMillis'):
             return timedelta(milliseconds=self._proto.expireMillis)
@@ -242,8 +240,6 @@ class ParameterValue(object):
     def raw_value(self):
         """
         The raw (uncalibrated) value.
-
-        :rtype: any
         """
         if self._proto.HasField('rawValue'):
             return parse_value(self._proto.rawValue)
@@ -253,8 +249,6 @@ class ParameterValue(object):
     def eng_value(self):
         """
         The engineering (calibrated) value.
-
-        :rtype: any
         """
         if self._proto.HasField('engValue'):
             return parse_value(self._proto.engValue)

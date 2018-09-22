@@ -2,13 +2,14 @@ Yamcs Client Library for Python
 ===============================
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
+   :titlesonly:
    :hidden:
 
    general/index
    mdb/api
    tmtc/api
-   archive/api
+   archive/index
 
 Getting Started
 ---------------

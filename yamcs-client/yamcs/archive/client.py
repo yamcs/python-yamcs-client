@@ -1,4 +1,4 @@
-from yamcs.archive.model import IndexChunk, Packet
+from yamcs.archive.model import IndexGroup, Packet
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
 from yamcs.model import Event
@@ -15,6 +15,11 @@ class ArchiveClient(object):
         self._instance = instance
 
     def list_packet_names(self):
+        """
+        Returns the existing packet names.
+
+        :rtype: ~collections.Iterable[str]
+        """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/packet-names'.format(self._instance)
@@ -32,7 +37,7 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: :class:`.IndexChunk` iterator
+        :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
         if name is not None:
@@ -50,10 +55,15 @@ class ArchiveClient(object):
             params=params,
             response_class=archive_pb2.IndexResponse,
             items_key='group',
-            item_mapper=IndexChunk,
+            item_mapper=IndexGroup,
         )
 
     def list_processed_parameter_groups(self):
+        """
+        Returns the existing parameter groups.
+
+        :rtype: ~collections.Iterable[str]
+        """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/parameter-groups'.format(self._instance)
@@ -70,7 +80,7 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: :class:`.IndexChunk` iterator
+        :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
         if group is not None:
@@ -88,10 +98,15 @@ class ArchiveClient(object):
             params=params,
             response_class=archive_pb2.IndexResponse,
             items_key='group',
-            item_mapper=IndexChunk,
+            item_mapper=IndexGroup,
         )
 
     def list_event_sources(self):
+        """
+        Returns the existing event sources.
+
+        :rtype: ~collections.Iterable[str]
+        """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/events/sources'.format(self._instance)
@@ -108,7 +123,7 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: :class:`.IndexChunk` iterator
+        :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
         if source is not None:
@@ -126,7 +141,7 @@ class ArchiveClient(object):
             params=params,
             response_class=archive_pb2.IndexResponse,
             items_key='group',
-            item_mapper=IndexChunk,
+            item_mapper=IndexGroup,
         )
 
     def list_command_histogram(self, name=None, start=None, stop=None, merge_time=2000):
@@ -136,7 +151,7 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: :class:`.IndexChunk` iterator
+        :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
         if name is not None:
@@ -154,7 +169,7 @@ class ArchiveClient(object):
             params=params,
             response_class=archive_pb2.IndexResponse,
             items_key='group',
-            item_mapper=IndexChunk,
+            item_mapper=IndexGroup,
         )
 
     def list_completeness_index(self, start=None, stop=None):
@@ -164,7 +179,7 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: :class:`.IndexChunk` iterator
+        :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
         if start is not None:
@@ -178,7 +193,7 @@ class ArchiveClient(object):
             params=params,
             response_class=archive_pb2.IndexResponse,
             items_key='group',
-            item_mapper=IndexChunk,
+            item_mapper=IndexGroup,
         )
 
     def list_packets(self, name=None, start=None, stop=None, page_size=500, descending=False):
@@ -188,7 +203,13 @@ class ArchiveClient(object):
 
         Packets are sorted by generation time and sequence number.
 
-        :rtype: :class:`.Packet` iterator
+        :param ~datetime.datetime start: Minimum start date of the returned events (inclusive)
+        :param ~datetime.datetime stop: Maximum start date of the returned events (exclusive)
+        :param int page_size: Page size of underlying requests. Higher values imply
+                              less overhead, but risk hitting the maximum message size limit.
+        :param bool descending: If set to ``True`` packets are fetched in reverse
+                                order (most recent first).
+        :rtype: ~collections.Iterable[.Packet]
         """
         params = {
             'order': 'desc' if descending else 'asc',
@@ -211,15 +232,16 @@ class ArchiveClient(object):
             item_mapper=Packet,
         )
 
-    def get_packet(self, generation_time, sequenceNumber):
+    def get_packet(self, generation_time, sequence_number):
         """
         Gets a single packet by its identifying key (gentime, seqNum).
 
-        :param generation_time: datetime.
-        :rtype: :class:`.Packet`
+        :param ~datetime.datetime generation_time: When the packet was generated (packet time)
+        :param int sequence_number: Sequence number of the packet
+        :rtype: .Packet
         """
         url = '/archive/{}/packets/{}/{}'.format(
-            self._instance, to_isostring(generation_time), sequenceNumber)
+            self._instance, to_isostring(generation_time), sequence_number)
         response = self._client.get_proto(url)
         message = yamcs_pb2.TmPacketData()
         message.ParseFromString(response.content)
@@ -230,9 +252,15 @@ class ArchiveClient(object):
         """
         Reads events between the specified start and stop time.
 
-        Events are sorted by generation time and sequence number.
+        Events are sorted by generation time, source, then sequence number.
 
-        :rtype: :class:`.Event` iterator
+        :param ~datetime.datetime start: Minimum start date of the returned events (inclusive)
+        :param ~datetime.datetime stop: Maximum start date of the returned events (exclusive)
+        :param int page_size: Page size of underlying requests. Higher values imply
+                              less overhead, but risk hitting the maximum message size limit.
+        :param bool descending: If set to ``True`` events are fetched in reverse
+                                order (most recent first).
+        :rtype: ~collections.Iterable[.Event]
         """
         params = {
             'order': 'desc' if descending else 'asc',

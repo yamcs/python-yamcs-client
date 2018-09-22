@@ -2,12 +2,57 @@ div.body {
     max-width: none !important;
 }
 
-.attribute code.descname, .method code.descname {
-    background-color: #ffe4b5;
+dl.class, dl.exception {
+    border: 1px solid #eee;
+    margin-bottom: 1em;
 }
+
+.class > dt, .exception > dt {
+    background-color: #eee;
+    height: 48px;
+    line-height: 48px;
+    box-shadow: 0 .125rem .3125rem rgba(0,0,0,.26);
+    padding-left: 10px;
+}
+
+dl.class > dd, dl.exception > dd {
+    margin-left: 0;
+}
+
+dl.class > dd > p, dl.exception > dd > p {
+    padding-left: 15px;
+}
+
+dl.method > dt, dl.attribute > dt {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-left: 15px;
+    background-color: #f7f7f7;
+}
+
+tt.descname, tt.descclassname, code.descname, code.descclassname {
+    font-size: normal !important;
+}
+
+/*.attribute code.descname, .method code.descname {
+    background-color: #ffe4b5;
+}*/
 
 a.reference .pre {
     font-weight: normal;
     border-bottom: 1px dotted#004B6B;
     color: #004B6B;
+}
+
+th.field-name {
+    white-space: nowrap;
+}
+
+dt:target, span.highlighted {
+    background-color: #fbe54e !important;
+}
+
+/* Hide 'Navigation' header */
+.sphinxsidebarwrapper > h3 {
+    display: none;
 }

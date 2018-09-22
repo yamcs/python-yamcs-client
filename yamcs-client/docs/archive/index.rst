@@ -3,8 +3,13 @@ Archive
 
 The Archive API provides methods that you can use to programmatically retrieve the content of a Yamcs Archive.
 
-Usage
------
+.. toctree::
+
+    client
+    model
+
+Examples
+--------
 
 Query the Archive of an instance:
 
@@ -18,27 +23,4 @@ Query the Archive of an instance:
     for name in client.list_packet_names():
         print(name)
 
-
-Reference
----------
-
-ArchiveClient
-^^^^^^^^^^^^^
-
-.. autoclass:: yamcs.archive.client.ArchiveClient
-    :members:
-    :undoc-members:
-
-IndexChunk
-^^^^^^^^^^
-
-.. autoclass:: yamcs.archive.model.IndexChunk
-    :members:
-    :undoc-members:
-
-IndexRecord
-^^^^^^^^^^^
-
-.. autoclass:: yamcs.archive.model.IndexRecord
-    :members:
-    :undoc-members:
+.. literalinclude:: ../../examples/retrieve-index.py

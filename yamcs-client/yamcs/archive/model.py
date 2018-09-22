@@ -1,19 +1,35 @@
 from yamcs.core.helpers import parse_isostring
 
 
-class IndexChunk(object):
+class IndexGroup(object):
+    """
+    Group of index records that represent the same
+    type of underlying objects.
+    """
 
     def __init__(self, proto):
         self._proto = proto
 
     @property
     def name(self):
+        """
+        Name associated with this group. The meaning is defined
+        by the objects represented by this index. For example:
+
+        * In an index of events, index records are grouped by ``source``.
+        * In an index of packets, index records are grouped by ``packet name``.
+        """
         if self._proto.HasField('id'):
             return self._proto.id.name
         return None
 
     @property
     def records(self):
+        """
+        Index records within this group
+
+        :type: List[:class:`.IndexRecord`]
+        """
         return [IndexRecord(rec) for rec in self._proto.entry]
 
     def __str__(self):
@@ -21,20 +37,38 @@ class IndexChunk(object):
 
 
 class IndexRecord(object):
+    """
+    Represents a block of uninterrupted data (derived from the index definition
+    for the type of underlying objects, in combination with the requested
+    ``merge_time``.
+    """
 
     def __init__(self, proto):
         self._proto = proto
 
     @property
     def start(self):
+        """
+        Start time of the record
+
+        :type: :class:`~datetime.datetime`
+        """
         return parse_isostring(self._proto.start)
 
     @property
     def stop(self):
+        """
+        Stop time of the record
+
+        :type: :class:`~datetime.datetime`
+        """
         return parse_isostring(self._proto.stop)
 
     @property
     def count(self):
+        """
+        Number of underlying objects this index record represents
+        """
         return self._proto.count
 
     def __str__(self):
@@ -62,7 +96,7 @@ class Packet(object):
         """
         The time when the packet was generated (packet time).
 
-        :rtype: :class:`~datetime.datetime`
+        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField('generationTimeUTC'):
             return parse_isostring(self._proto.generationTimeUTC)
@@ -73,7 +107,7 @@ class Packet(object):
         """
         The time when the packet was received by Yamcs.
 
-        :rtype: :class:`~datetime.datetime`
+        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField('receptionTimeUTC'):
             return parse_isostring(self._proto.receptionTimeUTC)

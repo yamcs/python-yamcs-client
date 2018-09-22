@@ -141,8 +141,9 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         """
         Add one or more parameters to this subscription.
 
-        :param str or str[] parameters: Parameter(s) to be added
-        :param bool abort_on_invalid: If True one invalid parameter
+        :param parameters: Parameter(s) to be added
+        :type parameters: Union[str, str[]]
+        :param bool abort_on_invalid: If ``True`` one invalid parameter
                                       means any other parameter in the
                                       request will also not be added
                                       to the subscription.
@@ -170,7 +171,8 @@ class ParameterSubscriptionFuture(WebSocketSubscriptionFuture):
         """
         Remove one or more parameters from this subscription.
 
-        :param str or str[] parameters: Parameter(s) to be removed
+        :param parameters: Parameter(s) to be removed
+        :type parameters: Union[str, str[]]
         """
 
         # Verify that we already know our assigned subscription_id
@@ -209,7 +211,7 @@ class ProcessorClient(object):
         """
         Issue the given command
 
-        :rtype: :class:`.IssuedCommand`
+        :rtype: .IssuedCommand
         """
         req = commanding_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
@@ -238,8 +240,8 @@ class ProcessorClient(object):
         :param on_data: Function that gets called on each message.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.CommandHistorySubscriptionFuture` object that can be
-                used to manage the background websocket subscription.
+        :return: Future that can be used to manage the background websocket subscription
+        :rtype: .CommandHistorySubscriptionFuture
         """
         manager = WebSocketSubscriptionManager(
             self._client, resource='cmdhistory')
@@ -284,8 +286,9 @@ class ProcessorClient(object):
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
 
-        :rtype: A :class:`.ParameterSubscriptionFuture` object that can be
-                used to manage the background websocket subscription.
+        :return: A Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .ParameterSubscriptionFuture
         """
         options = web_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = -1  # This means 'create a new subscription'

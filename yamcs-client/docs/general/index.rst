@@ -5,3 +5,4 @@ General
     client
     exceptions
     futures
+    common_types
