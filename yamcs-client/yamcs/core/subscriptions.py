@@ -61,6 +61,7 @@ class WebSocketSubscriptionManager(object):
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
             subprotocols=['protobuf'],
+            header=['User-Agent: ' + self._client.user_agent],
         )
         self._consumer = threading.Thread(target=self._websocket.run_forever)
 

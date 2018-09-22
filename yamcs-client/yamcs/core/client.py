@@ -1,3 +1,4 @@
+import pkg_resources
 import requests
 
 from yamcs.core.exceptions import NotFound, YamcsError
@@ -6,12 +7,15 @@ from yamcs.protobuf.web import web_pb2
 
 class BaseClient(object):
 
-    def __init__(self, address, credentials=None, ssl=False):
+    def __init__(self, address, credentials=None, ssl=False, user_agent=None):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         """
         self.address = address
         self.credentials = credentials
+
+        dist = pkg_resources.get_distribution('yamcs-client')
+        self.user_agent = user_agent or 'yamcs-python-client v' + dist.version
 
         if ssl:
             self.api_root = 'https://{}/api'.format(address)

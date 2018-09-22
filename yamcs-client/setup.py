@@ -39,6 +39,7 @@ setuptools.setup(
     install_requires=[
         'protobuf',
         'requests',
+        'setuptools',
         'websocket-client',
     ],
     include_package_data=True,
