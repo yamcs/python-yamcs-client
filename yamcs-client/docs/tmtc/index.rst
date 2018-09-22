@@ -22,6 +22,47 @@ Create a :class:`.ProcessorClient` for a specific processor:
     processor = client.get_processor(instance='simulator', processor='realtime')
 
 
+Read/Write Parameters
+^^^^^^^^^^^^^^^^^^^^^
+
+Read a single value. This returns the latest value from server cache.
+
+.. literalinclude:: ../../examples/read-write-parameters.py
+    :pyobject: print_cached_value
+    :start-after: """
+    :dedent: 4
+
+Read a single value, but block until a fresh value could be processed:
+
+.. literalinclude:: ../../examples/read-write-parameters.py
+    :pyobject: print_realtime_value
+    :start-after: """
+    :dedent: 4
+
+Read the latest value of multiple parameters at the same time:
+
+.. literalinclude:: ../../examples/read-write-parameters.py
+    :pyobject: print_current_values
+    :start-after: """
+    :dedent: 4
+
+Set the value of a parameter. Only some types of parameters can
+be written to. This includes software parameters (local to Yamcs)
+and parameters that are linked to an external system (for example
+a simulator).
+
+.. literalinclude:: ../../examples/read-write-parameters.py
+    :pyobject: write_value
+    :start-after: """
+    :dedent: 4
+
+Set the value of multiple parameters:
+
+.. literalinclude:: ../../examples/read-write-parameters.py
+    :pyobject: write_values
+    :start-after: """
+    :dedent: 4
+
 Parameter Subscription
 ^^^^^^^^^^^^^^^^^^^^^^
 

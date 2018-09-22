@@ -16,7 +16,7 @@ if __name__ == '__main__':
     sleep(10)
 
     print('-----')
-    # You don't have to use the on_data callback. You can also
+    # You don't have to use the on_data callback. You could also
     # directly retrieve the latest data link state from a local cache:
     print('Last values from cache:')
     for link in subscription.list_data_links():

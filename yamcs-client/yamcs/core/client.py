@@ -1,6 +1,7 @@
-from exceptions import NotFound
-
 import requests
+
+from yamcs.core.exceptions import NotFound, YamcsError
+from yamcs.protobuf.web import web_pb2
 
 
 class BaseClient(object):
@@ -55,8 +56,16 @@ class BaseClient(object):
     def request(self, method, path, **kwargs):
         path = '{}{}'.format(self.api_root, path)
         response = requests.request(method, path, **kwargs)
+        if 200 <= response.status_code < 300:
+            return response
+
+        exception_message = web_pb2.RestExceptionMessage()
+        exception_message.ParseFromString(response.content)
         if response.status_code == 404:
-            raise NotFound()
-        else:
-            response.raise_for_status()
-        return response
+            raise NotFound('{} Client Error: {}'.format(
+                response.status_code, exception_message.msg))
+        elif 400 <= response.status_code < 500:
+            raise YamcsError('{} Client Error: {}'.format(
+                response.status_code, exception_message.msg))
+        raise YamcsError('{} Server Error: {}'.format(
+            response.status_code, exception_message.msg))

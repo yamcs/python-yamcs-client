@@ -20,6 +20,6 @@ if __name__ == '__main__':
     # directly retrieve the latest data link state from a local cache:
     print('Last time from cache:', subscription.time)
 
-    # But then you maybe don't need a subscription, so do simply:
+    # But then maybe you don't need a subscription, so do simply:
     time = client.get_time('simulator')
     print('Mission time (fresh from server)', time)

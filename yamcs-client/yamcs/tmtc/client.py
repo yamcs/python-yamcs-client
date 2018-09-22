@@ -1,13 +1,17 @@
 import functools
+import socket
 import threading
 
+from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import CommandHistory, IssuedCommand, ParameterData
+from yamcs.tmtc.model import (CommandHistory, IssuedCommand, ParameterData,
+                              ParameterValue)
 
 
 class SequenceGenerator(object):
@@ -54,33 +58,56 @@ def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
             on_data(rec)
 
 
-def _build_named_object_ids(parameters):
+def _build_named_object_id(parameter):
     """
-    Builds a list of NamedObjectId. This is a bit more complex than it really
+    Builds a NamedObjectId. This is a bit more complex than it really
     should be. In Python (for convenience) we allow the user to simply address
     entries by their alias via the NAMESPACE/NAME convention. Yamcs is not
     aware of this convention so we decompose it into distinct namespace and
     name fields.
     """
-    if isinstance(parameters, str):
-        parameters = [parameters]
+    named_object_id = yamcs_pb2.NamedObjectId()
+    if parameter.startswith('/'):
+        named_object_id.name = parameter
+    else:
+        parts = parameter.split('/', 1)
+        if len(parts) < 2:
+            raise ValueError('Failed to process {}. Use fully-qualified '
+                                'XTCE names or, alternatively, an alias in '
+                                'in the format NAMESPACE/NAME'
+                                .format(parameter))
+        named_object_id.namespace = parts[0]
+        named_object_id.name = parts[1]
+    return named_object_id
 
-    named_object_list = []
-    for parameter in parameters:
-        named_object_id = yamcs_pb2.NamedObjectId()
-        if parameter.startswith('/'):
-            named_object_id.name = parameter
-        else:
-            parts = parameter.split('/', 1)
-            if len(parts) < 2:
-                raise ValueError('Failed to process {}. Use fully-qualified '
-                                 'XTCE names or, alternatively, an alias in '
-                                 'in the format NAMESPACE/NAME'
-                                 .format(parameter))
-            named_object_id.namespace = parts[0]
-            named_object_id.name = parts[1]
-        named_object_list.append(named_object_id)
-    return named_object_list
+
+def _build_named_object_ids(parameters):
+    """Builds a list of NamedObjectId."""
+    if isinstance(parameters, str):
+        return [_build_named_object_id(parameters)]
+    return [ _build_named_object_id(parameter) for parameter in parameters ]
+
+
+def _build_value_proto(value):
+    proto = yamcs_pb2.Value()
+    if isinstance(value, bool):
+        proto.type = proto.BOOLEAN
+        proto.booleanValue = value
+    elif isinstance(value, float):
+        proto.type = proto.FLOAT
+        proto.floatValue = value
+    elif isinstance(value, long):
+        proto.type = proto.SINT64
+        proto.sint64Value = value
+    elif isinstance(value, int):
+        proto.type = proto.SINT32
+        proto.sint32Value = value
+    elif isinstance(value, str):
+        proto.type = proto.STRING
+        proto.stringValue = value
+    else:
+        raise YamcsError('Unrecognized type')
+    return proto
 
 
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
@@ -243,15 +270,126 @@ class ProcessorClient(object):
         self._instance = instance
         self._processor = processor
 
+    def get_parameter_value(self, parameter, from_cache=True, timeout=10):
+        """
+        Retrieve the current value of the specified parameter.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias in the
+                              format ``NAMESPACE/NAME``.
+        :param bool from_cache: If ``False`` this call will block until a
+                                fresh value is received on the processor.
+                                If ``True`` the server returns the latest
+                                value instead (which may be ``None``).
+        :param float timeout: The amount of seconds to wait for a fresh value.
+                              (ignored if ``from_cache=True``).
+        :rtype: .ParameterValue
+        """
+        params = {
+            'fromCache': from_cache,
+            'timeout': int(timeout * 1000),
+        }
+        parameter = adapt_name_for_rest(parameter)
+        url = '/processors/{}/{}/parameters{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.get_proto(url, params=params)
+        proto = pvalue_pb2.ParameterValue()
+        proto.ParseFromString(response.content)
+
+        # Server returns ParameterValue with only 'id' set if no
+        # value existed. Convert this to ``None``.
+        if proto.HasField('rawValue') or proto.HasField('engValue'):
+            return ParameterValue(proto)
+        return None
+
+    def get_parameter_values(self, parameters, from_cache=True, timeout=10):
+        """
+        Retrieve the current value of the specified parameter.
+
+        :param str[] parameters: List of parameter names. These may be
+                                 fully-qualified XTCE name or an alias
+                                 in the format ``NAMESPACE/NAME``.
+        :param bool from_cache: If ``False`` this call will block until
+                                fresh values are received on the processor.
+                                If ``True`` the server returns the latest
+                                value instead (which may be ``None``).
+        :param float timeout: The amount of seconds to wait for a fresh
+                              values (ignored if ``from_cache=True``).
+        :return: A list that matches the length and order of the requested
+                 list of parameters. Each entry contains either the
+                 returned parameter value, or ``None``.
+        :rtype: .ParameterValue[]
+        """
+        params = {
+            'fromCache': from_cache,
+            'timeout': int(timeout * 1000),
+        }
+        req = rest_pb2.BulkGetParameterValueRequest()
+        req.id.extend(_build_named_object_ids(parameters))
+        url = '/processors/{}/{}/parameters/mget'.format(
+            self._instance, self._processor)
+        response = self._client.post_proto(url, params=params,
+                                           data=req.SerializeToString())
+        proto = rest_pb2.BulkGetParameterValueResponse()
+        proto.ParseFromString(response.content)
+
+        pvals = []
+        for parameter_id in req.id:
+            match = None
+            for pval in proto.value:
+                if pval.id == parameter_id:
+                    match = pval
+                    break
+            pvals.append(ParameterValue(match) if match else None)
+        return pvals
+
+    def set_parameter_value(self, parameter, value):
+        """
+        Sets the value of the specified parameter.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias in the
+                              format ``NAMESPACE/NAME``.
+        :param value: The value to set
+        """
+        parameter = adapt_name_for_rest(parameter)
+        url = '/processors/{}/{}/parameters{}'.format(
+            self._instance, self._processor, parameter)
+        req = _build_value_proto(value)
+        self._client.put_proto(url, data=req.SerializeToString())
+
+    def set_parameter_values(self, values):
+        """
+        Sets the value of multiple  parameters.
+
+        :param dict values: Values keyed by parameter name. This name can be either
+                            a fully-qualified XTCE name or an alias in the format
+                            ``NAMESPACE/NAME``.
+        """
+        req = rest_pb2.BulkSetParameterValueRequest()
+        for key in values:
+            item = req.request.add()
+            item.id.MergeFrom(_build_named_object_id(key))
+            item.value.MergeFrom(_build_value_proto(values[key]))
+        url = '/processors/{}/{}/parameters/mset'.format(
+            self._instance, self._processor)
+        self._client.post_proto(url, data=req.SerializeToString())
+
     def issue_command(self, command, args=None, dry_run=False, comment=None):
         """
         Issue the given command
 
+        :param str command: Either a fully-qualified XTCE name or an alias in the
+                            format ``NAMESPACE/NAME``.
+        :param dict args: named arguments (if the command requires these)
+        :param bool dry_run: If ``True`` the command is not actually issued. This
+                             can be used to check if the server would generate
+                             errors when preparing the command (for example
+                             because an argument is missing).
+        :param str comment: Comment attached to the command.
         :rtype: .IssuedCommand
         """
         req = rest_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
-        req.origin = 'uhuh'
+        req.origin = socket.gethostname()
         req.dryRun = dry_run
         if comment:
             req.comment = comment
