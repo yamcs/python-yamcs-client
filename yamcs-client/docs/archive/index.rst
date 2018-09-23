@@ -46,6 +46,24 @@ Iterate a specific range of packets:
     :dedent: 4
 
 
+Parameter Retrieval
+^^^^^^^^^^^^^^^^^^^
+
+Retrieve the last 10 values of a parameter:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: print_last_values
+    :start-after: """
+    :dedent: 4
+
+Iterate a specific range of values:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: iterate_specific_parameter_range
+    :start-after: """
+    :dedent: 4
+
+
 Event Retrieval
 ^^^^^^^^^^^^^^^
 

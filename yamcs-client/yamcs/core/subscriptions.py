@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+import logging
 import threading
 
 import websocket
@@ -64,7 +65,10 @@ class WebSocketSubscriptionManager(object):
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
             subprotocols=['protobuf'],
-            header=['User-Agent: ' + self._client.user_agent],
+            header=[
+                '{}: {}'.format(k, self._client.session.headers[k])
+                for k in self._client.session.headers
+            ],
         )
         self._consumer = threading.Thread(target=self._websocket.run_forever)
 
@@ -92,7 +96,6 @@ class WebSocketSubscriptionManager(object):
 
             self._websocket = None
             self._closed = True
-
             for cb in self._close_callbacks:
                 cb(self, reason)
 
@@ -127,6 +130,7 @@ class WebSocketSubscriptionManager(object):
         self._callback(pb2_message)
 
     def _on_websocket_error(self, ws, error):
+        logging.warn('WebSocket error', exc_info=True)
 
         # Generate our own exception.
         # (the default message is misleading 'connection is already closed')

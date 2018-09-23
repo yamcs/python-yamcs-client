@@ -47,6 +47,27 @@ def iterate_specific_event_range():
     print('Found', total, 'events in range')
 
 
+def print_last_values():
+    """Print the last 10 values."""
+    iterable = archive.list_parameter_values('/YSS/SIMULATOR/BatteryVoltage1',
+                                             descending=True)
+    for pval in islice(iterable, 0, 10):
+        print(pval)
+
+
+def iterate_specific_parameter_range():
+    """Count the number of parameter values in a specific range."""
+    now = datetime.utcnow()
+    start = now - timedelta(hours=1)
+
+    total = 0
+    for pval in archive.list_parameter_values(
+            '/YSS/SIMULATOR/BatteryVoltage1', start=start, stop=now):
+        total += 1
+        # print(pval)
+    print('Found', total, 'parameter values in range')
+
+
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
     archive = client.get_archive(instance='simulator')
@@ -62,3 +83,9 @@ if __name__ == '__main__':
 
     print('\nIterate specific event range:')
     iterate_specific_event_range()
+
+    print('\nLast 10 parameter values:')
+    print_last_values()
+
+    print('\nIterate specific parameter range:')
+    iterate_specific_parameter_range()

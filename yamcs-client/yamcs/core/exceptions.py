@@ -16,3 +16,7 @@ class TimeoutError(YamcsError):
 class NotFound(YamcsError):
     """The resource was not found."""
     pass
+
+class Unauthorized(YamcsError):
+    """Unable to get access the resource."""
+    pass

@@ -127,11 +127,15 @@ class YamcsClient(BaseClient):
     Client for accessing core Yamcs resources.
 
     The only state managed by this client is its connection info to Yamcs.
-
-    :param str address: The address to the Yamcs server in the format 'host:port'
     """
 
     def __init__(self, address, **kwargs):
+        """
+        :param str address: The address of Yamcs in the format 'hostname:port'
+        :param bool ssl: Whether SSL encryption is expected
+        :param .Credentials credentials: Credentials for when the server is secured
+        :param str user_agent: Optionally override the default user agent
+        """
         super(YamcsClient, self).__init__(address, **kwargs)
 
     def get_time(self, instance):
@@ -187,7 +191,7 @@ class YamcsClient(BaseClient):
 
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='links/' + instance)
+        response = self.get_proto(path='/links/' + instance)
         message = rest_pb2.ListLinkInfoResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
@@ -201,7 +205,7 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         :rtype: :class:`.Link`
         """
-        response = self.get_proto('links/{}/{}'.format(instance, link))
+        response = self.get_proto('/links/{}/{}'.format(instance, link))
         message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)

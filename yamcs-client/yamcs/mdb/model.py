@@ -59,6 +59,12 @@ class Container(object):
 
 
 class Parameter(object):
+    """
+    From XTCE:
+
+        A Parameter is a description of something that can have
+        a value. It is not the value itself.
+    """
 
     def __init__(self, proto):
         self._proto = proto
@@ -85,6 +91,15 @@ class Parameter(object):
 
 
 class SpaceSystem(object):
+    """
+    From XTCE:
+
+        A SpaceSystem is a collection of SpaceSystem(s) including space assets,
+        ground assets, multi-satellite systems and sub-systems.  A SpaceSystem
+        is the root element for the set of data necessary to monitor and command
+        an arbitrary space device - this includes the binary decomposition of
+        the data streams going into and out of a device.
+    """
 
     def __init__(self, proto):
         self._proto = proto

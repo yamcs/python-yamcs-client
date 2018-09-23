@@ -9,7 +9,7 @@ dl.class, dl.exception {
 
 .class > dt, .exception > dt {
     background-color: #eee;
-    height: 48px;
+    min-height: 48px;
     line-height: 48px;
     box-shadow: 0 .125rem .3125rem rgba(0,0,0,.26);
     padding-left: 10px;
@@ -54,5 +54,9 @@ dt:target, span.highlighted {
 
 /* Hide 'Navigation' header */
 .sphinxsidebarwrapper > h3 {
+    display: none;
+}
+
+div.footer {
     display: none;
 }

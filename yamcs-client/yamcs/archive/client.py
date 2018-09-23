@@ -5,6 +5,7 @@ from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.rest import rest_pb2
+from yamcs.tmtc.model import ParameterValue
 
 
 class ArchiveClient(object):
@@ -287,4 +288,38 @@ class ArchiveClient(object):
             response_class=rest_pb2.ListEventsResponse,
             items_key='event',
             item_mapper=Event,
+        )
+
+    def list_parameter_values(self, parameter, start=None, stop=None,
+                              page_size=500, descending=False):
+        """
+        Reads parameter values between the specified start and stop time.
+
+        :param ~datetime.datetime start: Minimum generation time of the returned
+                                         values (inclusive)
+        :param ~datetime.datetime stop: Maximum generation time of the returned
+                                        values (exclusive)
+        :param int page_size: Page size of underlying requests. Higher values imply
+                              less overhead, but risk hitting the maximum message size limit.
+        :param bool descending: If set to ``True`` values are fetched in reverse
+                                order (most recent first).
+        :rtype: ~collections.Iterable[.ParameterValue]
+        """
+        params = {
+            'order': 'desc' if descending else 'asc',
+        }
+        if page_size is not None:
+            params['limit'] = page_size
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+
+        return pagination.Iterator(
+            client=self._client,
+            path='/archive/{}/parameters{}'.format(self._instance, parameter),
+            params=params,
+            response_class=rest_pb2.ListParameterValuesResponse,
+            items_key='parameter',
+            item_mapper=ParameterValue,
         )
