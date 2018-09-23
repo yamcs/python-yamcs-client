@@ -63,6 +63,7 @@ Set the value of multiple parameters:
     :start-after: """
     :dedent: 4
 
+
 Parameter Subscription
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -103,5 +104,24 @@ Receive :class:`.CommandHistory` callbacks on command history events:
 
 .. literalinclude:: ../../examples/commanding.py
     :pyobject: listen_to_command_history
+    :start-after: """
+    :dedent: 4
+
+
+Alarm Monitoring
+^^^^^^^^^^^^^^^^
+
+Receive :class:`.AlarmEvent` callbacks whenever one or more of the
+subscribed parameters have been updated:
+
+.. literalinclude:: ../../examples/alarms.py
+    :pyobject: receive_callbacks
+    :start-after: """
+    :dedent: 4
+
+Acknowledge all active alarms:
+
+.. literalinclude:: ../../examples/alarms.py
+    :pyobject: acknowledge_all
     :start-after: """
     :dedent: 4

@@ -3,6 +3,7 @@ Examples
 
 .. toctree::
 
+    alarms
     archive-breakdown
     archive-retrieval
     ccsds-completeness

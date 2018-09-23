@@ -97,7 +97,10 @@ class DataLinkSubscription(WebSocketSubscriptionFuture):
 
     def get_data_link(self, name):
         """
-        Returns the latest link info.
+        Returns the latest link state.
+
+        :param str name: Identifying name of the data link
+        :rtype: .Link
         """
         if name in self._cache:
             return self._cache[name]
@@ -106,14 +109,17 @@ class DataLinkSubscription(WebSocketSubscriptionFuture):
     def list_data_links(self):
         """
         Returns a snapshot of all instance links.
+
+        :rtype: .Link[]
         """
         return [self._cache[k] for k in self._cache]
 
     def _process(self, link_event):
+        link = link_event.link
         if link_event.event_type == 'UNREGISTERED':
-            del self._cache[link_event.link.name]
+            del self._cache[link.name]
         else:
-            self._cache[link_event.link.name] = link_event.link
+            self._cache[link.name] = link
 
 
 class YamcsClient(BaseClient):
@@ -176,7 +182,7 @@ class YamcsClient(BaseClient):
         Data links are returned in random order.
 
         :param str instance: A Yamcs instance name
-        :rtype: :class:`.LinkEvent` iterator
+        :rtype: :class:`.Link` iterator
         """
 
         # Server does not do pagination on listings of this resource.
@@ -185,7 +191,7 @@ class YamcsClient(BaseClient):
         message = rest_pb2.ListLinkInfoResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
-        return iter(links)
+        return iter([Link(link) for link in links])
 
     def get_data_link(self, instance, link):
         """
@@ -208,7 +214,8 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
-        :param on_data: Function that gets called on each message.
+        :param on_data: Function that gets called with :class:`.LinkEvent`
+                        updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
         :rtype: A :class:`.DataLinkSubscription`
@@ -216,7 +223,7 @@ class YamcsClient(BaseClient):
                 subscription.
         """
         manager = WebSocketSubscriptionManager(self, resource='links')
-        
+
         # Represent subscription as a future
         subscription = DataLinkSubscription(manager)
 
@@ -239,7 +246,8 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
-        :param on_data: Function that gets called on each message.
+        :param on_data: Function that gets called with
+                        :class:`~datetime.datetime` updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
         :rtype: A :class:`.TimeSubscription`
@@ -269,7 +277,7 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
-        :param on_data: Function that gets called on each message.
+        :param on_data: Function that gets called on each :class:`Event`.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
         :rtype: A :class:`.WebSocketSubscriptionFuture`

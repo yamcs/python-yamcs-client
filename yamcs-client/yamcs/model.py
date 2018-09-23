@@ -65,6 +65,9 @@ class LinkEvent(object):
 
     @property
     def link(self):
+        """
+        :type: :class:`.Link`
+        """
         return Link(self._proto.linkInfo)
 
     def __str__(self):

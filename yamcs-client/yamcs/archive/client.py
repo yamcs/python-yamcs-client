@@ -203,8 +203,10 @@ class ArchiveClient(object):
 
         Packets are sorted by generation time and sequence number.
 
-        :param ~datetime.datetime start: Minimum start date of the returned events (inclusive)
-        :param ~datetime.datetime stop: Maximum start date of the returned events (exclusive)
+        :param ~datetime.datetime start: Minimum generation time of the returned
+                                         packets (inclusive)
+        :param ~datetime.datetime stop: Maximum genreation time of the returned
+                                        packets (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
                               less overhead, but risk hitting the maximum message size limit.
         :param bool descending: If set to ``True`` packets are fetched in reverse

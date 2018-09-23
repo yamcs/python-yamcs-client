@@ -4,14 +4,14 @@ import threading
 
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import adapt_name_for_rest
+from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import (CommandHistory, IssuedCommand, ParameterData,
-                              ParameterValue)
+from yamcs.tmtc.model import (Alarm, AlarmEvent, CommandHistory, IssuedCommand,
+                              ParameterData, ParameterValue)
 
 
 class SequenceGenerator(object):
@@ -56,6 +56,21 @@ def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
         rec = subscription._process(entry)
         if on_data:
             on_data(rec)
+
+
+def _wrap_callback_parse_alarm_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse Alarm data
+    from a WebSocket data message
+    """
+    if (message.type == message.DATA and
+            message.data.type == yamcs_pb2.ALARM_DATA):
+        proto = getattr(message.data, 'alarmData')
+        alarm_event = AlarmEvent(proto)
+        #pylint: disable=protected-access
+        subscription._process(alarm_event)
+        if on_data:
+            on_data(alarm_event)
 
 
 def _build_named_object_id(parameter):
@@ -134,7 +149,7 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
             cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
             cmd_id.commandName)
 
-    def __init__(self, manager, buffer_size=100):
+    def __init__(self, manager):
         super(CommandHistorySubscription, self).__init__(manager)
         self._cache = {}
 
@@ -258,6 +273,48 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         self.delivery_count += 1
         for pval in parameter_data.parameters:
             self.value_cache[pval.name] = pval
+
+
+class AlarmSubscription(WebSocketSubscriptionFuture):
+    """
+    Local object representing an alarm subscription.
+
+    A subscription object stores the currently active
+    alarms. There can be only one alarm active at a
+    time per parameter.
+    """
+
+    def __init__(self, manager):
+        super(AlarmSubscription, self).__init__(manager)
+
+        self._cache = {}
+        """Value cache keyed by parameter name."""
+
+    def get_alarm(self, parameter):
+        """
+        Returns the alarm state associated with a specific parameter from
+        local cache.
+
+        :param str parameter: Fully-qualified XTCE name
+        :rtype: .Alarm
+        """
+        return self._cache[parameter]
+
+    def list_alarms(self):
+        """
+        Returns a snapshot of all active alarms.
+
+        :param str parameter: Fully-qualified XTCE name
+        :rtype: .Alarm[]
+        """
+        return [self._cache[k] for k in self._cache]
+
+    def _process(self, alarm_event):
+        alarm = alarm_event.alarm
+        if alarm_event.event_type in ('ACKNOWLEDGED', 'CLEARED'):
+            del self._cache[alarm.name]
+        else:
+            self._cache[alarm.name] = alarm
 
 
 class ProcessorClient(object):
@@ -406,6 +463,51 @@ class ProcessorClient(object):
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
+    def list_alarms(self, start=None, stop=None):
+        """
+        Lists the active alarms.
+
+        Remark that this does not query the archive. Only active alarms on the
+        current processor are returned.
+
+        :param ~datetime.datetime start: Minimum trigger time of the returned alarms (inclusive)
+        :param ~datetime.datetime stop: Maximum trigger time of the returned alarms (exclusive)
+        :rtype: :class:`.Alarm` iterator
+        """
+        # TODO implement continuation token on server
+        params = {
+            'order': 'asc'
+        }
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        url = '/processors/{}/{}/alarms'.format(self._instance, self._processor)
+        response = self._client.get_proto(path=url, params=params)
+        message = rest_pb2.ListAlarmsResponse()
+        message.ParseFromString(response.content)
+        alarms = getattr(message, 'alarm')
+        return iter([Alarm(alarm) for alarm in alarms])
+
+    def acknowledge_alarm(self, alarm, comment=None):
+        """
+        Acknowledges a specific alarm associated with a parameter.
+
+        :param alarm: Alarm instance
+        :type alarm: :class:`.Alarm`
+        :param str comment: Optional comment to associate with the state
+                            change.
+        """
+        url = '/processors/{}/{}/parameters{}/alarms/{}'.format(
+            self._instance, self._processor, alarm.name, alarm.sequence_number)
+        req = rest_pb2.EditAlarmRequest()
+        req.state = 'acknowledged'
+        if comment is not None:
+            req.comment = comment
+        self._client.put_proto(url, data=req.SerializeToString())
+
     def create_command_history_subscription(self, on_data=None, timeout=60):
         """
         Create a new command history subscription.
@@ -482,6 +584,37 @@ class ProcessorClient(object):
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_parameter_data, subscription, on_data)
+
+        manager.open(wrapped_callback, instance=self._instance,
+                     processor=self._processor)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def create_alarm_subscription(self,
+                                  on_data=None,
+                                  timeout=60):
+        """
+        Create a new alarm subscription.
+
+        :param on_data: Function that gets called with  :class:`.AlarmEvent`
+                        updates.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+
+        :return: A Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .AlarmSubscription
+        """
+        manager = WebSocketSubscriptionManager(self._client, resource='alarms')
+
+        # Represent subscription as a future
+        subscription = AlarmSubscription(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_alarm_data, subscription, on_data)
 
         manager.open(wrapped_callback, instance=self._instance,
                      processor=self._processor)

@@ -19,6 +19,11 @@ Client
     :members:
     :undoc-members:
 
+.. autoclass:: yamcs.tmtc.client.AlarmSubscription
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 .. autoclass:: yamcs.tmtc.client.CommandHistorySubscription
     :members:
     :undoc-members:

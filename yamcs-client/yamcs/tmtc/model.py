@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from yamcs.core.helpers import parse_isostring, parse_value
+from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 
 
@@ -191,6 +192,135 @@ class IssuedCommand(object):
 
     def __str__(self):
         return '{} {}'.format(self.generation_time, self.source)
+
+
+class AlarmEvent(object):
+    """
+    Object received through callbacks when subscribing to alarm updates.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def event_type(self):
+        """Type of update."""
+        return alarms_pb2.AlarmData.Type.Name(self._proto.type)
+
+    @property
+    def alarm(self):
+        """
+        Latest alarm state.
+
+        :type: :class:`.Alarm`
+        """
+        return Alarm(self._proto)
+
+    def __str__(self):
+        return '[{}] {}'.format(self.event_type, self.alarm)
+
+
+class Alarm(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Fully-qualified XTCE name of the parameter that triggered this alarm."""
+        return self.trigger_value.name
+
+    @property
+    def sequence_number(self):
+        """
+        Sequence number for this specific alarm instance. This allows ensuring
+        that operations (such as acknowledgment) are done on the expected alarm
+        instance.
+        """
+        if self._proto.HasField('seqNum'):
+            return self._proto.seqNum
+        return None
+
+    @property
+    def is_acknowledged(self):
+        """Whether this alarm has been acknowledged."""
+        return self._proto.HasField('acknowledgeInfo')
+
+    @property
+    def acknowledged_by(self):
+        """Username of the acknowledger."""
+        if (self.is_acknowledged and
+                self._proto.acknowledgeInfo.HasField('acknowledgedBy')):
+            return self._proto.acknowledgeInfo.acknowledgedBy
+        return None
+
+    @property
+    def acknowledge_message(self):
+        """Comment provided when acknowledging the alarm."""
+        if (self.is_acknowledged and
+                self._proto.acknowledgeInfo.HasField('acknowledgeMessage')):
+            return self._proto.acknowledgeInfo.acknowledgeMessage
+        return None
+
+    @property
+    def acknowledge_time(self):
+        """
+        Processor time when the alarm was acknowledged.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if (self.is_acknowledged and
+                self._proto.acknowledgeInfo.HasField('acknowledgeTime')):
+            return parse_isostring(self._proto.acknowledgeInfo.acknowledgeTime)
+        return None
+
+    @property
+    def trigger_value(self):
+        """
+        Parameter value that originally triggered the alarm
+
+        :type: :class:`.ParameterValue`
+        """
+        if self._proto.HasField('triggerValue'):
+            return ParameterValue(self._proto.triggerValue)
+        return None
+
+    @property
+    def most_severe_value(self):
+        """
+        First parameter value that invoked the highest severity
+        level of this alarm.
+
+        :type: :class:`.ParameterValue`
+        """
+        if self._proto.HasField('mostSevereValue'):
+            return ParameterValue(self._proto.mostSevereValue)
+        return None
+
+    @property
+    def current_value(self):
+        """
+        Latest parameter value for this alarm.
+
+        :type: :class:`.ParameterValue`
+        """
+        if self._proto.HasField('currentValue'):
+            return ParameterValue(self._proto.currentValue)
+        return None
+
+    @property
+    def violation_count(self):
+        """
+        Number of parameter updates that violated limits while
+        this alarm is active.
+        """
+        if self._proto.HasField('violations'):
+            return self._proto.violations
+        return None
+
+    def __str__(self):
+        return '{} ({} violations)'.format(
+            self.trigger_value, self.violation_count)
 
 
 class ParameterData(object):
