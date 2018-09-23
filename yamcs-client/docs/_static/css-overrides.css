@@ -52,6 +52,10 @@ dt:target, span.highlighted {
     background-color: #fbe54e !important;
 }
 
+div#searchbox {
+    margin-top: 2em;
+}
+
 /* Hide 'Navigation' header */
 .sphinxsidebarwrapper > h3 {
     display: none;
