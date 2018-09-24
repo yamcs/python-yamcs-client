@@ -34,7 +34,6 @@ def print_latest():
             print('  -', rec)
             total += rec.count
         print('  --> Total packets for {}: {}'.format(apid, total))
-        print()
 
 
 if __name__ == '__main__':
