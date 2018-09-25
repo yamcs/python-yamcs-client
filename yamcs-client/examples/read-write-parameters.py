@@ -18,12 +18,12 @@ def print_realtime_value():
 
 def print_current_values():
     """Print multiple parameters from server cache."""
-    pval = processor.get_parameter_values([
+    pvals = processor.get_parameter_values([
         '/YSS/SIMULATOR/BatteryVoltage1',
         '/YSS/SIMULATOR/BatteryVoltage2',
     ])
-    print('battery1', pval[0])
-    print('battery2', pval[1])
+    print('battery1', pvals[0])
+    print('battery2', pvals[1])
 
 
 def write_value():

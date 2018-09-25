@@ -26,15 +26,43 @@ class CommandHistoryEvent(object):
 
 class CommandHistory(object):
 
-    # TODO Getter for 'ccsds-seqcount' required?
+    def __init__(self, proto):
 
-    def __init__(self):
+        self.generation_time = parse_isostring(proto.generationTimeUTC)
+        """
+        The generation time as set by Yamcs
+
+        :type: :class:`~datetime.datetime`
+        """
+
+        self._commandId = proto.commandId
         self.attributes = {}
+        self._update(proto.attr)
 
     @property
     def name(self):
         """Name of the command."""
-        return self.attributes.get('cmdName')
+        return self._commandId.commandName
+
+    @property
+    def origin(self):
+        """
+        The origin of this command. This is often empty, but may
+        also be a hostname.
+        """
+        if self._commandId.HasField('origin'):
+            return self._commandId.origin
+        return None
+
+    @property
+    def sequence_number(self):
+        """
+        The sequence number of this command. This is the sequence
+        number assigned by the issuing client.
+        """
+        if self._commandId.HasField('sequenceNumber'):
+            return self._commandId.sequenceNumber
+        return None
 
     @property
     def username(self):
@@ -50,6 +78,26 @@ class CommandHistory(object):
     def binary(self):
         """Binary representation of the command."""
         return self.attributes.get('binary')
+
+    def is_complete(self):
+        """
+        Returns whether this command is complete. A command
+        can be completed, yet still failed.
+        """
+        return 'CommandComplete' in self.attributes
+
+    def is_failed(self):
+        """
+        Returns whether this command has failed. If this returns
+        ``True``, the failure message can be read from the property
+        ``failure_message``.
+        """
+        return (self.is_complete() and
+                self.attributes['CommandComplete'] == 'NOK')
+
+    @property
+    def failure_message(self):
+        return self.attributes.get('CommandFailed')
 
     @property
     def comment(self):
@@ -103,7 +151,7 @@ class CommandHistory(object):
             self.attributes[attr.name] = value
 
     def __str__(self):
-        return self.name + str(self.events)
+        return '{} {}'.format(self.name, self.events)
 
 
 class IssuedCommand(object):
@@ -124,7 +172,7 @@ class IssuedCommand(object):
         """
         The generation time as set by Yamcs.
 
-        :rtype: ~datetime.datetime
+        :type: :class:`~datetime.datetime`
         """
         entry = self._proto.commandQueueEntry
         if entry.HasField('generationTimeUTC'):
@@ -155,7 +203,7 @@ class IssuedCommand(object):
         """
         entry = self._proto.commandQueueEntry
         if entry.cmdId.HasField('origin'):
-            return parse_isostring(entry.cmdId.origin)
+            return entry.cmdId.origin
         return None
 
     @property

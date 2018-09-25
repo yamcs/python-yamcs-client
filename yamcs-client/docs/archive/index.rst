@@ -75,6 +75,17 @@ Iterate a specific range of events:
     :dedent: 4
 
 
+Command Retrieval
+^^^^^^^^^^^^^^^^^
+
+Retrieve the last 10 issued commands:
+
+.. literalinclude:: ../../examples/archive-retrieval.py
+    :pyobject: print_last_commands
+    :start-after: """
+    :dedent: 4
+
+
 Histogram Retrieval
 ^^^^^^^^^^^^^^^^^^^
 

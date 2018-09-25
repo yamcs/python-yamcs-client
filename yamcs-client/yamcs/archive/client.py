@@ -5,7 +5,7 @@ from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.rest import rest_pb2
-from yamcs.tmtc.model import ParameterValue
+from yamcs.tmtc.model import CommandHistory, ParameterValue
 
 
 class ArchiveClient(object):
@@ -257,6 +257,11 @@ class ArchiveClient(object):
 
         Events are sorted by generation time, source, then sequence number.
 
+        :param str source: The source of the returned events.
+        :param str severity: The minimum severity level of the returned events.
+                             One of ``INFO``, ``WATCH``, ``WARNING``, ``DISTRESS``,
+                             ``CRITICAL`` or ``SEVERE``.
+        :param str text_filter: Filter the text message of the returned events
         :param ~datetime.datetime start: Minimum start date of the returned events (inclusive)
         :param ~datetime.datetime stop: Maximum start date of the returned events (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
@@ -322,4 +327,45 @@ class ArchiveClient(object):
             response_class=rest_pb2.ListParameterValuesResponse,
             items_key='parameter',
             item_mapper=ParameterValue,
+        )
+
+    def list_command_history(self, command=None, start=None, stop=None,
+                             page_size=500, descending=False):
+        """
+        Reads command history entries between the specified start and stop time.
+
+        :param str command: Either a fully-qualified XTCE name or an alias in the
+                            format ``NAMESPACE/NAME``.
+        :param ~datetime.datetime start: Minimum generation time of the returned
+                                         command history entries (inclusive)
+        :param ~datetime.datetime stop: Maximum generation time of the returned
+                                        command history entries (exclusive)
+        :param int page_size: Page size of underlying requests. Higher values imply
+                              less overhead, but risk hitting the maximum message size limit.
+        :param bool descending: If set to ``True`` results are fetched in reverse
+                                order (most recent first).
+        :rtype: ~collections.Iterable[.CommandHistory]
+        """
+        params = {
+            'order': 'desc' if descending else 'asc',
+        }
+        if page_size is not None:
+            params['limit'] = page_size
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+
+        if command:
+            path = '/archive/{}/commands{}'.format(self._instance, command)
+        else:
+            path = '/archive/{}/commands'.format(self._instance)
+
+        return pagination.Iterator(
+            client=self._client,
+            path=path,
+            params=params,
+            response_class=rest_pb2.ListCommandsResponse,
+            items_key='entry',
+            item_mapper=CommandHistory,
         )

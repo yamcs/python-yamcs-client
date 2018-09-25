@@ -68,6 +68,13 @@ def iterate_specific_parameter_range():
     print('Found', total, 'parameter values in range')
 
 
+def print_last_commands():
+    """Print the last 10 commands."""
+    iterable = archive.list_command_history(descending=True)
+    for entry in islice(iterable, 0, 10):
+        print(entry)
+
+
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
     archive = client.get_archive(instance='simulator')
@@ -89,3 +96,6 @@ if __name__ == '__main__':
 
     print('\nIterate specific parameter range:')
     iterate_specific_parameter_range()
+
+    print('\nLast 10 commands:')
+    print_last_commands()

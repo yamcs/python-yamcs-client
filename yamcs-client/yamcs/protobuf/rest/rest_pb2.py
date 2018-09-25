@@ -25,7 +25,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/rest/rest.proto',
   package='yamcs.protobuf.rest',
   syntax='proto2',
-  serialized_pb=_b('\n\x1eyamcs/protobuf/rest/rest.proto\x12\x13yamcs.protobuf.rest\x1a\x1ayamcs/protobuf/yamcs.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\"\xe8\x02\n\x16GetApiOverviewResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x44\n\x05route\x18\x04 \x03(\x0b\x32\x35.yamcs.protobuf.rest.GetApiOverviewResponse.RouteInfo\x12\x46\n\x06plugin\x18\x05 \x03(\x0b\x32\x36.yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo\x1a(\n\tRouteInfo\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x03(\t\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\"m\n\x1c\x42ulkGetParameterValueRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"U\n\x1d\x42ulkGetParameterValueResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xe8\x01\n\x1c\x42ulkSetParameterValueRequest\x12[\n\x07request\x18\x01 \x03(\x0b\x32J.yamcs.protobuf.rest.BulkSetParameterValueRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"~\n!BulkDownloadParameterValueRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnamespace\x18\x04 \x01(\t\"N\n\x14ListLinkInfoResponse\x12\x36\n\x04link\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"U\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"(\n\x17\x45\x64itCommandQueueRequest\x12\r\n\x05state\x18\x01 \x01(\t\"Q\n\x13ListClientsResponse\x12:\n\x06\x63lient\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.yamcsManagement.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Z\n\x16ListProcessorsResponse\x12@\n\tprocessor\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"W\n\x19ListCommandQueuesResponse\x12:\n\x05queue\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"V\n\x17ListCommandQueueEntries\x12;\n\x05\x65ntry\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"-\n\x1c\x45\x64itCommandQueueEntryRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xd2\x01\n\x13IssueCommandRequest\x12G\n\nassignment\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.rest.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x8c\x01\n\x14IssueCommandResponse\x12G\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xcb\x01\n\x1bUpdateCommandHistoryRequest\x12\x33\n\x05\x63mdId\x18\x01 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12O\n\x0chistoryEntry\x18\x02 \x03(\x0b\x32\x39.yamcs.protobuf.rest.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"{\n\x12\x43reateEventRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08severity\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x06 \x01(\x05\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"e\n\x18SetSimulationTimeRequest\x12\r\n\x05time0\x18\x01 \x01(\x03\x12\x10\n\x08time0UTC\x18\x02 \x01(\t\x12\x16\n\x0esimElapsedTime\x18\x03 \x01(\x03\x12\x10\n\x08simSpeed\x18\x04 \x01(\x01\"X\n\x15ListInstancesResponse\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"a\n\x10\x43reateTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"_\n\x0e\x45\x64itTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"2\n\x10\x45\x64itAlarmRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07\x63omment\x18\x02 \x01(\t\"F\n\x12ListTablesResponse\x12\x30\n\x05table\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.archive.TableInfo\"I\n\x13ListStreamsResponse\x12\x32\n\x06stream\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.StreamInfo\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"W\n\x17ListServiceInfoResponse\x12<\n\x07service\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"r\n\x1bListParameterValuesResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"V\n\x13\x42ulkGetIndexRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x03 \x03(\t\x12\x12\n\npacketname\x18\x04 \x03(\t\"#\n\x13\x43reateBucketRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xab\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12?\n\x08metadata\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.rest.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\x13ListBucketsResponse\x12/\n\x06\x62ucket\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.BucketInfo\"V\n\x13ListObjectsResponse\x12\x0e\n\x06prefix\x18\x01 \x03(\t\x12/\n\x06object\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.ObjectInfoB\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n\x1eyamcs/protobuf/rest/rest.proto\x12\x13yamcs.protobuf.rest\x1a\x1ayamcs/protobuf/yamcs.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\"\xe8\x02\n\x16GetApiOverviewResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x44\n\x05route\x18\x04 \x03(\x0b\x32\x35.yamcs.protobuf.rest.GetApiOverviewResponse.RouteInfo\x12\x46\n\x06plugin\x18\x05 \x03(\x0b\x32\x36.yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo\x1a(\n\tRouteInfo\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x03(\t\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\"m\n\x1c\x42ulkGetParameterValueRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"U\n\x1d\x42ulkGetParameterValueResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xe8\x01\n\x1c\x42ulkSetParameterValueRequest\x12[\n\x07request\x18\x01 \x03(\x0b\x32J.yamcs.protobuf.rest.BulkSetParameterValueRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"~\n!BulkDownloadParameterValueRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnamespace\x18\x04 \x01(\t\"N\n\x14ListLinkInfoResponse\x12\x36\n\x04link\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"(\n\x17\x45\x64itCommandQueueRequest\x12\r\n\x05state\x18\x01 \x01(\t\"Q\n\x13ListClientsResponse\x12:\n\x06\x63lient\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.yamcsManagement.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Z\n\x16ListProcessorsResponse\x12@\n\tprocessor\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"W\n\x19ListCommandQueuesResponse\x12:\n\x05queue\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"V\n\x17ListCommandQueueEntries\x12;\n\x05\x65ntry\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"-\n\x1c\x45\x64itCommandQueueEntryRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xd2\x01\n\x13IssueCommandRequest\x12G\n\nassignment\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.rest.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x8c\x01\n\x14IssueCommandResponse\x12G\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xcb\x01\n\x1bUpdateCommandHistoryRequest\x12\x33\n\x05\x63mdId\x18\x01 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12O\n\x0chistoryEntry\x18\x02 \x03(\x0b\x32\x39.yamcs.protobuf.rest.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"{\n\x12\x43reateEventRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08severity\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x06 \x01(\x05\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"e\n\x18SetSimulationTimeRequest\x12\r\n\x05time0\x18\x01 \x01(\x03\x12\x10\n\x08time0UTC\x18\x02 \x01(\t\x12\x16\n\x0esimElapsedTime\x18\x03 \x01(\x03\x12\x10\n\x08simSpeed\x18\x04 \x01(\x01\"X\n\x15ListInstancesResponse\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"a\n\x10\x43reateTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"_\n\x0e\x45\x64itTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"2\n\x10\x45\x64itAlarmRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07\x63omment\x18\x02 \x01(\t\"F\n\x12ListTablesResponse\x12\x30\n\x05table\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.archive.TableInfo\"I\n\x13ListStreamsResponse\x12\x32\n\x06stream\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.StreamInfo\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"W\n\x17ListServiceInfoResponse\x12<\n\x07service\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"r\n\x1bListParameterValuesResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"V\n\x13\x42ulkGetIndexRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x03 \x03(\t\x12\x12\n\npacketname\x18\x04 \x03(\t\"#\n\x13\x43reateBucketRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xab\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12?\n\x08metadata\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.rest.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\x13ListBucketsResponse\x12/\n\x06\x62ucket\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.BucketInfo\"V\n\x13ListObjectsResponse\x12\x0e\n\x06prefix\x18\x01 \x03(\t\x12/\n\x06object\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.ObjectInfoB\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_archive_dot_archive__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -421,6 +421,13 @@ _LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='continuationToken', full_name='yamcs.protobuf.rest.ListCommandsResponse.continuationToken', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -434,7 +441,7 @@ _LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1295,
-  serialized_end=1380,
+  serialized_end=1407,
 )
 
 
@@ -464,8 +471,8 @@ _EDITLINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1382,
-  serialized_end=1414,
+  serialized_start=1409,
+  serialized_end=1441,
 )
 
 
@@ -495,8 +502,8 @@ _EDITCOMMANDQUEUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1416,
-  serialized_end=1456,
+  serialized_start=1443,
+  serialized_end=1483,
 )
 
 
@@ -526,8 +533,8 @@ _LISTCLIENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1458,
-  serialized_end=1539,
+  serialized_start=1485,
+  serialized_end=1566,
 )
 
 
@@ -564,8 +571,8 @@ _EDITCLIENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1541,
-  serialized_end=1597,
+  serialized_start=1568,
+  serialized_end=1624,
 )
 
 
@@ -595,8 +602,8 @@ _LISTPROCESSORSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1599,
-  serialized_end=1689,
+  serialized_start=1626,
+  serialized_end=1716,
 )
 
 
@@ -626,8 +633,8 @@ _LISTCOMMANDQUEUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1691,
-  serialized_end=1778,
+  serialized_start=1718,
+  serialized_end=1805,
 )
 
 
@@ -657,8 +664,8 @@ _LISTCOMMANDQUEUEENTRIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1780,
-  serialized_end=1866,
+  serialized_start=1807,
+  serialized_end=1893,
 )
 
 
@@ -688,8 +695,8 @@ _EDITCOMMANDQUEUEENTRYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1868,
-  serialized_end=1913,
+  serialized_start=1895,
+  serialized_end=1940,
 )
 
 
@@ -726,8 +733,8 @@ _ISSUECOMMANDREQUEST_ASSIGNMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2085,
-  serialized_end=2126,
+  serialized_start=2112,
+  serialized_end=2153,
 )
 
 _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
@@ -784,8 +791,8 @@ _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1916,
-  serialized_end=2126,
+  serialized_start=1943,
+  serialized_end=2153,
 )
 
 
@@ -836,8 +843,8 @@ _ISSUECOMMANDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2129,
-  serialized_end=2269,
+  serialized_start=2156,
+  serialized_end=2296,
 )
 
 
@@ -874,8 +881,8 @@ _UPDATECOMMANDHISTORYREQUEST_KEYVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2437,
-  serialized_end=2475,
+  serialized_start=2464,
+  serialized_end=2502,
 )
 
 _UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
@@ -911,8 +918,8 @@ _UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2272,
-  serialized_end=2475,
+  serialized_start=2299,
+  serialized_end=2502,
 )
 
 
@@ -977,8 +984,8 @@ _CREATEEVENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2477,
-  serialized_end=2600,
+  serialized_start=2504,
+  serialized_end=2627,
 )
 
 
@@ -1036,8 +1043,8 @@ _CREATEPROCESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2602,
-  serialized_end=2708,
+  serialized_start=2629,
+  serialized_end=2735,
 )
 
 
@@ -1081,8 +1088,8 @@ _EDITPROCESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2710,
-  serialized_end=2776,
+  serialized_start=2737,
+  serialized_end=2803,
 )
 
 
@@ -1112,8 +1119,8 @@ _STREAMSUBSCRIBEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2778,
-  serialized_end=2818,
+  serialized_start=2805,
+  serialized_end=2845,
 )
 
 
@@ -1164,8 +1171,8 @@ _SETSIMULATIONTIMEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2820,
-  serialized_end=2921,
+  serialized_start=2847,
+  serialized_end=2948,
 )
 
 
@@ -1195,8 +1202,8 @@ _LISTINSTANCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2923,
-  serialized_end=3011,
+  serialized_start=2950,
+  serialized_end=3038,
 )
 
 
@@ -1226,8 +1233,8 @@ _LISTTAGSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3013,
-  serialized_end=3072,
+  serialized_start=3040,
+  serialized_end=3099,
 )
 
 
@@ -1285,8 +1292,8 @@ _CREATETAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3074,
-  serialized_end=3171,
+  serialized_start=3101,
+  serialized_end=3198,
 )
 
 
@@ -1344,8 +1351,8 @@ _EDITTAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3173,
-  serialized_end=3268,
+  serialized_start=3200,
+  serialized_end=3295,
 )
 
 
@@ -1375,8 +1382,8 @@ _LISTALARMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3270,
-  serialized_end=3339,
+  serialized_start=3297,
+  serialized_end=3366,
 )
 
 
@@ -1413,8 +1420,8 @@ _EDITALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3341,
-  serialized_end=3391,
+  serialized_start=3368,
+  serialized_end=3418,
 )
 
 
@@ -1444,8 +1451,8 @@ _LISTTABLESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3393,
-  serialized_end=3463,
+  serialized_start=3420,
+  serialized_end=3490,
 )
 
 
@@ -1475,8 +1482,8 @@ _LISTSTREAMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3465,
-  serialized_end=3538,
+  serialized_start=3492,
+  serialized_end=3565,
 )
 
 
@@ -1513,8 +1520,8 @@ _LISTEVENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3540,
-  serialized_end=3625,
+  serialized_start=3567,
+  serialized_end=3652,
 )
 
 
@@ -1551,8 +1558,8 @@ _LISTPACKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3627,
-  serialized_end=3721,
+  serialized_start=3654,
+  serialized_end=3748,
 )
 
 
@@ -1582,8 +1589,8 @@ _LISTSERVICEINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3723,
-  serialized_end=3810,
+  serialized_start=3750,
+  serialized_end=3837,
 )
 
 
@@ -1620,8 +1627,8 @@ _LISTPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3812,
-  serialized_end=3926,
+  serialized_start=3839,
+  serialized_end=3953,
 )
 
 
@@ -1651,8 +1658,8 @@ _EDITSERVICEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3928,
-  serialized_end=3963,
+  serialized_start=3955,
+  serialized_end=3990,
 )
 
 
@@ -1703,8 +1710,8 @@ _BULKGETINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3965,
-  serialized_end=4051,
+  serialized_start=3992,
+  serialized_end=4078,
 )
 
 
@@ -1734,8 +1741,8 @@ _CREATEBUCKETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4053,
-  serialized_end=4088,
+  serialized_start=4080,
+  serialized_end=4115,
 )
 
 
@@ -1779,8 +1786,8 @@ _BUCKETINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4090,
-  serialized_end=4150,
+  serialized_start=4117,
+  serialized_end=4177,
 )
 
 
@@ -1817,8 +1824,8 @@ _OBJECTINFO_METADATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4277,
-  serialized_end=4324,
+  serialized_start=4304,
+  serialized_end=4351,
 )
 
 _OBJECTINFO = _descriptor.Descriptor(
@@ -1868,8 +1875,8 @@ _OBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4153,
-  serialized_end=4324,
+  serialized_start=4180,
+  serialized_end=4351,
 )
 
 
@@ -1899,8 +1906,8 @@ _LISTBUCKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4326,
-  serialized_end=4396,
+  serialized_start=4353,
+  serialized_end=4423,
 )
 
 
@@ -1937,8 +1944,8 @@ _LISTOBJECTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4398,
-  serialized_end=4484,
+  serialized_start=4425,
+  serialized_end=4511,
 )
 
 _GETAPIOVERVIEWRESPONSE_ROUTEINFO.containing_type = _GETAPIOVERVIEWRESPONSE

@@ -163,7 +163,8 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         """
         Gets locally cached CommandHistory for the specified command.
 
-        :param .IssuedCommand issued_command: object representing a previously issued command.
+        :param .IssuedCommand issued_command: object representing a
+                                              previously issued command.
         :rtype: .CommandHistory
         """
         #pylint: disable=protected-access
@@ -176,14 +177,14 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
     def _process(self, entry):
         key = self._cache_key(entry.commandId)
         if key in self._cache:
-            rec = self._cache[key]
+            cmdhist = self._cache[key]
+            #pylint: disable=protected-access
+            cmdhist._update(entry.attr)
         else:
-            rec = CommandHistory()
-            self._cache[key] = rec
+            cmdhist = CommandHistory(entry)
+            self._cache[key] = cmdhist
 
-        #pylint: disable=protected-access
-        rec._update(entry.attr)
-        return rec
+        return cmdhist
 
 
 class ParameterSubscription(WebSocketSubscriptionFuture):
