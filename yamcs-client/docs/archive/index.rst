@@ -3,6 +3,9 @@ Archive
 
 The Archive API provides methods that you can use to programmatically retrieve the content of a Yamcs Archive.
 
+Reference
+---------
+
 .. toctree::
 
     client

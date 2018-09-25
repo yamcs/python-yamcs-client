@@ -1,13 +1,17 @@
 TM/TC Processing
 ================
 
-The Mission Database API provides methods that you can use to programmatically interact with a TM/TC processor.
+The TM/TC API provides methods that you can use to programmatically interact with a TM/TC processor.
 
+
+Reference
+---------
 
 .. toctree::
 
     client
     model
+
 
 Snippets
 --------
@@ -48,7 +52,7 @@ Read the latest value of multiple parameters at the same time:
 
 Set the value of a parameter. Only some types of parameters can
 be written to. This includes software parameters (local to Yamcs)
-and parameters that are linked to an external system (for example
+and parameters that are linked to an external system (such as
 a simulator).
 
 .. literalinclude:: ../../examples/read-write-parameters.py
@@ -111,8 +115,7 @@ Receive :class:`.CommandHistory` callbacks on command history events:
 Alarm Monitoring
 ^^^^^^^^^^^^^^^^
 
-Receive :class:`.AlarmEvent` callbacks whenever one or more of the
-subscribed parameters have been updated:
+Receive :class:`.AlarmEvent` callbacks:
 
 .. literalinclude:: ../../examples/alarms.py
     :pyobject: receive_callbacks

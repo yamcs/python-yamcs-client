@@ -11,16 +11,6 @@ Yamcs Client Library for Python
   :target: https://pypi.python.org/pypi/yamcs-client/
   :alt: License
 
-.. toctree::
-   :maxdepth: 2
-   :titlesonly:
-   :hidden:
-
-   general/index
-   mdb/index
-   tmtc/index
-   archive/index
-   examples/index
 
 Getting Started
 ---------------
@@ -32,6 +22,7 @@ If necessary, you can also use Python 2.7, but be aware that this final 2.x vers
 Install ``yamcs-client`` from PyPI::
 
     pip install --upgrade yamcs-client
+
 
 Usage
 -----
@@ -51,3 +42,17 @@ Get domain-specific clients:
 
     processor = client.get_processor(instance='simulator', processor='realtime')
     # ...
+
+
+Next Steps
+----------
+
+.. toctree::
+    :maxdepth: 2
+    :titlesonly:
+
+    general/index
+    mdb/index
+    tmtc/index
+    archive/index
+    examples/index
