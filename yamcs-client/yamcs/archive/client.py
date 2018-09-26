@@ -31,13 +31,14 @@ class ArchiveClient(object):
         return iter(names)
 
 
-    def list_packet_histogram(self, name=None, start=None, stop=None, merge_time=2000):
+    def list_packet_histogram(self, name=None, start=None, stop=None, merge_time=2):
         """
         Reads packet-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
+        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -48,7 +49,7 @@ class ArchiveClient(object):
         if stop is not None:
             params['stop'] = to_isostring(stop)
         if merge_time is not None:
-            params['mergeTime'] = merge_time
+            params['mergeTime'] = int(merge_time * 1000)
 
         return pagination.Iterator(
             client=self._client,
@@ -74,13 +75,14 @@ class ArchiveClient(object):
         groups = getattr(message, 'group')
         return iter(groups)
 
-    def list_processed_parameter_group_histogram(self, group=None, start=None, stop=None, merge_time=20000):
+    def list_processed_parameter_group_histogram(self, group=None, start=None, stop=None, merge_time=20):
         """
         Reads index records related to processed parameter groups between the
         specified start and stop time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
+        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -91,7 +93,7 @@ class ArchiveClient(object):
         if stop is not None:
             params['stop'] = to_isostring(stop)
         if merge_time is not None:
-            params['mergeTime'] = merge_time
+            params['mergeTime'] = int(merge_time * 1000)
 
         return pagination.Iterator(
             client=self._client,
@@ -117,13 +119,14 @@ class ArchiveClient(object):
         sources = getattr(message, 'source')
         return iter(sources)
 
-    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=2000):
+    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=2):
         """
         Reads event-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
+        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -134,7 +137,7 @@ class ArchiveClient(object):
         if stop is not None:
             params['stop'] = to_isostring(stop)
         if merge_time is not None:
-            params['mergeTime'] = merge_time
+            params['mergeTime'] = int(merge_time * 1000)
 
         return pagination.Iterator(
             client=self._client,
@@ -145,13 +148,14 @@ class ArchiveClient(object):
             item_mapper=IndexGroup,
         )
 
-    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=2000):
+    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=2):
         """
         Reads command-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
+        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -162,7 +166,7 @@ class ArchiveClient(object):
         if stop is not None:
             params['stop'] = to_isostring(stop)
         if merge_time is not None:
-            params['mergeTime'] = merge_time
+            params['mergeTime'] = int(merge_time * 1000)
 
         return pagination.Iterator(
             client=self._client,
