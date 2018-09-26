@@ -62,5 +62,6 @@ div#searchbox {
 }
 
 div.footer {
-    display: none;
+    /* Hide, instead of display:none, so it still print some whitespace in the footer */
+    visibility: hidden;
 }

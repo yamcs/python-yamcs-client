@@ -1,24 +1,30 @@
-# Client library for Yamcs.
+# Yamcs Client library for Python
 [![Website](https://img.shields.io/website/http/shields.io.svg?label=docs)](https://www.yamcs.org/yamcs-python/yamcs-client)
 [![Build Status](https://travis-ci.org/yamcs/yamcs-python.svg?branch=master)](https://travis-ci.org/yamcs/yamcs-python)
 [![PyPI](https://img.shields.io/pypi/v/yamcs-client.svg)](https://pypi.python.org/pypi/yamcs-client)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/yamcs-client.svg)](https://pypi.python.org/pypi/yamcs-client/)
 
+
+## Features
+
+* MDB retrieval
+* Telemetry updates
+* Command History updates
+* Alarm updates
+* Event updates
+* Archive retrieval
+* Histogram retrieval
+
+
+## Installation
+
+The easiest way to install is via pip
+
+    pip install yamcs-client
+
+
 ## Documentation
-https://www.yamcs.org/yamcs-python/yamcs-client
-
-## Development Setup
-
-Install build dependencies (you may want to do this in a virtualenv):
-
-    pip install -r requirements.txt
-
-
-Install `yamcs-client` from the source base:
-
-    python setup.py develop
-
-Changes to any source file have immediate impact.
+All available operations are documented at https://www.yamcs.org/yamcs-python/yamcs-client
 
 
 ## License
