@@ -6,7 +6,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import Event, Link, LinkEvent
+from yamcs.model import Event, Instance, Link, LinkEvent
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -179,6 +179,22 @@ class YamcsClient(BaseClient):
         """
         return ProcessorClient(self, instance, processor)
 
+    def list_instances(self):
+        """
+        Lists the instances.
+
+        Instances are returned in lexicographical order.
+
+        :rtype: :class:`.Instance` iterator
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        response = self.get_proto(path='/instances')
+        message = rest_pb2.ListInstancesResponse()
+        message.ParseFromString(response.content)
+        instances = getattr(message, 'instance')
+        return iter([Instance(instance) for instance in instances])
+
     def list_data_links(self, instance):
         """
         Lists the data links visible to this client.
@@ -188,7 +204,6 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name
         :rtype: :class:`.Link` iterator
         """
-
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.get_proto(path='/links/' + instance)

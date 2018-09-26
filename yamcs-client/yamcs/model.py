@@ -155,3 +155,46 @@ class Link(object):
     def __str__(self):
         return '{}/{}: {} (in: {} out: {})'.format(
             self.instance, self.name, self.status, self.in_count, self.out_count)
+
+
+class Instance(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Name of this instance."""
+        return self._proto.name
+
+    @property
+    def state(self):
+        """
+        State of this instance. One of ``OFFLINE``, ``INITIALIZING``,
+        ``INITIALIZED``, ``STARTING``, ``RUNNING``, ``STOPPING`` or
+        ``FAILED``.
+        """
+        if self._proto.HasField('state'):
+            return yamcsManagement_pb2.YamcsInstance.InstanceState.Name(self._proto.state)
+        return None
+
+    @property
+    def failure_cause(self):
+        """Failure message when ``state == 'FAILED'``"""
+        if self._proto.HasField('failureCause'):
+            return self._proto.failureCause
+        return None
+
+    @property
+    def mission_time(self):
+        """
+        Mission time of this instance's time service.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField('missionTime'):
+            return parse_isostring(self._proto.missionTime)
+        return None
+
+    def __str__(self):
+        return '{} [{}]'.format(self.name, self.state)
