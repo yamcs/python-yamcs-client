@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-client',
-    version='1.1.0',
+    version='1.1.1',
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -33,7 +33,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Operating System :: OS Independent',
-        'Topic :: Internet',
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
