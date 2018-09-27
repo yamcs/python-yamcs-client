@@ -1,4 +1,4 @@
-.PHONY: docs
+.PHONY: docs build
 
 clean:
 	rm -rf build dist *.egg-info
