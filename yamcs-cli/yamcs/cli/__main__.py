@@ -4,7 +4,7 @@ import argparse
 
 import pkg_resources
 
-from yamcs.cli import instances, links, processors
+from yamcs.cli import clients, instances, links, processors
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -34,6 +34,7 @@ def main():
     subparsers = parser.add_subparsers(title='commands', metavar=metavar)
 
     clients_parser = subparsers.add_parser('clients', help='List clients')
+    clients.configure_parser(clients_parser)
 
     config_parser = subparsers.add_parser('config',
                                           help='Manage Yamcs client properties')

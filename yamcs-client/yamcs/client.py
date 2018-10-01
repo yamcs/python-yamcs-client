@@ -6,7 +6,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import Event, Instance, Link, LinkEvent, Processor
+from yamcs.model import Client, Event, Instance, Link, LinkEvent, Processor
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -188,6 +188,24 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         processors = getattr(message, 'processor')
         return iter([Processor(processor) for processor in processors])
+
+    def list_clients(self, instance=None):
+        """
+        Lists the clients.
+
+        :param str instance: A Yamcs instance name.
+        :rtype: :class:`.Client` iterator
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        url = '/clients'
+        if instance:
+            url = '/instances/{}/clients'.format(instance)
+        response = self.get_proto(path=url)
+        message = rest_pb2.ListClientsResponse()
+        message.ParseFromString(response.content)
+        clients = getattr(message, 'client')
+        return iter([Client(client) for client in clients])
 
     def get_processor(self, instance, processor):
         """

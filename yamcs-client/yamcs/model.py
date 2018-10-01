@@ -205,6 +205,43 @@ class Instance(object):
         return '{} [{}]'.format(self.name, self.state)
 
 
+class Client(object):
+    """A user session."""
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def id(self):
+        """Session ID."""
+        return self._proto.id
+
+    @property
+    def username(self):
+        """Username associated with this session."""
+        return self._proto.username
+
+    @property
+    def application_name(self):
+        """Application name (user agent)."""
+        if self._proto.HasField('applicationName'):
+            return self._proto.applicationName
+        return None
+
+    @property
+    def login_time(self):
+        """
+        Time when this session started.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField('loginTimeUTC'):
+            return parse_isostring(self._proto.loginTimeUTC)
+        return None
+
+    def __str__(self):
+        return self.username
+
 class Processor(object):
 
     def __init__(self, proto):
