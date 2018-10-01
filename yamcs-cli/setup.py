@@ -38,7 +38,6 @@ setuptools.setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Operating System :: OS Independent',
-        'Topic :: Internet',
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
