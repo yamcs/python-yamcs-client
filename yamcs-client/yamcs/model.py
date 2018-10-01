@@ -133,6 +133,11 @@ class Link(object):
         return self._proto.name
 
     @property
+    def class_name(self):
+        """Name of this link's class."""
+        return self._proto.type
+
+    @property
     def enabled(self):
         """If ``True``, this link accepts or outputs data."""
         return not self._proto.disabled
@@ -194,6 +199,58 @@ class Instance(object):
         """
         if self._proto.HasField('missionTime'):
             return parse_isostring(self._proto.missionTime)
+        return None
+
+    def __str__(self):
+        return '{} [{}]'.format(self.name, self.state)
+
+
+class Processor(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Name of this processor."""
+        return self._proto.name
+
+    @property
+    def instance(self):
+        """Name of the instance where this processor is defined."""
+        return self._proto.instance
+
+    @property
+    def state(self):
+        """State of this processor."""
+        if self._proto.HasField('state'):
+            return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
+        return self._proto.state
+
+    @property
+    def type(self):
+        """Type of this processor."""
+        return self._proto.type
+
+    @property
+    def owner(self):
+        """User that owns this processor."""
+        return self._proto.creator
+
+    @property
+    def persistent(self):
+        """If ``True``, this processor does not close if no clients are connected."""
+        return not self._proto.persistent
+
+    @property
+    def mission_time(self):
+        """
+        Mission time of this processor.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField('time'):
+            return parse_isostring(self._proto.time)
         return None
 
     def __str__(self):

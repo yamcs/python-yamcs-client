@@ -6,7 +6,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import Event, Instance, Link, LinkEvent
+from yamcs.model import Event, Instance, Link, LinkEvent, Processor
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -169,6 +169,26 @@ class YamcsClient(BaseClient):
         """
         return ArchiveClient(self, instance)
 
+    def list_processors(self, instance=None):
+        """
+        Lists the processors.
+
+        Processors are returned in lexicographical order.
+
+        :param str instance: A Yamcs instance name.
+        :rtype: :class:`.Processor` iterator
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        url = '/processors'
+        if instance:
+            url += '/' + instance
+        response = self.get_proto(path=url)
+        message = rest_pb2.ListProcessorsResponse()
+        message.ParseFromString(response.content)
+        processors = getattr(message, 'processor')
+        return iter([Processor(processor) for processor in processors])
+
     def get_processor(self, instance, processor):
         """
         Return an object for working with a specific Yamcs processor.
@@ -201,7 +221,7 @@ class YamcsClient(BaseClient):
 
         Data links are returned in random order.
 
-        :param str instance: A Yamcs instance name
+        :param str instance: A Yamcs instance name.
         :rtype: :class:`.Link` iterator
         """
         # Server does not do pagination on listings of this resource.
@@ -216,7 +236,7 @@ class YamcsClient(BaseClient):
         """
         Gets a single data link.
 
-        :param str instance: A Yamcs instance name
+        :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
         :rtype: :class:`.Link`
         """
@@ -225,6 +245,20 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         return Link(message)
 
+    def edit_data_link(self, instance, link, state=None):
+        """
+        Updates a single data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :param str state: The state of the link. Either ``enabled`` or ``disabled``.
+        """
+        req = rest_pb2.EditLinkRequest()
+        if state:
+            req.state = state
+        url = '/links/{}/{}'.format(instance, link)
+        self.patch_proto(url, data=req.SerializeToString())
+
     def create_data_link_subscription(self, instance, on_data=None, timeout=60):
         """
         Create a new subscription for receiving data link updates of an instance.
@@ -232,7 +266,7 @@ class YamcsClient(BaseClient):
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :param str instance: A Yamcs instance name
+        :param str instance: A Yamcs instance name.
         :param on_data: Function that gets called with :class:`.LinkEvent`
                         updates.
         :param float timeout: The amount of seconds to wait for the request
