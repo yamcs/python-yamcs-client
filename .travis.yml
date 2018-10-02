@@ -25,4 +25,4 @@ deploy:
   github-token: $GITHUB_TOKEN
   keep-history: false  # Force update single commit on gh-pages branch
   on:
-    branch: master
+    branch: stable
