@@ -36,12 +36,12 @@ def configure_list(parser):
 
 
 def configure_enable(parser):
-    parser.add_argument('links', metavar='<name>', type=str, nargs='+', help='name of the link', default=enable)
+    parser.add_argument('links', metavar='<name>', type=str, nargs='+', help='name of the link')
     parser.set_defaults(func=enable)
 
 
 def configure_disable(parser):
-    parser.add_argument('links', metavar='<name>', type=str, nargs='+', help='name of the link', default=disable)
+    parser.add_argument('links', metavar='<name>', type=str, nargs='+', help='name of the link')
     parser.set_defaults(func=disable)
 
 

@@ -1,21 +1,33 @@
-import logging
-
-import requests
-
-log = logging.getLogger(__name__)
+from yamcs.core.client import BaseClient
+from yamcs.protobuf.rest import rest_pb2
+from yamcs.storage.model import Bucket, ObjectListing
 
 
 class Client(object):
 
-    def __init__(self, host='localhost', port=8090):
-        self.host = host
-        self.port = port
-        self.api_root = 'http://{}:{}/api'.format(host, port)
+    def __init__(self, address, **kwargs):
+        super(Client, self).__init__()
+        self._client = BaseClient(address, **kwargs)
 
-    def get_bucket(self):
-        pass
+    def list_global_buckets(self):
+        return self.list_buckets('_global')
 
-    def request(self, method, api_path):
-        response = requests.request(method, '{}{}'.format(self.api_root, api_path))
-        response.raise_for_status()
-        return response
+    def list_buckets(self, instance):
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        response = self._client.get_proto(path='/buckets/' + instance)
+        message = rest_pb2.ListBucketsResponse()
+        message.ParseFromString(response.content)
+        buckets = getattr(message, 'bucket')
+        return iter([
+            Bucket(bucket, instance, self) for bucket in buckets])
+
+    def list_global_objects(self, bucket_name):
+        return self.list_objects('_global', bucket_name)
+
+    def list_objects(self, instance, bucket_name):
+        url = '/buckets/{}/{}'.format(instance, bucket_name)
+        response = self._client.get_proto(path=url)
+        message = rest_pb2.ListObjectsResponse()
+        message.ParseFromString(response.content)
+        return ObjectListing(message)
