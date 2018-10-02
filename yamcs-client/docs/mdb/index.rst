@@ -17,7 +17,7 @@ may contain any number of definitions. These break down in:
     * commands
     * algorithms
 
-Entries in the Space system are typically addressed via a qualified name that
+Entries in the Space system are addressable via a qualified name that
 looks like a Unix file path. Each segment of the path contains the name of
 the space system node, the final path segment is the name of the entry itself.
 
@@ -35,7 +35,7 @@ entries ``/YSS/SIMULATOR/BatteryVoltage1`` and
 Some MDB entries may also define an alias. An alias is a unique name to
 address the entry under a custom namespace (unrelated to XTCE space systems).
 
-When it comes to addressing entries via this API, it is usually allowed to
+When it comes to addressing entries via this client, it is possible to
 provide either the fully-qualified XTCE name in the format
 ``/YSS/SIMULATOR/BatteryVoltage1`` or an alias in the format
 ``NAMESPACE/NAME``.

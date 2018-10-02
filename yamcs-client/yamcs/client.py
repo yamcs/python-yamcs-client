@@ -75,7 +75,11 @@ class TimeSubscription(WebSocketSubscriptionFuture):
         super(TimeSubscription, self).__init__(manager)
 
         self.time = None
-        """The last time info."""
+        """
+        The last time info.
+
+        :type: :class:`~datetime.datetime`
+        """
 
     def _process(self, time):
         self.time = time
@@ -141,7 +145,8 @@ class YamcsClient(BaseClient):
     def get_time(self, instance):
         """
         Return the current mission time for the specified instance.
-        :rtype :class:`datetime`
+
+        :rtype: ~datetime.datetime
         """
         url = '/instances/{}'.format(instance)
         response = self.get_proto(url)
@@ -156,7 +161,7 @@ class YamcsClient(BaseClient):
         Return an object for working with the MDB for the specified instance.
 
         :param str instance: A Yamcs instance name.
-        :rtype: :class:`.MDBClient`
+        :rtype: .MDBClient
         """
         return MDBClient(self, instance)
 
@@ -165,7 +170,7 @@ class YamcsClient(BaseClient):
         Return an object for working with the Archive of the specified instance.
 
         :param str instance: A Yamcs instance name.
-        :rtype: :class:`.ArchiveClient`
+        :rtype: .ArchiveClient
         """
         return ArchiveClient(self, instance)
 
@@ -176,7 +181,7 @@ class YamcsClient(BaseClient):
         Processors are returned in lexicographical order.
 
         :param str instance: A Yamcs instance name.
-        :rtype: :class:`.Processor` iterator
+        :rtype: ~collections.Iterable[.Processor]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -194,7 +199,7 @@ class YamcsClient(BaseClient):
         Lists the clients.
 
         :param str instance: A Yamcs instance name.
-        :rtype: :class:`.Client` iterator
+        :rtype: ~collections.Iterable[.Client]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -213,7 +218,7 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         :param str processor: A processor name within that instance.
-        :rtype: :class:`.ProcessorClient`
+        :rtype: .ProcessorClient
         """
         return ProcessorClient(self, instance, processor)
 
@@ -223,7 +228,7 @@ class YamcsClient(BaseClient):
 
         Instances are returned in lexicographical order.
 
-        :rtype: :class:`.Instance` iterator
+        :rtype: ~collections.Iterable[.Instance]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -240,7 +245,7 @@ class YamcsClient(BaseClient):
         Data links are returned in random order.
 
         :param str instance: A Yamcs instance name.
-        :rtype: :class:`.Link` iterator
+        :rtype: ~collections.Iterable[.Link]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -256,7 +261,7 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
-        :rtype: :class:`.Link`
+        :rtype: .Link
         """
         response = self.get_proto('/links/{}/{}'.format(instance, link))
         message = yamcsManagement_pb2.LinkInfo()
@@ -289,9 +294,9 @@ class YamcsClient(BaseClient):
                         updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.DataLinkSubscription`
-                object that can be used to manage the background websocket
-                subscription.
+        :return: Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .DataLinkSubscription
         """
         manager = WebSocketSubscriptionManager(self, resource='links')
 
@@ -321,9 +326,9 @@ class YamcsClient(BaseClient):
                         :class:`~datetime.datetime` updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.TimeSubscription`
-                object that can be used to manage the background websocket
-                subscription.
+        :return: Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .TimeSubscription
         """
         manager = WebSocketSubscriptionManager(self, resource='time')
 
@@ -348,12 +353,12 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
-        :param on_data: Function that gets called on each :class:`Event`.
+        :param on_data: Function that gets called on each :class:`.Event`.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :rtype: A :class:`.WebSocketSubscriptionFuture`
-                object that can be used to manage the background websocket
-                subscription.
+        :return: Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .WebSocketSubscriptionFuture
         """
         manager = WebSocketSubscriptionManager(self, resource='events')
 

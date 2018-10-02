@@ -30,7 +30,6 @@ class ArchiveClient(object):
         names = getattr(message, 'name')
         return iter(names)
 
-
     def list_packet_histogram(self, name=None, start=None, stop=None, merge_time=2):
         """
         Reads packet-related index records between the specified start and stop

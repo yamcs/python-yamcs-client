@@ -473,7 +473,7 @@ class ProcessorClient(object):
 
         :param ~datetime.datetime start: Minimum trigger time of the returned alarms (inclusive)
         :param ~datetime.datetime stop: Maximum trigger time of the returned alarms (exclusive)
-        :rtype: :class:`.Alarm` iterator
+        :rtype: ~collections.Iterable[.Alarm]
         """
         # TODO implement continuation token on server
         params = {
@@ -518,7 +518,8 @@ class ProcessorClient(object):
                         updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
-        :return: Future that can be used to manage the background websocket subscription
+        :return: Future that can be used to manage the background websocket
+                 subscription
         :rtype: .CommandHistorySubscription
         """
         manager = WebSocketSubscriptionManager(
