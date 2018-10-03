@@ -3,7 +3,7 @@ import functools
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import parse_isostring
+from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
 from yamcs.model import Client, Event, Instance, Link, LinkEvent, Processor
@@ -254,6 +254,41 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         links = getattr(message, 'link')
         return iter([Link(link) for link in links])
+
+    def send_event(self, instance, message, event_type=None, time=None,
+                   source=None, sequence_number=None):
+        """
+        Post a new event.
+
+        :param str message: Event message
+        :param str event_type: (Optional) Type of event.
+        :param str severity: (Optional) The severity level of the event.
+                             One of ``info``, ``watch``, ``warning``,
+                             ``critical`` or ``severe``. Defaults to ``info``.
+        :param ~datetime.datetime time: (Optional) Time of the event. If
+                                        unspecified, defaults to mission time.
+        :param str source: (Optional) Source of the event. Useful for grouping
+                           events in the archive. When unset this defaults to
+                           ``User``.
+        :param int sequence_number: (Optional) Sequence number of this event.
+                                    This is primarily used to distinguish
+                                    unicity of events coming from the same
+                                    source. If not set Yamcs will automatically
+                                    assign a sequencential number as if every
+                                    received event is unique.
+        """
+        req = rest_pb2.CreateEventRequest()
+        req.message = message
+        req.type = event_type or 'info'
+        if time:
+            req.time = to_isostring(time)
+        if source:
+            req.source = source
+        if sequence_number is not None:
+            req.sequence_number = sequence_number
+
+        url = '/archive/{}/events'.format(instance)
+        self.post_proto(url, data=req.SerializeToString())
 
     def get_data_link(self, instance, link):
         """

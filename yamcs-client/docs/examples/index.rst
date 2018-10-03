@@ -18,8 +18,8 @@ called ``/YSS/SIMULATOR``.
     ccsds-completeness
     commanding
     data-links
+    events
     mission-time
     parameter-subscription
     query-mdb
     read-write-parameters
-    receive-events
