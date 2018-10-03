@@ -26,6 +26,12 @@ def rb(args):
         client.remove_bucket(instance='simulator', bucket_name=bucket)
 
 
+def cat(args):
+    client = storage.Client('localhost:8090')
+    content = client.download_object(instance='simulator', bucket_name=args.bucket, object_name=args.object)
+    print(content)
+
+
 def configure_list(parser):
     parser.add_argument('bucket', metavar='[bucket]', type=str, nargs='?', help='bucket or object')
     parser.set_defaults(func=list_)
@@ -41,6 +47,12 @@ def configure_rb(parser):
     parser.set_defaults(func=rb)
 
 
+def configure_cat(parser):
+    parser.add_argument('bucket', metavar='<bucket>', type=str, help='bucket')
+    parser.add_argument('object', metavar='<object>', type=str, help='object')
+    parser.set_defaults(func=cat)
+
+
 def configure_parser(parser):
     # parser.set_defaults(func=list_)
     subparsers = parser.add_subparsers(title='commands', metavar='<command>')
@@ -53,3 +65,6 @@ def configure_parser(parser):
 
     rb_parser = subparsers.add_parser('rb', help='Remove buckets')
     configure_rb(rb_parser)
+
+    cat_parser = subparsers.add_parser('cat', help='Concatenate object content to stdout')
+    configure_cat(cat_parser)

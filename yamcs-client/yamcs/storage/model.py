@@ -27,14 +27,20 @@ class Bucket(object):
         return self._client.list_objects(
             instance=self._instance, bucket_name=self.name)
 
+    def delete(self):
+        self._client.remove_bucket(self._instance, self.name)
+
     def __str__(self):
         return self.name
 
 
 class ObjectListing(object):
 
-    def __init__(self, proto):
+    def __init__(self, proto, instance, bucket, client):
         self._proto = proto
+        self._instance = instance
+        self._bucket = bucket
+        self._client = client
 
     @property
     def prefixes(self):
@@ -42,13 +48,17 @@ class ObjectListing(object):
 
     @property
     def objects(self):
-        return [ObjectInfo(o) for o in self._proto.object]
+        return [ObjectInfo(o, self._instance, self._bucket, self._client)
+                for o in self._proto.object]
 
 
 class ObjectInfo(object):
 
-    def __init__(self, proto):
+    def __init__(self, proto, instance, bucket, client):
         self._proto = proto
+        self._instance = instance
+        self._bucket = bucket
+        self._client = client
 
     @property
     def name(self):
@@ -64,6 +74,13 @@ class ObjectInfo(object):
         if self._proto.HasField('created'):
             return parse_isostring(self._proto.created)
         return None
+
+    def delete(self):
+        self._client.remove_object(self._instance, self._bucket, self.name)
+
+    def download(self):
+        return self._client.download_object(
+            self._instance, self._bucket, self.name)
 
     def __str__(self):
         return '{} ({} bytes, created {})'.format(
