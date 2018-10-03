@@ -17,6 +17,11 @@ class Algorithm(object):
         return self._proto.qualifiedName
 
     @property
+    def aliases(self):
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+
+    @property
     def description(self):
         """Short description."""
         if self._proto.HasField('shortDescription'):
@@ -48,6 +53,11 @@ class Command(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def aliases(self):
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
 
     @property
     def description(self):
@@ -129,6 +139,11 @@ class Container(object):
         return self._proto.qualifiedName
 
     @property
+    def aliases(self):
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+
+    @property
     def description(self):
         """Short description."""
         if self._proto.HasField('shortDescription'):
@@ -166,6 +181,11 @@ class Parameter(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def aliases(self):
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
 
     @property
     def description(self):
@@ -215,6 +235,11 @@ class SpaceSystem(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def aliases(self):
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
 
     @property
     def description(self):

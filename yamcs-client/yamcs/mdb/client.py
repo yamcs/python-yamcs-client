@@ -55,7 +55,7 @@ class MDBClient(object):
         :param str parameter_type: The type of parameter
         :rtype: :class:`.Parameter` iterator
         """
-        params = {}
+        params = {'details': True}
 
         if parameter_type is not None:
             params['type'] = parameter_type
