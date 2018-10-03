@@ -16,6 +16,20 @@ class Algorithm(object):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
+    @property
+    def description(self):
+        """Short description."""
+        if self._proto.HasField('shortDescription'):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self):
+        """Long description."""
+        if self._proto.HasField('longDescription'):
+            return self._proto.longDescription
+        return None
+
     def __str__(self):
         return self.qualified_name
 
@@ -35,8 +49,68 @@ class Command(object):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
+    @property
+    def description(self):
+        """Short description."""
+        if self._proto.HasField('shortDescription'):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self):
+        """Long description."""
+        if self._proto.HasField('longDescription'):
+            return self._proto.longDescription
+        return None
+
+    @property
+    def base_command(self):
+        if self._proto.HasField('baseCommand'):
+            return Command(self._proto.baseCommand)
+        return None
+
+    @property
+    def abstract(self):
+        """
+        Whether this is an abstract command. Abstract commands are
+        intended for inheritance and cannot be issued directly.
+        """
+        return self._proto.abstract
+
+    @property
+    def significance(self):
+        if self._proto.HasField('significance'):
+            return Significance(self._proto.significance)
+        return None
+
     def __str__(self):
         return self.qualified_name
+
+
+class Significance(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def consequence_level(self):
+        """
+        One of ``NONE``, ``WATCH``, ``WARNING``, ``DISTRESS``, ``CRITICAL``
+        or ``SEVERE``.
+        """
+        if self._proto.HasField('consequenceLevel'):
+            return mdb_pb2.SignificanceInfo.SignificanceLevelType.Name(self._proto.consequenceLevel)
+        return None
+
+    @property
+    def reason(self):
+        """Message attached to this significance."""
+        if self._proto.HasField('reasonForWarning'):
+            return self._proto.reasonForWarning
+        return None
+
+    def __str__(self):
+        return '[{}] {}'.format(self.consequence_level, self.reason)
 
 
 class Container(object):
@@ -53,6 +127,20 @@ class Container(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def description(self):
+        """Short description."""
+        if self._proto.HasField('shortDescription'):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self):
+        """Long description."""
+        if self._proto.HasField('longDescription'):
+            return self._proto.longDescription
+        return None
 
     def __str__(self):
         return self.qualified_name
@@ -78,6 +166,20 @@ class Parameter(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def description(self):
+        """Short description."""
+        if self._proto.HasField('shortDescription'):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self):
+        """Long description."""
+        if self._proto.HasField('longDescription'):
+            return self._proto.longDescription
+        return None
 
     @property
     def data_source(self):
@@ -113,6 +215,20 @@ class SpaceSystem(object):
     def qualified_name(self):
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
+
+    @property
+    def description(self):
+        """Short description."""
+        if self._proto.HasField('shortDescription'):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self):
+        """Long description."""
+        if self._proto.HasField('longDescription'):
+            return self._proto.longDescription
+        return None
 
     def __str__(self):
         return self.qualified_name
