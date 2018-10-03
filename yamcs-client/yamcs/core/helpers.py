@@ -21,6 +21,8 @@ def parse_isostring(isostring):
     """
     Parse the ISO String to a native ``datetime``.
     """
+    if not isostring:
+        return None
     return datetime.strptime(isostring.replace('Z', 'GMT'),
                              '%Y-%m-%dT%H:%M:%S.%f%Z')
 
