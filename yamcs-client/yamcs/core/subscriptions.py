@@ -117,17 +117,21 @@ class WebSocketSubscriptionManager(object):
         self.send('subscribe', self._options)
 
     def _on_websocket_message(self, ws, message):
-        pb2_message = web_pb2.WebSocketServerMessage()
-        pb2_message.ParseFromString(message)
+        try:
+            pb2_message = web_pb2.WebSocketServerMessage()
+            pb2_message.ParseFromString(message)
 
-        if pb2_message.type == pb2_message.REPLY:
-            for cb in self._response_callbacks:
-                cb(self, reply=pb2_message.reply)
-        elif pb2_message.type == pb2_message.EXCEPTION:
-            for cb in self._response_callbacks:
-                cb(self, exception=pb2_message.exception)
-
-        self._callback(pb2_message)
+            if pb2_message.type == pb2_message.REPLY:
+                for cb in self._response_callbacks:
+                    cb(self, reply=pb2_message.reply)
+            elif pb2_message.type == pb2_message.EXCEPTION:
+                for cb in self._response_callbacks:
+                    cb(self, exception=pb2_message.exception)
+            self._callback(pb2_message)
+        except Exception as e:  # pylint: disable=W0703
+            logging.warn('Error while processing message. Closing connection',
+                         exc_info=True)
+            self._close_async(reason=e)
 
     def _on_websocket_error(self, ws, error):
         logging.warn('WebSocket error', exc_info=True)
@@ -137,10 +141,13 @@ class WebSocketSubscriptionManager(object):
         if isinstance(error, websocket.WebSocketConnectionClosedException):
             error = ConnectionFailure('Connection closed')
 
+        self._close_async(reason=error)
+
+    def _close_async(self, reason):
         # Close async. This is to not get stuck in the above ``join()``.
         closer = threading.Thread(
             target=self.close,
-            kwargs={'reason': error}
+            kwargs={'reason': reason}
         )
         closer.daemon = True
         closer.start()
