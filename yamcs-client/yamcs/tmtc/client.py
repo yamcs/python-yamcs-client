@@ -102,6 +102,17 @@ def _build_named_object_ids(parameters):
     return [_build_named_object_id(parameter) for parameter in parameters]
 
 
+#pylint: disable=protected-access
+def _build_command_ids(issued_commands):
+    """Builds a list of CommandId."""
+    if isinstance(issued_commands, IssuedCommand):
+        entry = issued_commands._proto.commandQueueEntry
+        return [entry.cmdId]
+    else:
+        return [issued_command._proto.commandQueueEntry.cmdId
+                for issued_command in issued_commands]
+
+
 def _build_value_proto(value):
     proto = yamcs_pb2.Value()
     if isinstance(value, bool):
@@ -462,7 +473,7 @@ class ProcessorClient(object):
         response = self._client.post_proto(url, data=req.SerializeToString())
         proto = rest_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
-        return IssuedCommand(proto)
+        return IssuedCommand(proto, self)
 
     def list_alarms(self, start=None, stop=None):
         """
@@ -509,11 +520,16 @@ class ProcessorClient(object):
             req.comment = comment
         self._client.put_proto(url, data=req.SerializeToString())
 
-    def create_command_history_subscription(self, on_data=None, timeout=60):
+    def create_command_history_subscription(self,
+                                            issued_command=None,
+                                            on_data=None,
+                                            timeout=60):
         """
         Create a new command history subscription.
 
-
+        :param .IssuedCommand[] issued_command: (Optional) Previously issued
+                                                commands. If not provided updates
+                                                from any command are received.
         :param on_data: Function that gets called with  :class:`.CommandHistory`
                         updates.
         :param float timeout: The amount of seconds to wait for the request
@@ -522,8 +538,13 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandHistorySubscription
         """
+        options = web_pb2.CommandHistorySubscriptionRequest()
+        options.ignorePastCommands = True
+        if issued_command:
+            options.commandId.extend(_build_command_ids(issued_command))
+
         manager = WebSocketSubscriptionManager(
-            self._client, resource='cmdhistory')
+            self._client, resource='cmdhistory', options=options)
 
         # Represent subscription as a future
         subscription = CommandHistorySubscription(manager)

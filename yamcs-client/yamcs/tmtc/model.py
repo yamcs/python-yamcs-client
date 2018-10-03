@@ -156,8 +156,9 @@ class CommandHistory(object):
 
 class IssuedCommand(object):
 
-    def __init__(self, proto):
+    def __init__(self, proto, client):
         self._proto = proto
+        self._client = client
 
     @property
     def name(self):
@@ -237,6 +238,21 @@ class IssuedCommand(object):
         if self._proto.HasField('binary'):
             return self._proto.binary
         return None
+
+    def create_command_history_subscription(self, on_data=None, timeout=60):
+        """
+        Create a new command history subscription for this command.
+
+        :param on_data: Function that gets called with  :class:`.CommandHistory`
+                        updates.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :return: Future that can be used to manage the background websocket
+                 subscription
+        :rtype: .CommandHistorySubscription
+        """
+        return self._client.create_command_history_subscription(
+            issued_command=self, on_data=on_data, timeout=timeout)
 
     def __str__(self):
         return '{} {}'.format(self.generation_time, self.source)

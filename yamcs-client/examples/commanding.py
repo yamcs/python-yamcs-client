@@ -21,6 +21,17 @@ def listen_to_command_history():
     processor.create_command_history_subscription(on_data=tc_callback)
 
 
+def issue_and_listen_to_command_history():
+    """Listen to command history updates of a single issued command."""
+    def tc_callback(rec):
+        print('TC:', rec)
+
+    command = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
+        'voltage_num': 1,
+    }, comment='im a comment')
+    command.create_command_history_subscription(on_data=tc_callback)
+
+
 def tm_callback(delivery):
     for parameter in delivery.parameters:
         print('TM:', parameter)
