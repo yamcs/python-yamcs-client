@@ -129,12 +129,11 @@ class WebSocketSubscriptionManager(object):
                     cb(self, exception=pb2_message.exception)
             self._callback(pb2_message)
         except Exception as e:  # pylint: disable=W0703
-            logging.warn('Error while processing message. Closing connection',
-                         exc_info=True)
+            logging.exception('Problem while processing message. Closing connection')
             self._close_async(reason=e)
 
     def _on_websocket_error(self, ws, error):
-        logging.warn('WebSocket error', exc_info=True)
+        logging.exception('WebSocket error')
 
         # Generate our own exception.
         # (the default message is misleading 'connection is already closed')
