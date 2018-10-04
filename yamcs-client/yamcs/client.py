@@ -271,7 +271,7 @@ class YamcsClient(BaseClient):
                            events in the archive. When unset this defaults to
                            ``User``.
         :param int sequence_number: (Optional) Sequence number of this event.
-                                    This is primarily used to distinguish
+                                    This is primarily used to determine
                                     unicity of events coming from the same
                                     source. If not set Yamcs will automatically
                                     assign a sequential number as if every
