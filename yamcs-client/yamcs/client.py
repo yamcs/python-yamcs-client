@@ -256,7 +256,7 @@ class YamcsClient(BaseClient):
         return iter([Link(link) for link in links])
 
     def send_event(self, instance, message, event_type=None, time=None,
-                   source=None, sequence_number=None):
+                   severity='info', source=None, sequence_number=None):
         """
         Post a new event.
 
@@ -274,12 +274,14 @@ class YamcsClient(BaseClient):
                                     This is primarily used to distinguish
                                     unicity of events coming from the same
                                     source. If not set Yamcs will automatically
-                                    assign a sequencential number as if every
-                                    received event is unique.
+                                    assign a sequential number as if every
+                                    submitted event is unique.
         """
         req = rest_pb2.CreateEventRequest()
         req.message = message
-        req.type = event_type or 'info'
+        req.severity = severity
+        if event_type:
+            req.type = event_type
         if time:
             req.time = to_isostring(time)
         if source:
