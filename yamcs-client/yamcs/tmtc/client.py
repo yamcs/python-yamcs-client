@@ -453,6 +453,8 @@ class ProcessorClient(object):
                              errors when preparing the command (for example
                              because an argument is missing).
         :param str comment: Comment attached to the command.
+        :return: An object providing access to properties of the newly issued
+                 command.
         :rtype: .IssuedCommand
         """
         req = rest_pb2.IssueCommandRequest()

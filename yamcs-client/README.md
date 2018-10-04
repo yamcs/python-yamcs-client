@@ -1,4 +1,4 @@
-# Yamcs Client library for Python
+# Yamcs Client Library for Python
 [![Website](https://img.shields.io/website/http/shields.io.svg?label=docs)](https://www.yamcs.org/yamcs-python/yamcs-client)
 [![Build Status](https://travis-ci.org/yamcs/yamcs-python.svg?branch=master)](https://travis-ci.org/yamcs/yamcs-python)
 [![PyPI](https://img.shields.io/pypi/v/yamcs-client.svg)](https://pypi.python.org/pypi/yamcs-client)
