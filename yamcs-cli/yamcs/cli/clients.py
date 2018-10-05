@@ -6,10 +6,9 @@ from yamcs.cli import utils
 def list_(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
 
     rows = [['ID', 'USER', 'APPLICATION', 'LOGIN']]
-    for client in client.list_clients(instance):
+    for client in client.list_clients():
         rows.append([
             client.id,
             client.username,

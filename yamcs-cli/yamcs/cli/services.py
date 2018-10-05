@@ -6,7 +6,7 @@ from yamcs.cli import utils
 def list_(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     rows = [['NAME', 'CLASS', 'STATUS']]
     for service in client.list_services(instance):
@@ -18,19 +18,19 @@ def list_(args):
     utils.print_table(rows)
 
 
-def enable(args):
+def start(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for service in args.services:
         client.edit_service(instance, service=service, state='running')
 
 
-def disable(args):
+def stop(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for service in args.services:
         client.edit_service(instance, service=service, state='stopped')
@@ -42,12 +42,12 @@ def configure_parser(parser):
     list_parser = subparsers.add_parser('list', help='Read and manipulate services')
     list_parser.set_defaults(func=list_)
 
-    enable_parser = subparsers.add_parser('enable', help='Enable a service')
-    enable_parser.add_argument(
+    start_parser = subparsers.add_parser('start', help='Start a service')
+    start_parser.add_argument(
         'services', metavar='<name>', type=str, nargs='+', help='name of the service')
-    enable_parser.set_defaults(func=enable)
+    start_parser.set_defaults(func=start)
 
-    disable_parser = subparsers.add_parser('disable', help='Disable a service')
-    disable_parser.add_argument(
+    stop_parser = subparsers.add_parser('stop', help='Stop a service')
+    stop_parser.add_argument(
         'services', metavar='<name>', type=str, nargs='+', help='name of the service')
-    disable_parser.set_defaults(func=disable)
+    stop_parser.set_defaults(func=stop)

@@ -2,10 +2,8 @@ from __future__ import print_function
 
 import argparse
 
-import pkg_resources
-
 from yamcs.cli import (clients, config, instances, links, processors, services,
-                       storage)
+                       storage, utils)
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -20,10 +18,11 @@ class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
 def main():
     parser = argparse.ArgumentParser(description=None,
                                      formatter_class=SubCommandHelpFormatter)
-    dist = pkg_resources.get_distribution('yamcs-client')
     parser.add_argument('--version', action='version',
-                        version='yamcs-cli v' + dist.version,
+                        version=utils.get_user_agent(),
                         help='Print version information and quit')
+    parser.add_argument('--instance', type=str,
+                        help='The Yamcs instance to use. Overrides the core/instance property')
 
     # The width of this impacts the command width of the command column :-/
     metavar = '<command>'

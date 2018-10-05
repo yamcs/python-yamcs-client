@@ -19,19 +19,19 @@ CONFIG_FILE = os.path.join(CONFIG_DIR, 'config')
 def _get_address(config):
     return config.get('core', 'host') + ':' + config.get('core', 'port')
 
-def _get_user_agent():
+def get_user_agent():
     dist = pkg_resources.get_distribution('yamcs-cli')
     return 'Yamcs CLI v' + dist.version
 
 def create_client(config):
     address = _get_address(config)
-    user_agent = _get_user_agent()
+    user_agent = get_user_agent()
     return YamcsClient(address, user_agent=user_agent)
 
 
 def create_storage_client(config):
     address = _get_address(config)
-    user_agent = _get_user_agent()
+    user_agent = get_user_agent()
     return StorageClient(address, user_agent=user_agent)
 
 

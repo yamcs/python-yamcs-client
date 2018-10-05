@@ -2,8 +2,6 @@ from yamcs.core.client import BaseClient
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.storage.model import Bucket, ObjectListing
 
-GLOBAL_INSTANCE = '_global'
-
 
 class Client(object):
 

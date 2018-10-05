@@ -6,7 +6,7 @@ from yamcs.cli import utils
 def list_(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     rows = [['NAME', 'CLASS', 'STATUS', 'IN', 'OUT']]
     for link in client.list_data_links(instance):
@@ -23,7 +23,7 @@ def list_(args):
 def enable(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for link in args.links:
         client.edit_data_link(instance, link=link, state='enabled')
@@ -32,7 +32,7 @@ def enable(args):
 def disable(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for link in args.links:
         client.edit_data_link(instance, link=link, state='disabled')

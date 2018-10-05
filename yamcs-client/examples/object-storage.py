@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 from yamcs import storage
+from yamcs.core import GLOBAL_INSTANCE
 
 
 def print_buckets(instance):
@@ -20,4 +21,4 @@ if __name__ == '__main__':
     print_buckets(instance='simulator')
 
     print('\nGlobal buckets:')
-    print_buckets(instance=storage.GLOBAL_INSTANCE)
+    print_buckets(instance=GLOBAL_INSTANCE)

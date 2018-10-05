@@ -18,7 +18,6 @@ def list_(args):
 
 
 def configure_parser(parser):
-    # parser.set_defaults(func=list_)
     subparsers = parser.add_subparsers(title='commands', metavar='<command>')
 
     list_parser = subparsers.add_parser('list', help='List instances')

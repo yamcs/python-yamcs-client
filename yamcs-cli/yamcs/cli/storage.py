@@ -6,7 +6,7 @@ from yamcs.cli import utils
 def list_(args):
     config = utils.read_config()
     client = utils.create_storage_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     if args.bucket:
         listing = client.list_objects(instance, bucket_name=args.bucket)
@@ -20,7 +20,7 @@ def list_(args):
 def mb(args):
     config = utils.read_config()
     client = utils.create_storage_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for bucket in args.bucket:
         client.create_bucket(instance, bucket_name=bucket)
@@ -29,7 +29,7 @@ def mb(args):
 def rb(args):
     config = utils.read_config()
     client = utils.create_storage_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     for bucket in args.bucket:
         client.remove_bucket(instance, bucket_name=bucket)
@@ -38,7 +38,7 @@ def rb(args):
 def cat(args):
     config = utils.read_config()
     client = utils.create_storage_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     content = client.download_object(
         instance, bucket_name=args.bucket, object_name=args.object)

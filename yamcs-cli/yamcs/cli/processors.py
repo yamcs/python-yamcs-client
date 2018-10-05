@@ -6,7 +6,7 @@ from yamcs.cli import utils
 def list_(args):
     config = utils.read_config()
     client = utils.create_client(config)
-    instance = config.get('core', 'instance')
+    instance = args.instance or config.get('core', 'instance')
 
     rows = [['NAME', 'TYPE', 'OWNER', 'PERSISTENT', 'MISSION TIME', 'STATE']]
     for processor in client.list_processors(instance):
