@@ -1,10 +1,11 @@
-from yamcs.archive.model import IndexGroup, Packet
+from yamcs.archive.model import IndexGroup, Packet, Table
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.rest import rest_pb2
+from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
 
 
@@ -372,3 +373,44 @@ class ArchiveClient(object):
             items_key='entry',
             item_mapper=CommandHistory,
         )
+
+    def list_tables(self):
+        """
+        Returns the existing tables.
+
+        :rtype: ~collections.Iterable[.Table]
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        path = '/archive/{}/tables'.format(self._instance)
+        response = self._client.get_proto(path=path)
+        message = rest_pb2.ListTablesResponse()
+        message.ParseFromString(response.content)
+        tables = getattr(message, 'table')
+        return iter([Table(table) for table in tables])
+
+    def get_table(self, table):
+        """
+        Gets a single table.
+
+        :param str table: The name of the table.
+        :rtype: .Table
+        """
+        path = '/archive/{}/tables/{}'.format(self._instance, table)
+        response = self._client.get_proto(path=path)
+        message = archive_pb2.TableInfo()
+        message.ParseFromString(response.content)
+        return Table(message)
+
+    def dump_table(self, table, chunk_size=1024):
+        path = '/archive/{}/downloads/tables/{}'.format(self._instance, table)
+        params = {'format': 'dump'}
+        response = self._client.get_proto(path=path, stream=True, params=params)
+        return response.iter_content(chunk_size=chunk_size)
+
+    def load_table(self, table, data):
+        path = '/archive/{}/tables/{}/data'.format(self._instance, table)
+        response = self._client.post_proto(path=path, data=data)
+        message = table_pb2.TableLoadResponse()
+        message.ParseFromString(response.content)
+        return message.rowsLoaded

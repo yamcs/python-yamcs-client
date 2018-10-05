@@ -1,6 +1,20 @@
 from yamcs.core.helpers import parse_isostring
 
 
+class Table(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Table name."""
+        return self._proto.name
+
+    def __str__(self):
+        return self.name
+
+
 class IndexGroup(object):
     """
     Group of index records that represent the same

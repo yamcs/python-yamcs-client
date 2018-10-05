@@ -4,7 +4,7 @@ import argparse
 
 from yamcs.cli import (algorithms, clients, commands, config, containers,
                        instances, links, parameters, processors, services,
-                       space_systems, storage, utils)
+                       space_systems, storage, tables, utils)
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -79,6 +79,7 @@ def main():
 
     tables_parser = subparsers.add_parser(
         'tables', help='Read and manipulate tables')
+    tables.configure_parser(tables_parser)
 
     args = parser.parse_args()
     args.func(args)
