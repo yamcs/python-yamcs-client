@@ -205,6 +205,47 @@ class Instance(object):
         return '{} [{}]'.format(self.name, self.state)
 
 
+class Service(object):
+    """A Yamcs service."""
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Name of this service."""
+        return self._proto.name
+
+    @property
+    def instance(self):
+        """Name of the instance where this service is defined."""
+        if self._proto.HasField('instance'):
+            return self._proto.instance
+        return None
+
+    @property
+    def processor(self):
+        """Name of the processor where this service is defined."""
+        if self._proto.HasField('processor'):
+            return self._proto.processor
+        return None
+
+    @property
+    def class_name(self):
+        """Name of this service's class."""
+        return self._proto.className
+
+    @property
+    def state(self):
+        """State of this service."""
+        if self._proto.HasField('state'):
+            return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
+        return None
+
+    def __str__(self):
+        return '{} [{}]'.format(self.name, self.state)
+
+
 class Client(object):
     """A user session."""
 
@@ -262,7 +303,7 @@ class Processor(object):
         """State of this processor."""
         if self._proto.HasField('state'):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
-        return self._proto.state
+        return None
 
     @property
     def type(self):

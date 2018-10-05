@@ -6,7 +6,8 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import Client, Event, Instance, Link, LinkEvent, Processor
+from yamcs.model import (Client, Event, Instance, Link, LinkEvent, Processor,
+                         Service)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -173,6 +174,37 @@ class YamcsClient(BaseClient):
         :rtype: .ArchiveClient
         """
         return ArchiveClient(self, instance)
+
+    def list_services(self, instance):
+        """
+        List the services for an instance.
+
+        :param str instance: A Yamcs instance name.
+        :rtype: ~collections.Iterable[.Service]
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        url = '/services/{}'.format(instance)
+        response = self.get_proto(path=url)
+        message = rest_pb2.ListServiceInfoResponse()
+        message.ParseFromString(response.content)
+        services = getattr(message, 'service')
+        return iter([Service(service) for service in services])
+
+    def edit_service(self, instance, service, state=None):
+        """
+        Updates a single service.
+
+        :param str instance: A Yamcs instance name.
+        :param str service: The name of the service.
+        :param str state: The state of the service. Either ``running``
+                          or ``stopped``.
+        """
+        req = rest_pb2.EditServiceRequest()
+        if state:
+            req.state = state
+        url = '/services/{}/{}'.format(instance, service)
+        self.patch_proto(url, data=req.SerializeToString())
 
     def list_processors(self, instance=None):
         """

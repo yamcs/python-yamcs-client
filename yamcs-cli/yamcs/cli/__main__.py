@@ -4,7 +4,8 @@ import argparse
 
 import pkg_resources
 
-from yamcs.cli import clients, config, instances, links, processors, storage
+from yamcs.cli import (clients, config, instances, links, processors, services,
+                       storage)
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -14,10 +15,6 @@ class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
         if action.nargs == argparse.PARSER:
             parts = '\n'.join(parts.split('\n')[1:])
         return parts
-
-
-def services(args):
-    print('services')
 
 
 def main():
@@ -54,7 +51,7 @@ def main():
 
     services_parser = subparsers.add_parser(
         'services', help='Read and manipulate services')
-    services_parser.set_defaults(func=services)
+    services.configure_parser(services_parser)
 
     storage_parser = subparsers.add_parser(
         'storage', help='Manage object storage')
