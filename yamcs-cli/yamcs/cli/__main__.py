@@ -2,8 +2,9 @@ from __future__ import print_function
 
 import argparse
 
-from yamcs.cli import (clients, config, instances, links, processors, services,
-                       storage, utils)
+from yamcs.cli import (algorithms, clients, commands, config, containers,
+                       instances, links, parameters, processors, services,
+                       space_systems, storage, utils)
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -29,12 +30,24 @@ def main():
 
     subparsers = parser.add_subparsers(title='commands', metavar=metavar)
 
+    algorithms_parser = subparsers.add_parser(
+        'algorithms', help='Read algorithms')
+    algorithms.configure_parser(algorithms_parser)
+
     clients_parser = subparsers.add_parser('clients', help='List clients')
     clients.configure_parser(clients_parser)
 
     config_parser = subparsers.add_parser(
         'config', help='Manage Yamcs client properties')
     config.configure_parser(config_parser)
+
+    commands_parser = subparsers.add_parser(
+        'commands', help='Read commands')
+    commands.configure_parser(commands_parser)
+
+    containers_parser = subparsers.add_parser(
+        'containers', help='Read containers')
+    containers.configure_parser(containers_parser)
 
     instances_parser = subparsers.add_parser(
         'instances', help='Read Yamcs instances')
@@ -44,9 +57,17 @@ def main():
         'links', help='Read and manipulate data links')
     links.configure_parser(links_parser)
 
+    parameters_parser = subparsers.add_parser(
+        'parameters', help='Read parameters')
+    parameters.configure_parser(parameters_parser)
+
     processors_parser = subparsers.add_parser(
         'processors', help='Read processors')
     processors.configure_parser(processors_parser)
+
+    space_systems_parser = subparsers.add_parser(
+        'space-systems', help='Read space systems')
+    space_systems.configure_parser(space_systems_parser)
 
     services_parser = subparsers.add_parser(
         'services', help='Read and manipulate services')
