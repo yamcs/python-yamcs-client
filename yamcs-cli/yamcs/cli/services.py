@@ -23,7 +23,7 @@ def start(args):
     client = YamcsClient(**opts.client_kwargs)
 
     for service in args.services:
-        client.edit_service(opts.instance, service=service, state='running')
+        client.start_service(opts.instance, service=service)
 
 
 def stop(args):
@@ -31,7 +31,7 @@ def stop(args):
     client = YamcsClient(**opts.client_kwargs)
 
     for service in args.services:
-        client.edit_service(opts.instance, service=service, state='stopped')
+        client.stop_service(opts.instance, service=service)
 
 
 def configure_parser(parser):

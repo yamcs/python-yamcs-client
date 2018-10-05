@@ -191,18 +191,27 @@ class YamcsClient(BaseClient):
         services = getattr(message, 'service')
         return iter([Service(service) for service in services])
 
-    def edit_service(self, instance, service, state=None):
+    def start_service(self, instance, service):
         """
-        Updates a single service.
+        Starts a single service.
 
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
-        :param str state: The state of the service. Either ``running``
-                          or ``stopped``.
         """
         req = rest_pb2.EditServiceRequest()
-        if state:
-            req.state = state
+        req.state = 'running'
+        url = '/services/{}/{}'.format(instance, service)
+        self.patch_proto(url, data=req.SerializeToString())
+
+    def stop_service(self, instance, service):
+        """
+        Stops a single service.
+
+        :param str instance: A Yamcs instance name.
+        :param str service: The name of the service.
+        """
+        req = rest_pb2.EditServiceRequest()
+        req.state = 'stopped'
         url = '/services/{}/{}'.format(instance, service)
         self.patch_proto(url, data=req.SerializeToString())
 
@@ -269,6 +278,26 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         instances = getattr(message, 'instance')
         return iter([Instance(instance) for instance in instances])
+
+    def start_instance(self, instance):
+        """
+        Starts or restarts a single instance.
+
+        :param str instance: A Yamcs instance name.
+        """
+        params = {'state': 'restarted'}
+        url = '/instances/{}'.format(instance)
+        self.patch_proto(url, params=params)
+
+    def stop_instance(self, instance):
+        """
+        Stops a single instance.
+
+        :param str instance: A Yamcs instance name.
+        """
+        params = {'state': 'stopped'}
+        url = '/instances/{}'.format(instance)
+        self.patch_proto(url, params=params)
 
     def list_data_links(self, instance):
         """
