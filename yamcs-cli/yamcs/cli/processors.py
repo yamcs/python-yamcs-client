@@ -1,14 +1,15 @@
 from __future__ import print_function
 
-from yamcs.cli.utils import print_table
-from yamcs.client import YamcsClient
+from yamcs.cli import utils
 
 
 def list_(args):
-    client = YamcsClient('localhost:8090')
+    config = utils.read_config()
+    client = utils.create_client(config)
+    instance = config.get('core', 'instance')
 
     rows = [['NAME', 'TYPE', 'OWNER', 'PERSISTENT', 'MISSION TIME', 'STATE']]
-    for processor in client.list_processors(instance='simulator'):
+    for processor in client.list_processors(instance):
         rows.append([
             processor.name,
             processor.type,
@@ -17,11 +18,7 @@ def list_(args):
             processor.mission_time,
             processor.state,
         ])
-    print_table(rows)
-
-
-def configure_list(parser):
-    parser.set_defaults(func=list_)
+    utils.print_table(rows)
 
 
 def configure_parser(parser):
@@ -29,4 +26,4 @@ def configure_parser(parser):
     subparsers = parser.add_subparsers(title='commands', metavar='<command>')
 
     list_parser = subparsers.add_parser('list', help='List processors')
-    configure_list(list_parser)
+    list_parser.set_defaults(func=list_)

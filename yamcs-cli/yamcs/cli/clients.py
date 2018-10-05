@@ -1,25 +1,22 @@
 from __future__ import print_function
 
-from yamcs.cli.utils import print_table
-from yamcs.client import YamcsClient
+from yamcs.cli import utils
 
 
 def list_(args):
-    client = YamcsClient('localhost:8090')
+    config = utils.read_config()
+    client = utils.create_client(config)
+    instance = config.get('core', 'instance')
 
     rows = [['ID', 'USER', 'APPLICATION', 'LOGIN']]
-    for client in client.list_clients(instance='simulator'):
+    for client in client.list_clients(instance):
         rows.append([
             client.id,
             client.username,
             client.application_name,
             client.login_time,
         ])
-    print_table(rows)
-
-
-def configure_list(parser):
-    parser.set_defaults(func=list_)
+    utils.print_table(rows)
 
 
 def configure_parser(parser):
@@ -27,4 +24,4 @@ def configure_parser(parser):
     subparsers = parser.add_subparsers(title='commands', metavar='<command>')
 
     list_parser = subparsers.add_parser('list', help='List clients')
-    configure_list(list_parser)
+    list_parser.set_defaults(func=list_)
