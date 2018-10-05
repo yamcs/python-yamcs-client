@@ -1,11 +1,12 @@
 from __future__ import print_function
 
 from yamcs.cli import utils
+from yamcs.client import YamcsClient
 
 
 def list_(args):
-    config = utils.read_config()
-    client = utils.create_client(config)
+    opts = utils.CommandOptions(args)
+    client = YamcsClient(**opts.client_kwargs)
 
     rows = [['NAME', 'STATE', 'MISSION TIME']]
     for instance in client.list_instances():

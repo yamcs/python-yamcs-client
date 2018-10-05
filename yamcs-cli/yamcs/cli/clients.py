@@ -1,11 +1,12 @@
 from __future__ import print_function
 
 from yamcs.cli import utils
+from yamcs.client import YamcsClient
 
 
 def list_(args):
-    config = utils.read_config()
-    client = utils.create_client(config)
+    opts = utils.CommandOptions(args)
+    client = YamcsClient(**opts.client_kwargs)
 
     rows = [['ID', 'USER', 'APPLICATION', 'LOGIN']]
     for client in client.list_clients():
@@ -19,7 +20,6 @@ def list_(args):
 
 
 def configure_parser(parser):
-    # parser.set_defaults(func=list_)
     subparsers = parser.add_subparsers(title='commands', metavar='<command>')
 
     list_parser = subparsers.add_parser('list', help='List clients')

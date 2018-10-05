@@ -1,47 +1,44 @@
 from __future__ import print_function
 
+from yamcs import storage
 from yamcs.cli import utils
 
 
 def list_(args):
-    config = utils.read_config()
-    client = utils.create_storage_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = storage.Client(**opts.client_kwargs)
 
     if args.bucket:
-        listing = client.list_objects(instance, bucket_name=args.bucket)
+        listing = client.list_objects(opts.instance, bucket_name=args.bucket)
         for obj in listing.objects:
             print(obj.name)
     else:
-        for bucket in client.list_buckets(instance):
+        for bucket in client.list_buckets(opts.instance):
             print(bucket.name)
 
 
 def mb(args):
-    config = utils.read_config()
-    client = utils.create_storage_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = opts.create_storage_client()
 
     for bucket in args.bucket:
-        client.create_bucket(instance, bucket_name=bucket)
+        client.create_bucket(opts.instance, bucket_name=bucket)
 
 
 def rb(args):
-    config = utils.read_config()
-    client = utils.create_storage_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = opts.create_storage_client()
 
     for bucket in args.bucket:
-        client.remove_bucket(instance, bucket_name=bucket)
+        client.remove_bucket(opts.instance, bucket_name=bucket)
 
 
 def cat(args):
-    config = utils.read_config()
-    client = utils.create_storage_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = opts.create_storage_client()
 
     content = client.download_object(
-        instance, bucket_name=args.bucket, object_name=args.object)
+        opts.instance, bucket_name=args.bucket, object_name=args.object)
     print(content)
 
 

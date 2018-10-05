@@ -1,15 +1,15 @@
 from __future__ import print_function
 
 from yamcs.cli import utils
+from yamcs.client import YamcsClient
 
 
 def list_(args):
-    config = utils.read_config()
-    client = utils.create_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = YamcsClient(**opts.client_kwargs)
 
     rows = [['NAME', 'CLASS', 'STATUS']]
-    for service in client.list_services(instance):
+    for service in client.list_services(opts.instance):
         rows.append([
             service.name,
             service.class_name,
@@ -19,21 +19,19 @@ def list_(args):
 
 
 def start(args):
-    config = utils.read_config()
-    client = utils.create_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = YamcsClient(**opts.client_kwargs)
 
     for service in args.services:
-        client.edit_service(instance, service=service, state='running')
+        client.edit_service(opts.instance, service=service, state='running')
 
 
 def stop(args):
-    config = utils.read_config()
-    client = utils.create_client(config)
-    instance = args.instance or config.get('core', 'instance')
+    opts = utils.CommandOptions(args)
+    client = YamcsClient(**opts.client_kwargs)
 
     for service in args.services:
-        client.edit_service(instance, service=service, state='stopped')
+        client.edit_service(opts.instance, service=service, state='stopped')
 
 
 def configure_parser(parser):
