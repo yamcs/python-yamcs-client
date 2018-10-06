@@ -4,9 +4,6 @@ import os
 
 import pkg_resources
 
-from yamcs.client import YamcsClient
-from yamcs.storage import Client as StorageClient
-
 try:
     from configparser import ConfigParser
 except ImportError:
@@ -36,16 +33,39 @@ def save_config(config):
         config.write(f)
 
 
-def print_table(rows):
+def print_table(rows, decorate=False, header=False):
     widths = map(len, rows[0])
     for row in rows:
         for idx, col in enumerate(row):
             widths[idx] = max(len(str(col)), widths[idx])
 
-    for row in rows:
-        print('  '.join([
+    separator = '  '
+    prefix = '| ' if decorate else ''
+    suffix = ' |' if decorate else ''
+
+    total_width = len(prefix) + len(suffix)
+    for width in widths:
+        total_width += width
+    total_width += len(separator) * (len(widths) - 1)
+
+    data = rows[1:] if header else rows
+    if header and data:
+        if decorate:
+            print('+{}+'.format('-' * (total_width - 2)))
+        cols = separator.join([
             str.ljust(str(col), width)
-            for col, width in zip(row, widths)]))
+            for col, width in zip(rows[0], widths)])
+        print(prefix + cols + suffix)
+    if data:
+        if decorate:
+            print('+{}+'.format('-' * (total_width - 2)))
+        for row in data:
+            cols = separator.join([
+                str.ljust(str(col), width)
+                for col, width in zip(row, widths)])
+            print(prefix + cols + suffix)
+        if decorate:
+            print('+{}+'.format('-' * (total_width - 2)))
 
 
 class CommandOptions(object):

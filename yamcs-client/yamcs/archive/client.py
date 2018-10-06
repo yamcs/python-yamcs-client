@@ -1,4 +1,4 @@
-from yamcs.archive.model import IndexGroup, Packet, Table
+from yamcs.archive.model import IndexGroup, Packet, Stream, Table
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
 from yamcs.model import Event
@@ -378,6 +378,8 @@ class ArchiveClient(object):
         """
         Returns the existing tables.
 
+        Tables are returned in lexicographical order.
+
         :rtype: ~collections.Iterable[.Table]
         """
         # Server does not do pagination on listings of this resource.
@@ -414,3 +416,53 @@ class ArchiveClient(object):
         message = table_pb2.TableLoadResponse()
         message.ParseFromString(response.content)
         return message.rowsLoaded
+
+    def list_streams(self):
+        """
+        Returns the existing streams.
+
+        Streams are returned in lexicographical order.
+
+        :rtype: ~collections.Iterable[.Stream]
+        """
+        # Server does not do pagination on listings of this resource.
+        # Return an iterator anyway for similarity with other API methods
+        path = '/archive/{}/streams'.format(self._instance)
+        response = self._client.get_proto(path=path)
+        message = rest_pb2.ListStreamsResponse()
+        message.ParseFromString(response.content)
+        streams = getattr(message, 'stream')
+        return iter([Stream(stream) for stream in streams])
+
+    def get_stream(self, stream):
+        """
+        Gets a single stream.
+
+        :param str stream: The name of the stream.
+        :rtype: .Stream
+        """
+        path = '/archive/{}/streams/{}'.format(self._instance, stream)
+        response = self._client.get_proto(path=path)
+        message = archive_pb2.StreamInfo()
+        message.ParseFromString(response.content)
+        return Stream(message)
+
+    def execute_sql(self, statement):
+        """
+        Executes a single SQL statement.
+
+        :param statement: SQL string
+        :return: String response
+        :rtype: str
+        """
+        path = '/archive/{}/sql'.format(self._instance)
+        req = archive_pb2.ExecuteSqlRequest()
+        req.statement = statement
+
+        response = self._client.post_proto(path=path,
+                                           data=req.SerializeToString())
+        message = archive_pb2.ExecuteSqlResponse()
+        message.ParseFromString(response.content)
+        if message.HasField('result'):
+            return message.result
+        return None

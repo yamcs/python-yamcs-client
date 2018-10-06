@@ -3,8 +3,9 @@ from __future__ import print_function
 import argparse
 
 from yamcs.cli import (algorithms, clients, commands, config, containers,
-                       instances, links, parameters, processors, services,
-                       space_systems, storage, tables, utils)
+                       dbshell, instances, links, parameters, processors,
+                       services, space_systems, storage, streams, tables,
+                       utils)
 
 
 class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
@@ -49,6 +50,10 @@ def main():
         'containers', help='Read containers')
     containers.configure_parser(containers_parser)
 
+    dbshell_parser = subparsers.add_parser(
+        'dbshell', help='Launch Yarch DB Shell')
+    dbshell.configure_parser(dbshell_parser)
+
     instances_parser = subparsers.add_parser(
         'instances', help='Read Yamcs instances')
     instances.configure_parser(instances_parser)
@@ -76,6 +81,10 @@ def main():
     storage_parser = subparsers.add_parser(
         'storage', help='Manage object storage')
     storage.configure_parser(storage_parser)
+
+    streams_parser = subparsers.add_parser(
+        'streams', help='Read and manipulate streams')
+    streams.configure_parser(streams_parser)
 
     tables_parser = subparsers.add_parser(
         'tables', help='Read and manipulate tables')

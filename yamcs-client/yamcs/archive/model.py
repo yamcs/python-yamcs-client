@@ -15,6 +15,20 @@ class Table(object):
         return self.name
 
 
+class Stream(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Stream name."""
+        return self._proto.name
+
+    def __str__(self):
+        return self.name
+
+
 class IndexGroup(object):
     """
     Group of index records that represent the same

@@ -41,6 +41,7 @@ setuptools.setup(
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
+        'six',
         'yamcs-client',
     ],
     include_package_data=True,
