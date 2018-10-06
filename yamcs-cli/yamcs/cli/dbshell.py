@@ -11,24 +11,47 @@ from yamcs.cli import utils
 from yamcs.client import YamcsClient
 from yamcs.core.exceptions import YamcsError
 
-SHOW_OPTIONS = ('streams', 'tables')
+SHOW_OPTIONS = ('databases', 'engines', 'streams', 'tables', 'stream')
 
 
 class DbShell(Cmd):
 
-    ruler = '-'
-    doc_header = 'Available commands (type help <command>)'
-    pager = True
+    pager = False
+    prompt = '> '
+    instance = None
 
-    def __init__(self, archive):
+    tables = []
+    streams = []
+
+    def __init__(self, client):
         Cmd.__init__(self)
-        self._archive = archive
+        self._client = client
+
+    def print_topics(self, header, cmds, cmdlen, maxcol):
+        if cmds:
+            print('List of dbshell commands:')
+            rows = [['?', 'Show help.']]
+            for cmd in cmds:
+                doc = getattr(self, 'do_' + cmd).__doc__
+                if doc:
+                    rows.append([cmd, doc])
+            utils.print_table(rows)
+            print()
 
     def emptyline(self):
         pass  # Override default behaviour of repeating the last command
 
+    def do_use(self, args):
+        """Use another instance, provided as argument."""
+        self.instance = args
+        self.prompt = self.instance + '> '
+
+        archive = self._client.get_archive(self.instance)
+        self.streams = [s.name for s in archive.list_streams()]
+        self.tables = [t.name for t in archive.list_tables()]
+
     def do_pager(self, args):
-        """Print result via a pager."""
+        """Print results to a pager."""
         self.pager = True
 
     def do_nopager(self, args):
@@ -38,15 +61,20 @@ class DbShell(Cmd):
     def complete_show(self, text, line, begidx, endidx):
         return [o for o in SHOW_OPTIONS if o.startswith(text)]
 
+    def complete_describe(self, text, line, begidx, endidx):
+        return [o for o in (self.streams + self.tables) if o.startswith(text)]
+
     def default(self, line):
         try:
-            result = self._archive.execute_sql(line)
+            archive = self._client.get_archive(self.instance)
+            result = archive.execute_sql(line)
             if result:
                 self.paginate(result.splitlines())
         except YamcsError as e:
             print(e)
 
     def do_edit(self, args):
+        """Edit a command with $EDITOR."""
         if 'EDITOR' not in os.environ:
             print('*** $EDITOR not set')
         else:
@@ -88,24 +116,19 @@ class DbShell(Cmd):
 def launch(args):
     opts = utils.CommandOptions(args)
     client = YamcsClient(**opts.client_kwargs)
-    archive = client.get_archive(opts.instance)
-    shell = DbShell(archive)
-
-    shell.prompt = opts.instance + '> '
+    shell = DbShell(client)
+    shell.do_use(opts.instance)
     try:
         if args.command:
-            shell.pager = False
             shell.onecmd(args.command)
-        elif args.no_intro:
-            shell.cmdloop()
         else:
-            # shell.onecmd('help')
-            shell.cmdloop('Yamcs DB Shell\n\n'
-                          'Type: edit                    Edit a command with $EDITOR\n'
-                          '      nopager                 Disable pager\n'
-                          '      pager                   Enable pager\n'
-                          '      system <command>        Execute a system command\n'
-                          '      help                    Show help\n')
+            server_info = client.get_server_info()
+            intro = (
+                'Yamcs DB Shell\n'
+                'Server version: {} - ID: {}\n\n'
+                'Type ''help'' or ''?'' for help.\n'
+            ).format(server_info.version, server_info.id)
+            shell.cmdloop(intro)
     except KeyboardInterrupt:
         print()  # Move user below current prompt
 
@@ -113,8 +136,6 @@ def launch(args):
 def configure_parser(parser):
     parser.set_defaults(func=launch)
     parser.add_argument(
-        '-c', '--command', metavar='<command>', type=str, help='SQL command string'
-    )
-    parser.add_argument(
-        '--no-intro', action='store_true', help='Hide the intro message'
+        '-c', '--command', metavar='<command>', type=str,
+        help='SQL command string'
     )

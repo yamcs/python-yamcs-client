@@ -7,7 +7,7 @@ from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (Client, Event, Instance, Link, LinkEvent, Processor,
-                         Service)
+                         ServerInfo, Service)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -156,6 +156,17 @@ class YamcsClient(BaseClient):
         if message.HasField('missionTime'):
             return parse_isostring(message.missionTime)
         return None
+
+    def get_server_info(self):
+        """
+        Return general server info.
+
+        :rtype: .ServerInfo
+        """
+        response = self.get_proto(path='')
+        message = rest_pb2.GetApiOverviewResponse()
+        message.ParseFromString(response.content)
+        return ServerInfo(message)
 
     def get_mdb(self, instance):
         """

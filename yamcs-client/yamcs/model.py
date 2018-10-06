@@ -3,6 +3,25 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
+class ServerInfo(object):
+    """
+    General server properties.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def id(self):
+        """The Server ID."""
+        return self._proto.serverId
+
+    @property
+    def version(self):
+        """The version of Yamcs Server."""
+        return self._proto.yamcsVersion
+
+
 class Event(object):
     """
     A timetagged free-text message. Events work a lot like log
