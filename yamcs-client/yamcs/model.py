@@ -354,6 +354,7 @@ class Client(object):
     def __str__(self):
         return self.username
 
+
 class Processor(object):
 
     def __init__(self, proto):

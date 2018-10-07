@@ -27,6 +27,17 @@ class Bucket(object):
         return self._client.list_objects(
             instance=self._instance, bucket_name=self.name)
 
+    def download_object(self, object_name):
+        return self._client.download_object(
+            self._instance, self.name, object_name)
+
+    def upload_object(self, object_name, file_obj):
+        return self._client.upload_object(
+            self._instance, self.name, object_name, file_obj)
+
+    def delete_object(self, object_name):
+        self._client.remove_object(self._instance, self.name, object_name)
+
     def delete(self):
         self._client.remove_bucket(self._instance, self.name)
 
@@ -81,6 +92,10 @@ class ObjectInfo(object):
     def download(self):
         return self._client.download_object(
             self._instance, self._bucket, self.name)
+
+    def upload(self, file_obj):
+        return self._client.upload_object(
+            self._instance, self._bucket, self.name, file_obj)
 
     def __str__(self):
         return '{} ({} bytes, created {})'.format(

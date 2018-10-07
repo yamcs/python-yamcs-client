@@ -46,6 +46,16 @@ class Client(object):
         response = self._client.get_proto(path=url)
         return response.content
 
+    def upload_object(self, instance, bucket_name, object_name, file_obj,
+                      content_type=None):
+        url = '/buckets/{}/{}/{}'.format(instance, bucket_name, object_name)
+        with open(file_obj, 'rb') as f:
+            if content_type:
+                files = {object_name: (object_name, f, content_type)}
+            else:
+                files = {object_name: (object_name, f)}
+            self._client.request(path=url, method='post', files=files)
+
     def remove_object(self, instance, bucket_name, object_name):
         url = '/buckets/{}/{}/{}'.format(instance, bucket_name, object_name)
         self._client.delete_proto(url)
