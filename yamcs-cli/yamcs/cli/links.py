@@ -25,7 +25,7 @@ def enable(args):
     client = YamcsClient(**opts.client_kwargs)
 
     for link in args.links:
-        client.edit_data_link(opts.instance, link=link, state='enabled')
+        client.enable_data_link(opts.instance, link=link)
 
 
 def disable(args):
@@ -33,7 +33,7 @@ def disable(args):
     client = YamcsClient(**opts.client_kwargs)
 
     for link in args.links:
-        client.edit_data_link(opts.instance, link=link, state='disabled')
+        client.disable_data_link(opts.instance, link=link)
 
 
 def describe(args):

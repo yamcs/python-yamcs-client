@@ -377,17 +377,27 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         return Link(message)
 
-    def edit_data_link(self, instance, link, state=None):
+    def enable_data_link(self, instance, link):
         """
-        Updates a single data link.
+        Enables a data link.
 
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
-        :param str state: The state of the link. Either ``enabled`` or ``disabled``.
         """
         req = rest_pb2.EditLinkRequest()
-        if state:
-            req.state = state
+        req.state = 'enabled'
+        url = '/links/{}/{}'.format(instance, link)
+        self.patch_proto(url, data=req.SerializeToString())
+
+    def disable_data_link(self, instance, link):
+        """
+        Disables a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        """
+        req = rest_pb2.EditLinkRequest()
+        req.state = 'disabled'
         url = '/links/{}/{}'.format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
 
