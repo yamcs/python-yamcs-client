@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
-from yamcs.archive.model import IndexGroup, Packet, Sample, Stream, Table
+from yamcs.archive.model import (IndexGroup, Packet, ParameterRange, Sample,
+                                 Stream, Table)
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
 from yamcs.model import Event
@@ -366,11 +367,75 @@ class ArchiveClient(object):
         samples = getattr(message, 'sample')
         return [Sample(s) for s in samples]
 
+    def list_parameter_ranges(self, parameter, start=None, stop=None,
+                              min_gap=None, max_gap=None,
+                              parameter_cache='realtime'):
+        """
+        Returns parameter ranges between the specified start and stop time.
+
+        Each range indicates an interval during which this parameter's
+        value was uninterrupted and unchanged.
+
+        Ranges are a good fit for retrieving the value of a parameter
+        that does not change frequently. For example an on/off indicator
+        or some operational status. Querying ranges will then induce
+        much less overhead than manually processing the output of
+        :meth:`list_parameter_values` would.
+
+        The maximum number of returned ranges is limited to 500.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias in the
+                              format ``NAMESPACE/NAME``.
+        :param ~datetime.datetime start: Minimum generation time of the considered
+                                         values (inclusive)
+        :param ~datetime.datetime stop: Maximum generation time of the considered
+                                        values (exclusive)
+        :param float min_gap: Time in seconds. Any gap (detected based on parameter
+                              expiration) smaller than this will be ignored.
+                              However if the parameter changes value, the ranges
+                              will still be split.
+        :param float max_gap: Time in seconds. If the distance between two
+                              subsequent parameter values is bigger than
+                              this value (but smaller than the parameter
+                              expiration), then an artificial gap is
+                              created. This also applies if there is no
+                              expiration defined for the parameter.
+        :param str parameter_cache: Specify the name of the processor who's
+                                    parameter cache is merged with already
+                                    archived values. To disable results from
+                                    the parameter cache, set this to ``None``.
+        :rtype: .ParameterRange[]
+        """
+        path = '/archive/{}/parameters{}/ranges'.format(
+            self._instance, parameter)
+        params = {}
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+        if min_gap is not None:
+            params['minGap'] = int(min_gap * 1000)
+        if max_gap is not None:
+            params['maxGap'] = int(max_gap * 1000)
+
+        if parameter_cache:
+            params['processor'] = parameter_cache
+        else:
+            params['norealtime'] = True
+
+        response = self._client.get_proto(path=path, params=params)
+        message = pvalue_pb2.Ranges()
+        message.ParseFromString(response.content)
+        ranges = getattr(message, 'range')
+        return [ParameterRange(r) for r in ranges]
+
     def list_parameter_values(self, parameter, start=None, stop=None,
                               page_size=500, descending=False):
         """
         Reads parameter values between the specified start and stop time.
 
+        :param str parameter: Either a fully-qualified XTCE name or an alias in the
+                              format ``NAMESPACE/NAME``.
         :param ~datetime.datetime start: Minimum generation time of the returned
                                          values (inclusive)
         :param ~datetime.datetime stop: Maximum generation time of the returned

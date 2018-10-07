@@ -1,4 +1,4 @@
-from yamcs.core.helpers import parse_isostring
+from yamcs.core.helpers import parse_isostring, parse_value
 
 
 class Table(object):
@@ -165,29 +165,89 @@ class Packet(object):
 
 
 class Sample(object):
+    """
+    Provides aggregation properties over a range of a parameter's
+    values.
+    """
 
     def __init__(self, proto):
         self._proto = proto
 
     @property
     def time(self):
+        """
+        Sample time.
+
+        :type: :class:`~datetime.datetime`
+        """
         return parse_isostring(self._proto.time)
 
     @property
     def avg(self):
-        return self._proto.avg
+        """Average value."""
+        if self._proto.HasField('avg'):
+            return self._proto.avg
+        return None
 
     @property
     def min(self):
-        return self._proto.min
+        """Minimum value."""
+        if self._proto.HasField('min'):
+            return self._proto.min
+        return None
 
     @property
     def max(self):
-        return self._proto.max
+        """Maximum value."""
+        if self._proto.HasField('max'):
+            return self._proto.max
+        return None
 
     @property
     def parameter_count(self):
+        """The number of parameter values this sample represents."""
         return self._proto.n
 
     def __str__(self):
         return '{} {}'.format(self.time, self.avg)
+
+
+class ParameterRange(object):
+    """
+    Indicates an interval during which a parameter's
+    value was uninterrupted and unchanged.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def start(self):
+        """
+        Start time of this range (inclusive).
+
+        :type: :class:`~datetime.datetime`
+        """
+        return parse_isostring(self._proto.timeStart)
+
+    @property
+    def stop(self):
+        """
+        Stop time of this range (exclusive).
+        
+        :type: :class:`~datetime.datetime`
+        """
+        return parse_isostring(self._proto.timeStop)
+
+    @property
+    def eng_value(self):
+        """The engineering (calibrated) value."""
+        return parse_value(self._proto.engValue)
+
+    @property
+    def parameter_count(self):
+        """The number of received parameter values during this range."""
+        return self._proto.count
+
+    def __str__(self):
+        return '{} - {}: {}'.format(self.start, self.stop, self.eng_value)
