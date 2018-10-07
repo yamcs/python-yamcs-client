@@ -64,28 +64,28 @@ Create an :class:`.MDBClient` for a specific instance:
 
 Print all space systems:
 
-.. literalinclude:: ../../examples/query-mdb.py
+.. literalinclude:: ../../examples/query_mdb.py
     :pyobject: print_space_systems
     :start-after: """
     :dedent: 4
 
 Print all parameters of type ``float``:
 
-.. literalinclude:: ../../examples/query-mdb.py
+.. literalinclude:: ../../examples/query_mdb.py
     :pyobject: print_parameters
     :start-after: """
     :dedent: 4
 
 Print all commands:
 
-.. literalinclude:: ../../examples/query-mdb.py
+.. literalinclude:: ../../examples/query_mdb.py
     :pyobject: print_commands
     :start-after: """
     :dedent: 4
 
 Find a parameter by qualified name or alias:
 
-.. literalinclude:: ../../examples/query-mdb.py
+.. literalinclude:: ../../examples/query_mdb.py
     :pyobject: find_parameter
     :start-after: """
     :dedent: 4

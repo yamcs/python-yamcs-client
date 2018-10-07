@@ -32,21 +32,21 @@ Read/Write Parameters
 
 Read a single value. This returns the latest value from server cache.
 
-.. literalinclude:: ../../examples/read-write-parameters.py
+.. literalinclude:: ../../examples/read_write_parameters.py
     :pyobject: print_cached_value
     :start-after: """
     :dedent: 4
 
 Read a single value, but block until a fresh value could be processed:
 
-.. literalinclude:: ../../examples/read-write-parameters.py
+.. literalinclude:: ../../examples/read_write_parameters.py
     :pyobject: print_realtime_value
     :start-after: """
     :dedent: 4
 
 Read the latest value of multiple parameters at the same time:
 
-.. literalinclude:: ../../examples/read-write-parameters.py
+.. literalinclude:: ../../examples/read_write_parameters.py
     :pyobject: print_current_values
     :start-after: """
     :dedent: 4
@@ -56,14 +56,14 @@ be written to. This includes software parameters (local to Yamcs)
 and parameters that are linked to an external system (such as
 a simulator).
 
-.. literalinclude:: ../../examples/read-write-parameters.py
+.. literalinclude:: ../../examples/read_write_parameters.py
     :pyobject: write_value
     :start-after: """
     :dedent: 4
 
 Set the value of multiple parameters:
 
-.. literalinclude:: ../../examples/read-write-parameters.py
+.. literalinclude:: ../../examples/read_write_parameters.py
     :pyobject: write_values
     :start-after: """
     :dedent: 4
@@ -74,7 +74,7 @@ Parameter Subscription
 
 Poll latest values from a subscription:
 
-.. literalinclude:: ../../examples/parameter-subscription.py
+.. literalinclude:: ../../examples/parameter_subscription.py
     :pyobject: poll_values
     :start-after: """
     :dedent: 4
@@ -82,14 +82,14 @@ Poll latest values from a subscription:
 Receive :class:`.ParameterData` callbacks whenever one or more of the
 subscribed parameters have been updated:
 
-.. literalinclude:: ../../examples/parameter-subscription.py
+.. literalinclude:: ../../examples/parameter_subscription.py
     :pyobject: receive_callbacks
     :start-after: """
     :dedent: 4
 
 Create and modify a parameter subscription:
 
-.. literalinclude:: ../../examples/parameter-subscription.py
+.. literalinclude:: ../../examples/parameter_subscription.py
     :pyobject: manage_subscription
     :start-after: """
     :dedent: 4

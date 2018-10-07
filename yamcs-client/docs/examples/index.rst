@@ -12,14 +12,14 @@ called ``/YSS/SIMULATOR``.
 .. toctree::
 
     alarms
-    archive-breakdown
-    archive-retrieval
+    archive_breakdown
+    archive_retrieval
     authenticate
-    ccsds-completeness
+    ccsds_completeness
     commanding
-    data-links
+    data_links
     events
-    mission-time
-    parameter-subscription
-    query-mdb
-    read-write-parameters
+    mission_time
+    parameter_subscription
+    query_mdb
+    read_write_parameters
