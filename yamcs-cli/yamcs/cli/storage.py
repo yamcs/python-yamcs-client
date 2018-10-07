@@ -6,6 +6,7 @@ import tempfile
 
 from yamcs import storage
 from yamcs.cli import utils
+from yamcs.core.helpers import to_isostring
 
 
 def ls(args):
@@ -14,17 +15,33 @@ def ls(args):
 
     if args.bucket:
         if '://' in args.bucket:
-            bucket_name, object_name = args.bucket.split('://', 1)
+            bucket_name, prefix = args.bucket.split('://', 1)
         else:
             bucket_name = args.bucket
-            object_name = None
+            prefix = None
+
+        delimiter = '/'
+        if args.recurse:
+            delimiter = None
 
         listing = client.list_objects(opts.instance, bucket_name=bucket_name,
-                                      delimiter='/', prefix=object_name)
+                                      delimiter=delimiter, prefix=prefix)
+        rows = []
         for prefix in listing.prefixes:
-            print('{}://{}'.format(bucket_name, prefix))
+            url = '{}://{}'.format(bucket_name, prefix)
+            if args.long:
+                rows.append(['0', '', url])
+            else:
+                rows.append([url])
+
         for obj in listing.objects:
-            print('{}://{}'.format(bucket_name, obj.name))
+            url = '{}://{}'.format(bucket_name, obj.name)
+            if args.long:
+                rows.append([str(obj.size), to_isostring(obj.created), url])
+            else:
+                rows.append([url])
+
+        utils.print_table(rows)
     else:
         for bucket in client.list_buckets(opts.instance):
             print(bucket.name)
@@ -141,6 +158,10 @@ def configure_parser(parser):
     ls_parser = subparsers.add_parser('ls', help='List buckets or objects')
     ls_parser.add_argument(
         'bucket', metavar='[bucket]', type=str, nargs='?', help='bucket or object')
+    ls_parser.add_argument('-l', dest='long', action='store_true',
+                           help='List in long format')
+    ls_parser.add_argument('-r', '-R', dest='recurse', action='store_true',
+                           help='List recursively')
     ls_parser.set_defaults(func=ls)
 
     list_parser = subparsers.add_parser('list', help='Synonym for ls')
