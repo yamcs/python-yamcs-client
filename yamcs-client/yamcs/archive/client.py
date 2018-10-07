@@ -1,9 +1,12 @@
-from yamcs.archive.model import IndexGroup, Packet, Stream, Table
+from datetime import datetime, timedelta
+
+from yamcs.archive.model import IndexGroup, Packet, Sample, Stream, Table
 from yamcs.core import pagination
 from yamcs.core.helpers import to_isostring
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
+from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
@@ -298,6 +301,70 @@ class ArchiveClient(object):
             items_key='event',
             item_mapper=Event,
         )
+
+    def sample_parameter_values(self, parameter, start=None, stop=None,
+                                sample_count=500, parameter_cache='realtime',
+                                source='ParameterArchive'):
+        """
+        Returns parameter samples.
+
+        The query range is split in sample intervals of equal length. For
+        each interval a :class:`.Sample` is returned which describes the
+        min, max, count and avg during that interval.
+
+        Note that sample times are determined without considering the
+        actual parameter values. Two separate queries with equal start/stop
+        arguments will always return the same number of samples with the
+        same timestamps. This is done to ease merging of multiple sample
+        series. You should always be explicit about the ``start`` and ``stop``
+        times when relying on this property.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias in the
+                              format ``NAMESPACE/NAME``.
+        :param ~datetime.datetime start: Minimum generation time of the sampled
+                                         parameter values (inclusive). If not set
+                                         this defaults to one hour ago.
+        :param ~datetime.datetime stop: Maximum generation time of the sampled
+                                        parameter values (exclusive). If not set
+                                        this defaults to the current time.
+        :param int sample_count: The number of returned samples.
+        :param str parameter_cache: Specify the name of the processor who's
+                                    parameter cache is merged with already
+                                    archived values. To disable results from
+                                    the parameter cache, set this to ``None``.
+        :param str source: Specify how to retrieve parameter values. By
+                           default this uses the ``ParameterArchive`` which
+                           is optimized for retrieval. For Yamcs instances
+                           that do not enable the ``ParameterArchive``, you can
+                           still get results by specifying ``replay`` as the
+                           source. Replay requests take longer to return because
+                           the data needs to be reprocessed.
+        :rtype: .Sample[]
+        """
+        path = '/archive/{}/parameters{}/samples'.format(
+            self._instance, parameter)
+        now = datetime.utcnow()
+        params = {
+            'count': sample_count,
+            'source': source,
+            'start': to_isostring(now - timedelta(hours=1)),
+            'stop': to_isostring(now),
+        }
+        if start is not None:
+            params['start'] = to_isostring(start)
+        if stop is not None:
+            params['stop'] = to_isostring(stop)
+
+        if parameter_cache:
+            params['processor'] = parameter_cache
+        else:
+            params['norealtime'] = True
+
+        response = self._client.get_proto(path=path, params=params)
+        message = pvalue_pb2.TimeSeries()
+        message.ParseFromString(response.content)
+        samples = getattr(message, 'sample')
+        return [Sample(s) for s in samples]
 
     def list_parameter_values(self, parameter, start=None, stop=None,
                               page_size=500, descending=False):

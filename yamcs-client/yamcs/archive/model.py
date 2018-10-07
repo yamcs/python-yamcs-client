@@ -162,3 +162,32 @@ class Packet(object):
 
     def __str__(self):
         return '{} #{} ({})'.format(self.generation_time, self.sequence_number, self.name)
+
+
+class Sample(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def time(self):
+        return parse_isostring(self._proto.time)
+
+    @property
+    def avg(self):
+        return self._proto.avg
+
+    @property
+    def min(self):
+        return self._proto.min
+
+    @property
+    def max(self):
+        return self._proto.max
+
+    @property
+    def parameter_count(self):
+        return self._proto.n
+
+    def __str__(self):
+        return '{} {}'.format(self.time, self.avg)
