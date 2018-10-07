@@ -21,6 +21,58 @@ class ServerInfo(object):
         """The version of Yamcs Server."""
         return self._proto.yamcsVersion
 
+    def __str__(self):
+        return '{} (v{})'.format(self.id, self.version)
+
+
+class UserInfo(object):
+    """
+    Info on a Yamcs User.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def username(self):
+        return self._proto.login
+
+    @property
+    def superuser(self):
+        return self._proto.superuser
+
+    @property
+    def system_privileges(self):
+        return [p for p in self._proto.systemPrivilege]
+
+    @property
+    def object_privileges(self):
+        return [ObjectPrivilege(p) for p in self._proto.objectPrivilege]
+
+    @property
+    def clients(self):
+        return [Client(c) for c in self._proto.clientInfo]
+
+    def __str__(self):
+        return self.username
+
+
+class ObjectPrivilege(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        return self._proto.type
+
+    @property
+    def objects(self):
+        return [o for o in self._proto.object]
+
+    def __str__(self):
+        return self.name
+
 
 class Event(object):
     """

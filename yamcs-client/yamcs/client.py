@@ -7,7 +7,7 @@ from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (Client, Event, Instance, Link, LinkEvent, Processor,
-                         ServerInfo, Service)
+                         ServerInfo, Service, UserInfo)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -167,6 +167,17 @@ class YamcsClient(BaseClient):
         message = rest_pb2.GetApiOverviewResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
+
+    def get_user_info(self):
+        """
+        Get information on the authenticated user.
+
+        :rtype: .UserInfo
+        """
+        response = self.get_proto(path='')
+        message = yamcsManagement_pb2.UserInfo()
+        message.ParseFromString(response.content)
+        return UserInfo(message)
 
     def get_mdb(self, instance):
         """
