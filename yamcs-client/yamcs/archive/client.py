@@ -1,9 +1,12 @@
+import functools
 from datetime import datetime, timedelta
 
 from yamcs.archive.model import (IndexGroup, Packet, ParameterRange, Sample,
-                                 Stream, Table)
+                                 Stream, StreamData, Table)
 from yamcs.core import pagination
+from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import to_isostring
+from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
@@ -11,6 +14,17 @@ from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
+
+
+def _wrap_callback_parse_stream_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse StreamData
+    from a WebSocket data message
+    """
+    if (message.type == message.DATA and
+            message.data.type == yamcs_pb2.STREAM_DATA):
+        stream_data = getattr(message.data, 'streamData')
+        on_data(StreamData(stream_data))
 
 
 class ArchiveClient(object):
@@ -578,6 +592,38 @@ class ArchiveClient(object):
         message = archive_pb2.StreamInfo()
         message.ParseFromString(response.content)
         return Stream(message)
+
+    def create_stream_subscription(self, stream, on_data, timeout=60):
+        """
+        Create a new stream subscription.
+
+        :param str stream: The name of the stream.
+        :param on_data: Function that gets called with  :class:`.StreamData`
+                        updates.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :return: Future that can be used to manage the background websocket
+                 subscription
+        :rtype: .WebSocketSubscriptionFuture
+        """
+        options = rest_pb2.StreamSubscribeRequest()
+        options.stream = stream
+
+        manager = WebSocketSubscriptionManager(
+            self._client, resource='stream', options=options)
+
+        # Represent subscription as a future
+        subscription = WebSocketSubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_stream_data, subscription, on_data)
+
+        manager.open(wrapped_callback, instance=self._instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
 
     def execute_sql(self, statement):
         """

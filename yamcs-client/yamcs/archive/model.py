@@ -29,6 +29,44 @@ class Stream(object):
         return self.name
 
 
+class StreamData(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def stream(self):
+        """Stream name."""
+        return self._proto.stream
+
+    @property
+    def columns(self):
+        """Tuple columns."""
+        return [ColumnData(c) for c in self._proto.column]
+
+    def __str__(self):
+        return '{} ({} columns)'.format(self.stream, len(self.columns))
+
+
+class ColumnData(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Column name."""
+        return self._proto.name
+
+    @property
+    def value(self):
+        """Value for this column."""
+        return parse_value(self._proto.value)
+
+    def __str__(self):
+        return '{}: {}'.format(self.name, self.value)
+
+
 class IndexGroup(object):
     """
     Group of index records that represent the same
