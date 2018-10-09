@@ -48,6 +48,10 @@ class StorageCommand(utils.Command):
         subparser.add_argument('dst', metavar='DST', type=str, help='object in the format bucket://object')
         subparser.set_defaults(func=self.mv)
 
+        subparser = self.create_subparser(subparsers, 'rm', 'Remove objects')
+        subparser.add_argument('object', metavar='OBJECT', type=str, nargs='+', help='object in the format bucket://object')
+        subparser.set_defaults(func=self.rm)
+
     def ls(self, args):
         opts = utils.CommandOptions(args)
         client = storage.Client(**opts.client_kwargs)
@@ -64,7 +68,7 @@ class StorageCommand(utils.Command):
                 delimiter = None
 
             listing = client.list_objects(opts.instance, bucket_name=bucket_name,
-                                        delimiter=delimiter, prefix=prefix)
+                                          delimiter=delimiter, prefix=prefix)
             rows = []
             for prefix in listing.prefixes:
                 url = '{}://{}'.format(bucket_name, prefix)
@@ -98,6 +102,19 @@ class StorageCommand(utils.Command):
 
         for bucket in args.bucket:
             client.remove_bucket(opts.instance, bucket_name=bucket)
+
+    def rm(self, args):
+        opts = utils.CommandOptions(args)
+        client = storage.Client(**opts.client_kwargs)
+
+        for obj in args.object:
+            if '://' not in obj:
+                print('*** specify objects in the format bucket://object')
+                return False
+
+            parts = obj.split('://', 1)
+            client.remove_object(
+                opts.instance, bucket_name=parts[0], object_name=parts[1])
 
     def cat(self, args):
         opts = utils.CommandOptions(args)
