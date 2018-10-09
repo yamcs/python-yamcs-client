@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import argparse
 import os
 
 import pkg_resources
@@ -68,6 +69,26 @@ def print_table(rows, decorate=False, header=False):
             print('+{}+'.format('-' * (total_width - 2)))
 
 
+class Command(object):
+
+    def __init__(self, subparsers, command, help_, add_epilog=True):
+        self.parser = self.create_subparser(subparsers, command, help_, add_epilog=add_epilog)
+
+    def create_subparser(self, subparsers, command, help_, add_epilog=True):
+        epilog = None
+        if add_epilog:
+            epilog = 'Run \'yamcs {} COMMAND --help\' for more information on a command.'.format(command)
+
+        # Override the default help action so that it does not show up in
+        # the usage string of every command
+        subparser = subparsers.add_parser(command, help=help_, add_help=False,
+                                          formatter_class=SubCommandHelpFormatter,
+                                          epilog=epilog)
+        subparser.add_argument('-h', '--help', action='help',
+                               default=argparse.SUPPRESS, help=argparse.SUPPRESS)
+        return subparser
+
+
 class CommandOptions(object):
 
     def __init__(self, args):
@@ -92,3 +113,12 @@ class CommandOptions(object):
             'address': self.address,
             'user_agent': self.user_agent,
         }
+
+
+class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
+    def _format_action(self, action):
+        # Removes the subparsers metavar from the help output
+        parts = super(SubCommandHelpFormatter, self)._format_action(action)
+        if action.nargs == argparse.PARSER:
+            parts = '\n'.join(parts.split('\n')[1:])
+        return parts

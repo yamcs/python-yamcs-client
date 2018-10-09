@@ -2,24 +2,36 @@ from __future__ import print_function
 
 import argparse
 
-from yamcs.cli import (algorithms, clients, commands, config, containers,
-                       dbshell, instances, links, parameters, processors,
-                       services, space_systems, storage, streams, tables,
-                       utils)
+from yamcs.cli import utils
+from yamcs.cli.algorithms import AlgorithmsCommand
+from yamcs.cli.clients import ClientsCommand
+from yamcs.cli.commands import CommandsCommand
+from yamcs.cli.config import ConfigCommand
+from yamcs.cli.containers import ContainersCommand
+from yamcs.cli.dbshell import DbShellCommand
+from yamcs.cli.instances import InstancesCommand
+from yamcs.cli.links import LinksCommand
+from yamcs.cli.parameters import ParametersCommand
+from yamcs.cli.processors import ProcessorsCommand
+from yamcs.cli.services import ServicesCommand
+from yamcs.cli.space_systems import SpaceSystemsCommand
+from yamcs.cli.storage import StorageCommand
+from yamcs.cli.streams import StreamsCommand
+from yamcs.cli.tables import TablesCommand
 
 
-class SubCommandHelpFormatter(argparse.RawDescriptionHelpFormatter):
-    def _format_action(self, action):
-        # Removes the subparsers metavar from the help output
-        parts = super(SubCommandHelpFormatter, self)._format_action(action)
-        if action.nargs == argparse.PARSER:
-            parts = '\n'.join(parts.split('\n')[1:])
-        return parts
+def create_subparser(subparsers, command, help_):
+    # Override the default help action so that it does not show up in
+    # the usage string of every command
+    subparser = subparsers.add_parser(command, help=help_, add_help=False)
+    subparser.add_argument('-h', '--help', action='help',
+                           default=argparse.SUPPRESS, help=argparse.SUPPRESS)
+    return subparser
 
 
 def main():
-    parser = argparse.ArgumentParser(description=None,
-                                     formatter_class=SubCommandHelpFormatter)
+    parser = argparse.ArgumentParser(description=None, formatter_class=utils.SubCommandHelpFormatter,
+                                     epilog='Run \'yamcs COMMAND --help\' for more information on a command.')
     parser.add_argument('--version', action='version',
                         version=utils.get_user_agent(),
                         help='Print version information and quit')
@@ -27,68 +39,25 @@ def main():
                         help='The Yamcs instance to use. Overrides the core/instance property')
 
     # The width of this impacts the command width of the command column :-/
-    metavar = '<command>'
+    metavar = 'COMMAND'
 
     subparsers = parser.add_subparsers(title='commands', metavar=metavar)
 
-    algorithms_parser = subparsers.add_parser(
-        'algorithms', help='Read algorithms')
-    algorithms.configure_parser(algorithms_parser)
-
-    clients_parser = subparsers.add_parser('clients', help='List clients')
-    clients.configure_parser(clients_parser)
-
-    config_parser = subparsers.add_parser(
-        'config', help='Manage Yamcs client properties')
-    config.configure_parser(config_parser)
-
-    commands_parser = subparsers.add_parser(
-        'commands', help='Read commands')
-    commands.configure_parser(commands_parser)
-
-    containers_parser = subparsers.add_parser(
-        'containers', help='Read containers')
-    containers.configure_parser(containers_parser)
-
-    dbshell_parser = subparsers.add_parser(
-        'dbshell', help='Launch Yarch DB Shell')
-    dbshell.configure_parser(dbshell_parser)
-
-    instances_parser = subparsers.add_parser(
-        'instances', help='Read Yamcs instances')
-    instances.configure_parser(instances_parser)
-
-    links_parser = subparsers.add_parser(
-        'links', help='Read and manipulate data links')
-    links.configure_parser(links_parser)
-
-    parameters_parser = subparsers.add_parser(
-        'parameters', help='Read parameters')
-    parameters.configure_parser(parameters_parser)
-
-    processors_parser = subparsers.add_parser(
-        'processors', help='Read processors')
-    processors.configure_parser(processors_parser)
-
-    space_systems_parser = subparsers.add_parser(
-        'space-systems', help='Read space systems')
-    space_systems.configure_parser(space_systems_parser)
-
-    services_parser = subparsers.add_parser(
-        'services', help='Read and manipulate services')
-    services.configure_parser(services_parser)
-
-    storage_parser = subparsers.add_parser(
-        'storage', help='Manage object storage')
-    storage.configure_parser(storage_parser)
-
-    streams_parser = subparsers.add_parser(
-        'streams', help='Read and manipulate streams')
-    streams.configure_parser(streams_parser)
-
-    tables_parser = subparsers.add_parser(
-        'tables', help='Read and manipulate tables')
-    tables.configure_parser(tables_parser)
+    AlgorithmsCommand(subparsers)
+    ClientsCommand(subparsers)
+    CommandsCommand(subparsers)
+    ConfigCommand(subparsers)
+    ContainersCommand(subparsers)
+    DbShellCommand(subparsers)
+    InstancesCommand(subparsers)
+    LinksCommand(subparsers)
+    ParametersCommand(subparsers)
+    ProcessorsCommand(subparsers)
+    SpaceSystemsCommand(subparsers)
+    ServicesCommand(subparsers)
+    StorageCommand(subparsers)
+    StreamsCommand(subparsers)
+    TablesCommand(subparsers)
 
     args = parser.parse_args()
     args.func(args)

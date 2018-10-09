@@ -4,25 +4,28 @@ from yamcs.cli import utils
 from yamcs.client import YamcsClient
 
 
-def list_(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
+class ProcessorsCommand(utils.Command):
 
-    rows = [['NAME', 'TYPE', 'OWNER', 'PERSISTENT', 'MISSION TIME', 'STATE']]
-    for processor in client.list_processors(opts.instance):
-        rows.append([
-            processor.name,
-            processor.type,
-            processor.owner,
-            processor.persistent,
-            processor.mission_time,
-            processor.state,
-        ])
-    utils.print_table(rows)
+    def __init__(self, parent):
+        super(ProcessorsCommand, self).__init__(parent, 'processors', 'Read processors')
 
+        subparsers = self.parser.add_subparsers(title='Commands', metavar='COMMAND')
 
-def configure_parser(parser):
-    subparsers = parser.add_subparsers(title='commands', metavar='<command>')
+        subparser = self.create_subparser(subparsers, 'list', 'List processors')
+        subparser.set_defaults(func=self.list_)
 
-    list_parser = subparsers.add_parser('list', help='List processors')
-    list_parser.set_defaults(func=list_)
+    def list_(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+
+        rows = [['NAME', 'TYPE', 'OWNER', 'PERSISTENT', 'MISSION TIME', 'STATE']]
+        for processor in client.list_processors(opts.instance):
+            rows.append([
+                processor.name,
+                processor.type,
+                processor.owner,
+                processor.persistent,
+                processor.mission_time,
+                processor.state,
+            ])
+        utils.print_table(rows)

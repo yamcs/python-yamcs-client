@@ -4,48 +4,47 @@ from yamcs.cli import utils
 from yamcs.client import YamcsClient
 
 
-def list_(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
+class ServicesCommand(utils.Command):
 
-    rows = [['NAME', 'CLASS', 'STATUS']]
-    for service in client.list_services(opts.instance):
-        rows.append([
-            service.name,
-            service.class_name,
-            service.state,
-        ])
-    utils.print_table(rows)
+    def __init__(self, parent):
+        super(ServicesCommand, self).__init__(parent, 'services', 'Manage services')
 
+        subparsers = self.parser.add_subparsers(title='Commands', metavar='COMMAND')
 
-def start(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
+        subparser = self.create_subparser(subparsers, 'list', 'List services')
+        subparser.set_defaults(func=self.list_)
 
-    for service in args.services:
-        client.start_service(opts.instance, service=service)
+        subparser = self.create_subparser(subparsers, 'start', 'Start a service')
+        subparser.add_argument('services', metavar='SERVICE', type=str, nargs='+', help='name of the service')
+        subparser.set_defaults(func=self.start)
 
+        subparser = self.create_subparser(subparsers, 'stop', 'Stop a service')
+        subparser.add_argument('services', metavar='SERVICE', type=str, nargs='+', help='name of the service')
+        subparser.set_defaults(func=self.stop)
 
-def stop(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
+    def list_(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
 
-    for service in args.services:
-        client.stop_service(opts.instance, service=service)
+        rows = [['NAME', 'CLASS', 'STATUS']]
+        for service in client.list_services(opts.instance):
+            rows.append([
+                service.name,
+                service.class_name,
+                service.state,
+            ])
+        utils.print_table(rows)
 
+    def start(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
 
-def configure_parser(parser):
-    subparsers = parser.add_subparsers(title='commands', metavar='<command>')
+        for service in args.services:
+            client.start_service(opts.instance, service=service)
 
-    list_parser = subparsers.add_parser('list', help='Read and manipulate services')
-    list_parser.set_defaults(func=list_)
+    def stop(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
 
-    start_parser = subparsers.add_parser('start', help='Start a service')
-    start_parser.add_argument(
-        'services', metavar='<name>', type=str, nargs='+', help='name of the service')
-    start_parser.set_defaults(func=start)
-
-    stop_parser = subparsers.add_parser('stop', help='Stop a service')
-    stop_parser.add_argument(
-        'services', metavar='<name>', type=str, nargs='+', help='name of the service')
-    stop_parser.set_defaults(func=stop)
+        for service in args.services:
+            client.stop_service(opts.instance, service=service)

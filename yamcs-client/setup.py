@@ -7,20 +7,20 @@ with io.open('README.md', encoding='utf-8') as f:
 
 packages = [
     package for package in setuptools.find_packages()
-    if package.startswith('yamcs')]
+    if package.startswith('vswmc')]
 
 setuptools.setup(
-    name='yamcs-client',
-    version='1.1.2',
-    description='Yamcs API client library',
+    name='vswmc-cli',
+    version='1.0.0',
+    description='VSWMC API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
-    url='https://github.com/yamcs/yamcs-python',
+    url='https://github.com/vswmc/vswmc-cli',
     author='Space Applications Services',
     author_email='yamcs@spaceapplications.com',
     license='LGPL',
     packages=packages,
-    namespace_packages=['yamcs', 'yamcs.protobuf'],
+    namespace_packages=['vswmc'],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -36,9 +36,9 @@ setuptools.setup(
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
-        'protobuf>=3.6',
         'requests',
         'setuptools',
+        'six',
         'websocket-client<=0.48.0',
     ],
     include_package_data=True,

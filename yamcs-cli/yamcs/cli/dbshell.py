@@ -14,6 +14,37 @@ from yamcs.core.exceptions import YamcsError
 SHOW_OPTIONS = ('databases', 'engines', 'streams', 'tables', 'stream')
 
 
+class DbShellCommand(utils.Command):
+
+    def __init__(self, parent):
+        super(DbShellCommand, self).__init__(parent, 'dbshell', 'Launch Yarch DB Shell', add_epilog=False)
+
+        self.parser.set_defaults(func=self.launch)
+        self.parser.add_argument(
+            '-c', '--command', metavar='COMMAND', type=str,
+            help='SQL command string'
+        )
+
+    def launch(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        shell = DbShell(client)
+        shell.do_use(opts.instance)
+        try:
+            if args.command:
+                shell.onecmd(args.command)
+            else:
+                server_info = client.get_server_info()
+                intro = (
+                    'Yamcs DB Shell\n'
+                    'Server version: {} - ID: {}\n\n'
+                    'Type ''help'' or ''?'' for help.\n'
+                ).format(server_info.version, server_info.id)
+                shell.cmdloop(intro)
+        except KeyboardInterrupt:
+            print()  # Move user below current prompt
+
+
 class DbShell(Cmd):
 
     pager = False
@@ -91,6 +122,10 @@ class DbShell(Cmd):
                 if os.path.exists(path):
                     os.remove(path)
 
+    def do_exit(self, args):
+        """Synonym for quit."""
+        return self.do_quit(args)
+
     def do_quit(self, args):
         """Quits the DB Shell."""
         return True
@@ -111,31 +146,3 @@ class DbShell(Cmd):
         if self.pager:
             output.seek(0)
             pager(output.read())
-
-
-def launch(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    shell = DbShell(client)
-    shell.do_use(opts.instance)
-    try:
-        if args.command:
-            shell.onecmd(args.command)
-        else:
-            server_info = client.get_server_info()
-            intro = (
-                'Yamcs DB Shell\n'
-                'Server version: {} - ID: {}\n\n'
-                'Type ''help'' or ''?'' for help.\n'
-            ).format(server_info.version, server_info.id)
-            shell.cmdloop(intro)
-    except KeyboardInterrupt:
-        print()  # Move user below current prompt
-
-
-def configure_parser(parser):
-    parser.set_defaults(func=launch)
-    parser.add_argument(
-        '-c', '--command', metavar='<command>', type=str,
-        help='SQL command string'
-    )

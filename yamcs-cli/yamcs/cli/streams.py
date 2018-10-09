@@ -4,56 +4,53 @@ from yamcs.cli import utils
 from yamcs.client import YamcsClient
 
 
-def list_(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    archive = client.get_archive(opts.instance)
+class StreamsCommand(utils.Command):
 
-    rows = [['NAME']]
-    for stream in archive.list_streams():
-        rows.append([
-            stream.name,
-        ])
-    utils.print_table(rows)
+    def __init__(self, parent):
+        super(StreamsCommand, self).__init__(parent, 'streams', 'Read streams')
 
+        subparsers = self.parser.add_subparsers(title='Commands', metavar='COMMAND')
 
-def describe(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    archive = client.get_archive(opts.instance)
-    stream = archive.get_stream(args.stream)
-    print(stream._proto)  #pylint: disable=protected-access
+        subparser = self.create_subparser(subparsers, 'list', 'List streams')
+        subparser.set_defaults(func=self.list_)
 
+        subparser = self.create_subparser(subparsers, 'describe', 'Describe a stream')
+        subparser.add_argument('stream', metavar='STREAM', type=str, help='name of the stream')
+        subparser.set_defaults(func=self.describe)
 
-def subscribe(args):
-    def on_data(stream_data):
-        print(stream_data._proto)  #pylint: disable=protected-access
+        subparser = self.create_subparser(subparsers, 'subscribe', 'Subscribe to a stream')
+        subparser.add_argument('stream', metavar='STREAM', type=str, help='name of the stream')
+        #subparser.add_argument('--limit', type=int, help='Maximum number of updates. Default is unlimited.')
+        subparser.set_defaults(func=self.subscribe)
 
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    archive = client.get_archive(opts.instance)
-    try:
-        subscription = archive.create_stream_subscription(args.stream, on_data=on_data)
-        subscription.result()
-    except KeyboardInterrupt:
-        pass
+    def list_(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        archive = client.get_archive(opts.instance)
 
+        rows = [['NAME']]
+        for stream in archive.list_streams():
+            rows.append([
+                stream.name,
+            ])
+        utils.print_table(rows)
 
-def configure_parser(parser):
-    subparsers = parser.add_subparsers(title='commands', metavar='<command>')
+    def describe(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        archive = client.get_archive(opts.instance)
+        stream = archive.get_stream(args.stream)
+        print(stream._proto)  #pylint: disable=protected-access
 
-    list_parser = subparsers.add_parser('list', help='List algorithms')
-    list_parser.set_defaults(func=list_)
+    def subscribe(self, args):
+        def on_data(stream_data):
+            print(stream_data._proto)  #pylint: disable=protected-access
 
-    describe_parser = subparsers.add_parser('describe', help='Describe a stream')
-    describe_parser.add_argument(
-        'stream', metavar='<name>', type=str, help='name of the stream')
-    describe_parser.set_defaults(func=describe)
-
-    subscribe_parser = subparsers.add_parser('subscribe', help='Subscribe to a stream')
-    subscribe_parser.add_argument(
-        'stream', metavar='<name>', type=str, help='name of the stream')
-    #subscribe_parser.add_argument(
-    #    '--limit', type=int, help='Maximum number of updates. Default is unlimited.'
-    #)
-    subscribe_parser.set_defaults(func=subscribe)
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        archive = client.get_archive(opts.instance)
+        try:
+            subscription = archive.create_stream_subscription(args.stream, on_data=on_data)
+            subscription.result()
+        except KeyboardInterrupt:
+            pass

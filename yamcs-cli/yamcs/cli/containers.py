@@ -4,35 +4,36 @@ from yamcs.cli import utils
 from yamcs.client import YamcsClient
 
 
-def list_(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    mdb = client.get_mdb(opts.instance)
+class ContainersCommand(utils.Command):
 
-    rows = [['NAME', 'DESCRIPTION']]
-    for container in mdb.list_containers():
-        rows.append([
-            container.qualified_name,
-            container.description,
-        ])
-    utils.print_table(rows)
+    def __init__(self, parent):
+        super(ContainersCommand, self).__init__(parent, 'containers', 'Read containers')
 
+        subparsers = self.parser.add_subparsers(title='Commands', metavar='COMMAND')
 
-def describe(args):
-    opts = utils.CommandOptions(args)
-    client = YamcsClient(**opts.client_kwargs)
-    mdb = client.get_mdb(opts.instance)
-    container = mdb.get_container(args.container)
-    print(container._proto)  #pylint: disable=protected-access
+        subparser = self.create_subparser(subparsers, 'list', 'List containers')
+        subparser.set_defaults(func=self.list_)
 
+        subparser = self.create_subparser(subparsers, 'describe', 'Describe a container')
+        subparser.add_argument('container', metavar='NAME', type=str, help='name of the container')
+        subparser.set_defaults(func=self.describe)
 
-def configure_parser(parser):
-    subparsers = parser.add_subparsers(title='commands', metavar='<command>')
+    def list_(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        mdb = client.get_mdb(opts.instance)
 
-    list_parser = subparsers.add_parser('list', help='List containers')
-    list_parser.set_defaults(func=list_)
+        rows = [['NAME', 'DESCRIPTION']]
+        for container in mdb.list_containers():
+            rows.append([
+                container.qualified_name,
+                container.description,
+            ])
+        utils.print_table(rows)
 
-    describe_parser = subparsers.add_parser('describe', help='Describe a container')
-    describe_parser.add_argument(
-        'container', metavar='<name>', type=str, help='name of the container')
-    describe_parser.set_defaults(func=describe)
+    def describe(self, args):
+        opts = utils.CommandOptions(args)
+        client = YamcsClient(**opts.client_kwargs)
+        mdb = client.get_mdb(opts.instance)
+        container = mdb.get_container(args.container)
+        print(container._proto)  #pylint: disable=protected-access
