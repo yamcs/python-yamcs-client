@@ -7,7 +7,7 @@ with io.open('README.md', encoding='utf-8') as f:
 
 packages = [
     package for package in setuptools.find_packages()
-    if package.startswith('yamcs-client')]
+    if package.startswith('yamcs')]
 
 setuptools.setup(
     name='yamcs-client',
