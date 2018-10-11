@@ -21,5 +21,6 @@ called ``/YSS/SIMULATOR``.
     events
     mission_time
     parameter_subscription
+    plot_with_matplotlib
     query_mdb
     read_write_parameters
