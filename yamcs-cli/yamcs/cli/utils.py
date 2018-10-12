@@ -1,9 +1,12 @@
 from __future__ import print_function
 
 import argparse
+import json
 import os
 
 import pkg_resources
+
+from yamcs.core import auth
 
 try:
     from configparser import ConfigParser
@@ -13,6 +16,7 @@ except ImportError:
 HOME = os.path.expanduser('~')
 CONFIG_DIR = os.path.join(os.path.join(HOME, '.config'), 'yamcs-cli')
 CONFIG_FILE = os.path.join(CONFIG_DIR, 'config')
+CREDENTIALS_FILE = os.path.join(CONFIG_DIR, 'credentials')
 
 def get_user_agent():
     dist = pkg_resources.get_distribution('yamcs-cli')
@@ -32,6 +36,22 @@ def save_config(config):
         os.makedirs(CONFIG_DIR)
     with open(CONFIG_FILE, 'wb') as f:
         config.write(f)
+
+
+def save_credentials(access_token, refresh_token):
+    if not os.path.exists(CONFIG_DIR):
+        os.makedirs(CONFIG_DIR)
+
+    with open(CREDENTIALS_FILE, 'wb') as f:
+        json.dump({
+            'access_token': access_token,
+            'refresh_token': refresh_token,
+        }, f, indent=2)
+
+
+def read_credentials():
+    with open(CREDENTIALS_FILE, 'rb') as f:
+        return json.load(f)
 
 
 def print_table(rows, decorate=False, header=False):
@@ -93,6 +113,7 @@ class CommandOptions(object):
 
     def __init__(self, args):
         self._config = read_config()
+        self._credentials = read_credentials()
         self._args = args
 
     @property
@@ -112,6 +133,10 @@ class CommandOptions(object):
         return {
             'address': self.address,
             'user_agent': self.user_agent,
+            'credentials': auth.Credentials(
+                access_token=self._credentials['access_token'],
+                refresh_token=self._credentials['refresh_token']
+            ),
         }
 
 

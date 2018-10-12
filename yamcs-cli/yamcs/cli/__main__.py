@@ -11,6 +11,7 @@ from yamcs.cli.containers import ContainersCommand
 from yamcs.cli.dbshell import DbShellCommand
 from yamcs.cli.instances import InstancesCommand
 from yamcs.cli.links import LinksCommand
+from yamcs.cli.login import LoginCommand
 from yamcs.cli.parameters import ParametersCommand
 from yamcs.cli.processors import ProcessorsCommand
 from yamcs.cli.services import ServicesCommand
@@ -41,7 +42,7 @@ def main():
     # The width of this impacts the command width of the command column :-/
     metavar = 'COMMAND'
 
-    subparsers = parser.add_subparsers(title='commands', metavar=metavar)
+    subparsers = parser.add_subparsers(title='Commands', metavar=metavar)
 
     AlgorithmsCommand(subparsers)
     ClientsCommand(subparsers)
@@ -51,6 +52,7 @@ def main():
     DbShellCommand(subparsers)
     InstancesCommand(subparsers)
     LinksCommand(subparsers)
+    LoginCommand(subparsers)
     ParametersCommand(subparsers)
     ProcessorsCommand(subparsers)
     SpaceSystemsCommand(subparsers)
@@ -60,7 +62,12 @@ def main():
     TablesCommand(subparsers)
 
     args = parser.parse_args()
-    args.func(args)
+    try:
+        args.func(args)
+    except KeyboardInterrupt:
+        print()  # Clear prompt
+    except Exception as e:  # pylint: disable=W0703
+        print(e)
 
 
 if __name__ == '__main__':

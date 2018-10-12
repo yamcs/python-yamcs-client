@@ -3,6 +3,19 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
+class AuthInfo(object):
+    """
+    Authentication information
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def require_authentication(self):
+        return self._proto.requireAuthentication
+
+
 class ServerInfo(object):
     """
     General server properties.
@@ -20,6 +33,13 @@ class ServerInfo(object):
     def version(self):
         """The version of Yamcs Server."""
         return self._proto.yamcsVersion
+
+    @property
+    def default_yamcs_instance(self):
+        """Returns the default Yamcs instance."""
+        if self._proto.HasField('defaultYamcsInstance'):
+            return self._proto.defaultYamcsInstance
+        return None
 
     def __str__(self):
         return '{} (v{})'.format(self.id, self.version)

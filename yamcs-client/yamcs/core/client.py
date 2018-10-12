@@ -30,26 +30,35 @@ def _convert_credentials(token_url, username, password):
 class BaseClient(object):
 
     def __init__(self, address, ssl=False, credentials=None, user_agent=None):
-        self.address = address
-        if ssl:
-            self.auth_root = 'https://{}/auth'.format(address)
-            self.api_root = 'https://{}/api'.format(address)
-            self.ws_root = 'wss://{}/_websocket'.format(address)
+        if ':' in address:
+            self.address = address
         else:
-            self.auth_root = 'http://{}/auth'.format(address)
-            self.api_root = 'http://{}/api'.format(address)
-            self.ws_root = 'ws://{}/_websocket'.format(address)
+            self.address = address + ':8090'
+
+        if ssl:
+            self.auth_root = 'https://{}/auth'.format(self.address)
+            self.api_root = 'https://{}/api'.format(self.address)
+            self.ws_root = 'wss://{}/_websocket'.format(self.address)
+        else:
+            self.auth_root = 'http://{}/auth'.format(self.address)
+            self.api_root = 'http://{}/api'.format(self.address)
+            self.ws_root = 'ws://{}/_websocket'.format(self.address)
 
         self.session = requests.Session()
 
+        self.access_token = None
+        self.refresh_token = None
         if credentials:
             if credentials.username:  # Convert u/p to bearer
                 token_url = self.auth_root + '/token'
                 credentials = _convert_credentials(
                     token_url, credentials.username, credentials.password)
 
+            self.access_token = credentials.access_token
+            self.refresh_token = credentials.refresh_token
+
             self.session.headers.update({
-                'Authorization': 'Bearer ' + credentials.access_token
+                'Authorization': 'Bearer ' + self.access_token
             })
 
         if not user_agent:

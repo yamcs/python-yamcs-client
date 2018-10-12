@@ -6,8 +6,8 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import (Client, Event, Instance, Link, LinkEvent, Processor,
-                         ServerInfo, Service, UserInfo)
+from yamcs.model import (AuthInfo, Client, Event, Instance, Link, LinkEvent,
+                         Processor, ServerInfo, Service, UserInfo)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -168,13 +168,28 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         return ServerInfo(message)
 
+    def get_auth_info(self):
+        """
+        Returns general authentication information. This operation
+        does not require authenticating and is useful to test
+        if a server requires authentication or not.
+
+        :rtype: .AuthInfo
+        """
+        response = self.session.get(self.auth_root, headers={
+            'Accept': 'application/protobuf'
+        })
+        message = web_pb2.AuthInfo()
+        message.ParseFromString(response.content)
+        return AuthInfo(message)
+
     def get_user_info(self):
         """
         Get information on the authenticated user.
 
         :rtype: .UserInfo
         """
-        response = self.get_proto(path='')
+        response = self.get_proto(path='/user')
         message = yamcsManagement_pb2.UserInfo()
         message.ParseFromString(response.content)
         return UserInfo(message)
