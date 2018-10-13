@@ -1,7 +1,10 @@
 import functools
 
+import requests
+
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
+from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
@@ -176,12 +179,15 @@ class YamcsClient(BaseClient):
 
         :rtype: .AuthInfo
         """
-        response = self.session.get(self.auth_root, headers={
-            'Accept': 'application/protobuf'
-        })
-        message = web_pb2.AuthInfo()
-        message.ParseFromString(response.content)
-        return AuthInfo(message)
+        try:
+            response = self.session.get(self.auth_root, headers={
+                'Accept': 'application/protobuf'
+            })
+            message = web_pb2.AuthInfo()
+            message.ParseFromString(response.content)
+            return AuthInfo(message)
+        except requests.exceptions.ConnectionError:
+            raise ConnectionFailure('Connection to {} refused'.format(self.address))
 
     def get_user_info(self):
         """

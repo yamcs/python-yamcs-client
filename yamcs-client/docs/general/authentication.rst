@@ -20,16 +20,10 @@ To authenticate in such a scenario simply do:
 
 In the background this will convert your username/password credentials
 to an access token with limited lifetime, and a long-lived refresh token
-for generating new access tokens.
+for automatically generating new access tokens.
 
 Further HTTP requests do not use your username/password but instead use
-the access token.
-
-.. warning::
-
-    When the access token has expired, this API client does not currently
-    use the refresh token to generate a new access token. Such support
-    will be added in future work.
+these tokens.
 
 
 Service Accounts
