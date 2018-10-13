@@ -9,9 +9,11 @@ packages = [
     package for package in setuptools.find_packages()
     if package.startswith('yamcs')]
 
+version = '1.1.3'
+
 setuptools.setup(
     name='yamcs-cli',
-    version='1.1.3',
+    version=version,
     description='Yamcs Command-Line Tools',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -28,7 +30,9 @@ setuptools.setup(
     },
     classifiers=[
         'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
+        'Environment :: Console',
+        'Intended Audience :: End Users/Desktop',
+        'Intended Audience :: System Administrators',
         'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
@@ -42,7 +46,7 @@ setuptools.setup(
     platforms='Posix; MacOS X; Windows',
     install_requires=[
         'six',
-        'yamcs-client>=1.1.3',
+        'yamcs-client>=' + version,
     ],
     include_package_data=True,
     zip_safe=False,
