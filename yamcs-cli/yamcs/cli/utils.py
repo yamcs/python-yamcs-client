@@ -7,6 +7,7 @@ import os
 import pkg_resources
 
 from yamcs.core import auth
+from yamcs.core.helpers import parse_isostring, to_isostring
 
 try:
     from configparser import ConfigParser
@@ -38,20 +39,38 @@ def save_config(config):
         config.write(f)
 
 
-def save_credentials(access_token, refresh_token):
+def save_credentials(credentials):
     if not os.path.exists(CONFIG_DIR):
         os.makedirs(CONFIG_DIR)
 
     with open(CREDENTIALS_FILE, 'wb') as f:
         json.dump({
-            'access_token': access_token,
-            'refresh_token': refresh_token,
+            'access_token': credentials.access_token,
+            'refresh_token': credentials.refresh_token,
+            'expiry': to_isostring(credentials.expiry),
         }, f, indent=2)
 
 
 def read_credentials():
-    with open(CREDENTIALS_FILE, 'rb') as f:
-        return json.load(f)
+    if os.path.exists(CREDENTIALS_FILE):
+        with open(CREDENTIALS_FILE, 'rb') as f:
+            d = json.load(f)
+            access_token = d['access_token']
+            refresh_token = d['refresh_token']
+            expiry = parse_isostring(d['expiry']) if 'expiry' in d else None
+            return auth.Credentials(
+                access_token=access_token,
+                refresh_token=refresh_token,
+                expiry=expiry,
+            )
+    return None
+
+
+def clear_credentials():
+    if os.path.exists(CREDENTIALS_FILE):
+        os.remove(CREDENTIALS_FILE)
+        return True
+    return False
 
 
 def print_table(rows, decorate=False, header=False):
@@ -100,10 +119,10 @@ class Command(object):
             epilog = 'Run \'yamcs {} COMMAND --help\' for more information on a command.'.format(command)
 
         # Override the default help action so that it does not show up in
-        # the usage string of every command
         subparser = subparsers.add_parser(command, help=help_, add_help=False,
                                           formatter_class=SubCommandHelpFormatter,
                                           epilog=epilog)
+        # the usage string of every command
         subparser.add_argument('-h', '--help', action='help',
                                default=argparse.SUPPRESS, help=argparse.SUPPRESS)
         return subparser
@@ -112,31 +131,41 @@ class Command(object):
 class CommandOptions(object):
 
     def __init__(self, args):
-        self._config = read_config()
+        self.config = read_config()
         self._credentials = read_credentials()
         self._args = args
 
     @property
     def instance(self):
-        return self._args.instance or self._config.get('core', 'instance')
+        return self._args.instance or self.config.get('core', 'instance')
+
+    @property
+    def host(self):
+        return self.config.get('core', 'host')
+
+    @property
+    def port(self):
+        return self.config.get('core', 'port')
 
     @property
     def address(self):
-        return self._config.get('core', 'host') + ':' + self._config.get('core', 'port')
+        return self.host + ':' + self.port
 
     @property
     def user_agent(self):
         return get_user_agent()
+
+    def _on_token_update(self, credentials):
+        print('updating creds..', credentials)
+        save_credentials(credentials)
 
     @property
     def client_kwargs(self):
         return {
             'address': self.address,
             'user_agent': self.user_agent,
-            'credentials': auth.Credentials(
-                access_token=self._credentials['access_token'],
-                refresh_token=self._credentials['refresh_token']
-            ),
+            'credentials': self._credentials,
+            'on_token_update': self._on_token_update,
         }
 
 

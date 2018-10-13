@@ -12,6 +12,7 @@ from yamcs.cli.dbshell import DbShellCommand
 from yamcs.cli.instances import InstancesCommand
 from yamcs.cli.links import LinksCommand
 from yamcs.cli.login import LoginCommand
+from yamcs.cli.logout import LogoutCommand
 from yamcs.cli.parameters import ParametersCommand
 from yamcs.cli.processors import ProcessorsCommand
 from yamcs.cli.services import ServicesCommand
@@ -19,6 +20,7 @@ from yamcs.cli.space_systems import SpaceSystemsCommand
 from yamcs.cli.storage import StorageCommand
 from yamcs.cli.streams import StreamsCommand
 from yamcs.cli.tables import TablesCommand
+from yamcs.core.exceptions import Unauthorized
 
 
 def create_subparser(subparsers, command, help_):
@@ -53,6 +55,7 @@ def main():
     InstancesCommand(subparsers)
     LinksCommand(subparsers)
     LoginCommand(subparsers)
+    LogoutCommand(subparsers)
     ParametersCommand(subparsers)
     ProcessorsCommand(subparsers)
     SpaceSystemsCommand(subparsers)
@@ -66,6 +69,8 @@ def main():
         args.func(args)
     except KeyboardInterrupt:
         print()  # Clear prompt
+    except Unauthorized:
+        print('Unauthorized. Run: \'yamcs login\' to login to Yamcs')
     except Exception as e:  # pylint: disable=W0703
         print(e)
 

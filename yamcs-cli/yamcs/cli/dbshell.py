@@ -30,19 +30,16 @@ class DbShellCommand(utils.Command):
         client = YamcsClient(**opts.client_kwargs)
         shell = DbShell(client)
         shell.do_use(opts.instance)
-        try:
-            if args.command:
-                shell.onecmd(args.command)
-            else:
-                server_info = client.get_server_info()
-                intro = (
-                    'Yamcs DB Shell\n'
-                    'Server version: {} - ID: {}\n\n'
-                    'Type ''help'' or ''?'' for help.\n'
-                ).format(server_info.version, server_info.id)
-                shell.cmdloop(intro)
-        except KeyboardInterrupt:
-            print()  # Move user below current prompt
+        if args.command:
+            shell.onecmd(args.command)
+        else:
+            server_info = client.get_server_info()
+            intro = (
+                'Yamcs DB Shell\n'
+                'Server version: {} - ID: {}\n\n'
+                'Type ''help'' or ''?'' for help.\n'
+            ).format(server_info.version, server_info.id)
+            shell.cmdloop(intro)
 
 
 class DbShell(Cmd):
@@ -97,10 +94,14 @@ class DbShell(Cmd):
 
     def default(self, line):
         try:
-            archive = self._client.get_archive(self.instance)
-            result = archive.execute_sql(line)
-            if result:
-                self.paginate(result.splitlines())
+            for statement in line.split(';'):
+                if not statement:
+                    continue
+
+                archive = self._client.get_archive(self.instance)
+                result = archive.execute_sql(statement)
+                if result:
+                    self.paginate(result.splitlines() + [''])  # Add an empty line
         except YamcsError as e:
             print(e)
 
