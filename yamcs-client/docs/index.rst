@@ -40,7 +40,8 @@ Get domain-specific clients:
     archive = client.get_archive(instance='simulator')
     # ...
 
-    processor = client.get_processor(instance='simulator', processor='realtime')
+    processor = client.get_processor(instance='simulator',
+                                     processor='realtime')
     # ...
 
 

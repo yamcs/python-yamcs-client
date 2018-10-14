@@ -43,5 +43,5 @@ if __name__ == '__main__':
     print('\nCommands:')
     print_commands()
 
-    print('\nFind a specific parameter using different naming strategies')
+    print('\nFind a specific parameter using different names')
     find_parameter()

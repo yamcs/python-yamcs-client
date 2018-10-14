@@ -11,8 +11,8 @@ if __name__ == '__main__':
     stop = datetime.utcnow()
     start = stop - timedelta(hours=1)
 
-    samples = archive.sample_parameter_values('/YSS/SIMULATOR/Altitude',
-                                              start=start, stop=stop)
+    samples = archive.sample_parameter_values(
+        '/YSS/SIMULATOR/Altitude', start=start, stop=stop)
     x = [s.time for s in samples]
     y = [s.avg for s in samples]
     plt.subplot(2, 1, 1)
@@ -21,8 +21,8 @@ if __name__ == '__main__':
     plt.ylabel('Altitude')
     plt.grid()
 
-    samples = archive.sample_parameter_values('/YSS/SIMULATOR/SinkRate',
-                                              start=start, stop=stop)
+    samples = archive.sample_parameter_values(
+        '/YSS/SIMULATOR/SinkRate', start=start, stop=stop)
     x = [s.time for s in samples]
     y = [s.avg for s in samples]
     plt.subplot(2, 1, 2)
