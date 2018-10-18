@@ -444,7 +444,9 @@ class ArchiveClient(object):
         return [ParameterRange(r) for r in ranges]
 
     def list_parameter_values(self, parameter, start=None, stop=None,
-                              page_size=500, descending=False, source='ParameterArchive'):
+                              page_size=500, descending=False,
+                              parameter_cache='realtime',
+                              source='ParameterArchive'):
         """
         Reads parameter values between the specified start and stop time.
 
@@ -458,6 +460,10 @@ class ArchiveClient(object):
                               less overhead, but risk hitting the maximum message size limit.
         :param bool descending: If set to ``True`` values are fetched in reverse
                                 order (most recent first).
+        :param str parameter_cache: Specify the name of the processor who's
+                                    parameter cache is merged with already
+                                    archived values. To disable results from
+                                    the parameter cache, set this to ``None``.
         :param str source: Specify how to retrieve parameter values. By
                            default this uses the ``ParameterArchive`` which
                            is optimized for retrieval. For Yamcs instances
@@ -477,6 +483,11 @@ class ArchiveClient(object):
             params['start'] = to_isostring(start)
         if stop is not None:
             params['stop'] = to_isostring(stop)
+
+        if parameter_cache:
+            params['processor'] = parameter_cache
+        else:
+            params['norealtime'] = True
 
         return pagination.Iterator(
             client=self._client,
