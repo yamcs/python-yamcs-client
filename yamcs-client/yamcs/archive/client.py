@@ -444,7 +444,7 @@ class ArchiveClient(object):
         return [ParameterRange(r) for r in ranges]
 
     def list_parameter_values(self, parameter, start=None, stop=None,
-                              page_size=500, descending=False):
+                              page_size=500, descending=False, source='ParameterArchive'):
         """
         Reads parameter values between the specified start and stop time.
 
@@ -458,9 +458,17 @@ class ArchiveClient(object):
                               less overhead, but risk hitting the maximum message size limit.
         :param bool descending: If set to ``True`` values are fetched in reverse
                                 order (most recent first).
+        :param str source: Specify how to retrieve parameter values. By
+                           default this uses the ``ParameterArchive`` which
+                           is optimized for retrieval. For Yamcs instances
+                           that do not enable the ``ParameterArchive``, you can
+                           still get results by specifying ``replay`` as the
+                           source. Replay requests take longer to return because
+                           the data needs to be reprocessed.
         :rtype: ~collections.Iterable[.ParameterValue]
         """
         params = {
+            'source': source,
             'order': 'desc' if descending else 'asc',
         }
         if page_size is not None:
