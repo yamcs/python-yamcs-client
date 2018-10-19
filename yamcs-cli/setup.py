@@ -9,7 +9,7 @@ packages = [
     package for package in setuptools.find_packages()
     if package.startswith('yamcs')]
 
-version = '1.1.3'
+version = '1.1.4'
 
 setuptools.setup(
     name='yamcs-cli',
