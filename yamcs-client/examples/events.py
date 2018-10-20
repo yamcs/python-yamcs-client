@@ -10,7 +10,7 @@ def listen_to_event_updates():
     def callback(event):
         print('Event:', event)
 
-    client.create_event_subscription('simulator', callback)
+    client.create_event_subscription(instance='simulator', on_data=callback)
 
     sleep(5)  # Subscription is non-blocking
 

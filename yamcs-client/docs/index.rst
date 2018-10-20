@@ -40,15 +40,27 @@ Get domain-specific clients:
     archive = client.get_archive(instance='simulator')
     # ...
 
-    processor = client.get_processor(instance='simulator',
-                                     processor='realtime')
+    processor = client.get_processor(instance='simulator', processor='realtime')
     # ...
 
 
-Next Steps
-----------
+Documentation
+~~~~~~~~~~~~~
+
+* :doc:`general/index`
+* :doc:`mdb/index`
+* :doc:`tmtc/index`
+* :doc:`archive/index`
+* :doc:`storage/index`
+
+Examples
+~~~~~~~~
+
+* :doc:`examples/index`
+
 
 .. toctree::
+    :hidden:
     :maxdepth: 2
     :titlesonly:
 
@@ -56,4 +68,5 @@ Next Steps
     mdb/index
     tmtc/index
     archive/index
+    storage/index
     examples/index

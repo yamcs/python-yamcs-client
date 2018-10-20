@@ -1,3 +1,13 @@
+pre, tt, code {
+    font-size: 13px;
+}
+
+pre {
+    background: #fafafb;
+    border: 1px solid #cacaca;
+    padding: 8px 12px;
+}
+
 div.body {
     max-width: none !important;
 }
@@ -44,6 +54,22 @@ a.reference .pre {
     color: #004B6B;
 }
 
+a.reference {
+    color: #1756a9;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+a.reference:visited {
+    color: #1756a9;
+}
+
+a.reference:hover {
+    color: #222;
+    text-decoration: underline;
+    border-bottom: none;
+}
+
 th.field-name {
     white-space: nowrap;
 }
@@ -61,7 +87,72 @@ div#searchbox {
     display: none;
 }
 
+#searchbox > h3 {
+    text-transform: capitalize;
+}
+
+.sphinxsidebarwrapper {
+    padding-right: 0 !important;
+}
+
+.searchformwrapper {
+    padding-right: 15px;
+}
+
+.blurb {
+    margin-bottom: 2em !important;
+}
+
 div.footer {
     /* Hide, instead of display:none, so it still print some whitespace in the footer */
     visibility: hidden;
+}
+
+.sphinxsidebar {
+    border-right: 1px solid #e8e8e8;
+}
+
+.sphinxsidebar ul ul {
+    list-style: none !important;
+    border-left: 1px solid #e8e8e8;
+    margin-left: 15px !important;
+    margin-bottom: 15px !important;
+}
+
+.sphinxsidebar ul a {
+    text-decoration: none !important;
+    font-weight: 300 !important;
+    border-bottom: none !important;
+    display: block;
+    padding-left: 1em !important;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    font-size: 100% !important;
+    color: black !important;
+}
+
+.sphinxsidebar ul li.current > a, .sphinxsidebar ul li.current > a:hover {
+    background-color: #1756a9;
+    color: white !important;
+}
+
+.sphinxsidebar ul li.current li.current > a, .sphinxsidebar ul li.current li.current > a:hover {
+    background-color: #e8e8e8;
+    color: black !important;
+}
+
+.sphinxsidebar ul a:hover {
+    background-color: #efefef;
+}
+
+div.body h1, div.body h2, div.body h3, div.body h4, div.body h5, div.body h6 {
+    font-weight: 300;
+}
+
+div.body h1 {
+    font-size: 2em;
+}
+
+div.body h2 {
+    font-size: 1.5em;
 }

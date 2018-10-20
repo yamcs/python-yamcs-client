@@ -1,5 +1,5 @@
-Common Types
-============
+Model
+=====
 
 .. automodule:: yamcs.model
     :members:

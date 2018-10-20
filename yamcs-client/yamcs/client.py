@@ -140,9 +140,9 @@ class YamcsClient(BaseClient):
     def __init__(self, address, **kwargs):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
-        :param bool ssl: Whether SSL encryption is expected
-        :param .Credentials credentials: Credentials for when the server is secured
-        :param str user_agent: Optionally override the default user agent
+        :param Optional[bool] ssl: Whether SSL encryption is expected
+        :param Optional[.Credentials] credentials: Credentials for when the server is secured
+        :param Optional[str] user_agent: Optionally override the default user agent
         """
         super(YamcsClient, self).__init__(address, **kwargs)
 
@@ -264,7 +264,7 @@ class YamcsClient(BaseClient):
 
         Processors are returned in lexicographical order.
 
-        :param str instance: A Yamcs instance name.
+        :param Optional[str] instance: A Yamcs instance name.
         :rtype: ~collections.Iterable[.Processor]
         """
         # Server does not do pagination on listings of this resource.
@@ -282,8 +282,8 @@ class YamcsClient(BaseClient):
         """
         Lists the clients.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: ~collections.Iterable[.Client]
+        :param Optional[str] instance: A Yamcs instance name.
+        :rtype: ~collections.Iterable[yamcs.model.Client]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -364,22 +364,28 @@ class YamcsClient(BaseClient):
         """
         Post a new event.
 
-        :param str message: Event message
-        :param str event_type: (Optional) Type of event.
-        :param str severity: (Optional) The severity level of the event.
-                             One of ``info``, ``watch``, ``warning``,
-                             ``critical`` or ``severe``. Defaults to ``info``.
-        :param ~datetime.datetime time: (Optional) Time of the event. If
-                                        unspecified, defaults to mission time.
-        :param str source: (Optional) Source of the event. Useful for grouping
-                           events in the archive. When unset this defaults to
-                           ``User``.
-        :param int sequence_number: (Optional) Sequence number of this event.
-                                    This is primarily used to determine
-                                    unicity of events coming from the same
-                                    source. If not set Yamcs will automatically
-                                    assign a sequential number as if every
-                                    submitted event is unique.
+        :param str instance: A Yamcs instance name.
+        :param str message: Event message.
+        :param Optional[str] event_type: Type of event.
+
+        :param severity: The severity level of the event. One of ``info``,
+                         ``watch``, ``warning``, ``critical`` or ``severe``.
+                         Defaults to ``info``.
+        :type severity: Optional[str]
+
+        :param time: Time of the event. If unspecified, defaults to mission time.
+        :type time: Optional[~datetime.datetime]
+
+        :param source: Source of the event. Useful for grouping events in the
+                       archive. When unset this defaults to ``User``.
+        :type source: Optional[str]
+
+        :param sequence_number: Sequence number of this event. This is primarily
+                                used to determine unicity of events coming from
+                                the same source. If not set Yamcs will
+                                automatically assign a sequential number as if
+                                every submitted event is unique.
+        :type sequence_number: Optional[int]
         """
         req = rest_pb2.CreateEventRequest()
         req.message = message
@@ -441,10 +447,15 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name.
-        :param on_data: Function that gets called with :class:`.LinkEvent`
-                        updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+
+        :param on_data: Function that gets called with
+                        :class:`.LinkEvent` updates.
+        :type on_data: Optional[Callable[.LinkEvent])
+
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: Optional[float]
+
         :return: Future that can be used to manage the background websocket
                  subscription.
         :rtype: .DataLinkSubscription
@@ -473,10 +484,15 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
+
         :param on_data: Function that gets called with
                         :class:`~datetime.datetime` updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        :type on_data: Optional[Callable[~datetime.datetime])
+
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: Optional[float]
+
         :return: Future that can be used to manage the background websocket
                  subscription.
         :rtype: .TimeSubscription
@@ -504,9 +520,14 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
+
         :param on_data: Function that gets called on each :class:`.Event`.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        :type on_data: Optional[Callable[.Event])
+
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: Optional[float]
+
         :return: Future that can be used to manage the background websocket
                  subscription.
         :rtype: .WebSocketSubscriptionFuture

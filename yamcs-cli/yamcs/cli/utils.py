@@ -156,7 +156,6 @@ class CommandOptions(object):
         return get_user_agent()
 
     def _on_token_update(self, credentials):
-        print('updating creds..', credentials)
         save_credentials(credentials)
 
     @property
