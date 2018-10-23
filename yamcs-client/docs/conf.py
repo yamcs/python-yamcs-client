@@ -92,7 +92,7 @@ html_theme_options = {
     #'github_user': 'yamcs',
     #'github_repo': 'yamcs-python',
     #'github_banner': False,
-    'fixed_sidebar': True,
+    'fixed_sidebar': False,
     'show_powered_by': False,
     'analytics_id': 'UA-123272152-1',
     'font_family': 'Helvetica,Arial,sans-serif',
