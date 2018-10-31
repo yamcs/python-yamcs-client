@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1ayamcs/protobuf/yamcs.proto\"@\n\nColumnData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"P\n\nStreamData\x12\x0e\n\x06stream\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"\x8d\x01\n\tTableData\x12=\n\x06record\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.TableData.TableRecord\x1a\x41\n\x0bTableRecord\x12\x32\n\x06\x63olumn\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"^\n\nColumnInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x34\n\tenumValue\x18\x03 \x03(\x0b\x32!.yamcs.protobuf.archive.EnumValue\")\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x05\x12\r\n\x05label\x18\x02 \x01(\t\"\xcc\x02\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x35\n\tkeyColumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x37\n\x0bvalueColumn\x18\x03 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x04 \x01(\t\x12\x17\n\x0fhistogramColumn\x18\x05 \x03(\t\x12\x15\n\rstorageEngine\x18\x06 \x01(\t\x12\x15\n\rformatVersion\x18\x07 \x01(\x05\x12\x12\n\ntablespace\x18\x08 \x01(\t\x12\x12\n\ncompressed\x18\t \x01(\x08\x12\x42\n\x10partitioningInfo\x18\n \x01(\x0b\x32(.yamcs.protobuf.archive.PartitioningInfo\"\xf7\x01\n\x10PartitioningInfo\x12G\n\x04type\x18\x01 \x01(\x0e\x32\x39.yamcs.protobuf.archive.PartitioningInfo.PartitioningType\x12\x12\n\ntimeColumn\x18\x02 \x01(\t\x12\x1b\n\x13timePartitionSchema\x18\x03 \x01(\t\x12\x13\n\x0bvalueColumn\x18\x04 \x01(\t\x12\x17\n\x0fvalueColumnType\x18\x05 \x01(\t\";\n\x10PartitioningType\x12\x08\n\x04TIME\x10\x01\x12\t\n\x05VALUE\x10\x02\x12\x12\n\x0eTIME_AND_VALUE\x10\x03\"q\n\nStreamInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x03 \x01(\t\x12\x11\n\tdataCount\x18\x04 \x01(\x03\"!\n\x0f\x45ventSourceInfo\x12\x0e\n\x06source\x18\x01 \x03(\t\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"8\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\"&\n\x16GetPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"&\n\x11\x45xecuteSqlRequest\x12\x11\n\tstatement\x18\x01 \x01(\t\"$\n\x12\x45xecuteSqlResponse\x12\x0e\n\x06result\x18\x01 \x01(\tB\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1ayamcs/protobuf/yamcs.proto\"@\n\nColumnData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"P\n\nStreamData\x12\x0e\n\x06stream\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"\x8d\x01\n\tTableData\x12=\n\x06record\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.TableData.TableRecord\x1a\x41\n\x0bTableRecord\x12\x32\n\x06\x63olumn\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"^\n\nColumnInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x34\n\tenumValue\x18\x03 \x03(\x0b\x32!.yamcs.protobuf.archive.EnumValue\")\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x05\x12\r\n\x05label\x18\x02 \x01(\t\"\xcc\x02\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x35\n\tkeyColumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x37\n\x0bvalueColumn\x18\x03 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x04 \x01(\t\x12\x17\n\x0fhistogramColumn\x18\x05 \x03(\t\x12\x15\n\rstorageEngine\x18\x06 \x01(\t\x12\x15\n\rformatVersion\x18\x07 \x01(\x05\x12\x12\n\ntablespace\x18\x08 \x01(\t\x12\x12\n\ncompressed\x18\t \x01(\x08\x12\x42\n\x10partitioningInfo\x18\n \x01(\x0b\x32(.yamcs.protobuf.archive.PartitioningInfo\"\xf7\x01\n\x10PartitioningInfo\x12G\n\x04type\x18\x01 \x01(\x0e\x32\x39.yamcs.protobuf.archive.PartitioningInfo.PartitioningType\x12\x12\n\ntimeColumn\x18\x02 \x01(\t\x12\x1b\n\x13timePartitionSchema\x18\x03 \x01(\t\x12\x13\n\x0bvalueColumn\x18\x04 \x01(\t\x12\x17\n\x0fvalueColumnType\x18\x05 \x01(\t\";\n\x10PartitioningType\x12\x08\n\x04TIME\x10\x01\x12\t\n\x05VALUE\x10\x02\x12\x12\n\x0eTIME_AND_VALUE\x10\x03\"q\n\nStreamInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x03 \x01(\t\x12\x11\n\tdataCount\x18\x04 \x01(\x03\"!\n\x0f\x45ventSourceInfo\x12\x0e\n\x06source\x18\x01 \x03(\t\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"[\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x10\n\x08seqStart\x18\x04 \x01(\x03\x12\x0f\n\x07seqStop\x18\x05 \x01(\x03\"&\n\x16GetPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"&\n\x11\x45xecuteSqlRequest\x12\x11\n\tstatement\x18\x01 \x01(\t\"$\n\x12\x45xecuteSqlResponse\x12\x0e\n\x06result\x18\x01 \x01(\tB\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -645,6 +645,20 @@ _INDEXENTRY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seqStart', full_name='yamcs.protobuf.archive.IndexEntry.seqStart', index=3,
+      number=4, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seqStop', full_name='yamcs.protobuf.archive.IndexEntry.seqStop', index=4,
+      number=5, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -658,7 +672,7 @@ _INDEXENTRY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1498,
-  serialized_end=1554,
+  serialized_end=1589,
 )
 
 
@@ -688,8 +702,8 @@ _GETPACKETNAMESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1556,
-  serialized_end=1594,
+  serialized_start=1591,
+  serialized_end=1629,
 )
 
 
@@ -719,8 +733,8 @@ _EXECUTESQLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1596,
-  serialized_end=1634,
+  serialized_start=1631,
+  serialized_end=1669,
 )
 
 
@@ -750,8 +764,8 @@ _EXECUTESQLRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1636,
-  serialized_end=1672,
+  serialized_start=1671,
+  serialized_end=1707,
 )
 
 _COLUMNDATA.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE

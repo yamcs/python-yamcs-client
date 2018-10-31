@@ -41,7 +41,7 @@ class Future(object):
         """
         Return the value returned by the call. If the call hasn't yet completed then
         this method will wait up to timeout seconds. If the call hasn't completed in
-        timeout seconds, then a :class`TimeoutError` will be raised.
+        timeout seconds, then a :class:`.TimeoutError` will be raised.
         timeout can be an int or float. If timeout is not specified or None, there
         is no limit to the wait time.
 
@@ -57,7 +57,7 @@ class Future(object):
         """
         Return the exception raised by the call. If the call hasn't yet completed
         then this method will wait up to timeout seconds. If the call hasn't
-        completed in timeout seconds, then a :class`TimeoutError` will
+        completed in timeout seconds, then a :class:`.TimeoutError` will
         be raised. timeout can be an int or float. If timeout is not specified or
         None, there is no limit to the wait time.
 

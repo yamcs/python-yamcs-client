@@ -272,7 +272,7 @@ class ParameterRange(object):
     def stop(self):
         """
         Stop time of this range (exclusive).
-        
+
         :type: :class:`~datetime.datetime`
         """
         return parse_isostring(self._proto.timeStop)
