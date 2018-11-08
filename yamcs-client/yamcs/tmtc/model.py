@@ -501,3 +501,71 @@ class ParameterValue(object):
         if self.monitoring_result:
             line += ' [' + self.monitoring_result + ']'
         return line
+
+
+class Calibrator(object):
+    """
+    A calibrator that may be applied to a numeric raw value.
+
+    Two types of calibrators can be applied:
+
+    * Polynomial calibrators apply a polynomial expression of the form:
+        `y = a + bx + cx^2 + ...`.
+
+        The `data` argument must be an array of floats ``[a, b, c, ...]``.
+
+    * Spline calibrators interpolate the raw value between a set of points
+        which represent a linear curve.
+
+        The `data` argument must be an array of ``[x, y]`` points.
+    """
+
+    POLYNOMIAL = 'polynomial'
+    SPLINE = 'spline'
+
+    def __init__(self, context, type, data):  # pylint: disable=W0622
+        """
+        :param str context: Condition under which this calibrator may be
+                            applied. The value ``None`` indicates the
+                            default calibrator which is only applied if
+                            no contextual calibrators match.
+        :param str type: One of ``polynomial`` or ``spline``.
+        :param data: Calibration definition for the selected type.
+        """
+        self.context = context
+        self.type = type
+        self.data = data
+
+
+class RangeSet(object):
+    """
+    A set of alarm range that apply in a specific context.
+    """
+
+    def __init__(self, context, watch=None, warning=None, distress=None,
+                 critical=None, severe=None, min_violations=1):
+        """
+        :param str context: Condition under which this range set is
+                            applicable. The value ``None`` indicates the
+                            default range set which is only applicable if
+                            no contextual sets match.
+        :param (int,int) watch: Range expressed as a tuple ``(lo, hi)``
+                                where lo and hi are assumed exclusive.
+        :param (int,int) warning: Range expressed as a tuple ``(lo, hi)``
+                                  where lo and hi are assumed exclusive.
+        :param (int,int) distress: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (int,int) critical: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (int,int) severe: Range expressed as a tuple ``(lo, hi)``
+                                 where lo and hi are assumed exclusive.
+        :param int min_violations: Minimum violations before an alarm is
+                                   generated.
+        """
+        self.context = context
+        self.watch = watch
+        self.warning = warning
+        self.distress = distress
+        self.critical = critical
+        self.severe = severe
+        self.min_violations = min_violations

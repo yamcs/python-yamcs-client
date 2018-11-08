@@ -10,8 +10,9 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import (Alarm, AlarmEvent, CommandHistory, IssuedCommand,
-                              ParameterData, ParameterValue)
+from yamcs.tmtc.model import (Alarm, AlarmEvent, Calibrator, CommandHistory,
+                              IssuedCommand, ParameterData, ParameterValue,
+                              RangeSet)
 
 
 class SequenceGenerator(object):
@@ -504,6 +505,123 @@ class ProcessorClient(object):
         message.ParseFromString(response.content)
         alarms = getattr(message, 'alarm')
         return iter([Alarm(alarm) for alarm in alarms])
+
+    def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
+        """
+        Apply a calibrator while processing raw values of the specified
+        parameter. If there is already a default calibrator associated
+        to this parameter, that calibrator gets replaced.
+
+        .. note::
+
+            Contextual calibrators take precedence over the default calibrator
+            See :meth:`set_calibrators` for setting contextual calibrators.
+
+        Two types of calibrators can be applied:
+
+        * Polynomial calibrators apply a polynomial expression of the form:
+          `y = a + bx + cx^2 + ...`.
+
+          The `data` argument must be an array of floats ``[a, b, c, ...]``.
+
+        * Spline calibrators interpolate the raw value between a set of points
+          which represent a linear curve.
+
+          The `data` argument must be an array of ``[x, y]`` points.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param str type: One of ``polynomial`` or ``spline``.
+        :param data: Calibration definition for the selected type.
+        """
+        calibrator = Calibrator(context=None, type=type, data=data)
+        self.set_calibrators(parameter, calibrator)
+
+    def set_calibrators(self, parameter, calibrators):
+        """
+        Apply an ordered set of calibrators for the specified parameter.
+        This replaces existing calibrators (if any).
+
+        Each calibrator may have a context, which indicates when it its
+        effects may be applied. Only the first matching calibrator is
+        applied.
+
+        A calibrator with context ``None`` is the *default* calibrator.
+        There can be only one such calibrator, and is always applied at
+        the end when no other contextual calibrator was applicable.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
+        """
+        pass
+
+    def clear_calibrators(self, parameter):
+        """
+        Removes all calibrators for the specified parameter.
+        """
+        pass
+
+    def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
+                                 distress=None, critical=None, severe=None,
+                                 min_violations=1):
+        """
+        Generate out-of-limit alarms for a parameter using the specified
+        alarm ranges.
+
+        This replaces any previous default alarms on this parameter.
+
+        .. note::
+
+            Contextual range sets take precedence over the default alarm
+            ranges. See :meth:`set_alarm_range_sets` for setting contextual
+            range sets.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param (int,int) watch: Range expressed as a tuple ``(lo, hi)``
+                                where lo and hi are assumed exclusive.
+        :param (int,int) warning: Range expressed as a tuple ``(lo, hi)``
+                                  where lo and hi are assumed exclusive.
+        :param (int,int) distress: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (int,int) critical: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (int,int) severe: Range expressed as a tuple ``(lo, hi)``
+                                 where lo and hi are assumed exclusive.
+        :param int min_violations: Minimum violations before an alarm is
+                                   generated.
+        """
+        range_set = RangeSet(context=None, watch=watch, warning=warning,
+                             distress=distress, critical=critical,
+                             severe=severe, min_violations=min_violations)
+        self.set_alarm_range_sets(parameter, range_set)
+
+    def set_alarm_range_sets(self, parameter, sets):
+        """
+        Apply an ordered list of alarm range sets for the specified parameter.
+        This replaces existing alarm sets (if any).
+
+        Each RangeSet may have a context, which indicates when
+        its effects may be applied. Only the first matching set is
+        applied.
+
+        A RangeSet with context ``None`` represents the *default* set of
+        alarm ranges.  There can be only one such set, and it is always
+        applied at the end when no other set of contextual ranges is
+        applicable.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param .RangeSet[] sets: List of range sets (either contextual or not)
+        """
+        pass
+
+    def clear_alarm_ranges(self, parameter):
+        """
+        Removes all alarm limits for the specified parameter.
+        """
+        pass
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
