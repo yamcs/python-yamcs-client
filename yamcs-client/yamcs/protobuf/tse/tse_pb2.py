@@ -7,6 +7,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -19,10 +20,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/tse/tse.proto',
   package='yamcs.protobuf.tse',
   syntax='proto2',
-  serialized_options=_b('\n\022org.yamcs.protobuf'),
   serialized_pb=_b('\n\x1cyamcs/protobuf/tse/tse.proto\x12\x12yamcs.protobuf.tse\x1a\x1ayamcs/protobuf/yamcs.proto\"\xe9\x02\n\nTseCommand\x12\x12\n\ninstrument\x18\x01 \x01(\t\x12\x0f\n\x07\x63ommand\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\x12L\n\x0f\x61rgumentMapping\x18\x04 \x03(\x0b\x32\x33.yamcs.protobuf.tse.TseCommand.ArgumentMappingEntry\x12N\n\x10parameterMapping\x18\x05 \x03(\x0b\x32\x34.yamcs.protobuf.tse.TseCommand.ParameterMappingEntry\x1aM\n\x14\x41rgumentMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value:\x02\x38\x01\x1a\x37\n\x15ParameterMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -40,21 +41,21 @@ _TSECOMMAND_ARGUMENTMAPPINGENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.tse.TseCommand.ArgumentMappingEntry.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=_b('8\001'),
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -77,21 +78,21 @@ _TSECOMMAND_PARAMETERMAPPINGENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.tse.TseCommand.ParameterMappingEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=_b('8\001'),
+  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -114,42 +115,42 @@ _TSECOMMAND = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='command', full_name='yamcs.protobuf.tse.TseCommand.command', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='response', full_name='yamcs.protobuf.tse.TseCommand.response', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='argumentMapping', full_name='yamcs.protobuf.tse.TseCommand.argumentMapping', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='parameterMapping', full_name='yamcs.protobuf.tse.TseCommand.parameterMapping', index=4,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[_TSECOMMAND_ARGUMENTMAPPINGENTRY, _TSECOMMAND_PARAMETERMAPPINGENTRY, ],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -165,7 +166,6 @@ _TSECOMMAND_PARAMETERMAPPINGENTRY.containing_type = _TSECOMMAND
 _TSECOMMAND.fields_by_name['argumentMapping'].message_type = _TSECOMMAND_ARGUMENTMAPPINGENTRY
 _TSECOMMAND.fields_by_name['parameterMapping'].message_type = _TSECOMMAND_PARAMETERMAPPINGENTRY
 DESCRIPTOR.message_types_by_name['TseCommand'] = _TSECOMMAND
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 TseCommand = _reflection.GeneratedProtocolMessageType('TseCommand', (_message.Message,), dict(
 
@@ -191,7 +191,10 @@ _sym_db.RegisterMessage(TseCommand.ArgumentMappingEntry)
 _sym_db.RegisterMessage(TseCommand.ParameterMappingEntry)
 
 
-DESCRIPTOR._options = None
-_TSECOMMAND_ARGUMENTMAPPINGENTRY._options = None
-_TSECOMMAND_PARAMETERMAPPINGENTRY._options = None
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\022org.yamcs.protobuf'))
+_TSECOMMAND_ARGUMENTMAPPINGENTRY.has_options = True
+_TSECOMMAND_ARGUMENTMAPPINGENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+_TSECOMMAND_PARAMETERMAPPINGENTRY.has_options = True
+_TSECOMMAND_PARAMETERMAPPINGENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
 # @@protoc_insertion_point(module_scope)

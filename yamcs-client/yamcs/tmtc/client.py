@@ -2,6 +2,7 @@ import functools
 import socket
 import threading
 
+
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
@@ -10,8 +11,11 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import (Alarm, AlarmEvent, CommandHistory, IssuedCommand,
-                              ParameterData, ParameterValue)
+from yamcs.protobuf.mdb import mdb_pb2
+
+from yamcs.tmtc.model import (Alarm, AlarmEvent, Calibrator, CommandHistory,
+                              IssuedCommand, ParameterData, ParameterValue,
+                              RangeSet)
 
 
 class SequenceGenerator(object):
@@ -133,6 +137,48 @@ def _build_value_proto(value):
     else:
         raise YamcsError('Unrecognized type')
     return proto
+
+def _set_range(ar, range, level):
+    ar.level = level
+    if range[0] :
+        ar.minExclusive = range[0]
+    if range[1] :
+        ar.maxExclusive = range[1]
+    
+def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_violations):
+    alarm_info.minViolations = min_violations
+    
+    if watch:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, watch, mdb_pb2.WATCH)
+    if warning:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, warning, mdb_pb2.WARNING)    
+    if distress:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, distress, mdb_pb2.DISTRESS)
+    
+    if critical:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, critical, mdb_pb2.CRITICAL)
+    if severe:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, severe, mdb_pb2.SEVERE)
+        
+def _add_calib(calib_info, type, data):
+    type = type.lower()
+    if type == Calibrator.POLYNOMIAL:           
+        calib_info.type = mdb_pb2.CalibratorInfo.POLYNOMIAL
+        polynomial = calib_info.polynomialCalibrator.coefficient.extend(data)           
+    elif type == Calibrator.SPLINE:
+        calib_info.type = CalibratorInfo.Type.SPLINE
+        spline = mdb_pb2.SplineCalibratorInfo()
+        for p in data:
+            spi = spline.point.add()
+            spi.raw = p[0]
+            spi.calibrated = p[1]
+    else :
+        raise YamcsError('Unrecognized type')
 
 
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
@@ -505,6 +551,210 @@ class ProcessorClient(object):
         alarms = getattr(message, 'alarm')
         return iter([Alarm(alarm) for alarm in alarms])
 
+    def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
+        """
+        Apply a calibrator while processing raw values of the specified
+        parameter. If there is already a default calibrator associated
+        to this parameter, that calibrator gets replaced.
+
+        .. note::
+
+            Contextual calibrators take precedence over the default calibrator
+            See :meth:`set_calibrators` for setting contextual calibrators.
+
+        Two types of calibrators can be applied:
+
+        * Polynomial calibrators apply a polynomial expression of the form:
+          `y = a + bx + cx^2 + ...`.
+
+          The `data` argument must be an array of floats ``[a, b, c, ...]``.
+
+        * Spline calibrators interpolate the raw value between a set of points
+          which represent a linear curve.
+
+          The `data` argument must be an array of ``[x, y]`` points.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param str type: One of ``polynomial`` or ``spline``.
+        :param data: Calibration definition for the selected type.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR
+        if  type:
+            _add_calib(req.defaultCalibrator, type, data)
+                   
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+       # pti = mdb_pb2.ParameterTypeInfo()
+       # pti.ParseFromString(response.content)
+       # print(pti)
+       
+
+     
+
+    def set_calibrators(self, parameter, calibrators):
+        """
+        Apply an ordered set of calibrators for the specified parameter.
+        This replaces existing calibrators (if any).
+
+        Each calibrator may have a context, which indicates when it its
+        effects may be applied. Only the first matching calibrator is
+        applied.
+
+        A calibrator with context ``None`` is the *default* calibrator.
+        There can be only one such calibrator, and is always applied at
+        the end when no other contextual calibrator was applicable.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_CALIBRATORS
+        for c in calibrators:
+            if c.context :
+                context_calib = req.contextCalibrator.add()
+                context_calib.context = rs.context
+                calib_info = context_calib.calibrator
+            else :                
+                calib_info = req.defaultCalibrator
+            
+            _add_calib(calib_info, c.type, c.data)
+            
+            
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        pti = mdb_pb2.ParameterTypeInfo()
+      #  pti.ParseFromString(response.content)
+      # print(pti)
+
+    def clear_calibrators(self, parameter):
+        """
+        Removes all calibrators for the specified parameter.
+        """
+        self.set_default_calibrator(parameter, None, None)
+        self.set_calibrators(parameter, [])
+        
+        
+    def reset_calibrators(self, parameter):
+        """
+        Reset all calibrators for the specified parameter to their original MDB value.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS                  
+        calib_info = req.defaultCalibrator
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        
+
+    def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
+                                 distress=None, critical=None, severe=None,
+                                 min_violations=1):
+        """
+        Generate out-of-limit alarms for a parameter using the specified
+        alarm ranges.
+
+        This replaces any previous default alarms on this parameter.
+
+        .. note::
+
+            Contextual range sets take precedence over the default alarm
+            ranges. See :meth:`set_alarm_range_sets` for setting contextual
+            range sets.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
+                                where lo and hi are assumed exclusive.
+        :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
+                                  where lo and hi are assumed exclusive.
+        :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
+                                   where lo and hi are assumed exclusive.
+        :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
+                                 where lo and hi are assumed exclusive.
+        :param int min_violations: Minimum violations before an alarm is
+                                   generated.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_ALARMS
+        if(watch or warning or distress or critical or severe):
+            _add_alarms(req.defaultAlarm, watch, warning, distress, critical, severe, min_violations)
+        
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+       # pti = mdb_pb2.ParameterTypeInfo()
+       # pti.ParseFromString(response.content)
+       # print(pti)
+        
+
+    def set_alarm_range_sets(self, parameter, sets):
+        """
+        Apply an ordered list of alarm range sets for the specified parameter.
+        This replaces existing alarm sets (if any).
+
+        Each RangeSet may have a context, which indicates when
+        its effects may be applied. Only the first matching set is
+        applied.
+
+        A RangeSet with context ``None`` represents the *default* set of
+        alarm ranges.  There can be only one such set, and it is always
+        applied at the end when no other set of contextual ranges is
+        applicable.
+
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        :param .RangeSet[] sets: List of range sets (either contextual or not)
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_ALARMS
+        for rs in sets:
+            if rs.context :
+                context_alarm = req.contextAlarm.add()
+                context_alarm.context = rs.context
+                alarm_info = context_alarm.alarm
+            else :                
+                alarm_info = req.defaultAlarm
+                
+            _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical, rs.severe, rs.min_violations)
+            
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        pti = mdb_pb2.ParameterTypeInfo()
+        pti.ParseFromString(response.content)
+        print(pti)
+
+    def clear_alarm_ranges(self, parameter):
+        """
+        Removes all alarm limits for the specified parameter.
+        """
+        self.set_default_alarm_ranges(parameter)
+        self.set_alarm_range_sets(parameter, [])
+        
+        
+    def reset_alarm_ranges(self, parameter):
+        """
+        Reset all alarm limits for the specified parameter to their original MDB value.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS        
+        
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        #pti = mdb_pb2.ParameterTypeInfo()
+        #pti.ParseFromString(response.content)
+        #print(pti)
+       
+        
+
     def acknowledge_alarm(self, alarm, comment=None):
         """
         Acknowledges a specific alarm associated with a parameter.
@@ -648,3 +898,37 @@ class ProcessorClient(object):
         subscription.reply(timeout=timeout)
 
         return subscription
+    
+    def set_algorithm(self, parameter, text):
+        """
+        Change an algorithm text. Can only be peformed on JavaScript or Python algorithms.
+        
+        :param string text: new algorithm text (as it would appear in excel or XTCE)
+        
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        """
+        req = mdb_pb2.ChangeAlgorithmRequest()
+        
+        req.action = mdb_pb2.ChangeAlgorithmRequest.SET
+        req.algorithm.text = text
+        
+        url = '/mdb/{}/{}/algorithms/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        
+    def reset_algorithm(self, parameter):
+        """
+        Reset the algorithm text to its original definition from MDB
+        
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        """
+        req = mdb_pb2.ChangeAlgorithmRequest()
+        
+        req.action = mdb_pb2.ChangeAlgorithmRequest.RESET        
+        
+        url = '/mdb/{}/{}/algorithms/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        
