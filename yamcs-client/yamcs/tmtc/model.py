@@ -497,7 +497,7 @@ class ParameterValue(object):
         return self._proto.processingStatus
 
     def __str__(self):
-        line = '{} {} {}'.format(self.generation_time, self.name, self.eng_value)
+        line = '{} {} {} {}'.format(self.generation_time, self.name, self.raw_value, self.eng_value)
         if self.monitoring_result:
             line += ' [' + self.monitoring_result + ']'
         return line
@@ -549,15 +549,15 @@ class RangeSet(object):
                             applicable. The value ``None`` indicates the
                             default range set which is only applicable if
                             no contextual sets match.
-        :param (int,int) watch: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
                                 where lo and hi are assumed exclusive.
-        :param (int,int) warning: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
                                   where lo and hi are assumed exclusive.
-        :param (int,int) distress: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
                                    where lo and hi are assumed exclusive.
-        :param (int,int) critical: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
                                    where lo and hi are assumed exclusive.
-        :param (int,int) severe: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
                                  where lo and hi are assumed exclusive.
         :param int min_violations: Minimum violations before an alarm is
                                    generated.

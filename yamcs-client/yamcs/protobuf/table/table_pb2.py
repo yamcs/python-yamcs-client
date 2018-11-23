@@ -7,6 +7,7 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -19,10 +20,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/table/table.proto',
   package='yamcs.protobuf.table',
   syntax='proto2',
-  serialized_options=_b('\n\022org.yamcs.protobuf'),
   serialized_pb=_b('\n yamcs/protobuf/table/table.proto\x12\x14yamcs.protobuf.table\x1a\x1cyamcs/protobuf/web/web.proto\"H\n\nColumnInfo\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x12\n\nprotoClass\x18\x04 \x01(\t\"&\n\x04\x43\x65ll\x12\x10\n\x08\x63olumnId\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"a\n\x03Row\x12\x30\n\x06\x63olumn\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12(\n\x04\x63\x65ll\x18\x02 \x03(\x0b\x32\x1a.yamcs.protobuf.table.Cell\"\'\n\x11TableLoadResponse\x12\x12\n\nrowsLoaded\x18\x01 \x01(\r:<\n\nrowsLoaded\x12(.yamcs.protobuf.web.RestExceptionMessage\x18\x64 \x01(\rB\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_web_dot_web__pb2.DESCRIPTOR,])
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 ROWSLOADED_FIELD_NUMBER = 100
@@ -32,7 +33,7 @@ rowsLoaded = _descriptor.FieldDescriptor(
   has_default_value=False, default_value=0,
   message_type=None, enum_type=None, containing_type=None,
   is_extension=True, extension_scope=None,
-  serialized_options=None, file=DESCRIPTOR)
+  options=None)
 
 
 _COLUMNINFO = _descriptor.Descriptor(
@@ -48,35 +49,35 @@ _COLUMNINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='name', full_name='yamcs.protobuf.table.ColumnInfo.name', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='type', full_name='yamcs.protobuf.table.ColumnInfo.type', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='protoClass', full_name='yamcs.protobuf.table.ColumnInfo.protoClass', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -100,21 +101,21 @@ _CELL = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='data', full_name='yamcs.protobuf.table.Cell.data', index=1,
       number=2, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -138,21 +139,21 @@ _ROW = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
     _descriptor.FieldDescriptor(
       name='cell', full_name='yamcs.protobuf.table.Row.cell', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -176,14 +177,14 @@ _TABLELOADRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      options=None),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  serialized_options=None,
+  options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -200,7 +201,6 @@ DESCRIPTOR.message_types_by_name['Cell'] = _CELL
 DESCRIPTOR.message_types_by_name['Row'] = _ROW
 DESCRIPTOR.message_types_by_name['TableLoadResponse'] = _TABLELOADRESPONSE
 DESCRIPTOR.extensions_by_name['rowsLoaded'] = rowsLoaded
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ColumnInfo = _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), dict(
   DESCRIPTOR = _COLUMNINFO,
@@ -232,5 +232,6 @@ _sym_db.RegisterMessage(TableLoadResponse)
 
 yamcs_dot_protobuf_dot_web_dot_web__pb2.RestExceptionMessage.RegisterExtension(rowsLoaded)
 
-DESCRIPTOR._options = None
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\022org.yamcs.protobuf'))
 # @@protoc_insertion_point(module_scope)

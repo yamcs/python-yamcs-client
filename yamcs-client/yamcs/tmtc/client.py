@@ -2,6 +2,7 @@ import functools
 import socket
 import threading
 
+
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
@@ -10,6 +11,8 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.mdb import mdb_pb2
+
 from yamcs.tmtc.model import (Alarm, AlarmEvent, Calibrator, CommandHistory,
                               IssuedCommand, ParameterData, ParameterValue,
                               RangeSet)
@@ -135,6 +138,34 @@ def _build_value_proto(value):
         raise YamcsError('Unrecognized type')
     return proto
 
+def _set_range(ar, range, level):
+    ar.level = level
+    if range[0] :
+        ar.minExclusive = range[0]
+    if range[1] :
+        ar.maxExclusive = range[1]
+    
+def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_violations):
+    alarm_info.minViolations = min_violations
+    
+    if watch:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, watch, mdb_pb2.WATCH)
+    if warning:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, warning, mdb_pb2.WARNING)    
+    if distress:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, distress, mdb_pb2.DISTRESS)
+    
+    if critical:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, critical, mdb_pb2.CRITICAL)
+    if severe:
+        ar = alarm_info.staticAlarmRange.add()
+        _set_range(ar, severe, mdb_pb2.SEVERE)
+        
+        
 
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
     """
@@ -534,8 +565,37 @@ class ProcessorClient(object):
         :param str type: One of ``polynomial`` or ``spline``.
         :param data: Calibration definition for the selected type.
         """
-        calibrator = Calibrator(context=None, type=type, data=data)
-        self.set_calibrators(parameter, calibrator)
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR                  
+        calib_info = req.defaultCalibrator
+        
+       
+        type = type.lower()
+        if type == Calibrator.POLYNOMIAL:           
+           calib_info.type = mdb_pb2.CalibratorInfo.POLYNOMIAL
+           polynomial = calib_info.polynomialCalibrator.coefficient.extend(data)           
+        elif type == Calibrator.SPLINE:
+             calib_info.type = CalibratorInfo.Type.SPLINE
+             spline = mdb_pb2.SplineCalibratorInfo()
+             for p in data:
+                 spi = spline.point.add()
+                 spi.raw = p[0]
+                 spi.calibrated = p[1]
+        else :
+             raise YamcsError('Unrecognized type')
+        
+
+                     
+        
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+       # pti = mdb_pb2.ParameterTypeInfo()
+       # pti.ParseFromString(response.content)
+       # print(pti)
+       
+
+     
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -554,13 +614,26 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
         """
-        pass
+        
 
     def clear_calibrators(self, parameter):
         """
         Removes all calibrators for the specified parameter.
         """
-        pass
+        
+        
+        
+    def reset_calibrators(self, parameter):
+        """
+        Reset all calibrators for the specified parameter to their original MDB value.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS                  
+        calib_info = req.defaultCalibrator
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        
 
     def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
                                  distress=None, critical=None, severe=None,
@@ -579,23 +652,30 @@ class ProcessorClient(object):
 
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
-        :param (int,int) watch: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
                                 where lo and hi are assumed exclusive.
-        :param (int,int) warning: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
                                   where lo and hi are assumed exclusive.
-        :param (int,int) distress: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
                                    where lo and hi are assumed exclusive.
-        :param (int,int) critical: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
                                    where lo and hi are assumed exclusive.
-        :param (int,int) severe: Range expressed as a tuple ``(lo, hi)``
+        :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
                                  where lo and hi are assumed exclusive.
         :param int min_violations: Minimum violations before an alarm is
                                    generated.
         """
-        range_set = RangeSet(context=None, watch=watch, warning=warning,
-                             distress=distress, critical=critical,
-                             severe=severe, min_violations=min_violations)
-        self.set_alarm_range_sets(parameter, range_set)
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_ALARMS
+        _add_alarms(req.defaultAlarm, watch, warning, distress, critical, severe, min_violations)
+        
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+       # pti = mdb_pb2.ParameterTypeInfo()
+       # pti.ParseFromString(response.content)
+       # print(pti)
+        
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -615,13 +695,47 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         :param .RangeSet[] sets: List of range sets (either contextual or not)
         """
-        pass
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_ALARMS
+        for rs in sets:
+            if rs.context :
+                context_alarm = req.contextAlarm.add()
+                context_alarm.context = rs.context
+                alarm_info = context_alarm.alarm
+            else :                
+                alarm_info = req.defaultAlarm
+                
+            _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical, rs.severe, rs.min_violations)
+            
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        pti = mdb_pb2.ParameterTypeInfo()
+        pti.ParseFromString(response.content)
+        print(pti)
 
     def clear_alarm_ranges(self, parameter):
         """
         Removes all alarm limits for the specified parameter.
         """
-        pass
+        self.set_default_alarm_ranges(self, parameter)
+        
+        
+    def reset_alarm_ranges(self, parameter):
+        """
+        Reset all alarm limits for the specified parameter to their original MDB value.
+        """
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS        
+        
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        #pti = mdb_pb2.ParameterTypeInfo()
+        #pti.ParseFromString(response.content)
+        #print(pti)
+       
+        
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
