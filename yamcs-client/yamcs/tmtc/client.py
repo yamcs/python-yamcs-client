@@ -165,7 +165,21 @@ def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_viol
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, severe, mdb_pb2.SEVERE)
         
-        
+def _add_calib(calib_info, type, data):
+    type = type.lower()
+    if type == Calibrator.POLYNOMIAL:           
+        calib_info.type = mdb_pb2.CalibratorInfo.POLYNOMIAL
+        polynomial = calib_info.polynomialCalibrator.coefficient.extend(data)           
+    elif type == Calibrator.SPLINE:
+        calib_info.type = CalibratorInfo.Type.SPLINE
+        spline = mdb_pb2.SplineCalibratorInfo()
+        for p in data:
+            spi = spline.point.add()
+            spi.raw = p[0]
+            spi.calibrated = p[1]
+    else :
+        raise YamcsError('Unrecognized type')
+
 
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
     """
@@ -568,25 +582,8 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR                  
         calib_info = req.defaultCalibrator
-        
-       
-        type = type.lower()
-        if type == Calibrator.POLYNOMIAL:           
-           calib_info.type = mdb_pb2.CalibratorInfo.POLYNOMIAL
-           polynomial = calib_info.polynomialCalibrator.coefficient.extend(data)           
-        elif type == Calibrator.SPLINE:
-             calib_info.type = CalibratorInfo.Type.SPLINE
-             spline = mdb_pb2.SplineCalibratorInfo()
-             for p in data:
-                 spi = spline.point.add()
-                 spi.raw = p[0]
-                 spi.calibrated = p[1]
-        else :
-             raise YamcsError('Unrecognized type')
-        
-
-                     
-        
+        _add_calib(calib_info, type, data)
+                   
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
@@ -614,7 +611,25 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
         """
-        
+        req = mdb_pb2.ChangeParameterRequest()
+        req.action = mdb_pb2.ChangeParameterRequest.SET_CALIBRATORS
+        for c in calibrators:
+            if c.context :
+                context_calib = req.contextCalibrator.add()
+                context_calib.context = rs.context
+                calib_info = context_calib.calibrator
+            else :                
+                calib_info = req.defaultCalibrator
+            
+            _add_calib(calib_info, c.type, c.data)
+            
+            
+        url = '/mdb/{}/{}/parameters/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        pti = mdb_pb2.ParameterTypeInfo()
+        pti.ParseFromString(response.content)
+        print(pti)
 
     def clear_calibrators(self, parameter):
         """
@@ -719,6 +734,7 @@ class ProcessorClient(object):
         Removes all alarm limits for the specified parameter.
         """
         self.set_default_alarm_ranges(self, parameter)
+        self.set_alarm_range_sets(self, parameter)
         
         
     def reset_alarm_ranges(self, parameter):
@@ -880,3 +896,37 @@ class ProcessorClient(object):
         subscription.reply(timeout=timeout)
 
         return subscription
+    
+    def set_algorithm(self, parameter, text):
+        """
+        Change an algorithm text. Can only be peformed on JavaScript or Python algorithms.
+        
+        :param string text: new algorithm text (as it would appear in excel or XTCE)
+        
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        """
+        req = mdb_pb2.ChangeAlgorithmRequest()
+        
+        req.action = mdb_pb2.ChangeAlgorithmRequest.SET
+        req.algorithm.text = text
+        
+        url = '/mdb/{}/{}/algorithms/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        
+    def reset_algorithm(self, parameter):
+        """
+        Reset the algorithm text to its original definition from MDB
+        
+        :param str parameter: Either a fully-qualified XTCE name or an alias
+                              in the format ``NAMESPACE/NAME``.
+        """
+        req = mdb_pb2.ChangeAlgorithmRequest()
+        
+        req.action = mdb_pb2.ChangeAlgorithmRequest.RESET        
+        
+        url = '/mdb/{}/{}/algorithms/{}'.format(
+            self._instance, self._processor, parameter)
+        response = self._client.post_proto(url, data=req.SerializeToString())
+        

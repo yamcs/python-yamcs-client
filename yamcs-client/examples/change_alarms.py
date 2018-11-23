@@ -16,8 +16,10 @@ def subscribe_param():
 
 def set_alarms():
     processor.set_default_alarm_ranges('/YSS/SIMULATOR/BatteryVoltage2', watch=(-10, 10), critical=(-100, None))
+     """Set the default (i.e. non-contextual) limits for the parameter."""
 
 def reset_alarms():
+     """Reset the alarm limits for the parameter to the original MDB value."""
     processor.reset_alarm_ranges('/YSS/SIMULATOR/BatteryVoltage2')
 
 if __name__ == '__main__':

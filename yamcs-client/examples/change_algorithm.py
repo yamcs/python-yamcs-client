@@ -10,17 +10,15 @@ def subscribe_param():
         for parameter in data.parameters:
             print(parameter)
 
-    processor.create_parameter_subscription('/YSS/SIMULATOR/BatteryVoltage2',
+    processor.create_parameter_subscription('/YSS/SIMULATOR/battery_voltage_avg',
                                             on_data=print_data)
 
 
-def set_calibrator():
-    """Set the calibrator to a constant polynomial."""
-    processor.set_default_calibrator('/YSS/SIMULATOR/BatteryVoltage2', 'polynomial', [1, 0.1])
+def set_algorithm():
+    processor.set_algorithm('/YSS/SIMULATOR/Battery_Voltage_Avg', text="r.value = 10*(b1.value + b2.value+b3.value)")
 
-def reset_calibrator():
-    """Reset the calibrator to the original MDB value."""
-    processor.reset_calibrators('/YSS/SIMULATOR/BatteryVoltage2')
+def reset_algorithm():
+    processor.reset_algorithm('/YSS/SIMULATOR/Battery_Voltage_Avg')
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
@@ -29,9 +27,9 @@ if __name__ == '__main__':
 
     subscribe_param()
     sleep(5)
-    print('Set calibrator')
-    set_calibrator()
+    print('Set new algo')
+    set_algorithm()
     sleep(10)
-    print('reset calibrator to original MDB value')
-    reset_calibrator()
+    print('reset algo to the MDB definition')
+    reset_algorithm()
     sleep(10)
