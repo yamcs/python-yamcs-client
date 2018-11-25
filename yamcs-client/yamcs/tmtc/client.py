@@ -580,9 +580,9 @@ class ProcessorClient(object):
         :param data: Calibration definition for the selected type.
         """
         req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR                  
-        calib_info = req.defaultCalibrator
-        _add_calib(calib_info, type, data)
+        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR
+        if  type:
+            _add_calib(req.defaultCalibrator, type, data)
                    
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
@@ -628,14 +628,15 @@ class ProcessorClient(object):
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
         pti = mdb_pb2.ParameterTypeInfo()
-        pti.ParseFromString(response.content)
-        print(pti)
+      #  pti.ParseFromString(response.content)
+      # print(pti)
 
     def clear_calibrators(self, parameter):
         """
         Removes all calibrators for the specified parameter.
         """
-        
+        self.set_default_calibrator(parameter, None, None)
+        self.set_calibrators(parameter, [])
         
         
     def reset_calibrators(self, parameter):
@@ -682,7 +683,8 @@ class ProcessorClient(object):
         """
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_ALARMS
-        _add_alarms(req.defaultAlarm, watch, warning, distress, critical, severe, min_violations)
+        if(watch or warning or distress or critical or severe):
+            _add_alarms(req.defaultAlarm, watch, warning, distress, critical, severe, min_violations)
         
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
@@ -733,8 +735,8 @@ class ProcessorClient(object):
         """
         Removes all alarm limits for the specified parameter.
         """
-        self.set_default_alarm_ranges(self, parameter)
-        self.set_alarm_range_sets(self, parameter)
+        self.set_default_alarm_ranges(parameter)
+        self.set_alarm_range_sets(parameter, [])
         
         
     def reset_alarm_ranges(self, parameter):
