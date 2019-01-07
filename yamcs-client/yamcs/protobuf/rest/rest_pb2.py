@@ -7,7 +7,6 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -25,10 +24,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/rest/rest.proto',
   package='yamcs.protobuf.rest',
   syntax='proto2',
-  serialized_pb=_b('\n\x1eyamcs/protobuf/rest/rest.proto\x12\x13yamcs.protobuf.rest\x1a\x1ayamcs/protobuf/yamcs.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\"\xe8\x02\n\x16GetApiOverviewResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x44\n\x05route\x18\x04 \x03(\x0b\x32\x35.yamcs.protobuf.rest.GetApiOverviewResponse.RouteInfo\x12\x46\n\x06plugin\x18\x05 \x03(\x0b\x32\x36.yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo\x1a(\n\tRouteInfo\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x03(\t\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\"m\n\x1c\x42ulkGetParameterValueRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"U\n\x1d\x42ulkGetParameterValueResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xe8\x01\n\x1c\x42ulkSetParameterValueRequest\x12[\n\x07request\x18\x01 \x03(\x0b\x32J.yamcs.protobuf.rest.BulkSetParameterValueRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"~\n!BulkDownloadParameterValueRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnamespace\x18\x04 \x01(\t\"N\n\x14ListLinkInfoResponse\x12\x36\n\x04link\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"(\n\x17\x45\x64itCommandQueueRequest\x12\r\n\x05state\x18\x01 \x01(\t\"Q\n\x13ListClientsResponse\x12:\n\x06\x63lient\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.yamcsManagement.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Z\n\x16ListProcessorsResponse\x12@\n\tprocessor\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"W\n\x19ListCommandQueuesResponse\x12:\n\x05queue\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"V\n\x17ListCommandQueueEntries\x12;\n\x05\x65ntry\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"-\n\x1c\x45\x64itCommandQueueEntryRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xd2\x01\n\x13IssueCommandRequest\x12G\n\nassignment\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.rest.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x8c\x01\n\x14IssueCommandResponse\x12G\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xcb\x01\n\x1bUpdateCommandHistoryRequest\x12\x33\n\x05\x63mdId\x18\x01 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12O\n\x0chistoryEntry\x18\x02 \x03(\x0b\x32\x39.yamcs.protobuf.rest.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"{\n\x12\x43reateEventRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08severity\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x06 \x01(\x05\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"e\n\x18SetSimulationTimeRequest\x12\r\n\x05time0\x18\x01 \x01(\x03\x12\x10\n\x08time0UTC\x18\x02 \x01(\t\x12\x16\n\x0esimElapsedTime\x18\x03 \x01(\x03\x12\x10\n\x08simSpeed\x18\x04 \x01(\x01\"X\n\x15ListInstancesResponse\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"a\n\x10\x43reateTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"_\n\x0e\x45\x64itTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"2\n\x10\x45\x64itAlarmRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07\x63omment\x18\x02 \x01(\t\"F\n\x12ListTablesResponse\x12\x30\n\x05table\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.archive.TableInfo\"I\n\x13ListStreamsResponse\x12\x32\n\x06stream\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.StreamInfo\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"W\n\x17ListServiceInfoResponse\x12<\n\x07service\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"r\n\x1bListParameterValuesResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"V\n\x13\x42ulkGetIndexRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x03 \x03(\t\x12\x12\n\npacketname\x18\x04 \x03(\t\"#\n\x13\x43reateBucketRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xab\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12?\n\x08metadata\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.rest.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\x13ListBucketsResponse\x12/\n\x06\x62ucket\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.BucketInfo\"V\n\x13ListObjectsResponse\x12\x0e\n\x06prefix\x18\x01 \x03(\t\x12/\n\x06object\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.ObjectInfoB\x14\n\x12org.yamcs.protobuf')
+  serialized_options=_b('\n\022org.yamcs.protobuf'),
+  serialized_pb=_b('\n\x1eyamcs/protobuf/rest/rest.proto\x12\x13yamcs.protobuf.rest\x1a\x1ayamcs/protobuf/yamcs.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\"\xfa\x02\n\x16GetApiOverviewResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x06 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x44\n\x05route\x18\x04 \x03(\x0b\x32\x35.yamcs.protobuf.rest.GetApiOverviewResponse.RouteInfo\x12\x46\n\x06plugin\x18\x05 \x03(\x0b\x32\x36.yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo\x1a(\n\tRouteInfo\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x03(\t\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\"m\n\x1c\x42ulkGetParameterValueRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"U\n\x1d\x42ulkGetParameterValueResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xe8\x01\n\x1c\x42ulkSetParameterValueRequest\x12[\n\x07request\x18\x01 \x03(\x0b\x32J.yamcs.protobuf.rest.BulkSetParameterValueRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"~\n!BulkDownloadParameterValueRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnamespace\x18\x04 \x01(\t\"N\n\x14ListLinkInfoResponse\x12\x36\n\x04link\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\" \n\x0f\x45\x64itLinkRequest\x12\r\n\x05state\x18\x01 \x01(\t\"(\n\x17\x45\x64itCommandQueueRequest\x12\r\n\x05state\x18\x01 \x01(\t\"Q\n\x13ListClientsResponse\x12:\n\x06\x63lient\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.yamcsManagement.ClientInfo\"8\n\x11\x45\x64itClientRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Z\n\x16ListProcessorsResponse\x12@\n\tprocessor\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"W\n\x19ListCommandQueuesResponse\x12:\n\x05queue\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"V\n\x17ListCommandQueueEntries\x12;\n\x05\x65ntry\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"-\n\x1c\x45\x64itCommandQueueEntryRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xd2\x01\n\x13IssueCommandRequest\x12G\n\nassignment\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.rest.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x8c\x01\n\x14IssueCommandResponse\x12G\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xcb\x01\n\x1bUpdateCommandHistoryRequest\x12\x33\n\x05\x63mdId\x18\x01 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12O\n\x0chistoryEntry\x18\x02 \x03(\x0b\x32\x39.yamcs.protobuf.rest.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x02(\t\x12\r\n\x05value\x18\x02 \x02(\t\"{\n\x12\x43reateEventRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08severity\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x06 \x01(\x05\"j\n\x16\x43reateProcessorRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x12\n\npersistent\x18\x0b \x01(\x08\x12\x0c\n\x04type\x18\x0c \x01(\t\x12\x0e\n\x06\x63onfig\x18\r \x01(\t\"B\n\x14\x45\x64itProcessorRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0c\n\x04seek\x18\x02 \x01(\t\x12\r\n\x05speed\x18\x03 \x01(\t\"(\n\x16StreamSubscribeRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"e\n\x18SetSimulationTimeRequest\x12\r\n\x05time0\x18\x01 \x01(\x03\x12\x10\n\x08time0UTC\x18\x02 \x01(\t\x12\x16\n\x0esimElapsedTime\x18\x03 \x01(\x03\x12\x10\n\x08simSpeed\x18\x04 \x01(\x01\"X\n\x15ListInstancesResponse\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\xb7\x02\n\x15\x43reateInstanceRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08template\x18\x02 \x01(\t\x12R\n\x0ctemplateArgs\x18\x03 \x03(\x0b\x32<.yamcs.protobuf.rest.CreateInstanceRequest.TemplateArgsEntry\x12\x46\n\x06labels\x18\x04 \x03(\x0b\x32\x36.yamcs.protobuf.rest.CreateInstanceRequest.LabelsEntry\x1a\x33\n\x11TemplateArgsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"c\n\x1dListInstanceTemplatesResponse\x12\x42\n\x08template\x18\x01 \x03(\x0b\x32\x30.yamcs.protobuf.yamcsManagement.InstanceTemplate\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"a\n\x10\x43reateTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"_\n\x0e\x45\x64itTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"2\n\x10\x45\x64itAlarmRequest\x12\r\n\x05state\x18\x01 \x01(\t\x12\x0f\n\x07\x63omment\x18\x02 \x01(\t\"F\n\x12ListTablesResponse\x12\x30\n\x05table\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.archive.TableInfo\"I\n\x13ListStreamsResponse\x12\x32\n\x06stream\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.StreamInfo\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"W\n\x17ListServiceInfoResponse\x12<\n\x07service\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"r\n\x1bListParameterValuesResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"V\n\x13\x42ulkGetIndexRequest\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x0e\n\x06\x66ilter\x18\x03 \x03(\t\x12\x12\n\npacketname\x18\x04 \x03(\t\"#\n\x13\x43reateBucketRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xab\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12?\n\x08metadata\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.rest.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"F\n\x13ListBucketsResponse\x12/\n\x06\x62ucket\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.BucketInfo\"V\n\x13ListObjectsResponse\x12\x0e\n\x06prefix\x18\x01 \x03(\t\x12/\n\x06object\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.rest.ObjectInfoB\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_archive_dot_archive__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -46,28 +45,28 @@ _GETAPIOVERVIEWRESPONSE_ROUTEINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='method', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.RouteInfo.method', index=1,
       number=2, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=530,
-  serialized_end=570,
+  serialized_start=548,
+  serialized_end=588,
 )
 
 _GETAPIOVERVIEWRESPONSE_PLUGININFO = _descriptor.Descriptor(
@@ -83,42 +82,42 @@ _GETAPIOVERVIEWRESPONSE_PLUGININFO = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo.description', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='version', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo.version', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='vendor', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.PluginInfo.vendor', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=572,
-  serialized_end=652,
+  serialized_start=590,
+  serialized_end=670,
 )
 
 _GETAPIOVERVIEWRESPONSE = _descriptor.Descriptor(
@@ -134,49 +133,56 @@ _GETAPIOVERVIEWRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='serverId', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.serverId', index=1,
+      name='revision', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.revision', index=1,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='serverId', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.serverId', index=2,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='defaultYamcsInstance', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.defaultYamcsInstance', index=2,
+      name='defaultYamcsInstance', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.defaultYamcsInstance', index=3,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='route', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.route', index=3,
+      name='route', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.route', index=4,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='plugin', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.plugin', index=4,
+      name='plugin', full_name='yamcs.protobuf.rest.GetApiOverviewResponse.plugin', index=5,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_GETAPIOVERVIEWRESPONSE_ROUTEINFO, _GETAPIOVERVIEWRESPONSE_PLUGININFO, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
   serialized_start=292,
-  serialized_end=652,
+  serialized_end=670,
 )
 
 
@@ -193,35 +199,35 @@ _BULKGETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='fromCache', full_name='yamcs.protobuf.rest.BulkGetParameterValueRequest.fromCache', index=1,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='timeout', full_name='yamcs.protobuf.rest.BulkGetParameterValueRequest.timeout', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=654,
-  serialized_end=763,
+  serialized_start=672,
+  serialized_end=781,
 )
 
 
@@ -238,21 +244,21 @@ _BULKGETPARAMETERVALUERESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=765,
-  serialized_end=850,
+  serialized_start=783,
+  serialized_end=868,
 )
 
 
@@ -269,28 +275,28 @@ _BULKSETPARAMETERVALUEREQUEST_SETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.rest.BulkSetParameterValueRequest.SetParameterValueRequest.value', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=978,
-  serialized_end=1085,
+  serialized_start=996,
+  serialized_end=1103,
 )
 
 _BULKSETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
@@ -306,21 +312,21 @@ _BULKSETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_BULKSETPARAMETERVALUEREQUEST_SETPARAMETERVALUEREQUEST, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=853,
-  serialized_end=1085,
+  serialized_start=871,
+  serialized_end=1103,
 )
 
 
@@ -337,42 +343,42 @@ _BULKDOWNLOADPARAMETERVALUEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stop', full_name='yamcs.protobuf.rest.BulkDownloadParameterValueRequest.stop', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='id', full_name='yamcs.protobuf.rest.BulkDownloadParameterValueRequest.id', index=2,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='namespace', full_name='yamcs.protobuf.rest.BulkDownloadParameterValueRequest.namespace', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1087,
-  serialized_end=1213,
+  serialized_start=1105,
+  serialized_end=1231,
 )
 
 
@@ -389,21 +395,21 @@ _LISTLINKINFORESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1215,
-  serialized_end=1293,
+  serialized_start=1233,
+  serialized_end=1311,
 )
 
 
@@ -420,28 +426,28 @@ _LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='continuationToken', full_name='yamcs.protobuf.rest.ListCommandsResponse.continuationToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1295,
-  serialized_end=1407,
+  serialized_start=1313,
+  serialized_end=1425,
 )
 
 
@@ -458,21 +464,21 @@ _EDITLINKREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1409,
-  serialized_end=1441,
+  serialized_start=1427,
+  serialized_end=1459,
 )
 
 
@@ -489,21 +495,21 @@ _EDITCOMMANDQUEUEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1443,
-  serialized_end=1483,
+  serialized_start=1461,
+  serialized_end=1501,
 )
 
 
@@ -520,21 +526,21 @@ _LISTCLIENTSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1485,
-  serialized_end=1566,
+  serialized_start=1503,
+  serialized_end=1584,
 )
 
 
@@ -551,28 +557,28 @@ _EDITCLIENTREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='processor', full_name='yamcs.protobuf.rest.EditClientRequest.processor', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1568,
-  serialized_end=1624,
+  serialized_start=1586,
+  serialized_end=1642,
 )
 
 
@@ -589,21 +595,21 @@ _LISTPROCESSORSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1626,
-  serialized_end=1716,
+  serialized_start=1644,
+  serialized_end=1734,
 )
 
 
@@ -620,21 +626,21 @@ _LISTCOMMANDQUEUESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1718,
-  serialized_end=1805,
+  serialized_start=1736,
+  serialized_end=1823,
 )
 
 
@@ -651,21 +657,21 @@ _LISTCOMMANDQUEUEENTRIES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1807,
-  serialized_end=1893,
+  serialized_start=1825,
+  serialized_end=1911,
 )
 
 
@@ -682,21 +688,21 @@ _EDITCOMMANDQUEUEENTRYREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1895,
-  serialized_end=1940,
+  serialized_start=1913,
+  serialized_end=1958,
 )
 
 
@@ -713,28 +719,28 @@ _ISSUECOMMANDREQUEST_ASSIGNMENT = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.rest.IssueCommandRequest.Assignment.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2112,
-  serialized_end=2153,
+  serialized_start=2130,
+  serialized_end=2171,
 )
 
 _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
@@ -750,49 +756,49 @@ _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='origin', full_name='yamcs.protobuf.rest.IssueCommandRequest.origin', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='sequenceNumber', full_name='yamcs.protobuf.rest.IssueCommandRequest.sequenceNumber', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='dryRun', full_name='yamcs.protobuf.rest.IssueCommandRequest.dryRun', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='comment', full_name='yamcs.protobuf.rest.IssueCommandRequest.comment', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_ISSUECOMMANDREQUEST_ASSIGNMENT, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1943,
-  serialized_end=2153,
+  serialized_start=1961,
+  serialized_end=2171,
 )
 
 
@@ -809,42 +815,42 @@ _ISSUECOMMANDRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='source', full_name='yamcs.protobuf.rest.IssueCommandResponse.source', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='hex', full_name='yamcs.protobuf.rest.IssueCommandResponse.hex', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='binary', full_name='yamcs.protobuf.rest.IssueCommandResponse.binary', index=3,
       number=4, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=_b(""),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2156,
-  serialized_end=2296,
+  serialized_start=2174,
+  serialized_end=2314,
 )
 
 
@@ -861,28 +867,28 @@ _UPDATECOMMANDHISTORYREQUEST_KEYVALUE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.rest.UpdateCommandHistoryRequest.KeyValue.value', index=1,
       number=2, type=9, cpp_type=9, label=2,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2464,
-  serialized_end=2502,
+  serialized_start=2482,
+  serialized_end=2520,
 )
 
 _UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
@@ -898,28 +904,28 @@ _UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='historyEntry', full_name='yamcs.protobuf.rest.UpdateCommandHistoryRequest.historyEntry', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_UPDATECOMMANDHISTORYREQUEST_KEYVALUE, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2299,
-  serialized_end=2502,
+  serialized_start=2317,
+  serialized_end=2520,
 )
 
 
@@ -936,56 +942,56 @@ _CREATEEVENTREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='message', full_name='yamcs.protobuf.rest.CreateEventRequest.message', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='severity', full_name='yamcs.protobuf.rest.CreateEventRequest.severity', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='time', full_name='yamcs.protobuf.rest.CreateEventRequest.time', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='source', full_name='yamcs.protobuf.rest.CreateEventRequest.source', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='sequenceNumber', full_name='yamcs.protobuf.rest.CreateEventRequest.sequenceNumber', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2504,
-  serialized_end=2627,
+  serialized_start=2522,
+  serialized_end=2645,
 )
 
 
@@ -1002,49 +1008,49 @@ _CREATEPROCESSORREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='clientId', full_name='yamcs.protobuf.rest.CreateProcessorRequest.clientId', index=1,
       number=6, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='persistent', full_name='yamcs.protobuf.rest.CreateProcessorRequest.persistent', index=2,
       number=11, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='type', full_name='yamcs.protobuf.rest.CreateProcessorRequest.type', index=3,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='config', full_name='yamcs.protobuf.rest.CreateProcessorRequest.config', index=4,
       number=13, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2629,
-  serialized_end=2735,
+  serialized_start=2647,
+  serialized_end=2753,
 )
 
 
@@ -1061,35 +1067,35 @@ _EDITPROCESSORREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='seek', full_name='yamcs.protobuf.rest.EditProcessorRequest.seek', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='speed', full_name='yamcs.protobuf.rest.EditProcessorRequest.speed', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2737,
-  serialized_end=2803,
+  serialized_start=2755,
+  serialized_end=2821,
 )
 
 
@@ -1106,21 +1112,21 @@ _STREAMSUBSCRIBEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2805,
-  serialized_end=2845,
+  serialized_start=2823,
+  serialized_end=2863,
 )
 
 
@@ -1137,42 +1143,42 @@ _SETSIMULATIONTIMEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='time0UTC', full_name='yamcs.protobuf.rest.SetSimulationTimeRequest.time0UTC', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='simElapsedTime', full_name='yamcs.protobuf.rest.SetSimulationTimeRequest.simElapsedTime', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='simSpeed', full_name='yamcs.protobuf.rest.SetSimulationTimeRequest.simSpeed', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2847,
-  serialized_end=2948,
+  serialized_start=2865,
+  serialized_end=2966,
 )
 
 
@@ -1189,21 +1195,178 @@ _LISTINSTANCESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2950,
-  serialized_end=3038,
+  serialized_start=2968,
+  serialized_end=3056,
+)
+
+
+_CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY = _descriptor.Descriptor(
+  name='TemplateArgsEntry',
+  full_name='yamcs.protobuf.rest.CreateInstanceRequest.TemplateArgsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.protobuf.rest.CreateInstanceRequest.TemplateArgsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.rest.CreateInstanceRequest.TemplateArgsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3272,
+  serialized_end=3323,
+)
+
+_CREATEINSTANCEREQUEST_LABELSENTRY = _descriptor.Descriptor(
+  name='LabelsEntry',
+  full_name='yamcs.protobuf.rest.CreateInstanceRequest.LabelsEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.protobuf.rest.CreateInstanceRequest.LabelsEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.rest.CreateInstanceRequest.LabelsEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=_b('8\001'),
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3325,
+  serialized_end=3370,
+)
+
+_CREATEINSTANCEREQUEST = _descriptor.Descriptor(
+  name='CreateInstanceRequest',
+  full_name='yamcs.protobuf.rest.CreateInstanceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.rest.CreateInstanceRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='template', full_name='yamcs.protobuf.rest.CreateInstanceRequest.template', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='templateArgs', full_name='yamcs.protobuf.rest.CreateInstanceRequest.templateArgs', index=2,
+      number=3, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='labels', full_name='yamcs.protobuf.rest.CreateInstanceRequest.labels', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY, _CREATEINSTANCEREQUEST_LABELSENTRY, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3059,
+  serialized_end=3370,
+)
+
+
+_LISTINSTANCETEMPLATESRESPONSE = _descriptor.Descriptor(
+  name='ListInstanceTemplatesResponse',
+  full_name='yamcs.protobuf.rest.ListInstanceTemplatesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='template', full_name='yamcs.protobuf.rest.ListInstanceTemplatesResponse.template', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3372,
+  serialized_end=3471,
 )
 
 
@@ -1220,21 +1383,21 @@ _LISTTAGSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3040,
-  serialized_end=3099,
+  serialized_start=3473,
+  serialized_end=3532,
 )
 
 
@@ -1251,49 +1414,49 @@ _CREATETAGREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='start', full_name='yamcs.protobuf.rest.CreateTagRequest.start', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stop', full_name='yamcs.protobuf.rest.CreateTagRequest.stop', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='yamcs.protobuf.rest.CreateTagRequest.description', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='color', full_name='yamcs.protobuf.rest.CreateTagRequest.color', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3101,
-  serialized_end=3198,
+  serialized_start=3534,
+  serialized_end=3631,
 )
 
 
@@ -1310,49 +1473,49 @@ _EDITTAGREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='start', full_name='yamcs.protobuf.rest.EditTagRequest.start', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stop', full_name='yamcs.protobuf.rest.EditTagRequest.stop', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='description', full_name='yamcs.protobuf.rest.EditTagRequest.description', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='color', full_name='yamcs.protobuf.rest.EditTagRequest.color', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3200,
-  serialized_end=3295,
+  serialized_start=3633,
+  serialized_end=3728,
 )
 
 
@@ -1369,21 +1532,21 @@ _LISTALARMSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3297,
-  serialized_end=3366,
+  serialized_start=3730,
+  serialized_end=3799,
 )
 
 
@@ -1400,28 +1563,28 @@ _EDITALARMREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='comment', full_name='yamcs.protobuf.rest.EditAlarmRequest.comment', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3368,
-  serialized_end=3418,
+  serialized_start=3801,
+  serialized_end=3851,
 )
 
 
@@ -1438,21 +1601,21 @@ _LISTTABLESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3420,
-  serialized_end=3490,
+  serialized_start=3853,
+  serialized_end=3923,
 )
 
 
@@ -1469,21 +1632,21 @@ _LISTSTREAMSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3492,
-  serialized_end=3565,
+  serialized_start=3925,
+  serialized_end=3998,
 )
 
 
@@ -1500,28 +1663,28 @@ _LISTEVENTSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='continuationToken', full_name='yamcs.protobuf.rest.ListEventsResponse.continuationToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3567,
-  serialized_end=3652,
+  serialized_start=4000,
+  serialized_end=4085,
 )
 
 
@@ -1538,28 +1701,28 @@ _LISTPACKETSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='continuationToken', full_name='yamcs.protobuf.rest.ListPacketsResponse.continuationToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3654,
-  serialized_end=3748,
+  serialized_start=4087,
+  serialized_end=4181,
 )
 
 
@@ -1576,21 +1739,21 @@ _LISTSERVICEINFORESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3750,
-  serialized_end=3837,
+  serialized_start=4183,
+  serialized_end=4270,
 )
 
 
@@ -1607,28 +1770,28 @@ _LISTPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='continuationToken', full_name='yamcs.protobuf.rest.ListParameterValuesResponse.continuationToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3839,
-  serialized_end=3953,
+  serialized_start=4272,
+  serialized_end=4386,
 )
 
 
@@ -1645,21 +1808,21 @@ _EDITSERVICEREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3955,
-  serialized_end=3990,
+  serialized_start=4388,
+  serialized_end=4423,
 )
 
 
@@ -1676,42 +1839,42 @@ _BULKGETINDEXREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='stop', full_name='yamcs.protobuf.rest.BulkGetIndexRequest.stop', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='filter', full_name='yamcs.protobuf.rest.BulkGetIndexRequest.filter', index=2,
       number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='packetname', full_name='yamcs.protobuf.rest.BulkGetIndexRequest.packetname', index=3,
       number=4, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3992,
-  serialized_end=4078,
+  serialized_start=4425,
+  serialized_end=4511,
 )
 
 
@@ -1728,21 +1891,21 @@ _CREATEBUCKETREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4080,
-  serialized_end=4115,
+  serialized_start=4513,
+  serialized_end=4548,
 )
 
 
@@ -1759,35 +1922,35 @@ _BUCKETINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='size', full_name='yamcs.protobuf.rest.BucketInfo.size', index=1,
       number=2, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='numObjects', full_name='yamcs.protobuf.rest.BucketInfo.numObjects', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4117,
-  serialized_end=4177,
+  serialized_start=4550,
+  serialized_end=4610,
 )
 
 
@@ -1804,28 +1967,28 @@ _OBJECTINFO_METADATAENTRY = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='value', full_name='yamcs.protobuf.rest.ObjectInfo.MetadataEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=_descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001')),
+  serialized_options=_b('8\001'),
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4304,
-  serialized_end=4351,
+  serialized_start=4737,
+  serialized_end=4784,
 )
 
 _OBJECTINFO = _descriptor.Descriptor(
@@ -1841,42 +2004,42 @@ _OBJECTINFO = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='created', full_name='yamcs.protobuf.rest.ObjectInfo.created', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='size', full_name='yamcs.protobuf.rest.ObjectInfo.size', index=2,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='metadata', full_name='yamcs.protobuf.rest.ObjectInfo.metadata', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_OBJECTINFO_METADATAENTRY, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4180,
-  serialized_end=4351,
+  serialized_start=4613,
+  serialized_end=4784,
 )
 
 
@@ -1893,21 +2056,21 @@ _LISTBUCKETSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4353,
-  serialized_end=4423,
+  serialized_start=4786,
+  serialized_end=4856,
 )
 
 
@@ -1924,28 +2087,28 @@ _LISTOBJECTSRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='object', full_name='yamcs.protobuf.rest.ListObjectsResponse.object', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4425,
-  serialized_end=4511,
+  serialized_start=4858,
+  serialized_end=4944,
 )
 
 _GETAPIOVERVIEWRESPONSE_ROUTEINFO.containing_type = _GETAPIOVERVIEWRESPONSE
@@ -1972,6 +2135,11 @@ _UPDATECOMMANDHISTORYREQUEST_KEYVALUE.containing_type = _UPDATECOMMANDHISTORYREQ
 _UPDATECOMMANDHISTORYREQUEST.fields_by_name['cmdId'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDID
 _UPDATECOMMANDHISTORYREQUEST.fields_by_name['historyEntry'].message_type = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE
 _LISTINSTANCESRESPONSE.fields_by_name['instance'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._YAMCSINSTANCE
+_CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY.containing_type = _CREATEINSTANCEREQUEST
+_CREATEINSTANCEREQUEST_LABELSENTRY.containing_type = _CREATEINSTANCEREQUEST
+_CREATEINSTANCEREQUEST.fields_by_name['templateArgs'].message_type = _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY
+_CREATEINSTANCEREQUEST.fields_by_name['labels'].message_type = _CREATEINSTANCEREQUEST_LABELSENTRY
+_LISTINSTANCETEMPLATESRESPONSE.fields_by_name['template'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._INSTANCETEMPLATE
 _LISTTAGSRESPONSE.fields_by_name['tag'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG
 _LISTALARMSRESPONSE.fields_by_name['alarm'].message_type = yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2._ALARMDATA
 _LISTTABLESRESPONSE.fields_by_name['table'].message_type = yamcs_dot_protobuf_dot_archive_dot_archive__pb2._TABLEINFO
@@ -2008,6 +2176,8 @@ DESCRIPTOR.message_types_by_name['EditProcessorRequest'] = _EDITPROCESSORREQUEST
 DESCRIPTOR.message_types_by_name['StreamSubscribeRequest'] = _STREAMSUBSCRIBEREQUEST
 DESCRIPTOR.message_types_by_name['SetSimulationTimeRequest'] = _SETSIMULATIONTIMEREQUEST
 DESCRIPTOR.message_types_by_name['ListInstancesResponse'] = _LISTINSTANCESRESPONSE
+DESCRIPTOR.message_types_by_name['CreateInstanceRequest'] = _CREATEINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['ListInstanceTemplatesResponse'] = _LISTINSTANCETEMPLATESRESPONSE
 DESCRIPTOR.message_types_by_name['ListTagsResponse'] = _LISTTAGSRESPONSE
 DESCRIPTOR.message_types_by_name['CreateTagRequest'] = _CREATETAGREQUEST
 DESCRIPTOR.message_types_by_name['EditTagRequest'] = _EDITTAGREQUEST
@@ -2026,6 +2196,7 @@ DESCRIPTOR.message_types_by_name['BucketInfo'] = _BUCKETINFO
 DESCRIPTOR.message_types_by_name['ObjectInfo'] = _OBJECTINFO
 DESCRIPTOR.message_types_by_name['ListBucketsResponse'] = _LISTBUCKETSRESPONSE
 DESCRIPTOR.message_types_by_name['ListObjectsResponse'] = _LISTOBJECTSRESPONSE
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetApiOverviewResponse = _reflection.GeneratedProtocolMessageType('GetApiOverviewResponse', (_message.Message,), dict(
 
@@ -2235,6 +2406,36 @@ ListInstancesResponse = _reflection.GeneratedProtocolMessageType('ListInstancesR
   ))
 _sym_db.RegisterMessage(ListInstancesResponse)
 
+CreateInstanceRequest = _reflection.GeneratedProtocolMessageType('CreateInstanceRequest', (_message.Message,), dict(
+
+  TemplateArgsEntry = _reflection.GeneratedProtocolMessageType('TemplateArgsEntry', (_message.Message,), dict(
+    DESCRIPTOR = _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY,
+    __module__ = 'yamcs.protobuf.rest.rest_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.rest.CreateInstanceRequest.TemplateArgsEntry)
+    ))
+  ,
+
+  LabelsEntry = _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), dict(
+    DESCRIPTOR = _CREATEINSTANCEREQUEST_LABELSENTRY,
+    __module__ = 'yamcs.protobuf.rest.rest_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.rest.CreateInstanceRequest.LabelsEntry)
+    ))
+  ,
+  DESCRIPTOR = _CREATEINSTANCEREQUEST,
+  __module__ = 'yamcs.protobuf.rest.rest_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.rest.CreateInstanceRequest)
+  ))
+_sym_db.RegisterMessage(CreateInstanceRequest)
+_sym_db.RegisterMessage(CreateInstanceRequest.TemplateArgsEntry)
+_sym_db.RegisterMessage(CreateInstanceRequest.LabelsEntry)
+
+ListInstanceTemplatesResponse = _reflection.GeneratedProtocolMessageType('ListInstanceTemplatesResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTINSTANCETEMPLATESRESPONSE,
+  __module__ = 'yamcs.protobuf.rest.rest_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.rest.ListInstanceTemplatesResponse)
+  ))
+_sym_db.RegisterMessage(ListInstanceTemplatesResponse)
+
 ListTagsResponse = _reflection.GeneratedProtocolMessageType('ListTagsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTTAGSRESPONSE,
   __module__ = 'yamcs.protobuf.rest.rest_pb2'
@@ -2370,8 +2571,8 @@ ListObjectsResponse = _reflection.GeneratedProtocolMessageType('ListObjectsRespo
 _sym_db.RegisterMessage(ListObjectsResponse)
 
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\022org.yamcs.protobuf'))
-_OBJECTINFO_METADATAENTRY.has_options = True
-_OBJECTINFO_METADATAENTRY._options = _descriptor._ParseOptions(descriptor_pb2.MessageOptions(), _b('8\001'))
+DESCRIPTOR._options = None
+_CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY._options = None
+_CREATEINSTANCEREQUEST_LABELSENTRY._options = None
+_OBJECTINFO_METADATAENTRY._options = None
 # @@protoc_insertion_point(module_scope)

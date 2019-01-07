@@ -9,8 +9,9 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import (AuthInfo, Client, Event, Instance, Link, LinkEvent,
-                         Processor, ServerInfo, Service, UserInfo)
+from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
+                         Link, LinkEvent, Processor, ServerInfo, Service,
+                         UserInfo)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
@@ -202,7 +203,7 @@ class YamcsClient(BaseClient):
 
     def get_mdb(self, instance):
         """
-        Return an object for working with the MDB for the specified instance.
+        Return an object for working with the MDB of the specified instance.
 
         :param str instance: A Yamcs instance name.
         :rtype: .MDBClient
@@ -217,6 +218,36 @@ class YamcsClient(BaseClient):
         :rtype: .ArchiveClient
         """
         return ArchiveClient(self, instance)
+
+    def create_instance(self, name, template, args=None, labels=None):
+        """
+        Create a new instance based on an existing template. This method blocks
+        until the instance is fully started.
+
+        :param str instance: A Yamcs instance name.
+        :param str template: The name of an existing template.
+        """
+        req = rest_pb2.CreateInstanceRequest()
+        req.name = name
+        req.template = template
+        if args:
+            for k in args:
+                req.templateArgs[k] = args[k]
+        if labels:
+            for k in labels:
+                req.labels[k] = labels[k]
+        url = '/instances'
+        self.post_proto(url, data=req.SerializeToString())
+
+    def list_instance_templates(self):
+        """
+        List the available instance templates.
+        """
+        response = self.get_proto(path='/instance-templates')
+        message = rest_pb2.ListInstanceTemplatesResponse()
+        message.ParseFromString(response.content)
+        templates = getattr(message, 'template')
+        return iter([InstanceTemplate(template) for template in templates])
 
     def list_services(self, instance):
         """
@@ -324,11 +355,11 @@ class YamcsClient(BaseClient):
 
     def start_instance(self, instance):
         """
-        Starts or restarts a single instance.
+        Starts a single instance.
 
         :param str instance: A Yamcs instance name.
         """
-        params = {'state': 'restarted'}
+        params = {'state': 'running'}
         url = '/instances/{}'.format(instance)
         self.patch_proto(url, params=params)
 
@@ -339,6 +370,16 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         """
         params = {'state': 'stopped'}
+        url = '/instances/{}'.format(instance)
+        self.patch_proto(url, params=params)
+
+    def restart_instance(self, instance):
+        """
+        Restarts a single instance.
+
+        :param str instance: A Yamcs instance name.
+        """
+        params = {'state': 'restarted'}
         url = '/instances/{}'.format(instance)
         self.patch_proto(url, params=params)
 

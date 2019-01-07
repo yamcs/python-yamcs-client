@@ -296,6 +296,21 @@ class Instance(object):
         return '{} [{}]'.format(self.name, self.state)
 
 
+class InstanceTemplate(object):
+    """A template for creating an instance."""
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Name of this template."""
+        return self._proto.name
+
+    def __str__(self):
+        return self.name
+
+
 class Service(object):
     """A Yamcs service."""
 

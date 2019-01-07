@@ -8,7 +8,6 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -22,10 +21,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/pvalue/pvalue.proto',
   package='yamcs.protobuf.pvalue',
   syntax='proto2',
+  serialized_options=_b('\n\022org.yamcs.protobuf'),
   serialized_pb=_b('\n\"yamcs/protobuf/pvalue/pvalue.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\"\xa0\x04\n\x0eParameterValue\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\'\n\x08rawValue\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\'\n\x08\x65ngValue\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x17\n\x0f\x61\x63quisitionTime\x18\x04 \x01(\x03\x12\x16\n\x0egenerationTime\x18\x05 \x01(\x03\x12\x43\n\x11\x61\x63quisitionStatus\x18\x06 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x18\n\x10processingStatus\x18\x07 \x01(\x08\x12\x41\n\x10monitoringResult\x18\x08 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\t \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x1a\n\x12\x61\x63quisitionTimeUTC\x18\x0b \x01(\t\x12\x19\n\x11generationTimeUTC\x18\x0c \x01(\t\x12\x32\n\nalarmRange\x18\x19 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x1a \x01(\x03\"\xa2\x02\n\x0fParameterStatus\x12\x43\n\x11\x61\x63quisitionStatus\x18\x01 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x41\n\x10monitoringResult\x18\x02 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\x03 \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x04 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x05 \x01(\x03\"\x98\x01\n\rParameterData\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\r\n\x05group\x18\x02 \x01(\t\x12\x16\n\x0egenerationTime\x18\x03 \x01(\x03\x12\x0e\n\x06seqNum\x18\x04 \x01(\x05\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"\x90\x01\n\nTimeSeries\x12\x38\n\x06sample\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.pvalue.TimeSeries.Sample\x1aH\n\x06Sample\x12\x0c\n\x04time\x18\x01 \x01(\t\x12\x0b\n\x03\x61vg\x18\x02 \x01(\x01\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\t\n\x01n\x18\x05 \x01(\x05\"\xa2\x01\n\x06Ranges\x12\x32\n\x05range\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.pvalue.Ranges.Range\x1a\x64\n\x05Range\x12\x11\n\ttimeStart\x18\x01 \x01(\t\x12\x10\n\x08timeStop\x18\x02 \x01(\t\x12\'\n\x08\x65ngValue\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\r\n\x05\x63ount\x18\x04 \x01(\x05*M\n\x11\x41\x63quisitionStatus\x12\x0c\n\x08\x41\x43QUIRED\x10\x00\x12\x10\n\x0cNOT_RECEIVED\x10\x01\x12\x0b\n\x07INVALID\x10\x02\x12\x0b\n\x07\x45XPIRED\x10\x03*o\n\x10MonitoringResult\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\r\n\tIN_LIMITS\x10\x01\x12\t\n\x05WATCH\x10\x07\x12\x0b\n\x07WARNING\x10\n\x12\x0c\n\x08\x44ISTRESS\x10\r\x12\x0c\n\x08\x43RITICAL\x10\x10\x12\n\n\x06SEVERE\x10\x13*#\n\x0eRangeCondition\x12\x07\n\x03LOW\x10\x00\x12\x08\n\x04HIGH\x10\x01\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,])
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _ACQUISITIONSTATUS = _descriptor.EnumDescriptor(
   name='AcquisitionStatus',
@@ -35,23 +34,23 @@ _ACQUISITIONSTATUS = _descriptor.EnumDescriptor(
   values=[
     _descriptor.EnumValueDescriptor(
       name='ACQUIRED', index=0, number=0,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='NOT_RECEIVED', index=1, number=1,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='INVALID', index=2, number=2,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='EXPIRED', index=3, number=3,
-      options=None,
+      serialized_options=None,
       type=None),
   ],
   containing_type=None,
-  options=None,
+  serialized_options=None,
   serialized_start=1426,
   serialized_end=1503,
 )
@@ -66,35 +65,35 @@ _MONITORINGRESULT = _descriptor.EnumDescriptor(
   values=[
     _descriptor.EnumValueDescriptor(
       name='DISABLED', index=0, number=0,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='IN_LIMITS', index=1, number=1,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='WATCH', index=2, number=7,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='WARNING', index=3, number=10,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='DISTRESS', index=4, number=13,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='CRITICAL', index=5, number=16,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='SEVERE', index=6, number=19,
-      options=None,
+      serialized_options=None,
       type=None),
   ],
   containing_type=None,
-  options=None,
+  serialized_options=None,
   serialized_start=1505,
   serialized_end=1616,
 )
@@ -109,15 +108,15 @@ _RANGECONDITION = _descriptor.EnumDescriptor(
   values=[
     _descriptor.EnumValueDescriptor(
       name='LOW', index=0, number=0,
-      options=None,
+      serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
       name='HIGH', index=1, number=1,
-      options=None,
+      serialized_options=None,
       type=None),
   ],
   containing_type=None,
-  options=None,
+  serialized_options=None,
   serialized_start=1618,
   serialized_end=1653,
 )
@@ -153,98 +152,98 @@ _PARAMETERVALUE = _descriptor.Descriptor(
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='rawValue', full_name='yamcs.protobuf.pvalue.ParameterValue.rawValue', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='engValue', full_name='yamcs.protobuf.pvalue.ParameterValue.engValue', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='acquisitionTime', full_name='yamcs.protobuf.pvalue.ParameterValue.acquisitionTime', index=3,
       number=4, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='generationTime', full_name='yamcs.protobuf.pvalue.ParameterValue.generationTime', index=4,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='acquisitionStatus', full_name='yamcs.protobuf.pvalue.ParameterValue.acquisitionStatus', index=5,
       number=6, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='processingStatus', full_name='yamcs.protobuf.pvalue.ParameterValue.processingStatus', index=6,
       number=7, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='monitoringResult', full_name='yamcs.protobuf.pvalue.ParameterValue.monitoringResult', index=7,
       number=8, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='rangeCondition', full_name='yamcs.protobuf.pvalue.ParameterValue.rangeCondition', index=8,
       number=9, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='acquisitionTimeUTC', full_name='yamcs.protobuf.pvalue.ParameterValue.acquisitionTimeUTC', index=9,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='generationTimeUTC', full_name='yamcs.protobuf.pvalue.ParameterValue.generationTimeUTC', index=10,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='alarmRange', full_name='yamcs.protobuf.pvalue.ParameterValue.alarmRange', index=11,
       number=25, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='expireMillis', full_name='yamcs.protobuf.pvalue.ParameterValue.expireMillis', index=12,
       number=26, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -268,42 +267,42 @@ _PARAMETERSTATUS = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='monitoringResult', full_name='yamcs.protobuf.pvalue.ParameterStatus.monitoringResult', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='rangeCondition', full_name='yamcs.protobuf.pvalue.ParameterStatus.rangeCondition', index=2,
       number=3, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='alarmRange', full_name='yamcs.protobuf.pvalue.ParameterStatus.alarmRange', index=3,
       number=4, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='expireMillis', full_name='yamcs.protobuf.pvalue.ParameterStatus.expireMillis', index=4,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -327,42 +326,42 @@ _PARAMETERDATA = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='group', full_name='yamcs.protobuf.pvalue.ParameterData.group', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='generationTime', full_name='yamcs.protobuf.pvalue.ParameterData.generationTime', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='seqNum', full_name='yamcs.protobuf.pvalue.ParameterData.seqNum', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='subscriptionId', full_name='yamcs.protobuf.pvalue.ParameterData.subscriptionId', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -386,42 +385,42 @@ _TIMESERIES_SAMPLE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='avg', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.avg', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='min', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.min', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='max', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.max', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='n', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.n', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -444,14 +443,14 @@ _TIMESERIES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_TIMESERIES_SAMPLE, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -475,35 +474,35 @@ _RANGES_RANGE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='timeStop', full_name='yamcs.protobuf.pvalue.Ranges.Range.timeStop', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='engValue', full_name='yamcs.protobuf.pvalue.Ranges.Range.engValue', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='count', full_name='yamcs.protobuf.pvalue.Ranges.Range.count', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -526,14 +525,14 @@ _RANGES = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[_RANGES_RANGE, ],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto2',
   extension_ranges=[],
@@ -568,6 +567,7 @@ DESCRIPTOR.message_types_by_name['Ranges'] = _RANGES
 DESCRIPTOR.enum_types_by_name['AcquisitionStatus'] = _ACQUISITIONSTATUS
 DESCRIPTOR.enum_types_by_name['MonitoringResult'] = _MONITORINGRESULT
 DESCRIPTOR.enum_types_by_name['RangeCondition'] = _RANGECONDITION
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ParameterValue = _reflection.GeneratedProtocolMessageType('ParameterValue', (_message.Message,), dict(
   DESCRIPTOR = _PARAMETERVALUE,
@@ -621,6 +621,5 @@ _sym_db.RegisterMessage(Ranges)
 _sym_db.RegisterMessage(Ranges.Range)
 
 
-DESCRIPTOR.has_options = True
-DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\n\022org.yamcs.protobuf'))
+DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)
