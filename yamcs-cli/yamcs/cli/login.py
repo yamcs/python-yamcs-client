@@ -55,7 +55,8 @@ class LoginCommand(utils.Command):
         return auth.Credentials(username=username, password=password)
 
     def save_client_config(self, client, config):
-        utils.save_credentials(client.credentials)
+        if client.credentials:
+            utils.save_credentials(client.credentials)
         server_info = client.get_server_info()
 
         host, port = client.address.split(':')

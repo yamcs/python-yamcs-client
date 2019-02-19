@@ -35,7 +35,7 @@ def read_config():
 def save_config(config):
     if not os.path.exists(CONFIG_DIR):
         os.makedirs(CONFIG_DIR)
-    with open(CONFIG_FILE, 'wb') as f:
+    with open(CONFIG_FILE, 'wt') as f:
         config.write(f)
 
 
@@ -43,7 +43,7 @@ def save_credentials(credentials):
     if not os.path.exists(CONFIG_DIR):
         os.makedirs(CONFIG_DIR)
 
-    with open(CREDENTIALS_FILE, 'wb') as f:
+    with open(CREDENTIALS_FILE, 'wt') as f:
         json.dump({
             'access_token': credentials.access_token,
             'refresh_token': credentials.refresh_token,
@@ -53,7 +53,7 @@ def save_credentials(credentials):
 
 def read_credentials():
     if os.path.exists(CREDENTIALS_FILE):
-        with open(CREDENTIALS_FILE, 'rb') as f:
+        with open(CREDENTIALS_FILE, 'rt') as f:
             d = json.load(f)
             access_token = d['access_token']
             refresh_token = d['refresh_token']
@@ -74,7 +74,7 @@ def clear_credentials():
 
 
 def print_table(rows, decorate=False, header=False):
-    widths = map(len, rows[0])
+    widths = list(map(len, rows[0]))
     for row in rows:
         for idx, col in enumerate(row):
             widths[idx] = max(len(str(col)), widths[idx])
@@ -141,11 +141,15 @@ class CommandOptions(object):
 
     @property
     def host(self):
-        return self.config.get('core', 'host')
+        if self.config.has_section('core'):
+            return self.config.get('core', 'host')
+        return None
 
     @property
     def port(self):
-        return self.config.get('core', 'port')
+        if self.config.has_section('core'):
+            return self.config.get('core', 'port')
+        return None
 
     @property
     def address(self):
