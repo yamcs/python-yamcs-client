@@ -66,7 +66,7 @@ class BaseClient(object):
             if self.on_token_update:
                 self.on_token_update(self.credentials)
 
-        if self.credentials:
+        if self.credentials and self.credentials.access_token:
             self._update_authorization_header()
 
         if not user_agent:
