@@ -102,7 +102,8 @@ class CommandHistory(object):
     @property
     def comment(self):
         """Optional user comment attached when issuing the command."""
-        return self.attributes.get('Comment')
+        # Old versions of Yamcs use "Comment" with capital
+        return self.attributes.get('Comment') or self.attributes.get('comment')
 
     @property
     def transmission_constraints(self):
