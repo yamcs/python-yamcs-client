@@ -125,7 +125,7 @@ def _build_value_proto(value):
     elif isinstance(value, float):
         proto.type = proto.FLOAT
         proto.floatValue = value
-    elif isinstance(value, long):
+    elif isinstance(value, int) and value > 2147483647:
         proto.type = proto.SINT64
         proto.sint64Value = value
     elif isinstance(value, int):
