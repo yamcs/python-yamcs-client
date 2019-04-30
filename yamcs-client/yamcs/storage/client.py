@@ -12,6 +12,7 @@ class Client(object):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         :param bool ssl: Whether SSL encryption is expected
+        :param bool ssl_verify: Whether server certificate verification is enabled (only applicable if ssl = True)
         :param .Credentials credentials: Credentials for when the server is secured
         :param str user_agent: Optionally override the default user agent
         """

@@ -2,6 +2,8 @@ from datetime import datetime, timedelta
 
 import pkg_resources
 import requests
+import urllib3
+
 from google.protobuf.message import DecodeError
 
 from yamcs.core.auth import Credentials
@@ -38,7 +40,7 @@ def _convert_credentials(token_url, username=None, password=None, refresh_token=
 class BaseClient(object):
 
     def __init__(self, address, ssl=False, credentials=None, user_agent=None,
-                 on_token_update=None):
+                 on_token_update=None, ssl_verify=True):
         if ':' in address:
             self.address = address
         else:
@@ -54,6 +56,9 @@ class BaseClient(object):
             self.ws_root = 'ws://{}/_websocket'.format(self.address)
 
         self.session = requests.Session()
+        if not ssl_verify:
+            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            self.session.verify = False
 
         self.on_token_update = on_token_update
         self.credentials = credentials
@@ -128,6 +133,8 @@ class BaseClient(object):
 
         try:
             response = self.session.request(method, path, **kwargs)
+        except requests.exceptions.SSLError as sslError:
+            raise ConnectionFailure('Connection to {} failed: {}'.format(self.address, sslError)) from None
         except requests.exceptions.ConnectionError:
             raise ConnectionFailure('Connection to {} refused'.format(self.address))
 
