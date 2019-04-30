@@ -141,6 +141,7 @@ class YamcsClient(BaseClient):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         :param Optional[bool] ssl: Whether SSL encryption is expected
+        :param Optional[bool] ssl_verify: Whether server certificate verification is enabled (only applicable if ssl = True)
         :param Optional[.Credentials] credentials: Credentials for when the server is secured
         :param Optional[str] user_agent: Optionally override the default user agent
         """
