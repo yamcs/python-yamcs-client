@@ -1,7 +1,6 @@
 import functools
 
 import requests
-
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
@@ -141,8 +140,9 @@ class YamcsClient(BaseClient):
     def __init__(self, address, **kwargs):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
-        :param Optional[bool] ssl: Whether SSL encryption is expected
-        :param Optional[bool] ssl_verify: Whether server certificate verification is enabled (only applicable if ssl = True)
+        :param Optional[bool] tls: Whether TLS encryption is expected
+        :param Optional[bool] tls_verify: Whether server certificate verification is enabled
+                                          (only applicable if ``tls=True``)
         :param Optional[.Credentials] credentials: Credentials for when the server is secured
         :param Optional[str] user_agent: Optionally override the default user agent
         """

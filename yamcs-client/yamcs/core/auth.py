@@ -15,7 +15,7 @@ class Credentials(object):
         """Username (only needed when using username/password credentials)."""
 
         self.password = password
-        """Clear-text password (consider SSL!)."""
+        """Clear-text password (consider TLS!)."""
 
         self.access_token = access_token
         """Short-lived bearer token."""

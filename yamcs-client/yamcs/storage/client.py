@@ -11,8 +11,9 @@ class Client(object):
     def __init__(self, address, **kwargs):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
-        :param bool ssl: Whether SSL encryption is expected
-        :param bool ssl_verify: Whether server certificate verification is enabled (only applicable if ssl = True)
+        :param bool tls: Whether TLS encryption is expected
+        :param bool tls_verify: Whether server certificate verification is enabled
+                                (only applicable if ``tls=True``)
         :param .Credentials credentials: Credentials for when the server is secured
         :param str user_agent: Optionally override the default user agent
         """

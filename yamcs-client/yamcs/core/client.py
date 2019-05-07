@@ -3,9 +3,7 @@ from datetime import datetime, timedelta
 import pkg_resources
 import requests
 import urllib3
-
 from google.protobuf.message import DecodeError
-
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
                                    YamcsError)
@@ -39,14 +37,14 @@ def _convert_credentials(token_url, username=None, password=None, refresh_token=
 
 class BaseClient(object):
 
-    def __init__(self, address, ssl=False, credentials=None, user_agent=None,
-                 on_token_update=None, ssl_verify=True):
+    def __init__(self, address, tls=False, credentials=None, user_agent=None,
+                 on_token_update=None, tls_verify=True):
         if ':' in address:
             self.address = address
         else:
             self.address = address + ':8090'
 
-        if ssl:
+        if tls:
             self.auth_root = 'https://{}/auth'.format(self.address)
             self.api_root = 'https://{}/api'.format(self.address)
             self.ws_root = 'wss://{}/_websocket'.format(self.address)
@@ -56,7 +54,7 @@ class BaseClient(object):
             self.ws_root = 'ws://{}/_websocket'.format(self.address)
 
         self.session = requests.Session()
-        if not ssl_verify:
+        if not tls_verify:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
             self.session.verify = False
 
