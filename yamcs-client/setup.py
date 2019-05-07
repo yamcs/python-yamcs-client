@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-client',
-    version='1.1.8',
+    version='1.1.9',
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -22,7 +22,7 @@ setuptools.setup(
     packages=packages,
     namespace_packages=['yamcs', 'yamcs.protobuf'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: GNU Lesser General Public License v3 (LGPLv3)',
         'Programming Language :: Python',
