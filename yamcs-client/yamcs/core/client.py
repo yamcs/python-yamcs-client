@@ -10,7 +10,7 @@ from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
 from yamcs.protobuf.web import web_pb2
 
 
-def _convert_credentials(token_url, username=None, password=None, refresh_token=None):
+def _convert_credentials(session, token_url, username=None, password=None, refresh_token=None):
     """
     Converts username/password credentials to token credentials by
     using Yamcs as the authenticaton server.
@@ -22,7 +22,7 @@ def _convert_credentials(token_url, username=None, password=None, refresh_token=
     else:
         raise NotImplementedError()
 
-    response = requests.post(token_url, data=data)
+    response = session.post(token_url, data=data)
     if response.status_code == 401:
         raise Unauthorized('401 Client Error: Unauthorized')
     elif response.status_code == 200:
@@ -63,6 +63,7 @@ class BaseClient(object):
         if self.credentials and self.credentials.username:  # Convert u/p to bearer
             token_url = self.auth_root + '/token'
             self.credentials = _convert_credentials(
+                self.session,
                 token_url,
                 username=self.credentials.username,
                 password=self.credentials.password)
