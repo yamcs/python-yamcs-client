@@ -4,7 +4,7 @@ python:
 
 install:
   - pip install -r yamcs-client/requirements.txt
-  - pip install sphinx
+  - pip install -r yamcs-client/docs/requirements.txt
 
 script:
   - cd yamcs-client
