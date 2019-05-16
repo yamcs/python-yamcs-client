@@ -118,6 +118,7 @@ class BaseClient(object):
 
     def _refresh_access_token(self):
         self.credentials = _convert_credentials(
+            self.session,
             self.auth_root + '/token',
             refresh_token=self.credentials.refresh_token)
         self._update_authorization_header()
