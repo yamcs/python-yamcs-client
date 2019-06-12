@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 
 import pkg_resources
 import requests
+import six
 import urllib3
 from google.protobuf.message import DecodeError
 from yamcs.core.auth import Credentials
@@ -134,7 +135,8 @@ class BaseClient(object):
         try:
             response = self.session.request(method, path, **kwargs)
         except requests.exceptions.SSLError as sslError:
-            raise ConnectionFailure('Connection to {} failed: {}'.format(self.address, sslError)) from None
+            msg = 'Connection to {} failed: {}'.format(self.address, sslError)
+            six.raise_from(ConnectionFailure(msg), None)
         except requests.exceptions.ConnectionError:
             raise ConnectionFailure('Connection to {} refused'.format(self.address))
 

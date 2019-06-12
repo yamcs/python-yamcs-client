@@ -2,17 +2,15 @@ import functools
 import socket
 import threading
 
-
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.protobuf.mdb import mdb_pb2
-
 from yamcs.tmtc.model import (Alarm, AlarmEvent, Calibrator, CommandHistory,
                               IssuedCommand, ParameterData, ParameterValue,
                               RangeSet)
@@ -140,14 +138,14 @@ def _build_value_proto(value):
 
 def _set_range(ar, range, level):
     ar.level = level
-    if range[0] :
+    if range[0]:
         ar.minExclusive = range[0]
-    if range[1] :
+    if range[1]:
         ar.maxExclusive = range[1]
-    
+
 def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_violations):
     alarm_info.minViolations = min_violations
-    
+
     if watch:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, watch, mdb_pb2.WATCH)
@@ -157,14 +155,13 @@ def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_viol
     if distress:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, distress, mdb_pb2.DISTRESS)
-    
     if critical:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, critical, mdb_pb2.CRITICAL)
     if severe:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, severe, mdb_pb2.SEVERE)
-        
+    
 def _add_calib(calib_info, type, data):
     type = type.lower()
     if type == Calibrator.POLYNOMIAL:           
@@ -589,10 +586,7 @@ class ProcessorClient(object):
         response = self._client.post_proto(url, data=req.SerializeToString())
        # pti = mdb_pb2.ParameterTypeInfo()
        # pti.ParseFromString(response.content)
-       # print(pti)
-       
-
-     
+       # print(pti)     
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -614,11 +608,11 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_CALIBRATORS
         for c in calibrators:
-            if c.context :
+            if c.context:
                 context_calib = req.contextCalibrator.add()
                 context_calib.context = rs.context
                 calib_info = context_calib.calibrator
-            else :                
+            else:
                 calib_info = req.defaultCalibrator
             
             _add_calib(calib_info, c.type, c.data)
@@ -637,8 +631,7 @@ class ProcessorClient(object):
         """
         self.set_default_calibrator(parameter, None, None)
         self.set_calibrators(parameter, [])
-        
-        
+
     def reset_calibrators(self, parameter):
         """
         Reset all calibrators for the specified parameter to their original MDB value.
@@ -649,7 +642,6 @@ class ProcessorClient(object):
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
-        
 
     def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
                                  distress=None, critical=None, severe=None,
@@ -683,16 +675,16 @@ class ProcessorClient(object):
         """
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_ALARMS
-        if(watch or warning or distress or critical or severe):
-            _add_alarms(req.defaultAlarm, watch, warning, distress, critical, severe, min_violations)
-        
+        if watch or warning or distress or critical or severe:
+            _add_alarms(req.defaultAlarm, watch, warning, distress, critical,
+                        severe, min_violations)
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
        # pti = mdb_pb2.ParameterTypeInfo()
        # pti.ParseFromString(response.content)
-       # print(pti)
-        
+       # print(pti)        
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -715,14 +707,15 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_ALARMS
         for rs in sets:
-            if rs.context :
+            if rs.context:
                 context_alarm = req.contextAlarm.add()
                 context_alarm.context = rs.context
                 alarm_info = context_alarm.alarm
-            else :                
+            else:
                 alarm_info = req.defaultAlarm
-                
-            _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical, rs.severe, rs.min_violations)
+
+            _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical,
+                        rs.severe, rs.min_violations)
             
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
@@ -737,23 +730,20 @@ class ProcessorClient(object):
         """
         self.set_default_alarm_ranges(parameter)
         self.set_alarm_range_sets(parameter, [])
-        
-        
+
     def reset_alarm_ranges(self, parameter):
         """
         Reset all alarm limits for the specified parameter to their original MDB value.
         """
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS        
-        
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
         #pti = mdb_pb2.ParameterTypeInfo()
         #pti.ParseFromString(response.content)
         #print(pti)
-       
-        
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
@@ -898,25 +888,23 @@ class ProcessorClient(object):
         subscription.reply(timeout=timeout)
 
         return subscription
-    
+
     def set_algorithm(self, parameter, text):
         """
         Change an algorithm text. Can only be peformed on JavaScript or Python algorithms.
-        
+
         :param string text: new algorithm text (as it would appear in excel or XTCE)
-        
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """
         req = mdb_pb2.ChangeAlgorithmRequest()
-        
         req.action = mdb_pb2.ChangeAlgorithmRequest.SET
         req.algorithm.text = text
-        
+
         url = '/mdb/{}/{}/algorithms/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-        
+        self._client.post_proto(url, data=req.SerializeToString())
+
     def reset_algorithm(self, parameter):
         """
         Reset the algorithm text to its original definition from MDB
@@ -925,10 +913,8 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         """
         req = mdb_pb2.ChangeAlgorithmRequest()
-        
-        req.action = mdb_pb2.ChangeAlgorithmRequest.RESET        
-        
+        req.action = mdb_pb2.ChangeAlgorithmRequest.RESET
+
         url = '/mdb/{}/{}/algorithms/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-        
+        self._client.post_proto(url, data=req.SerializeToString())
