@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-client',
-    version='1.1.10',
+    version='1.1.11',
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
@@ -32,12 +32,13 @@ setuptools.setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Operating System :: OS Independent',
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
         'protobuf>=3.6',
-        'requests',
+        'requests>=2.16.0',
         'setuptools',
         'websocket-client<=0.48.0',
     ],

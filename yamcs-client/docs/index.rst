@@ -1,17 +1,6 @@
 Yamcs Client Library for Python
 ===============================
 
-.. image:: https://img.shields.io/pypi/v/yamcs-client.svg
-  :target: https://pypi.python.org/pypi/yamcs-client/
-  :alt: PyPI
-.. image:: https://img.shields.io/pypi/pyversions/yamcs-client.svg
-  :target: https://pypi.python.org/pypi/yamcs-client/
-  :alt: PyPI pyversions
-.. image:: https://img.shields.io/pypi/l/yamcs-client.svg?colorB=blue
-  :target: https://pypi.python.org/pypi/yamcs-client/
-  :alt: License
-
-
 Getting Started
 ---------------
 
