@@ -116,7 +116,7 @@ Receive :class:`.CommandHistory` callbacks on command history events:
 Alarm Monitoring
 ^^^^^^^^^^^^^^^^
 
-Receive :class:`.AlarmEvent` callbacks:
+Receive :class:`.AlarmUpdate` callbacks:
 
 .. literalinclude:: ../../examples/alarms.py
     :pyobject: receive_callbacks

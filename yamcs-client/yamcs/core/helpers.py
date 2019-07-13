@@ -11,7 +11,7 @@ def to_isostring(dt):
     This assumes the datetime is UTC.
     """
     if dt.tzinfo is not None and dt.tzinfo.utcoffset(dt) > timedelta(0):
-        logging.warn('Warning: aware datetimes are interpreted as if they were naive')
+        logging.warning('Warning: aware datetimes are interpreted as if they were naive')
 
     # -3 to change microseconds to milliseconds
     return dt.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
@@ -59,7 +59,7 @@ def parse_value(proto):
     elif proto.HasField('aggregateValue'):
         return OrderedDict(zip(proto.aggregateValue.name, proto.aggregateValue.value))
     else:
-        logging.warn('Unrecognized value type for update %s', proto)
+        logging.warning('Unrecognized value type for update %s', proto)
         return None
 
 

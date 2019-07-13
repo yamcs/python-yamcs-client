@@ -1,8 +1,19 @@
 from datetime import timedelta
 
+from yamcs.core.exceptions import YamcsError
 from yamcs.core.helpers import parse_isostring, parse_value
+from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
+
+
+def _parse_alarm(proto):
+    """Converts a protobuf alarm to a specific Alarm implementation."""
+    if proto.type == alarms_pb2.PARAMETER:
+        return ParameterAlarm(proto)
+    if proto.type == alarms_pb2.EVENT:
+        return EventAlarm(proto)
+    raise YamcsError('Unexpected type ' + proto.type)
 
 
 class CommandHistoryEvent(object):
@@ -259,7 +270,7 @@ class IssuedCommand(object):
         return '{} {}'.format(self.generation_time, self.source)
 
 
-class AlarmEvent(object):
+class AlarmUpdate(object):
     """
     Object received through callbacks when subscribing to alarm updates.
     """
@@ -268,9 +279,9 @@ class AlarmEvent(object):
         self._proto = proto
 
     @property
-    def event_type(self):
+    def update_type(self):
         """Type of update."""
-        return alarms_pb2.AlarmData.Type.Name(self._proto.type)
+        return alarms_pb2.AlarmNotificationType.Name(self._proto.type)
 
     @property
     def alarm(self):
@@ -279,10 +290,10 @@ class AlarmEvent(object):
 
         :type: :class:`.Alarm`
         """
-        return Alarm(self._proto)
+        return _parse_alarm(self._proto)
 
     def __str__(self):
-        return '[{}] {}'.format(self.event_type, self.alarm)
+        return '[{}] {}'.format(self.update_type, self.alarm)
 
 
 class Alarm(object):
@@ -292,8 +303,27 @@ class Alarm(object):
 
     @property
     def name(self):
-        """Fully-qualified XTCE name of the parameter that triggered this alarm."""
-        return self.trigger_value.name
+        """Fully-qualified name of the source of this alarm."""
+        if self._proto.id.HasField('namespace'):
+            return self._proto.id.namespace + '/' + self._proto.id.name
+        return self._proto.id.name
+
+    @property
+    def trigger_time(self):
+        """
+        Processor time when the alarm was triggered.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField('triggerTime'):
+            return parse_isostring(self._proto.triggerTime)
+        return None
+
+    @property
+    def severity(self):
+        if self._proto.HasField('severity'):
+            return alarms_pb2.AlarmSeverity.Name(self._proto.severity)
+        return None
 
     @property
     def sequence_number(self):
@@ -340,6 +370,34 @@ class Alarm(object):
         return None
 
     @property
+    def violation_count(self):
+        """
+        Number of violating samples while this alarm is active.
+        """
+        if self._proto.HasField('violations'):
+            return self._proto.violations
+        return None
+
+    @property
+    def count(self):
+        """
+        Total number of samples while this alarm is active.
+        """
+        if self._proto.HasField('count'):
+            return self._proto.count
+        return None
+
+    def __str__(self):
+        return '{} ({} violations)'.format(
+            self.name, self.violation_count)
+
+
+class ParameterAlarm(Alarm):
+    """
+    An alarm triggered by a parameter that went out of limits.
+    """
+
+    @property
     def trigger_value(self):
         """
         Parameter value that originally triggered the alarm
@@ -373,19 +431,45 @@ class Alarm(object):
             return ParameterValue(self._proto.currentValue)
         return None
 
+
+class EventAlarm(Alarm):
+    """
+    An alarm triggered by an event.
+    """
+
     @property
-    def violation_count(self):
+    def trigger_event(self):
         """
-        Number of parameter updates that violated limits while
-        this alarm is active.
+        Event that originally triggered the alarm
+
+        :type: :class:`.Event`
         """
-        if self._proto.HasField('violations'):
-            return self._proto.violations
+        if self._proto.HasField('triggerEvent'):
+            return Event(self._proto.triggerEvent)
         return None
 
-    def __str__(self):
-        return '{} ({} violations)'.format(
-            self.trigger_value, self.violation_count)
+    @property
+    def most_severe_event(self):
+        """
+        First event that invoked the highest severity level
+        of this alarm
+
+        :type: :class:`.Event`
+        """
+        if self._proto.HasField('mostSevereEvent'):
+            return Event(self._proto.mostSevereEvent)
+        return None
+
+    @property
+    def current_event(self):
+        """
+        Latest event for this alarm
+
+        :type: :class:`.Event`
+        """
+        if self._proto.HasField('currentEvent'):
+            return Event(self._proto.currentEvent)
+        return None
 
 
 class ParameterData(object):

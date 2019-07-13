@@ -11,9 +11,9 @@ from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
-from yamcs.tmtc.model import (Alarm, AlarmEvent, Calibrator, CommandHistory,
-                              IssuedCommand, ParameterData, ParameterValue,
-                              RangeSet)
+from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
+                              EventAlarm, IssuedCommand, ParameterAlarm,
+                              ParameterData, ParameterValue, _parse_alarm)
 
 
 class SequenceGenerator(object):
@@ -68,11 +68,11 @@ def _wrap_callback_parse_alarm_data(subscription, on_data, message):
     if (message.type == message.DATA and
             message.data.type == yamcs_pb2.ALARM_DATA):
         proto = getattr(message.data, 'alarmData')
-        alarm_event = AlarmEvent(proto)
+        alarm_update = AlarmUpdate(proto)
         #pylint: disable=protected-access
-        subscription._process(alarm_event)
+        subscription._process(alarm_update)
         if on_data:
-            on_data(alarm_event)
+            on_data(alarm_update)
 
 
 def _build_named_object_id(parameter):
@@ -136,12 +136,14 @@ def _build_value_proto(value):
         raise YamcsError('Unrecognized type')
     return proto
 
+
 def _set_range(ar, range, level):
     ar.level = level
     if range[0]:
         ar.minExclusive = range[0]
     if range[1]:
         ar.maxExclusive = range[1]
+
 
 def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_violations):
     alarm_info.minViolations = min_violations
@@ -161,20 +163,21 @@ def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_viol
     if severe:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, severe, mdb_pb2.SEVERE)
-    
+
+
 def _add_calib(calib_info, type, data):
     type = type.lower()
-    if type == Calibrator.POLYNOMIAL:           
+    if type == Calibrator.POLYNOMIAL:
         calib_info.type = mdb_pb2.CalibratorInfo.POLYNOMIAL
-        polynomial = calib_info.polynomialCalibrator.coefficient.extend(data)           
+        calib_info.polynomialCalibrator.coefficient.extend(data)
     elif type == Calibrator.SPLINE:
-        calib_info.type = CalibratorInfo.Type.SPLINE
+        calib_info.type = mdb_pb2.CalibratorInfo.SPLINE
         spline = mdb_pb2.SplineCalibratorInfo()
         for p in data:
             spi = spline.point.add()
             spi.raw = p[0]
             spi.calibrated = p[1]
-    else :
+    else:
         raise YamcsError('Unrecognized type')
 
 
@@ -335,38 +338,36 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
     Local object representing an alarm subscription.
 
     A subscription object stores the currently active
-    alarms. There can be only one alarm active at a
-    time per parameter.
+    alarms.
     """
 
     def __init__(self, manager):
         super(AlarmSubscription, self).__init__(manager)
 
         self._cache = {}
-        """Value cache keyed by parameter name."""
+        """Value cache keyed by alarm name."""
 
-    def get_alarm(self, parameter):
+    def get_alarm(self, name):
         """
-        Returns the alarm state associated with a specific parameter from
-        local cache.
+        Returns the alarm state associated with a specific named
+        alarm from local cache.
 
-        :param str parameter: Fully-qualified XTCE name
+        :param str name: Fully-qualified name
         :rtype: .Alarm
         """
-        return self._cache[parameter]
+        return self._cache[name]
 
     def list_alarms(self):
         """
         Returns a snapshot of all active alarms.
 
-        :param str parameter: Fully-qualified XTCE name
         :rtype: .Alarm[]
         """
         return [self._cache[k] for k in self._cache]
 
-    def _process(self, alarm_event):
-        alarm = alarm_event.alarm
-        if alarm_event.event_type in ('ACKNOWLEDGED', 'CLEARED'):
+    def _process(self, alarm_update):
+        alarm = alarm_update.alarm
+        if alarm_update.update_type in ('ACKNOWLEDGED', 'CLEARED'):
             del self._cache[alarm.name]
         else:
             self._cache[alarm.name] = alarm
@@ -546,7 +547,7 @@ class ProcessorClient(object):
         message = rest_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
         alarms = getattr(message, 'alarm')
-        return iter([Alarm(alarm) for alarm in alarms])
+        return iter([_parse_alarm(alarm) for alarm in alarms])
 
     def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
         """
@@ -578,15 +579,12 @@ class ProcessorClient(object):
         """
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR
-        if  type:
+        if type:
             _add_calib(req.defaultCalibrator, type, data)
-                   
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-       # pti = mdb_pb2.ParameterTypeInfo()
-       # pti.ParseFromString(response.content)
-       # print(pti)     
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -610,20 +608,16 @@ class ProcessorClient(object):
         for c in calibrators:
             if c.context:
                 context_calib = req.contextCalibrator.add()
-                context_calib.context = rs.context
+                context_calib.context = c.context
                 calib_info = context_calib.calibrator
             else:
                 calib_info = req.defaultCalibrator
-            
+
             _add_calib(calib_info, c.type, c.data)
-            
-            
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-        pti = mdb_pb2.ParameterTypeInfo()
-      #  pti.ParseFromString(response.content)
-      # print(pti)
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
         """
@@ -637,11 +631,11 @@ class ProcessorClient(object):
         Reset all calibrators for the specified parameter to their original MDB value.
         """
         req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS                  
-        calib_info = req.defaultCalibrator
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
                                  distress=None, critical=None, severe=None,
@@ -681,10 +675,7 @@ class ProcessorClient(object):
 
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-       # pti = mdb_pb2.ParameterTypeInfo()
-       # pti.ParseFromString(response.content)
-       # print(pti)        
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -716,7 +707,7 @@ class ProcessorClient(object):
 
             _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical,
                         rs.severe, rs.min_violations)
-            
+
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
@@ -736,14 +727,11 @@ class ProcessorClient(object):
         Reset all alarm limits for the specified parameter to their original MDB value.
         """
         req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS        
+        req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS
 
         url = '/mdb/{}/{}/parameters/{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-        #pti = mdb_pb2.ParameterTypeInfo()
-        #pti.ParseFromString(response.content)
-        #print(pti)
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
@@ -754,8 +742,9 @@ class ProcessorClient(object):
         :param str comment: Optional comment to associate with the state
                             change.
         """
+        name = adapt_name_for_rest(alarm.name)
         url = '/processors/{}/{}/parameters{}/alarms/{}'.format(
-            self._instance, self._processor, alarm.name, alarm.sequence_number)
+            self._instance, self._processor, name, alarm.sequence_number)
         req = rest_pb2.EditAlarmRequest()
         req.state = 'acknowledged'
         if comment is not None:
@@ -769,13 +758,14 @@ class ProcessorClient(object):
         """
         Create a new command history subscription.
 
-        :param .IssuedCommand[] issued_command: (Optional) Previously issued
-                                                commands. If not provided updates
-                                                from any command are received.
+        :param issued_command: (Optional) Previously issued commands. If not
+                                provided updates from any command are received.
+        :type issued_command: .IssuedCommand[]
         :param on_data: Function that gets called with  :class:`.CommandHistory`
                         updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: float
         :return: Future that can be used to manage the background websocket
                  subscription
         :rtype: .CommandHistorySubscription
@@ -858,13 +848,11 @@ class ProcessorClient(object):
 
         return subscription
 
-    def create_alarm_subscription(self,
-                                  on_data=None,
-                                  timeout=60):
+    def create_alarm_subscription(self, on_data=None, timeout=60):
         """
         Create a new alarm subscription.
 
-        :param on_data: Function that gets called with  :class:`.AlarmEvent`
+        :param on_data: Function that gets called with  :class:`.AlarmUpdate`
                         updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
@@ -908,7 +896,7 @@ class ProcessorClient(object):
     def reset_algorithm(self, parameter):
         """
         Reset the algorithm text to its original definition from MDB
-        
+
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """

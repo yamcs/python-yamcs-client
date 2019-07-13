@@ -7,8 +7,8 @@ from yamcs.client import YamcsClient
 
 def receive_callbacks():
     """Registers an alarm callback."""
-    def callback(alarm_event):
-        print('Alarm Event:', alarm_event)
+    def callback(alarm_update):
+        print('Alarm Update:', alarm_update)
 
     processor.create_alarm_subscription(callback)
 
