@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name='yamcs-client',
-    version='1.1.11',
+    version='1.2.0',
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
