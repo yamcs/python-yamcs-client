@@ -405,7 +405,7 @@ class ParameterAlarm(Alarm):
         :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField('triggerValue'):
-            return ParameterValue(self._proto.triggerValue)
+            return ParameterValue(self._proto.parameterDetail.triggerValue)
         return None
 
     @property
@@ -417,7 +417,7 @@ class ParameterAlarm(Alarm):
         :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField('mostSevereValue'):
-            return ParameterValue(self._proto.mostSevereValue)
+            return ParameterValue(self._proto.parameterDetail.mostSevereValue)
         return None
 
     @property
@@ -428,7 +428,7 @@ class ParameterAlarm(Alarm):
         :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField('currentValue'):
-            return ParameterValue(self._proto.currentValue)
+            return ParameterValue(self._proto.parameterDetail.currentValue)
         return None
 
 
@@ -445,7 +445,7 @@ class EventAlarm(Alarm):
         :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField('triggerEvent'):
-            return Event(self._proto.triggerEvent)
+            return Event(self._proto.eventDetail.triggerEvent)
         return None
 
     @property
@@ -457,7 +457,7 @@ class EventAlarm(Alarm):
         :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField('mostSevereEvent'):
-            return Event(self._proto.mostSevereEvent)
+            return Event(self._proto.eventDetail.mostSevereEvent)
         return None
 
     @property
@@ -468,7 +468,7 @@ class EventAlarm(Alarm):
         :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField('currentEvent'):
-            return Event(self._proto.currentEvent)
+            return Event(self._proto.eventDetail.currentEvent)
         return None
 
 
