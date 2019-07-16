@@ -1,10 +1,10 @@
 from __future__ import absolute_import
 
 import logging
+import ssl
 import threading
 
 import websocket
-
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.protobuf.web import web_pb2
 
@@ -70,7 +70,13 @@ class WebSocketSubscriptionManager(object):
                 for k in self._client.session.headers
             ],
         )
-        self._consumer = threading.Thread(target=self._websocket.run_forever)
+
+        kwargs = {}
+        if not self._client.session.verify:
+            kwargs['sslopt'] = {'cert_reqs': ssl.CERT_NONE}
+
+        self._consumer = threading.Thread(target=self._websocket.run_forever,
+                                          kwargs=kwargs)
 
         # Running this as a daemon thread improves possibilities
         # for consumers of our API to control shutdown.
