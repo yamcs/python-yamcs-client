@@ -5,13 +5,14 @@ import requests
 import six
 import urllib3
 from google.protobuf.message import DecodeError
+from requests.auth import HTTPBasicAuth
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
                                    YamcsError)
 from yamcs.protobuf.web import web_pb2
 
 
-def _convert_credentials(session, token_url, username=None, password=None, refresh_token=None):
+def _convert_user_credentials(session, token_url, username=None, password=None, refresh_token=None):
     """
     Converts username/password credentials to token credentials by
     using Yamcs as the authentication server.
@@ -31,6 +32,29 @@ def _convert_credentials(session, token_url, username=None, password=None, refre
         expiry = datetime.utcnow() + timedelta(seconds=d['expires_in'])
         return Credentials(access_token=d['access_token'],
                            refresh_token=d['refresh_token'],
+                           expiry=expiry)
+    else:
+        raise YamcsError('{} Server Error'.format(response.status_code))
+
+
+def _convert_service_account_credentials(session, token_url, client_id,
+                                         client_secret, become):
+    """
+    Converts service account credentials to impersonated token credentials.
+    """
+    data = {'grant_type': 'client_credentials', 'become': become}
+
+    response = session.post(token_url, data=data,
+                            auth=HTTPBasicAuth(client_id, client_secret))
+    if response.status_code == 401:
+        raise Unauthorized('401 Client Error: Unauthorized')
+    elif response.status_code == 200:
+        d = response.json()
+        expiry = datetime.utcnow() + timedelta(seconds=d['expires_in'])
+        return Credentials(access_token=d['access_token'],
+                           client_id=client_id,
+                           client_secret=client_secret,
+                           become=become,
                            expiry=expiry)
     else:
         raise YamcsError('{} Server Error'.format(response.status_code))
@@ -61,15 +85,23 @@ class BaseClient(object):
 
         self.on_token_update = on_token_update
         self.credentials = credentials
+        token_url = self.auth_root + '/token'
         if self.credentials and self.credentials.username:  # Convert u/p to bearer
-            token_url = self.auth_root + '/token'
-            self.credentials = _convert_credentials(
+            self.credentials = _convert_user_credentials(
                 self.session,
                 token_url,
                 username=self.credentials.username,
                 password=self.credentials.password)
             if self.on_token_update:
                 self.on_token_update(self.credentials)
+        if self.credentials and self.credentials.become:  # Impersonate from service account
+            self.credentials = _convert_service_account_credentials(
+                self.session,
+                token_url,
+                client_id=self.credentials.client_id,
+                client_secret=self.credentials.client_secret,
+                become=self.credentials.become,
+            )
 
         if self.credentials and self.credentials.access_token:
             self._update_authorization_header()
@@ -118,10 +150,18 @@ class BaseClient(object):
         return self.request('delete', path, **kwargs)
 
     def _refresh_access_token(self):
-        self.credentials = _convert_credentials(
-            self.session,
-            self.auth_root + '/token',
-            refresh_token=self.credentials.refresh_token)
+        if self.credentials.become:
+            self.credentials = _convert_service_account_credentials(
+                self.session,
+                self.auth_root + '/token',
+                client_id=self.credentials.client_id,
+                client_secret=self.credentials.client_secret,
+                become=self.credentials.become)
+        else:
+            self.credentials = _convert_user_credentials(
+                self.session,
+                self.auth_root + '/token',
+                refresh_token=self.credentials.refresh_token)
         self._update_authorization_header()
         if self.on_token_update:
             self.on_token_update(self.credentials)

@@ -10,7 +10,8 @@ class Credentials(object):
     """
 
     def __init__(self, username=None, password=None, access_token=None,
-                 refresh_token=None, expiry=None):
+                 refresh_token=None, expiry=None, client_id=None,
+                 client_secret=None, become=None):
         self.username = username
         """Username (only needed when using username/password credentials)."""
 
@@ -21,10 +22,23 @@ class Credentials(object):
         """Short-lived bearer token."""
 
         self.refresh_token = refresh_token
-        """Refresh token used to request a new access token (WIP)"""
+        """Refresh token used to request a new access token."""
 
         self.expiry = expiry
         """When this token expires."""
+
+        self.client_id = client_id
+        """The client ID. Currently used only by service accounts."""
+
+        self.client_secret = client_secret
+        """The client secret. Currently used only by service accounts."""
+
+        self.become = become
+        """
+        Name of the user to impersonate. Only service accounts with
+        impersonation authority can use this feature.
+        """
+
 
     def is_expired(self):
         return self.expiry and datetime.utcnow() >= self.expiry
