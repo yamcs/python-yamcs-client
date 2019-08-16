@@ -14,7 +14,7 @@ from yamcs.protobuf.web import web_pb2
 def _convert_credentials(session, token_url, username=None, password=None, refresh_token=None):
     """
     Converts username/password credentials to token credentials by
-    using Yamcs as the authenticaton server.
+    using Yamcs as the authentication server.
     """
     if username and password:
         data = {'grant_type': 'password', 'username': username, 'password': password}

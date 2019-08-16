@@ -24,6 +24,7 @@ The easiest way to install is via pip
 
 
 ## Documentation
+
 All available operations are documented at https://www.yamcs.org/yamcs-python/yamcs-client
 
 

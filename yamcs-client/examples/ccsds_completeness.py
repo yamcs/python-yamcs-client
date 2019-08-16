@@ -2,6 +2,7 @@ from __future__ import print_function
 
 from datetime import datetime, timedelta
 
+import six
 from yamcs.client import YamcsClient
 
 
@@ -26,7 +27,7 @@ def print_latest():
             records_by_apid[group.name] = []
         records_by_apid[group.name].extend(group.records)
 
-    for apid, records in records_by_apid.iteritems():
+    for apid, records in six.iteritems(records_by_apid):
         print('APID:', apid)
 
         total = 0

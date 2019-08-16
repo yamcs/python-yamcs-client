@@ -12,6 +12,8 @@ from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
                          Link, LinkEvent, Processor, ServerInfo, Service,
                          UserInfo)
 from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.archive import archive_pb2
+from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
@@ -198,7 +200,7 @@ class YamcsClient(BaseClient):
         :rtype: .UserInfo
         """
         response = self.get_proto(path='/user')
-        message = yamcsManagement_pb2.UserInfo()
+        message = iam_pb2.UserInfo()
         message.ParseFromString(response.content)
         return UserInfo(message)
 
@@ -228,7 +230,7 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str template: The name of an existing template.
         """
-        req = rest_pb2.CreateInstanceRequest()
+        req = yamcsManagement_pb2.CreateInstanceRequest()
         req.name = name
         req.template = template
         if args:
@@ -245,9 +247,9 @@ class YamcsClient(BaseClient):
         List the available instance templates.
         """
         response = self.get_proto(path='/instance-templates')
-        message = rest_pb2.ListInstanceTemplatesResponse()
+        message = yamcsManagement_pb2.ListInstanceTemplatesResponse()
         message.ParseFromString(response.content)
-        templates = getattr(message, 'template')
+        templates = getattr(message, 'templates')
         return iter([InstanceTemplate(template) for template in templates])
 
     def list_services(self, instance):
@@ -261,9 +263,9 @@ class YamcsClient(BaseClient):
         # Return an iterator anyway for similarity with other API methods
         url = '/services/{}'.format(instance)
         response = self.get_proto(path=url)
-        message = rest_pb2.ListServiceInfoResponse()
+        message = yamcsManagement_pb2.ListServiceInfoResponse()
         message.ParseFromString(response.content)
-        services = getattr(message, 'service')
+        services = getattr(message, 'services')
         return iter([Service(service) for service in services])
 
     def start_service(self, instance, service):
@@ -273,10 +275,8 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        req = rest_pb2.EditServiceRequest()
-        req.state = 'running'
-        url = '/services/{}/{}'.format(instance, service)
-        self.patch_proto(url, data=req.SerializeToString())
+        url = '/services/{}/{}:start'.format(instance, service)
+        self.post_proto(url)
 
     def stop_service(self, instance, service):
         """
@@ -285,10 +285,8 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        req = rest_pb2.EditServiceRequest()
-        req.state = 'stopped'
-        url = '/services/{}/{}'.format(instance, service)
-        self.patch_proto(url, data=req.SerializeToString())
+        url = '/services/{}/{}:stop'.format(instance, service)
+        self.post_proto(url)
 
     def list_processors(self, instance=None):
         """
@@ -349,9 +347,9 @@ class YamcsClient(BaseClient):
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.get_proto(path='/instances')
-        message = rest_pb2.ListInstancesResponse()
+        message = yamcsManagement_pb2.ListInstancesResponse()
         message.ParseFromString(response.content)
-        instances = getattr(message, 'instance')
+        instances = getattr(message, 'instances')
         return iter([Instance(instance) for instance in instances])
 
     def start_instance(self, instance):
@@ -360,9 +358,8 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        params = {'state': 'running'}
-        url = '/instances/{}'.format(instance)
-        self.patch_proto(url, params=params)
+        url = '/instances/{}:start'.format(instance)
+        self.post_proto(url)
 
     def stop_instance(self, instance):
         """
@@ -370,9 +367,8 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        params = {'state': 'stopped'}
-        url = '/instances/{}'.format(instance)
-        self.patch_proto(url, params=params)
+        url = '/instances/{}:stop'.format(instance)
+        self.post_proto(url)
 
     def restart_instance(self, instance):
         """
@@ -380,9 +376,8 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        params = {'state': 'restarted'}
-        url = '/instances/{}'.format(instance)
-        self.patch_proto(url, params=params)
+        url = '/instances/{}:restart'.format(instance)
+        self.post_proto(url)
 
     def list_data_links(self, instance):
         """
@@ -429,7 +424,7 @@ class YamcsClient(BaseClient):
                                 every submitted event is unique.
         :type sequence_number: Optional[int]
         """
-        req = rest_pb2.CreateEventRequest()
+        req = archive_pb2.CreateEventRequest()
         req.message = message
         req.severity = severity
         if event_type:

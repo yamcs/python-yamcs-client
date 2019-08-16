@@ -41,7 +41,7 @@ def print_command_count():
         for group in archive.list_command_histogram(command.qualified_name):
             for rec in group.records:
                 total += rec.count
-        print('  {: <40} {: >20}'.format(command, total))
+        print('  {: <40} {: >20}'.format(command.qualified_name, total))
 
 
 if __name__ == '__main__':

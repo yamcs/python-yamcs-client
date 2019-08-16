@@ -252,7 +252,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/packets'.format(self._instance),
             params=params,
-            response_class=rest_pb2.ListPacketsResponse,
+            response_class=archive_pb2.ListPacketsResponse,
             items_key='packet',
             item_mapper=Packet,
         )
@@ -312,7 +312,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/events'.format(self._instance),
             params=params,
-            response_class=rest_pb2.ListEventsResponse,
+            response_class=archive_pb2.ListEventsResponse,
             items_key='event',
             item_mapper=Event,
         )
@@ -493,7 +493,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/parameters{}'.format(self._instance, parameter),
             params=params,
-            response_class=rest_pb2.ListParameterValuesResponse,
+            response_class=archive_pb2.ListParameterValuesResponse,
             items_key='parameter',
             item_mapper=ParameterValue,
         )
@@ -551,7 +551,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/tables'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = rest_pb2.ListTablesResponse()
+        message = archive_pb2.ListTablesResponse()
         message.ParseFromString(response.content)
         tables = getattr(message, 'table')
         return iter([Table(table) for table in tables])
@@ -594,7 +594,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/streams'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = rest_pb2.ListStreamsResponse()
+        message = archive_pb2.ListStreamsResponse()
         message.ParseFromString(response.content)
         streams = getattr(message, 'stream')
         return iter([Stream(stream) for stream in streams])
@@ -652,7 +652,7 @@ class ArchiveClient(object):
         :return: String response
         :rtype: str
         """
-        path = '/archive/{}/sql'.format(self._instance)
+        path = '/archive/{}:executeSql'.format(self._instance)
         req = archive_pb2.ExecuteSqlRequest()
         req.statement = statement
 

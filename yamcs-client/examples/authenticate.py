@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import requests
-
 from yamcs.client import YamcsClient
 from yamcs.core.auth import Credentials
 

@@ -30,7 +30,7 @@ class MDBClient(object):
             path='/mdb/{}/space-systems'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
-            items_key='spaceSystem',
+            items_key='spaceSystems',
             item_mapper=SpaceSystem,
         )
 
@@ -67,7 +67,7 @@ class MDBClient(object):
             path='/mdb/{}/parameters'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
-            items_key='parameter',
+            items_key='parameters',
             item_mapper=Parameter,
         )
 
@@ -104,7 +104,7 @@ class MDBClient(object):
             path='/mdb/{}/containers'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
-            items_key='container',
+            items_key='containers',
             item_mapper=Container,
         )
 
@@ -141,7 +141,7 @@ class MDBClient(object):
             path='/mdb/{}/commands'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
-            items_key='command',
+            items_key='commands',
             item_mapper=Command,
         )
 
@@ -178,7 +178,7 @@ class MDBClient(object):
             path='/mdb/{}/algorithms'.format(self._instance),
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
-            items_key='algorithm',
+            items_key='algorithms',
             item_mapper=Algorithm,
         )
 

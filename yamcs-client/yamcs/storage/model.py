@@ -97,7 +97,7 @@ class ObjectListing(object):
 
         :type: str[]
         """
-        return [p for p in self._proto.prefix]
+        return [p for p in self._proto.prefixes]
 
     @property
     def objects(self):
@@ -107,7 +107,7 @@ class ObjectListing(object):
         :type: List[:class:`.ObjectInfo`]
         """
         return [ObjectInfo(o, self._instance, self._bucket, self._client)
-                for o in self._proto.object]
+                for o in self._proto.objects]
 
 
 class ObjectInfo(object):

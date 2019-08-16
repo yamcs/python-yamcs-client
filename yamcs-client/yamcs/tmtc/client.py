@@ -8,12 +8,13 @@ from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.mdb import mdb_pb2
+from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.web import web_pb2
 from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
-                              EventAlarm, IssuedCommand, ParameterAlarm,
-                              ParameterData, ParameterValue, _parse_alarm)
+                              IssuedCommand, ParameterData, ParameterValue,
+                              _parse_alarm)
 
 
 class SequenceGenerator(object):
@@ -435,13 +436,13 @@ class ProcessorClient(object):
             'fromCache': from_cache,
             'timeout': int(timeout * 1000),
         }
-        req = rest_pb2.BulkGetParameterValueRequest()
+        req = processing_pb2.BatchGetParameterValuesRequest()
         req.id.extend(_build_named_object_ids(parameters))
-        url = '/processors/{}/{}/parameters/mget'.format(
+        url = '/processors/{}/{}/parameters:batchGet'.format(
             self._instance, self._processor)
         response = self._client.post_proto(url, params=params,
                                            data=req.SerializeToString())
-        proto = rest_pb2.BulkGetParameterValueResponse()
+        proto = processing_pb2.BatchGetParameterValuesResponse()
         proto.ParseFromString(response.content)
 
         pvals = []
@@ -476,12 +477,12 @@ class ProcessorClient(object):
                             a fully-qualified XTCE name or an alias in the format
                             ``NAMESPACE/NAME``.
         """
-        req = rest_pb2.BulkSetParameterValueRequest()
+        req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
             item = req.request.add()
             item.id.MergeFrom(_build_named_object_id(key))
             item.value.MergeFrom(_build_value_proto(values[key]))
-        url = '/processors/{}/{}/parameters/mset'.format(
+        url = '/processors/{}/{}/parameters:batchSet'.format(
             self._instance, self._processor)
         self._client.post_proto(url, data=req.SerializeToString())
 
