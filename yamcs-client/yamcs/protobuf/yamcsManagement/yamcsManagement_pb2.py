@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.yamcsManagement',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\024YamcsManagementProtoP\001'),
-  serialized_pb=_b('\n4yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x12\x1eyamcs.protobuf.yamcsManagement\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"Q\n\x0eYamcsInstances\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\x84\x04\n\rYamcsInstance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12<\n\x0fmissionDatabase\x18\x03 \x01(\x0b\x32#.yamcs.protobuf.mdb.MissionDatabase\x12@\n\tprocessor\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\x12J\n\x05state\x18\x0b \x01(\x0e\x32;.yamcs.protobuf.yamcsManagement.YamcsInstance.InstanceState\x12\x14\n\x0c\x66\x61ilureCause\x18\t \x01(\t\x12\x13\n\x0bmissionTime\x18\n \x01(\t\x12I\n\x06labels\x18\x0c \x03(\x0b\x32\x39.yamcs.protobuf.yamcsManagement.YamcsInstance.LabelsEntry\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"t\n\rInstanceState\x12\x0b\n\x07OFFLINE\x10\x00\x12\x10\n\x0cINITIALIZING\x10\x01\x12\x0f\n\x0bINITIALIZED\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x0b\n\x07RUNNING\x10\x04\x12\x0c\n\x08STOPPING\x10\x05\x12\n\n\x06\x46\x41ILED\x10\x06\"d\n\x10InstanceTemplate\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x42\n\x08variable\x18\x02 \x03(\x0b\x32\x30.yamcs.protobuf.yamcsManagement.TemplateVariable\"G\n\x10TemplateVariable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08required\x18\x03 \x01(\x08\"\xa8\x03\n\rProcessorInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0f\n\x07\x63reator\x18\x05 \x01(\t\x12\x11\n\thasAlarms\x18\x06 \x01(\x08\x12\x15\n\rhasCommanding\x18\x07 \x01(\x08\x12;\n\x05state\x18\x08 \x01(\x0e\x32,.yamcs.protobuf.yamcsManagement.ServiceState\x12\x34\n\rreplayRequest\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.ReplayRequest\x12=\n\x0breplayState\x18\n \x01(\x0e\x32(.yamcs.protobuf.ReplayStatus.ReplayState\x12<\n\x07service\x18\x10 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\x12\x12\n\npersistent\x18\x11 \x01(\x08\x12\x0c\n\x04time\x18\x12 \x01(\t\x12\x0e\n\x06replay\x18\x13 \x01(\x08\"\xaf\x02\n\nClientInfo\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x17\n\x0f\x61pplicationName\x18\x04 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\n \x01(\t\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x05 \x01(\t\x12\x45\n\x05state\x18\x06 \x01(\x0e\x32\x36.yamcs.protobuf.yamcsManagement.ClientInfo.ClientState\x12-\n\tloginTime\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.Timestamp\".\n\x0b\x43lientState\x12\r\n\tCONNECTED\x10\x00\x12\x10\n\x0c\x44ISCONNECTED\x10\x01J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xf2\x01\n\x0cTmStatistics\x12\x12\n\npacketName\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\t \x01(\t\x12\x17\n\x0freceivedPackets\x18\x02 \x01(\x03\x12 \n\x18subscribedParameterCount\x18\x06 \x01(\x05\x12\x30\n\x0clastReceived\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0elastPacketTime\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x03\x10\x04J\x04\x08\x04\x10\x05J\x04\x08\x07\x10\x08J\x04\x08\x08\x10\t\"\xb2\x01\n\nStatistics\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x16\n\x0eyProcessorName\x18\x02 \x01(\t\x12=\n\x07tmstats\x18\x03 \x03(\x0b\x32,.yamcs.protobuf.yamcsManagement.TmStatistics\x12/\n\x0blastUpdated\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\x9d\x02\n\x1aProcessorManagementRequest\x12W\n\toperation\x18\x01 \x01(\x0e\x32\x44.yamcs.protobuf.yamcsManagement.ProcessorManagementRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x19\n\npersistent\x18\x07 \x01(\x08:\x05\x66\x61lse\";\n\tOperation\x12\x14\n\x10\x43REATE_PROCESSOR\x10\x00\x12\x18\n\x14\x43ONNECT_TO_PROCESSOR\x10\x01\"\x85\x02\n\x10ProcessorRequest\x12M\n\toperation\x18\x01 \x01(\x0e\x32:.yamcs.protobuf.yamcsManagement.ProcessorRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08seekTime\x18\x04 \x01(\x03\x12\x30\n\x0breplaySpeed\x18\x05 \x01(\x0b\x32\x1b.yamcs.protobuf.ReplaySpeed\">\n\tOperation\x12\t\n\x05PAUSE\x10\x02\x12\n\n\x06RESUME\x10\x03\x12\x08\n\x04SEEK\x10\x04\x12\x10\n\x0c\x43HANGE_SPEED\x10\x05\"\xcb\x01\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x61taInCount\x18\n \x01(\x03\x12\x14\n\x0c\x64\x61taOutCount\x18\x0b \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\x12\x12\n\nparentName\x18\x0c \x01(\tJ\x04\x08\x05\x10\x06J\x04\x08\x08\x10\t\"\xbc\x01\n\tLinkEvent\x12<\n\x04type\x18\x01 \x01(\x0e\x32..yamcs.protobuf.yamcsManagement.LinkEvent.Type\x12:\n\x08linkInfo\x18\x02 \x01(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"5\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\"\x90\x01\n\x0bServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12;\n\x05state\x18\x03 \x01(\x0e\x32,.yamcs.protobuf.yamcsManagement.ServiceState\x12\x11\n\tclassName\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\"\x9d\x01\n\x0bStreamEvent\x12>\n\x04type\x18\x01 \x01(\x0e\x32\x30.yamcs.protobuf.yamcsManagement.StreamEvent.Type\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tdataCount\x18\x03 \x01(\x03\"-\n\x04Type\x12\x0b\n\x07\x43REATED\x10\x01\x12\x0b\n\x07\x44\x45LETED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\"\x80\x04\n\nSystemInfo\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x02 \x01(\t\x12\x10\n\x08serverId\x18\x03 \x01(\t\x12\x0e\n\x06uptime\x18\x05 \x01(\x03\x12\x0b\n\x03jvm\x18\x06 \x01(\t\x12\x18\n\x10workingDirectory\x18\x07 \x01(\t\x12\x17\n\x0f\x63onfigDirectory\x18\x08 \x01(\t\x12\x15\n\rdataDirectory\x18\t \x01(\t\x12\x16\n\x0e\x63\x61\x63heDirectory\x18\n \x01(\t\x12\n\n\x02os\x18\x0b \x01(\t\x12\x0c\n\x04\x61rch\x18\x0c \x01(\t\x12\x1b\n\x13\x61vailableProcessors\x18\r \x01(\x05\x12\x13\n\x0bloadAverage\x18\x0e \x01(\x01\x12\x12\n\nheapMemory\x18\x0f \x01(\x03\x12\x16\n\x0eusedHeapMemory\x18\x10 \x01(\x03\x12\x15\n\rmaxHeapMemory\x18\x11 \x01(\x03\x12\x15\n\rnonHeapMemory\x18\x12 \x01(\x03\x12\x19\n\x11usedNonHeapMemory\x18\x13 \x01(\x03\x12\x18\n\x10maxNonHeapMemory\x18\x14 \x01(\x03\x12\x16\n\x0ejvmThreadCount\x18\x15 \x01(\x03\x12\x46\n\x0frootDirectories\x18\x16 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.RootDirectory\"s\n\rRootDirectory\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ntotalSpace\x18\x03 \x01(\x03\x12\x18\n\x10unallocatedSpace\x18\x04 \x01(\x03\x12\x13\n\x0busableSpace\x18\x05 \x01(\x03\"U\n\x14ListServicesResponse\x12=\n\x08services\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"#\n\x12\x45\x64itServiceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"Y\n\x15ListInstancesResponse\x12@\n\tinstances\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\xcd\x02\n\x15\x43reateInstanceRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08template\x18\x02 \x01(\t\x12]\n\x0ctemplateArgs\x18\x03 \x03(\x0b\x32G.yamcs.protobuf.yamcsManagement.CreateInstanceRequest.TemplateArgsEntry\x12Q\n\x06labels\x18\x04 \x03(\x0b\x32\x41.yamcs.protobuf.yamcsManagement.CreateInstanceRequest.LabelsEntry\x1a\x33\n\x11TemplateArgsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\x1dListInstanceTemplatesResponse\x12\x43\n\ttemplates\x18\x01 \x03(\x0b\x32\x30.yamcs.protobuf.yamcsManagement.InstanceTemplate\"$\n\x13\x45\x64itInstanceRequest\x12\r\n\x05state\x18\x01 \x01(\t\"\xbc\x01\n\x10LeapSecondsTable\x12N\n\x06ranges\x18\x01 \x03(\x0b\x32>.yamcs.protobuf.yamcsManagement.LeapSecondsTable.ValidityRange\x1aX\n\rValidityRange\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x13\n\x0bleapSeconds\x18\x03 \x01(\x05\x12\x15\n\rtaiDifference\x18\x04 \x01(\x05*\\\n\x0cServiceState\x12\x07\n\x03NEW\x10\x00\x12\x0c\n\x08STARTING\x10\x01\x12\x0b\n\x07RUNNING\x10\x02\x12\x0c\n\x08STOPPING\x10\x03\x12\x0e\n\nTERMINATED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05\x32\x89\x13\n\x0fYamcsManagement\x12}\n\rGetSystemInfo\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.yamcsManagement.SystemInfo\"(\x8a\x92\x03$\n\x03GET\x12\x0c/api/sysinfo\x1a\x0fGet system info\x12\x8e\x01\n\x0eGetLeapSeconds\x12\x16.google.protobuf.Empty\x1a\x30.yamcs.protobuf.yamcsManagement.LeapSecondsTable\"2\x8a\x92\x03.\n\x03GET\x12\x11/api/leap-seconds\x1a\x14Get UTC leap seconds\x12\xab\x01\n\x15ListInstanceTemplates\x12\x16.google.protobuf.Empty\x1a=.yamcs.protobuf.yamcsManagement.ListInstanceTemplatesResponse\";\x8a\x92\x03\x37\n\x03GET\x12\x17/api/instance-templates\x1a\x17List instance templates\x12\xa8\x01\n\x13GetInstanceTemplate\x12\x16.google.protobuf.Empty\x1a\x30.yamcs.protobuf.yamcsManagement.InstanceTemplate\"G\x8a\x92\x03\x43\n\x03GET\x12\"/api/instance-templates/{template}\x1a\x18Get an instance template\x12\x89\x01\n\rListInstances\x12\x16.google.protobuf.Empty\x1a\x35.yamcs.protobuf.yamcsManagement.ListInstancesResponse\")\x8a\x92\x03%\n\x03GET\x12\x0e/api/instances\x1a\x0eList instances\x12\x8b\x01\n\x0bGetInstance\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"5\x8a\x92\x03\x31\n\x03GET\x12\x19/api/instances/{instance}\x1a\x0fGet an instance\x12\xb2\x01\n\x0eUpdateInstance\x12\x33.yamcs.protobuf.yamcsManagement.EditInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"<\x8a\x92\x03\x38\n\x05PATCH\x12\x19/api/instances/{instance}\x1a\x12Update an instance \x01\x12\xa6\x01\n\x0e\x43reateInstance\x12\x35.yamcs.protobuf.yamcsManagement.CreateInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\".\x8a\x92\x03*\n\x04POST\x12\x0e/api/instances\x1a\x12\x43reate an instance\x12\x96\x01\n\rStartInstance\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\">\x8a\x92\x03:\n\x04POST\x12\x1f/api/instances/{instance}:start\x1a\x11Start an instance\x12\x93\x01\n\x0cStopInstance\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"<\x8a\x92\x03\x38\n\x04POST\x12\x1e/api/instances/{instance}:stop\x1a\x10Stop an instance\x12\x9c\x01\n\x0fRestartInstance\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"B\x8a\x92\x03>\n\x04POST\x12!/api/instances/{instance}:restart\x1a\x13Restart an instance\x12\x91\x01\n\x0cListServices\x12\x16.google.protobuf.Empty\x1a\x34.yamcs.protobuf.yamcsManagement.ListServicesResponse\"3\x8a\x92\x03/\n\x03GET\x12\x19/api/services/{instance?}\x1a\rList services\x12\x8c\x01\n\nGetService\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.yamcsManagement.ServiceInfo\"9\x8a\x92\x03\x35\n\x03GET\x12\x1f/api/services/{instance}/{name}\x1a\rGet a service\x12\x82\x01\n\x0cStartService\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"B\x8a\x92\x03>\n\x04POST\x12%/api/services/{instance}/{name}:start\x1a\x0fStart a service\x12\x7f\n\x0bStopService\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"@\x8a\x92\x03<\n\x04POST\x12$/api/services/{instance}/{name}:stop\x1a\x0eStop a service\x12\x9d\x01\n\rUpdateService\x12\x32.yamcs.protobuf.yamcsManagement.EditServiceRequest\x1a\x16.google.protobuf.Empty\"@\x8a\x92\x03<\n\x05PATCH\x12\x1f/api/services/{instance}/{name}\x1a\x10Update a service \x01\x42,\n\x12org.yamcs.protobufB\x14YamcsManagementProtoP\x01')
+  serialized_pb=_b('\n4yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x12\x1eyamcs.protobuf.yamcsManagement\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"Q\n\x0eYamcsInstances\x12?\n\x08instance\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\x84\x04\n\rYamcsInstance\x12\x0c\n\x04name\x18\x01 \x01(\t\x12<\n\x0fmissionDatabase\x18\x03 \x01(\x0b\x32#.yamcs.protobuf.mdb.MissionDatabase\x12@\n\tprocessor\x18\x04 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\x12J\n\x05state\x18\x0b \x01(\x0e\x32;.yamcs.protobuf.yamcsManagement.YamcsInstance.InstanceState\x12\x14\n\x0c\x66\x61ilureCause\x18\t \x01(\t\x12\x13\n\x0bmissionTime\x18\n \x01(\t\x12I\n\x06labels\x18\x0c \x03(\x0b\x32\x39.yamcs.protobuf.yamcsManagement.YamcsInstance.LabelsEntry\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"t\n\rInstanceState\x12\x0b\n\x07OFFLINE\x10\x00\x12\x10\n\x0cINITIALIZING\x10\x01\x12\x0f\n\x0bINITIALIZED\x10\x02\x12\x0c\n\x08STARTING\x10\x03\x12\x0b\n\x07RUNNING\x10\x04\x12\x0c\n\x08STOPPING\x10\x05\x12\n\n\x06\x46\x41ILED\x10\x06\"d\n\x10InstanceTemplate\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x42\n\x08variable\x18\x02 \x03(\x0b\x32\x30.yamcs.protobuf.yamcsManagement.TemplateVariable\"G\n\x10TemplateVariable\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08required\x18\x03 \x01(\x08\"\xa8\x03\n\rProcessorInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x0f\n\x07\x63reator\x18\x05 \x01(\t\x12\x11\n\thasAlarms\x18\x06 \x01(\x08\x12\x15\n\rhasCommanding\x18\x07 \x01(\x08\x12;\n\x05state\x18\x08 \x01(\x0e\x32,.yamcs.protobuf.yamcsManagement.ServiceState\x12\x34\n\rreplayRequest\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.ReplayRequest\x12=\n\x0breplayState\x18\n \x01(\x0e\x32(.yamcs.protobuf.ReplayStatus.ReplayState\x12<\n\x07service\x18\x10 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\x12\x12\n\npersistent\x18\x11 \x01(\x08\x12\x0c\n\x04time\x18\x12 \x01(\t\x12\x0e\n\x06replay\x18\x13 \x01(\x08\"\xaf\x02\n\nClientInfo\x12\n\n\x02id\x18\x02 \x01(\x05\x12\x10\n\x08username\x18\x03 \x01(\t\x12\x17\n\x0f\x61pplicationName\x18\x04 \x01(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\n \x01(\t\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x05 \x01(\t\x12\x45\n\x05state\x18\x06 \x01(\x0e\x32\x36.yamcs.protobuf.yamcsManagement.ClientInfo.ClientState\x12-\n\tloginTime\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.Timestamp\".\n\x0b\x43lientState\x12\r\n\tCONNECTED\x10\x00\x12\x10\n\x0c\x44ISCONNECTED\x10\x01J\x04\x08\x08\x10\tJ\x04\x08\t\x10\n\"\xf2\x01\n\x0cTmStatistics\x12\x12\n\npacketName\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\t \x01(\t\x12\x17\n\x0freceivedPackets\x18\x02 \x01(\x03\x12 \n\x18subscribedParameterCount\x18\x06 \x01(\x05\x12\x30\n\x0clastReceived\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0elastPacketTime\x18\x0b \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x03\x10\x04J\x04\x08\x04\x10\x05J\x04\x08\x07\x10\x08J\x04\x08\x08\x10\t\"\xb2\x01\n\nStatistics\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x16\n\x0eyProcessorName\x18\x02 \x01(\t\x12=\n\x07tmstats\x18\x03 \x03(\x0b\x32,.yamcs.protobuf.yamcsManagement.TmStatistics\x12/\n\x0blastUpdated\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.TimestampJ\x04\x08\x04\x10\x05J\x04\x08\x05\x10\x06\"\x9d\x02\n\x1aProcessorManagementRequest\x12W\n\toperation\x18\x01 \x01(\x0e\x32\x44.yamcs.protobuf.yamcsManagement.ProcessorManagementRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x10\n\x08\x63lientId\x18\x06 \x03(\x05\x12\x19\n\npersistent\x18\x07 \x01(\x08:\x05\x66\x61lse\";\n\tOperation\x12\x14\n\x10\x43REATE_PROCESSOR\x10\x00\x12\x18\n\x14\x43ONNECT_TO_PROCESSOR\x10\x01\"\x85\x02\n\x10ProcessorRequest\x12M\n\toperation\x18\x01 \x01(\x0e\x32:.yamcs.protobuf.yamcsManagement.ProcessorRequest.Operation\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08seekTime\x18\x04 \x01(\x03\x12\x30\n\x0breplaySpeed\x18\x05 \x01(\x0b\x32\x1b.yamcs.protobuf.ReplaySpeed\">\n\tOperation\x12\t\n\x05PAUSE\x10\x02\x12\n\n\x06RESUME\x10\x03\x12\x08\n\x04SEEK\x10\x04\x12\x10\n\x0c\x43HANGE_SPEED\x10\x05\"\xcb\x01\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x61taInCount\x18\n \x01(\x03\x12\x14\n\x0c\x64\x61taOutCount\x18\x0b \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\x12\x12\n\nparentName\x18\x0c \x01(\tJ\x04\x08\x05\x10\x06J\x04\x08\x08\x10\t\"\xbc\x01\n\tLinkEvent\x12<\n\x04type\x18\x01 \x01(\x0e\x32..yamcs.protobuf.yamcsManagement.LinkEvent.Type\x12:\n\x08linkInfo\x18\x02 \x01(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"5\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\"\x90\x01\n\x0bServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12;\n\x05state\x18\x03 \x01(\x0e\x32,.yamcs.protobuf.yamcsManagement.ServiceState\x12\x11\n\tclassName\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\"\x9d\x01\n\x0bStreamEvent\x12>\n\x04type\x18\x01 \x01(\x0e\x32\x30.yamcs.protobuf.yamcsManagement.StreamEvent.Type\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x11\n\tdataCount\x18\x03 \x01(\x03\"-\n\x04Type\x12\x0b\n\x07\x43REATED\x10\x01\x12\x0b\n\x07\x44\x45LETED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\"\x80\x04\n\nSystemInfo\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x02 \x01(\t\x12\x10\n\x08serverId\x18\x03 \x01(\t\x12\x0e\n\x06uptime\x18\x05 \x01(\x03\x12\x0b\n\x03jvm\x18\x06 \x01(\t\x12\x18\n\x10workingDirectory\x18\x07 \x01(\t\x12\x17\n\x0f\x63onfigDirectory\x18\x08 \x01(\t\x12\x15\n\rdataDirectory\x18\t \x01(\t\x12\x16\n\x0e\x63\x61\x63heDirectory\x18\n \x01(\t\x12\n\n\x02os\x18\x0b \x01(\t\x12\x0c\n\x04\x61rch\x18\x0c \x01(\t\x12\x1b\n\x13\x61vailableProcessors\x18\r \x01(\x05\x12\x13\n\x0bloadAverage\x18\x0e \x01(\x01\x12\x12\n\nheapMemory\x18\x0f \x01(\x03\x12\x16\n\x0eusedHeapMemory\x18\x10 \x01(\x03\x12\x15\n\rmaxHeapMemory\x18\x11 \x01(\x03\x12\x15\n\rnonHeapMemory\x18\x12 \x01(\x03\x12\x19\n\x11usedNonHeapMemory\x18\x13 \x01(\x03\x12\x18\n\x10maxNonHeapMemory\x18\x14 \x01(\x03\x12\x16\n\x0ejvmThreadCount\x18\x15 \x01(\x03\x12\x46\n\x0frootDirectories\x18\x16 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.RootDirectory\"s\n\rRootDirectory\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ntotalSpace\x18\x03 \x01(\x03\x12\x18\n\x10unallocatedSpace\x18\x04 \x01(\x03\x12\x13\n\x0busableSpace\x18\x05 \x01(\x03\"\'\n\x13ListServicesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"3\n\x11GetServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"5\n\x13StartServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"4\n\x12StopServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"U\n\x14ListServicesResponse\x12=\n\x08services\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.yamcsManagement.ServiceInfo\"C\n\x12\x45\x64itServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\t\"&\n\x14ListInstancesRequest\x12\x0e\n\x06\x66ilter\x18\x01 \x03(\t\"Y\n\x15ListInstancesResponse\x12@\n\tinstances\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\xcd\x02\n\x15\x43reateInstanceRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08template\x18\x02 \x01(\t\x12]\n\x0ctemplateArgs\x18\x03 \x03(\x0b\x32G.yamcs.protobuf.yamcsManagement.CreateInstanceRequest.TemplateArgsEntry\x12Q\n\x06labels\x18\x04 \x03(\x0b\x32\x41.yamcs.protobuf.yamcsManagement.CreateInstanceRequest.LabelsEntry\x1a\x33\n\x11TemplateArgsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a-\n\x0bLabelsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\x1dListInstanceTemplatesResponse\x12\x43\n\ttemplates\x18\x01 \x03(\x0b\x32\x30.yamcs.protobuf.yamcsManagement.InstanceTemplate\"6\n\x13\x45\x64itInstanceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05state\x18\x02 \x01(\t\"\xbc\x01\n\x10LeapSecondsTable\x12N\n\x06ranges\x18\x01 \x03(\x0b\x32>.yamcs.protobuf.yamcsManagement.LeapSecondsTable.ValidityRange\x1aX\n\rValidityRange\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\x13\n\x0bleapSeconds\x18\x03 \x01(\x05\x12\x15\n\rtaiDifference\x18\x04 \x01(\x05\".\n\x1aGetInstanceTemplateRequest\x12\x10\n\x08template\x18\x01 \x01(\t\"&\n\x12GetInstanceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"(\n\x14StartInstanceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\'\n\x13StopInstanceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"*\n\x16RestartInstanceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"$\n\x10ListLinksRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"L\n\x11ListLinksResponse\x12\x37\n\x05links\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.yamcsManagement.LinkInfo\"0\n\x0eGetLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"W\n\x0f\x45\x64itLinkRequest\x12\x10\n\x08instance\x18\x03 \x01(\t\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\r\n\x05state\x18\x01 \x01(\t\x12\x15\n\rresetCounters\x18\x02 \x01(\x08*\\\n\x0cServiceState\x12\x07\n\x03NEW\x10\x00\x12\x0c\n\x08STARTING\x10\x01\x12\x0b\n\x07RUNNING\x10\x02\x12\x0c\n\x08STOPPING\x10\x03\x12\x0e\n\nTERMINATED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05\x32\xdd\x15\n\rManagementApi\x12g\n\rGetSystemInfo\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.yamcsManagement.SystemInfo\"\x12\x8a\x92\x03\x0e\n\x0c/api/sysinfo\x12s\n\x0eGetLeapSeconds\x12\x16.google.protobuf.Empty\x1a\x30.yamcs.protobuf.yamcsManagement.LeapSecondsTable\"\x17\x8a\x92\x03\x13\n\x11/api/leap-seconds\x12\x8d\x01\n\x15ListInstanceTemplates\x12\x16.google.protobuf.Empty\x1a=.yamcs.protobuf.yamcsManagement.ListInstanceTemplatesResponse\"\x1d\x8a\x92\x03\x19\n\x17/api/instance-templates\x12\xad\x01\n\x13GetInstanceTemplate\x12:.yamcs.protobuf.yamcsManagement.GetInstanceTemplateRequest\x1a\x30.yamcs.protobuf.yamcsManagement.InstanceTemplate\"(\x8a\x92\x03$\n\"/api/instance-templates/{template}\x12\x92\x01\n\rListInstances\x12\x34.yamcs.protobuf.yamcsManagement.ListInstancesRequest\x1a\x35.yamcs.protobuf.yamcsManagement.ListInstancesResponse\"\x14\x8a\x92\x03\x10\n\x0e/api/instances\x12\x91\x01\n\x0bGetInstance\x12\x32.yamcs.protobuf.yamcsManagement.GetInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\x1f\x8a\x92\x03\x1b\n\x19/api/instances/{instance}\x12\x9a\x01\n\x0eUpdateInstance\x12\x33.yamcs.protobuf.yamcsManagement.EditInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"$\x8a\x92\x03 *\x19/api/instances/{instance}0\x01:\x01*\x12\x8f\x01\n\x0e\x43reateInstance\x12\x35.yamcs.protobuf.yamcsManagement.CreateInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\x17\x8a\x92\x03\x13\x1a\x0e/api/instances:\x01*\x12\x9b\x01\n\rStartInstance\x12\x34.yamcs.protobuf.yamcsManagement.StartInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"%\x8a\x92\x03!\x1a\x1f/api/instances/{instance}:start\x12\x98\x01\n\x0cStopInstance\x12\x33.yamcs.protobuf.yamcsManagement.StopInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"$\x8a\x92\x03 \x1a\x1e/api/instances/{instance}:stop\x12\xa1\x01\n\x0fRestartInstance\x12\x36.yamcs.protobuf.yamcsManagement.RestartInstanceRequest\x1a-.yamcs.protobuf.yamcsManagement.YamcsInstance\"\'\x8a\x92\x03#\x1a!/api/instances/{instance}:restart\x12\x99\x01\n\x0cListServices\x12\x33.yamcs.protobuf.yamcsManagement.ListServicesRequest\x1a\x34.yamcs.protobuf.yamcsManagement.ListServicesResponse\"\x1e\x8a\x92\x03\x1a\n\x18/api/services/{instance}\x12\x93\x01\n\nGetService\x12\x31.yamcs.protobuf.yamcsManagement.GetServiceRequest\x1a+.yamcs.protobuf.yamcsManagement.ServiceInfo\"%\x8a\x92\x03!\n\x1f/api/services/{instance}/{name}\x12\x88\x01\n\x0cStartService\x12\x33.yamcs.protobuf.yamcsManagement.StartServiceRequest\x1a\x16.google.protobuf.Empty\"+\x8a\x92\x03\'\x1a%/api/services/{instance}/{name}:start\x12\x85\x01\n\x0bStopService\x12\x32.yamcs.protobuf.yamcsManagement.StopServiceRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&\x1a$/api/services/{instance}/{name}:stop\x12\x87\x01\n\rUpdateService\x12\x32.yamcs.protobuf.yamcsManagement.EditServiceRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&*\x1f/api/services/{instance}/{name}0\x01:\x01*\x12\x8e\x01\n\tListLinks\x12\x30.yamcs.protobuf.yamcsManagement.ListLinksRequest\x1a\x31.yamcs.protobuf.yamcsManagement.ListLinksResponse\"\x1c\x8a\x92\x03\x18\n\x16/api/links/{instance?}\x12\x87\x01\n\x07GetLink\x12..yamcs.protobuf.yamcsManagement.GetLinkRequest\x1a(.yamcs.protobuf.yamcsManagement.LinkInfo\"\"\x8a\x92\x03\x1e\n\x1c/api/links/{instance}/{name}\x12\x8e\x01\n\nUpdateLink\x12/.yamcs.protobuf.yamcsManagement.EditLinkRequest\x1a(.yamcs.protobuf.yamcsManagement.LinkInfo\"%\x8a\x92\x03!*\x1c/api/links/{instance}/{name}:\x01*B,\n\x12org.yamcs.protobufB\x14YamcsManagementProtoP\x01')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -63,8 +63,8 @@ _SERVICESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4943,
-  serialized_end=5035,
+  serialized_start=5706,
+  serialized_end=5798,
 )
 _sym_db.RegisterEnumDescriptor(_SERVICESTATE)
 
@@ -1394,6 +1394,151 @@ _ROOTDIRECTORY = _descriptor.Descriptor(
 )
 
 
+_LISTSERVICESREQUEST = _descriptor.Descriptor(
+  name='ListServicesRequest',
+  full_name='yamcs.protobuf.yamcsManagement.ListServicesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.ListServicesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4061,
+  serialized_end=4100,
+)
+
+
+_GETSERVICEREQUEST = _descriptor.Descriptor(
+  name='GetServiceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.GetServiceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.GetServiceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.GetServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4102,
+  serialized_end=4153,
+)
+
+
+_STARTSERVICEREQUEST = _descriptor.Descriptor(
+  name='StartServiceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.StartServiceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.StartServiceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.StartServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4155,
+  serialized_end=4208,
+)
+
+
+_STOPSERVICEREQUEST = _descriptor.Descriptor(
+  name='StopServiceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.StopServiceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.StopServiceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.StopServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4210,
+  serialized_end=4262,
+)
+
+
 _LISTSERVICESRESPONSE = _descriptor.Descriptor(
   name='ListServicesResponse',
   full_name='yamcs.protobuf.yamcsManagement.ListServicesResponse',
@@ -1420,8 +1565,8 @@ _LISTSERVICESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4061,
-  serialized_end=4146,
+  serialized_start=4264,
+  serialized_end=4349,
 )
 
 
@@ -1433,8 +1578,22 @@ _EDITSERVICEREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='state', full_name='yamcs.protobuf.yamcsManagement.EditServiceRequest.state', index=0,
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.EditServiceRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.EditServiceRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='yamcs.protobuf.yamcsManagement.EditServiceRequest.state', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1451,8 +1610,39 @@ _EDITSERVICEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4148,
-  serialized_end=4183,
+  serialized_start=4351,
+  serialized_end=4418,
+)
+
+
+_LISTINSTANCESREQUEST = _descriptor.Descriptor(
+  name='ListInstancesRequest',
+  full_name='yamcs.protobuf.yamcsManagement.ListInstancesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='filter', full_name='yamcs.protobuf.yamcsManagement.ListInstancesRequest.filter', index=0,
+      number=1, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4420,
+  serialized_end=4458,
 )
 
 
@@ -1482,8 +1672,8 @@ _LISTINSTANCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4185,
-  serialized_end=4274,
+  serialized_start=4460,
+  serialized_end=4549,
 )
 
 
@@ -1520,8 +1710,8 @@ _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4512,
-  serialized_end=4563,
+  serialized_start=4787,
+  serialized_end=4838,
 )
 
 _CREATEINSTANCEREQUEST_LABELSENTRY = _descriptor.Descriptor(
@@ -1608,8 +1798,8 @@ _CREATEINSTANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4277,
-  serialized_end=4610,
+  serialized_start=4552,
+  serialized_end=4885,
 )
 
 
@@ -1639,8 +1829,8 @@ _LISTINSTANCETEMPLATESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4612,
-  serialized_end=4712,
+  serialized_start=4887,
+  serialized_end=4987,
 )
 
 
@@ -1652,8 +1842,15 @@ _EDITINSTANCEREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='state', full_name='yamcs.protobuf.yamcsManagement.EditInstanceRequest.state', index=0,
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.EditInstanceRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='yamcs.protobuf.yamcsManagement.EditInstanceRequest.state', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1670,8 +1867,8 @@ _EDITINSTANCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4714,
-  serialized_end=4750,
+  serialized_start=4989,
+  serialized_end=5043,
 )
 
 
@@ -1722,8 +1919,8 @@ _LEAPSECONDSTABLE_VALIDITYRANGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4853,
-  serialized_end=4941,
+  serialized_start=5146,
+  serialized_end=5234,
 )
 
 _LEAPSECONDSTABLE = _descriptor.Descriptor(
@@ -1752,8 +1949,315 @@ _LEAPSECONDSTABLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4753,
-  serialized_end=4941,
+  serialized_start=5046,
+  serialized_end=5234,
+)
+
+
+_GETINSTANCETEMPLATEREQUEST = _descriptor.Descriptor(
+  name='GetInstanceTemplateRequest',
+  full_name='yamcs.protobuf.yamcsManagement.GetInstanceTemplateRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='template', full_name='yamcs.protobuf.yamcsManagement.GetInstanceTemplateRequest.template', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5236,
+  serialized_end=5282,
+)
+
+
+_GETINSTANCEREQUEST = _descriptor.Descriptor(
+  name='GetInstanceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.GetInstanceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.GetInstanceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5284,
+  serialized_end=5322,
+)
+
+
+_STARTINSTANCEREQUEST = _descriptor.Descriptor(
+  name='StartInstanceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.StartInstanceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.StartInstanceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5324,
+  serialized_end=5364,
+)
+
+
+_STOPINSTANCEREQUEST = _descriptor.Descriptor(
+  name='StopInstanceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.StopInstanceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.StopInstanceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5366,
+  serialized_end=5405,
+)
+
+
+_RESTARTINSTANCEREQUEST = _descriptor.Descriptor(
+  name='RestartInstanceRequest',
+  full_name='yamcs.protobuf.yamcsManagement.RestartInstanceRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.RestartInstanceRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5407,
+  serialized_end=5449,
+)
+
+
+_LISTLINKSREQUEST = _descriptor.Descriptor(
+  name='ListLinksRequest',
+  full_name='yamcs.protobuf.yamcsManagement.ListLinksRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.ListLinksRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5451,
+  serialized_end=5487,
+)
+
+
+_LISTLINKSRESPONSE = _descriptor.Descriptor(
+  name='ListLinksResponse',
+  full_name='yamcs.protobuf.yamcsManagement.ListLinksResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='links', full_name='yamcs.protobuf.yamcsManagement.ListLinksResponse.links', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5489,
+  serialized_end=5565,
+)
+
+
+_GETLINKREQUEST = _descriptor.Descriptor(
+  name='GetLinkRequest',
+  full_name='yamcs.protobuf.yamcsManagement.GetLinkRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.GetLinkRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.GetLinkRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5567,
+  serialized_end=5615,
+)
+
+
+_EDITLINKREQUEST = _descriptor.Descriptor(
+  name='EditLinkRequest',
+  full_name='yamcs.protobuf.yamcsManagement.EditLinkRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.yamcsManagement.EditLinkRequest.instance', index=0,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.yamcsManagement.EditLinkRequest.name', index=1,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='state', full_name='yamcs.protobuf.yamcsManagement.EditLinkRequest.state', index=2,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='resetCounters', full_name='yamcs.protobuf.yamcsManagement.EditLinkRequest.resetCounters', index=3,
+      number=2, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5617,
+  serialized_end=5704,
 )
 
 _YAMCSINSTANCES.fields_by_name['instance'].message_type = _YAMCSINSTANCE
@@ -1796,6 +2300,7 @@ _CREATEINSTANCEREQUEST.fields_by_name['labels'].message_type = _CREATEINSTANCERE
 _LISTINSTANCETEMPLATESRESPONSE.fields_by_name['templates'].message_type = _INSTANCETEMPLATE
 _LEAPSECONDSTABLE_VALIDITYRANGE.containing_type = _LEAPSECONDSTABLE
 _LEAPSECONDSTABLE.fields_by_name['ranges'].message_type = _LEAPSECONDSTABLE_VALIDITYRANGE
+_LISTLINKSRESPONSE.fields_by_name['links'].message_type = _LINKINFO
 DESCRIPTOR.message_types_by_name['YamcsInstances'] = _YAMCSINSTANCES
 DESCRIPTOR.message_types_by_name['YamcsInstance'] = _YAMCSINSTANCE
 DESCRIPTOR.message_types_by_name['InstanceTemplate'] = _INSTANCETEMPLATE
@@ -1812,13 +2317,27 @@ DESCRIPTOR.message_types_by_name['ServiceInfo'] = _SERVICEINFO
 DESCRIPTOR.message_types_by_name['StreamEvent'] = _STREAMEVENT
 DESCRIPTOR.message_types_by_name['SystemInfo'] = _SYSTEMINFO
 DESCRIPTOR.message_types_by_name['RootDirectory'] = _ROOTDIRECTORY
+DESCRIPTOR.message_types_by_name['ListServicesRequest'] = _LISTSERVICESREQUEST
+DESCRIPTOR.message_types_by_name['GetServiceRequest'] = _GETSERVICEREQUEST
+DESCRIPTOR.message_types_by_name['StartServiceRequest'] = _STARTSERVICEREQUEST
+DESCRIPTOR.message_types_by_name['StopServiceRequest'] = _STOPSERVICEREQUEST
 DESCRIPTOR.message_types_by_name['ListServicesResponse'] = _LISTSERVICESRESPONSE
 DESCRIPTOR.message_types_by_name['EditServiceRequest'] = _EDITSERVICEREQUEST
+DESCRIPTOR.message_types_by_name['ListInstancesRequest'] = _LISTINSTANCESREQUEST
 DESCRIPTOR.message_types_by_name['ListInstancesResponse'] = _LISTINSTANCESRESPONSE
 DESCRIPTOR.message_types_by_name['CreateInstanceRequest'] = _CREATEINSTANCEREQUEST
 DESCRIPTOR.message_types_by_name['ListInstanceTemplatesResponse'] = _LISTINSTANCETEMPLATESRESPONSE
 DESCRIPTOR.message_types_by_name['EditInstanceRequest'] = _EDITINSTANCEREQUEST
 DESCRIPTOR.message_types_by_name['LeapSecondsTable'] = _LEAPSECONDSTABLE
+DESCRIPTOR.message_types_by_name['GetInstanceTemplateRequest'] = _GETINSTANCETEMPLATEREQUEST
+DESCRIPTOR.message_types_by_name['GetInstanceRequest'] = _GETINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['StartInstanceRequest'] = _STARTINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['StopInstanceRequest'] = _STOPINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['RestartInstanceRequest'] = _RESTARTINSTANCEREQUEST
+DESCRIPTOR.message_types_by_name['ListLinksRequest'] = _LISTLINKSREQUEST
+DESCRIPTOR.message_types_by_name['ListLinksResponse'] = _LISTLINKSRESPONSE
+DESCRIPTOR.message_types_by_name['GetLinkRequest'] = _GETLINKREQUEST
+DESCRIPTOR.message_types_by_name['EditLinkRequest'] = _EDITLINKREQUEST
 DESCRIPTOR.enum_types_by_name['ServiceState'] = _SERVICESTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -1942,6 +2461,34 @@ RootDirectory = _reflection.GeneratedProtocolMessageType('RootDirectory', (_mess
   ))
 _sym_db.RegisterMessage(RootDirectory)
 
+ListServicesRequest = _reflection.GeneratedProtocolMessageType('ListServicesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTSERVICESREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListServicesRequest)
+  ))
+_sym_db.RegisterMessage(ListServicesRequest)
+
+GetServiceRequest = _reflection.GeneratedProtocolMessageType('GetServiceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETSERVICEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetServiceRequest)
+  ))
+_sym_db.RegisterMessage(GetServiceRequest)
+
+StartServiceRequest = _reflection.GeneratedProtocolMessageType('StartServiceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _STARTSERVICEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StartServiceRequest)
+  ))
+_sym_db.RegisterMessage(StartServiceRequest)
+
+StopServiceRequest = _reflection.GeneratedProtocolMessageType('StopServiceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _STOPSERVICEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StopServiceRequest)
+  ))
+_sym_db.RegisterMessage(StopServiceRequest)
+
 ListServicesResponse = _reflection.GeneratedProtocolMessageType('ListServicesResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTSERVICESRESPONSE,
   __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
@@ -1955,6 +2502,13 @@ EditServiceRequest = _reflection.GeneratedProtocolMessageType('EditServiceReques
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.EditServiceRequest)
   ))
 _sym_db.RegisterMessage(EditServiceRequest)
+
+ListInstancesRequest = _reflection.GeneratedProtocolMessageType('ListInstancesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTINSTANCESREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListInstancesRequest)
+  ))
+_sym_db.RegisterMessage(ListInstancesRequest)
 
 ListInstancesResponse = _reflection.GeneratedProtocolMessageType('ListInstancesResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTINSTANCESRESPONSE,
@@ -2015,168 +2569,258 @@ LeapSecondsTable = _reflection.GeneratedProtocolMessageType('LeapSecondsTable', 
 _sym_db.RegisterMessage(LeapSecondsTable)
 _sym_db.RegisterMessage(LeapSecondsTable.ValidityRange)
 
+GetInstanceTemplateRequest = _reflection.GeneratedProtocolMessageType('GetInstanceTemplateRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETINSTANCETEMPLATEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetInstanceTemplateRequest)
+  ))
+_sym_db.RegisterMessage(GetInstanceTemplateRequest)
+
+GetInstanceRequest = _reflection.GeneratedProtocolMessageType('GetInstanceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETINSTANCEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetInstanceRequest)
+  ))
+_sym_db.RegisterMessage(GetInstanceRequest)
+
+StartInstanceRequest = _reflection.GeneratedProtocolMessageType('StartInstanceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _STARTINSTANCEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StartInstanceRequest)
+  ))
+_sym_db.RegisterMessage(StartInstanceRequest)
+
+StopInstanceRequest = _reflection.GeneratedProtocolMessageType('StopInstanceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _STOPINSTANCEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StopInstanceRequest)
+  ))
+_sym_db.RegisterMessage(StopInstanceRequest)
+
+RestartInstanceRequest = _reflection.GeneratedProtocolMessageType('RestartInstanceRequest', (_message.Message,), dict(
+  DESCRIPTOR = _RESTARTINSTANCEREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.RestartInstanceRequest)
+  ))
+_sym_db.RegisterMessage(RestartInstanceRequest)
+
+ListLinksRequest = _reflection.GeneratedProtocolMessageType('ListLinksRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTLINKSREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListLinksRequest)
+  ))
+_sym_db.RegisterMessage(ListLinksRequest)
+
+ListLinksResponse = _reflection.GeneratedProtocolMessageType('ListLinksResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTLINKSRESPONSE,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListLinksResponse)
+  ))
+_sym_db.RegisterMessage(ListLinksResponse)
+
+GetLinkRequest = _reflection.GeneratedProtocolMessageType('GetLinkRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETLINKREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetLinkRequest)
+  ))
+_sym_db.RegisterMessage(GetLinkRequest)
+
+EditLinkRequest = _reflection.GeneratedProtocolMessageType('EditLinkRequest', (_message.Message,), dict(
+  DESCRIPTOR = _EDITLINKREQUEST,
+  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.EditLinkRequest)
+  ))
+_sym_db.RegisterMessage(EditLinkRequest)
+
 
 DESCRIPTOR._options = None
 _YAMCSINSTANCE_LABELSENTRY._options = None
 _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY._options = None
 _CREATEINSTANCEREQUEST_LABELSENTRY._options = None
 
-_YAMCSMANAGEMENT = _descriptor.ServiceDescriptor(
-  name='YamcsManagement',
-  full_name='yamcs.protobuf.yamcsManagement.YamcsManagement',
+_MANAGEMENTAPI = _descriptor.ServiceDescriptor(
+  name='ManagementApi',
+  full_name='yamcs.protobuf.yamcsManagement.ManagementApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=5038,
-  serialized_end=7479,
+  serialized_start=5801,
+  serialized_end=8582,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetSystemInfo',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.GetSystemInfo',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetSystemInfo',
     index=0,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_SYSTEMINFO,
-    serialized_options=_b('\212\222\003$\n\003GET\022\014/api/sysinfo\032\017Get system info'),
+    serialized_options=_b('\212\222\003\016\n\014/api/sysinfo'),
   ),
   _descriptor.MethodDescriptor(
     name='GetLeapSeconds',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.GetLeapSeconds',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetLeapSeconds',
     index=1,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LEAPSECONDSTABLE,
-    serialized_options=_b('\212\222\003.\n\003GET\022\021/api/leap-seconds\032\024Get UTC leap seconds'),
+    serialized_options=_b('\212\222\003\023\n\021/api/leap-seconds'),
   ),
   _descriptor.MethodDescriptor(
     name='ListInstanceTemplates',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.ListInstanceTemplates',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.ListInstanceTemplates',
     index=2,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTINSTANCETEMPLATESRESPONSE,
-    serialized_options=_b('\212\222\0037\n\003GET\022\027/api/instance-templates\032\027List instance templates'),
+    serialized_options=_b('\212\222\003\031\n\027/api/instance-templates'),
   ),
   _descriptor.MethodDescriptor(
     name='GetInstanceTemplate',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.GetInstanceTemplate',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetInstanceTemplate',
     index=3,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETINSTANCETEMPLATEREQUEST,
     output_type=_INSTANCETEMPLATE,
-    serialized_options=_b('\212\222\003C\n\003GET\022\"/api/instance-templates/{template}\032\030Get an instance template'),
+    serialized_options=_b('\212\222\003$\n\"/api/instance-templates/{template}'),
   ),
   _descriptor.MethodDescriptor(
     name='ListInstances',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.ListInstances',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.ListInstances',
     index=4,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTINSTANCESREQUEST,
     output_type=_LISTINSTANCESRESPONSE,
-    serialized_options=_b('\212\222\003%\n\003GET\022\016/api/instances\032\016List instances'),
+    serialized_options=_b('\212\222\003\020\n\016/api/instances'),
   ),
   _descriptor.MethodDescriptor(
     name='GetInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.GetInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetInstance',
     index=5,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\0031\n\003GET\022\031/api/instances/{instance}\032\017Get an instance'),
+    serialized_options=_b('\212\222\003\033\n\031/api/instances/{instance}'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.UpdateInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.UpdateInstance',
     index=6,
     containing_service=None,
     input_type=_EDITINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\0038\n\005PATCH\022\031/api/instances/{instance}\032\022Update an instance \001'),
+    serialized_options=_b('\212\222\003 *\031/api/instances/{instance}0\001:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.CreateInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.CreateInstance',
     index=7,
     containing_service=None,
     input_type=_CREATEINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\003*\n\004POST\022\016/api/instances\032\022Create an instance'),
+    serialized_options=_b('\212\222\003\023\032\016/api/instances:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='StartInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.StartInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.StartInstance',
     index=8,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_STARTINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\003:\n\004POST\022\037/api/instances/{instance}:start\032\021Start an instance'),
+    serialized_options=_b('\212\222\003!\032\037/api/instances/{instance}:start'),
   ),
   _descriptor.MethodDescriptor(
     name='StopInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.StopInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.StopInstance',
     index=9,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_STOPINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\0038\n\004POST\022\036/api/instances/{instance}:stop\032\020Stop an instance'),
+    serialized_options=_b('\212\222\003 \032\036/api/instances/{instance}:stop'),
   ),
   _descriptor.MethodDescriptor(
     name='RestartInstance',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.RestartInstance',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.RestartInstance',
     index=10,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_RESTARTINSTANCEREQUEST,
     output_type=_YAMCSINSTANCE,
-    serialized_options=_b('\212\222\003>\n\004POST\022!/api/instances/{instance}:restart\032\023Restart an instance'),
+    serialized_options=_b('\212\222\003#\032!/api/instances/{instance}:restart'),
   ),
   _descriptor.MethodDescriptor(
     name='ListServices',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.ListServices',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.ListServices',
     index=11,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTSERVICESREQUEST,
     output_type=_LISTSERVICESRESPONSE,
-    serialized_options=_b('\212\222\003/\n\003GET\022\031/api/services/{instance?}\032\rList services'),
+    serialized_options=_b('\212\222\003\032\n\030/api/services/{instance}'),
   ),
   _descriptor.MethodDescriptor(
     name='GetService',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.GetService',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetService',
     index=12,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETSERVICEREQUEST,
     output_type=_SERVICEINFO,
-    serialized_options=_b('\212\222\0035\n\003GET\022\037/api/services/{instance}/{name}\032\rGet a service'),
+    serialized_options=_b('\212\222\003!\n\037/api/services/{instance}/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='StartService',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.StartService',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.StartService',
     index=13,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_STARTSERVICEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003>\n\004POST\022%/api/services/{instance}/{name}:start\032\017Start a service'),
+    serialized_options=_b('\212\222\003\'\032%/api/services/{instance}/{name}:start'),
   ),
   _descriptor.MethodDescriptor(
     name='StopService',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.StopService',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.StopService',
     index=14,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_STOPSERVICEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003<\n\004POST\022$/api/services/{instance}/{name}:stop\032\016Stop a service'),
+    serialized_options=_b('\212\222\003&\032$/api/services/{instance}/{name}:stop'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateService',
-    full_name='yamcs.protobuf.yamcsManagement.YamcsManagement.UpdateService',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.UpdateService',
     index=15,
     containing_service=None,
     input_type=_EDITSERVICEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003<\n\005PATCH\022\037/api/services/{instance}/{name}\032\020Update a service \001'),
+    serialized_options=_b('\212\222\003&*\037/api/services/{instance}/{name}0\001:\001*'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='ListLinks',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.ListLinks',
+    index=16,
+    containing_service=None,
+    input_type=_LISTLINKSREQUEST,
+    output_type=_LISTLINKSRESPONSE,
+    serialized_options=_b('\212\222\003\030\n\026/api/links/{instance?}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetLink',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.GetLink',
+    index=17,
+    containing_service=None,
+    input_type=_GETLINKREQUEST,
+    output_type=_LINKINFO,
+    serialized_options=_b('\212\222\003\036\n\034/api/links/{instance}/{name}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpdateLink',
+    full_name='yamcs.protobuf.yamcsManagement.ManagementApi.UpdateLink',
+    index=18,
+    containing_service=None,
+    input_type=_EDITLINKREQUEST,
+    output_type=_LINKINFO,
+    serialized_options=_b('\212\222\003!*\034/api/links/{instance}/{name}:\001*'),
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_YAMCSMANAGEMENT)
+_sym_db.RegisterServiceDescriptor(_MANAGEMENTAPI)
 
-DESCRIPTOR.services_by_name['YamcsManagement'] = _YAMCSMANAGEMENT
+DESCRIPTOR.services_by_name['ManagementApi'] = _MANAGEMENTAPI
 
 # @@protoc_insertion_point(module_scope)

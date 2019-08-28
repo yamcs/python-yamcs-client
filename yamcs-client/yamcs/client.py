@@ -14,8 +14,7 @@ from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.iam import iam_pb2
-from yamcs.protobuf.rest import rest_pb2
-from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.web import rest_pb2, websocket_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
@@ -26,7 +25,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     from a WebSocket data message
     """
     if message.type == message.REPLY:
-        time_response = web_pb2.TimeSubscriptionResponse()
+        time_response = websocket_pb2.TimeSubscriptionResponse()
         time_response.ParseFromString(message.reply.data)
         time = parse_isostring(time_response.timeInfo.currentTimeUTC)
         #pylint: disable=protected-access
@@ -187,7 +186,7 @@ class YamcsClient(BaseClient):
             response = self.session.get(self.auth_root, headers={
                 'Accept': 'application/protobuf'
             })
-            message = web_pb2.AuthInfo()
+            message = rest_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
@@ -263,7 +262,7 @@ class YamcsClient(BaseClient):
         # Return an iterator anyway for similarity with other API methods
         url = '/services/{}'.format(instance)
         response = self.get_proto(path=url)
-        message = yamcsManagement_pb2.ListServiceInfoResponse()
+        message = yamcsManagement_pb2.ListServicesResponse()
         message.ParseFromString(response.content)
         services = getattr(message, 'services')
         return iter([Service(service) for service in services])
@@ -393,7 +392,7 @@ class YamcsClient(BaseClient):
         response = self.get_proto(path='/links/' + instance)
         message = rest_pb2.ListLinkInfoResponse()
         message.ParseFromString(response.content)
-        links = getattr(message, 'link')
+        links = getattr(message, 'links')
         return iter([Link(link) for link in links])
 
     def send_event(self, instance, message, event_type=None, time=None,
@@ -459,7 +458,7 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
         """
-        req = rest_pb2.EditLinkRequest()
+        req = yamcsManagement_pb2.EditLinkRequest()
         req.state = 'enabled'
         url = '/links/{}/{}'.format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
@@ -471,7 +470,7 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
         """
-        req = rest_pb2.EditLinkRequest()
+        req = yamcsManagement_pb2.EditLinkRequest()
         req.state = 'disabled'
         url = '/links/{}/{}'.format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())

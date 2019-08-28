@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.api',
   syntax='proto2',
   serialized_options=_b('\n\rorg.yamcs.apiB\020AnnotationsProtoP\001'),
-  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"R\n\tHttpRoute\x12\x0e\n\x06method\x18\x01 \x01(\t\x12\x0c\n\x04path\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\ndeprecated\x18\x04 \x01(\x08:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRouteB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
+  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"\xf6\x01\n\tHttpRoute\x12\r\n\x03get\x18\x01 \x01(\tH\x00\x12\r\n\x03put\x18\x02 \x01(\tH\x00\x12\x0e\n\x04post\x18\x03 \x01(\tH\x00\x12\x10\n\x06\x64\x65lete\x18\x04 \x01(\tH\x00\x12\x0f\n\x05patch\x18\x05 \x01(\tH\x00\x12\x12\n\ndeprecated\x18\x06 \x01(\x08\x12\x0c\n\x04\x62ody\x18\x07 \x01(\t\x12\x13\n\x0bmaxBodySize\x18\x08 \x01(\x05\x12\x11\n\toffThread\x18\t \x01(\x08\x12\x10\n\x08\x64\x61taLoad\x18\n \x01(\x08\x12\x31\n\x13\x61\x64\x64itional_bindings\x18\x0b \x03(\x0b\x32\x14.yamcs.api.HttpRouteB\t\n\x07pattern:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRouteB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_descriptor__pb2.DESCRIPTOR,])
 
@@ -44,30 +44,79 @@ _HTTPROUTE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='method', full_name='yamcs.api.HttpRoute.method', index=0,
+      name='get', full_name='yamcs.api.HttpRoute.get', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='path', full_name='yamcs.api.HttpRoute.path', index=1,
+      name='put', full_name='yamcs.api.HttpRoute.put', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.api.HttpRoute.description', index=2,
+      name='post', full_name='yamcs.api.HttpRoute.post', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='deprecated', full_name='yamcs.api.HttpRoute.deprecated', index=3,
-      number=4, type=8, cpp_type=7, label=1,
+      name='delete', full_name='yamcs.api.HttpRoute.delete', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='patch', full_name='yamcs.api.HttpRoute.patch', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='deprecated', full_name='yamcs.api.HttpRoute.deprecated', index=5,
+      number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='body', full_name='yamcs.api.HttpRoute.body', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maxBodySize', full_name='yamcs.api.HttpRoute.maxBodySize', index=7,
+      number=8, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='offThread', full_name='yamcs.api.HttpRoute.offThread', index=8,
+      number=9, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dataLoad', full_name='yamcs.api.HttpRoute.dataLoad', index=9,
+      number=10, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='additional_bindings', full_name='yamcs.api.HttpRoute.additional_bindings', index=10,
+      number=11, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -82,11 +131,30 @@ _HTTPROUTE = _descriptor.Descriptor(
   syntax='proto2',
   extension_ranges=[],
   oneofs=[
+    _descriptor.OneofDescriptor(
+      name='pattern', full_name='yamcs.api.HttpRoute.pattern',
+      index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=76,
-  serialized_end=158,
+  serialized_start=77,
+  serialized_end=323,
 )
 
+_HTTPROUTE.fields_by_name['additional_bindings'].message_type = _HTTPROUTE
+_HTTPROUTE.oneofs_by_name['pattern'].fields.append(
+  _HTTPROUTE.fields_by_name['get'])
+_HTTPROUTE.fields_by_name['get'].containing_oneof = _HTTPROUTE.oneofs_by_name['pattern']
+_HTTPROUTE.oneofs_by_name['pattern'].fields.append(
+  _HTTPROUTE.fields_by_name['put'])
+_HTTPROUTE.fields_by_name['put'].containing_oneof = _HTTPROUTE.oneofs_by_name['pattern']
+_HTTPROUTE.oneofs_by_name['pattern'].fields.append(
+  _HTTPROUTE.fields_by_name['post'])
+_HTTPROUTE.fields_by_name['post'].containing_oneof = _HTTPROUTE.oneofs_by_name['pattern']
+_HTTPROUTE.oneofs_by_name['pattern'].fields.append(
+  _HTTPROUTE.fields_by_name['delete'])
+_HTTPROUTE.fields_by_name['delete'].containing_oneof = _HTTPROUTE.oneofs_by_name['pattern']
+_HTTPROUTE.oneofs_by_name['pattern'].fields.append(
+  _HTTPROUTE.fields_by_name['patch'])
+_HTTPROUTE.fields_by_name['patch'].containing_oneof = _HTTPROUTE.oneofs_by_name['pattern']
 DESCRIPTOR.message_types_by_name['HttpRoute'] = _HTTPROUTE
 DESCRIPTOR.extensions_by_name['route'] = route
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)

@@ -15,6 +15,7 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
+from yamcs.protobuf.commanding import commanding_pb2 as yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2
 from yamcs.protobuf.pvalue import pvalue_pb2 as yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2
 from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
 
@@ -24,11 +25,122 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.processing',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\017ProcessingProtoP\001'),
-  serialized_pb=_b('\n*yamcs/protobuf/processing/processing.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"o\n\x1e\x42\x61tchGetParameterValuesRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"W\n\x1f\x42\x61tchGetParameterValuesResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xf2\x01\n\x1e\x42\x61tchSetParameterValuesRequest\x12\x63\n\x07request\x18\x01 \x03(\x0b\x32R.yamcs.protobuf.processing.BatchSetParameterValuesRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value2\x9b\x05\n\rProcessingAPI\x12\xad\x01\n\x11GetParameterValue\x12\x16.google.protobuf.Empty\x1a%.yamcs.protobuf.pvalue.ParameterValue\"Y\x8a\x92\x03U\n\x03GET\x12\x39/api/processors/{instance}/{processor}/parameters/{name*}\x1a\x13Get parameter value\x12\xfd\x01\n\x17\x42\x61tchGetParameterValues\x12\x39.yamcs.protobuf.processing.BatchGetParameterValuesRequest\x1a:.yamcs.protobuf.processing.BatchGetParameterValuesResponse\"k\x8a\x92\x03g\n\x04POST\x12:/api/processors/{instance}/{processor}/parameters:batchGet\x1a#Batch get multiple parameter values\x12\xd9\x01\n\x17\x42\x61tchSetParameterValues\x12\x39.yamcs.protobuf.processing.BatchSetParameterValuesRequest\x1a\x16.google.protobuf.Empty\"k\x8a\x92\x03g\n\x04POST\x12:/api/processors/{instance}/{processor}/parameters:batchSet\x1a#Batch set multiple parameter valuesB\'\n\x12org.yamcs.protobufB\x0fProcessingProtoP\x01')
+  serialized_pb=_b('\n*yamcs/protobuf/processing/processing.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"q\n\x18GetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x11\n\tfromCache\x18\x04 \x01(\x08\x12\x0f\n\x07timeout\x18\x05 \x01(\x04\"s\n\x18SetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12$\n\x05value\x18\x04 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"\x94\x01\n\x1e\x42\x61tchGetParameterValuesRequest\x12\x10\n\x08instance\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"W\n\x1f\x42\x61tchGetParameterValuesResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\x97\x02\n\x1e\x42\x61tchSetParameterValuesRequest\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t\x12\x63\n\x07request\x18\x01 \x03(\x0b\x32R.yamcs.protobuf.processing.BatchSetParameterValuesRequest.SetParameterValueRequest\x1ak\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"\x8b\x02\n\x13IssueCommandRequest\x12\x10\n\x08instance\x18\x06 \x01(\t\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0c\n\x04name\x18\x08 \x01(\t\x12M\n\nassignment\x18\x01 \x03(\x0b\x32\x39.yamcs.protobuf.processing.IssueCommandRequest.Assignment\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\x8c\x01\n\x14IssueCommandResponse\x12G\n\x11\x63ommandQueueEntry\x18\x01 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\x0b\n\x03hex\x18\x03 \x01(\t\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\"\xf6\x01\n\x1bUpdateCommandHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x33\n\x05\x63mdId\x18\x03 \x01(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12U\n\x0chistoryEntry\x18\x04 \x03(\x0b\x32?.yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue\x1a&\n\x08KeyValue\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t2\xa4\t\n\rProcessingApi\x12\xb0\x01\n\x11GetParameterValue\x12\x33.yamcs.protobuf.processing.GetParameterValueRequest\x1a%.yamcs.protobuf.pvalue.ParameterValue\"?\x8a\x92\x03;\n9/api/processors/{instance}/{processor}/parameters/{name*}\x12\xee\x01\n\x11SetParameterValue\x12\x33.yamcs.protobuf.processing.SetParameterValueRequest\x1a\x16.google.protobuf.Empty\"\x8b\x01\x8a\x92\x03\x86\x01\x12\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05valueZB\x1a\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05value\x12\xd5\x01\n\x17\x42\x61tchGetParameterValues\x12\x39.yamcs.protobuf.processing.BatchGetParameterValuesRequest\x1a:.yamcs.protobuf.processing.BatchGetParameterValuesResponse\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchGet:\x01*\x12\xb1\x01\n\x17\x42\x61tchSetParameterValues\x12\x39.yamcs.protobuf.processing.BatchSetParameterValuesRequest\x1a\x16.google.protobuf.Empty\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchSet:\x01*\x12\xb1\x01\n\x0cIssueCommand\x12..yamcs.protobuf.processing.IssueCommandRequest\x1a/.yamcs.protobuf.processing.IssueCommandResponse\"@\x8a\x92\x03<\x1a\x37/api/processors/{instance}/{processor}/commands/{name*}:\x01*\x12\xae\x01\n\x14UpdateCommandHistory\x12\x36.yamcs.protobuf.processing.UpdateCommandHistoryRequest\x1a\x16.google.protobuf.Empty\"F\x8a\x92\x03\x42\x1a=/api/processors/{instance}/{processor}/commandhistory/{name*}:\x01*B\'\n\x12org.yamcs.protobufB\x0fProcessingProtoP\x01')
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
 
+
+
+_GETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
+  name='GetParameterValueRequest',
+  full_name='yamcs.protobuf.processing.GetParameterValueRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.GetParameterValueRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.GetParameterValueRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.processing.GetParameterValueRequest.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='fromCache', full_name='yamcs.protobuf.processing.GetParameterValueRequest.fromCache', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='timeout', full_name='yamcs.protobuf.processing.GetParameterValueRequest.timeout', index=4,
+      number=5, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=239,
+  serialized_end=352,
+)
+
+
+_SETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
+  name='SetParameterValueRequest',
+  full_name='yamcs.protobuf.processing.SetParameterValueRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.SetParameterValueRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.SetParameterValueRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.processing.SetParameterValueRequest.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.processing.SetParameterValueRequest.value', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=354,
+  serialized_end=469,
+)
 
 
 _BATCHGETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
@@ -39,21 +151,35 @@ _BATCHGETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.id', index=0,
+      name='instance', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.instance', index=0,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.processor', index=1,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.id', index=2,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='fromCache', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.fromCache', index=1,
+      name='fromCache', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.fromCache', index=3,
       number=2, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='timeout', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.timeout', index=2,
+      name='timeout', full_name='yamcs.protobuf.processing.BatchGetParameterValuesRequest.timeout', index=4,
       number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -71,8 +197,8 @@ _BATCHGETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=195,
-  serialized_end=306,
+  serialized_start=472,
+  serialized_end=620,
 )
 
 
@@ -102,8 +228,8 @@ _BATCHGETPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=308,
-  serialized_end=395,
+  serialized_start=622,
+  serialized_end=709,
 )
 
 
@@ -140,8 +266,8 @@ _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST = _descriptor.Descripto
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=533,
-  serialized_end=640,
+  serialized_start=884,
+  serialized_end=991,
 )
 
 _BATCHSETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
@@ -152,7 +278,21 @@ _BATCHSETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='request', full_name='yamcs.protobuf.processing.BatchSetParameterValuesRequest.request', index=0,
+      name='instance', full_name='yamcs.protobuf.processing.BatchSetParameterValuesRequest.instance', index=0,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.BatchSetParameterValuesRequest.processor', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='request', full_name='yamcs.protobuf.processing.BatchSetParameterValuesRequest.request', index=2,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -170,20 +310,304 @@ _BATCHSETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=398,
-  serialized_end=640,
+  serialized_start=712,
+  serialized_end=991,
 )
 
+
+_ISSUECOMMANDREQUEST_ASSIGNMENT = _descriptor.Descriptor(
+  name='Assignment',
+  full_name='yamcs.protobuf.processing.IssueCommandRequest.Assignment',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.processing.IssueCommandRequest.Assignment.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.processing.IssueCommandRequest.Assignment.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1220,
+  serialized_end=1261,
+)
+
+_ISSUECOMMANDREQUEST = _descriptor.Descriptor(
+  name='IssueCommandRequest',
+  full_name='yamcs.protobuf.processing.IssueCommandRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.IssueCommandRequest.instance', index=0,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.IssueCommandRequest.processor', index=1,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.processing.IssueCommandRequest.name', index=2,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='assignment', full_name='yamcs.protobuf.processing.IssueCommandRequest.assignment', index=3,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='origin', full_name='yamcs.protobuf.processing.IssueCommandRequest.origin', index=4,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='yamcs.protobuf.processing.IssueCommandRequest.sequenceNumber', index=5,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='dryRun', full_name='yamcs.protobuf.processing.IssueCommandRequest.dryRun', index=6,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='comment', full_name='yamcs.protobuf.processing.IssueCommandRequest.comment', index=7,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_ISSUECOMMANDREQUEST_ASSIGNMENT, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=994,
+  serialized_end=1261,
+)
+
+
+_ISSUECOMMANDRESPONSE = _descriptor.Descriptor(
+  name='IssueCommandResponse',
+  full_name='yamcs.protobuf.processing.IssueCommandResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='commandQueueEntry', full_name='yamcs.protobuf.processing.IssueCommandResponse.commandQueueEntry', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.processing.IssueCommandResponse.source', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='hex', full_name='yamcs.protobuf.processing.IssueCommandResponse.hex', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='binary', full_name='yamcs.protobuf.processing.IssueCommandResponse.binary', index=3,
+      number=4, type=12, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b(""),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1264,
+  serialized_end=1404,
+)
+
+
+_UPDATECOMMANDHISTORYREQUEST_KEYVALUE = _descriptor.Descriptor(
+  name='KeyValue',
+  full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1615,
+  serialized_end=1653,
+)
+
+_UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
+  name='UpdateCommandHistoryRequest',
+  full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='cmdId', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.cmdId', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='historyEntry', full_name='yamcs.protobuf.processing.UpdateCommandHistoryRequest.historyEntry', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_UPDATECOMMANDHISTORYREQUEST_KEYVALUE, ],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1407,
+  serialized_end=1653,
+)
+
+_SETPARAMETERVALUEREQUEST.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
 _BATCHGETPARAMETERVALUESREQUEST.fields_by_name['id'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _BATCHGETPARAMETERVALUESRESPONSE.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERVALUE
 _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST.fields_by_name['id'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
 _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST.containing_type = _BATCHSETPARAMETERVALUESREQUEST
 _BATCHSETPARAMETERVALUESREQUEST.fields_by_name['request'].message_type = _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST
+_ISSUECOMMANDREQUEST_ASSIGNMENT.containing_type = _ISSUECOMMANDREQUEST
+_ISSUECOMMANDREQUEST.fields_by_name['assignment'].message_type = _ISSUECOMMANDREQUEST_ASSIGNMENT
+_ISSUECOMMANDRESPONSE.fields_by_name['commandQueueEntry'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDQUEUEENTRY
+_UPDATECOMMANDHISTORYREQUEST_KEYVALUE.containing_type = _UPDATECOMMANDHISTORYREQUEST
+_UPDATECOMMANDHISTORYREQUEST.fields_by_name['cmdId'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDID
+_UPDATECOMMANDHISTORYREQUEST.fields_by_name['historyEntry'].message_type = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE
+DESCRIPTOR.message_types_by_name['GetParameterValueRequest'] = _GETPARAMETERVALUEREQUEST
+DESCRIPTOR.message_types_by_name['SetParameterValueRequest'] = _SETPARAMETERVALUEREQUEST
 DESCRIPTOR.message_types_by_name['BatchGetParameterValuesRequest'] = _BATCHGETPARAMETERVALUESREQUEST
 DESCRIPTOR.message_types_by_name['BatchGetParameterValuesResponse'] = _BATCHGETPARAMETERVALUESRESPONSE
 DESCRIPTOR.message_types_by_name['BatchSetParameterValuesRequest'] = _BATCHSETPARAMETERVALUESREQUEST
+DESCRIPTOR.message_types_by_name['IssueCommandRequest'] = _ISSUECOMMANDREQUEST
+DESCRIPTOR.message_types_by_name['IssueCommandResponse'] = _ISSUECOMMANDRESPONSE
+DESCRIPTOR.message_types_by_name['UpdateCommandHistoryRequest'] = _UPDATECOMMANDHISTORYREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+GetParameterValueRequest = _reflection.GeneratedProtocolMessageType('GetParameterValueRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETPARAMETERVALUEREQUEST,
+  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.GetParameterValueRequest)
+  ))
+_sym_db.RegisterMessage(GetParameterValueRequest)
+
+SetParameterValueRequest = _reflection.GeneratedProtocolMessageType('SetParameterValueRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SETPARAMETERVALUEREQUEST,
+  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.SetParameterValueRequest)
+  ))
+_sym_db.RegisterMessage(SetParameterValueRequest)
 
 BatchGetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('BatchGetParameterValuesRequest', (_message.Message,), dict(
   DESCRIPTOR = _BATCHGETPARAMETERVALUESREQUEST,
@@ -214,48 +638,112 @@ BatchSetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('Batch
 _sym_db.RegisterMessage(BatchSetParameterValuesRequest)
 _sym_db.RegisterMessage(BatchSetParameterValuesRequest.SetParameterValueRequest)
 
+IssueCommandRequest = _reflection.GeneratedProtocolMessageType('IssueCommandRequest', (_message.Message,), dict(
+
+  Assignment = _reflection.GeneratedProtocolMessageType('Assignment', (_message.Message,), dict(
+    DESCRIPTOR = _ISSUECOMMANDREQUEST_ASSIGNMENT,
+    __module__ = 'yamcs.protobuf.processing.processing_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandRequest.Assignment)
+    ))
+  ,
+  DESCRIPTOR = _ISSUECOMMANDREQUEST,
+  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandRequest)
+  ))
+_sym_db.RegisterMessage(IssueCommandRequest)
+_sym_db.RegisterMessage(IssueCommandRequest.Assignment)
+
+IssueCommandResponse = _reflection.GeneratedProtocolMessageType('IssueCommandResponse', (_message.Message,), dict(
+  DESCRIPTOR = _ISSUECOMMANDRESPONSE,
+  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandResponse)
+  ))
+_sym_db.RegisterMessage(IssueCommandResponse)
+
+UpdateCommandHistoryRequest = _reflection.GeneratedProtocolMessageType('UpdateCommandHistoryRequest', (_message.Message,), dict(
+
+  KeyValue = _reflection.GeneratedProtocolMessageType('KeyValue', (_message.Message,), dict(
+    DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE,
+    __module__ = 'yamcs.protobuf.processing.processing_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue)
+    ))
+  ,
+  DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST,
+  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.UpdateCommandHistoryRequest)
+  ))
+_sym_db.RegisterMessage(UpdateCommandHistoryRequest)
+_sym_db.RegisterMessage(UpdateCommandHistoryRequest.KeyValue)
+
 
 DESCRIPTOR._options = None
 
 _PROCESSINGAPI = _descriptor.ServiceDescriptor(
-  name='ProcessingAPI',
-  full_name='yamcs.protobuf.processing.ProcessingAPI',
+  name='ProcessingApi',
+  full_name='yamcs.protobuf.processing.ProcessingApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=643,
-  serialized_end=1310,
+  serialized_start=1656,
+  serialized_end=2844,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetParameterValue',
-    full_name='yamcs.protobuf.processing.ProcessingAPI.GetParameterValue',
+    full_name='yamcs.protobuf.processing.ProcessingApi.GetParameterValue',
     index=0,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETPARAMETERVALUEREQUEST,
     output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERVALUE,
-    serialized_options=_b('\212\222\003U\n\003GET\0229/api/processors/{instance}/{processor}/parameters/{name*}\032\023Get parameter value'),
+    serialized_options=_b('\212\222\003;\n9/api/processors/{instance}/{processor}/parameters/{name*}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='SetParameterValue',
+    full_name='yamcs.protobuf.processing.ProcessingApi.SetParameterValue',
+    index=1,
+    containing_service=None,
+    input_type=_SETPARAMETERVALUEREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=_b('\212\222\003\206\001\0229/api/processors/{instance}/{processor}/parameters/{name*}:\005valueZB\0329/api/processors/{instance}/{processor}/parameters/{name*}:\005value'),
   ),
   _descriptor.MethodDescriptor(
     name='BatchGetParameterValues',
-    full_name='yamcs.protobuf.processing.ProcessingAPI.BatchGetParameterValues',
-    index=1,
+    full_name='yamcs.protobuf.processing.ProcessingApi.BatchGetParameterValues',
+    index=2,
     containing_service=None,
     input_type=_BATCHGETPARAMETERVALUESREQUEST,
     output_type=_BATCHGETPARAMETERVALUESRESPONSE,
-    serialized_options=_b('\212\222\003g\n\004POST\022:/api/processors/{instance}/{processor}/parameters:batchGet\032#Batch get multiple parameter values'),
+    serialized_options=_b('\212\222\003?\032:/api/processors/{instance}/{processor}/parameters:batchGet:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='BatchSetParameterValues',
-    full_name='yamcs.protobuf.processing.ProcessingAPI.BatchSetParameterValues',
-    index=2,
+    full_name='yamcs.protobuf.processing.ProcessingApi.BatchSetParameterValues',
+    index=3,
     containing_service=None,
     input_type=_BATCHSETPARAMETERVALUESREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003g\n\004POST\022:/api/processors/{instance}/{processor}/parameters:batchSet\032#Batch set multiple parameter values'),
+    serialized_options=_b('\212\222\003?\032:/api/processors/{instance}/{processor}/parameters:batchSet:\001*'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='IssueCommand',
+    full_name='yamcs.protobuf.processing.ProcessingApi.IssueCommand',
+    index=4,
+    containing_service=None,
+    input_type=_ISSUECOMMANDREQUEST,
+    output_type=_ISSUECOMMANDRESPONSE,
+    serialized_options=_b('\212\222\003<\0327/api/processors/{instance}/{processor}/commands/{name*}:\001*'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='UpdateCommandHistory',
+    full_name='yamcs.protobuf.processing.ProcessingApi.UpdateCommandHistory',
+    index=5,
+    containing_service=None,
+    input_type=_UPDATECOMMANDHISTORYREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=_b('\212\222\003B\032=/api/processors/{instance}/{processor}/commandhistory/{name*}:\001*'),
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_PROCESSINGAPI)
 
-DESCRIPTOR.services_by_name['ProcessingAPI'] = _PROCESSINGAPI
+DESCRIPTOR.services_by_name['ProcessingApi'] = _PROCESSINGAPI
 
 # @@protoc_insertion_point(module_scope)

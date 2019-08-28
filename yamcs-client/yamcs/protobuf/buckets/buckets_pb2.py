@@ -15,6 +15,7 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
+from yamcs.api import httpbody_pb2 as yamcs_dot_api_dot_httpbody__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -22,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.buckets',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\014BucketsProtoP\001'),
-  serialized_pb=_b('\n$yamcs/protobuf/buckets/buckets.proto\x12\x16yamcs.protobuf.buckets\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"#\n\x13\x43reateBucketRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xae\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12\x42\n\x08metadata\x18\x04 \x03(\x0b\x32\x30.yamcs.protobuf.buckets.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"J\n\x13ListBucketsResponse\x12\x33\n\x07\x62uckets\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.buckets.BucketInfo\"\\\n\x13ListObjectsResponse\x12\x10\n\x08prefixes\x18\x01 \x03(\t\x12\x33\n\x07objects\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.buckets.ObjectInfo2\xd7\x05\n\x07\x42uckets\x12\x84\x01\n\x0bListBuckets\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.buckets.ListBucketsResponse\"0\x8a\x92\x03,\n\x03GET\x12\x17/api/buckets/{instance}\x1a\x0cList buckets\x12\x95\x01\n\x0c\x43reateBucket\x12+.yamcs.protobuf.buckets.CreateBucketRequest\x1a\".yamcs.protobuf.buckets.BucketInfo\"4\x8a\x92\x03\x30\n\x04POST\x12\x17/api/buckets/{instance}\x1a\x0f\x43reate a bucket\x12\x83\x01\n\x0c\x44\x65leteBucket\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"C\x8a\x92\x03?\n\x06\x44\x45LETE\x12$/api/buckets/{instance}/{bucketName}\x1a\x0f\x44\x65lete a bucket\x12\x91\x01\n\x0bListObjects\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.buckets.ListObjectsResponse\"=\x8a\x92\x03\x39\n\x03GET\x12$/api/buckets/{instance}/{bucketName}\x1a\x0cList objects\x12\x92\x01\n\x0c\x44\x65leteObject\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"R\x8a\x92\x03N\n\x06\x44\x45LETE\x12\x32/api/buckets/{instance}/{bucketName}/{objectName*}\x1a\x10\x44\x65lete an objectB$\n\x12org.yamcs.protobufB\x0c\x42ucketsProtoP\x01')
+  serialized_pb=_b('\n$yamcs/protobuf/buckets/buckets.proto\x12\x16yamcs.protobuf.buckets\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"5\n\x13\x43reateBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\";\n\x13\x44\x65leteBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\"L\n\x10GetObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"O\n\x13\x44\x65leteObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"O\n\x13UploadObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"<\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\"\xae\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x63reated\x18\x02 \x01(\t\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12\x42\n\x08metadata\x18\x04 \x03(\x0b\x32\x30.yamcs.protobuf.buckets.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"&\n\x12ListBucketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"J\n\x13ListBucketsResponse\x12\x33\n\x07\x62uckets\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.buckets.BucketInfo\"]\n\x12ListObjectsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x11\n\tdelimiter\x18\x03 \x01(\t\x12\x0e\n\x06prefix\x18\x04 \x01(\t\"\\\n\x13ListObjectsResponse\x12\x10\n\x08prefixes\x18\x01 \x03(\t\x12\x33\n\x07objects\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.buckets.ObjectInfo2\xee\x07\n\nBucketsApi\x12\x85\x01\n\x0bListBuckets\x12*.yamcs.protobuf.buckets.ListBucketsRequest\x1a+.yamcs.protobuf.buckets.ListBucketsResponse\"\x1d\x8a\x92\x03\x19\n\x17/api/buckets/{instance}\x12u\n\x0c\x43reateBucket\x12+.yamcs.protobuf.buckets.CreateBucketRequest\x1a\x16.google.protobuf.Empty\" \x8a\x92\x03\x1c\x1a\x17/api/buckets/{instance}:\x01*\x12\x7f\n\x0c\x44\x65leteBucket\x12+.yamcs.protobuf.buckets.DeleteBucketRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&\"$/api/buckets/{instance}/{bucketName}\x12\x8c\x01\n\tGetObject\x12(.yamcs.protobuf.buckets.GetObjectRequest\x1a\x13.yamcs.api.HttpBody\"@\x8a\x92\x03<\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}\x12\x9b\x01\n\x0cUploadObject\x12+.yamcs.protobuf.buckets.UploadObjectRequest\x1a\x16.google.protobuf.Empty\"F\x8a\x92\x03\x42\x1a;/api/buckets/{instance}/{bucketName}/objects/{objectName**}@\x80\x80\xc0\x02\x12\x9a\x01\n\x0bListObjects\x12*.yamcs.protobuf.buckets.ListObjectsRequest\x1a+.yamcs.protobuf.buckets.ListObjectsResponse\"2\x8a\x92\x03.\n,/api/buckets/{instance}/{bucketName}/objects\x12\x95\x01\n\x0c\x44\x65leteObject\x12+.yamcs.protobuf.buckets.DeleteObjectRequest\x1a\x16.google.protobuf.Empty\"@\x8a\x92\x03<\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}B$\n\x12org.yamcs.protobufB\x0c\x42ucketsProtoP\x01')
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,])
 
 
 
@@ -37,8 +38,15 @@ _CREATEBUCKETREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.buckets.CreateBucketRequest.name', index=0,
+      name='instance', full_name='yamcs.protobuf.buckets.CreateBucketRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.buckets.CreateBucketRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -55,8 +63,181 @@ _CREATEBUCKETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=122,
-  serialized_end=157,
+  serialized_start=148,
+  serialized_end=201,
+)
+
+
+_DELETEBUCKETREQUEST = _descriptor.Descriptor(
+  name='DeleteBucketRequest',
+  full_name='yamcs.protobuf.buckets.DeleteBucketRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.DeleteBucketRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucketName', full_name='yamcs.protobuf.buckets.DeleteBucketRequest.bucketName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=203,
+  serialized_end=262,
+)
+
+
+_GETOBJECTREQUEST = _descriptor.Descriptor(
+  name='GetObjectRequest',
+  full_name='yamcs.protobuf.buckets.GetObjectRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.GetObjectRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucketName', full_name='yamcs.protobuf.buckets.GetObjectRequest.bucketName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='objectName', full_name='yamcs.protobuf.buckets.GetObjectRequest.objectName', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=264,
+  serialized_end=340,
+)
+
+
+_DELETEOBJECTREQUEST = _descriptor.Descriptor(
+  name='DeleteObjectRequest',
+  full_name='yamcs.protobuf.buckets.DeleteObjectRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.DeleteObjectRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucketName', full_name='yamcs.protobuf.buckets.DeleteObjectRequest.bucketName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='objectName', full_name='yamcs.protobuf.buckets.DeleteObjectRequest.objectName', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=342,
+  serialized_end=421,
+)
+
+
+_UPLOADOBJECTREQUEST = _descriptor.Descriptor(
+  name='UploadObjectRequest',
+  full_name='yamcs.protobuf.buckets.UploadObjectRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.UploadObjectRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucketName', full_name='yamcs.protobuf.buckets.UploadObjectRequest.bucketName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='objectName', full_name='yamcs.protobuf.buckets.UploadObjectRequest.objectName', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=423,
+  serialized_end=502,
 )
 
 
@@ -100,8 +281,8 @@ _BUCKETINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=159,
-  serialized_end=219,
+  serialized_start=504,
+  serialized_end=564,
 )
 
 
@@ -138,8 +319,8 @@ _OBJECTINFO_METADATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=349,
-  serialized_end=396,
+  serialized_start=694,
+  serialized_end=741,
 )
 
 _OBJECTINFO = _descriptor.Descriptor(
@@ -189,8 +370,39 @@ _OBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=396,
+  serialized_start=567,
+  serialized_end=741,
+)
+
+
+_LISTBUCKETSREQUEST = _descriptor.Descriptor(
+  name='ListBucketsRequest',
+  full_name='yamcs.protobuf.buckets.ListBucketsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.ListBucketsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=743,
+  serialized_end=781,
 )
 
 
@@ -220,8 +432,60 @@ _LISTBUCKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=398,
-  serialized_end=472,
+  serialized_start=783,
+  serialized_end=857,
+)
+
+
+_LISTOBJECTSREQUEST = _descriptor.Descriptor(
+  name='ListObjectsRequest',
+  full_name='yamcs.protobuf.buckets.ListObjectsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.buckets.ListObjectsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucketName', full_name='yamcs.protobuf.buckets.ListObjectsRequest.bucketName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='delimiter', full_name='yamcs.protobuf.buckets.ListObjectsRequest.delimiter', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='prefix', full_name='yamcs.protobuf.buckets.ListObjectsRequest.prefix', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=859,
+  serialized_end=952,
 )
 
 
@@ -258,8 +522,8 @@ _LISTOBJECTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=474,
-  serialized_end=566,
+  serialized_start=954,
+  serialized_end=1046,
 )
 
 _OBJECTINFO_METADATAENTRY.containing_type = _OBJECTINFO
@@ -267,9 +531,15 @@ _OBJECTINFO.fields_by_name['metadata'].message_type = _OBJECTINFO_METADATAENTRY
 _LISTBUCKETSRESPONSE.fields_by_name['buckets'].message_type = _BUCKETINFO
 _LISTOBJECTSRESPONSE.fields_by_name['objects'].message_type = _OBJECTINFO
 DESCRIPTOR.message_types_by_name['CreateBucketRequest'] = _CREATEBUCKETREQUEST
+DESCRIPTOR.message_types_by_name['DeleteBucketRequest'] = _DELETEBUCKETREQUEST
+DESCRIPTOR.message_types_by_name['GetObjectRequest'] = _GETOBJECTREQUEST
+DESCRIPTOR.message_types_by_name['DeleteObjectRequest'] = _DELETEOBJECTREQUEST
+DESCRIPTOR.message_types_by_name['UploadObjectRequest'] = _UPLOADOBJECTREQUEST
 DESCRIPTOR.message_types_by_name['BucketInfo'] = _BUCKETINFO
 DESCRIPTOR.message_types_by_name['ObjectInfo'] = _OBJECTINFO
+DESCRIPTOR.message_types_by_name['ListBucketsRequest'] = _LISTBUCKETSREQUEST
 DESCRIPTOR.message_types_by_name['ListBucketsResponse'] = _LISTBUCKETSRESPONSE
+DESCRIPTOR.message_types_by_name['ListObjectsRequest'] = _LISTOBJECTSREQUEST
 DESCRIPTOR.message_types_by_name['ListObjectsResponse'] = _LISTOBJECTSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -279,6 +549,34 @@ CreateBucketRequest = _reflection.GeneratedProtocolMessageType('CreateBucketRequ
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.CreateBucketRequest)
   ))
 _sym_db.RegisterMessage(CreateBucketRequest)
+
+DeleteBucketRequest = _reflection.GeneratedProtocolMessageType('DeleteBucketRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DELETEBUCKETREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.DeleteBucketRequest)
+  ))
+_sym_db.RegisterMessage(DeleteBucketRequest)
+
+GetObjectRequest = _reflection.GeneratedProtocolMessageType('GetObjectRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETOBJECTREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.GetObjectRequest)
+  ))
+_sym_db.RegisterMessage(GetObjectRequest)
+
+DeleteObjectRequest = _reflection.GeneratedProtocolMessageType('DeleteObjectRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DELETEOBJECTREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.DeleteObjectRequest)
+  ))
+_sym_db.RegisterMessage(DeleteObjectRequest)
+
+UploadObjectRequest = _reflection.GeneratedProtocolMessageType('UploadObjectRequest', (_message.Message,), dict(
+  DESCRIPTOR = _UPLOADOBJECTREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.UploadObjectRequest)
+  ))
+_sym_db.RegisterMessage(UploadObjectRequest)
 
 BucketInfo = _reflection.GeneratedProtocolMessageType('BucketInfo', (_message.Message,), dict(
   DESCRIPTOR = _BUCKETINFO,
@@ -302,12 +600,26 @@ ObjectInfo = _reflection.GeneratedProtocolMessageType('ObjectInfo', (_message.Me
 _sym_db.RegisterMessage(ObjectInfo)
 _sym_db.RegisterMessage(ObjectInfo.MetadataEntry)
 
+ListBucketsRequest = _reflection.GeneratedProtocolMessageType('ListBucketsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTBUCKETSREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListBucketsRequest)
+  ))
+_sym_db.RegisterMessage(ListBucketsRequest)
+
 ListBucketsResponse = _reflection.GeneratedProtocolMessageType('ListBucketsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTBUCKETSRESPONSE,
   __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListBucketsResponse)
   ))
 _sym_db.RegisterMessage(ListBucketsResponse)
+
+ListObjectsRequest = _reflection.GeneratedProtocolMessageType('ListObjectsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTOBJECTSREQUEST,
+  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListObjectsRequest)
+  ))
+_sym_db.RegisterMessage(ListObjectsRequest)
 
 ListObjectsResponse = _reflection.GeneratedProtocolMessageType('ListObjectsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTOBJECTSRESPONSE,
@@ -320,63 +632,81 @@ _sym_db.RegisterMessage(ListObjectsResponse)
 DESCRIPTOR._options = None
 _OBJECTINFO_METADATAENTRY._options = None
 
-_BUCKETS = _descriptor.ServiceDescriptor(
-  name='Buckets',
-  full_name='yamcs.protobuf.buckets.Buckets',
+_BUCKETSAPI = _descriptor.ServiceDescriptor(
+  name='BucketsApi',
+  full_name='yamcs.protobuf.buckets.BucketsApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=569,
-  serialized_end=1296,
+  serialized_start=1049,
+  serialized_end=2055,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListBuckets',
-    full_name='yamcs.protobuf.buckets.Buckets.ListBuckets',
+    full_name='yamcs.protobuf.buckets.BucketsApi.ListBuckets',
     index=0,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTBUCKETSREQUEST,
     output_type=_LISTBUCKETSRESPONSE,
-    serialized_options=_b('\212\222\003,\n\003GET\022\027/api/buckets/{instance}\032\014List buckets'),
+    serialized_options=_b('\212\222\003\031\n\027/api/buckets/{instance}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateBucket',
-    full_name='yamcs.protobuf.buckets.Buckets.CreateBucket',
+    full_name='yamcs.protobuf.buckets.BucketsApi.CreateBucket',
     index=1,
     containing_service=None,
     input_type=_CREATEBUCKETREQUEST,
-    output_type=_BUCKETINFO,
-    serialized_options=_b('\212\222\0030\n\004POST\022\027/api/buckets/{instance}\032\017Create a bucket'),
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=_b('\212\222\003\034\032\027/api/buckets/{instance}:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteBucket',
-    full_name='yamcs.protobuf.buckets.Buckets.DeleteBucket',
+    full_name='yamcs.protobuf.buckets.BucketsApi.DeleteBucket',
     index=2,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_DELETEBUCKETREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003?\n\006DELETE\022$/api/buckets/{instance}/{bucketName}\032\017Delete a bucket'),
+    serialized_options=_b('\212\222\003&\"$/api/buckets/{instance}/{bucketName}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetObject',
+    full_name='yamcs.protobuf.buckets.BucketsApi.GetObject',
+    index=3,
+    containing_service=None,
+    input_type=_GETOBJECTREQUEST,
+    output_type=yamcs_dot_api_dot_httpbody__pb2._HTTPBODY,
+    serialized_options=_b('\212\222\003<\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='UploadObject',
+    full_name='yamcs.protobuf.buckets.BucketsApi.UploadObject',
+    index=4,
+    containing_service=None,
+    input_type=_UPLOADOBJECTREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=_b('\212\222\003B\032;/api/buckets/{instance}/{bucketName}/objects/{objectName**}@\200\200\300\002'),
   ),
   _descriptor.MethodDescriptor(
     name='ListObjects',
-    full_name='yamcs.protobuf.buckets.Buckets.ListObjects',
-    index=3,
+    full_name='yamcs.protobuf.buckets.BucketsApi.ListObjects',
+    index=5,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTOBJECTSREQUEST,
     output_type=_LISTOBJECTSRESPONSE,
-    serialized_options=_b('\212\222\0039\n\003GET\022$/api/buckets/{instance}/{bucketName}\032\014List objects'),
+    serialized_options=_b('\212\222\003.\n,/api/buckets/{instance}/{bucketName}/objects'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteObject',
-    full_name='yamcs.protobuf.buckets.Buckets.DeleteObject',
-    index=4,
+    full_name='yamcs.protobuf.buckets.BucketsApi.DeleteObject',
+    index=6,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_DELETEOBJECTREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003N\n\006DELETE\0222/api/buckets/{instance}/{bucketName}/{objectName*}\032\020Delete an object'),
+    serialized_options=_b('\212\222\003<\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}'),
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_BUCKETS)
+_sym_db.RegisterServiceDescriptor(_BUCKETSAPI)
 
-DESCRIPTOR.services_by_name['Buckets'] = _BUCKETS
+DESCRIPTOR.services_by_name['BucketsApi'] = _BUCKETSAPI
 
 # @@protoc_insertion_point(module_scope)

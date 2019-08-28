@@ -22,7 +22,7 @@ import pkg_resources
 # -- Project information -----------------------------------------------------
 
 project = u'yamcs-client'
-copyright = u'2018, Space Applications Services'
+copyright = u'2019, Space Applications Services'
 author = u'Space Applications Services'
 
 # The short X.Y version

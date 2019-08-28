@@ -10,8 +10,7 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
-from yamcs.protobuf.rest import rest_pb2
-from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.web import rest_pb2, websocket_pb2
 from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
                               IssuedCommand, ParameterData, ParameterValue,
                               _parse_alarm)
@@ -35,7 +34,7 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     from a WebSocket data message
     """
     if message.type == message.REPLY:
-        data = web_pb2.ParameterSubscriptionResponse()
+        data = websocket_pb2.ParameterSubscriptionResponse()
         data.ParseFromString(message.reply.data)
         subscription.subscription_id = data.subscriptionId
     elif (message.type == message.DATA and
@@ -292,7 +291,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         if not parameters:
             return
 
-        options = web_pb2.ParameterSubscriptionRequest()
+        options = websocket_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = self.subscription_id
         options.abortOnInvalid = abort_on_invalid
         options.sendFromCache = send_from_cache
@@ -314,7 +313,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         if not parameters:
             return
 
-        options = web_pb2.ParameterSubscriptionRequest()
+        options = websocket_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = self.subscription_id
         options.id.extend(_build_named_object_ids(parameters))
 
@@ -432,16 +431,13 @@ class ProcessorClient(object):
                  returned parameter value, or ``None``.
         :rtype: .ParameterValue[]
         """
-        params = {
-            'fromCache': from_cache,
-            'timeout': int(timeout * 1000),
-        }
         req = processing_pb2.BatchGetParameterValuesRequest()
         req.id.extend(_build_named_object_ids(parameters))
+        req.fromCache = from_cache
+        req.timeout = int(timeout * 1000)
         url = '/processors/{}/{}/parameters:batchGet'.format(
             self._instance, self._processor)
-        response = self._client.post_proto(url, params=params,
-                                           data=req.SerializeToString())
+        response = self._client.post_proto(url, data=req.SerializeToString())
         proto = processing_pb2.BatchGetParameterValuesResponse()
         proto.ParseFromString(response.content)
 
@@ -502,7 +498,7 @@ class ProcessorClient(object):
                  command.
         :rtype: .IssuedCommand
         """
-        req = rest_pb2.IssueCommandRequest()
+        req = processing_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
         req.origin = socket.gethostname()
         req.dryRun = dry_run
@@ -518,7 +514,7 @@ class ProcessorClient(object):
         url = '/processors/{}/{}/commands{}'.format(
             self._instance, self._processor, command)
         response = self._client.post_proto(url, data=req.SerializeToString())
-        proto = rest_pb2.IssueCommandResponse()
+        proto = processing_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
         return IssuedCommand(proto, self)
 
@@ -583,7 +579,8 @@ class ProcessorClient(object):
         if type:
             _add_calib(req.defaultCalibrator, type, data)
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -616,7 +613,8 @@ class ProcessorClient(object):
 
             _add_calib(calib_info, c.type, c.data)
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -634,7 +632,8 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -674,7 +673,8 @@ class ProcessorClient(object):
             _add_alarms(req.defaultAlarm, watch, warning, distress, critical,
                         severe, min_violations)
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -709,7 +709,8 @@ class ProcessorClient(object):
             _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical,
                         rs.severe, rs.min_violations)
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         response = self._client.post_proto(url, data=req.SerializeToString())
         pti = mdb_pb2.ParameterTypeInfo()
@@ -730,7 +731,8 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeParameterRequest()
         req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS
 
-        url = '/mdb/{}/{}/parameters/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -771,7 +773,7 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandHistorySubscription
         """
-        options = web_pb2.CommandHistorySubscriptionRequest()
+        options = websocket_pb2.CommandHistorySubscriptionRequest()
         options.ignorePastCommands = True
         if issued_command:
             options.commandId.extend(_build_command_ids(issued_command))
@@ -825,7 +827,7 @@ class ProcessorClient(object):
                  subscription.
         :rtype: .ParameterSubscription
         """
-        options = web_pb2.ParameterSubscriptionRequest()
+        options = websocket_pb2.ParameterSubscriptionRequest()
         options.subscriptionId = -1  # This means 'create a new subscription'
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
@@ -890,7 +892,8 @@ class ProcessorClient(object):
         req.action = mdb_pb2.ChangeAlgorithmRequest.SET
         req.algorithm.text = text
 
-        url = '/mdb/{}/{}/algorithms/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/algorithms{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())
 
@@ -904,6 +907,7 @@ class ProcessorClient(object):
         req = mdb_pb2.ChangeAlgorithmRequest()
         req.action = mdb_pb2.ChangeAlgorithmRequest.RESET
 
-        url = '/mdb/{}/{}/algorithms/{}'.format(
+        parameter = adapt_name_for_rest(parameter)
+        url = '/mdb/{}/{}/algorithms{}'.format(
             self._instance, self._processor, parameter)
         self._client.post_proto(url, data=req.SerializeToString())

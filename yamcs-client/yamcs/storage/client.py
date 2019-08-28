@@ -51,7 +51,7 @@ class Client(object):
                               truncated after the delimiter. Duplicates are
                               omitted.
         """
-        url = '/buckets/{}/{}'.format(instance, bucket_name)
+        url = '/buckets/{}/{}/objects'.format(instance, bucket_name)
         params = {}
         if prefix is not None:
             params['prefix'] = prefix
@@ -92,7 +92,7 @@ class Client(object):
         :param str bucket_name: The name of the bucket.
         :param str object_name: The object to fetch.
         """
-        url = '/buckets/{}/{}/{}'.format(instance, bucket_name, object_name)
+        url = '/buckets/{}/{}/objects/{}'.format(instance, bucket_name, object_name)
         response = self._client.get_proto(path=url)
         return response.content
 
@@ -111,7 +111,7 @@ class Client(object):
                                  content type *may* be automatically derived
                                  from the specified ``file_obj``.
         """
-        url = '/buckets/{}/{}/{}'.format(instance, bucket_name, object_name)
+        url = '/buckets/{}/{}/objects/{}'.format(instance, bucket_name, object_name)
         with open(file_obj, 'rb') as f:
             if content_type:
                 files = {object_name: (object_name, f, content_type)}
@@ -127,5 +127,5 @@ class Client(object):
         :param str bucket_name: The name of the bucket.
         :param str object_name: The object to remove.
         """
-        url = '/buckets/{}/{}/{}'.format(instance, bucket_name, object_name)
+        url = '/buckets/{}/{}/objects/{}'.format(instance, bucket_name, object_name)
         self._client.delete_proto(url)

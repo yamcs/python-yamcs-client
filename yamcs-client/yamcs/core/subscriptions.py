@@ -6,7 +6,7 @@ import threading
 
 import websocket
 from yamcs.core.exceptions import ConnectionFailure
-from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.web import websocket_pb2
 
 
 class WebSocketSubscriptionManager(object):
@@ -106,7 +106,7 @@ class WebSocketSubscriptionManager(object):
                 cb(self, reason)
 
     def send(self, operation, options=None):
-        message = web_pb2.WebSocketClientMessage()
+        message = websocket_pb2.WebSocketClientMessage()
         message.protocolVersion = 1
         message.sequenceNumber = self._next_sequence_number()
         message.resource = self._resource
@@ -124,7 +124,7 @@ class WebSocketSubscriptionManager(object):
 
     def _on_websocket_message(self, ws, message):
         try:
-            pb2_message = web_pb2.WebSocketServerMessage()
+            pb2_message = websocket_pb2.WebSocketServerMessage()
             pb2_message.ParseFromString(message)
 
             if pb2_message.type == pb2_message.REPLY:

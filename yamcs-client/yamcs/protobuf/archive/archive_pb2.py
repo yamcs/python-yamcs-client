@@ -13,7 +13,7 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf.alarms import alarms_pb2 as yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2
 from yamcs.protobuf.pvalue import pvalue_pb2 as yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2
@@ -25,37 +25,164 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"{\n\x12\x43reateEventRequest\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x10\n\x08severity\x18\x03 \x01(\t\x12\x0c\n\x04time\x18\x04 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x06 \x01(\x05\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"F\n\x12ListTablesResponse\x12\x30\n\x05table\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.archive.TableInfo\"I\n\x13ListStreamsResponse\x12\x32\n\x06stream\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.StreamInfo\"@\n\nColumnData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"P\n\nStreamData\x12\x0e\n\x06stream\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"\x8d\x01\n\tTableData\x12=\n\x06record\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.TableData.TableRecord\x1a\x41\n\x0bTableRecord\x12\x32\n\x06\x63olumn\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnData\"^\n\nColumnInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x34\n\tenumValue\x18\x03 \x03(\x0b\x32!.yamcs.protobuf.archive.EnumValue\")\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x05\x12\r\n\x05label\x18\x02 \x01(\t\"\xcc\x02\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x35\n\tkeyColumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x37\n\x0bvalueColumn\x18\x03 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x04 \x01(\t\x12\x17\n\x0fhistogramColumn\x18\x05 \x03(\t\x12\x15\n\rstorageEngine\x18\x06 \x01(\t\x12\x15\n\rformatVersion\x18\x07 \x01(\x05\x12\x12\n\ntablespace\x18\x08 \x01(\t\x12\x12\n\ncompressed\x18\t \x01(\x08\x12\x42\n\x10partitioningInfo\x18\n \x01(\x0b\x32(.yamcs.protobuf.archive.PartitioningInfo\"\xf7\x01\n\x10PartitioningInfo\x12G\n\x04type\x18\x01 \x01(\x0e\x32\x39.yamcs.protobuf.archive.PartitioningInfo.PartitioningType\x12\x12\n\ntimeColumn\x18\x02 \x01(\t\x12\x1b\n\x13timePartitionSchema\x18\x03 \x01(\t\x12\x13\n\x0bvalueColumn\x18\x04 \x01(\t\x12\x17\n\x0fvalueColumnType\x18\x05 \x01(\t\";\n\x10PartitioningType\x12\x08\n\x04TIME\x10\x01\x12\t\n\x05VALUE\x10\x02\x12\x12\n\x0eTIME_AND_VALUE\x10\x03\"q\n\nStreamInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x32\n\x06\x63olumn\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.ColumnInfo\x12\x0e\n\x06script\x18\x03 \x01(\t\x12\x11\n\tdataCount\x18\x04 \x01(\x03\"!\n\x0f\x45ventSourceInfo\x12\x0e\n\x06source\x18\x01 \x03(\t\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"[\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x10\n\x08seqStart\x18\x04 \x01(\x03\x12\x0f\n\x07seqStop\x18\x05 \x01(\x03\"&\n\x16GetPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"&\n\x11\x45xecuteSqlRequest\x12\x11\n\tstatement\x18\x01 \x01(\t\"$\n\x12\x45xecuteSqlResponse\x12\x0e\n\x06result\x18\x01 \x01(\t\"r\n\x1bListParameterValuesResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"c\n\x1eListRocksDbTablespacesResponse\x12\x41\n\ntablespace\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.RocksDbTablespaceInfo\"u\n\x15RocksDbTablespaceInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x61taDir\x18\x02 \x01(\t\x12=\n\x08\x64\x61tabase\x18\x03 \x03(\x0b\x32+.yamcs.protobuf.archive.RocksDbDatabaseInfo\"]\n\x1cListRocksDbDatabasesResponse\x12=\n\x08\x64\x61tabase\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.archive.RocksDbDatabaseInfo\"J\n\x13RocksDbDatabaseInfo\x12\x12\n\ntablespace\x18\x01 \x01(\t\x12\x0f\n\x07\x64\x61taDir\x18\x02 \x01(\t\x12\x0e\n\x06\x64\x62Path\x18\x03 \x01(\t\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"a\n\x10\x43reateTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"_\n\x0e\x45\x64itTagRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05start\x18\x02 \x01(\t\x12\x0c\n\x04stop\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x63olor\x18\x05 \x01(\t\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t2\xe9\x04\n\x07RocksDB\x12\xa0\x01\n\x0fListTablespaces\x12\x16.google.protobuf.Empty\x1a\x36.yamcs.protobuf.archive.ListRocksDbTablespacesResponse\"=\x8a\x92\x03\x39\n\x03GET\x12 /api/archive/rocksdb/tablespaces\x1a\x10List tablespaces\x12\x88\x01\n\x10\x42\x61\x63kupTablespace\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"D\x8a\x92\x03@\n\x04POST\x12%/api/archive/rocksdb/backup/{dbpath*}\x1a\x11\x42\x61\x63kup tablespace\x12\x98\x01\n\rListDatabases\x12\x16.google.protobuf.Empty\x1a\x34.yamcs.protobuf.archive.ListRocksDbDatabasesResponse\"9\x8a\x92\x03\x35\n\x03GET\x12\x1e/api/archive/rocksdb/databases\x1a\x0eList databases\x12\x94\x01\n\x0f\x43ompactDatabase\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"Q\x8a\x92\x03M\n\x03GET\x12\x34/api/archive/rocksdb/{tablespace}/compact/{dbpath**}\x1a\x10\x43ompact database2\xf0\x07\n\x10ParameterArchive\x12\x8b\x01\n\x0cRebuildRange\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"K\x8a\x92\x03G\n\x04POST\x12\x30/api/archive/{instance}/parameterArchive:rebuild\x1a\rRebuild range\x12\xa3\x01\n\x10\x44\x65letePartitions\x12\x16.google.protobuf.Empty\x1a\x1d.yamcs.protobuf.StringMessage\"X\x8a\x92\x03T\n\x04POST\x12\x39/api/archive/{instance}/parameterArchive:deletePartitions\x1a\x11\x44\x65lete partitions\x12\xa7\x01\n\x0eGetArchiveInfo\x12\x16.google.protobuf.Empty\x1a\x1d.yamcs.protobuf.StringMessage\"^\x8a\x92\x03Z\n\x03GET\x12?/api/archive/{instance}/parameterArchive/info/parameter/{name*}\x1a\x12Get parameter info\x12\xa6\x01\n\x13GetParameterSamples\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.pvalue.TimeSeries\"T\x8a\x92\x03P\n\x03GET\x12\x32/api/archive/{instance}/parameters/{name*}/samples\x1a\x15Get parameter samples\x12\x9f\x01\n\x12GetParameterRanges\x12\x16.google.protobuf.Empty\x1a\x1d.yamcs.protobuf.pvalue.Ranges\"R\x8a\x92\x03N\n\x03GET\x12\x31/api/archive/{instance}/parameters/{name*}/ranges\x1a\x14Get parameter ranges\x12\xb2\x01\n\x14ListParameterHistory\x12\x16.google.protobuf.Empty\x1a\x33.yamcs.protobuf.archive.ListParameterValuesResponse\"M\x8a\x92\x03I\n\x03GET\x12*/api/archive/{instance}/parameters/{name*}\x1a\x16List parameter history2\xe8\x1f\n\rStreamArchive\x12\xa0\x01\n\nExecuteSql\x12).yamcs.protobuf.archive.ExecuteSqlRequest\x1a*.yamcs.protobuf.archive.ExecuteSqlResponse\";\x8a\x92\x03\x37\n\x04POST\x12\"/api/archive/{instance}:executeSql\x1a\x0b\x45xecute SQL\x12\x88\x01\n\nListEvents\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.archive.ListEventsResponse\"6\x8a\x92\x03\x32\n\x03GET\x12\x1e/api/archive/{instance}/events\x1a\x0bList events\x12\x8d\x01\n\x0b\x43reateEvent\x12*.yamcs.protobuf.archive.CreateEventRequest\x1a\x15.yamcs.protobuf.Event\";\x8a\x92\x03\x37\n\x04POST\x12\x1e/api/archive/{instance}/events\x1a\x0f\x43reate an event\x12\x9a\x01\n\x10ListEventSources\x12\x16.google.protobuf.Empty\x1a\'.yamcs.protobuf.archive.EventSourceInfo\"E\x8a\x92\x03\x41\n\x03GET\x12&/api/archive/{instance}/events/sources\x1a\x12List event sources\x12\x88\x01\n\nListAlarms\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.archive.ListAlarmsResponse\"6\x8a\x92\x03\x32\n\x03GET\x12\x1e/api/archive/{instance}/alarms\x1a\x0bList alarms\x12\xa8\x01\n\x13ListParameterAlarms\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.archive.ListAlarmsResponse\"M\x8a\x92\x03I\n\x03GET\x12+/api/archive/{instance}/alarms/{parameter*}\x1a\x15List parameter alarms\x12\xa5\x01\n\x13ListParameterGroups\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.archive.ParameterGroupInfo\"J\x8a\x92\x03\x46\n\x03GET\x12(/api/archive/{instance}/parameter-groups\x1a\x15List parameter groups\x12\xb9\x01\n\x14ListParameterHistory\x12\x16.google.protobuf.Empty\x1a\x33.yamcs.protobuf.archive.ListParameterValuesResponse\"T\x8a\x92\x03P\n\x03GET\x12\x31/api/stream-archive/{instance}/parameters/{name*}\x1a\x16List parameter history\x12\xad\x01\n\x13GetParameterSamples\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.pvalue.TimeSeries\"[\x8a\x92\x03W\n\x03GET\x12\x39/api/stream-archive/{instance}/parameters/{name*}/samples\x1a\x15Get parameter samples\x12\x8c\x01\n\x0bListStreams\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.archive.ListStreamsResponse\"8\x8a\x92\x03\x34\n\x03GET\x12\x1f/api/archive/{instance}/streams\x1a\x0cList streams\x12\x88\x01\n\tGetStream\x12\x16.google.protobuf.Empty\x1a\".yamcs.protobuf.archive.StreamInfo\"?\x8a\x92\x03;\n\x03GET\x12&/api/archive/{instance}/streams/{name}\x1a\x0cGet a stream\x12\x88\x01\n\nListTables\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.archive.ListTablesResponse\"6\x8a\x92\x03\x32\n\x03GET\x12\x1e/api/archive/{instance}/tables\x1a\x0bList tables\x12\x84\x01\n\x08GetTable\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.archive.TableInfo\"=\x8a\x92\x03\x39\n\x03GET\x12%/api/archive/{instance}/tables/{name}\x1a\x0bGet a table\x12\x90\x01\n\x0cGetTableData\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.archive.TableData\"E\x8a\x92\x03\x41\n\x03GET\x12*/api/archive/{instance}/tables/{name}/data\x1a\x0eGet table data\x12\x9c\x01\n\x17ListCommandHistoryIndex\x12\x16.google.protobuf.Empty\x1a\x1b.yamcs.protobuf.IndexResult\"L\x8a\x92\x03H\n\x03GET\x12%/api/archive/{instance}/command-index\x1a\x1aList command history index\x12\x87\x01\n\x0eListEventIndex\x12\x16.google.protobuf.Empty\x1a\x1b.yamcs.protobuf.IndexResult\"@\x8a\x92\x03<\n\x03GET\x12#/api/archive/{instance}/event-index\x1a\x10List event index\x12\x8a\x01\n\x0fListPacketIndex\x12\x16.google.protobuf.Empty\x1a\x1b.yamcs.protobuf.IndexResult\"B\x8a\x92\x03>\n\x03GET\x12$/api/archive/{instance}/packet-index\x1a\x11List packet index\x12\x93\x01\n\x12ListParameterIndex\x12\x16.google.protobuf.Empty\x1a\x1b.yamcs.protobuf.IndexResult\"H\x8a\x92\x03\x44\n\x03GET\x12\'/api/archive/{instance}/parameter-index\x1a\x14List parameter index\x12\x9c\x01\n\x15ListCompletenessIndex\x12\x16.google.protobuf.Empty\x1a\x1b.yamcs.protobuf.IndexResult\"N\x8a\x92\x03J\n\x03GET\x12*/api/archive/{instance}/completeness-index\x1a\x17List completeness index\x12\x80\x01\n\x08ListTags\x12\x16.google.protobuf.Empty\x1a(.yamcs.protobuf.archive.ListTagsResponse\"2\x8a\x92\x03.\n\x03GET\x12\x1c/api/archive/{instance}/tags\x1a\tList tags\x12\x82\x01\n\x06GetTag\x12\x16.google.protobuf.Empty\x1a\x1a.yamcs.protobuf.ArchiveTag\"D\x8a\x92\x03@\n\x03GET\x12./api/archive/{instance}/tags/{tagTime}/{tagId}\x1a\tGet a tag\x12\x89\x01\n\tCreateTag\x12(.yamcs.protobuf.archive.CreateTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"6\x8a\x92\x03\x32\n\x04POST\x12\x1c/api/archive/{instance}/tags\x1a\x0c\x43reate a tag\x12\x9a\x01\n\tUpdateTag\x12&.yamcs.protobuf.archive.EditTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"I\x8a\x92\x03\x45\n\x05PATCH\x12./api/archive/{instance}/tags/{tagTime}/{tagId}\x1a\x0cUpdate a tag\x12\x8b\x01\n\tDeleteTag\x12\x16.google.protobuf.Empty\x1a\x1a.yamcs.protobuf.ArchiveTag\"J\x8a\x92\x03\x46\n\x06\x44\x45LETE\x12./api/archive/{instance}/tags/{tagTime}/{tagId}\x1a\x0c\x44\x65lete a tag\x12\x9d\x01\n\x0fListPacketNames\x12\x16.google.protobuf.Empty\x1a..yamcs.protobuf.archive.GetPacketNamesResponse\"B\x8a\x92\x03>\n\x03GET\x12$/api/archive/{instance}/packet-names\x1a\x11List packet names\x12\x97\x01\n\x0bListPackets\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.archive.ListPacketsResponse\"C\x8a\x92\x03?\n\x03GET\x12*/api/archive/{instance}/packets/{gentime?}\x1a\x0cList packets\x12\x8e\x01\n\tGetPacket\x12\x16.google.protobuf.Empty\x1a\x1c.yamcs.protobuf.TmPacketData\"K\x8a\x92\x03G\n\x03GET\x12\x32/api/archive/{instance}/packets/{gentime}/{seqnum}\x1a\x0cGet a packetB\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xc4\x01\n\x1cStreamParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x03ids\x18\x04 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnamespace\x18\x05 \x01(\t\"\xe0\x01\n\x11ListEventsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x10\n\x08severity\x18\x05 \x01(\t\x12\x0e\n\x06source\x18\x06 \x03(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12)\n\x05start\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\t\n\x01q\x18\n \x01(\t\"U\n\x12ListEventsResponse\x12$\n\x05\x65vent\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Event\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\x8d\x01\n\x12\x43reateEventRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x10\n\x08severity\x18\x04 \x01(\t\x12\x0c\n\x04time\x18\x05 \x01(\t\x12\x0e\n\x06source\x18\x06 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x07 \x01(\x05\"\xa5\x01\n\x11ListAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x06 \x01(\t\"E\n\x12ListAlarmsResponse\x12/\n\x05\x61larm\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"\xd1\x01\n\x1aListParameterAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tparameter\x18\x02 \x01(\t\x12\x0b\n\x03pos\x18\x03 \x01(\x03\x12\r\n\x05limit\x18\x04 \x01(\x05\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x07 \x01(\t\x12\x0e\n\x06\x64\x65tail\x18\x08 \x01(\x08\"+\n\x17ListEventSourcesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"*\n\x18ListEventSourcesResponse\x12\x0e\n\x06source\x18\x01 \x03(\t\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\"\xc5\x01\n\x1eListCommandHistoryIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xbe\x01\n\x15ListEventIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0e\n\x06source\x18\x07 \x03(\t\"\xbd\x01\n\x16ListPacketIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xc1\x01\n\x19ListParameterIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\r\n\x05group\x18\x07 \x03(\t\"\xa2\x01\n\x1cListCompletenessIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x05 \x01(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"[\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x10\n\x08seqStart\x18\x04 \x01(\x03\x12\x0f\n\x07seqStop\x18\x05 \x01(\x03\"*\n\x16ListPacketNamesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\'\n\x17ListPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\".\n\x1aListParameterGroupsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\x86\x02\n\x1bListParameterHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03pos\x18\x03 \x01(\x03\x12\r\n\x05limit\x18\x04 \x01(\x05\x12\x10\n\x08norepeat\x18\x05 \x01(\x08\x12)\n\x05start\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x08 \x01(\t\x12\x12\n\nnorealtime\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\n \x01(\t\x12\x0e\n\x06source\x18\x0b \x01(\t\"s\n\x1cListParameterHistoryResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xc2\x01\n\x12ListPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"E\n\x10GetPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07gentime\x18\x02 \x01(\x03\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\xd7\x01\n\x1aGetParameterSamplesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x12\n\nnorealtime\x18\x06 \x01(\x08\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0e\n\x06source\x18\x08 \x01(\t2\xaa\x15\n\x10StreamArchiveApi\x12\x89\x01\n\nListEvents\x12).yamcs.protobuf.archive.ListEventsRequest\x1a*.yamcs.protobuf.archive.ListEventsResponse\"$\x8a\x92\x03 \n\x1e/api/archive/{instance}/events\x12y\n\x0b\x43reateEvent\x12*.yamcs.protobuf.archive.CreateEventRequest\x1a\x15.yamcs.protobuf.Event\"\'\x8a\x92\x03#\x1a\x1e/api/archive/{instance}/events:\x01*\x12\xa3\x01\n\x10ListEventSources\x12/.yamcs.protobuf.archive.ListEventSourcesRequest\x1a\x30.yamcs.protobuf.archive.ListEventSourcesResponse\",\x8a\x92\x03(\n&/api/archive/{instance}/events/sources\x12\x89\x01\n\nListAlarms\x12).yamcs.protobuf.archive.ListAlarmsRequest\x1a*.yamcs.protobuf.archive.ListAlarmsResponse\"$\x8a\x92\x03 \n\x1e/api/archive/{instance}/alarms\x12\xa8\x01\n\x13ListParameterAlarms\x12\x32.yamcs.protobuf.archive.ListParameterAlarmsRequest\x1a*.yamcs.protobuf.archive.ListAlarmsResponse\"1\x8a\x92\x03-\n+/api/archive/{instance}/alarms/{parameter*}\x12\xa5\x01\n\x13ListParameterGroups\x12\x32.yamcs.protobuf.archive.ListParameterGroupsRequest\x1a*.yamcs.protobuf.archive.ParameterGroupInfo\".\x8a\x92\x03*\n(/api/archive/{instance}/parameter-groups\x12\xba\x01\n\x14ListParameterHistory\x12\x33.yamcs.protobuf.archive.ListParameterHistoryRequest\x1a\x34.yamcs.protobuf.archive.ListParameterHistoryResponse\"7\x8a\x92\x03\x33\n1/api/stream-archive/{instance}/parameters/{name*}\x12\xb4\x01\n\x15StreamParameterValues\x12\x34.yamcs.protobuf.archive.StreamParameterValuesRequest\x1a$.yamcs.protobuf.pvalue.ParameterData\"=\x8a\x92\x03\x39\x1a\x34/api/stream-archive/{instance}:streamParameterValues:\x01*0\x01\x12\xad\x01\n\x13GetParameterSamples\x12\x32.yamcs.protobuf.archive.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"?\x8a\x92\x03;\n9/api/stream-archive/{instance}/parameters/{name*}/samples\x12\xa5\x01\n\x17ListCommandHistoryIndex\x12\x36.yamcs.protobuf.archive.ListCommandHistoryIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"+\x8a\x92\x03\'\n%/api/archive/{instance}/command-index\x12\x91\x01\n\x0eListEventIndex\x12-.yamcs.protobuf.archive.ListEventIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\")\x8a\x92\x03%\n#/api/archive/{instance}/event-index\x12\x94\x01\n\x0fListPacketIndex\x12..yamcs.protobuf.archive.ListPacketIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-index\x12\x9d\x01\n\x12ListParameterIndex\x12\x31.yamcs.protobuf.archive.ListParameterIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"-\x8a\x92\x03)\n\'/api/archive/{instance}/parameter-index\x12\xa6\x01\n\x15ListCompletenessIndex\x12\x34.yamcs.protobuf.archive.ListCompletenessIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/completeness-index\x12\x9e\x01\n\x0fListPacketNames\x12..yamcs.protobuf.archive.ListPacketNamesRequest\x1a/.yamcs.protobuf.archive.ListPacketNamesResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-names\x12\x98\x01\n\x0bListPackets\x12*.yamcs.protobuf.archive.ListPacketsRequest\x1a+.yamcs.protobuf.archive.ListPacketsResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/packets/{gentime?}\x12\x8d\x01\n\tGetPacket\x12(.yamcs.protobuf.archive.GetPacketRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"8\x8a\x92\x03\x34\n2/api/archive/{instance}/packets/{gentime}/{seqnum}B\x14\n\x12org.yamcs.protobuf')
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
 
 
-_PARTITIONINGINFO_PARTITIONINGTYPE = _descriptor.EnumDescriptor(
-  name='PartitioningType',
-  full_name='yamcs.protobuf.archive.PartitioningInfo.PartitioningType',
+
+_STREAMPARAMETERVALUESREQUEST = _descriptor.Descriptor(
+  name='StreamParameterValuesRequest',
+  full_name='yamcs.protobuf.archive.StreamParameterValuesRequest',
   filename=None,
   file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='TIME', index=0, number=1,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='VALUE', index=1, number=2,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='TIME_AND_VALUE', index=2, number=3,
-      serialized_options=None,
-      type=None),
-  ],
   containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.StreamParameterValuesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.StreamParameterValuesRequest.start', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.StreamParameterValuesRequest.stop', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ids', full_name='yamcs.protobuf.archive.StreamParameterValuesRequest.ids', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='yamcs.protobuf.archive.StreamParameterValuesRequest.namespace', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
   serialized_options=None,
-  serialized_start=1607,
-  serialized_end=1666,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=227,
+  serialized_end=423,
 )
-_sym_db.RegisterEnumDescriptor(_PARTITIONINGINFO_PARTITIONINGTYPE)
+
+
+_LISTEVENTSREQUEST = _descriptor.Descriptor(
+  name='ListEventsRequest',
+  full_name='yamcs.protobuf.archive.ListEventsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListEventsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.archive.ListEventsRequest.pos', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListEventsRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.archive.ListEventsRequest.order', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='severity', full_name='yamcs.protobuf.archive.ListEventsRequest.severity', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.archive.ListEventsRequest.source', index=5,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListEventsRequest.next', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListEventsRequest.start', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListEventsRequest.stop', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='q', full_name='yamcs.protobuf.archive.ListEventsRequest.q', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=426,
+  serialized_end=650,
+)
 
 
 _LISTEVENTSRESPONSE = _descriptor.Descriptor(
@@ -91,8 +218,8 @@ _LISTEVENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=222,
-  serialized_end=307,
+  serialized_start=652,
+  serialized_end=737,
 )
 
 
@@ -104,43 +231,50 @@ _CREATEEVENTREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.archive.CreateEventRequest.type', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.CreateEventRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='message', full_name='yamcs.protobuf.archive.CreateEventRequest.message', index=1,
+      name='type', full_name='yamcs.protobuf.archive.CreateEventRequest.type', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='severity', full_name='yamcs.protobuf.archive.CreateEventRequest.severity', index=2,
+      name='message', full_name='yamcs.protobuf.archive.CreateEventRequest.message', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='time', full_name='yamcs.protobuf.archive.CreateEventRequest.time', index=3,
+      name='severity', full_name='yamcs.protobuf.archive.CreateEventRequest.severity', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.archive.CreateEventRequest.source', index=4,
+      name='time', full_name='yamcs.protobuf.archive.CreateEventRequest.time', index=4,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='sequenceNumber', full_name='yamcs.protobuf.archive.CreateEventRequest.sequenceNumber', index=5,
-      number=6, type=5, cpp_type=1, label=1,
+      name='source', full_name='yamcs.protobuf.archive.CreateEventRequest.source', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='yamcs.protobuf.archive.CreateEventRequest.sequenceNumber', index=6,
+      number=7, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -157,8 +291,74 @@ _CREATEEVENTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=309,
-  serialized_end=432,
+  serialized_start=740,
+  serialized_end=881,
+)
+
+
+_LISTALARMSREQUEST = _descriptor.Descriptor(
+  name='ListAlarmsRequest',
+  full_name='yamcs.protobuf.archive.ListAlarmsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListAlarmsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.archive.ListAlarmsRequest.pos', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListAlarmsRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListAlarmsRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListAlarmsRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.archive.ListAlarmsRequest.order', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=884,
+  serialized_end=1049,
 )
 
 
@@ -188,370 +388,74 @@ _LISTALARMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=434,
-  serialized_end=503,
+  serialized_start=1051,
+  serialized_end=1120,
 )
 
 
-_LISTTABLESRESPONSE = _descriptor.Descriptor(
-  name='ListTablesResponse',
-  full_name='yamcs.protobuf.archive.ListTablesResponse',
+_LISTPARAMETERALARMSREQUEST = _descriptor.Descriptor(
+  name='ListParameterAlarmsRequest',
+  full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='table', full_name='yamcs.protobuf.archive.ListTablesResponse.table', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=505,
-  serialized_end=575,
-)
-
-
-_LISTSTREAMSRESPONSE = _descriptor.Descriptor(
-  name='ListStreamsResponse',
-  full_name='yamcs.protobuf.archive.ListStreamsResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='stream', full_name='yamcs.protobuf.archive.ListStreamsResponse.stream', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=577,
-  serialized_end=650,
-)
-
-
-_COLUMNDATA = _descriptor.Descriptor(
-  name='ColumnData',
-  full_name='yamcs.protobuf.archive.ColumnData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.ColumnData.name', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.archive.ColumnData.value', index=1,
-      number=2, type=11, cpp_type=10, label=1,
+      name='parameter', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.parameter', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.pos', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.limit', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.start', index=4,
+      number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=652,
-  serialized_end=716,
-)
-
-
-_STREAMDATA = _descriptor.Descriptor(
-  name='StreamData',
-  full_name='yamcs.protobuf.archive.StreamData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
     _descriptor.FieldDescriptor(
-      name='stream', full_name='yamcs.protobuf.archive.StreamData.stream', index=0,
-      number=1, type=9, cpp_type=9, label=1,
+      name='stop', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.stop', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.order', index=6,
+      number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='column', full_name='yamcs.protobuf.archive.StreamData.column', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=718,
-  serialized_end=798,
-)
-
-
-_TABLEDATA_TABLERECORD = _descriptor.Descriptor(
-  name='TableRecord',
-  full_name='yamcs.protobuf.archive.TableData.TableRecord',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='column', full_name='yamcs.protobuf.archive.TableData.TableRecord.column', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=877,
-  serialized_end=942,
-)
-
-_TABLEDATA = _descriptor.Descriptor(
-  name='TableData',
-  full_name='yamcs.protobuf.archive.TableData',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='record', full_name='yamcs.protobuf.archive.TableData.record', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_TABLEDATA_TABLERECORD, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=801,
-  serialized_end=942,
-)
-
-
-_COLUMNINFO = _descriptor.Descriptor(
-  name='ColumnInfo',
-  full_name='yamcs.protobuf.archive.ColumnInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.ColumnInfo.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.archive.ColumnInfo.type', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='enumValue', full_name='yamcs.protobuf.archive.ColumnInfo.enumValue', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=944,
-  serialized_end=1038,
-)
-
-
-_ENUMVALUE = _descriptor.Descriptor(
-  name='EnumValue',
-  full_name='yamcs.protobuf.archive.EnumValue',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.archive.EnumValue.value', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='label', full_name='yamcs.protobuf.archive.EnumValue.label', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1040,
-  serialized_end=1081,
-)
-
-
-_TABLEINFO = _descriptor.Descriptor(
-  name='TableInfo',
-  full_name='yamcs.protobuf.archive.TableInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.TableInfo.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='keyColumn', full_name='yamcs.protobuf.archive.TableInfo.keyColumn', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='valueColumn', full_name='yamcs.protobuf.archive.TableInfo.valueColumn', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='script', full_name='yamcs.protobuf.archive.TableInfo.script', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='histogramColumn', full_name='yamcs.protobuf.archive.TableInfo.histogramColumn', index=4,
-      number=5, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='storageEngine', full_name='yamcs.protobuf.archive.TableInfo.storageEngine', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='formatVersion', full_name='yamcs.protobuf.archive.TableInfo.formatVersion', index=6,
-      number=7, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tablespace', full_name='yamcs.protobuf.archive.TableInfo.tablespace', index=7,
-      number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='compressed', full_name='yamcs.protobuf.archive.TableInfo.compressed', index=8,
-      number=9, type=8, cpp_type=7, label=1,
+      name='detail', full_name='yamcs.protobuf.archive.ListParameterAlarmsRequest.detail', index=7,
+      number=8, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='partitioningInfo', full_name='yamcs.protobuf.archive.TableInfo.partitioningInfo', index=9,
-      number=10, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -564,106 +468,25 @@ _TABLEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1084,
-  serialized_end=1416,
+  serialized_start=1123,
+  serialized_end=1332,
 )
 
 
-_PARTITIONINGINFO = _descriptor.Descriptor(
-  name='PartitioningInfo',
-  full_name='yamcs.protobuf.archive.PartitioningInfo',
+_LISTEVENTSOURCESREQUEST = _descriptor.Descriptor(
+  name='ListEventSourcesRequest',
+  full_name='yamcs.protobuf.archive.ListEventSourcesRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.archive.PartitioningInfo.type', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='timeColumn', full_name='yamcs.protobuf.archive.PartitioningInfo.timeColumn', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='timePartitionSchema', full_name='yamcs.protobuf.archive.PartitioningInfo.timePartitionSchema', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='valueColumn', full_name='yamcs.protobuf.archive.PartitioningInfo.valueColumn', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='valueColumnType', full_name='yamcs.protobuf.archive.PartitioningInfo.valueColumnType', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _PARTITIONINGINFO_PARTITIONINGTYPE,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1419,
-  serialized_end=1666,
-)
-
-
-_STREAMINFO = _descriptor.Descriptor(
-  name='StreamInfo',
-  full_name='yamcs.protobuf.archive.StreamInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.StreamInfo.name', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListEventSourcesRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='column', full_name='yamcs.protobuf.archive.StreamInfo.column', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='script', full_name='yamcs.protobuf.archive.StreamInfo.script', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='dataCount', full_name='yamcs.protobuf.archive.StreamInfo.dataCount', index=3,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -676,20 +499,20 @@ _STREAMINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1668,
-  serialized_end=1781,
+  serialized_start=1334,
+  serialized_end=1377,
 )
 
 
-_EVENTSOURCEINFO = _descriptor.Descriptor(
-  name='EventSourceInfo',
-  full_name='yamcs.protobuf.archive.EventSourceInfo',
+_LISTEVENTSOURCESRESPONSE = _descriptor.Descriptor(
+  name='ListEventSourcesResponse',
+  full_name='yamcs.protobuf.archive.ListEventSourcesResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.archive.EventSourceInfo.source', index=0,
+      name='source', full_name='yamcs.protobuf.archive.ListEventSourcesResponse.source', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -707,8 +530,8 @@ _EVENTSOURCEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1783,
-  serialized_end=1816,
+  serialized_start=1379,
+  serialized_end=1421,
 )
 
 
@@ -738,8 +561,359 @@ _PARAMETERGROUPINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1818,
-  serialized_end=1853,
+  serialized_start=1423,
+  serialized_end=1458,
+)
+
+
+_LISTCOMMANDHISTORYINDEXREQUEST = _descriptor.Descriptor(
+  name='ListCommandHistoryIndexRequest',
+  full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mergeTime', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.mergeTime', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.next', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.archive.ListCommandHistoryIndexRequest.name', index=6,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1461,
+  serialized_end=1658,
+)
+
+
+_LISTEVENTINDEXREQUEST = _descriptor.Descriptor(
+  name='ListEventIndexRequest',
+  full_name='yamcs.protobuf.archive.ListEventIndexRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListEventIndexRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mergeTime', full_name='yamcs.protobuf.archive.ListEventIndexRequest.mergeTime', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListEventIndexRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListEventIndexRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListEventIndexRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListEventIndexRequest.next', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.archive.ListEventIndexRequest.source', index=6,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1661,
+  serialized_end=1851,
+)
+
+
+_LISTPACKETINDEXREQUEST = _descriptor.Descriptor(
+  name='ListPacketIndexRequest',
+  full_name='yamcs.protobuf.archive.ListPacketIndexRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mergeTime', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.mergeTime', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.next', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.archive.ListPacketIndexRequest.name', index=6,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1854,
+  serialized_end=2043,
+)
+
+
+_LISTPARAMETERINDEXREQUEST = _descriptor.Descriptor(
+  name='ListParameterIndexRequest',
+  full_name='yamcs.protobuf.archive.ListParameterIndexRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='mergeTime', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.mergeTime', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.next', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='group', full_name='yamcs.protobuf.archive.ListParameterIndexRequest.group', index=6,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2046,
+  serialized_end=2239,
+)
+
+
+_LISTCOMPLETENESSINDEXREQUEST = _descriptor.Descriptor(
+  name='ListCompletenessIndexRequest',
+  full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest.limit', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest.start', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest.stop', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListCompletenessIndexRequest.next', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2242,
+  serialized_end=2404,
 )
 
 
@@ -776,8 +950,8 @@ _INDEXRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1855,
-  serialized_end=1948,
+  serialized_start=2406,
+  serialized_end=2499,
 )
 
 
@@ -814,8 +988,8 @@ _INDEXGROUP = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1950,
-  serialized_end=2056,
+  serialized_start=2501,
+  serialized_end=2607,
 )
 
 
@@ -873,20 +1047,51 @@ _INDEXENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2058,
-  serialized_end=2149,
+  serialized_start=2609,
+  serialized_end=2700,
 )
 
 
-_GETPACKETNAMESRESPONSE = _descriptor.Descriptor(
-  name='GetPacketNamesResponse',
-  full_name='yamcs.protobuf.archive.GetPacketNamesResponse',
+_LISTPACKETNAMESREQUEST = _descriptor.Descriptor(
+  name='ListPacketNamesRequest',
+  full_name='yamcs.protobuf.archive.ListPacketNamesRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.GetPacketNamesResponse.name', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListPacketNamesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2702,
+  serialized_end=2744,
+)
+
+
+_LISTPACKETNAMESRESPONSE = _descriptor.Descriptor(
+  name='ListPacketNamesResponse',
+  full_name='yamcs.protobuf.archive.ListPacketNamesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.archive.ListPacketNamesResponse.name', index=0,
       number=1, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -904,20 +1109,20 @@ _GETPACKETNAMESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2151,
-  serialized_end=2189,
+  serialized_start=2746,
+  serialized_end=2785,
 )
 
 
-_EXECUTESQLREQUEST = _descriptor.Descriptor(
-  name='ExecuteSqlRequest',
-  full_name='yamcs.protobuf.archive.ExecuteSqlRequest',
+_LISTPARAMETERGROUPSREQUEST = _descriptor.Descriptor(
+  name='ListParameterGroupsRequest',
+  full_name='yamcs.protobuf.archive.ListParameterGroupsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='statement', full_name='yamcs.protobuf.archive.ExecuteSqlRequest.statement', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListParameterGroupsRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -935,21 +1140,91 @@ _EXECUTESQLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2191,
-  serialized_end=2229,
+  serialized_start=2787,
+  serialized_end=2833,
 )
 
 
-_EXECUTESQLRESPONSE = _descriptor.Descriptor(
-  name='ExecuteSqlResponse',
-  full_name='yamcs.protobuf.archive.ExecuteSqlResponse',
+_LISTPARAMETERHISTORYREQUEST = _descriptor.Descriptor(
+  name='ListParameterHistoryRequest',
+  full_name='yamcs.protobuf.archive.ListParameterHistoryRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='result', full_name='yamcs.protobuf.archive.ExecuteSqlResponse.result', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.pos', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.limit', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norepeat', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.norepeat', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.start', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.stop', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.order', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norealtime', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.norealtime', index=8,
+      number=9, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.processor', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.archive.ListParameterHistoryRequest.source', index=10,
+      number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -966,27 +1241,27 @@ _EXECUTESQLRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2231,
-  serialized_end=2267,
+  serialized_start=2836,
+  serialized_end=3098,
 )
 
 
-_LISTPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
-  name='ListParameterValuesResponse',
-  full_name='yamcs.protobuf.archive.ListParameterValuesResponse',
+_LISTPARAMETERHISTORYRESPONSE = _descriptor.Descriptor(
+  name='ListParameterHistoryResponse',
+  full_name='yamcs.protobuf.archive.ListParameterHistoryResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='parameter', full_name='yamcs.protobuf.archive.ListParameterValuesResponse.parameter', index=0,
+      name='parameter', full_name='yamcs.protobuf.archive.ListParameterHistoryResponse.parameter', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='continuationToken', full_name='yamcs.protobuf.archive.ListParameterValuesResponse.continuationToken', index=1,
+      name='continuationToken', full_name='yamcs.protobuf.archive.ListParameterHistoryResponse.continuationToken', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1004,233 +1279,71 @@ _LISTPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2269,
-  serialized_end=2383,
+  serialized_start=3100,
+  serialized_end=3215,
 )
 
 
-_LISTROCKSDBTABLESPACESRESPONSE = _descriptor.Descriptor(
-  name='ListRocksDbTablespacesResponse',
-  full_name='yamcs.protobuf.archive.ListRocksDbTablespacesResponse',
+_LISTPACKETSREQUEST = _descriptor.Descriptor(
+  name='ListPacketsRequest',
+  full_name='yamcs.protobuf.archive.ListPacketsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='tablespace', full_name='yamcs.protobuf.archive.ListRocksDbTablespacesResponse.tablespace', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2385,
-  serialized_end=2484,
-)
-
-
-_ROCKSDBTABLESPACEINFO = _descriptor.Descriptor(
-  name='RocksDbTablespaceInfo',
-  full_name='yamcs.protobuf.archive.RocksDbTablespaceInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.RocksDbTablespaceInfo.name', index=0,
+      name='instance', full_name='yamcs.protobuf.archive.ListPacketsRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='dataDir', full_name='yamcs.protobuf.archive.RocksDbTablespaceInfo.dataDir', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='pos', full_name='yamcs.protobuf.archive.ListPacketsRequest.pos', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='database', full_name='yamcs.protobuf.archive.RocksDbTablespaceInfo.database', index=2,
-      number=3, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2486,
-  serialized_end=2603,
-)
-
-
-_LISTROCKSDBDATABASESRESPONSE = _descriptor.Descriptor(
-  name='ListRocksDbDatabasesResponse',
-  full_name='yamcs.protobuf.archive.ListRocksDbDatabasesResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='database', full_name='yamcs.protobuf.archive.ListRocksDbDatabasesResponse.database', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2605,
-  serialized_end=2698,
-)
-
-
-_ROCKSDBDATABASEINFO = _descriptor.Descriptor(
-  name='RocksDbDatabaseInfo',
-  full_name='yamcs.protobuf.archive.RocksDbDatabaseInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='tablespace', full_name='yamcs.protobuf.archive.RocksDbDatabaseInfo.tablespace', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
+      name='limit', full_name='yamcs.protobuf.archive.ListPacketsRequest.limit', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='dataDir', full_name='yamcs.protobuf.archive.RocksDbDatabaseInfo.dataDir', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='dbPath', full_name='yamcs.protobuf.archive.RocksDbDatabaseInfo.dbPath', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2700,
-  serialized_end=2774,
-)
-
-
-_LISTTAGSRESPONSE = _descriptor.Descriptor(
-  name='ListTagsResponse',
-  full_name='yamcs.protobuf.archive.ListTagsResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='tag', full_name='yamcs.protobuf.archive.ListTagsResponse.tag', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2776,
-  serialized_end=2835,
-)
-
-
-_CREATETAGREQUEST = _descriptor.Descriptor(
-  name='CreateTagRequest',
-  full_name='yamcs.protobuf.archive.CreateTagRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.CreateTagRequest.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.archive.CreateTagRequest.start', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.archive.CreateTagRequest.stop', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.archive.CreateTagRequest.description', index=3,
+      name='order', full_name='yamcs.protobuf.archive.ListPacketsRequest.order', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='color', full_name='yamcs.protobuf.archive.CreateTagRequest.color', index=4,
-      number=5, type=9, cpp_type=9, label=1,
+      name='name', full_name='yamcs.protobuf.archive.ListPacketsRequest.name', index=4,
+      number=5, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.archive.ListPacketsRequest.next', index=5,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.ListPacketsRequest.start', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.ListPacketsRequest.stop', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -1246,67 +1359,8 @@ _CREATETAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2837,
-  serialized_end=2934,
-)
-
-
-_EDITTAGREQUEST = _descriptor.Descriptor(
-  name='EditTagRequest',
-  full_name='yamcs.protobuf.archive.EditTagRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.archive.EditTagRequest.name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.archive.EditTagRequest.start', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.archive.EditTagRequest.stop', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.archive.EditTagRequest.description', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='color', full_name='yamcs.protobuf.archive.EditTagRequest.color', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2936,
-  serialized_end=3031,
+  serialized_start=3218,
+  serialized_end=3412,
 )
 
 
@@ -1343,66 +1397,209 @@ _LISTPACKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3033,
-  serialized_end=3127,
+  serialized_start=3414,
+  serialized_end=3508,
 )
 
+
+_GETPACKETREQUEST = _descriptor.Descriptor(
+  name='GetPacketRequest',
+  full_name='yamcs.protobuf.archive.GetPacketRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.GetPacketRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gentime', full_name='yamcs.protobuf.archive.GetPacketRequest.gentime', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seqnum', full_name='yamcs.protobuf.archive.GetPacketRequest.seqnum', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3510,
+  serialized_end=3579,
+)
+
+
+_GETPARAMETERSAMPLESREQUEST = _descriptor.Descriptor(
+  name='GetParameterSamplesRequest',
+  full_name='yamcs.protobuf.archive.GetParameterSamplesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.start', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.stop', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.count', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norealtime', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.norealtime', index=5,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.processor', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.archive.GetParameterSamplesRequest.source', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=3582,
+  serialized_end=3797,
+)
+
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['ids'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
+_LISTEVENTSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTEVENTSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTEVENTSRESPONSE.fields_by_name['event'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._EVENT
+_LISTALARMSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTALARMSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTALARMSRESPONSE.fields_by_name['alarm'].message_type = yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2._ALARMDATA
-_LISTTABLESRESPONSE.fields_by_name['table'].message_type = _TABLEINFO
-_LISTSTREAMSRESPONSE.fields_by_name['stream'].message_type = _STREAMINFO
-_COLUMNDATA.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
-_STREAMDATA.fields_by_name['column'].message_type = _COLUMNDATA
-_TABLEDATA_TABLERECORD.fields_by_name['column'].message_type = _COLUMNDATA
-_TABLEDATA_TABLERECORD.containing_type = _TABLEDATA
-_TABLEDATA.fields_by_name['record'].message_type = _TABLEDATA_TABLERECORD
-_COLUMNINFO.fields_by_name['enumValue'].message_type = _ENUMVALUE
-_TABLEINFO.fields_by_name['keyColumn'].message_type = _COLUMNINFO
-_TABLEINFO.fields_by_name['valueColumn'].message_type = _COLUMNINFO
-_TABLEINFO.fields_by_name['partitioningInfo'].message_type = _PARTITIONINGINFO
-_PARTITIONINGINFO.fields_by_name['type'].enum_type = _PARTITIONINGINFO_PARTITIONINGTYPE
-_PARTITIONINGINFO_PARTITIONINGTYPE.containing_type = _PARTITIONINGINFO
-_STREAMINFO.fields_by_name['column'].message_type = _COLUMNINFO
+_LISTPARAMETERALARMSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERALARMSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTCOMMANDHISTORYINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTCOMMANDHISTORYINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTEVENTINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTEVENTINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPACKETINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPACKETINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTCOMPLETENESSINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTCOMPLETENESSINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _INDEXRESPONSE.fields_by_name['group'].message_type = _INDEXGROUP
 _INDEXGROUP.fields_by_name['id'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _INDEXGROUP.fields_by_name['entry'].message_type = _INDEXENTRY
-_LISTPARAMETERVALUESRESPONSE.fields_by_name['parameter'].message_type = yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERVALUE
-_LISTROCKSDBTABLESPACESRESPONSE.fields_by_name['tablespace'].message_type = _ROCKSDBTABLESPACEINFO
-_ROCKSDBTABLESPACEINFO.fields_by_name['database'].message_type = _ROCKSDBDATABASEINFO
-_LISTROCKSDBDATABASESRESPONSE.fields_by_name['database'].message_type = _ROCKSDBDATABASEINFO
-_LISTTAGSRESPONSE.fields_by_name['tag'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG
+_LISTPARAMETERHISTORYREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERHISTORYREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERHISTORYRESPONSE.fields_by_name['parameter'].message_type = yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERVALUE
+_LISTPACKETSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPACKETSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTPACKETSRESPONSE.fields_by_name['packet'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._TMPACKETDATA
+_GETPARAMETERSAMPLESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETPARAMETERSAMPLESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+DESCRIPTOR.message_types_by_name['StreamParameterValuesRequest'] = _STREAMPARAMETERVALUESREQUEST
+DESCRIPTOR.message_types_by_name['ListEventsRequest'] = _LISTEVENTSREQUEST
 DESCRIPTOR.message_types_by_name['ListEventsResponse'] = _LISTEVENTSRESPONSE
 DESCRIPTOR.message_types_by_name['CreateEventRequest'] = _CREATEEVENTREQUEST
+DESCRIPTOR.message_types_by_name['ListAlarmsRequest'] = _LISTALARMSREQUEST
 DESCRIPTOR.message_types_by_name['ListAlarmsResponse'] = _LISTALARMSRESPONSE
-DESCRIPTOR.message_types_by_name['ListTablesResponse'] = _LISTTABLESRESPONSE
-DESCRIPTOR.message_types_by_name['ListStreamsResponse'] = _LISTSTREAMSRESPONSE
-DESCRIPTOR.message_types_by_name['ColumnData'] = _COLUMNDATA
-DESCRIPTOR.message_types_by_name['StreamData'] = _STREAMDATA
-DESCRIPTOR.message_types_by_name['TableData'] = _TABLEDATA
-DESCRIPTOR.message_types_by_name['ColumnInfo'] = _COLUMNINFO
-DESCRIPTOR.message_types_by_name['EnumValue'] = _ENUMVALUE
-DESCRIPTOR.message_types_by_name['TableInfo'] = _TABLEINFO
-DESCRIPTOR.message_types_by_name['PartitioningInfo'] = _PARTITIONINGINFO
-DESCRIPTOR.message_types_by_name['StreamInfo'] = _STREAMINFO
-DESCRIPTOR.message_types_by_name['EventSourceInfo'] = _EVENTSOURCEINFO
+DESCRIPTOR.message_types_by_name['ListParameterAlarmsRequest'] = _LISTPARAMETERALARMSREQUEST
+DESCRIPTOR.message_types_by_name['ListEventSourcesRequest'] = _LISTEVENTSOURCESREQUEST
+DESCRIPTOR.message_types_by_name['ListEventSourcesResponse'] = _LISTEVENTSOURCESRESPONSE
 DESCRIPTOR.message_types_by_name['ParameterGroupInfo'] = _PARAMETERGROUPINFO
+DESCRIPTOR.message_types_by_name['ListCommandHistoryIndexRequest'] = _LISTCOMMANDHISTORYINDEXREQUEST
+DESCRIPTOR.message_types_by_name['ListEventIndexRequest'] = _LISTEVENTINDEXREQUEST
+DESCRIPTOR.message_types_by_name['ListPacketIndexRequest'] = _LISTPACKETINDEXREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterIndexRequest'] = _LISTPARAMETERINDEXREQUEST
+DESCRIPTOR.message_types_by_name['ListCompletenessIndexRequest'] = _LISTCOMPLETENESSINDEXREQUEST
 DESCRIPTOR.message_types_by_name['IndexResponse'] = _INDEXRESPONSE
 DESCRIPTOR.message_types_by_name['IndexGroup'] = _INDEXGROUP
 DESCRIPTOR.message_types_by_name['IndexEntry'] = _INDEXENTRY
-DESCRIPTOR.message_types_by_name['GetPacketNamesResponse'] = _GETPACKETNAMESRESPONSE
-DESCRIPTOR.message_types_by_name['ExecuteSqlRequest'] = _EXECUTESQLREQUEST
-DESCRIPTOR.message_types_by_name['ExecuteSqlResponse'] = _EXECUTESQLRESPONSE
-DESCRIPTOR.message_types_by_name['ListParameterValuesResponse'] = _LISTPARAMETERVALUESRESPONSE
-DESCRIPTOR.message_types_by_name['ListRocksDbTablespacesResponse'] = _LISTROCKSDBTABLESPACESRESPONSE
-DESCRIPTOR.message_types_by_name['RocksDbTablespaceInfo'] = _ROCKSDBTABLESPACEINFO
-DESCRIPTOR.message_types_by_name['ListRocksDbDatabasesResponse'] = _LISTROCKSDBDATABASESRESPONSE
-DESCRIPTOR.message_types_by_name['RocksDbDatabaseInfo'] = _ROCKSDBDATABASEINFO
-DESCRIPTOR.message_types_by_name['ListTagsResponse'] = _LISTTAGSRESPONSE
-DESCRIPTOR.message_types_by_name['CreateTagRequest'] = _CREATETAGREQUEST
-DESCRIPTOR.message_types_by_name['EditTagRequest'] = _EDITTAGREQUEST
+DESCRIPTOR.message_types_by_name['ListPacketNamesRequest'] = _LISTPACKETNAMESREQUEST
+DESCRIPTOR.message_types_by_name['ListPacketNamesResponse'] = _LISTPACKETNAMESRESPONSE
+DESCRIPTOR.message_types_by_name['ListParameterGroupsRequest'] = _LISTPARAMETERGROUPSREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterHistoryRequest'] = _LISTPARAMETERHISTORYREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterHistoryResponse'] = _LISTPARAMETERHISTORYRESPONSE
+DESCRIPTOR.message_types_by_name['ListPacketsRequest'] = _LISTPACKETSREQUEST
 DESCRIPTOR.message_types_by_name['ListPacketsResponse'] = _LISTPACKETSRESPONSE
+DESCRIPTOR.message_types_by_name['GetPacketRequest'] = _GETPACKETREQUEST
+DESCRIPTOR.message_types_by_name['GetParameterSamplesRequest'] = _GETPARAMETERSAMPLESREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+StreamParameterValuesRequest = _reflection.GeneratedProtocolMessageType('StreamParameterValuesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _STREAMPARAMETERVALUESREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StreamParameterValuesRequest)
+  ))
+_sym_db.RegisterMessage(StreamParameterValuesRequest)
+
+ListEventsRequest = _reflection.GeneratedProtocolMessageType('ListEventsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTEVENTSREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventsRequest)
+  ))
+_sym_db.RegisterMessage(ListEventsRequest)
 
 ListEventsResponse = _reflection.GeneratedProtocolMessageType('ListEventsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTEVENTSRESPONSE,
@@ -1418,6 +1615,13 @@ CreateEventRequest = _reflection.GeneratedProtocolMessageType('CreateEventReques
   ))
 _sym_db.RegisterMessage(CreateEventRequest)
 
+ListAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListAlarmsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTALARMSREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListAlarmsRequest)
+  ))
+_sym_db.RegisterMessage(ListAlarmsRequest)
+
 ListAlarmsResponse = _reflection.GeneratedProtocolMessageType('ListAlarmsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTALARMSRESPONSE,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
@@ -1425,90 +1629,26 @@ ListAlarmsResponse = _reflection.GeneratedProtocolMessageType('ListAlarmsRespons
   ))
 _sym_db.RegisterMessage(ListAlarmsResponse)
 
-ListTablesResponse = _reflection.GeneratedProtocolMessageType('ListTablesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTABLESRESPONSE,
+ListParameterAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListParameterAlarmsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPARAMETERALARMSREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListTablesResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterAlarmsRequest)
   ))
-_sym_db.RegisterMessage(ListTablesResponse)
+_sym_db.RegisterMessage(ListParameterAlarmsRequest)
 
-ListStreamsResponse = _reflection.GeneratedProtocolMessageType('ListStreamsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSTREAMSRESPONSE,
+ListEventSourcesRequest = _reflection.GeneratedProtocolMessageType('ListEventSourcesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTEVENTSOURCESREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListStreamsResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventSourcesRequest)
   ))
-_sym_db.RegisterMessage(ListStreamsResponse)
+_sym_db.RegisterMessage(ListEventSourcesRequest)
 
-ColumnData = _reflection.GeneratedProtocolMessageType('ColumnData', (_message.Message,), dict(
-  DESCRIPTOR = _COLUMNDATA,
+ListEventSourcesResponse = _reflection.GeneratedProtocolMessageType('ListEventSourcesResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTEVENTSOURCESRESPONSE,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ColumnData)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventSourcesResponse)
   ))
-_sym_db.RegisterMessage(ColumnData)
-
-StreamData = _reflection.GeneratedProtocolMessageType('StreamData', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMDATA,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StreamData)
-  ))
-_sym_db.RegisterMessage(StreamData)
-
-TableData = _reflection.GeneratedProtocolMessageType('TableData', (_message.Message,), dict(
-
-  TableRecord = _reflection.GeneratedProtocolMessageType('TableRecord', (_message.Message,), dict(
-    DESCRIPTOR = _TABLEDATA_TABLERECORD,
-    __module__ = 'yamcs.protobuf.archive.archive_pb2'
-    # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.TableData.TableRecord)
-    ))
-  ,
-  DESCRIPTOR = _TABLEDATA,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.TableData)
-  ))
-_sym_db.RegisterMessage(TableData)
-_sym_db.RegisterMessage(TableData.TableRecord)
-
-ColumnInfo = _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), dict(
-  DESCRIPTOR = _COLUMNINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ColumnInfo)
-  ))
-_sym_db.RegisterMessage(ColumnInfo)
-
-EnumValue = _reflection.GeneratedProtocolMessageType('EnumValue', (_message.Message,), dict(
-  DESCRIPTOR = _ENUMVALUE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.EnumValue)
-  ))
-_sym_db.RegisterMessage(EnumValue)
-
-TableInfo = _reflection.GeneratedProtocolMessageType('TableInfo', (_message.Message,), dict(
-  DESCRIPTOR = _TABLEINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.TableInfo)
-  ))
-_sym_db.RegisterMessage(TableInfo)
-
-PartitioningInfo = _reflection.GeneratedProtocolMessageType('PartitioningInfo', (_message.Message,), dict(
-  DESCRIPTOR = _PARTITIONINGINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.PartitioningInfo)
-  ))
-_sym_db.RegisterMessage(PartitioningInfo)
-
-StreamInfo = _reflection.GeneratedProtocolMessageType('StreamInfo', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StreamInfo)
-  ))
-_sym_db.RegisterMessage(StreamInfo)
-
-EventSourceInfo = _reflection.GeneratedProtocolMessageType('EventSourceInfo', (_message.Message,), dict(
-  DESCRIPTOR = _EVENTSOURCEINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.EventSourceInfo)
-  ))
-_sym_db.RegisterMessage(EventSourceInfo)
+_sym_db.RegisterMessage(ListEventSourcesResponse)
 
 ParameterGroupInfo = _reflection.GeneratedProtocolMessageType('ParameterGroupInfo', (_message.Message,), dict(
   DESCRIPTOR = _PARAMETERGROUPINFO,
@@ -1516,6 +1656,41 @@ ParameterGroupInfo = _reflection.GeneratedProtocolMessageType('ParameterGroupInf
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ParameterGroupInfo)
   ))
 _sym_db.RegisterMessage(ParameterGroupInfo)
+
+ListCommandHistoryIndexRequest = _reflection.GeneratedProtocolMessageType('ListCommandHistoryIndexRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTCOMMANDHISTORYINDEXREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListCommandHistoryIndexRequest)
+  ))
+_sym_db.RegisterMessage(ListCommandHistoryIndexRequest)
+
+ListEventIndexRequest = _reflection.GeneratedProtocolMessageType('ListEventIndexRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTEVENTINDEXREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventIndexRequest)
+  ))
+_sym_db.RegisterMessage(ListEventIndexRequest)
+
+ListPacketIndexRequest = _reflection.GeneratedProtocolMessageType('ListPacketIndexRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPACKETINDEXREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketIndexRequest)
+  ))
+_sym_db.RegisterMessage(ListPacketIndexRequest)
+
+ListParameterIndexRequest = _reflection.GeneratedProtocolMessageType('ListParameterIndexRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPARAMETERINDEXREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterIndexRequest)
+  ))
+_sym_db.RegisterMessage(ListParameterIndexRequest)
+
+ListCompletenessIndexRequest = _reflection.GeneratedProtocolMessageType('ListCompletenessIndexRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTCOMPLETENESSINDEXREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListCompletenessIndexRequest)
+  ))
+_sym_db.RegisterMessage(ListCompletenessIndexRequest)
 
 IndexResponse = _reflection.GeneratedProtocolMessageType('IndexResponse', (_message.Message,), dict(
   DESCRIPTOR = _INDEXRESPONSE,
@@ -1538,82 +1713,47 @@ IndexEntry = _reflection.GeneratedProtocolMessageType('IndexEntry', (_message.Me
   ))
 _sym_db.RegisterMessage(IndexEntry)
 
-GetPacketNamesResponse = _reflection.GeneratedProtocolMessageType('GetPacketNamesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _GETPACKETNAMESRESPONSE,
+ListPacketNamesRequest = _reflection.GeneratedProtocolMessageType('ListPacketNamesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPACKETNAMESREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetPacketNamesResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketNamesRequest)
   ))
-_sym_db.RegisterMessage(GetPacketNamesResponse)
+_sym_db.RegisterMessage(ListPacketNamesRequest)
 
-ExecuteSqlRequest = _reflection.GeneratedProtocolMessageType('ExecuteSqlRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EXECUTESQLREQUEST,
+ListPacketNamesResponse = _reflection.GeneratedProtocolMessageType('ListPacketNamesResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPACKETNAMESRESPONSE,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ExecuteSqlRequest)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketNamesResponse)
   ))
-_sym_db.RegisterMessage(ExecuteSqlRequest)
+_sym_db.RegisterMessage(ListPacketNamesResponse)
 
-ExecuteSqlResponse = _reflection.GeneratedProtocolMessageType('ExecuteSqlResponse', (_message.Message,), dict(
-  DESCRIPTOR = _EXECUTESQLRESPONSE,
+ListParameterGroupsRequest = _reflection.GeneratedProtocolMessageType('ListParameterGroupsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPARAMETERGROUPSREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ExecuteSqlResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterGroupsRequest)
   ))
-_sym_db.RegisterMessage(ExecuteSqlResponse)
+_sym_db.RegisterMessage(ListParameterGroupsRequest)
 
-ListParameterValuesResponse = _reflection.GeneratedProtocolMessageType('ListParameterValuesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERVALUESRESPONSE,
+ListParameterHistoryRequest = _reflection.GeneratedProtocolMessageType('ListParameterHistoryRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPARAMETERHISTORYREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterValuesResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterHistoryRequest)
   ))
-_sym_db.RegisterMessage(ListParameterValuesResponse)
+_sym_db.RegisterMessage(ListParameterHistoryRequest)
 
-ListRocksDbTablespacesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbTablespacesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTROCKSDBTABLESPACESRESPONSE,
+ListParameterHistoryResponse = _reflection.GeneratedProtocolMessageType('ListParameterHistoryResponse', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPARAMETERHISTORYRESPONSE,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListRocksDbTablespacesResponse)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterHistoryResponse)
   ))
-_sym_db.RegisterMessage(ListRocksDbTablespacesResponse)
+_sym_db.RegisterMessage(ListParameterHistoryResponse)
 
-RocksDbTablespaceInfo = _reflection.GeneratedProtocolMessageType('RocksDbTablespaceInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ROCKSDBTABLESPACEINFO,
+ListPacketsRequest = _reflection.GeneratedProtocolMessageType('ListPacketsRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTPACKETSREQUEST,
   __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RocksDbTablespaceInfo)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketsRequest)
   ))
-_sym_db.RegisterMessage(RocksDbTablespaceInfo)
-
-ListRocksDbDatabasesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbDatabasesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTROCKSDBDATABASESRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListRocksDbDatabasesResponse)
-  ))
-_sym_db.RegisterMessage(ListRocksDbDatabasesResponse)
-
-RocksDbDatabaseInfo = _reflection.GeneratedProtocolMessageType('RocksDbDatabaseInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ROCKSDBDATABASEINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RocksDbDatabaseInfo)
-  ))
-_sym_db.RegisterMessage(RocksDbDatabaseInfo)
-
-ListTagsResponse = _reflection.GeneratedProtocolMessageType('ListTagsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTAGSRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListTagsResponse)
-  ))
-_sym_db.RegisterMessage(ListTagsResponse)
-
-CreateTagRequest = _reflection.GeneratedProtocolMessageType('CreateTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATETAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.CreateTagRequest)
-  ))
-_sym_db.RegisterMessage(CreateTagRequest)
-
-EditTagRequest = _reflection.GeneratedProtocolMessageType('EditTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITTAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.EditTagRequest)
-  ))
-_sym_db.RegisterMessage(EditTagRequest)
+_sym_db.RegisterMessage(ListPacketsRequest)
 
 ListPacketsResponse = _reflection.GeneratedProtocolMessageType('ListPacketsResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTPACKETSRESPONSE,
@@ -1622,384 +1762,188 @@ ListPacketsResponse = _reflection.GeneratedProtocolMessageType('ListPacketsRespo
   ))
 _sym_db.RegisterMessage(ListPacketsResponse)
 
+GetPacketRequest = _reflection.GeneratedProtocolMessageType('GetPacketRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETPACKETREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetPacketRequest)
+  ))
+_sym_db.RegisterMessage(GetPacketRequest)
+
+GetParameterSamplesRequest = _reflection.GeneratedProtocolMessageType('GetParameterSamplesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETPARAMETERSAMPLESREQUEST,
+  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetParameterSamplesRequest)
+  ))
+_sym_db.RegisterMessage(GetParameterSamplesRequest)
+
 
 DESCRIPTOR._options = None
 
-_ROCKSDB = _descriptor.ServiceDescriptor(
-  name='RocksDB',
-  full_name='yamcs.protobuf.archive.RocksDB',
+_STREAMARCHIVEAPI = _descriptor.ServiceDescriptor(
+  name='StreamArchiveApi',
+  full_name='yamcs.protobuf.archive.StreamArchiveApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=3130,
-  serialized_end=3747,
+  serialized_start=3800,
+  serialized_end=6530,
   methods=[
-  _descriptor.MethodDescriptor(
-    name='ListTablespaces',
-    full_name='yamcs.protobuf.archive.RocksDB.ListTablespaces',
-    index=0,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTROCKSDBTABLESPACESRESPONSE,
-    serialized_options=_b('\212\222\0039\n\003GET\022 /api/archive/rocksdb/tablespaces\032\020List tablespaces'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='BackupTablespace',
-    full_name='yamcs.protobuf.archive.RocksDB.BackupTablespace',
-    index=1,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003@\n\004POST\022%/api/archive/rocksdb/backup/{dbpath*}\032\021Backup tablespace'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='ListDatabases',
-    full_name='yamcs.protobuf.archive.RocksDB.ListDatabases',
-    index=2,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTROCKSDBDATABASESRESPONSE,
-    serialized_options=_b('\212\222\0035\n\003GET\022\036/api/archive/rocksdb/databases\032\016List databases'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='CompactDatabase',
-    full_name='yamcs.protobuf.archive.RocksDB.CompactDatabase',
-    index=3,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003M\n\003GET\0224/api/archive/rocksdb/{tablespace}/compact/{dbpath**}\032\020Compact database'),
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_ROCKSDB)
-
-DESCRIPTOR.services_by_name['RocksDB'] = _ROCKSDB
-
-
-_PARAMETERARCHIVE = _descriptor.ServiceDescriptor(
-  name='ParameterArchive',
-  full_name='yamcs.protobuf.archive.ParameterArchive',
-  file=DESCRIPTOR,
-  index=1,
-  serialized_options=None,
-  serialized_start=3750,
-  serialized_end=4758,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='RebuildRange',
-    full_name='yamcs.protobuf.archive.ParameterArchive.RebuildRange',
-    index=0,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003G\n\004POST\0220/api/archive/{instance}/parameterArchive:rebuild\032\rRebuild range'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='DeletePartitions',
-    full_name='yamcs.protobuf.archive.ParameterArchive.DeletePartitions',
-    index=1,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._STRINGMESSAGE,
-    serialized_options=_b('\212\222\003T\n\004POST\0229/api/archive/{instance}/parameterArchive:deletePartitions\032\021Delete partitions'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetArchiveInfo',
-    full_name='yamcs.protobuf.archive.ParameterArchive.GetArchiveInfo',
-    index=2,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._STRINGMESSAGE,
-    serialized_options=_b('\212\222\003Z\n\003GET\022?/api/archive/{instance}/parameterArchive/info/parameter/{name*}\032\022Get parameter info'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetParameterSamples',
-    full_name='yamcs.protobuf.archive.ParameterArchive.GetParameterSamples',
-    index=3,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._TIMESERIES,
-    serialized_options=_b('\212\222\003P\n\003GET\0222/api/archive/{instance}/parameters/{name*}/samples\032\025Get parameter samples'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetParameterRanges',
-    full_name='yamcs.protobuf.archive.ParameterArchive.GetParameterRanges',
-    index=4,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._RANGES,
-    serialized_options=_b('\212\222\003N\n\003GET\0221/api/archive/{instance}/parameters/{name*}/ranges\032\024Get parameter ranges'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='ListParameterHistory',
-    full_name='yamcs.protobuf.archive.ParameterArchive.ListParameterHistory',
-    index=5,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTPARAMETERVALUESRESPONSE,
-    serialized_options=_b('\212\222\003I\n\003GET\022*/api/archive/{instance}/parameters/{name*}\032\026List parameter history'),
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_PARAMETERARCHIVE)
-
-DESCRIPTOR.services_by_name['ParameterArchive'] = _PARAMETERARCHIVE
-
-
-_STREAMARCHIVE = _descriptor.ServiceDescriptor(
-  name='StreamArchive',
-  full_name='yamcs.protobuf.archive.StreamArchive',
-  file=DESCRIPTOR,
-  index=2,
-  serialized_options=None,
-  serialized_start=4761,
-  serialized_end=8833,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ExecuteSql',
-    full_name='yamcs.protobuf.archive.StreamArchive.ExecuteSql',
-    index=0,
-    containing_service=None,
-    input_type=_EXECUTESQLREQUEST,
-    output_type=_EXECUTESQLRESPONSE,
-    serialized_options=_b('\212\222\0037\n\004POST\022\"/api/archive/{instance}:executeSql\032\013Execute SQL'),
-  ),
   _descriptor.MethodDescriptor(
     name='ListEvents',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListEvents',
-    index=1,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListEvents',
+    index=0,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTEVENTSREQUEST,
     output_type=_LISTEVENTSRESPONSE,
-    serialized_options=_b('\212\222\0032\n\003GET\022\036/api/archive/{instance}/events\032\013List events'),
+    serialized_options=_b('\212\222\003 \n\036/api/archive/{instance}/events'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateEvent',
-    full_name='yamcs.protobuf.archive.StreamArchive.CreateEvent',
-    index=2,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.CreateEvent',
+    index=1,
     containing_service=None,
     input_type=_CREATEEVENTREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._EVENT,
-    serialized_options=_b('\212\222\0037\n\004POST\022\036/api/archive/{instance}/events\032\017Create an event'),
+    serialized_options=_b('\212\222\003#\032\036/api/archive/{instance}/events:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='ListEventSources',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListEventSources',
-    index=3,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListEventSources',
+    index=2,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_EVENTSOURCEINFO,
-    serialized_options=_b('\212\222\003A\n\003GET\022&/api/archive/{instance}/events/sources\032\022List event sources'),
+    input_type=_LISTEVENTSOURCESREQUEST,
+    output_type=_LISTEVENTSOURCESRESPONSE,
+    serialized_options=_b('\212\222\003(\n&/api/archive/{instance}/events/sources'),
   ),
   _descriptor.MethodDescriptor(
     name='ListAlarms',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListAlarms',
-    index=4,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListAlarms',
+    index=3,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTALARMSREQUEST,
     output_type=_LISTALARMSRESPONSE,
-    serialized_options=_b('\212\222\0032\n\003GET\022\036/api/archive/{instance}/alarms\032\013List alarms'),
+    serialized_options=_b('\212\222\003 \n\036/api/archive/{instance}/alarms'),
   ),
   _descriptor.MethodDescriptor(
     name='ListParameterAlarms',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListParameterAlarms',
-    index=5,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListParameterAlarms',
+    index=4,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTPARAMETERALARMSREQUEST,
     output_type=_LISTALARMSRESPONSE,
-    serialized_options=_b('\212\222\003I\n\003GET\022+/api/archive/{instance}/alarms/{parameter*}\032\025List parameter alarms'),
+    serialized_options=_b('\212\222\003-\n+/api/archive/{instance}/alarms/{parameter*}'),
   ),
   _descriptor.MethodDescriptor(
     name='ListParameterGroups',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListParameterGroups',
-    index=6,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListParameterGroups',
+    index=5,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTPARAMETERGROUPSREQUEST,
     output_type=_PARAMETERGROUPINFO,
-    serialized_options=_b('\212\222\003F\n\003GET\022(/api/archive/{instance}/parameter-groups\032\025List parameter groups'),
+    serialized_options=_b('\212\222\003*\n(/api/archive/{instance}/parameter-groups'),
   ),
   _descriptor.MethodDescriptor(
     name='ListParameterHistory',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListParameterHistory',
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListParameterHistory',
+    index=6,
+    containing_service=None,
+    input_type=_LISTPARAMETERHISTORYREQUEST,
+    output_type=_LISTPARAMETERHISTORYRESPONSE,
+    serialized_options=_b('\212\222\0033\n1/api/stream-archive/{instance}/parameters/{name*}'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='StreamParameterValues',
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.StreamParameterValues',
     index=7,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTPARAMETERVALUESRESPONSE,
-    serialized_options=_b('\212\222\003P\n\003GET\0221/api/stream-archive/{instance}/parameters/{name*}\032\026List parameter history'),
+    input_type=_STREAMPARAMETERVALUESREQUEST,
+    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERDATA,
+    serialized_options=_b('\212\222\0039\0324/api/stream-archive/{instance}:streamParameterValues:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='GetParameterSamples',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetParameterSamples',
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.GetParameterSamples',
     index=8,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETPARAMETERSAMPLESREQUEST,
     output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._TIMESERIES,
-    serialized_options=_b('\212\222\003W\n\003GET\0229/api/stream-archive/{instance}/parameters/{name*}/samples\032\025Get parameter samples'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='ListStreams',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListStreams',
-    index=9,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTSTREAMSRESPONSE,
-    serialized_options=_b('\212\222\0034\n\003GET\022\037/api/archive/{instance}/streams\032\014List streams'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetStream',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetStream',
-    index=10,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_STREAMINFO,
-    serialized_options=_b('\212\222\003;\n\003GET\022&/api/archive/{instance}/streams/{name}\032\014Get a stream'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='ListTables',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListTables',
-    index=11,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTTABLESRESPONSE,
-    serialized_options=_b('\212\222\0032\n\003GET\022\036/api/archive/{instance}/tables\032\013List tables'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetTable',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetTable',
-    index=12,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_TABLEINFO,
-    serialized_options=_b('\212\222\0039\n\003GET\022%/api/archive/{instance}/tables/{name}\032\013Get a table'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetTableData',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetTableData',
-    index=13,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_TABLEDATA,
-    serialized_options=_b('\212\222\003A\n\003GET\022*/api/archive/{instance}/tables/{name}/data\032\016Get table data'),
+    serialized_options=_b('\212\222\003;\n9/api/stream-archive/{instance}/parameters/{name*}/samples'),
   ),
   _descriptor.MethodDescriptor(
     name='ListCommandHistoryIndex',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListCommandHistoryIndex',
-    index=14,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListCommandHistoryIndex',
+    index=9,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003H\n\003GET\022%/api/archive/{instance}/command-index\032\032List command history index'),
+    input_type=_LISTCOMMANDHISTORYINDEXREQUEST,
+    output_type=_INDEXRESPONSE,
+    serialized_options=_b('\212\222\003\'\n%/api/archive/{instance}/command-index'),
   ),
   _descriptor.MethodDescriptor(
     name='ListEventIndex',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListEventIndex',
-    index=15,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListEventIndex',
+    index=10,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003<\n\003GET\022#/api/archive/{instance}/event-index\032\020List event index'),
+    input_type=_LISTEVENTINDEXREQUEST,
+    output_type=_INDEXRESPONSE,
+    serialized_options=_b('\212\222\003%\n#/api/archive/{instance}/event-index'),
   ),
   _descriptor.MethodDescriptor(
     name='ListPacketIndex',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListPacketIndex',
-    index=16,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListPacketIndex',
+    index=11,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003>\n\003GET\022$/api/archive/{instance}/packet-index\032\021List packet index'),
+    input_type=_LISTPACKETINDEXREQUEST,
+    output_type=_INDEXRESPONSE,
+    serialized_options=_b('\212\222\003&\n$/api/archive/{instance}/packet-index'),
   ),
   _descriptor.MethodDescriptor(
     name='ListParameterIndex',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListParameterIndex',
-    index=17,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListParameterIndex',
+    index=12,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003D\n\003GET\022\'/api/archive/{instance}/parameter-index\032\024List parameter index'),
+    input_type=_LISTPARAMETERINDEXREQUEST,
+    output_type=_INDEXRESPONSE,
+    serialized_options=_b('\212\222\003)\n\'/api/archive/{instance}/parameter-index'),
   ),
   _descriptor.MethodDescriptor(
     name='ListCompletenessIndex',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListCompletenessIndex',
-    index=18,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListCompletenessIndex',
+    index=13,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003J\n\003GET\022*/api/archive/{instance}/completeness-index\032\027List completeness index'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='ListTags',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListTags',
-    index=19,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_LISTTAGSRESPONSE,
-    serialized_options=_b('\212\222\003.\n\003GET\022\034/api/archive/{instance}/tags\032\tList tags'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetTag',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetTag',
-    index=20,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\003@\n\003GET\022./api/archive/{instance}/tags/{tagTime}/{tagId}\032\tGet a tag'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='CreateTag',
-    full_name='yamcs.protobuf.archive.StreamArchive.CreateTag',
-    index=21,
-    containing_service=None,
-    input_type=_CREATETAGREQUEST,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\0032\n\004POST\022\034/api/archive/{instance}/tags\032\014Create a tag'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='UpdateTag',
-    full_name='yamcs.protobuf.archive.StreamArchive.UpdateTag',
-    index=22,
-    containing_service=None,
-    input_type=_EDITTAGREQUEST,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\003E\n\005PATCH\022./api/archive/{instance}/tags/{tagTime}/{tagId}\032\014Update a tag'),
-  ),
-  _descriptor.MethodDescriptor(
-    name='DeleteTag',
-    full_name='yamcs.protobuf.archive.StreamArchive.DeleteTag',
-    index=23,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\003F\n\006DELETE\022./api/archive/{instance}/tags/{tagTime}/{tagId}\032\014Delete a tag'),
+    input_type=_LISTCOMPLETENESSINDEXREQUEST,
+    output_type=_INDEXRESPONSE,
+    serialized_options=_b('\212\222\003,\n*/api/archive/{instance}/completeness-index'),
   ),
   _descriptor.MethodDescriptor(
     name='ListPacketNames',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListPacketNames',
-    index=24,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListPacketNames',
+    index=14,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_GETPACKETNAMESRESPONSE,
-    serialized_options=_b('\212\222\003>\n\003GET\022$/api/archive/{instance}/packet-names\032\021List packet names'),
+    input_type=_LISTPACKETNAMESREQUEST,
+    output_type=_LISTPACKETNAMESRESPONSE,
+    serialized_options=_b('\212\222\003&\n$/api/archive/{instance}/packet-names'),
   ),
   _descriptor.MethodDescriptor(
     name='ListPackets',
-    full_name='yamcs.protobuf.archive.StreamArchive.ListPackets',
-    index=25,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.ListPackets',
+    index=15,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTPACKETSREQUEST,
     output_type=_LISTPACKETSRESPONSE,
-    serialized_options=_b('\212\222\003?\n\003GET\022*/api/archive/{instance}/packets/{gentime?}\032\014List packets'),
+    serialized_options=_b('\212\222\003,\n*/api/archive/{instance}/packets/{gentime?}'),
   ),
   _descriptor.MethodDescriptor(
     name='GetPacket',
-    full_name='yamcs.protobuf.archive.StreamArchive.GetPacket',
-    index=26,
+    full_name='yamcs.protobuf.archive.StreamArchiveApi.GetPacket',
+    index=16,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETPACKETREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._TMPACKETDATA,
-    serialized_options=_b('\212\222\003G\n\003GET\0222/api/archive/{instance}/packets/{gentime}/{seqnum}\032\014Get a packet'),
+    serialized_options=_b('\212\222\0034\n2/api/archive/{instance}/packets/{gentime}/{seqnum}'),
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_STREAMARCHIVE)
+_sym_db.RegisterServiceDescriptor(_STREAMARCHIVEAPI)
 
-DESCRIPTOR.services_by_name['StreamArchive'] = _STREAMARCHIVE
+DESCRIPTOR.services_by_name['StreamArchiveApi'] = _STREAMARCHIVEAPI
 
 # @@protoc_insertion_point(module_scope)

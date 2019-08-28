@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.iam',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\010IamProtoP\001'),
-  serialized_pb=_b('\n\x1cyamcs/protobuf/iam/iam.proto\x12\x12yamcs.protobuf.iam\x1a\x1byamcs/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"@\n\x11ListUsersResponse\x12+\n\x05users\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\"C\n\x12ListGroupsResponse\x12-\n\x06groups\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.iam.GroupInfo\"_\n\x12\x43reateGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05users\x18\x03 \x03(\t\x12\x17\n\x0fserviceAccounts\x18\x04 \x03(\t\"\xb4\x01\n\x12UpdateGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x45\n\nmemberInfo\x18\x03 \x01(\x0b\x32\x31.yamcs.protobuf.iam.UpdateGroupRequest.MemberInfo\x1a\x34\n\nMemberInfo\x12\r\n\x05users\x18\x01 \x03(\t\x12\x17\n\x0fserviceAccounts\x18\x02 \x03(\t\"^\n\x1bListServiceAccountsResponse\x12?\n\x0fserviceAccounts\x18\x01 \x03(\x0b\x32&.yamcs.protobuf.iam.ServiceAccountInfo\"+\n\x1b\x43reateServiceAccountRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"^\n\x1c\x43reateServiceAccountResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rapplicationId\x18\x02 \x01(\t\x12\x19\n\x11\x61pplicationSecret\x18\x03 \x01(\t\"W\n\x11\x43reateUserRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"l\n\x11UpdateUserRequest\x12\x13\n\x0b\x64isplayName\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x11\n\tsuperuser\x18\x04 \x01(\x08\x12\x10\n\x08password\x18\x05 \x01(\t\"\x86\x04\n\x08UserInfo\x12\x11\n\x05login\x18\x01 \x01(\tB\x02\x18\x01\x12\x0c\n\x04name\x18\x11 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x12 \x01(\t\x12\r\n\x05\x65mail\x18\x13 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x10 \x01(\x08\x12\x11\n\tsuperuser\x18\r \x01(\x08\x12/\n\tcreatedBy\x18\x14 \x01(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12\x30\n\x0c\x63reationTime\x18\x0e \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10\x63onfirmationTime\x18\x15 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rlastLoginTime\x18\x0f \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x17\n\x0fsystemPrivilege\x18\x0b \x03(\t\x12@\n\x0fobjectPrivilege\x18\x0c \x03(\x0b\x32\'.yamcs.protobuf.iam.ObjectPrivilegeInfo\x12-\n\x06groups\x18\x16 \x03(\x0b\x32\x1d.yamcs.protobuf.iam.GroupInfo\x12<\n\nidentities\x18\x17 \x03(\x0b\x32(.yamcs.protobuf.iam.ExternalIdentityInfo\":\n\x14\x45xternalIdentityInfo\x12\x10\n\x08identity\x18\x01 \x01(\t\x12\x10\n\x08provider\x18\x02 \x01(\t\"\x9c\x01\n\tGroupInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12+\n\x05users\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12?\n\x0fserviceAccounts\x18\x04 \x03(\x0b\x32&.yamcs.protobuf.iam.ServiceAccountInfo\"\x93\x02\n\x12ServiceAccountInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12/\n\tcreatedBy\x18\x04 \x01(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12\x30\n\x0c\x63reationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10\x63onfirmationTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rlastLoginTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"3\n\x13ObjectPrivilegeInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06object\x18\x02 \x03(\t\"2\n\x16ListPrivilegesResponse\x12\x18\n\x10systemPrivileges\x18\x01 \x03(\t2\xc4\x10\n\x03IAM\x12\x81\x01\n\x0eListPrivileges\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.iam.ListPrivilegesResponse\"+\x8a\x92\x03\'\n\x03GET\x12\x0f/api/privileges\x1a\x0fList privileges\x12m\n\tListUsers\x12\x16.google.protobuf.Empty\x1a%.yamcs.protobuf.iam.ListUsersResponse\"!\x8a\x92\x03\x1d\n\x03GET\x12\n/api/users\x1a\nList users\x12m\n\x07GetUser\x12\x16.google.protobuf.Empty\x1a\x1c.yamcs.protobuf.iam.UserInfo\",\x8a\x92\x03(\n\x03GET\x12\x15/api/users/{username}\x1a\nGet a user\x12x\n\nCreateUser\x12%.yamcs.protobuf.iam.CreateUserRequest\x1a\x1c.yamcs.protobuf.iam.UserInfo\"%\x8a\x92\x03!\n\x04POST\x12\n/api/users\x1a\rCreate a user\x12\x84\x01\n\nUpdateUser\x12%.yamcs.protobuf.iam.UpdateUserRequest\x1a\x1c.yamcs.protobuf.iam.UserInfo\"1\x8a\x92\x03-\n\x05PATCH\x12\x15/api/users/{username}\x1a\rUpdate a user\x12\x66\n\nGetOwnUser\x12\x16.google.protobuf.Empty\x1a\x1c.yamcs.protobuf.iam.UserInfo\"\"\x8a\x92\x03\x1e\n\x03GET\x12\t/api/user\x1a\x0cGet own user\x12\x98\x01\n\x0e\x44\x65leteIdentity\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"V\x8a\x92\x03R\n\x06\x44\x45LETE\x12+/api/users/{username}/identities/{provider}\x1a\x1b\x44\x65lete an external identity\x12q\n\nListGroups\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.iam.ListGroupsResponse\"#\x8a\x92\x03\x1f\n\x03GET\x12\x0b/api/groups\x1a\x0bList groups\x12m\n\x08GetGroup\x12\x16.google.protobuf.Empty\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"*\x8a\x92\x03&\n\x03GET\x12\x12/api/groups/{name}\x1a\x0bGet a group\x12}\n\x0b\x43reateGroup\x12&.yamcs.protobuf.iam.CreateGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"\'\x8a\x92\x03#\n\x04POST\x12\x0b/api/groups\x1a\x0e\x43reate a group\x12\x85\x01\n\x0bUpdateGroup\x12&.yamcs.protobuf.iam.UpdateGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"/\x8a\x92\x03+\n\x05PATCH\x12\x12/api/groups/{name}\x1a\x0eUpdate a group\x12v\n\x0b\x44\x65leteGroup\x12\x16.google.protobuf.Empty\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"0\x8a\x92\x03,\n\x06\x44\x45LETE\x12\x12/api/groups/{name}\x1a\x0e\x44\x65lete a group\x12\x97\x01\n\x13ListServiceAccounts\x12\x16.google.protobuf.Empty\x1a/.yamcs.protobuf.iam.ListServiceAccountsResponse\"7\x8a\x92\x03\x33\n\x03GET\x12\x15/api/service-accounts\x1a\x15List service accounts\x12\x93\x01\n\x11GetServiceAccount\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.iam.ServiceAccountInfo\">\x8a\x92\x03:\n\x03GET\x12\x1c/api/service-accounts/{name}\x1a\x15Get a service account\x12\x8c\x01\n\x14\x44\x65leteServiceAccount\x12\x16.google.protobuf.Empty\x1a\x16.google.protobuf.Empty\"D\x8a\x92\x03@\n\x06\x44\x45LETE\x12\x1c/api/service-accounts/{name}\x1a\x18\x44\x65lete a service account\x12\xb6\x01\n\x14\x43reateServiceAccount\x12/.yamcs.protobuf.iam.CreateServiceAccountRequest\x1a\x30.yamcs.protobuf.iam.CreateServiceAccountResponse\";\x8a\x92\x03\x37\n\x04POST\x12\x15/api/service-accounts\x1a\x18\x43reate a service accountB \n\x12org.yamcs.protobufB\x08IamProtoP\x01')
+  serialized_pb=_b('\n\x1cyamcs/protobuf/iam/iam.proto\x12\x12yamcs.protobuf.iam\x1a\x1byamcs/api/annotations.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"@\n\x11ListUsersResponse\x12+\n\x05users\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\"C\n\x12ListGroupsResponse\x12-\n\x06groups\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.iam.GroupInfo\"_\n\x12\x43reateGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\r\n\x05users\x18\x03 \x03(\t\x12\x17\n\x0fserviceAccounts\x18\x04 \x03(\t\"\x1f\n\x0fGetGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\"\n\x12\x44\x65leteGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\xc5\x01\n\x12UpdateGroupRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0f\n\x07newName\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x45\n\nmemberInfo\x18\x04 \x01(\x0b\x32\x31.yamcs.protobuf.iam.UpdateGroupRequest.MemberInfo\x1a\x34\n\nMemberInfo\x12\r\n\x05users\x18\x01 \x03(\t\x12\x17\n\x0fserviceAccounts\x18\x02 \x03(\t\"^\n\x1bListServiceAccountsResponse\x12?\n\x0fserviceAccounts\x18\x01 \x03(\x0b\x32&.yamcs.protobuf.iam.ServiceAccountInfo\"(\n\x18GetServiceAccountRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"+\n\x1b\x43reateServiceAccountRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"^\n\x1c\x43reateServiceAccountResponse\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rapplicationId\x18\x02 \x01(\t\x12\x19\n\x11\x61pplicationSecret\x18\x03 \x01(\t\"+\n\x1b\x44\x65leteServiceAccountRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"\x1e\n\x0eGetUserRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"W\n\x11\x43reateUserRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x10\n\x08password\x18\x04 \x01(\t\"z\n\x11UpdateUserRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x04 \x01(\x08\x12\x11\n\tsuperuser\x18\x05 \x01(\x08\x12\x10\n\x08password\x18\x06 \x01(\t\"\x86\x04\n\x08UserInfo\x12\x11\n\x05login\x18\x01 \x01(\tB\x02\x18\x01\x12\x0c\n\x04name\x18\x11 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x12 \x01(\t\x12\r\n\x05\x65mail\x18\x13 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x10 \x01(\x08\x12\x11\n\tsuperuser\x18\r \x01(\x08\x12/\n\tcreatedBy\x18\x14 \x01(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12\x30\n\x0c\x63reationTime\x18\x0e \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10\x63onfirmationTime\x18\x15 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rlastLoginTime\x18\x0f \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x17\n\x0fsystemPrivilege\x18\x0b \x03(\t\x12@\n\x0fobjectPrivilege\x18\x0c \x03(\x0b\x32\'.yamcs.protobuf.iam.ObjectPrivilegeInfo\x12-\n\x06groups\x18\x16 \x03(\x0b\x32\x1d.yamcs.protobuf.iam.GroupInfo\x12<\n\nidentities\x18\x17 \x03(\x0b\x32(.yamcs.protobuf.iam.ExternalIdentityInfo\"7\n\x15\x44\x65leteIdentityRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08provider\x18\x02 \x01(\t\":\n\x14\x45xternalIdentityInfo\x12\x10\n\x08identity\x18\x01 \x01(\t\x12\x10\n\x08provider\x18\x02 \x01(\t\"\x9c\x01\n\tGroupInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12+\n\x05users\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12?\n\x0fserviceAccounts\x18\x04 \x03(\x0b\x32&.yamcs.protobuf.iam.ServiceAccountInfo\"\x93\x02\n\x12ServiceAccountInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12/\n\tcreatedBy\x18\x04 \x01(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfo\x12\x30\n\x0c\x63reationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10\x63onfirmationTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rlastLoginTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"3\n\x13ObjectPrivilegeInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0e\n\x06object\x18\x02 \x03(\t\"2\n\x16ListPrivilegesResponse\x12\x18\n\x10systemPrivileges\x18\x01 \x03(\t2\xb3\x0e\n\x06IamApi\x12k\n\x0eListPrivileges\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.iam.ListPrivilegesResponse\"\x15\x8a\x92\x03\x11\n\x0f/api/privileges\x12\\\n\tListUsers\x12\x16.google.protobuf.Empty\x1a%.yamcs.protobuf.iam.ListUsersResponse\"\x10\x8a\x92\x03\x0c\n\n/api/users\x12\x64\n\x07GetUser\x12\".yamcs.protobuf.iam.GetUserRequest\x1a\x1c.yamcs.protobuf.iam.UserInfo\"\x17\x8a\x92\x03\x13\n\x11/api/users/{name}\x12\x66\n\nCreateUser\x12%.yamcs.protobuf.iam.CreateUserRequest\x1a\x1c.yamcs.protobuf.iam.UserInfo\"\x13\x8a\x92\x03\x0f\x1a\n/api/users:\x01*\x12m\n\nUpdateUser\x12%.yamcs.protobuf.iam.UpdateUserRequest\x1a\x1c.yamcs.protobuf.iam.UserInfo\"\x1a\x8a\x92\x03\x16*\x11/api/users/{name}:\x01*\x12S\n\nGetOwnUser\x12\x16.google.protobuf.Empty\x1a\x1c.yamcs.protobuf.iam.UserInfo\"\x0f\x8a\x92\x03\x0b\n\t/api/user\x12\x82\x01\n\x0e\x44\x65leteIdentity\x12).yamcs.protobuf.iam.DeleteIdentityRequest\x1a\x16.google.protobuf.Empty\"-\x8a\x92\x03)\"\'/api/users/{name}/identities/{provider}\x12_\n\nListGroups\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.iam.ListGroupsResponse\"\x11\x8a\x92\x03\r\n\x0b/api/groups\x12h\n\x08GetGroup\x12#.yamcs.protobuf.iam.GetGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"\x18\x8a\x92\x03\x14\n\x12/api/groups/{name}\x12j\n\x0b\x43reateGroup\x12&.yamcs.protobuf.iam.CreateGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"\x14\x8a\x92\x03\x10\x1a\x0b/api/groups:\x01*\x12q\n\x0bUpdateGroup\x12&.yamcs.protobuf.iam.UpdateGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"\x1b\x8a\x92\x03\x17*\x12/api/groups/{name}:\x01*\x12n\n\x0b\x44\x65leteGroup\x12&.yamcs.protobuf.iam.DeleteGroupRequest\x1a\x1d.yamcs.protobuf.iam.GroupInfo\"\x18\x8a\x92\x03\x14\"\x12/api/groups/{name}\x12{\n\x13ListServiceAccounts\x12\x16.google.protobuf.Empty\x1a/.yamcs.protobuf.iam.ListServiceAccountsResponse\"\x1b\x8a\x92\x03\x17\n\x15/api/service-accounts\x12\x8d\x01\n\x11GetServiceAccount\x12,.yamcs.protobuf.iam.GetServiceAccountRequest\x1a&.yamcs.protobuf.iam.ServiceAccountInfo\"\"\x8a\x92\x03\x1e\n\x1c/api/service-accounts/{name}\x12\x83\x01\n\x14\x44\x65leteServiceAccount\x12/.yamcs.protobuf.iam.DeleteServiceAccountRequest\x1a\x16.google.protobuf.Empty\"\"\x8a\x92\x03\x1e\"\x1c/api/service-accounts/{name}\x12\x99\x01\n\x14\x43reateServiceAccount\x12/.yamcs.protobuf.iam.CreateServiceAccountRequest\x1a\x30.yamcs.protobuf.iam.CreateServiceAccountResponse\"\x1e\x8a\x92\x03\x1a\x1a\x15/api/service-accounts:\x01*B \n\x12org.yamcs.protobufB\x08IamProtoP\x01')
   ,
   dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -144,6 +144,68 @@ _CREATEGROUPREQUEST = _descriptor.Descriptor(
 )
 
 
+_GETGROUPREQUEST = _descriptor.Descriptor(
+  name='GetGroupRequest',
+  full_name='yamcs.protobuf.iam.GetGroupRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.GetGroupRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=375,
+  serialized_end=406,
+)
+
+
+_DELETEGROUPREQUEST = _descriptor.Descriptor(
+  name='DeleteGroupRequest',
+  full_name='yamcs.protobuf.iam.DeleteGroupRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.DeleteGroupRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=408,
+  serialized_end=442,
+)
+
+
 _UPDATEGROUPREQUEST_MEMBERINFO = _descriptor.Descriptor(
   name='MemberInfo',
   full_name='yamcs.protobuf.iam.UpdateGroupRequest.MemberInfo',
@@ -177,8 +239,8 @@ _UPDATEGROUPREQUEST_MEMBERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=504,
-  serialized_end=556,
+  serialized_start=590,
+  serialized_end=642,
 )
 
 _UPDATEGROUPREQUEST = _descriptor.Descriptor(
@@ -196,15 +258,22 @@ _UPDATEGROUPREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.iam.UpdateGroupRequest.description', index=1,
+      name='newName', full_name='yamcs.protobuf.iam.UpdateGroupRequest.newName', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='memberInfo', full_name='yamcs.protobuf.iam.UpdateGroupRequest.memberInfo', index=2,
-      number=3, type=11, cpp_type=10, label=1,
+      name='description', full_name='yamcs.protobuf.iam.UpdateGroupRequest.description', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='memberInfo', full_name='yamcs.protobuf.iam.UpdateGroupRequest.memberInfo', index=3,
+      number=4, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -221,8 +290,8 @@ _UPDATEGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=376,
-  serialized_end=556,
+  serialized_start=445,
+  serialized_end=642,
 )
 
 
@@ -252,8 +321,39 @@ _LISTSERVICEACCOUNTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=558,
-  serialized_end=652,
+  serialized_start=644,
+  serialized_end=738,
+)
+
+
+_GETSERVICEACCOUNTREQUEST = _descriptor.Descriptor(
+  name='GetServiceAccountRequest',
+  full_name='yamcs.protobuf.iam.GetServiceAccountRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.GetServiceAccountRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=740,
+  serialized_end=780,
 )
 
 
@@ -283,8 +383,8 @@ _CREATESERVICEACCOUNTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=654,
-  serialized_end=697,
+  serialized_start=782,
+  serialized_end=825,
 )
 
 
@@ -328,8 +428,70 @@ _CREATESERVICEACCOUNTRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=699,
-  serialized_end=793,
+  serialized_start=827,
+  serialized_end=921,
+)
+
+
+_DELETESERVICEACCOUNTREQUEST = _descriptor.Descriptor(
+  name='DeleteServiceAccountRequest',
+  full_name='yamcs.protobuf.iam.DeleteServiceAccountRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.DeleteServiceAccountRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=923,
+  serialized_end=966,
+)
+
+
+_GETUSERREQUEST = _descriptor.Descriptor(
+  name='GetUserRequest',
+  full_name='yamcs.protobuf.iam.GetUserRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.GetUserRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=968,
+  serialized_end=998,
 )
 
 
@@ -380,8 +542,8 @@ _CREATEUSERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=795,
-  serialized_end=882,
+  serialized_start=1000,
+  serialized_end=1087,
 )
 
 
@@ -393,36 +555,43 @@ _UPDATEUSERREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='displayName', full_name='yamcs.protobuf.iam.UpdateUserRequest.displayName', index=0,
+      name='name', full_name='yamcs.protobuf.iam.UpdateUserRequest.name', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='email', full_name='yamcs.protobuf.iam.UpdateUserRequest.email', index=1,
+      name='displayName', full_name='yamcs.protobuf.iam.UpdateUserRequest.displayName', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='active', full_name='yamcs.protobuf.iam.UpdateUserRequest.active', index=2,
-      number=3, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
+      name='email', full_name='yamcs.protobuf.iam.UpdateUserRequest.email', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='superuser', full_name='yamcs.protobuf.iam.UpdateUserRequest.superuser', index=3,
+      name='active', full_name='yamcs.protobuf.iam.UpdateUserRequest.active', index=3,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='password', full_name='yamcs.protobuf.iam.UpdateUserRequest.password', index=4,
-      number=5, type=9, cpp_type=9, label=1,
+      name='superuser', full_name='yamcs.protobuf.iam.UpdateUserRequest.superuser', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='password', full_name='yamcs.protobuf.iam.UpdateUserRequest.password', index=5,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -439,8 +608,8 @@ _UPDATEUSERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=884,
-  serialized_end=992,
+  serialized_start=1089,
+  serialized_end=1211,
 )
 
 
@@ -561,8 +730,46 @@ _USERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=995,
-  serialized_end=1513,
+  serialized_start=1214,
+  serialized_end=1732,
+)
+
+
+_DELETEIDENTITYREQUEST = _descriptor.Descriptor(
+  name='DeleteIdentityRequest',
+  full_name='yamcs.protobuf.iam.DeleteIdentityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.iam.DeleteIdentityRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='provider', full_name='yamcs.protobuf.iam.DeleteIdentityRequest.provider', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1734,
+  serialized_end=1789,
 )
 
 
@@ -599,8 +806,8 @@ _EXTERNALIDENTITYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1515,
-  serialized_end=1573,
+  serialized_start=1791,
+  serialized_end=1849,
 )
 
 
@@ -651,8 +858,8 @@ _GROUPINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1576,
-  serialized_end=1732,
+  serialized_start=1852,
+  serialized_end=2008,
 )
 
 
@@ -724,8 +931,8 @@ _SERVICEACCOUNTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1735,
-  serialized_end=2010,
+  serialized_start=2011,
+  serialized_end=2286,
 )
 
 
@@ -762,8 +969,8 @@ _OBJECTPRIVILEGEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2012,
-  serialized_end=2063,
+  serialized_start=2288,
+  serialized_end=2339,
 )
 
 
@@ -793,8 +1000,8 @@ _LISTPRIVILEGESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2065,
-  serialized_end=2115,
+  serialized_start=2341,
+  serialized_end=2391,
 )
 
 _LISTUSERSRESPONSE.fields_by_name['users'].message_type = _USERINFO
@@ -818,13 +1025,19 @@ _SERVICEACCOUNTINFO.fields_by_name['lastLoginTime'].message_type = google_dot_pr
 DESCRIPTOR.message_types_by_name['ListUsersResponse'] = _LISTUSERSRESPONSE
 DESCRIPTOR.message_types_by_name['ListGroupsResponse'] = _LISTGROUPSRESPONSE
 DESCRIPTOR.message_types_by_name['CreateGroupRequest'] = _CREATEGROUPREQUEST
+DESCRIPTOR.message_types_by_name['GetGroupRequest'] = _GETGROUPREQUEST
+DESCRIPTOR.message_types_by_name['DeleteGroupRequest'] = _DELETEGROUPREQUEST
 DESCRIPTOR.message_types_by_name['UpdateGroupRequest'] = _UPDATEGROUPREQUEST
 DESCRIPTOR.message_types_by_name['ListServiceAccountsResponse'] = _LISTSERVICEACCOUNTSRESPONSE
+DESCRIPTOR.message_types_by_name['GetServiceAccountRequest'] = _GETSERVICEACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['CreateServiceAccountRequest'] = _CREATESERVICEACCOUNTREQUEST
 DESCRIPTOR.message_types_by_name['CreateServiceAccountResponse'] = _CREATESERVICEACCOUNTRESPONSE
+DESCRIPTOR.message_types_by_name['DeleteServiceAccountRequest'] = _DELETESERVICEACCOUNTREQUEST
+DESCRIPTOR.message_types_by_name['GetUserRequest'] = _GETUSERREQUEST
 DESCRIPTOR.message_types_by_name['CreateUserRequest'] = _CREATEUSERREQUEST
 DESCRIPTOR.message_types_by_name['UpdateUserRequest'] = _UPDATEUSERREQUEST
 DESCRIPTOR.message_types_by_name['UserInfo'] = _USERINFO
+DESCRIPTOR.message_types_by_name['DeleteIdentityRequest'] = _DELETEIDENTITYREQUEST
 DESCRIPTOR.message_types_by_name['ExternalIdentityInfo'] = _EXTERNALIDENTITYINFO
 DESCRIPTOR.message_types_by_name['GroupInfo'] = _GROUPINFO
 DESCRIPTOR.message_types_by_name['ServiceAccountInfo'] = _SERVICEACCOUNTINFO
@@ -853,6 +1066,20 @@ CreateGroupRequest = _reflection.GeneratedProtocolMessageType('CreateGroupReques
   ))
 _sym_db.RegisterMessage(CreateGroupRequest)
 
+GetGroupRequest = _reflection.GeneratedProtocolMessageType('GetGroupRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETGROUPREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetGroupRequest)
+  ))
+_sym_db.RegisterMessage(GetGroupRequest)
+
+DeleteGroupRequest = _reflection.GeneratedProtocolMessageType('DeleteGroupRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DELETEGROUPREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteGroupRequest)
+  ))
+_sym_db.RegisterMessage(DeleteGroupRequest)
+
 UpdateGroupRequest = _reflection.GeneratedProtocolMessageType('UpdateGroupRequest', (_message.Message,), dict(
 
   MemberInfo = _reflection.GeneratedProtocolMessageType('MemberInfo', (_message.Message,), dict(
@@ -875,6 +1102,13 @@ ListServiceAccountsResponse = _reflection.GeneratedProtocolMessageType('ListServ
   ))
 _sym_db.RegisterMessage(ListServiceAccountsResponse)
 
+GetServiceAccountRequest = _reflection.GeneratedProtocolMessageType('GetServiceAccountRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETSERVICEACCOUNTREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetServiceAccountRequest)
+  ))
+_sym_db.RegisterMessage(GetServiceAccountRequest)
+
 CreateServiceAccountRequest = _reflection.GeneratedProtocolMessageType('CreateServiceAccountRequest', (_message.Message,), dict(
   DESCRIPTOR = _CREATESERVICEACCOUNTREQUEST,
   __module__ = 'yamcs.protobuf.iam.iam_pb2'
@@ -888,6 +1122,20 @@ CreateServiceAccountResponse = _reflection.GeneratedProtocolMessageType('CreateS
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.CreateServiceAccountResponse)
   ))
 _sym_db.RegisterMessage(CreateServiceAccountResponse)
+
+DeleteServiceAccountRequest = _reflection.GeneratedProtocolMessageType('DeleteServiceAccountRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DELETESERVICEACCOUNTREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteServiceAccountRequest)
+  ))
+_sym_db.RegisterMessage(DeleteServiceAccountRequest)
+
+GetUserRequest = _reflection.GeneratedProtocolMessageType('GetUserRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETUSERREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetUserRequest)
+  ))
+_sym_db.RegisterMessage(GetUserRequest)
 
 CreateUserRequest = _reflection.GeneratedProtocolMessageType('CreateUserRequest', (_message.Message,), dict(
   DESCRIPTOR = _CREATEUSERREQUEST,
@@ -909,6 +1157,13 @@ UserInfo = _reflection.GeneratedProtocolMessageType('UserInfo', (_message.Messag
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.UserInfo)
   ))
 _sym_db.RegisterMessage(UserInfo)
+
+DeleteIdentityRequest = _reflection.GeneratedProtocolMessageType('DeleteIdentityRequest', (_message.Message,), dict(
+  DESCRIPTOR = _DELETEIDENTITYREQUEST,
+  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteIdentityRequest)
+  ))
+_sym_db.RegisterMessage(DeleteIdentityRequest)
 
 ExternalIdentityInfo = _reflection.GeneratedProtocolMessageType('ExternalIdentityInfo', (_message.Message,), dict(
   DESCRIPTOR = _EXTERNALIDENTITYINFO,
@@ -949,162 +1204,162 @@ _sym_db.RegisterMessage(ListPrivilegesResponse)
 DESCRIPTOR._options = None
 _USERINFO.fields_by_name['login']._options = None
 
-_IAM = _descriptor.ServiceDescriptor(
-  name='IAM',
-  full_name='yamcs.protobuf.iam.IAM',
+_IAMAPI = _descriptor.ServiceDescriptor(
+  name='IamApi',
+  full_name='yamcs.protobuf.iam.IamApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2118,
-  serialized_end=4234,
+  serialized_start=2394,
+  serialized_end=4237,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListPrivileges',
-    full_name='yamcs.protobuf.iam.IAM.ListPrivileges',
+    full_name='yamcs.protobuf.iam.IamApi.ListPrivileges',
     index=0,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTPRIVILEGESRESPONSE,
-    serialized_options=_b('\212\222\003\'\n\003GET\022\017/api/privileges\032\017List privileges'),
+    serialized_options=_b('\212\222\003\021\n\017/api/privileges'),
   ),
   _descriptor.MethodDescriptor(
     name='ListUsers',
-    full_name='yamcs.protobuf.iam.IAM.ListUsers',
+    full_name='yamcs.protobuf.iam.IamApi.ListUsers',
     index=1,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTUSERSRESPONSE,
-    serialized_options=_b('\212\222\003\035\n\003GET\022\n/api/users\032\nList users'),
+    serialized_options=_b('\212\222\003\014\n\n/api/users'),
   ),
   _descriptor.MethodDescriptor(
     name='GetUser',
-    full_name='yamcs.protobuf.iam.IAM.GetUser',
+    full_name='yamcs.protobuf.iam.IamApi.GetUser',
     index=2,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETUSERREQUEST,
     output_type=_USERINFO,
-    serialized_options=_b('\212\222\003(\n\003GET\022\025/api/users/{username}\032\nGet a user'),
+    serialized_options=_b('\212\222\003\023\n\021/api/users/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateUser',
-    full_name='yamcs.protobuf.iam.IAM.CreateUser',
+    full_name='yamcs.protobuf.iam.IamApi.CreateUser',
     index=3,
     containing_service=None,
     input_type=_CREATEUSERREQUEST,
     output_type=_USERINFO,
-    serialized_options=_b('\212\222\003!\n\004POST\022\n/api/users\032\rCreate a user'),
+    serialized_options=_b('\212\222\003\017\032\n/api/users:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateUser',
-    full_name='yamcs.protobuf.iam.IAM.UpdateUser',
+    full_name='yamcs.protobuf.iam.IamApi.UpdateUser',
     index=4,
     containing_service=None,
     input_type=_UPDATEUSERREQUEST,
     output_type=_USERINFO,
-    serialized_options=_b('\212\222\003-\n\005PATCH\022\025/api/users/{username}\032\rUpdate a user'),
+    serialized_options=_b('\212\222\003\026*\021/api/users/{name}:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='GetOwnUser',
-    full_name='yamcs.protobuf.iam.IAM.GetOwnUser',
+    full_name='yamcs.protobuf.iam.IamApi.GetOwnUser',
     index=5,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_USERINFO,
-    serialized_options=_b('\212\222\003\036\n\003GET\022\t/api/user\032\014Get own user'),
+    serialized_options=_b('\212\222\003\013\n\t/api/user'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteIdentity',
-    full_name='yamcs.protobuf.iam.IAM.DeleteIdentity',
+    full_name='yamcs.protobuf.iam.IamApi.DeleteIdentity',
     index=6,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_DELETEIDENTITYREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003R\n\006DELETE\022+/api/users/{username}/identities/{provider}\032\033Delete an external identity'),
+    serialized_options=_b('\212\222\003)\"\'/api/users/{name}/identities/{provider}'),
   ),
   _descriptor.MethodDescriptor(
     name='ListGroups',
-    full_name='yamcs.protobuf.iam.IAM.ListGroups',
+    full_name='yamcs.protobuf.iam.IamApi.ListGroups',
     index=7,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTGROUPSRESPONSE,
-    serialized_options=_b('\212\222\003\037\n\003GET\022\013/api/groups\032\013List groups'),
+    serialized_options=_b('\212\222\003\r\n\013/api/groups'),
   ),
   _descriptor.MethodDescriptor(
     name='GetGroup',
-    full_name='yamcs.protobuf.iam.IAM.GetGroup',
+    full_name='yamcs.protobuf.iam.IamApi.GetGroup',
     index=8,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETGROUPREQUEST,
     output_type=_GROUPINFO,
-    serialized_options=_b('\212\222\003&\n\003GET\022\022/api/groups/{name}\032\013Get a group'),
+    serialized_options=_b('\212\222\003\024\n\022/api/groups/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateGroup',
-    full_name='yamcs.protobuf.iam.IAM.CreateGroup',
+    full_name='yamcs.protobuf.iam.IamApi.CreateGroup',
     index=9,
     containing_service=None,
     input_type=_CREATEGROUPREQUEST,
     output_type=_GROUPINFO,
-    serialized_options=_b('\212\222\003#\n\004POST\022\013/api/groups\032\016Create a group'),
+    serialized_options=_b('\212\222\003\020\032\013/api/groups:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateGroup',
-    full_name='yamcs.protobuf.iam.IAM.UpdateGroup',
+    full_name='yamcs.protobuf.iam.IamApi.UpdateGroup',
     index=10,
     containing_service=None,
     input_type=_UPDATEGROUPREQUEST,
     output_type=_GROUPINFO,
-    serialized_options=_b('\212\222\003+\n\005PATCH\022\022/api/groups/{name}\032\016Update a group'),
+    serialized_options=_b('\212\222\003\027*\022/api/groups/{name}:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteGroup',
-    full_name='yamcs.protobuf.iam.IAM.DeleteGroup',
+    full_name='yamcs.protobuf.iam.IamApi.DeleteGroup',
     index=11,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_DELETEGROUPREQUEST,
     output_type=_GROUPINFO,
-    serialized_options=_b('\212\222\003,\n\006DELETE\022\022/api/groups/{name}\032\016Delete a group'),
+    serialized_options=_b('\212\222\003\024\"\022/api/groups/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='ListServiceAccounts',
-    full_name='yamcs.protobuf.iam.IAM.ListServiceAccounts',
+    full_name='yamcs.protobuf.iam.IamApi.ListServiceAccounts',
     index=12,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTSERVICEACCOUNTSRESPONSE,
-    serialized_options=_b('\212\222\0033\n\003GET\022\025/api/service-accounts\032\025List service accounts'),
+    serialized_options=_b('\212\222\003\027\n\025/api/service-accounts'),
   ),
   _descriptor.MethodDescriptor(
     name='GetServiceAccount',
-    full_name='yamcs.protobuf.iam.IAM.GetServiceAccount',
+    full_name='yamcs.protobuf.iam.IamApi.GetServiceAccount',
     index=13,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETSERVICEACCOUNTREQUEST,
     output_type=_SERVICEACCOUNTINFO,
-    serialized_options=_b('\212\222\003:\n\003GET\022\034/api/service-accounts/{name}\032\025Get a service account'),
+    serialized_options=_b('\212\222\003\036\n\034/api/service-accounts/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteServiceAccount',
-    full_name='yamcs.protobuf.iam.IAM.DeleteServiceAccount',
+    full_name='yamcs.protobuf.iam.IamApi.DeleteServiceAccount',
     index=14,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_DELETESERVICEACCOUNTREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003@\n\006DELETE\022\034/api/service-accounts/{name}\032\030Delete a service account'),
+    serialized_options=_b('\212\222\003\036\"\034/api/service-accounts/{name}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateServiceAccount',
-    full_name='yamcs.protobuf.iam.IAM.CreateServiceAccount',
+    full_name='yamcs.protobuf.iam.IamApi.CreateServiceAccount',
     index=15,
     containing_service=None,
     input_type=_CREATESERVICEACCOUNTREQUEST,
     output_type=_CREATESERVICEACCOUNTRESPONSE,
-    serialized_options=_b('\212\222\0037\n\004POST\022\025/api/service-accounts\032\030Create a service account'),
+    serialized_options=_b('\212\222\003\032\032\025/api/service-accounts:\001*'),
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_IAM)
+_sym_db.RegisterServiceDescriptor(_IAMAPI)
 
-DESCRIPTOR.services_by_name['IAM'] = _IAM
+DESCRIPTOR.services_by_name['IamApi'] = _IAMAPI
 
 # @@protoc_insertion_point(module_scope)

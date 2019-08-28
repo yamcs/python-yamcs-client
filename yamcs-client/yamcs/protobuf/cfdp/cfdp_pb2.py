@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.cfdp',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\tCfdpProtoP\001'),
-  serialized_pb=_b('\n\x1eyamcs/protobuf/cfdp/cfdp.proto\x12\x13yamcs.protobuf.cfdp\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"3\n\nRemoteFile\x12\x10\n\x08\x66ilepath\x18\x01 \x02(\t\x12\x13\n\x0bisDirectory\x18\x02 \x02(\x08\"\xb8\x02\n\x0cTransferInfo\x12\x15\n\rtransactionId\x18\x01 \x01(\x04\x12-\n\tstartTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\x05state\x18\x03 \x01(\x0e\x32\".yamcs.protobuf.cfdp.TransferState\x12\x0e\n\x06\x62ucket\x18\x04 \x01(\t\x12\x12\n\nobjectName\x18\x05 \x01(\t\x12\x12\n\nremotePath\x18\x06 \x01(\t\x12\x39\n\tdirection\x18\x07 \x01(\x0e\x32&.yamcs.protobuf.cfdp.TransferDirection\x12\x11\n\ttotalSize\x18\x08 \x01(\x04\x12\x17\n\x0fsizeTransferred\x18\t \x01(\x04\x12\x10\n\x08reliable\x18\n \x01(\x08\"\x8d\x03\n\x15\x43reateTransferRequest\x12\x39\n\tdirection\x18\x01 \x01(\x0e\x32&.yamcs.protobuf.cfdp.TransferDirection\x12\x0e\n\x06\x62ucket\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\x12\x12\n\nremotePath\x18\x04 \x01(\t\x12S\n\x0f\x64ownloadOptions\x18\x05 \x01(\x0b\x32:.yamcs.protobuf.cfdp.CreateTransferRequest.DownloadOptions\x12O\n\ruploadOptions\x18\x06 \x01(\x0b\x32\x38.yamcs.protobuf.cfdp.CreateTransferRequest.UploadOptions\x1aH\n\rUploadOptions\x12\x11\n\toverwrite\x18\x01 \x01(\x08\x12\x12\n\ncreatePath\x18\x02 \x01(\x08\x12\x10\n\x08reliable\x18\x03 \x01(\x08\x1a\x11\n\x0f\x44ownloadOptions\"(\n\x13\x45\x64itTransferRequest\x12\x11\n\toperation\x18\x01 \x01(\t\"L\n\x15ListTransfersResponse\x12\x33\n\x08transfer\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.cfdp.TransferInfo\"a\n\x17ListRemoteFilesResponse\x12\x12\n\nremotePath\x18\x01 \x02(\t\x12\x32\n\tfilepaths\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.cfdp.RemoteFile*-\n\x11TransferDirection\x12\n\n\x06UPLOAD\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02*C\n\rTransferState\x12\x0b\n\x07RUNNING\x10\x01\x12\n\n\x06PAUSED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\r\n\tCOMPLETED\x10\x04\x32\xdd\x04\n\x04\x43\x46\x44P\x12\x8e\x01\n\rListTransfers\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.cfdp.ListTransfersResponse\"9\x8a\x92\x03\x35\n\x03GET\x12\x1e/api/cfdp/{instance}/transfers\x1a\x0eList transfers\x12\x88\x01\n\x0bGetTransfer\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.cfdp.TransferInfo\">\x8a\x92\x03:\n\x03GET\x12#/api/cfdp/{instance}/transfers/{id}\x1a\x0eGet a transfer\x12\x9e\x01\n\x0e\x43reateTransfer\x12*.yamcs.protobuf.cfdp.CreateTransferRequest\x1a!.yamcs.protobuf.cfdp.TransferInfo\"=\x8a\x92\x03\x39\n\x04POST\x12\x1e/api/cfdp/{instance}/transfers\x1a\x11\x43reate a transfer\x12\x97\x01\n\x0eUpdateTransfer\x12(.yamcs.protobuf.cfdp.EditTransferRequest\x1a\x16.google.protobuf.Empty\"C\x8a\x92\x03?\n\x05PATCH\x12#/api/cfdp/{instance}/transfers/{id}\x1a\x11Update a transferB!\n\x12org.yamcs.protobufB\tCfdpProtoP\x01')
+  serialized_pb=_b('\n\x1eyamcs/protobuf/cfdp/cfdp.proto\x12\x13yamcs.protobuf.cfdp\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"3\n\nRemoteFile\x12\x10\n\x08\x66ilepath\x18\x01 \x02(\t\x12\x13\n\x0bisDirectory\x18\x02 \x02(\x08\"\xb8\x02\n\x0cTransferInfo\x12\x15\n\rtransactionId\x18\x01 \x01(\x04\x12-\n\tstartTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\x05state\x18\x03 \x01(\x0e\x32\".yamcs.protobuf.cfdp.TransferState\x12\x0e\n\x06\x62ucket\x18\x04 \x01(\t\x12\x12\n\nobjectName\x18\x05 \x01(\t\x12\x12\n\nremotePath\x18\x06 \x01(\t\x12\x39\n\tdirection\x18\x07 \x01(\x0e\x32&.yamcs.protobuf.cfdp.TransferDirection\x12\x11\n\ttotalSize\x18\x08 \x01(\x04\x12\x17\n\x0fsizeTransferred\x18\t \x01(\x04\x12\x10\n\x08reliable\x18\n \x01(\x08\"\x9f\x03\n\x15\x43reateTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x39\n\tdirection\x18\x02 \x01(\x0e\x32&.yamcs.protobuf.cfdp.TransferDirection\x12\x0e\n\x06\x62ucket\x18\x03 \x01(\t\x12\x12\n\nobjectName\x18\x04 \x01(\t\x12\x12\n\nremotePath\x18\x05 \x01(\t\x12S\n\x0f\x64ownloadOptions\x18\x06 \x01(\x0b\x32:.yamcs.protobuf.cfdp.CreateTransferRequest.DownloadOptions\x12O\n\ruploadOptions\x18\x07 \x01(\x0b\x32\x38.yamcs.protobuf.cfdp.CreateTransferRequest.UploadOptions\x1aH\n\rUploadOptions\x12\x11\n\toverwrite\x18\x01 \x01(\x08\x12\x12\n\ncreatePath\x18\x02 \x01(\x08\x12\x10\n\x08reliable\x18\x03 \x01(\x08\x1a\x11\n\x0f\x44ownloadOptions\"F\n\x13\x45\x64itTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\x12\x11\n\toperation\x18\x03 \x01(\t\"(\n\x14ListTransfersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"2\n\x12GetTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"L\n\x15ListTransfersResponse\x12\x33\n\x08transfer\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.cfdp.TransferInfo\"a\n\x17ListRemoteFilesResponse\x12\x12\n\nremotePath\x18\x01 \x02(\t\x12\x32\n\tfilepaths\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.cfdp.RemoteFile*-\n\x11TransferDirection\x12\n\n\x06UPLOAD\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02*C\n\rTransferState\x12\x0b\n\x07RUNNING\x10\x01\x12\n\n\x06PAUSED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\r\n\tCOMPLETED\x10\x04\x32\xad\x04\n\x07\x43\x66\x64pApi\x12\x8c\x01\n\rListTransfers\x12).yamcs.protobuf.cfdp.ListTransfersRequest\x1a*.yamcs.protobuf.cfdp.ListTransfersResponse\"$\x8a\x92\x03 \n\x1e/api/cfdp/{instance}/transfers\x12\x84\x01\n\x0bGetTransfer\x12\'.yamcs.protobuf.cfdp.GetTransferRequest\x1a!.yamcs.protobuf.cfdp.TransferInfo\")\x8a\x92\x03%\n#/api/cfdp/{instance}/transfers/{id}\x12\x88\x01\n\x0e\x43reateTransfer\x12*.yamcs.protobuf.cfdp.CreateTransferRequest\x1a!.yamcs.protobuf.cfdp.TransferInfo\"\'\x8a\x92\x03#\x1a\x1e/api/cfdp/{instance}/transfers:\x01*\x12\x80\x01\n\x0eUpdateTransfer\x12(.yamcs.protobuf.cfdp.EditTransferRequest\x1a\x16.google.protobuf.Empty\",\x8a\x92\x03(*#/api/cfdp/{instance}/transfers/{id}:\x01*B!\n\x12org.yamcs.protobufB\tCfdpProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -45,8 +45,8 @@ _TRANSFERDIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1133,
-  serialized_end=1178,
+  serialized_start=1275,
+  serialized_end=1320,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSFERDIRECTION)
 
@@ -76,8 +76,8 @@ _TRANSFERSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1180,
-  serialized_end=1247,
+  serialized_start=1322,
+  serialized_end=1389,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSFERSTATE)
 
@@ -263,8 +263,8 @@ _CREATETRANSFERREQUEST_UPLOADOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=821,
-  serialized_end=893,
+  serialized_start=839,
+  serialized_end=911,
 )
 
 _CREATETRANSFERREQUEST_DOWNLOADOPTIONS = _descriptor.Descriptor(
@@ -286,8 +286,8 @@ _CREATETRANSFERREQUEST_DOWNLOADOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=895,
-  serialized_end=912,
+  serialized_start=913,
+  serialized_end=930,
 )
 
 _CREATETRANSFERREQUEST = _descriptor.Descriptor(
@@ -298,43 +298,50 @@ _CREATETRANSFERREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='direction', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.direction', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='bucket', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.bucket', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='instance', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='objectName', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.objectName', index=2,
+      name='direction', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.direction', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='bucket', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.bucket', index=2,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='remotePath', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.remotePath', index=3,
+      name='objectName', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.objectName', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='downloadOptions', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.downloadOptions', index=4,
-      number=5, type=11, cpp_type=10, label=1,
+      name='remotePath', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.remotePath', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='downloadOptions', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.downloadOptions', index=5,
+      number=6, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='uploadOptions', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.uploadOptions', index=5,
-      number=6, type=11, cpp_type=10, label=1,
+      name='uploadOptions', full_name='yamcs.protobuf.cfdp.CreateTransferRequest.uploadOptions', index=6,
+      number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -352,7 +359,7 @@ _CREATETRANSFERREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=515,
-  serialized_end=912,
+  serialized_end=930,
 )
 
 
@@ -364,7 +371,52 @@ _EDITTRANSFERREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='operation', full_name='yamcs.protobuf.cfdp.EditTransferRequest.operation', index=0,
+      name='instance', full_name='yamcs.protobuf.cfdp.EditTransferRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.cfdp.EditTransferRequest.id', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='operation', full_name='yamcs.protobuf.cfdp.EditTransferRequest.operation', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=932,
+  serialized_end=1002,
+)
+
+
+_LISTTRANSFERSREQUEST = _descriptor.Descriptor(
+  name='ListTransfersRequest',
+  full_name='yamcs.protobuf.cfdp.ListTransfersRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.cfdp.ListTransfersRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -382,8 +434,46 @@ _EDITTRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=914,
-  serialized_end=954,
+  serialized_start=1004,
+  serialized_end=1044,
+)
+
+
+_GETTRANSFERREQUEST = _descriptor.Descriptor(
+  name='GetTransferRequest',
+  full_name='yamcs.protobuf.cfdp.GetTransferRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.cfdp.GetTransferRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.cfdp.GetTransferRequest.id', index=1,
+      number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1046,
+  serialized_end=1096,
 )
 
 
@@ -413,8 +503,8 @@ _LISTTRANSFERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=956,
-  serialized_end=1032,
+  serialized_start=1098,
+  serialized_end=1174,
 )
 
 
@@ -451,8 +541,8 @@ _LISTREMOTEFILESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1034,
-  serialized_end=1131,
+  serialized_start=1176,
+  serialized_end=1273,
 )
 
 _TRANSFERINFO.fields_by_name['startTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -469,6 +559,8 @@ DESCRIPTOR.message_types_by_name['RemoteFile'] = _REMOTEFILE
 DESCRIPTOR.message_types_by_name['TransferInfo'] = _TRANSFERINFO
 DESCRIPTOR.message_types_by_name['CreateTransferRequest'] = _CREATETRANSFERREQUEST
 DESCRIPTOR.message_types_by_name['EditTransferRequest'] = _EDITTRANSFERREQUEST
+DESCRIPTOR.message_types_by_name['ListTransfersRequest'] = _LISTTRANSFERSREQUEST
+DESCRIPTOR.message_types_by_name['GetTransferRequest'] = _GETTRANSFERREQUEST
 DESCRIPTOR.message_types_by_name['ListTransfersResponse'] = _LISTTRANSFERSRESPONSE
 DESCRIPTOR.message_types_by_name['ListRemoteFilesResponse'] = _LISTREMOTEFILESRESPONSE
 DESCRIPTOR.enum_types_by_name['TransferDirection'] = _TRANSFERDIRECTION
@@ -519,6 +611,20 @@ EditTransferRequest = _reflection.GeneratedProtocolMessageType('EditTransferRequ
   ))
 _sym_db.RegisterMessage(EditTransferRequest)
 
+ListTransfersRequest = _reflection.GeneratedProtocolMessageType('ListTransfersRequest', (_message.Message,), dict(
+  DESCRIPTOR = _LISTTRANSFERSREQUEST,
+  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.ListTransfersRequest)
+  ))
+_sym_db.RegisterMessage(ListTransfersRequest)
+
+GetTransferRequest = _reflection.GeneratedProtocolMessageType('GetTransferRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETTRANSFERREQUEST,
+  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.GetTransferRequest)
+  ))
+_sym_db.RegisterMessage(GetTransferRequest)
+
 ListTransfersResponse = _reflection.GeneratedProtocolMessageType('ListTransfersResponse', (_message.Message,), dict(
   DESCRIPTOR = _LISTTRANSFERSRESPONSE,
   __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
@@ -536,54 +642,54 @@ _sym_db.RegisterMessage(ListRemoteFilesResponse)
 
 DESCRIPTOR._options = None
 
-_CFDP = _descriptor.ServiceDescriptor(
-  name='CFDP',
-  full_name='yamcs.protobuf.cfdp.CFDP',
+_CFDPAPI = _descriptor.ServiceDescriptor(
+  name='CfdpApi',
+  full_name='yamcs.protobuf.cfdp.CfdpApi',
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1250,
-  serialized_end=1855,
+  serialized_start=1392,
+  serialized_end=1949,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListTransfers',
-    full_name='yamcs.protobuf.cfdp.CFDP.ListTransfers',
+    full_name='yamcs.protobuf.cfdp.CfdpApi.ListTransfers',
     index=0,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_LISTTRANSFERSREQUEST,
     output_type=_LISTTRANSFERSRESPONSE,
-    serialized_options=_b('\212\222\0035\n\003GET\022\036/api/cfdp/{instance}/transfers\032\016List transfers'),
+    serialized_options=_b('\212\222\003 \n\036/api/cfdp/{instance}/transfers'),
   ),
   _descriptor.MethodDescriptor(
     name='GetTransfer',
-    full_name='yamcs.protobuf.cfdp.CFDP.GetTransfer',
+    full_name='yamcs.protobuf.cfdp.CfdpApi.GetTransfer',
     index=1,
     containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    input_type=_GETTRANSFERREQUEST,
     output_type=_TRANSFERINFO,
-    serialized_options=_b('\212\222\003:\n\003GET\022#/api/cfdp/{instance}/transfers/{id}\032\016Get a transfer'),
+    serialized_options=_b('\212\222\003%\n#/api/cfdp/{instance}/transfers/{id}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateTransfer',
-    full_name='yamcs.protobuf.cfdp.CFDP.CreateTransfer',
+    full_name='yamcs.protobuf.cfdp.CfdpApi.CreateTransfer',
     index=2,
     containing_service=None,
     input_type=_CREATETRANSFERREQUEST,
     output_type=_TRANSFERINFO,
-    serialized_options=_b('\212\222\0039\n\004POST\022\036/api/cfdp/{instance}/transfers\032\021Create a transfer'),
+    serialized_options=_b('\212\222\003#\032\036/api/cfdp/{instance}/transfers:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateTransfer',
-    full_name='yamcs.protobuf.cfdp.CFDP.UpdateTransfer',
+    full_name='yamcs.protobuf.cfdp.CfdpApi.UpdateTransfer',
     index=3,
     containing_service=None,
     input_type=_EDITTRANSFERREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003?\n\005PATCH\022#/api/cfdp/{instance}/transfers/{id}\032\021Update a transfer'),
+    serialized_options=_b('\212\222\003(*#/api/cfdp/{instance}/transfers/{id}:\001*'),
   ),
 ])
-_sym_db.RegisterServiceDescriptor(_CFDP)
+_sym_db.RegisterServiceDescriptor(_CFDPAPI)
 
-DESCRIPTOR.services_by_name['CFDP'] = _CFDP
+DESCRIPTOR.services_by_name['CfdpApi'] = _CFDPAPI
 
 # @@protoc_insertion_point(module_scope)

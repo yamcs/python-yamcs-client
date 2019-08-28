@@ -11,8 +11,8 @@ from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
-from yamcs.protobuf.rest import rest_pb2
 from yamcs.protobuf.table import table_pb2
+from yamcs.protobuf.web import rest_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
 
 
@@ -44,7 +44,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/packet-names'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.GetPacketNamesResponse()
+        message = archive_pb2.ListPacketNamesResponse()
         message.ParseFromString(response.content)
         names = getattr(message, 'name')
         return iter(names)
@@ -132,7 +132,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/events/sources'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.EventSourceInfo()
+        message = archive_pb2.ListEventSourcesResponse()
         message.ParseFromString(response.content)
         sources = getattr(message, 'source')
         return iter(sources)
@@ -551,9 +551,9 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/tables'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.ListTablesResponse()
+        message = table_pb2.ListTablesResponse()
         message.ParseFromString(response.content)
-        tables = getattr(message, 'table')
+        tables = getattr(message, 'tables')
         return iter([Table(table) for table in tables])
 
     def get_table(self, table):
@@ -565,14 +565,13 @@ class ArchiveClient(object):
         """
         path = '/archive/{}/tables/{}'.format(self._instance, table)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.TableInfo()
+        message = table_pb2.TableInfo()
         message.ParseFromString(response.content)
         return Table(message)
 
     def dump_table(self, table, chunk_size=1024):
-        path = '/archive/{}/downloads/tables/{}'.format(self._instance, table)
-        params = {'format': 'dump'}
-        response = self._client.get_proto(path=path, stream=True, params=params)
+        path = '/archive/{}/tables/{}:readRows'.format(self._instance, table)
+        response = self._client.post_proto(path=path, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
     def load_table(self, table, data):
@@ -594,9 +593,9 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = '/archive/{}/streams'.format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.ListStreamsResponse()
+        message = table_pb2.ListStreamsResponse()
         message.ParseFromString(response.content)
-        streams = getattr(message, 'stream')
+        streams = getattr(message, 'streams')
         return iter([Stream(stream) for stream in streams])
 
     def get_stream(self, stream):
@@ -608,7 +607,7 @@ class ArchiveClient(object):
         """
         path = '/archive/{}/streams/{}'.format(self._instance, stream)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.StreamInfo()
+        message = table_pb2.StreamInfo()
         message.ParseFromString(response.content)
         return Stream(message)
 
@@ -653,12 +652,12 @@ class ArchiveClient(object):
         :rtype: str
         """
         path = '/archive/{}:executeSql'.format(self._instance)
-        req = archive_pb2.ExecuteSqlRequest()
+        req = table_pb2.ExecuteSqlRequest()
         req.statement = statement
 
         response = self._client.post_proto(path=path,
                                            data=req.SerializeToString())
-        message = archive_pb2.ExecuteSqlResponse()
+        message = table_pb2.ExecuteSqlResponse()
         message.ParseFromString(response.content)
         if message.HasField('result'):
             return message.result

@@ -9,7 +9,7 @@ from requests.auth import HTTPBasicAuth
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
                                    YamcsError)
-from yamcs.protobuf.web import web_pb2
+from yamcs.protobuf.web import rest_pb2
 
 
 def _convert_user_credentials(session, token_url, username=None, password=None, refresh_token=None):
@@ -183,7 +183,7 @@ class BaseClient(object):
         if 200 <= response.status_code < 300:
             return response
 
-        exception_message = web_pb2.RestExceptionMessage()
+        exception_message = rest_pb2.RestExceptionMessage()
         try:
             exception_message.ParseFromString(response.content)
         except DecodeError:

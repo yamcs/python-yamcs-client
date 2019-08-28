@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n\x1ayamcs/protobuf/yamcs.proto\x12\x0eyamcs.protobuf\x1a\x1fgoogle/protobuf/timestamp.proto\" \n\rStringMessage\x12\x0f\n\x07message\x18\x01 \x02(\t\"\x1a\n\x07Instant\x12\x0f\n\x07instant\x18\x01 \x02(\x03\"#\n\x10MessagingAddress\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x02(\t\"\x97\x04\n\x05Value\x12(\n\x04type\x18\x01 \x02(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12\x12\n\nfloatValue\x18\x02 \x01(\x02\x12\x13\n\x0b\x64oubleValue\x18\x03 \x01(\x01\x12\x13\n\x0bsint32Value\x18\x04 \x01(\x11\x12\x13\n\x0buint32Value\x18\x05 \x01(\r\x12\x13\n\x0b\x62inaryValue\x18\x06 \x01(\x0c\x12\x13\n\x0bstringValue\x18\x07 \x01(\t\x12\x16\n\x0etimestampValue\x18\x08 \x01(\x03\x12\x13\n\x0buint64Value\x18\t \x01(\x04\x12\x13\n\x0bsint64Value\x18\n \x01(\x12\x12\x14\n\x0c\x62ooleanValue\x18\x0b \x01(\x08\x12\x36\n\x0e\x61ggregateValue\x18\x0c \x01(\x0b\x32\x1e.yamcs.protobuf.AggregateValue\x12)\n\narrayValue\x18\r \x03(\x0b\x32\x15.yamcs.protobuf.Value\"\xab\x01\n\x04Type\x12\t\n\x05\x46LOAT\x10\x00\x12\n\n\x06\x44OUBLE\x10\x01\x12\n\n\x06UINT32\x10\x02\x12\n\n\x06SINT32\x10\x03\x12\n\n\x06\x42INARY\x10\x04\x12\n\n\x06STRING\x10\x05\x12\r\n\tTIMESTAMP\x10\x06\x12\n\n\x06UINT64\x10\x07\x12\n\n\x06SINT64\x10\x08\x12\x0b\n\x07\x42OOLEAN\x10\t\x12\r\n\tAGGREGATE\x10\n\x12\t\n\x05\x41RRAY\x10\x0b\x12\x0e\n\nENUMERATED\x10\x0c\"D\n\x0e\x41ggregateValue\x12\x0c\n\x04name\x18\x01 \x03(\t\x12$\n\x05value\x18\x02 \x03(\x0b\x32\x15.yamcs.protobuf.Value\"0\n\rNamedObjectId\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x11\n\tnamespace\x18\x02 \x01(\t\">\n\x0fNamedObjectList\x12+\n\x04list\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\xe4\x03\n\x0cIndexRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\r\n\x05start\x18\x02 \x01(\x03\x12\x0c\n\x04stop\x18\x03 \x01(\x03\x12\x10\n\x08utcStart\x18\x0e \x01(\t\x12\x0f\n\x07utcStop\x18\x0f \x01(\t\x12\x18\n\x10\x64\x65\x66\x61ultNamespace\x18\x04 \x01(\t\x12\x18\n\tsendAllTm\x18\x05 \x01(\x08:\x05\x66\x61lse\x12/\n\x08tmPacket\x18\x06 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x18\n\tsendAllPp\x18\x07 \x01(\x08:\x05\x66\x61lse\x12.\n\x07ppGroup\x18\x08 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x15sendCompletenessIndex\x18\t \x01(\x08:\x05\x66\x61lse\x12\x19\n\nsendAllCmd\x18\n \x01(\x08:\x05\x66\x61lse\x12.\n\x07\x63mdName\x18\x0b \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x1b\n\x0csendAllEvent\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x32\n\x0b\x65ventSource\x18\r \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tmergeTime\x18\x10 \x01(\r\"\x95\x01\n\rArchiveRecord\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\r\n\x05\x66irst\x18\x02 \x01(\x03\x12\x0c\n\x04last\x18\x03 \x01(\x03\x12\x0b\n\x03num\x18\x04 \x01(\x05\x12\x0c\n\x04info\x18\x05 \x01(\t\x12\x10\n\x08seqFirst\x18\x06 \x01(\x03\x12\x0f\n\x07seqLast\x18\x07 \x01(\x03\"t\n\x0bIndexResult\x12\x14\n\x08instance\x18\x01 \x01(\tB\x02\x18\x01\x12.\n\x07records\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.ArchiveRecord\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x11\n\ttableName\x18\x04 \x01(\t\";\n\nTagRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\r\n\x05start\x18\x02 \x01(\x03\x12\x0c\n\x04stop\x18\x03 \x01(\x03\"\x8a\x01\n\nArchiveTag\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\r\n\x05start\x18\x03 \x01(\x03\x12\x0c\n\x04stop\x18\x04 \x01(\x03\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05\x63olor\x18\x06 \x01(\t\x12\x10\n\x08startUTC\x18\x07 \x01(\t\x12\x0f\n\x07stopUTC\x18\x08 \x01(\t\"F\n\tTagResult\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\'\n\x03tag\x18\x02 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"j\n\x10UpsertTagRequest\x12*\n\x06oldTag\x18\x01 \x01(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\x12*\n\x06newTag\x18\x02 \x02(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\";\n\x10\x44\x65leteTagRequest\x12\'\n\x03tag\x18\x03 \x02(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"\xa5\x01\n\x0bReplaySpeed\x12\x39\n\x04type\x18\x01 \x02(\x0e\x32+.yamcs.protobuf.ReplaySpeed.ReplaySpeedType\x12\r\n\x05param\x18\x02 \x01(\x02\"L\n\x0fReplaySpeedType\x12\x08\n\x04\x41\x46\x41P\x10\x01\x12\x0f\n\x0b\x46IXED_DELAY\x10\x02\x12\x0c\n\x08REALTIME\x10\x03\x12\x10\n\x0cSTEP_BY_STEP\x10\x04\"\xf8\x03\n\rReplayRequest\x12\r\n\x05start\x18\x01 \x01(\x03\x12\x0c\n\x04stop\x18\x02 \x01(\x03\x12\x10\n\x08utcStart\x18\r \x01(\t\x12\x0f\n\x07utcStop\x18\x0e \x01(\t\x12\x32\n\tendAction\x18\x03 \x01(\x0e\x32\x19.yamcs.protobuf.EndAction:\x04QUIT\x12*\n\x05speed\x18\x04 \x01(\x0b\x32\x1b.yamcs.protobuf.ReplaySpeed\x12\x0f\n\x07reverse\x18\x0f \x01(\x08\x12@\n\x10parameterRequest\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.ParameterReplayRequest\x12:\n\rpacketRequest\x18\t \x01(\x0b\x32#.yamcs.protobuf.PacketReplayRequest\x12\x38\n\x0c\x65ventRequest\x18\n \x01(\x0b\x32\".yamcs.protobuf.EventReplayRequest\x12J\n\x15\x63ommandHistoryRequest\x18\x0b \x01(\x0b\x32+.yamcs.protobuf.CommandHistoryReplayRequest\x12\x32\n\tppRequest\x18\x0c \x01(\x0b\x32\x1f.yamcs.protobuf.PpReplayRequest\"\x85\x01\n\x16ParameterReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x07sendRaw\x18\x02 \x01(\x08:\x05\x66\x61lse\x12 \n\x11performMonitoring\x18\x03 \x01(\x08:\x05\x66\x61lse\"H\n\x13PacketReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\x14\n\x12\x45ventReplayRequest\"P\n\x1b\x43ommandHistoryReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"D\n\x0fPpReplayRequest\x12\x17\n\x0fgroupNameFilter\x18\x01 \x03(\t\x12\x18\n\x10groupNameExclude\x18\x02 \x03(\t\"\xed\x01\n\x0cReplayStatus\x12\x37\n\x05state\x18\x01 \x02(\x0e\x32(.yamcs.protobuf.ReplayStatus.ReplayState\x12.\n\x07request\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.ReplayRequest\x12\x14\n\x0c\x65rrorMessage\x18\x03 \x01(\t\"^\n\x0bReplayState\x12\x12\n\x0eINITIALIZATION\x10\x00\x12\x0b\n\x07RUNNING\x10\x01\x12\x0b\n\x07STOPPED\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x12\n\n\x06PAUSED\x10\x04\x12\n\n\x06\x43LOSED\x10\x05\"\xc6\x02\n\x0cTmPacketData\x12\x1e\n\x12yamcsReceptionTime\x18\x01 \x01(\x03\x42\x02\x18\x01\x12\x0e\n\x06packet\x18\x02 \x02(\x0c\x12\x1f\n\x13yamcsGenerationTime\x18\x03 \x01(\x03\x42\x02\x18\x01\x12\x16\n\x0esequenceNumber\x18\x04 \x01(\x05\x12)\n\x02id\x18\x05 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x1d\n\x11generationTimeUTC\x18\x06 \x01(\tB\x02\x18\x01\x12\x1c\n\x10receptionTimeUTC\x18\x07 \x01(\tB\x02\x18\x01\x12\x31\n\rreceptionTime\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0egenerationTime\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"u\n\x08TimeInfo\x12\x1c\n\x10yamcsCurrentTime\x18\x01 \x01(\x03\x42\x02\x18\x01\x12\x1a\n\x0e\x63urrentTimeUTC\x18\x02 \x01(\tB\x02\x18\x01\x12/\n\x0b\x63urrentTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xea\x02\n\x05\x45vent\x12\x0e\n\x06source\x18\x01 \x02(\t\x12\x16\n\x0egenerationTime\x18\x02 \x02(\x03\x12\x15\n\rreceptionTime\x18\x03 \x01(\x03\x12\x11\n\tseqNumber\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x02(\t\x12;\n\x08severity\x18\x07 \x01(\x0e\x32#.yamcs.protobuf.Event.EventSeverity:\x04INFO\x12\x19\n\x11generationTimeUTC\x18\x08 \x01(\t\x12\x18\n\x10receptionTimeUTC\x18\t \x01(\t\x12\x11\n\tcreatedBy\x18\n \x01(\t\"d\n\rEventSeverity\x12\x08\n\x04INFO\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\t\n\x05WATCH\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x05\x12\x0c\n\x08\x43RITICAL\x10\x06\x12\n\n\x06SEVERE\x10\x07*\x05\x08\x64\x10\x91N\"!\n\x11ProcessorTypeInfo\x12\x0c\n\x04type\x18\x01 \x03(\t*)\n\tEndAction\x12\x08\n\x04LOOP\x10\x01\x12\x08\n\x04QUIT\x10\x02\x12\x08\n\x04STOP\x10\x03*\x8f\x03\n\rProtoDataType\x12\x0c\n\x08\x44T_ERROR\x10\x01\x12\x10\n\x0cSTATE_CHANGE\x10\x02\x12\r\n\tTM_PACKET\x10\x03\x12\x06\n\x02PP\x10\x04\x12\t\n\x05\x45VENT\x10\x05\x12\x11\n\rARCHIVE_INDEX\x10\x06\x12\x0f\n\x0b\x41RCHIVE_TAG\x10\x07\x12\r\n\tPARAMETER\x10\x08\x12\x0f\n\x0b\x43MD_HISTORY\x10\t\x12\x12\n\x0ePROCESSOR_INFO\x10\n\x12\x0f\n\x0b\x43LIENT_INFO\x10\x0b\x12\x19\n\x15PROCESSING_STATISTICS\x10\x0c\x12\x0f\n\x0bSTREAM_DATA\x10\r\x12\x0e\n\nALARM_DATA\x10\x0e\x12\r\n\tTIME_INFO\x10\x0f\x12\x0e\n\nLINK_EVENT\x10\x10\x12\x16\n\x12\x43OMMAND_QUEUE_INFO\x10\x11\x12\x17\n\x13\x43OMMAND_QUEUE_EVENT\x10\x12\x12\x13\n\x0f\x43ONNECTION_INFO\x10\x13\x12\x0c\n\x08INSTANCE\x10\x14\x12\x10\n\x0cSTREAM_EVENT\x10\x15\x12\x12\n\x0e\x45XTENSION_DATA\x10\x64\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n\x1ayamcs/protobuf/yamcs.proto\x12\x0eyamcs.protobuf\x1a\x1fgoogle/protobuf/timestamp.proto\" \n\rStringMessage\x12\x0f\n\x07message\x18\x01 \x02(\t\"\x1a\n\x07Instant\x12\x0f\n\x07instant\x18\x01 \x02(\x03\"#\n\x10MessagingAddress\x12\x0f\n\x07\x61\x64\x64ress\x18\x01 \x02(\t\"\x97\x04\n\x05Value\x12(\n\x04type\x18\x01 \x02(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12\x12\n\nfloatValue\x18\x02 \x01(\x02\x12\x13\n\x0b\x64oubleValue\x18\x03 \x01(\x01\x12\x13\n\x0bsint32Value\x18\x04 \x01(\x11\x12\x13\n\x0buint32Value\x18\x05 \x01(\r\x12\x13\n\x0b\x62inaryValue\x18\x06 \x01(\x0c\x12\x13\n\x0bstringValue\x18\x07 \x01(\t\x12\x16\n\x0etimestampValue\x18\x08 \x01(\x03\x12\x13\n\x0buint64Value\x18\t \x01(\x04\x12\x13\n\x0bsint64Value\x18\n \x01(\x12\x12\x14\n\x0c\x62ooleanValue\x18\x0b \x01(\x08\x12\x36\n\x0e\x61ggregateValue\x18\x0c \x01(\x0b\x32\x1e.yamcs.protobuf.AggregateValue\x12)\n\narrayValue\x18\r \x03(\x0b\x32\x15.yamcs.protobuf.Value\"\xab\x01\n\x04Type\x12\t\n\x05\x46LOAT\x10\x00\x12\n\n\x06\x44OUBLE\x10\x01\x12\n\n\x06UINT32\x10\x02\x12\n\n\x06SINT32\x10\x03\x12\n\n\x06\x42INARY\x10\x04\x12\n\n\x06STRING\x10\x05\x12\r\n\tTIMESTAMP\x10\x06\x12\n\n\x06UINT64\x10\x07\x12\n\n\x06SINT64\x10\x08\x12\x0b\n\x07\x42OOLEAN\x10\t\x12\r\n\tAGGREGATE\x10\n\x12\t\n\x05\x41RRAY\x10\x0b\x12\x0e\n\nENUMERATED\x10\x0c\"D\n\x0e\x41ggregateValue\x12\x0c\n\x04name\x18\x01 \x03(\t\x12$\n\x05value\x18\x02 \x03(\x0b\x32\x15.yamcs.protobuf.Value\"0\n\rNamedObjectId\x12\x0c\n\x04name\x18\x01 \x02(\t\x12\x11\n\tnamespace\x18\x02 \x01(\t\">\n\x0fNamedObjectList\x12+\n\x04list\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\xe4\x03\n\x0cIndexRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\r\n\x05start\x18\x02 \x01(\x03\x12\x0c\n\x04stop\x18\x03 \x01(\x03\x12\x10\n\x08utcStart\x18\x0e \x01(\t\x12\x0f\n\x07utcStop\x18\x0f \x01(\t\x12\x18\n\x10\x64\x65\x66\x61ultNamespace\x18\x04 \x01(\t\x12\x18\n\tsendAllTm\x18\x05 \x01(\x08:\x05\x66\x61lse\x12/\n\x08tmPacket\x18\x06 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x18\n\tsendAllPp\x18\x07 \x01(\x08:\x05\x66\x61lse\x12.\n\x07ppGroup\x18\x08 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x15sendCompletenessIndex\x18\t \x01(\x08:\x05\x66\x61lse\x12\x19\n\nsendAllCmd\x18\n \x01(\x08:\x05\x66\x61lse\x12.\n\x07\x63mdName\x18\x0b \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x1b\n\x0csendAllEvent\x18\x0c \x01(\x08:\x05\x66\x61lse\x12\x32\n\x0b\x65ventSource\x18\r \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tmergeTime\x18\x10 \x01(\r\"\xfc\x01\n\rArchiveRecord\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\nyamcsFirst\x18\x02 \x01(\x03\x42\x02\x18\x01\x12\x15\n\tyamcsLast\x18\x03 \x01(\x03\x42\x02\x18\x01\x12\x0b\n\x03num\x18\x04 \x01(\x05\x12\x0c\n\x04info\x18\x05 \x01(\t\x12\x10\n\x08seqFirst\x18\x06 \x01(\x03\x12\x0f\n\x07seqLast\x18\x07 \x01(\x03\x12)\n\x05\x66irst\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04last\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"t\n\x0bIndexResult\x12\x14\n\x08instance\x18\x01 \x01(\tB\x02\x18\x01\x12.\n\x07records\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.ArchiveRecord\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x11\n\ttableName\x18\x04 \x01(\t\";\n\nTagRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\r\n\x05start\x18\x02 \x01(\x03\x12\x0c\n\x04stop\x18\x03 \x01(\x03\"\x8a\x01\n\nArchiveTag\x12\n\n\x02id\x18\x01 \x01(\x05\x12\x0c\n\x04name\x18\x02 \x02(\t\x12\r\n\x05start\x18\x03 \x01(\x03\x12\x0c\n\x04stop\x18\x04 \x01(\x03\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05\x63olor\x18\x06 \x01(\t\x12\x10\n\x08startUTC\x18\x07 \x01(\t\x12\x0f\n\x07stopUTC\x18\x08 \x01(\t\"F\n\tTagResult\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\'\n\x03tag\x18\x02 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"j\n\x10UpsertTagRequest\x12*\n\x06oldTag\x18\x01 \x01(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\x12*\n\x06newTag\x18\x02 \x02(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\";\n\x10\x44\x65leteTagRequest\x12\'\n\x03tag\x18\x03 \x02(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"\xa5\x01\n\x0bReplaySpeed\x12\x39\n\x04type\x18\x01 \x02(\x0e\x32+.yamcs.protobuf.ReplaySpeed.ReplaySpeedType\x12\r\n\x05param\x18\x02 \x01(\x02\"L\n\x0fReplaySpeedType\x12\x08\n\x04\x41\x46\x41P\x10\x01\x12\x0f\n\x0b\x46IXED_DELAY\x10\x02\x12\x0c\n\x08REALTIME\x10\x03\x12\x10\n\x0cSTEP_BY_STEP\x10\x04\"\xf8\x03\n\rReplayRequest\x12\r\n\x05start\x18\x01 \x01(\x03\x12\x0c\n\x04stop\x18\x02 \x01(\x03\x12\x10\n\x08utcStart\x18\r \x01(\t\x12\x0f\n\x07utcStop\x18\x0e \x01(\t\x12\x32\n\tendAction\x18\x03 \x01(\x0e\x32\x19.yamcs.protobuf.EndAction:\x04QUIT\x12*\n\x05speed\x18\x04 \x01(\x0b\x32\x1b.yamcs.protobuf.ReplaySpeed\x12\x0f\n\x07reverse\x18\x0f \x01(\x08\x12@\n\x10parameterRequest\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.ParameterReplayRequest\x12:\n\rpacketRequest\x18\t \x01(\x0b\x32#.yamcs.protobuf.PacketReplayRequest\x12\x38\n\x0c\x65ventRequest\x18\n \x01(\x0b\x32\".yamcs.protobuf.EventReplayRequest\x12J\n\x15\x63ommandHistoryRequest\x18\x0b \x01(\x0b\x32+.yamcs.protobuf.CommandHistoryReplayRequest\x12\x32\n\tppRequest\x18\x0c \x01(\x0b\x32\x1f.yamcs.protobuf.PpReplayRequest\"\x85\x01\n\x16ParameterReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x07sendRaw\x18\x02 \x01(\x08:\x05\x66\x61lse\x12 \n\x11performMonitoring\x18\x03 \x01(\x08:\x05\x66\x61lse\"H\n\x13PacketReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\x14\n\x12\x45ventReplayRequest\"P\n\x1b\x43ommandHistoryReplayRequest\x12\x31\n\nnameFilter\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"D\n\x0fPpReplayRequest\x12\x17\n\x0fgroupNameFilter\x18\x01 \x03(\t\x12\x18\n\x10groupNameExclude\x18\x02 \x03(\t\"\xed\x01\n\x0cReplayStatus\x12\x37\n\x05state\x18\x01 \x02(\x0e\x32(.yamcs.protobuf.ReplayStatus.ReplayState\x12.\n\x07request\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.ReplayRequest\x12\x14\n\x0c\x65rrorMessage\x18\x03 \x01(\t\"^\n\x0bReplayState\x12\x12\n\x0eINITIALIZATION\x10\x00\x12\x0b\n\x07RUNNING\x10\x01\x12\x0b\n\x07STOPPED\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x12\n\n\x06PAUSED\x10\x04\x12\n\n\x06\x43LOSED\x10\x05\"\xc6\x02\n\x0cTmPacketData\x12\x1e\n\x12yamcsReceptionTime\x18\x01 \x01(\x03\x42\x02\x18\x01\x12\x0e\n\x06packet\x18\x02 \x02(\x0c\x12\x1f\n\x13yamcsGenerationTime\x18\x03 \x01(\x03\x42\x02\x18\x01\x12\x16\n\x0esequenceNumber\x18\x04 \x01(\x05\x12)\n\x02id\x18\x05 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x1d\n\x11generationTimeUTC\x18\x06 \x01(\tB\x02\x18\x01\x12\x1c\n\x10receptionTimeUTC\x18\x07 \x01(\tB\x02\x18\x01\x12\x31\n\rreceptionTime\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0egenerationTime\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"u\n\x08TimeInfo\x12\x1c\n\x10yamcsCurrentTime\x18\x01 \x01(\x03\x42\x02\x18\x01\x12\x1a\n\x0e\x63urrentTimeUTC\x18\x02 \x01(\tB\x02\x18\x01\x12/\n\x0b\x63urrentTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xea\x02\n\x05\x45vent\x12\x0e\n\x06source\x18\x01 \x02(\t\x12\x16\n\x0egenerationTime\x18\x02 \x02(\x03\x12\x15\n\rreceptionTime\x18\x03 \x01(\x03\x12\x11\n\tseqNumber\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x02(\t\x12;\n\x08severity\x18\x07 \x01(\x0e\x32#.yamcs.protobuf.Event.EventSeverity:\x04INFO\x12\x19\n\x11generationTimeUTC\x18\x08 \x01(\t\x12\x18\n\x10receptionTimeUTC\x18\t \x01(\t\x12\x11\n\tcreatedBy\x18\n \x01(\t\"d\n\rEventSeverity\x12\x08\n\x04INFO\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\t\n\x05WATCH\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x05\x12\x0c\n\x08\x43RITICAL\x10\x06\x12\n\n\x06SEVERE\x10\x07*\x05\x08\x64\x10\x91N\"!\n\x11ProcessorTypeInfo\x12\x0c\n\x04type\x18\x01 \x03(\t*)\n\tEndAction\x12\x08\n\x04LOOP\x10\x01\x12\x08\n\x04QUIT\x10\x02\x12\x08\n\x04STOP\x10\x03*\x8f\x03\n\rProtoDataType\x12\x0c\n\x08\x44T_ERROR\x10\x01\x12\x10\n\x0cSTATE_CHANGE\x10\x02\x12\r\n\tTM_PACKET\x10\x03\x12\x06\n\x02PP\x10\x04\x12\t\n\x05\x45VENT\x10\x05\x12\x11\n\rARCHIVE_INDEX\x10\x06\x12\x0f\n\x0b\x41RCHIVE_TAG\x10\x07\x12\r\n\tPARAMETER\x10\x08\x12\x0f\n\x0b\x43MD_HISTORY\x10\t\x12\x12\n\x0ePROCESSOR_INFO\x10\n\x12\x0f\n\x0b\x43LIENT_INFO\x10\x0b\x12\x19\n\x15PROCESSING_STATISTICS\x10\x0c\x12\x0f\n\x0bSTREAM_DATA\x10\r\x12\x0e\n\nALARM_DATA\x10\x0e\x12\r\n\tTIME_INFO\x10\x0f\x12\x0e\n\nLINK_EVENT\x10\x10\x12\x16\n\x12\x43OMMAND_QUEUE_INFO\x10\x11\x12\x17\n\x13\x43OMMAND_QUEUE_EVENT\x10\x12\x12\x13\n\x0f\x43ONNECTION_INFO\x10\x13\x12\x0c\n\x08INSTANCE\x10\x14\x12\x10\n\x0cSTREAM_EVENT\x10\x15\x12\x12\n\x0e\x45XTENSION_DATA\x10\x64\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -47,8 +47,8 @@ _ENDACTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4247,
-  serialized_end=4288,
+  serialized_start=4350,
+  serialized_end=4391,
 )
 _sym_db.RegisterEnumDescriptor(_ENDACTION)
 
@@ -150,8 +150,8 @@ _PROTODATATYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4291,
-  serialized_end=4690,
+  serialized_start=4394,
+  serialized_end=4793,
 )
 _sym_db.RegisterEnumDescriptor(_PROTODATATYPE)
 
@@ -274,8 +274,8 @@ _REPLAYSPEED_REPLAYSPEEDTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2190,
-  serialized_end=2266,
+  serialized_start=2293,
+  serialized_end=2369,
 )
 _sym_db.RegisterEnumDescriptor(_REPLAYSPEED_REPLAYSPEEDTYPE)
 
@@ -312,8 +312,8 @@ _REPLAYSTATUS_REPLAYSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=3303,
-  serialized_end=3397,
+  serialized_start=3406,
+  serialized_end=3500,
 )
 _sym_db.RegisterEnumDescriptor(_REPLAYSTATUS_REPLAYSTATE)
 
@@ -354,8 +354,8 @@ _EVENT_EVENTSEVERITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=4103,
-  serialized_end=4203,
+  serialized_start=4206,
+  serialized_end=4306,
 )
 _sym_db.RegisterEnumDescriptor(_EVENT_EVENTSEVERITY)
 
@@ -827,19 +827,19 @@ _ARCHIVERECORD = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='first', full_name='yamcs.protobuf.ArchiveRecord.first', index=1,
+      name='yamcsFirst', full_name='yamcs.protobuf.ArchiveRecord.yamcsFirst', index=1,
       number=2, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='last', full_name='yamcs.protobuf.ArchiveRecord.last', index=2,
+      name='yamcsLast', full_name='yamcs.protobuf.ArchiveRecord.yamcsLast', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=_b('\030\001'), file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='num', full_name='yamcs.protobuf.ArchiveRecord.num', index=3,
       number=4, type=5, cpp_type=1, label=1,
@@ -868,6 +868,20 @@ _ARCHIVERECORD = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='first', full_name='yamcs.protobuf.ArchiveRecord.first', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='last', full_name='yamcs.protobuf.ArchiveRecord.last', index=8,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -881,7 +895,7 @@ _ARCHIVERECORD = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1388,
-  serialized_end=1537,
+  serialized_end=1640,
 )
 
 
@@ -932,8 +946,8 @@ _INDEXRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1539,
-  serialized_end=1655,
+  serialized_start=1642,
+  serialized_end=1758,
 )
 
 
@@ -977,8 +991,8 @@ _TAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1657,
-  serialized_end=1716,
+  serialized_start=1760,
+  serialized_end=1819,
 )
 
 
@@ -1057,8 +1071,8 @@ _ARCHIVETAG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1719,
-  serialized_end=1857,
+  serialized_start=1822,
+  serialized_end=1960,
 )
 
 
@@ -1095,8 +1109,8 @@ _TAGRESULT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1859,
-  serialized_end=1929,
+  serialized_start=1962,
+  serialized_end=2032,
 )
 
 
@@ -1133,8 +1147,8 @@ _UPSERTTAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1931,
-  serialized_end=2037,
+  serialized_start=2034,
+  serialized_end=2140,
 )
 
 
@@ -1164,8 +1178,8 @@ _DELETETAGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2039,
-  serialized_end=2098,
+  serialized_start=2142,
+  serialized_end=2201,
 )
 
 
@@ -1203,8 +1217,8 @@ _REPLAYSPEED = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2101,
-  serialized_end=2266,
+  serialized_start=2204,
+  serialized_end=2369,
 )
 
 
@@ -1311,8 +1325,8 @@ _REPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2269,
-  serialized_end=2773,
+  serialized_start=2372,
+  serialized_end=2876,
 )
 
 
@@ -1356,8 +1370,8 @@ _PARAMETERREPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2776,
-  serialized_end=2909,
+  serialized_start=2879,
+  serialized_end=3012,
 )
 
 
@@ -1387,8 +1401,8 @@ _PACKETREPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2911,
-  serialized_end=2983,
+  serialized_start=3014,
+  serialized_end=3086,
 )
 
 
@@ -1411,8 +1425,8 @@ _EVENTREPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2985,
-  serialized_end=3005,
+  serialized_start=3088,
+  serialized_end=3108,
 )
 
 
@@ -1442,8 +1456,8 @@ _COMMANDHISTORYREPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3007,
-  serialized_end=3087,
+  serialized_start=3110,
+  serialized_end=3190,
 )
 
 
@@ -1480,8 +1494,8 @@ _PPREPLAYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3089,
-  serialized_end=3157,
+  serialized_start=3192,
+  serialized_end=3260,
 )
 
 
@@ -1526,8 +1540,8 @@ _REPLAYSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3160,
-  serialized_end=3397,
+  serialized_start=3263,
+  serialized_end=3500,
 )
 
 
@@ -1613,8 +1627,8 @@ _TMPACKETDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3400,
-  serialized_end=3726,
+  serialized_start=3503,
+  serialized_end=3829,
 )
 
 
@@ -1658,8 +1672,8 @@ _TIMEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3728,
-  serialized_end=3845,
+  serialized_start=3831,
+  serialized_end=3948,
 )
 
 
@@ -1753,8 +1767,8 @@ _EVENT = _descriptor.Descriptor(
   extension_ranges=[(100, 10001), ],
   oneofs=[
   ],
-  serialized_start=3848,
-  serialized_end=4210,
+  serialized_start=3951,
+  serialized_end=4313,
 )
 
 
@@ -1784,8 +1798,8 @@ _PROCESSORTYPEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4212,
-  serialized_end=4245,
+  serialized_start=4315,
+  serialized_end=4348,
 )
 
 _VALUE.fields_by_name['type'].enum_type = _VALUE_TYPE
@@ -1799,6 +1813,8 @@ _INDEXREQUEST.fields_by_name['ppGroup'].message_type = _NAMEDOBJECTID
 _INDEXREQUEST.fields_by_name['cmdName'].message_type = _NAMEDOBJECTID
 _INDEXREQUEST.fields_by_name['eventSource'].message_type = _NAMEDOBJECTID
 _ARCHIVERECORD.fields_by_name['id'].message_type = _NAMEDOBJECTID
+_ARCHIVERECORD.fields_by_name['first'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_ARCHIVERECORD.fields_by_name['last'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _INDEXRESULT.fields_by_name['records'].message_type = _ARCHIVERECORD
 _TAGRESULT.fields_by_name['tag'].message_type = _ARCHIVETAG
 _UPSERTTAGREQUEST.fields_by_name['oldTag'].message_type = _ARCHIVETAG
@@ -2047,6 +2063,8 @@ _sym_db.RegisterMessage(ProcessorTypeInfo)
 
 
 DESCRIPTOR._options = None
+_ARCHIVERECORD.fields_by_name['yamcsFirst']._options = None
+_ARCHIVERECORD.fields_by_name['yamcsLast']._options = None
 _INDEXRESULT.fields_by_name['instance']._options = None
 _TMPACKETDATA.fields_by_name['yamcsReceptionTime']._options = None
 _TMPACKETDATA.fields_by_name['yamcsGenerationTime']._options = None
