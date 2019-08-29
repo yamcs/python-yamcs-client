@@ -493,7 +493,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/parameters{}'.format(self._instance, parameter),
             params=params,
-            response_class=archive_pb2.ListParameterValuesResponse,
+            response_class=archive_pb2.ListParameterHistoryResponse,
             items_key='parameter',
             item_mapper=ParameterValue,
         )
