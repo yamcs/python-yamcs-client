@@ -567,76 +567,76 @@ DESCRIPTOR.enum_types_by_name['TransferDirection'] = _TRANSFERDIRECTION
 DESCRIPTOR.enum_types_by_name['TransferState'] = _TRANSFERSTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-RemoteFile = _reflection.GeneratedProtocolMessageType('RemoteFile', (_message.Message,), dict(
-  DESCRIPTOR = _REMOTEFILE,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+RemoteFile = _reflection.GeneratedProtocolMessageType('RemoteFile', (_message.Message,), {
+  'DESCRIPTOR' : _REMOTEFILE,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.RemoteFile)
-  ))
+  })
 _sym_db.RegisterMessage(RemoteFile)
 
-TransferInfo = _reflection.GeneratedProtocolMessageType('TransferInfo', (_message.Message,), dict(
-  DESCRIPTOR = _TRANSFERINFO,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+TransferInfo = _reflection.GeneratedProtocolMessageType('TransferInfo', (_message.Message,), {
+  'DESCRIPTOR' : _TRANSFERINFO,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.TransferInfo)
-  ))
+  })
 _sym_db.RegisterMessage(TransferInfo)
 
-CreateTransferRequest = _reflection.GeneratedProtocolMessageType('CreateTransferRequest', (_message.Message,), dict(
+CreateTransferRequest = _reflection.GeneratedProtocolMessageType('CreateTransferRequest', (_message.Message,), {
 
-  UploadOptions = _reflection.GeneratedProtocolMessageType('UploadOptions', (_message.Message,), dict(
-    DESCRIPTOR = _CREATETRANSFERREQUEST_UPLOADOPTIONS,
-    __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+  'UploadOptions' : _reflection.GeneratedProtocolMessageType('UploadOptions', (_message.Message,), {
+    'DESCRIPTOR' : _CREATETRANSFERREQUEST_UPLOADOPTIONS,
+    '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.CreateTransferRequest.UploadOptions)
-    ))
+    })
   ,
 
-  DownloadOptions = _reflection.GeneratedProtocolMessageType('DownloadOptions', (_message.Message,), dict(
-    DESCRIPTOR = _CREATETRANSFERREQUEST_DOWNLOADOPTIONS,
-    __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+  'DownloadOptions' : _reflection.GeneratedProtocolMessageType('DownloadOptions', (_message.Message,), {
+    'DESCRIPTOR' : _CREATETRANSFERREQUEST_DOWNLOADOPTIONS,
+    '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.CreateTransferRequest.DownloadOptions)
-    ))
+    })
   ,
-  DESCRIPTOR = _CREATETRANSFERREQUEST,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+  'DESCRIPTOR' : _CREATETRANSFERREQUEST,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.CreateTransferRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateTransferRequest)
 _sym_db.RegisterMessage(CreateTransferRequest.UploadOptions)
 _sym_db.RegisterMessage(CreateTransferRequest.DownloadOptions)
 
-EditTransferRequest = _reflection.GeneratedProtocolMessageType('EditTransferRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITTRANSFERREQUEST,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+EditTransferRequest = _reflection.GeneratedProtocolMessageType('EditTransferRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITTRANSFERREQUEST,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.EditTransferRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditTransferRequest)
 
-ListTransfersRequest = _reflection.GeneratedProtocolMessageType('ListTransfersRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTRANSFERSREQUEST,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+ListTransfersRequest = _reflection.GeneratedProtocolMessageType('ListTransfersRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTRANSFERSREQUEST,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.ListTransfersRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListTransfersRequest)
 
-GetTransferRequest = _reflection.GeneratedProtocolMessageType('GetTransferRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETTRANSFERREQUEST,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+GetTransferRequest = _reflection.GeneratedProtocolMessageType('GetTransferRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETTRANSFERREQUEST,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.GetTransferRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetTransferRequest)
 
-ListTransfersResponse = _reflection.GeneratedProtocolMessageType('ListTransfersResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTRANSFERSRESPONSE,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+ListTransfersResponse = _reflection.GeneratedProtocolMessageType('ListTransfersResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTRANSFERSRESPONSE,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.ListTransfersResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListTransfersResponse)
 
-ListRemoteFilesResponse = _reflection.GeneratedProtocolMessageType('ListRemoteFilesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTREMOTEFILESRESPONSE,
-  __module__ = 'yamcs.protobuf.cfdp.cfdp_pb2'
+ListRemoteFilesResponse = _reflection.GeneratedProtocolMessageType('ListRemoteFilesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTREMOTEFILESRESPONSE,
+  '__module__' : 'yamcs.protobuf.cfdp.cfdp_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.cfdp.ListRemoteFilesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListRemoteFilesResponse)
 
 

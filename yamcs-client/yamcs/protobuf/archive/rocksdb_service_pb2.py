@@ -314,53 +314,53 @@ DESCRIPTOR.message_types_by_name['CompactDatabaseRequest'] = _COMPACTDATABASEREQ
 DESCRIPTOR.message_types_by_name['DescribeDatabaseRequest'] = _DESCRIBEDATABASEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ListRocksDbTablespacesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbTablespacesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTROCKSDBTABLESPACESRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+ListRocksDbTablespacesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbTablespacesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTROCKSDBTABLESPACESRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListRocksDbTablespacesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListRocksDbTablespacesResponse)
 
-RocksDbTablespaceInfo = _reflection.GeneratedProtocolMessageType('RocksDbTablespaceInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ROCKSDBTABLESPACEINFO,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+RocksDbTablespaceInfo = _reflection.GeneratedProtocolMessageType('RocksDbTablespaceInfo', (_message.Message,), {
+  'DESCRIPTOR' : _ROCKSDBTABLESPACEINFO,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RocksDbTablespaceInfo)
-  ))
+  })
 _sym_db.RegisterMessage(RocksDbTablespaceInfo)
 
-ListRocksDbDatabasesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbDatabasesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTROCKSDBDATABASESRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+ListRocksDbDatabasesResponse = _reflection.GeneratedProtocolMessageType('ListRocksDbDatabasesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTROCKSDBDATABASESRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListRocksDbDatabasesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListRocksDbDatabasesResponse)
 
-RocksDbDatabaseInfo = _reflection.GeneratedProtocolMessageType('RocksDbDatabaseInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ROCKSDBDATABASEINFO,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+RocksDbDatabaseInfo = _reflection.GeneratedProtocolMessageType('RocksDbDatabaseInfo', (_message.Message,), {
+  'DESCRIPTOR' : _ROCKSDBDATABASEINFO,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RocksDbDatabaseInfo)
-  ))
+  })
 _sym_db.RegisterMessage(RocksDbDatabaseInfo)
 
-BackupDatabaseRequest = _reflection.GeneratedProtocolMessageType('BackupDatabaseRequest', (_message.Message,), dict(
-  DESCRIPTOR = _BACKUPDATABASEREQUEST,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+BackupDatabaseRequest = _reflection.GeneratedProtocolMessageType('BackupDatabaseRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BACKUPDATABASEREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.BackupDatabaseRequest)
-  ))
+  })
 _sym_db.RegisterMessage(BackupDatabaseRequest)
 
-CompactDatabaseRequest = _reflection.GeneratedProtocolMessageType('CompactDatabaseRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COMPACTDATABASEREQUEST,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+CompactDatabaseRequest = _reflection.GeneratedProtocolMessageType('CompactDatabaseRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COMPACTDATABASEREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.CompactDatabaseRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CompactDatabaseRequest)
 
-DescribeDatabaseRequest = _reflection.GeneratedProtocolMessageType('DescribeDatabaseRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DESCRIBEDATABASEREQUEST,
-  __module__ = 'yamcs.protobuf.archive.rocksdb_service_pb2'
+DescribeDatabaseRequest = _reflection.GeneratedProtocolMessageType('DescribeDatabaseRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DESCRIBEDATABASEREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.rocksdb_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.DescribeDatabaseRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DescribeDatabaseRequest)
 
 

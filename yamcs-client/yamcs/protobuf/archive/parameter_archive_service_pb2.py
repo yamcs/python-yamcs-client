@@ -259,32 +259,32 @@ DESCRIPTOR.message_types_by_name['GetArchivedParameterInfoRequest'] = _GETARCHIV
 DESCRIPTOR.message_types_by_name['GetParameterRangesRequest'] = _GETPARAMETERRANGESREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-RebuildRangeRequest = _reflection.GeneratedProtocolMessageType('RebuildRangeRequest', (_message.Message,), dict(
-  DESCRIPTOR = _REBUILDRANGEREQUEST,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
+RebuildRangeRequest = _reflection.GeneratedProtocolMessageType('RebuildRangeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _REBUILDRANGEREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.parameter_archive_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RebuildRangeRequest)
-  ))
+  })
 _sym_db.RegisterMessage(RebuildRangeRequest)
 
-DeletePartitionsRequest = _reflection.GeneratedProtocolMessageType('DeletePartitionsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEPARTITIONSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
+DeletePartitionsRequest = _reflection.GeneratedProtocolMessageType('DeletePartitionsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEPARTITIONSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.parameter_archive_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.DeletePartitionsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeletePartitionsRequest)
 
-GetArchivedParameterInfoRequest = _reflection.GeneratedProtocolMessageType('GetArchivedParameterInfoRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETARCHIVEDPARAMETERINFOREQUEST,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
+GetArchivedParameterInfoRequest = _reflection.GeneratedProtocolMessageType('GetArchivedParameterInfoRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETARCHIVEDPARAMETERINFOREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.parameter_archive_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetArchivedParameterInfoRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetArchivedParameterInfoRequest)
 
-GetParameterRangesRequest = _reflection.GeneratedProtocolMessageType('GetParameterRangesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETPARAMETERRANGESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
+GetParameterRangesRequest = _reflection.GeneratedProtocolMessageType('GetParameterRangesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAMETERRANGESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.parameter_archive_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetParameterRangesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetParameterRangesRequest)
 
 

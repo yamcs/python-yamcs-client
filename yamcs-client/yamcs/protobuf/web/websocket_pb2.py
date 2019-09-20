@@ -1182,161 +1182,161 @@ DESCRIPTOR.message_types_by_name['AuthInfo'] = _AUTHINFO
 DESCRIPTOR.message_types_by_name['TokenResponse'] = _TOKENRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-WebSocketClientMessage = _reflection.GeneratedProtocolMessageType('WebSocketClientMessage', (_message.Message,), dict(
-  DESCRIPTOR = _WEBSOCKETCLIENTMESSAGE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+WebSocketClientMessage = _reflection.GeneratedProtocolMessageType('WebSocketClientMessage', (_message.Message,), {
+  'DESCRIPTOR' : _WEBSOCKETCLIENTMESSAGE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketClientMessage)
-  ))
+  })
 _sym_db.RegisterMessage(WebSocketClientMessage)
 
-WebSocketServerMessage = _reflection.GeneratedProtocolMessageType('WebSocketServerMessage', (_message.Message,), dict(
+WebSocketServerMessage = _reflection.GeneratedProtocolMessageType('WebSocketServerMessage', (_message.Message,), {
 
-  WebSocketReplyData = _reflection.GeneratedProtocolMessageType('WebSocketReplyData', (_message.Message,), dict(
-    DESCRIPTOR = _WEBSOCKETSERVERMESSAGE_WEBSOCKETREPLYDATA,
-    __module__ = 'yamcs.protobuf.web.websocket_pb2'
+  'WebSocketReplyData' : _reflection.GeneratedProtocolMessageType('WebSocketReplyData', (_message.Message,), {
+    'DESCRIPTOR' : _WEBSOCKETSERVERMESSAGE_WEBSOCKETREPLYDATA,
+    '__module__' : 'yamcs.protobuf.web.websocket_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketServerMessage.WebSocketReplyData)
-    ))
+    })
   ,
 
-  WebSocketExceptionData = _reflection.GeneratedProtocolMessageType('WebSocketExceptionData', (_message.Message,), dict(
-    DESCRIPTOR = _WEBSOCKETSERVERMESSAGE_WEBSOCKETEXCEPTIONDATA,
-    __module__ = 'yamcs.protobuf.web.websocket_pb2'
+  'WebSocketExceptionData' : _reflection.GeneratedProtocolMessageType('WebSocketExceptionData', (_message.Message,), {
+    'DESCRIPTOR' : _WEBSOCKETSERVERMESSAGE_WEBSOCKETEXCEPTIONDATA,
+    '__module__' : 'yamcs.protobuf.web.websocket_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketServerMessage.WebSocketExceptionData)
-    ))
+    })
   ,
 
-  WebSocketSubscriptionData = _reflection.GeneratedProtocolMessageType('WebSocketSubscriptionData', (_message.Message,), dict(
-    DESCRIPTOR = _WEBSOCKETSERVERMESSAGE_WEBSOCKETSUBSCRIPTIONDATA,
-    __module__ = 'yamcs.protobuf.web.websocket_pb2'
+  'WebSocketSubscriptionData' : _reflection.GeneratedProtocolMessageType('WebSocketSubscriptionData', (_message.Message,), {
+    'DESCRIPTOR' : _WEBSOCKETSERVERMESSAGE_WEBSOCKETSUBSCRIPTIONDATA,
+    '__module__' : 'yamcs.protobuf.web.websocket_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketServerMessage.WebSocketSubscriptionData)
-    ))
+    })
   ,
-  DESCRIPTOR = _WEBSOCKETSERVERMESSAGE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+  'DESCRIPTOR' : _WEBSOCKETSERVERMESSAGE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketServerMessage)
-  ))
+  })
 _sym_db.RegisterMessage(WebSocketServerMessage)
 _sym_db.RegisterMessage(WebSocketServerMessage.WebSocketReplyData)
 _sym_db.RegisterMessage(WebSocketServerMessage.WebSocketExceptionData)
 _sym_db.RegisterMessage(WebSocketServerMessage.WebSocketSubscriptionData)
 
-WebSocketExtensionData = _reflection.GeneratedProtocolMessageType('WebSocketExtensionData', (_message.Message,), dict(
-  DESCRIPTOR = _WEBSOCKETEXTENSIONDATA,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+WebSocketExtensionData = _reflection.GeneratedProtocolMessageType('WebSocketExtensionData', (_message.Message,), {
+  'DESCRIPTOR' : _WEBSOCKETEXTENSIONDATA,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.WebSocketExtensionData)
-  ))
+  })
 _sym_db.RegisterMessage(WebSocketExtensionData)
 
-LinkSubscriptionRequest = _reflection.GeneratedProtocolMessageType('LinkSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LINKSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+LinkSubscriptionRequest = _reflection.GeneratedProtocolMessageType('LinkSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LINKSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.LinkSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(LinkSubscriptionRequest)
 
-StreamsSubscriptionRequest = _reflection.GeneratedProtocolMessageType('StreamsSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMSSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+StreamsSubscriptionRequest = _reflection.GeneratedProtocolMessageType('StreamsSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMSSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.StreamsSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StreamsSubscriptionRequest)
 
-CfdpSubscriptionRequest = _reflection.GeneratedProtocolMessageType('CfdpSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CFDPSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+CfdpSubscriptionRequest = _reflection.GeneratedProtocolMessageType('CfdpSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CFDPSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.CfdpSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CfdpSubscriptionRequest)
 
-ProcessorSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ProcessorSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PROCESSORSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ProcessorSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ProcessorSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PROCESSORSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ProcessorSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ProcessorSubscriptionRequest)
 
-ManagementSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ManagementSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _MANAGEMENTSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ManagementSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ManagementSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _MANAGEMENTSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ManagementSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ManagementSubscriptionRequest)
 
-AlarmSubscriptionRequest = _reflection.GeneratedProtocolMessageType('AlarmSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _ALARMSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+AlarmSubscriptionRequest = _reflection.GeneratedProtocolMessageType('AlarmSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ALARMSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.AlarmSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(AlarmSubscriptionRequest)
 
-CommandHistorySubscriptionRequest = _reflection.GeneratedProtocolMessageType('CommandHistorySubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDHISTORYSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+CommandHistorySubscriptionRequest = _reflection.GeneratedProtocolMessageType('CommandHistorySubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDHISTORYSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.CommandHistorySubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CommandHistorySubscriptionRequest)
 
-ParameterSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ParameterSubscriptionRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERSUBSCRIPTIONREQUEST,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ParameterSubscriptionRequest = _reflection.GeneratedProtocolMessageType('ParameterSubscriptionRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERSUBSCRIPTIONREQUEST,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ParameterSubscriptionRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterSubscriptionRequest)
 
-SubscribedParameter = _reflection.GeneratedProtocolMessageType('SubscribedParameter', (_message.Message,), dict(
-  DESCRIPTOR = _SUBSCRIBEDPARAMETER,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+SubscribedParameter = _reflection.GeneratedProtocolMessageType('SubscribedParameter', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBEDPARAMETER,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.SubscribedParameter)
-  ))
+  })
 _sym_db.RegisterMessage(SubscribedParameter)
 
-ParameterSubscriptionResponse = _reflection.GeneratedProtocolMessageType('ParameterSubscriptionResponse', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERSUBSCRIPTIONRESPONSE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ParameterSubscriptionResponse = _reflection.GeneratedProtocolMessageType('ParameterSubscriptionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERSUBSCRIPTIONRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ParameterSubscriptionResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterSubscriptionResponse)
 
-TimeSubscriptionResponse = _reflection.GeneratedProtocolMessageType('TimeSubscriptionResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TIMESUBSCRIPTIONRESPONSE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+TimeSubscriptionResponse = _reflection.GeneratedProtocolMessageType('TimeSubscriptionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TIMESUBSCRIPTIONRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.TimeSubscriptionResponse)
-  ))
+  })
 _sym_db.RegisterMessage(TimeSubscriptionResponse)
 
-ProcessorSubscriptionResponse = _reflection.GeneratedProtocolMessageType('ProcessorSubscriptionResponse', (_message.Message,), dict(
-  DESCRIPTOR = _PROCESSORSUBSCRIPTIONRESPONSE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ProcessorSubscriptionResponse = _reflection.GeneratedProtocolMessageType('ProcessorSubscriptionResponse', (_message.Message,), {
+  'DESCRIPTOR' : _PROCESSORSUBSCRIPTIONRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ProcessorSubscriptionResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ProcessorSubscriptionResponse)
 
-ConnectionInfo = _reflection.GeneratedProtocolMessageType('ConnectionInfo', (_message.Message,), dict(
-  DESCRIPTOR = _CONNECTIONINFO,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+ConnectionInfo = _reflection.GeneratedProtocolMessageType('ConnectionInfo', (_message.Message,), {
+  'DESCRIPTOR' : _CONNECTIONINFO,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ConnectionInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ConnectionInfo)
 
-AuthFlow = _reflection.GeneratedProtocolMessageType('AuthFlow', (_message.Message,), dict(
-  DESCRIPTOR = _AUTHFLOW,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+AuthFlow = _reflection.GeneratedProtocolMessageType('AuthFlow', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHFLOW,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.AuthFlow)
-  ))
+  })
 _sym_db.RegisterMessage(AuthFlow)
 
-AuthInfo = _reflection.GeneratedProtocolMessageType('AuthInfo', (_message.Message,), dict(
-  DESCRIPTOR = _AUTHINFO,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+AuthInfo = _reflection.GeneratedProtocolMessageType('AuthInfo', (_message.Message,), {
+  'DESCRIPTOR' : _AUTHINFO,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.AuthInfo)
-  ))
+  })
 _sym_db.RegisterMessage(AuthInfo)
 
-TokenResponse = _reflection.GeneratedProtocolMessageType('TokenResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TOKENRESPONSE,
-  __module__ = 'yamcs.protobuf.web.websocket_pb2'
+TokenResponse = _reflection.GeneratedProtocolMessageType('TokenResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TOKENRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.TokenResponse)
-  ))
+  })
 _sym_db.RegisterMessage(TokenResponse)
 
 

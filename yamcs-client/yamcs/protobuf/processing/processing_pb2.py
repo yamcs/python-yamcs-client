@@ -595,83 +595,83 @@ DESCRIPTOR.message_types_by_name['IssueCommandResponse'] = _ISSUECOMMANDRESPONSE
 DESCRIPTOR.message_types_by_name['UpdateCommandHistoryRequest'] = _UPDATECOMMANDHISTORYREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-GetParameterValueRequest = _reflection.GeneratedProtocolMessageType('GetParameterValueRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETPARAMETERVALUEREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+GetParameterValueRequest = _reflection.GeneratedProtocolMessageType('GetParameterValueRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAMETERVALUEREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.GetParameterValueRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetParameterValueRequest)
 
-SetParameterValueRequest = _reflection.GeneratedProtocolMessageType('SetParameterValueRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SETPARAMETERVALUEREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+SetParameterValueRequest = _reflection.GeneratedProtocolMessageType('SetParameterValueRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SETPARAMETERVALUEREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.SetParameterValueRequest)
-  ))
+  })
 _sym_db.RegisterMessage(SetParameterValueRequest)
 
-BatchGetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('BatchGetParameterValuesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _BATCHGETPARAMETERVALUESREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+BatchGetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('BatchGetParameterValuesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BATCHGETPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.BatchGetParameterValuesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(BatchGetParameterValuesRequest)
 
-BatchGetParameterValuesResponse = _reflection.GeneratedProtocolMessageType('BatchGetParameterValuesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _BATCHGETPARAMETERVALUESRESPONSE,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+BatchGetParameterValuesResponse = _reflection.GeneratedProtocolMessageType('BatchGetParameterValuesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _BATCHGETPARAMETERVALUESRESPONSE,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.BatchGetParameterValuesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(BatchGetParameterValuesResponse)
 
-BatchSetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('BatchSetParameterValuesRequest', (_message.Message,), dict(
+BatchSetParameterValuesRequest = _reflection.GeneratedProtocolMessageType('BatchSetParameterValuesRequest', (_message.Message,), {
 
-  SetParameterValueRequest = _reflection.GeneratedProtocolMessageType('SetParameterValueRequest', (_message.Message,), dict(
-    DESCRIPTOR = _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST,
-    __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'SetParameterValueRequest' : _reflection.GeneratedProtocolMessageType('SetParameterValueRequest', (_message.Message,), {
+    'DESCRIPTOR' : _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST,
+    '__module__' : 'yamcs.protobuf.processing.processing_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.BatchSetParameterValuesRequest.SetParameterValueRequest)
-    ))
+    })
   ,
-  DESCRIPTOR = _BATCHSETPARAMETERVALUESREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'DESCRIPTOR' : _BATCHSETPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.BatchSetParameterValuesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(BatchSetParameterValuesRequest)
 _sym_db.RegisterMessage(BatchSetParameterValuesRequest.SetParameterValueRequest)
 
-IssueCommandRequest = _reflection.GeneratedProtocolMessageType('IssueCommandRequest', (_message.Message,), dict(
+IssueCommandRequest = _reflection.GeneratedProtocolMessageType('IssueCommandRequest', (_message.Message,), {
 
-  Assignment = _reflection.GeneratedProtocolMessageType('Assignment', (_message.Message,), dict(
-    DESCRIPTOR = _ISSUECOMMANDREQUEST_ASSIGNMENT,
-    __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'Assignment' : _reflection.GeneratedProtocolMessageType('Assignment', (_message.Message,), {
+    'DESCRIPTOR' : _ISSUECOMMANDREQUEST_ASSIGNMENT,
+    '__module__' : 'yamcs.protobuf.processing.processing_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandRequest.Assignment)
-    ))
+    })
   ,
-  DESCRIPTOR = _ISSUECOMMANDREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'DESCRIPTOR' : _ISSUECOMMANDREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandRequest)
-  ))
+  })
 _sym_db.RegisterMessage(IssueCommandRequest)
 _sym_db.RegisterMessage(IssueCommandRequest.Assignment)
 
-IssueCommandResponse = _reflection.GeneratedProtocolMessageType('IssueCommandResponse', (_message.Message,), dict(
-  DESCRIPTOR = _ISSUECOMMANDRESPONSE,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+IssueCommandResponse = _reflection.GeneratedProtocolMessageType('IssueCommandResponse', (_message.Message,), {
+  'DESCRIPTOR' : _ISSUECOMMANDRESPONSE,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.IssueCommandResponse)
-  ))
+  })
 _sym_db.RegisterMessage(IssueCommandResponse)
 
-UpdateCommandHistoryRequest = _reflection.GeneratedProtocolMessageType('UpdateCommandHistoryRequest', (_message.Message,), dict(
+UpdateCommandHistoryRequest = _reflection.GeneratedProtocolMessageType('UpdateCommandHistoryRequest', (_message.Message,), {
 
-  KeyValue = _reflection.GeneratedProtocolMessageType('KeyValue', (_message.Message,), dict(
-    DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST_KEYVALUE,
-    __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'KeyValue' : _reflection.GeneratedProtocolMessageType('KeyValue', (_message.Message,), {
+    'DESCRIPTOR' : _UPDATECOMMANDHISTORYREQUEST_KEYVALUE,
+    '__module__' : 'yamcs.protobuf.processing.processing_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.UpdateCommandHistoryRequest.KeyValue)
-    ))
+    })
   ,
-  DESCRIPTOR = _UPDATECOMMANDHISTORYREQUEST,
-  __module__ = 'yamcs.protobuf.processing.processing_pb2'
+  'DESCRIPTOR' : _UPDATECOMMANDHISTORYREQUEST,
+  '__module__' : 'yamcs.protobuf.processing.processing_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.UpdateCommandHistoryRequest)
-  ))
+  })
 _sym_db.RegisterMessage(UpdateCommandHistoryRequest)
 _sym_db.RegisterMessage(UpdateCommandHistoryRequest.KeyValue)
 

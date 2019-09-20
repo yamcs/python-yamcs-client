@@ -1067,168 +1067,168 @@ DESCRIPTOR.message_types_by_name['StreamInfo'] = _STREAMINFO
 DESCRIPTOR.extensions_by_name['rowsLoaded'] = rowsLoaded
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-Row = _reflection.GeneratedProtocolMessageType('Row', (_message.Message,), dict(
+Row = _reflection.GeneratedProtocolMessageType('Row', (_message.Message,), {
 
-  ColumnInfo = _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), dict(
-    DESCRIPTOR = _ROW_COLUMNINFO,
-    __module__ = 'yamcs.protobuf.table.table_pb2'
+  'ColumnInfo' : _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), {
+    'DESCRIPTOR' : _ROW_COLUMNINFO,
+    '__module__' : 'yamcs.protobuf.table.table_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.Row.ColumnInfo)
-    ))
+    })
   ,
 
-  Cell = _reflection.GeneratedProtocolMessageType('Cell', (_message.Message,), dict(
-    DESCRIPTOR = _ROW_CELL,
-    __module__ = 'yamcs.protobuf.table.table_pb2'
+  'Cell' : _reflection.GeneratedProtocolMessageType('Cell', (_message.Message,), {
+    'DESCRIPTOR' : _ROW_CELL,
+    '__module__' : 'yamcs.protobuf.table.table_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.Row.Cell)
-    ))
+    })
   ,
-  DESCRIPTOR = _ROW,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+  'DESCRIPTOR' : _ROW,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.Row)
-  ))
+  })
 _sym_db.RegisterMessage(Row)
 _sym_db.RegisterMessage(Row.ColumnInfo)
 _sym_db.RegisterMessage(Row.Cell)
 
-TableLoadResponse = _reflection.GeneratedProtocolMessageType('TableLoadResponse', (_message.Message,), dict(
-  DESCRIPTOR = _TABLELOADRESPONSE,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+TableLoadResponse = _reflection.GeneratedProtocolMessageType('TableLoadResponse', (_message.Message,), {
+  'DESCRIPTOR' : _TABLELOADRESPONSE,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.TableLoadResponse)
-  ))
+  })
 _sym_db.RegisterMessage(TableLoadResponse)
 
-ReadRowsRequest = _reflection.GeneratedProtocolMessageType('ReadRowsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _READROWSREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ReadRowsRequest = _reflection.GeneratedProtocolMessageType('ReadRowsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _READROWSREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ReadRowsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ReadRowsRequest)
 
-ExecuteSqlRequest = _reflection.GeneratedProtocolMessageType('ExecuteSqlRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EXECUTESQLREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ExecuteSqlRequest = _reflection.GeneratedProtocolMessageType('ExecuteSqlRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXECUTESQLREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ExecuteSqlRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ExecuteSqlRequest)
 
-ExecuteSqlResponse = _reflection.GeneratedProtocolMessageType('ExecuteSqlResponse', (_message.Message,), dict(
-  DESCRIPTOR = _EXECUTESQLRESPONSE,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ExecuteSqlResponse = _reflection.GeneratedProtocolMessageType('ExecuteSqlResponse', (_message.Message,), {
+  'DESCRIPTOR' : _EXECUTESQLRESPONSE,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ExecuteSqlResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ExecuteSqlResponse)
 
-ListTablesRequest = _reflection.GeneratedProtocolMessageType('ListTablesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTABLESREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ListTablesRequest = _reflection.GeneratedProtocolMessageType('ListTablesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTABLESREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ListTablesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListTablesRequest)
 
-ListTablesResponse = _reflection.GeneratedProtocolMessageType('ListTablesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTABLESRESPONSE,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ListTablesResponse = _reflection.GeneratedProtocolMessageType('ListTablesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTABLESRESPONSE,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ListTablesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListTablesResponse)
 
-GetTableRequest = _reflection.GeneratedProtocolMessageType('GetTableRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETTABLEREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+GetTableRequest = _reflection.GeneratedProtocolMessageType('GetTableRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETTABLEREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.GetTableRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetTableRequest)
 
-GetTableDataRequest = _reflection.GeneratedProtocolMessageType('GetTableDataRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETTABLEDATAREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+GetTableDataRequest = _reflection.GeneratedProtocolMessageType('GetTableDataRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETTABLEDATAREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.GetTableDataRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetTableDataRequest)
 
-ListStreamsRequest = _reflection.GeneratedProtocolMessageType('ListStreamsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSTREAMSREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ListStreamsRequest = _reflection.GeneratedProtocolMessageType('ListStreamsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSTREAMSREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ListStreamsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListStreamsRequest)
 
-ListStreamsResponse = _reflection.GeneratedProtocolMessageType('ListStreamsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSTREAMSRESPONSE,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ListStreamsResponse = _reflection.GeneratedProtocolMessageType('ListStreamsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSTREAMSRESPONSE,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ListStreamsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListStreamsResponse)
 
-GetStreamRequest = _reflection.GeneratedProtocolMessageType('GetStreamRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETSTREAMREQUEST,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+GetStreamRequest = _reflection.GeneratedProtocolMessageType('GetStreamRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETSTREAMREQUEST,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.GetStreamRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetStreamRequest)
 
-ColumnData = _reflection.GeneratedProtocolMessageType('ColumnData', (_message.Message,), dict(
-  DESCRIPTOR = _COLUMNDATA,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ColumnData = _reflection.GeneratedProtocolMessageType('ColumnData', (_message.Message,), {
+  'DESCRIPTOR' : _COLUMNDATA,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ColumnData)
-  ))
+  })
 _sym_db.RegisterMessage(ColumnData)
 
-StreamData = _reflection.GeneratedProtocolMessageType('StreamData', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMDATA,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+StreamData = _reflection.GeneratedProtocolMessageType('StreamData', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMDATA,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.StreamData)
-  ))
+  })
 _sym_db.RegisterMessage(StreamData)
 
-TableData = _reflection.GeneratedProtocolMessageType('TableData', (_message.Message,), dict(
+TableData = _reflection.GeneratedProtocolMessageType('TableData', (_message.Message,), {
 
-  TableRecord = _reflection.GeneratedProtocolMessageType('TableRecord', (_message.Message,), dict(
-    DESCRIPTOR = _TABLEDATA_TABLERECORD,
-    __module__ = 'yamcs.protobuf.table.table_pb2'
+  'TableRecord' : _reflection.GeneratedProtocolMessageType('TableRecord', (_message.Message,), {
+    'DESCRIPTOR' : _TABLEDATA_TABLERECORD,
+    '__module__' : 'yamcs.protobuf.table.table_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.TableData.TableRecord)
-    ))
+    })
   ,
-  DESCRIPTOR = _TABLEDATA,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+  'DESCRIPTOR' : _TABLEDATA,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.TableData)
-  ))
+  })
 _sym_db.RegisterMessage(TableData)
 _sym_db.RegisterMessage(TableData.TableRecord)
 
-ColumnInfo = _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), dict(
-  DESCRIPTOR = _COLUMNINFO,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+ColumnInfo = _reflection.GeneratedProtocolMessageType('ColumnInfo', (_message.Message,), {
+  'DESCRIPTOR' : _COLUMNINFO,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.ColumnInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ColumnInfo)
 
-EnumValue = _reflection.GeneratedProtocolMessageType('EnumValue', (_message.Message,), dict(
-  DESCRIPTOR = _ENUMVALUE,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+EnumValue = _reflection.GeneratedProtocolMessageType('EnumValue', (_message.Message,), {
+  'DESCRIPTOR' : _ENUMVALUE,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.EnumValue)
-  ))
+  })
 _sym_db.RegisterMessage(EnumValue)
 
-TableInfo = _reflection.GeneratedProtocolMessageType('TableInfo', (_message.Message,), dict(
-  DESCRIPTOR = _TABLEINFO,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+TableInfo = _reflection.GeneratedProtocolMessageType('TableInfo', (_message.Message,), {
+  'DESCRIPTOR' : _TABLEINFO,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.TableInfo)
-  ))
+  })
 _sym_db.RegisterMessage(TableInfo)
 
-PartitioningInfo = _reflection.GeneratedProtocolMessageType('PartitioningInfo', (_message.Message,), dict(
-  DESCRIPTOR = _PARTITIONINGINFO,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+PartitioningInfo = _reflection.GeneratedProtocolMessageType('PartitioningInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PARTITIONINGINFO,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.PartitioningInfo)
-  ))
+  })
 _sym_db.RegisterMessage(PartitioningInfo)
 
-StreamInfo = _reflection.GeneratedProtocolMessageType('StreamInfo', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMINFO,
-  __module__ = 'yamcs.protobuf.table.table_pb2'
+StreamInfo = _reflection.GeneratedProtocolMessageType('StreamInfo', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMINFO,
+  '__module__' : 'yamcs.protobuf.table.table_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.StreamInfo)
-  ))
+  })
 _sym_db.RegisterMessage(StreamInfo)
 
 yamcs_dot_protobuf_dot_web_dot_rest__pb2.RestExceptionMessage.RegisterExtension(rowsLoaded)

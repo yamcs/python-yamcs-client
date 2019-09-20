@@ -355,46 +355,46 @@ DESCRIPTOR.message_types_by_name['EditTagRequest'] = _EDITTAGREQUEST
 DESCRIPTOR.message_types_by_name['DeleteTagRequest'] = _DELETETAGREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ListTagsRequest = _reflection.GeneratedProtocolMessageType('ListTagsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTAGSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+ListTagsRequest = _reflection.GeneratedProtocolMessageType('ListTagsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTAGSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListTagsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListTagsRequest)
 
-ListTagsResponse = _reflection.GeneratedProtocolMessageType('ListTagsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTTAGSRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+ListTagsResponse = _reflection.GeneratedProtocolMessageType('ListTagsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTAGSRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListTagsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListTagsResponse)
 
-GetTagRequest = _reflection.GeneratedProtocolMessageType('GetTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETTAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+GetTagRequest = _reflection.GeneratedProtocolMessageType('GetTagRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETTAGREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetTagRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetTagRequest)
 
-CreateTagRequest = _reflection.GeneratedProtocolMessageType('CreateTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATETAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+CreateTagRequest = _reflection.GeneratedProtocolMessageType('CreateTagRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATETAGREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.CreateTagRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateTagRequest)
 
-EditTagRequest = _reflection.GeneratedProtocolMessageType('EditTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITTAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+EditTagRequest = _reflection.GeneratedProtocolMessageType('EditTagRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITTAGREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.EditTagRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditTagRequest)
 
-DeleteTagRequest = _reflection.GeneratedProtocolMessageType('DeleteTagRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETETAGREQUEST,
-  __module__ = 'yamcs.protobuf.archive.tag_service_pb2'
+DeleteTagRequest = _reflection.GeneratedProtocolMessageType('DeleteTagRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETETAGREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.tag_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.DeleteTagRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteTagRequest)
 
 

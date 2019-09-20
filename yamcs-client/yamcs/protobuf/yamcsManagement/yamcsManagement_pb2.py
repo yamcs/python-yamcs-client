@@ -2341,295 +2341,295 @@ DESCRIPTOR.message_types_by_name['EditLinkRequest'] = _EDITLINKREQUEST
 DESCRIPTOR.enum_types_by_name['ServiceState'] = _SERVICESTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-YamcsInstances = _reflection.GeneratedProtocolMessageType('YamcsInstances', (_message.Message,), dict(
-  DESCRIPTOR = _YAMCSINSTANCES,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+YamcsInstances = _reflection.GeneratedProtocolMessageType('YamcsInstances', (_message.Message,), {
+  'DESCRIPTOR' : _YAMCSINSTANCES,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.YamcsInstances)
-  ))
+  })
 _sym_db.RegisterMessage(YamcsInstances)
 
-YamcsInstance = _reflection.GeneratedProtocolMessageType('YamcsInstance', (_message.Message,), dict(
+YamcsInstance = _reflection.GeneratedProtocolMessageType('YamcsInstance', (_message.Message,), {
 
-  LabelsEntry = _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), dict(
-    DESCRIPTOR = _YAMCSINSTANCE_LABELSENTRY,
-    __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'LabelsEntry' : _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _YAMCSINSTANCE_LABELSENTRY,
+    '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.YamcsInstance.LabelsEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _YAMCSINSTANCE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'DESCRIPTOR' : _YAMCSINSTANCE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.YamcsInstance)
-  ))
+  })
 _sym_db.RegisterMessage(YamcsInstance)
 _sym_db.RegisterMessage(YamcsInstance.LabelsEntry)
 
-InstanceTemplate = _reflection.GeneratedProtocolMessageType('InstanceTemplate', (_message.Message,), dict(
-  DESCRIPTOR = _INSTANCETEMPLATE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+InstanceTemplate = _reflection.GeneratedProtocolMessageType('InstanceTemplate', (_message.Message,), {
+  'DESCRIPTOR' : _INSTANCETEMPLATE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.InstanceTemplate)
-  ))
+  })
 _sym_db.RegisterMessage(InstanceTemplate)
 
-TemplateVariable = _reflection.GeneratedProtocolMessageType('TemplateVariable', (_message.Message,), dict(
-  DESCRIPTOR = _TEMPLATEVARIABLE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+TemplateVariable = _reflection.GeneratedProtocolMessageType('TemplateVariable', (_message.Message,), {
+  'DESCRIPTOR' : _TEMPLATEVARIABLE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.TemplateVariable)
-  ))
+  })
 _sym_db.RegisterMessage(TemplateVariable)
 
-ProcessorInfo = _reflection.GeneratedProtocolMessageType('ProcessorInfo', (_message.Message,), dict(
-  DESCRIPTOR = _PROCESSORINFO,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ProcessorInfo = _reflection.GeneratedProtocolMessageType('ProcessorInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PROCESSORINFO,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ProcessorInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ProcessorInfo)
 
-ClientInfo = _reflection.GeneratedProtocolMessageType('ClientInfo', (_message.Message,), dict(
-  DESCRIPTOR = _CLIENTINFO,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ClientInfo = _reflection.GeneratedProtocolMessageType('ClientInfo', (_message.Message,), {
+  'DESCRIPTOR' : _CLIENTINFO,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ClientInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ClientInfo)
 
-TmStatistics = _reflection.GeneratedProtocolMessageType('TmStatistics', (_message.Message,), dict(
-  DESCRIPTOR = _TMSTATISTICS,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+TmStatistics = _reflection.GeneratedProtocolMessageType('TmStatistics', (_message.Message,), {
+  'DESCRIPTOR' : _TMSTATISTICS,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.TmStatistics)
-  ))
+  })
 _sym_db.RegisterMessage(TmStatistics)
 
-Statistics = _reflection.GeneratedProtocolMessageType('Statistics', (_message.Message,), dict(
-  DESCRIPTOR = _STATISTICS,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+Statistics = _reflection.GeneratedProtocolMessageType('Statistics', (_message.Message,), {
+  'DESCRIPTOR' : _STATISTICS,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.Statistics)
-  ))
+  })
 _sym_db.RegisterMessage(Statistics)
 
-ProcessorManagementRequest = _reflection.GeneratedProtocolMessageType('ProcessorManagementRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PROCESSORMANAGEMENTREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ProcessorManagementRequest = _reflection.GeneratedProtocolMessageType('ProcessorManagementRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PROCESSORMANAGEMENTREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ProcessorManagementRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ProcessorManagementRequest)
 
-ProcessorRequest = _reflection.GeneratedProtocolMessageType('ProcessorRequest', (_message.Message,), dict(
-  DESCRIPTOR = _PROCESSORREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ProcessorRequest = _reflection.GeneratedProtocolMessageType('ProcessorRequest', (_message.Message,), {
+  'DESCRIPTOR' : _PROCESSORREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ProcessorRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ProcessorRequest)
 
-LinkInfo = _reflection.GeneratedProtocolMessageType('LinkInfo', (_message.Message,), dict(
-  DESCRIPTOR = _LINKINFO,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+LinkInfo = _reflection.GeneratedProtocolMessageType('LinkInfo', (_message.Message,), {
+  'DESCRIPTOR' : _LINKINFO,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.LinkInfo)
-  ))
+  })
 _sym_db.RegisterMessage(LinkInfo)
 
-LinkEvent = _reflection.GeneratedProtocolMessageType('LinkEvent', (_message.Message,), dict(
-  DESCRIPTOR = _LINKEVENT,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+LinkEvent = _reflection.GeneratedProtocolMessageType('LinkEvent', (_message.Message,), {
+  'DESCRIPTOR' : _LINKEVENT,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.LinkEvent)
-  ))
+  })
 _sym_db.RegisterMessage(LinkEvent)
 
-ServiceInfo = _reflection.GeneratedProtocolMessageType('ServiceInfo', (_message.Message,), dict(
-  DESCRIPTOR = _SERVICEINFO,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ServiceInfo = _reflection.GeneratedProtocolMessageType('ServiceInfo', (_message.Message,), {
+  'DESCRIPTOR' : _SERVICEINFO,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ServiceInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ServiceInfo)
 
-StreamEvent = _reflection.GeneratedProtocolMessageType('StreamEvent', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMEVENT,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+StreamEvent = _reflection.GeneratedProtocolMessageType('StreamEvent', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMEVENT,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StreamEvent)
-  ))
+  })
 _sym_db.RegisterMessage(StreamEvent)
 
-SystemInfo = _reflection.GeneratedProtocolMessageType('SystemInfo', (_message.Message,), dict(
-  DESCRIPTOR = _SYSTEMINFO,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+SystemInfo = _reflection.GeneratedProtocolMessageType('SystemInfo', (_message.Message,), {
+  'DESCRIPTOR' : _SYSTEMINFO,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.SystemInfo)
-  ))
+  })
 _sym_db.RegisterMessage(SystemInfo)
 
-RootDirectory = _reflection.GeneratedProtocolMessageType('RootDirectory', (_message.Message,), dict(
-  DESCRIPTOR = _ROOTDIRECTORY,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+RootDirectory = _reflection.GeneratedProtocolMessageType('RootDirectory', (_message.Message,), {
+  'DESCRIPTOR' : _ROOTDIRECTORY,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.RootDirectory)
-  ))
+  })
 _sym_db.RegisterMessage(RootDirectory)
 
-ListServicesRequest = _reflection.GeneratedProtocolMessageType('ListServicesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSERVICESREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListServicesRequest = _reflection.GeneratedProtocolMessageType('ListServicesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSERVICESREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListServicesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListServicesRequest)
 
-GetServiceRequest = _reflection.GeneratedProtocolMessageType('GetServiceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETSERVICEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+GetServiceRequest = _reflection.GeneratedProtocolMessageType('GetServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETSERVICEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetServiceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetServiceRequest)
 
-StartServiceRequest = _reflection.GeneratedProtocolMessageType('StartServiceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STARTSERVICEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+StartServiceRequest = _reflection.GeneratedProtocolMessageType('StartServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STARTSERVICEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StartServiceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StartServiceRequest)
 
-StopServiceRequest = _reflection.GeneratedProtocolMessageType('StopServiceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STOPSERVICEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+StopServiceRequest = _reflection.GeneratedProtocolMessageType('StopServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STOPSERVICEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StopServiceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StopServiceRequest)
 
-ListServicesResponse = _reflection.GeneratedProtocolMessageType('ListServicesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSERVICESRESPONSE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListServicesResponse = _reflection.GeneratedProtocolMessageType('ListServicesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSERVICESRESPONSE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListServicesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListServicesResponse)
 
-EditServiceRequest = _reflection.GeneratedProtocolMessageType('EditServiceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITSERVICEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+EditServiceRequest = _reflection.GeneratedProtocolMessageType('EditServiceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITSERVICEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.EditServiceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditServiceRequest)
 
-ListInstancesRequest = _reflection.GeneratedProtocolMessageType('ListInstancesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTINSTANCESREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListInstancesRequest = _reflection.GeneratedProtocolMessageType('ListInstancesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTINSTANCESREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListInstancesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListInstancesRequest)
 
-ListInstancesResponse = _reflection.GeneratedProtocolMessageType('ListInstancesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTINSTANCESRESPONSE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListInstancesResponse = _reflection.GeneratedProtocolMessageType('ListInstancesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTINSTANCESRESPONSE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListInstancesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListInstancesResponse)
 
-CreateInstanceRequest = _reflection.GeneratedProtocolMessageType('CreateInstanceRequest', (_message.Message,), dict(
+CreateInstanceRequest = _reflection.GeneratedProtocolMessageType('CreateInstanceRequest', (_message.Message,), {
 
-  TemplateArgsEntry = _reflection.GeneratedProtocolMessageType('TemplateArgsEntry', (_message.Message,), dict(
-    DESCRIPTOR = _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY,
-    __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'TemplateArgsEntry' : _reflection.GeneratedProtocolMessageType('TemplateArgsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CREATEINSTANCEREQUEST_TEMPLATEARGSENTRY,
+    '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.CreateInstanceRequest.TemplateArgsEntry)
-    ))
+    })
   ,
 
-  LabelsEntry = _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), dict(
-    DESCRIPTOR = _CREATEINSTANCEREQUEST_LABELSENTRY,
-    __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'LabelsEntry' : _reflection.GeneratedProtocolMessageType('LabelsEntry', (_message.Message,), {
+    'DESCRIPTOR' : _CREATEINSTANCEREQUEST_LABELSENTRY,
+    '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.CreateInstanceRequest.LabelsEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _CREATEINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'DESCRIPTOR' : _CREATEINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.CreateInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateInstanceRequest)
 _sym_db.RegisterMessage(CreateInstanceRequest.TemplateArgsEntry)
 _sym_db.RegisterMessage(CreateInstanceRequest.LabelsEntry)
 
-ListInstanceTemplatesResponse = _reflection.GeneratedProtocolMessageType('ListInstanceTemplatesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTINSTANCETEMPLATESRESPONSE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListInstanceTemplatesResponse = _reflection.GeneratedProtocolMessageType('ListInstanceTemplatesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTINSTANCETEMPLATESRESPONSE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListInstanceTemplatesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListInstanceTemplatesResponse)
 
-EditInstanceRequest = _reflection.GeneratedProtocolMessageType('EditInstanceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+EditInstanceRequest = _reflection.GeneratedProtocolMessageType('EditInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.EditInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditInstanceRequest)
 
-LeapSecondsTable = _reflection.GeneratedProtocolMessageType('LeapSecondsTable', (_message.Message,), dict(
+LeapSecondsTable = _reflection.GeneratedProtocolMessageType('LeapSecondsTable', (_message.Message,), {
 
-  ValidityRange = _reflection.GeneratedProtocolMessageType('ValidityRange', (_message.Message,), dict(
-    DESCRIPTOR = _LEAPSECONDSTABLE_VALIDITYRANGE,
-    __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'ValidityRange' : _reflection.GeneratedProtocolMessageType('ValidityRange', (_message.Message,), {
+    'DESCRIPTOR' : _LEAPSECONDSTABLE_VALIDITYRANGE,
+    '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.LeapSecondsTable.ValidityRange)
-    ))
+    })
   ,
-  DESCRIPTOR = _LEAPSECONDSTABLE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+  'DESCRIPTOR' : _LEAPSECONDSTABLE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.LeapSecondsTable)
-  ))
+  })
 _sym_db.RegisterMessage(LeapSecondsTable)
 _sym_db.RegisterMessage(LeapSecondsTable.ValidityRange)
 
-GetInstanceTemplateRequest = _reflection.GeneratedProtocolMessageType('GetInstanceTemplateRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETINSTANCETEMPLATEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+GetInstanceTemplateRequest = _reflection.GeneratedProtocolMessageType('GetInstanceTemplateRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETINSTANCETEMPLATEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetInstanceTemplateRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetInstanceTemplateRequest)
 
-GetInstanceRequest = _reflection.GeneratedProtocolMessageType('GetInstanceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+GetInstanceRequest = _reflection.GeneratedProtocolMessageType('GetInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetInstanceRequest)
 
-StartInstanceRequest = _reflection.GeneratedProtocolMessageType('StartInstanceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STARTINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+StartInstanceRequest = _reflection.GeneratedProtocolMessageType('StartInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STARTINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StartInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StartInstanceRequest)
 
-StopInstanceRequest = _reflection.GeneratedProtocolMessageType('StopInstanceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STOPINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+StopInstanceRequest = _reflection.GeneratedProtocolMessageType('StopInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STOPINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.StopInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StopInstanceRequest)
 
-RestartInstanceRequest = _reflection.GeneratedProtocolMessageType('RestartInstanceRequest', (_message.Message,), dict(
-  DESCRIPTOR = _RESTARTINSTANCEREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+RestartInstanceRequest = _reflection.GeneratedProtocolMessageType('RestartInstanceRequest', (_message.Message,), {
+  'DESCRIPTOR' : _RESTARTINSTANCEREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.RestartInstanceRequest)
-  ))
+  })
 _sym_db.RegisterMessage(RestartInstanceRequest)
 
-ListLinksRequest = _reflection.GeneratedProtocolMessageType('ListLinksRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTLINKSREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListLinksRequest = _reflection.GeneratedProtocolMessageType('ListLinksRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTLINKSREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListLinksRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListLinksRequest)
 
-ListLinksResponse = _reflection.GeneratedProtocolMessageType('ListLinksResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTLINKSRESPONSE,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+ListLinksResponse = _reflection.GeneratedProtocolMessageType('ListLinksResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTLINKSRESPONSE,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.ListLinksResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListLinksResponse)
 
-GetLinkRequest = _reflection.GeneratedProtocolMessageType('GetLinkRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETLINKREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+GetLinkRequest = _reflection.GeneratedProtocolMessageType('GetLinkRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETLINKREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.GetLinkRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetLinkRequest)
 
-EditLinkRequest = _reflection.GeneratedProtocolMessageType('EditLinkRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITLINKREQUEST,
-  __module__ = 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
+EditLinkRequest = _reflection.GeneratedProtocolMessageType('EditLinkRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITLINKREQUEST,
+  '__module__' : 'yamcs.protobuf.yamcsManagement.yamcsManagement_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.yamcsManagement.EditLinkRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditLinkRequest)
 
 

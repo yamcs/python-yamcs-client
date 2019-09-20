@@ -73,11 +73,11 @@ _HTTPBODY = _descriptor.Descriptor(
 DESCRIPTOR.message_types_by_name['HttpBody'] = _HTTPBODY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-HttpBody = _reflection.GeneratedProtocolMessageType('HttpBody', (_message.Message,), dict(
-  DESCRIPTOR = _HTTPBODY,
-  __module__ = 'yamcs.api.httpbody_pb2'
+HttpBody = _reflection.GeneratedProtocolMessageType('HttpBody', (_message.Message,), {
+  'DESCRIPTOR' : _HTTPBODY,
+  '__module__' : 'yamcs.api.httpbody_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.api.HttpBody)
-  ))
+  })
 _sym_db.RegisterMessage(HttpBody)
 
 

@@ -224,25 +224,25 @@ DESCRIPTOR.message_types_by_name['ExportEventsRequest'] = _EXPORTEVENTSREQUEST
 DESCRIPTOR.message_types_by_name['ExportParameterValuesRequest'] = _EXPORTPARAMETERVALUESREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ExportPacketsRequest = _reflection.GeneratedProtocolMessageType('ExportPacketsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EXPORTPACKETSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.export_service_pb2'
+ExportPacketsRequest = _reflection.GeneratedProtocolMessageType('ExportPacketsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXPORTPACKETSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.export_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ExportPacketsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ExportPacketsRequest)
 
-ExportEventsRequest = _reflection.GeneratedProtocolMessageType('ExportEventsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EXPORTEVENTSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.export_service_pb2'
+ExportEventsRequest = _reflection.GeneratedProtocolMessageType('ExportEventsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXPORTEVENTSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.export_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ExportEventsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ExportEventsRequest)
 
-ExportParameterValuesRequest = _reflection.GeneratedProtocolMessageType('ExportParameterValuesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EXPORTPARAMETERVALUESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.export_service_pb2'
+ExportParameterValuesRequest = _reflection.GeneratedProtocolMessageType('ExportParameterValuesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXPORTPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.export_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ExportParameterValuesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ExportParameterValuesRequest)
 
 

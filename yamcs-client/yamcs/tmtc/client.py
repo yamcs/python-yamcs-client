@@ -7,10 +7,12 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.alarms import alarms_pb2
+from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
-from yamcs.protobuf.web import rest_pb2, websocket_pb2
+from yamcs.protobuf.web import websocket_pb2
 from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
                               IssuedCommand, ParameterData, ParameterValue,
                               _parse_alarm)
@@ -367,7 +369,7 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
 
     def _process(self, alarm_update):
         alarm = alarm_update.alarm
-        if alarm_update.update_type in ('ACKNOWLEDGED', 'CLEARED'):
+        if alarm.processOK and not alarm.triggered and alarm.acknowledged:
             del self._cache[alarm.name]
         else:
             self._cache[alarm.name] = alarm
@@ -541,7 +543,7 @@ class ProcessorClient(object):
         # Return an iterator anyway for similarity with other API methods
         url = '/processors/{}/{}/alarms'.format(self._instance, self._processor)
         response = self._client.get_proto(path=url, params=params)
-        message = rest_pb2.ListAlarmsResponse()
+        message = archive_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
         alarms = getattr(message, 'alarm')
         return iter([_parse_alarm(alarm) for alarm in alarms])
@@ -746,13 +748,13 @@ class ProcessorClient(object):
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = '/processors/{}/{}/parameters{}/alarms/{}'.format(
+        url = '/processors/{}/{}/alarms{}/{}'.format(
             self._instance, self._processor, name, alarm.sequence_number)
-        req = rest_pb2.EditAlarmRequest()
+        req = alarms_pb2.EditAlarmRequest()
         req.state = 'acknowledged'
         if comment is not None:
             req.comment = comment
-        self._client.put_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def create_command_history_subscription(self,
                                             issued_command=None,

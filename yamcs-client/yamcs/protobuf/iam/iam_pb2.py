@@ -1045,159 +1045,159 @@ DESCRIPTOR.message_types_by_name['ObjectPrivilegeInfo'] = _OBJECTPRIVILEGEINFO
 DESCRIPTOR.message_types_by_name['ListPrivilegesResponse'] = _LISTPRIVILEGESRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ListUsersResponse = _reflection.GeneratedProtocolMessageType('ListUsersResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTUSERSRESPONSE,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ListUsersResponse = _reflection.GeneratedProtocolMessageType('ListUsersResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTUSERSRESPONSE,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ListUsersResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListUsersResponse)
 
-ListGroupsResponse = _reflection.GeneratedProtocolMessageType('ListGroupsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTGROUPSRESPONSE,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ListGroupsResponse = _reflection.GeneratedProtocolMessageType('ListGroupsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTGROUPSRESPONSE,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ListGroupsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListGroupsResponse)
 
-CreateGroupRequest = _reflection.GeneratedProtocolMessageType('CreateGroupRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATEGROUPREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+CreateGroupRequest = _reflection.GeneratedProtocolMessageType('CreateGroupRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEGROUPREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.CreateGroupRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateGroupRequest)
 
-GetGroupRequest = _reflection.GeneratedProtocolMessageType('GetGroupRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETGROUPREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+GetGroupRequest = _reflection.GeneratedProtocolMessageType('GetGroupRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETGROUPREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetGroupRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetGroupRequest)
 
-DeleteGroupRequest = _reflection.GeneratedProtocolMessageType('DeleteGroupRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEGROUPREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+DeleteGroupRequest = _reflection.GeneratedProtocolMessageType('DeleteGroupRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEGROUPREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteGroupRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteGroupRequest)
 
-UpdateGroupRequest = _reflection.GeneratedProtocolMessageType('UpdateGroupRequest', (_message.Message,), dict(
+UpdateGroupRequest = _reflection.GeneratedProtocolMessageType('UpdateGroupRequest', (_message.Message,), {
 
-  MemberInfo = _reflection.GeneratedProtocolMessageType('MemberInfo', (_message.Message,), dict(
-    DESCRIPTOR = _UPDATEGROUPREQUEST_MEMBERINFO,
-    __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  'MemberInfo' : _reflection.GeneratedProtocolMessageType('MemberInfo', (_message.Message,), {
+    'DESCRIPTOR' : _UPDATEGROUPREQUEST_MEMBERINFO,
+    '__module__' : 'yamcs.protobuf.iam.iam_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.UpdateGroupRequest.MemberInfo)
-    ))
+    })
   ,
-  DESCRIPTOR = _UPDATEGROUPREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+  'DESCRIPTOR' : _UPDATEGROUPREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.UpdateGroupRequest)
-  ))
+  })
 _sym_db.RegisterMessage(UpdateGroupRequest)
 _sym_db.RegisterMessage(UpdateGroupRequest.MemberInfo)
 
-ListServiceAccountsResponse = _reflection.GeneratedProtocolMessageType('ListServiceAccountsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTSERVICEACCOUNTSRESPONSE,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ListServiceAccountsResponse = _reflection.GeneratedProtocolMessageType('ListServiceAccountsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSERVICEACCOUNTSRESPONSE,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ListServiceAccountsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListServiceAccountsResponse)
 
-GetServiceAccountRequest = _reflection.GeneratedProtocolMessageType('GetServiceAccountRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETSERVICEACCOUNTREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+GetServiceAccountRequest = _reflection.GeneratedProtocolMessageType('GetServiceAccountRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETSERVICEACCOUNTREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetServiceAccountRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetServiceAccountRequest)
 
-CreateServiceAccountRequest = _reflection.GeneratedProtocolMessageType('CreateServiceAccountRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATESERVICEACCOUNTREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+CreateServiceAccountRequest = _reflection.GeneratedProtocolMessageType('CreateServiceAccountRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESERVICEACCOUNTREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.CreateServiceAccountRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateServiceAccountRequest)
 
-CreateServiceAccountResponse = _reflection.GeneratedProtocolMessageType('CreateServiceAccountResponse', (_message.Message,), dict(
-  DESCRIPTOR = _CREATESERVICEACCOUNTRESPONSE,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+CreateServiceAccountResponse = _reflection.GeneratedProtocolMessageType('CreateServiceAccountResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CREATESERVICEACCOUNTRESPONSE,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.CreateServiceAccountResponse)
-  ))
+  })
 _sym_db.RegisterMessage(CreateServiceAccountResponse)
 
-DeleteServiceAccountRequest = _reflection.GeneratedProtocolMessageType('DeleteServiceAccountRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETESERVICEACCOUNTREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+DeleteServiceAccountRequest = _reflection.GeneratedProtocolMessageType('DeleteServiceAccountRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETESERVICEACCOUNTREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteServiceAccountRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteServiceAccountRequest)
 
-GetUserRequest = _reflection.GeneratedProtocolMessageType('GetUserRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETUSERREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+GetUserRequest = _reflection.GeneratedProtocolMessageType('GetUserRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETUSERREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GetUserRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetUserRequest)
 
-CreateUserRequest = _reflection.GeneratedProtocolMessageType('CreateUserRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATEUSERREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+CreateUserRequest = _reflection.GeneratedProtocolMessageType('CreateUserRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEUSERREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.CreateUserRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateUserRequest)
 
-UpdateUserRequest = _reflection.GeneratedProtocolMessageType('UpdateUserRequest', (_message.Message,), dict(
-  DESCRIPTOR = _UPDATEUSERREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+UpdateUserRequest = _reflection.GeneratedProtocolMessageType('UpdateUserRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATEUSERREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.UpdateUserRequest)
-  ))
+  })
 _sym_db.RegisterMessage(UpdateUserRequest)
 
-UserInfo = _reflection.GeneratedProtocolMessageType('UserInfo', (_message.Message,), dict(
-  DESCRIPTOR = _USERINFO,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+UserInfo = _reflection.GeneratedProtocolMessageType('UserInfo', (_message.Message,), {
+  'DESCRIPTOR' : _USERINFO,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.UserInfo)
-  ))
+  })
 _sym_db.RegisterMessage(UserInfo)
 
-DeleteIdentityRequest = _reflection.GeneratedProtocolMessageType('DeleteIdentityRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEIDENTITYREQUEST,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+DeleteIdentityRequest = _reflection.GeneratedProtocolMessageType('DeleteIdentityRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEIDENTITYREQUEST,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.DeleteIdentityRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteIdentityRequest)
 
-ExternalIdentityInfo = _reflection.GeneratedProtocolMessageType('ExternalIdentityInfo', (_message.Message,), dict(
-  DESCRIPTOR = _EXTERNALIDENTITYINFO,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ExternalIdentityInfo = _reflection.GeneratedProtocolMessageType('ExternalIdentityInfo', (_message.Message,), {
+  'DESCRIPTOR' : _EXTERNALIDENTITYINFO,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ExternalIdentityInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ExternalIdentityInfo)
 
-GroupInfo = _reflection.GeneratedProtocolMessageType('GroupInfo', (_message.Message,), dict(
-  DESCRIPTOR = _GROUPINFO,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+GroupInfo = _reflection.GeneratedProtocolMessageType('GroupInfo', (_message.Message,), {
+  'DESCRIPTOR' : _GROUPINFO,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.GroupInfo)
-  ))
+  })
 _sym_db.RegisterMessage(GroupInfo)
 
-ServiceAccountInfo = _reflection.GeneratedProtocolMessageType('ServiceAccountInfo', (_message.Message,), dict(
-  DESCRIPTOR = _SERVICEACCOUNTINFO,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ServiceAccountInfo = _reflection.GeneratedProtocolMessageType('ServiceAccountInfo', (_message.Message,), {
+  'DESCRIPTOR' : _SERVICEACCOUNTINFO,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ServiceAccountInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ServiceAccountInfo)
 
-ObjectPrivilegeInfo = _reflection.GeneratedProtocolMessageType('ObjectPrivilegeInfo', (_message.Message,), dict(
-  DESCRIPTOR = _OBJECTPRIVILEGEINFO,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ObjectPrivilegeInfo = _reflection.GeneratedProtocolMessageType('ObjectPrivilegeInfo', (_message.Message,), {
+  'DESCRIPTOR' : _OBJECTPRIVILEGEINFO,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ObjectPrivilegeInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ObjectPrivilegeInfo)
 
-ListPrivilegesResponse = _reflection.GeneratedProtocolMessageType('ListPrivilegesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPRIVILEGESRESPONSE,
-  __module__ = 'yamcs.protobuf.iam.iam_pb2'
+ListPrivilegesResponse = _reflection.GeneratedProtocolMessageType('ListPrivilegesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPRIVILEGESRESPONSE,
+  '__module__' : 'yamcs.protobuf.iam.iam_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.iam.ListPrivilegesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListPrivilegesResponse)
 
 

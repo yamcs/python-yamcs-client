@@ -617,67 +617,67 @@ DESCRIPTOR.message_types_by_name['CommandHistoryEntry'] = _COMMANDHISTORYENTRY
 DESCRIPTOR.enum_types_by_name['QueueState'] = _QUEUESTATE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-CommandId = _reflection.GeneratedProtocolMessageType('CommandId', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDID,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandId = _reflection.GeneratedProtocolMessageType('CommandId', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDID,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandId)
-  ))
+  })
 _sym_db.RegisterMessage(CommandId)
 
-CommandQueueInfo = _reflection.GeneratedProtocolMessageType('CommandQueueInfo', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDQUEUEINFO,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandQueueInfo = _reflection.GeneratedProtocolMessageType('CommandQueueInfo', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDQUEUEINFO,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandQueueInfo)
-  ))
+  })
 _sym_db.RegisterMessage(CommandQueueInfo)
 
-CommandQueueEntry = _reflection.GeneratedProtocolMessageType('CommandQueueEntry', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDQUEUEENTRY,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandQueueEntry = _reflection.GeneratedProtocolMessageType('CommandQueueEntry', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDQUEUEENTRY,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandQueueEntry)
-  ))
+  })
 _sym_db.RegisterMessage(CommandQueueEntry)
 
-CommandQueueEvent = _reflection.GeneratedProtocolMessageType('CommandQueueEvent', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDQUEUEEVENT,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandQueueEvent = _reflection.GeneratedProtocolMessageType('CommandQueueEvent', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDQUEUEEVENT,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandQueueEvent)
-  ))
+  })
 _sym_db.RegisterMessage(CommandQueueEvent)
 
-CommandQueueRequest = _reflection.GeneratedProtocolMessageType('CommandQueueRequest', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDQUEUEREQUEST,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandQueueRequest = _reflection.GeneratedProtocolMessageType('CommandQueueRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDQUEUEREQUEST,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandQueueRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CommandQueueRequest)
 
-CommandSignificance = _reflection.GeneratedProtocolMessageType('CommandSignificance', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDSIGNIFICANCE,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandSignificance = _reflection.GeneratedProtocolMessageType('CommandSignificance', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDSIGNIFICANCE,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandSignificance)
-  ))
+  })
 _sym_db.RegisterMessage(CommandSignificance)
 
-CommandHistoryAttribute = _reflection.GeneratedProtocolMessageType('CommandHistoryAttribute', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDHISTORYATTRIBUTE,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandHistoryAttribute = _reflection.GeneratedProtocolMessageType('CommandHistoryAttribute', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDHISTORYATTRIBUTE,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandHistoryAttribute)
-  ))
+  })
 _sym_db.RegisterMessage(CommandHistoryAttribute)
 
-CommandAssignment = _reflection.GeneratedProtocolMessageType('CommandAssignment', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDASSIGNMENT,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandAssignment = _reflection.GeneratedProtocolMessageType('CommandAssignment', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDASSIGNMENT,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandAssignment)
-  ))
+  })
 _sym_db.RegisterMessage(CommandAssignment)
 
-CommandHistoryEntry = _reflection.GeneratedProtocolMessageType('CommandHistoryEntry', (_message.Message,), dict(
-  DESCRIPTOR = _COMMANDHISTORYENTRY,
-  __module__ = 'yamcs.protobuf.commanding.commanding_pb2'
+CommandHistoryEntry = _reflection.GeneratedProtocolMessageType('CommandHistoryEntry', (_message.Message,), {
+  'DESCRIPTOR' : _COMMANDHISTORYENTRY,
+  '__module__' : 'yamcs.protobuf.commanding.commanding_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.CommandHistoryEntry)
-  ))
+  })
 _sym_db.RegisterMessage(CommandHistoryEntry)
 
 

@@ -840,131 +840,131 @@ DESCRIPTOR.message_types_by_name['BatchGetIndexRequest'] = _BATCHGETINDEXREQUEST
 DESCRIPTOR.message_types_by_name['RestExceptionMessage'] = _RESTEXCEPTIONMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ListRoutesResponse = _reflection.GeneratedProtocolMessageType('ListRoutesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTROUTESRESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListRoutesResponse = _reflection.GeneratedProtocolMessageType('ListRoutesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTROUTESRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListRoutesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListRoutesResponse)
 
-RouteInfo = _reflection.GeneratedProtocolMessageType('RouteInfo', (_message.Message,), dict(
-  DESCRIPTOR = _ROUTEINFO,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+RouteInfo = _reflection.GeneratedProtocolMessageType('RouteInfo', (_message.Message,), {
+  'DESCRIPTOR' : _ROUTEINFO,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.RouteInfo)
-  ))
+  })
 _sym_db.RegisterMessage(RouteInfo)
 
-GetGeneralInfoResponse = _reflection.GeneratedProtocolMessageType('GetGeneralInfoResponse', (_message.Message,), dict(
+GetGeneralInfoResponse = _reflection.GeneratedProtocolMessageType('GetGeneralInfoResponse', (_message.Message,), {
 
-  PluginInfo = _reflection.GeneratedProtocolMessageType('PluginInfo', (_message.Message,), dict(
-    DESCRIPTOR = _GETGENERALINFORESPONSE_PLUGININFO,
-    __module__ = 'yamcs.protobuf.web.rest_pb2'
+  'PluginInfo' : _reflection.GeneratedProtocolMessageType('PluginInfo', (_message.Message,), {
+    'DESCRIPTOR' : _GETGENERALINFORESPONSE_PLUGININFO,
+    '__module__' : 'yamcs.protobuf.web.rest_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetGeneralInfoResponse.PluginInfo)
-    ))
+    })
   ,
-  DESCRIPTOR = _GETGENERALINFORESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+  'DESCRIPTOR' : _GETGENERALINFORESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetGeneralInfoResponse)
-  ))
+  })
 _sym_db.RegisterMessage(GetGeneralInfoResponse)
 _sym_db.RegisterMessage(GetGeneralInfoResponse.PluginInfo)
 
-ListCommandsResponse = _reflection.GeneratedProtocolMessageType('ListCommandsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCOMMANDSRESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListCommandsResponse = _reflection.GeneratedProtocolMessageType('ListCommandsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCOMMANDSRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListCommandsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListCommandsResponse)
 
-EditCommandQueueRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITCOMMANDQUEUEREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+EditCommandQueueRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITCOMMANDQUEUEREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.EditCommandQueueRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditCommandQueueRequest)
 
-ListClientsResponse = _reflection.GeneratedProtocolMessageType('ListClientsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCLIENTSRESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListClientsResponse = _reflection.GeneratedProtocolMessageType('ListClientsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCLIENTSRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListClientsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListClientsResponse)
 
-EditClientRequest = _reflection.GeneratedProtocolMessageType('EditClientRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITCLIENTREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+EditClientRequest = _reflection.GeneratedProtocolMessageType('EditClientRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITCLIENTREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.EditClientRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditClientRequest)
 
-ListProcessorsResponse = _reflection.GeneratedProtocolMessageType('ListProcessorsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPROCESSORSRESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListProcessorsResponse = _reflection.GeneratedProtocolMessageType('ListProcessorsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPROCESSORSRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListProcessorsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListProcessorsResponse)
 
-ListCommandQueuesResponse = _reflection.GeneratedProtocolMessageType('ListCommandQueuesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCOMMANDQUEUESRESPONSE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListCommandQueuesResponse = _reflection.GeneratedProtocolMessageType('ListCommandQueuesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCOMMANDQUEUESRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListCommandQueuesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListCommandQueuesResponse)
 
-ListCommandQueueEntries = _reflection.GeneratedProtocolMessageType('ListCommandQueueEntries', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCOMMANDQUEUEENTRIES,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+ListCommandQueueEntries = _reflection.GeneratedProtocolMessageType('ListCommandQueueEntries', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCOMMANDQUEUEENTRIES,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListCommandQueueEntries)
-  ))
+  })
 _sym_db.RegisterMessage(ListCommandQueueEntries)
 
-EditCommandQueueEntryRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueEntryRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITCOMMANDQUEUEENTRYREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+EditCommandQueueEntryRequest = _reflection.GeneratedProtocolMessageType('EditCommandQueueEntryRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITCOMMANDQUEUEENTRYREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.EditCommandQueueEntryRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditCommandQueueEntryRequest)
 
-CreateProcessorRequest = _reflection.GeneratedProtocolMessageType('CreateProcessorRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATEPROCESSORREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+CreateProcessorRequest = _reflection.GeneratedProtocolMessageType('CreateProcessorRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEPROCESSORREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.CreateProcessorRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateProcessorRequest)
 
-EditProcessorRequest = _reflection.GeneratedProtocolMessageType('EditProcessorRequest', (_message.Message,), dict(
-  DESCRIPTOR = _EDITPROCESSORREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+EditProcessorRequest = _reflection.GeneratedProtocolMessageType('EditProcessorRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EDITPROCESSORREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.EditProcessorRequest)
-  ))
+  })
 _sym_db.RegisterMessage(EditProcessorRequest)
 
-StreamSubscribeRequest = _reflection.GeneratedProtocolMessageType('StreamSubscribeRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMSUBSCRIBEREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+StreamSubscribeRequest = _reflection.GeneratedProtocolMessageType('StreamSubscribeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMSUBSCRIBEREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.StreamSubscribeRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StreamSubscribeRequest)
 
-SetSimulationTimeRequest = _reflection.GeneratedProtocolMessageType('SetSimulationTimeRequest', (_message.Message,), dict(
-  DESCRIPTOR = _SETSIMULATIONTIMEREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+SetSimulationTimeRequest = _reflection.GeneratedProtocolMessageType('SetSimulationTimeRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SETSIMULATIONTIMEREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.SetSimulationTimeRequest)
-  ))
+  })
 _sym_db.RegisterMessage(SetSimulationTimeRequest)
 
-BatchGetIndexRequest = _reflection.GeneratedProtocolMessageType('BatchGetIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _BATCHGETINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+BatchGetIndexRequest = _reflection.GeneratedProtocolMessageType('BatchGetIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BATCHGETINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.BatchGetIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(BatchGetIndexRequest)
 
-RestExceptionMessage = _reflection.GeneratedProtocolMessageType('RestExceptionMessage', (_message.Message,), dict(
-  DESCRIPTOR = _RESTEXCEPTIONMESSAGE,
-  __module__ = 'yamcs.protobuf.web.rest_pb2'
+RestExceptionMessage = _reflection.GeneratedProtocolMessageType('RestExceptionMessage', (_message.Message,), {
+  'DESCRIPTOR' : _RESTEXCEPTIONMESSAGE,
+  '__module__' : 'yamcs.protobuf.web.rest_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.RestExceptionMessage)
-  ))
+  })
 _sym_db.RegisterMessage(RestExceptionMessage)
 
 

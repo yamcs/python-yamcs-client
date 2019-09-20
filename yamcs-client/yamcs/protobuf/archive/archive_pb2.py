@@ -1587,193 +1587,193 @@ DESCRIPTOR.message_types_by_name['GetPacketRequest'] = _GETPACKETREQUEST
 DESCRIPTOR.message_types_by_name['GetParameterSamplesRequest'] = _GETPARAMETERSAMPLESREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-StreamParameterValuesRequest = _reflection.GeneratedProtocolMessageType('StreamParameterValuesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMPARAMETERVALUESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+StreamParameterValuesRequest = _reflection.GeneratedProtocolMessageType('StreamParameterValuesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StreamParameterValuesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(StreamParameterValuesRequest)
 
-ListEventsRequest = _reflection.GeneratedProtocolMessageType('ListEventsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTEVENTSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListEventsRequest = _reflection.GeneratedProtocolMessageType('ListEventsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTEVENTSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListEventsRequest)
 
-ListEventsResponse = _reflection.GeneratedProtocolMessageType('ListEventsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTEVENTSRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListEventsResponse = _reflection.GeneratedProtocolMessageType('ListEventsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTEVENTSRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListEventsResponse)
 
-CreateEventRequest = _reflection.GeneratedProtocolMessageType('CreateEventRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATEEVENTREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+CreateEventRequest = _reflection.GeneratedProtocolMessageType('CreateEventRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEEVENTREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.CreateEventRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateEventRequest)
 
-ListAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListAlarmsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTALARMSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListAlarmsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTALARMSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListAlarmsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListAlarmsRequest)
 
-ListAlarmsResponse = _reflection.GeneratedProtocolMessageType('ListAlarmsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTALARMSRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListAlarmsResponse = _reflection.GeneratedProtocolMessageType('ListAlarmsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTALARMSRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListAlarmsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListAlarmsResponse)
 
-ListParameterAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListParameterAlarmsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERALARMSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListParameterAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListParameterAlarmsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERALARMSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterAlarmsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListParameterAlarmsRequest)
 
-ListEventSourcesRequest = _reflection.GeneratedProtocolMessageType('ListEventSourcesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTEVENTSOURCESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListEventSourcesRequest = _reflection.GeneratedProtocolMessageType('ListEventSourcesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTEVENTSOURCESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventSourcesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListEventSourcesRequest)
 
-ListEventSourcesResponse = _reflection.GeneratedProtocolMessageType('ListEventSourcesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTEVENTSOURCESRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListEventSourcesResponse = _reflection.GeneratedProtocolMessageType('ListEventSourcesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTEVENTSOURCESRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventSourcesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListEventSourcesResponse)
 
-ParameterGroupInfo = _reflection.GeneratedProtocolMessageType('ParameterGroupInfo', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERGROUPINFO,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ParameterGroupInfo = _reflection.GeneratedProtocolMessageType('ParameterGroupInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERGROUPINFO,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ParameterGroupInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterGroupInfo)
 
-ListCommandHistoryIndexRequest = _reflection.GeneratedProtocolMessageType('ListCommandHistoryIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCOMMANDHISTORYINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListCommandHistoryIndexRequest = _reflection.GeneratedProtocolMessageType('ListCommandHistoryIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCOMMANDHISTORYINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListCommandHistoryIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListCommandHistoryIndexRequest)
 
-ListEventIndexRequest = _reflection.GeneratedProtocolMessageType('ListEventIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTEVENTINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListEventIndexRequest = _reflection.GeneratedProtocolMessageType('ListEventIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTEVENTINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListEventIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListEventIndexRequest)
 
-ListPacketIndexRequest = _reflection.GeneratedProtocolMessageType('ListPacketIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPACKETINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListPacketIndexRequest = _reflection.GeneratedProtocolMessageType('ListPacketIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPACKETINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListPacketIndexRequest)
 
-ListParameterIndexRequest = _reflection.GeneratedProtocolMessageType('ListParameterIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListParameterIndexRequest = _reflection.GeneratedProtocolMessageType('ListParameterIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListParameterIndexRequest)
 
-ListCompletenessIndexRequest = _reflection.GeneratedProtocolMessageType('ListCompletenessIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTCOMPLETENESSINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListCompletenessIndexRequest = _reflection.GeneratedProtocolMessageType('ListCompletenessIndexRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTCOMPLETENESSINDEXREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListCompletenessIndexRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListCompletenessIndexRequest)
 
-IndexResponse = _reflection.GeneratedProtocolMessageType('IndexResponse', (_message.Message,), dict(
-  DESCRIPTOR = _INDEXRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+IndexResponse = _reflection.GeneratedProtocolMessageType('IndexResponse', (_message.Message,), {
+  'DESCRIPTOR' : _INDEXRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.IndexResponse)
-  ))
+  })
 _sym_db.RegisterMessage(IndexResponse)
 
-IndexGroup = _reflection.GeneratedProtocolMessageType('IndexGroup', (_message.Message,), dict(
-  DESCRIPTOR = _INDEXGROUP,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+IndexGroup = _reflection.GeneratedProtocolMessageType('IndexGroup', (_message.Message,), {
+  'DESCRIPTOR' : _INDEXGROUP,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.IndexGroup)
-  ))
+  })
 _sym_db.RegisterMessage(IndexGroup)
 
-IndexEntry = _reflection.GeneratedProtocolMessageType('IndexEntry', (_message.Message,), dict(
-  DESCRIPTOR = _INDEXENTRY,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+IndexEntry = _reflection.GeneratedProtocolMessageType('IndexEntry', (_message.Message,), {
+  'DESCRIPTOR' : _INDEXENTRY,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.IndexEntry)
-  ))
+  })
 _sym_db.RegisterMessage(IndexEntry)
 
-ListPacketNamesRequest = _reflection.GeneratedProtocolMessageType('ListPacketNamesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPACKETNAMESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListPacketNamesRequest = _reflection.GeneratedProtocolMessageType('ListPacketNamesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPACKETNAMESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketNamesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListPacketNamesRequest)
 
-ListPacketNamesResponse = _reflection.GeneratedProtocolMessageType('ListPacketNamesResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPACKETNAMESRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListPacketNamesResponse = _reflection.GeneratedProtocolMessageType('ListPacketNamesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPACKETNAMESRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketNamesResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListPacketNamesResponse)
 
-ListParameterGroupsRequest = _reflection.GeneratedProtocolMessageType('ListParameterGroupsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERGROUPSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListParameterGroupsRequest = _reflection.GeneratedProtocolMessageType('ListParameterGroupsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERGROUPSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterGroupsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListParameterGroupsRequest)
 
-ListParameterHistoryRequest = _reflection.GeneratedProtocolMessageType('ListParameterHistoryRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERHISTORYREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListParameterHistoryRequest = _reflection.GeneratedProtocolMessageType('ListParameterHistoryRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERHISTORYREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterHistoryRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListParameterHistoryRequest)
 
-ListParameterHistoryResponse = _reflection.GeneratedProtocolMessageType('ListParameterHistoryResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPARAMETERHISTORYRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListParameterHistoryResponse = _reflection.GeneratedProtocolMessageType('ListParameterHistoryResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERHISTORYRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListParameterHistoryResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListParameterHistoryResponse)
 
-ListPacketsRequest = _reflection.GeneratedProtocolMessageType('ListPacketsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPACKETSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListPacketsRequest = _reflection.GeneratedProtocolMessageType('ListPacketsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPACKETSREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListPacketsRequest)
 
-ListPacketsResponse = _reflection.GeneratedProtocolMessageType('ListPacketsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTPACKETSRESPONSE,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+ListPacketsResponse = _reflection.GeneratedProtocolMessageType('ListPacketsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPACKETSRESPONSE,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.ListPacketsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListPacketsResponse)
 
-GetPacketRequest = _reflection.GeneratedProtocolMessageType('GetPacketRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETPACKETREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+GetPacketRequest = _reflection.GeneratedProtocolMessageType('GetPacketRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPACKETREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetPacketRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetPacketRequest)
 
-GetParameterSamplesRequest = _reflection.GeneratedProtocolMessageType('GetParameterSamplesRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETPARAMETERSAMPLESREQUEST,
-  __module__ = 'yamcs.protobuf.archive.archive_pb2'
+GetParameterSamplesRequest = _reflection.GeneratedProtocolMessageType('GetParameterSamplesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAMETERSAMPLESREQUEST,
+  '__module__' : 'yamcs.protobuf.archive.archive_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.GetParameterSamplesRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetParameterSamplesRequest)
 
 

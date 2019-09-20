@@ -159,11 +159,11 @@ DESCRIPTOR.message_types_by_name['HttpRoute'] = _HTTPROUTE
 DESCRIPTOR.extensions_by_name['route'] = route
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-HttpRoute = _reflection.GeneratedProtocolMessageType('HttpRoute', (_message.Message,), dict(
-  DESCRIPTOR = _HTTPROUTE,
-  __module__ = 'yamcs.api.annotations_pb2'
+HttpRoute = _reflection.GeneratedProtocolMessageType('HttpRoute', (_message.Message,), {
+  'DESCRIPTOR' : _HTTPROUTE,
+  '__module__' : 'yamcs.api.annotations_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.api.HttpRoute)
-  ))
+  })
 _sym_db.RegisterMessage(HttpRoute)
 
 route.message_type = _HTTPROUTE

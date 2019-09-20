@@ -543,89 +543,89 @@ DESCRIPTOR.message_types_by_name['ListObjectsRequest'] = _LISTOBJECTSREQUEST
 DESCRIPTOR.message_types_by_name['ListObjectsResponse'] = _LISTOBJECTSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-CreateBucketRequest = _reflection.GeneratedProtocolMessageType('CreateBucketRequest', (_message.Message,), dict(
-  DESCRIPTOR = _CREATEBUCKETREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+CreateBucketRequest = _reflection.GeneratedProtocolMessageType('CreateBucketRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEBUCKETREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.CreateBucketRequest)
-  ))
+  })
 _sym_db.RegisterMessage(CreateBucketRequest)
 
-DeleteBucketRequest = _reflection.GeneratedProtocolMessageType('DeleteBucketRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEBUCKETREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+DeleteBucketRequest = _reflection.GeneratedProtocolMessageType('DeleteBucketRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEBUCKETREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.DeleteBucketRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteBucketRequest)
 
-GetObjectRequest = _reflection.GeneratedProtocolMessageType('GetObjectRequest', (_message.Message,), dict(
-  DESCRIPTOR = _GETOBJECTREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+GetObjectRequest = _reflection.GeneratedProtocolMessageType('GetObjectRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETOBJECTREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.GetObjectRequest)
-  ))
+  })
 _sym_db.RegisterMessage(GetObjectRequest)
 
-DeleteObjectRequest = _reflection.GeneratedProtocolMessageType('DeleteObjectRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEOBJECTREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+DeleteObjectRequest = _reflection.GeneratedProtocolMessageType('DeleteObjectRequest', (_message.Message,), {
+  'DESCRIPTOR' : _DELETEOBJECTREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.DeleteObjectRequest)
-  ))
+  })
 _sym_db.RegisterMessage(DeleteObjectRequest)
 
-UploadObjectRequest = _reflection.GeneratedProtocolMessageType('UploadObjectRequest', (_message.Message,), dict(
-  DESCRIPTOR = _UPLOADOBJECTREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+UploadObjectRequest = _reflection.GeneratedProtocolMessageType('UploadObjectRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPLOADOBJECTREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.UploadObjectRequest)
-  ))
+  })
 _sym_db.RegisterMessage(UploadObjectRequest)
 
-BucketInfo = _reflection.GeneratedProtocolMessageType('BucketInfo', (_message.Message,), dict(
-  DESCRIPTOR = _BUCKETINFO,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+BucketInfo = _reflection.GeneratedProtocolMessageType('BucketInfo', (_message.Message,), {
+  'DESCRIPTOR' : _BUCKETINFO,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.BucketInfo)
-  ))
+  })
 _sym_db.RegisterMessage(BucketInfo)
 
-ObjectInfo = _reflection.GeneratedProtocolMessageType('ObjectInfo', (_message.Message,), dict(
+ObjectInfo = _reflection.GeneratedProtocolMessageType('ObjectInfo', (_message.Message,), {
 
-  MetadataEntry = _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), dict(
-    DESCRIPTOR = _OBJECTINFO_METADATAENTRY,
-    __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  'MetadataEntry' : _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), {
+    'DESCRIPTOR' : _OBJECTINFO_METADATAENTRY,
+    '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ObjectInfo.MetadataEntry)
-    ))
+    })
   ,
-  DESCRIPTOR = _OBJECTINFO,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+  'DESCRIPTOR' : _OBJECTINFO,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ObjectInfo)
-  ))
+  })
 _sym_db.RegisterMessage(ObjectInfo)
 _sym_db.RegisterMessage(ObjectInfo.MetadataEntry)
 
-ListBucketsRequest = _reflection.GeneratedProtocolMessageType('ListBucketsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTBUCKETSREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+ListBucketsRequest = _reflection.GeneratedProtocolMessageType('ListBucketsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTBUCKETSREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListBucketsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListBucketsRequest)
 
-ListBucketsResponse = _reflection.GeneratedProtocolMessageType('ListBucketsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTBUCKETSRESPONSE,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+ListBucketsResponse = _reflection.GeneratedProtocolMessageType('ListBucketsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTBUCKETSRESPONSE,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListBucketsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListBucketsResponse)
 
-ListObjectsRequest = _reflection.GeneratedProtocolMessageType('ListObjectsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _LISTOBJECTSREQUEST,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+ListObjectsRequest = _reflection.GeneratedProtocolMessageType('ListObjectsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTOBJECTSREQUEST,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListObjectsRequest)
-  ))
+  })
 _sym_db.RegisterMessage(ListObjectsRequest)
 
-ListObjectsResponse = _reflection.GeneratedProtocolMessageType('ListObjectsResponse', (_message.Message,), dict(
-  DESCRIPTOR = _LISTOBJECTSRESPONSE,
-  __module__ = 'yamcs.protobuf.buckets.buckets_pb2'
+ListObjectsResponse = _reflection.GeneratedProtocolMessageType('ListObjectsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTOBJECTSRESPONSE,
+  '__module__' : 'yamcs.protobuf.buckets.buckets_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.buckets.ListObjectsResponse)
-  ))
+  })
 _sym_db.RegisterMessage(ListObjectsResponse)
 
 

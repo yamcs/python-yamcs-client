@@ -577,54 +577,54 @@ DESCRIPTOR.enum_types_by_name['MonitoringResult'] = _MONITORINGRESULT
 DESCRIPTOR.enum_types_by_name['RangeCondition'] = _RANGECONDITION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-ParameterValue = _reflection.GeneratedProtocolMessageType('ParameterValue', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERVALUE,
-  __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+ParameterValue = _reflection.GeneratedProtocolMessageType('ParameterValue', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERVALUE,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ParameterValue)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterValue)
 
-ParameterStatus = _reflection.GeneratedProtocolMessageType('ParameterStatus', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERSTATUS,
-  __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+ParameterStatus = _reflection.GeneratedProtocolMessageType('ParameterStatus', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERSTATUS,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ParameterStatus)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterStatus)
 
-ParameterData = _reflection.GeneratedProtocolMessageType('ParameterData', (_message.Message,), dict(
-  DESCRIPTOR = _PARAMETERDATA,
-  __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+ParameterData = _reflection.GeneratedProtocolMessageType('ParameterData', (_message.Message,), {
+  'DESCRIPTOR' : _PARAMETERDATA,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ParameterData)
-  ))
+  })
 _sym_db.RegisterMessage(ParameterData)
 
-TimeSeries = _reflection.GeneratedProtocolMessageType('TimeSeries', (_message.Message,), dict(
+TimeSeries = _reflection.GeneratedProtocolMessageType('TimeSeries', (_message.Message,), {
 
-  Sample = _reflection.GeneratedProtocolMessageType('Sample', (_message.Message,), dict(
-    DESCRIPTOR = _TIMESERIES_SAMPLE,
-    __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+  'Sample' : _reflection.GeneratedProtocolMessageType('Sample', (_message.Message,), {
+    'DESCRIPTOR' : _TIMESERIES_SAMPLE,
+    '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.TimeSeries.Sample)
-    ))
+    })
   ,
-  DESCRIPTOR = _TIMESERIES,
-  __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+  'DESCRIPTOR' : _TIMESERIES,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.TimeSeries)
-  ))
+  })
 _sym_db.RegisterMessage(TimeSeries)
 _sym_db.RegisterMessage(TimeSeries.Sample)
 
-Ranges = _reflection.GeneratedProtocolMessageType('Ranges', (_message.Message,), dict(
+Ranges = _reflection.GeneratedProtocolMessageType('Ranges', (_message.Message,), {
 
-  Range = _reflection.GeneratedProtocolMessageType('Range', (_message.Message,), dict(
-    DESCRIPTOR = _RANGES_RANGE,
-    __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+  'Range' : _reflection.GeneratedProtocolMessageType('Range', (_message.Message,), {
+    'DESCRIPTOR' : _RANGES_RANGE,
+    '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.Ranges.Range)
-    ))
+    })
   ,
-  DESCRIPTOR = _RANGES,
-  __module__ = 'yamcs.protobuf.pvalue.pvalue_pb2'
+  'DESCRIPTOR' : _RANGES,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.Ranges)
-  ))
+  })
 _sym_db.RegisterMessage(Ranges)
 _sym_db.RegisterMessage(Ranges.Range)
 
