@@ -390,7 +390,7 @@ class YamcsClient(BaseClient):
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.get_proto(path='/links/' + instance)
-        message = rest_pb2.ListLinkInfoResponse()
+        message = yamcsManagement_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
         links = getattr(message, 'links')
         return iter([Link(link) for link in links])
