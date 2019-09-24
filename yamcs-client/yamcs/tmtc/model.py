@@ -337,9 +337,45 @@ class Alarm(object):
         return None
 
     @property
+    def is_ok(self):
+        """
+        True if this alarm is currently 'inactive'.
+
+        For a non-latching alarm this is identical to :meth:`is_process_ok`. A
+        latching alarm is only OK if it has returned to normal and was
+        acknowledged.
+        """
+        return not self._proto.triggered
+
+    @property
+    def is_process_ok(self):
+        """
+        True if the process that caused this alarm is OK. For example:
+        parameter back within limits.
+
+        For a non-latching alarm this is identical to :meth:`is_ok`.
+        """
+        return self._proto.processOK
+
+    @property
+    def is_latching(self):
+        """
+        True if this is a latching alarm. A latching alarm returns to
+        normal only when the operator resets it
+        """
+        return self._proto.HasField('latching') and self._proto.latching
+
+    @property
+    def is_latched(self):
+        """
+        True if this alarm is currently latched.
+        """
+        return self.is_latching and self.is_process_ok and not self.is_ok
+
+    @property
     def is_acknowledged(self):
-        """Whether this alarm has been acknowledged."""
-        return self._proto.HasField('acknowledgeInfo')
+        """True if this alarm has been acknowledged."""
+        return self._proto.acknowledged
 
     @property
     def acknowledged_by(self):
@@ -368,6 +404,11 @@ class Alarm(object):
                 self._proto.acknowledgeInfo.HasField('acknowledgeTime')):
             return parse_isostring(self._proto.acknowledgeInfo.acknowledgeTime)
         return None
+
+    @property
+    def is_shelved(self):
+        """True if this alarm has been shelved."""
+        return self._proto.HasField('shelveInfo')
 
     @property
     def violation_count(self):

@@ -740,7 +740,7 @@ class ProcessorClient(object):
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
-        Acknowledges a specific alarm associated with a parameter.
+        Acknowledges a specific alarm.
 
         :param alarm: Alarm instance
         :type alarm: :class:`.Alarm`
@@ -752,6 +752,62 @@ class ProcessorClient(object):
             self._instance, self._processor, name, alarm.sequence_number)
         req = alarms_pb2.EditAlarmRequest()
         req.state = 'acknowledged'
+        if comment is not None:
+            req.comment = comment
+        self._client.patch_proto(url, data=req.SerializeToString())
+
+    def unshelve_alarm(self, alarm, comment=None):
+        """
+        Unshelve an alarm.
+
+        :param alarm: Alarm instance
+        :type alarm: :class:`.Alarm`
+        :param str comment: Optional comment to associate with the state
+                            change.
+        """
+        name = adapt_name_for_rest(alarm.name)
+        url = '/processors/{}/{}/alarms{}/{}'.format(
+            self._instance, self._processor, name, alarm.sequence_number)
+        req = alarms_pb2.EditAlarmRequest()
+        req.state = 'unshelved'
+        self._client.patch_proto(url, data=req.SerializeToString())
+
+    def shelve_alarm(self, alarm, comment=None):
+        """
+        Shelve an alarm.
+
+        :param alarm: Alarm instance
+        :type alarm: :class:`.Alarm`
+        :param str comment: Optional comment to associate with the state
+                            change.
+        """
+        name = adapt_name_for_rest(alarm.name)
+        url = '/processors/{}/{}/alarms{}/{}'.format(
+            self._instance, self._processor, name, alarm.sequence_number)
+        req = alarms_pb2.EditAlarmRequest()
+        req.state = 'shelved'
+        if comment is not None:
+            req.comment = comment
+        self._client.patch_proto(url, data=req.SerializeToString())
+
+    def clear_alarm(self, alarm, comment=None):
+        """
+        Clear an alarm.
+
+        .. note::
+            If the reason that caused the alarm is still present, a new
+            alarm instance will be generated.
+
+        :param alarm: Alarm instance
+        :type alarm: :class:`.Alarm`
+        :param str comment: Optional comment to associate with the state
+                            change.
+        """
+        name = adapt_name_for_rest(alarm.name)
+        url = '/processors/{}/{}/alarms{}/{}'.format(
+            self._instance, self._processor, name, alarm.sequence_number)
+        req = alarms_pb2.EditAlarmRequest()
+        req.state = 'cleared'
         if comment is not None:
             req.comment = comment
         self._client.patch_proto(url, data=req.SerializeToString())

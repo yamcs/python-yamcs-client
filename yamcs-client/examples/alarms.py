@@ -16,7 +16,8 @@ def receive_callbacks():
 def acknowledge_all():
     """Acknowledges all active alarms."""
     for alarm in processor.list_alarms():
-        processor.acknowledge_alarm(alarm, comment='false alarm')
+        if not alarm.is_acknowledged:
+            processor.acknowledge_alarm(alarm, comment='false alarm')
 
 
 if __name__ == '__main__':
