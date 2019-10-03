@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import timedelta
 
 from yamcs.core.exceptions import YamcsError
@@ -47,7 +48,7 @@ class CommandHistory(object):
         """
 
         self._commandId = proto.commandId
-        self.attributes = {}
+        self.attributes = OrderedDict()
         self._update(proto.attr)
 
     @property
@@ -136,9 +137,13 @@ class CommandHistory(object):
 
         :type: List[:class:`.CommandHistoryEvent`]
         """
-        queued = self._assemble_event('Verifier_Queued')
-        started = self._assemble_event('Verifier_Started')
-        return [x for x in [queued, started] if x]
+        events = []
+        for name, _ in self.attributes.items():
+            if name.startswith('Verifier_') and name.endswith('_Status'):
+                event = self._assemble_event(name[:-7])
+                if event:
+                    events.append(event)
+        return events
 
     @property
     def events(self):

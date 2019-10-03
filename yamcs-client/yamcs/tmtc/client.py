@@ -155,7 +155,7 @@ def _add_alarms(alarm_info, watch, warning, distress, critical, severe, min_viol
         _set_range(ar, watch, mdb_pb2.WATCH)
     if warning:
         ar = alarm_info.staticAlarmRange.add()
-        _set_range(ar, warning, mdb_pb2.WARNING)    
+        _set_range(ar, warning, mdb_pb2.WARNING)
     if distress:
         ar = alarm_info.staticAlarmRange.add()
         _set_range(ar, distress, mdb_pb2.DISTRESS)
