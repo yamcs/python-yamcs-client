@@ -186,7 +186,7 @@ texinfo_documents = [
 autoclass_content = 'both'
 
 intersphinx_mapping = {
-    'requests': ('http://docs.python-requests.org/en/master/', None),
+    'requests': ('https://requests.kennethreitz.org/en/stable/', None),
     'python': ('https://docs.python.org/3', None),
 }
 
