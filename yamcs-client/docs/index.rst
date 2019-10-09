@@ -4,7 +4,7 @@ Yamcs Client Library for Python
 Getting Started
 ---------------
 
-Install Python 3.4 or higher.
+Install Python 3.5 or higher.
 
 If necessary, you can also use Python 2.7, but be aware that this final 2.x version will soon reach its long anticipated `End Of Life <https://www.python.org/dev/peps/pep-0373/>`_ date. Python versions lower than 2.7 are already EOL and therefore *not* supported.
 

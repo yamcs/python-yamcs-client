@@ -17,20 +17,20 @@ def _parse_alarm(proto):
     raise YamcsError('Unexpected type ' + proto.type)
 
 
-class CommandHistoryEvent(object):
+class Acknowledgment(object):
 
     def __init__(self, name, time, status):
         self.name = name
-        """Name of this event."""
+        """Name of this acknowledgment."""
 
         self.time = time
-        """Time associated with this event."""
+        """Last update time of this acknowledgment."""
 
         self.status = status
-        """Status associated with this event."""
+        """Status of this acknowlegment."""
 
     def __repr__(self):
-        return '{}: {} at {}'.format(self.name, self.status, self.time)
+        return '{}: {}'.format(self.name, self.status)
 
     def __str__(self):
         return self.__repr__()
@@ -109,6 +109,7 @@ class CommandHistory(object):
 
     @property
     def failure_message(self):
+        """Message explaining why a command failed."""
         return self.attributes.get('CommandFailed')
 
     @property
@@ -122,44 +123,27 @@ class CommandHistory(object):
         return self.attributes.get('TransmissionContraints')
 
     @property
-    def acknowledge_event(self):
+    def acknowledgments(self):
         """
-        Event indicating the command was acknowledged.
+        All acknowledgments by name.
 
-        :type: :class:`.CommandHistoryEvent`
+        :return: Acknowledgments keyed by name.
+        :rtype: ~collections.OrderedDict
         """
-        return self._assemble_event('Acknowledge_Sent')
-
-    @property
-    def verification_events(self):
-        """
-        Events related to command verification.
-
-        :type: List[:class:`.CommandHistoryEvent`]
-        """
-        events = []
+        acks = OrderedDict()
         for name, _ in self.attributes.items():
-            if name.startswith('Verifier_') and name.endswith('_Status'):
-                event = self._assemble_event(name[:-7])
-                if event:
-                    events.append(event)
-        return events
+            if name.endswith('_Status'):
+                ack = self._assemble_ack(name[:-7])
+                if ack:
+                    acks[ack.name] = ack
 
-    @property
-    def events(self):
-        """
-        All events.
+        return acks
 
-        :type: List[:class:`.CommandHistoryEvent`]
-        """
-        events = [self.acknowledge_event] + self.verification_events
-        return [x for x in events if x]
-
-    def _assemble_event(self, name):
+    def _assemble_ack(self, name):
         time = self.attributes.get(name + '_Time')
         status = self.attributes.get(name + '_Status')
         if time and status:
-            return CommandHistoryEvent(name, time, status)
+            return Acknowledgment(name, time, status)
         return None
 
     def _update(self, proto):
@@ -168,7 +152,8 @@ class CommandHistory(object):
             self.attributes[attr.name] = value
 
     def __str__(self):
-        return '{} {}'.format(self.name, self.events)
+        acks = ', '.join(ack.__repr__() for _, ack in self.acknowledgments.items())
+        return '{} [{}]'.format(self.name, acks)
 
 
 class IssuedCommand(object):
