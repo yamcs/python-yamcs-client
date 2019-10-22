@@ -5,6 +5,7 @@ import ssl
 import threading
 
 import websocket
+
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.protobuf.web import websocket_pb2
 

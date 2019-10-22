@@ -13,6 +13,36 @@ def issue_command():
     print('Issued', command)
 
 
+def monitor_command():
+    """Monitor command completion."""
+    conn = processor.create_command_connection()
+
+    command1 = conn.issue('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
+        'voltage_num': 1,
+    })
+
+    # Issue 2nd command only if the previous command was completed successfully.
+    command1.await_complete()
+    if not command1.error:
+        conn.issue('/YSS/SIMULATOR/SWITCH_VOLTAGE_ON', args={
+            'voltage_num': 1,
+        })
+    else:
+        print('Command 1 failed:', command1.error)
+
+
+def monitor_acknowledgment():
+    """Monitor command acknowledgment."""
+    conn = processor.create_command_connection()
+
+    command = conn.issue('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
+        'voltage_num': 1,
+    })
+
+    ack = command.await_acknowledgment('Acknowledge_Sent')
+    print(ack.status)
+
+
 def listen_to_command_history():
     """Receive updates on command history updates."""
     def tc_callback(rec):

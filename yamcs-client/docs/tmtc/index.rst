@@ -98,17 +98,32 @@ Create and modify a parameter subscription:
 Commanding
 ^^^^^^^^^^
 
-Issue a command:
+Issue a command (fire-and-forget):
 
 .. literalinclude:: ../../examples/commanding.py
     :pyobject: issue_command
     :start-after: """
     :dedent: 4
 
-Receive :class:`.CommandHistory` callbacks on command history events:
+To monitor acknowledgments, establish a command connection first. Commands issued from this connection are automatically updated with progress status:
 
 .. literalinclude:: ../../examples/commanding.py
-    :pyobject: listen_to_command_history
+    :pyobject: monitor_acknowledgment
+    :start-after: """
+    :dedent: 4
+
+The default Yamcs-local acknowledgments are:
+
+* Acknowledge_Queued
+* Acknowledge_Released
+* Acknowledge_Sent
+
+Custom telemetry verifiers or command links may cause additional acknowledgments to be generated.
+
+If configured, command completion can also be monitored:
+
+.. literalinclude:: ../../examples/commanding.py
+    :pyobject: monitor_command
     :start-after: """
     :dedent: 4
 

@@ -14,8 +14,8 @@ from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.web import websocket_pb2
 from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
-                              IssuedCommand, ParameterData, ParameterValue,
-                              _parse_alarm)
+                              IssuedCommand, MonitoredCommand, ParameterData,
+                              ParameterValue, _parse_alarm)
 
 
 class SequenceGenerator(object):
@@ -335,6 +335,78 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
             self.value_cache[pval.name] = pval
 
 
+class CommandConnection(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to the acknowledgment progress
+    of command updates.
+
+    Only commands issued from this object are monitored.
+    """
+
+    @staticmethod
+    def _cache_key(cmd_id):
+        """commandId is a tuple. Make a 'unique' key for it."""
+        return '{}__{}__{}__{}'.format(
+            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
+            cmd_id.commandName)
+
+    def __init__(self, manager, client):
+        super(CommandConnection, self).__init__(manager)
+        self._cmdhist_cache = {}
+        self._command_cache = {}
+        self._client = client
+
+    def issue(self, command, args=None, dry_run=False, comment=None):
+        """
+        Issue the given command
+
+        :param str command: Either a fully-qualified XTCE name or an alias in the
+                            format ``NAMESPACE/NAME``.
+        :param dict args: named arguments (if the command requires these)
+        :param bool dry_run: If ``True`` the command is not actually issued. This
+                             can be used to test if the server would generate
+                             errors when preparing the command (for example
+                             because an argument is missing).
+        :param str comment: Comment attached to the command.
+        :return: An object providing access to properties of the newly issued
+                 command and updated according to command history updates.
+        :rtype: .MonitoredCommand
+        """
+        issued_command = self._client.issue_command(command, args, dry_run, comment)
+        #pylint: disable=protected-access
+        command = MonitoredCommand(issued_command._proto, self._client)
+
+        #pylint: disable=protected-access
+        entry = issued_command._proto.commandQueueEntry
+        key = self._cache_key(entry.cmdId)
+
+        self._command_cache[key] = command
+
+        # It may be that we already received some cmdhist updates
+        # before the http response returned.
+        if key in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[key]
+            command._process_cmdhist(cmdhist)
+
+        return command
+
+    def _process(self, entry):
+        key = self._cache_key(entry.commandId)
+        if key in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[key]
+            #pylint: disable=protected-access
+            cmdhist._update(entry.attr)
+        else:
+            cmdhist = CommandHistory(entry)
+            self._cmdhist_cache[key] = cmdhist
+
+        command = self._command_cache.get(key)
+        if command:
+            command._process_cmdhist(cmdhist)
+
+        return cmdhist
+
+
 class AlarmSubscription(WebSocketSubscriptionFuture):
     """
     Local object representing an alarm subscription.
@@ -492,7 +564,7 @@ class ProcessorClient(object):
                             format ``NAMESPACE/NAME``.
         :param dict args: named arguments (if the command requires these)
         :param bool dry_run: If ``True`` the command is not actually issued. This
-                             can be used to check if the server would generate
+                             can be used to test if the server would generate
                              errors when preparing the command (for example
                              because an argument is missing).
         :param str comment: Comment attached to the command.
@@ -812,6 +884,46 @@ class ProcessorClient(object):
             req.comment = comment
         self._client.patch_proto(url, data=req.SerializeToString())
 
+    def create_command_connection(self, on_data=None, timeout=60):
+        """
+        Creates a connection for issuing multiple commands and
+        following up on their acknowledgment progress.
+
+        .. note::
+            This is a convenience method that merges the functionalities
+            of :meth:`create_command_history_subscription` with those of
+            :meth:`issue_command`.
+
+        :param on_data: Function that gets called with  :class:`.CommandHistory`
+                        updates. Only commands issued from this connection are
+                        reported.
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: float
+        :return: Future that can be used to manage the background websocket
+                 subscription
+        :rtype: .CommandConnection
+        """
+        options = websocket_pb2.CommandHistorySubscriptionRequest()
+        options.ignorePastCommands = True
+
+        manager = WebSocketSubscriptionManager(
+            self._client, resource='cmdhistory', options=options)
+
+        # Represent subscription as a future
+        subscription = CommandConnection(manager, self)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_cmdhist_data, subscription, on_data)
+
+        manager.open(wrapped_callback, instance=self._instance,
+                     processor=self._processor)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
     def create_command_history_subscription(self,
                                             issued_command=None,
                                             on_data=None,
@@ -822,8 +934,8 @@ class ProcessorClient(object):
         :param issued_command: (Optional) Previously issued commands. If not
                                 provided updates from any command are received.
         :type issued_command: .IssuedCommand[]
-        :param on_data: Function that gets called with  :class:`.CommandHistory`
-                        updates.
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.CommandHistory` updates.
         :param timeout: The amount of seconds to wait for the request to
                         complete.
         :type timeout: float
@@ -864,8 +976,8 @@ class ProcessorClient(object):
         Create a new parameter subscription.
 
         :param str[] parameters: Parameter names (or aliases).
-        :param on_data: Function that gets called with  :class:`.ParameterData`
-                        updates.
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.ParameterData` updates.
         :param bool abort_on_invalid: If ``True`` an error is generated when
                                       invalid parameters are specified.
         :param bool update_on_expiration: If ``True`` an update is received
@@ -913,8 +1025,8 @@ class ProcessorClient(object):
         """
         Create a new alarm subscription.
 
-        :param on_data: Function that gets called with  :class:`.AlarmUpdate`
-                        updates.
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.AlarmUpdate` updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
 

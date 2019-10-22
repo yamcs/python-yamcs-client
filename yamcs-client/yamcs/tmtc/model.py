@@ -1,3 +1,4 @@
+import threading
 from collections import OrderedDict
 from datetime import timedelta
 
@@ -98,18 +99,9 @@ class CommandHistory(object):
         """
         return 'CommandComplete' in self.attributes
 
-    def is_failed(self):
-        """
-        Returns whether this command has failed. If this returns
-        ``True``, the failure message can be read from the property
-        ``failure_message``.
-        """
-        return (self.is_complete() and
-                self.attributes['CommandComplete'] == 'NOK')
-
     @property
-    def failure_message(self):
-        """Message explaining why a command failed."""
+    def error(self):
+        """Error message in case the command failed."""
         return self.attributes.get('CommandFailed')
 
     @property
@@ -161,6 +153,20 @@ class IssuedCommand(object):
     def __init__(self, proto, client):
         self._proto = proto
         self._client = client
+
+    @property
+    def id(self):
+        """
+        A unique identifier of this command.
+        """
+        entry = self._proto.commandQueueEntry
+        if entry.cmdId.HasField('origin'):
+            return '{}-{}-{}'.format(
+                entry.cmdId.generationTime, entry.cmdId.origin,
+                entry.cmdId.sequenceNumber)
+        else:
+            return '{}-{}'.format(
+                entry.cmdId.generationTime, entry.cmdId.sequenceNumber)
 
     @property
     def name(self):
@@ -245,8 +251,8 @@ class IssuedCommand(object):
         """
         Create a new command history subscription for this command.
 
-        :param on_data: Function that gets called with  :class:`.CommandHistory`
-                        updates.
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.CommandHistory` updates.
         :param float timeout: The amount of seconds to wait for the request
                               to complete.
         :return: Future that can be used to manage the background websocket
@@ -258,6 +264,125 @@ class IssuedCommand(object):
 
     def __str__(self):
         return '{} {}'.format(self.generation_time, self.source)
+
+
+class MonitoredCommand(IssuedCommand):
+    """
+    Represent an instance of an issued command that is updated
+    throughout the acknowledgment process.
+
+    Objects of this class are owned by a :class:`.CommandConnection` instance.
+    """
+
+    def __init__(self, proto, client):
+        super(MonitoredCommand, self).__init__(proto, client)
+        self._cmdhist = None
+        self._completed = threading.Event()
+        self._ack_events = {}
+
+    def _process_cmdhist(self, cmdhist):
+        self._cmdhist = cmdhist
+        if self.is_complete():
+            self._completed.set()
+        for name, _ in self.acknowledgments.items():
+            event = self._ack_events.setdefault(name, threading.Event())
+            event.set()
+
+    @property
+    def attributes(self):
+        if self._cmdhist:
+            return self._cmdhist.attributes
+        return OrderedDict()
+
+    def is_complete(self):
+        """
+        Returns whether this command is complete. A command
+        can be completed, yet still failed.
+        """
+        return 'CommandComplete' in self.attributes
+
+    def await_complete(self, timeout=None):
+        """
+        Wait for the command to be completed.
+        """
+        self._wait_on_signal(self._completed, timeout)
+
+    def await_acknowledgment(self, name, timeout=None):
+        """
+        Waits for the result of a specific acknowledgment.
+
+        :param str name: The name of the acknowledgment. Standard names are
+                         ``Acknowledge_Queued``, ``Acknowledge_Released``
+                         and ``Acknowledge_Sent``. Others depend on
+                         specific link types.
+
+        :rtype: .Acknowledgment
+        """
+        event = self._ack_events.setdefault(name, threading.Event())
+        self._wait_on_signal(event, timeout)
+        return self.acknowledgments.get(name)
+
+    def _wait_on_signal(self, event, timeout=None):
+        # Wait until the future is done. We do not use wait() without timeout
+        # because on Python 2.x this does not generate ``KeyboardInterrupt``.
+        # https://bugs.python.org/issue8844
+        if timeout is not None:
+            if not event.wait(timeout=timeout):
+                # Remark that a timeout does *not* mean that the underlying
+                # work is canceled.
+                raise TimeoutError('Timed out.')
+        else:
+            # The actual timeout value does not have any impact
+            while not event.wait(timeout=10):
+                pass  # tick
+
+    @property
+    def error(self):
+        """Error message in case the command failed."""
+        return self.attributes.get('CommandFailed')
+
+    @property
+    def comment(self):
+        """Optional user comment attached when issuing the command."""
+        # Old versions of Yamcs use "Comment" with capital
+        return self.attributes.get('Comment') or self.attributes.get('comment')
+
+    @property
+    def transmission_constraints(self):
+        return self.attributes.get('TransmissionContraints')
+
+    @property
+    def acknowledgments(self):
+        """
+        All acknowledgments by name.
+
+        :return: Acknowledgments keyed by name.
+        :rtype: ~collections.OrderedDict
+        """
+        acks = OrderedDict()
+        for name, _ in self.attributes.items():
+            if name.endswith('_Status'):
+                ack = self._assemble_ack(name[:-7])
+                if ack:
+                    acks[ack.name] = ack
+
+        return acks
+
+    def _assemble_ack(self, name):
+        time = self.attributes.get(name + '_Time')
+        status = self.attributes.get(name + '_Status')
+        if time and status:
+            return Acknowledgment(name, time, status)
+        return None
+
+    def _update(self, proto):
+        for attr in proto:
+            value = parse_value(attr.value)
+            self.attributes[attr.name] = value
+
+    def __str__(self):
+        acks = ', '.join(ack.__repr__() for _, ack in self.acknowledgments.items())
+        return '{} [{}]'.format(self.name, acks)
 
 
 class AlarmUpdate(object):
