@@ -553,7 +553,6 @@ class ProcessorClient(object):
         """
         req = processing_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
-        req.origin = socket.gethostname()
         req.dryRun = dry_run
         if comment:
             req.comment = comment
