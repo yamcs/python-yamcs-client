@@ -157,24 +157,18 @@ class IssuedCommand(object):
     @property
     def id(self):
         """
-        A unique identifier of this command.
+        A unique identifier for this command.
         """
-        entry = self._proto.commandQueueEntry
-        if entry.cmdId.HasField('origin'):
-            return '{}-{}-{}'.format(
-                entry.cmdId.generationTime, entry.cmdId.origin,
-                entry.cmdId.sequenceNumber)
-        else:
-            return '{}-{}'.format(
-                entry.cmdId.generationTime, entry.cmdId.sequenceNumber)
+        return self._proto.id
 
     @property
     def name(self):
         """
         The fully-qualified name of this command.
         """
-        entry = self._proto.commandQueueEntry
-        return entry.cmdId.commandName
+        if self._proto.HasField('commandName'):
+            return self._proto.commandName
+        return None
 
     @property
     def generation_time(self):
@@ -183,36 +177,31 @@ class IssuedCommand(object):
 
         :type: :class:`~datetime.datetime`
         """
-        entry = self._proto.commandQueueEntry
-        if entry.HasField('generationTimeUTC'):
-            return parse_isostring(entry.generationTimeUTC)
+        if self._proto.HasField('generationTime'):
+            return parse_isostring(self._proto.generationTime)
         return None
 
     @property
     def username(self):
         """The username of the issuer."""
-        entry = self._proto.commandQueueEntry
-        if entry.HasField('username'):
-            return entry.username
+        if self._proto.HasField('username'):
+            return self._proto.username
         return None
 
     @property
     def queue(self):
         """The name of the queue that this command was assigned to."""
-        entry = self._proto.commandQueueEntry
-        if entry.HasField('queueName'):
-            return entry.queueName
+        if self._proto.HasField('queue'):
+            return self._proto.queue
         return None
 
     @property
     def origin(self):
         """
-        The origin of this command. This is often empty, but may
-        also be a hostname.
+        The origin of this command. Usually the IP address of the issuer.
         """
-        entry = self._proto.commandQueueEntry
-        if entry.cmdId.HasField('origin'):
-            return entry.cmdId.origin
+        if self._proto.HasField('origin'):
+            return self._proto.origin
         return None
 
     @property
@@ -221,9 +210,8 @@ class IssuedCommand(object):
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
-        entry = self._proto.commandQueueEntry
-        if entry.cmdId.HasField('sequenceNumber'):
-            return entry.cmdId.sequenceNumber
+        if self._proto.HasField('sequenceNumber'):
+            return self._proto.sequenceNumber
         return None
 
     @property
@@ -246,21 +234,6 @@ class IssuedCommand(object):
         if self._proto.HasField('binary'):
             return self._proto.binary
         return None
-
-    def create_command_history_subscription(self, on_data=None, timeout=60):
-        """
-        Create a new command history subscription for this command.
-
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.CommandHistory` updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .CommandHistorySubscription
-        """
-        return self._client.create_command_history_subscription(
-            issued_command=self, on_data=on_data, timeout=timeout)
 
     def __str__(self):
         return '{} {}'.format(self.generation_time, self.source)

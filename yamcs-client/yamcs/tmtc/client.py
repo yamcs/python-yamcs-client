@@ -106,17 +106,6 @@ def _build_named_object_ids(parameters):
     return [_build_named_object_id(parameter) for parameter in parameters]
 
 
-#pylint: disable=protected-access
-def _build_command_ids(issued_commands):
-    """Builds a list of CommandId."""
-    if isinstance(issued_commands, IssuedCommand):
-        entry = issued_commands._proto.commandQueueEntry
-        return [entry.cmdId]
-    else:
-        return [issued_command._proto.commandQueueEntry.cmdId
-                for issued_command in issued_commands]
-
-
 def _build_value_proto(value):
     proto = yamcs_pb2.Value()
     if isinstance(value, bool):
@@ -203,10 +192,9 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
 
     @staticmethod
     def _cache_key(cmd_id):
-        """commandId is a tuple. Make a 'unique' key for it."""
-        return '{}__{}__{}__{}'.format(
-            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
-            cmd_id.commandName)
+        """commandId is a tuple. Convert to the equivalent string identifier."""
+        return '{}-{}-{}'.format(
+            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber)
 
     def __init__(self, manager):
         super(CommandHistorySubscription, self).__init__(manager)
@@ -227,10 +215,8 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         :rtype: .CommandHistory
         """
         #pylint: disable=protected-access
-        entry = issued_command._proto.commandQueueEntry
-        key = self._cache_key(entry.cmdId)
-        if key in self._cache:
-            return self._cache[key]
+        if issued_command.id in self._cache:
+            return self._cache[issued_command.id]
         return None
 
     def _process(self, entry):
@@ -343,13 +329,6 @@ class CommandConnection(WebSocketSubscriptionFuture):
     Only commands issued from this object are monitored.
     """
 
-    @staticmethod
-    def _cache_key(cmd_id):
-        """commandId is a tuple. Make a 'unique' key for it."""
-        return '{}__{}__{}__{}'.format(
-            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber,
-            cmd_id.commandName)
-
     def __init__(self, manager, client):
         super(CommandConnection, self).__init__(manager)
         self._cmdhist_cache = {}
@@ -376,31 +355,31 @@ class CommandConnection(WebSocketSubscriptionFuture):
         #pylint: disable=protected-access
         command = MonitoredCommand(issued_command._proto, self._client)
 
-        #pylint: disable=protected-access
-        entry = issued_command._proto.commandQueueEntry
-        key = self._cache_key(entry.cmdId)
-
-        self._command_cache[key] = command
+        self._command_cache[command.id] = command
 
         # It may be that we already received some cmdhist updates
         # before the http response returned.
-        if key in self._cmdhist_cache:
-            cmdhist = self._cmdhist_cache[key]
+        if command.id in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[command.id]
             command._process_cmdhist(cmdhist)
 
         return command
 
+    #pylint: disable=protected-access
     def _process(self, entry):
-        key = self._cache_key(entry.commandId)
-        if key in self._cmdhist_cache:
-            cmdhist = self._cmdhist_cache[key]
-            #pylint: disable=protected-access
+        # TODO would be nice if the server gave this.
+        command_id = '{}-{}-{}'.format(
+            entry.commandId.generationTime, entry.commandId.origin,
+            entry.commandId.sequenceNumber)
+
+        if command_id in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[command_id]
             cmdhist._update(entry.attr)
         else:
             cmdhist = CommandHistory(entry)
-            self._cmdhist_cache[key] = cmdhist
+            self._cmdhist_cache[command_id] = cmdhist
 
-        command = self._command_cache.get(key)
+        command = self._command_cache.get(command_id)
         if command:
             command._process_cmdhist(cmdhist)
 
@@ -786,10 +765,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        response = self._client.post_proto(url, data=req.SerializeToString())
-        pti = mdb_pb2.ParameterTypeInfo()
-        pti.ParseFromString(response.content)
-        print(pti)
+        self._client.post_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
         """
@@ -925,15 +901,11 @@ class ProcessorClient(object):
         return subscription
 
     def create_command_history_subscription(self,
-                                            issued_command=None,
                                             on_data=None,
                                             timeout=60):
         """
         Create a new command history subscription.
 
-        :param issued_command: (Optional) Previously issued commands. If not
-                                provided updates from any command are received.
-        :type issued_command: .IssuedCommand[]
         :param on_data: (Optional) Function that gets called with
                         :class:`.CommandHistory` updates.
         :param timeout: The amount of seconds to wait for the request to
@@ -945,8 +917,6 @@ class ProcessorClient(object):
         """
         options = websocket_pb2.CommandHistorySubscriptionRequest()
         options.ignorePastCommands = True
-        if issued_command:
-            options.commandId.extend(_build_command_ids(issued_command))
 
         manager = WebSocketSubscriptionManager(
             self._client, resource='cmdhistory', options=options)
