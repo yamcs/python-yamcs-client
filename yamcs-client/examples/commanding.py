@@ -23,7 +23,7 @@ def monitor_command():
 
     # Issue 2nd command only if the previous command was completed successfully.
     command1.await_complete()
-    if not command1.error:
+    if command1.is_success():
         conn.issue('/YSS/SIMULATOR/SWITCH_VOLTAGE_ON', args={
             'voltage_num': 1,
         })

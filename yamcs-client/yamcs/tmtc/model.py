@@ -20,7 +20,7 @@ def _parse_alarm(proto):
 
 class Acknowledgment(object):
 
-    def __init__(self, name, time, status):
+    def __init__(self, name, time, status, message):
         self.name = name
         """Name of this acknowledgment."""
 
@@ -29,6 +29,12 @@ class Acknowledgment(object):
 
         self.status = status
         """Status of this acknowlegment."""
+
+        self.message = message
+        """Message of this acknowledgment."""
+
+    def is_terminated(self):
+        return self.status and self.status != 'SCHEDULED' and self.status != 'PENDING'
 
     def __repr__(self):
         return '{}: {}'.format(self.name, self.status)
@@ -97,22 +103,35 @@ class CommandHistory(object):
         Returns whether this command is complete. A command
         can be completed, yet still failed.
         """
-        return 'CommandComplete' in self.attributes
+        ack = self._assemble_ack('CommandComplete')
+        return ack and (ack.status == 'OK' or ack.status == 'NOK')
+
+    def is_success(self):
+        """
+        Returns True if the command has completed successfully.
+        """
+        ack = self._assemble_ack('CommandComplete')
+        return ack and ack.status == 'OK'
+
+    def is_failure(self):
+        """
+        Returns True if the command failed.
+        """
+        ack = self._assemble_ack('CommandComplete')
+        return ack and ack.status == 'NOK'
 
     @property
     def error(self):
         """Error message in case the command failed."""
-        return self.attributes.get('CommandFailed')
+        ack = self._assemble_ack('CommandComplete')
+        if ack and ack.status == 'NOK':
+            return ack.message
+        return None
 
     @property
     def comment(self):
         """Optional user comment attached when issuing the command."""
-        # Old versions of Yamcs use "Comment" with capital
-        return self.attributes.get('Comment') or self.attributes.get('comment')
-
-    @property
-    def transmission_constraints(self):
-        return self.attributes.get('TransmissionContraints')
+        return self.attributes.get('comment')
 
     @property
     def acknowledgments(self):
@@ -124,6 +143,10 @@ class CommandHistory(object):
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
+            if name.startswith('CommandComplete'):
+                continue
+            if name.startswith('TransmissionConstraints'):
+                continue
             if name.endswith('_Status'):
                 ack = self._assemble_ack(name[:-7])
                 if ack:
@@ -134,8 +157,9 @@ class CommandHistory(object):
     def _assemble_ack(self, name):
         time = self.attributes.get(name + '_Time')
         status = self.attributes.get(name + '_Status')
+        message = self.attributes.get(name + '_Message')
         if time and status:
-            return Acknowledgment(name, time, status)
+            return Acknowledgment(name, time, status, message)
         return None
 
     def _update(self, proto):
@@ -257,9 +281,10 @@ class MonitoredCommand(IssuedCommand):
         self._cmdhist = cmdhist
         if self.is_complete():
             self._completed.set()
-        for name, _ in self.acknowledgments.items():
+        for name, ack in self.acknowledgments.items():
             event = self._ack_events.setdefault(name, threading.Event())
-            event.set()
+            if ack.is_terminated():
+                event.set()
 
     @property
     def attributes(self):
@@ -272,7 +297,8 @@ class MonitoredCommand(IssuedCommand):
         Returns whether this command is complete. A command
         can be completed, yet still failed.
         """
-        return 'CommandComplete' in self.attributes
+        ack = self._assemble_ack('CommandComplete')
+        return ack and (ack.status == 'OK' or ack.status == 'NOK')
 
     def await_complete(self, timeout=None):
         """
@@ -312,17 +338,15 @@ class MonitoredCommand(IssuedCommand):
     @property
     def error(self):
         """Error message in case the command failed."""
-        return self.attributes.get('CommandFailed')
+        ack = self._assemble_ack('CommandComplete')
+        if ack and ack.status == 'NOK':
+            return ack.message
+        return None
 
     @property
     def comment(self):
         """Optional user comment attached when issuing the command."""
-        # Old versions of Yamcs use "Comment" with capital
-        return self.attributes.get('Comment') or self.attributes.get('comment')
-
-    @property
-    def transmission_constraints(self):
-        return self.attributes.get('TransmissionContraints')
+        return self.attributes.get('comment')
 
     @property
     def acknowledgments(self):
@@ -334,6 +358,10 @@ class MonitoredCommand(IssuedCommand):
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
+            if name.startswith('CommandComplete'):
+                continue
+            if name.startswith('TransmissionConstraints'):
+                continue
             if name.endswith('_Status'):
                 ack = self._assemble_ack(name[:-7])
                 if ack:
@@ -344,8 +372,9 @@ class MonitoredCommand(IssuedCommand):
     def _assemble_ack(self, name):
         time = self.attributes.get(name + '_Time')
         status = self.attributes.get(name + '_Status')
+        message = self.attributes.get(name + '_Message')
         if time and status:
-            return Acknowledgment(name, time, status)
+            return Acknowledgment(name, time, status, message)
         return None
 
     def _update(self, proto):
