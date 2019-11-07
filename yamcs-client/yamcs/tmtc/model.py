@@ -2,7 +2,7 @@ import threading
 from collections import OrderedDict
 from datetime import timedelta
 
-from yamcs.core.exceptions import YamcsError
+from yamcs.core.exceptions import TimeoutError, YamcsError
 from yamcs.core.helpers import parse_isostring, parse_value
 from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
@@ -303,6 +303,8 @@ class MonitoredCommand(IssuedCommand):
     def await_complete(self, timeout=None):
         """
         Wait for the command to be completed.
+
+        :param float timeout: The amount of seconds to wait.
         """
         self._wait_on_signal(self._completed, timeout)
 
@@ -314,6 +316,7 @@ class MonitoredCommand(IssuedCommand):
                          ``Acknowledge_Queued``, ``Acknowledge_Released``
                          and ``Acknowledge_Sent``. Others depend on
                          specific link types.
+        :param float timeout: The amount of seconds to wait.
 
         :rtype: .Acknowledgment
         """
