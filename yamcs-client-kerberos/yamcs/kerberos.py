@@ -8,8 +8,6 @@ from yamcs.core.exceptions import Unauthorized, YamcsError
 
 class KerberosCredentials(Credentials):
 
-    principal = None
-
     def __init__(self):
         super().__init__()
 
