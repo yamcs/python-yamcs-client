@@ -36,7 +36,7 @@ setuptools.setup(
     ],
     platforms='Posix; MacOS X; Windows',
     install_requires=[
-        'requests-kerberos',
+        'requests-gssapi',
         'yamcs-client',
     ],
     include_package_data=True,

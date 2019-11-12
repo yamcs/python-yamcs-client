@@ -1,7 +1,7 @@
-import getpass
 from datetime import datetime, timedelta
 
-from requests_kerberos import DISABLED, HTTPKerberosAuth
+from requests_gssapi import HTTPSPNEGOAuth
+
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import Unauthorized, YamcsError
 
@@ -10,9 +10,8 @@ class KerberosCredentials(Credentials):
 
     principal = None
 
-    def __init__(self, principal=None):
+    def __init__(self):
         super().__init__()
-        self.principal = principal or getpass.getuser()
 
     def login(self, session, auth_url, on_token_update):
         self._on_token_update = on_token_update
@@ -24,9 +23,7 @@ class KerberosCredentials(Credentials):
         return creds
 
     def fetch_authorization_code(self, session, auth_url):
-        auth = HTTPKerberosAuth(principal=self.principal,
-                                mutual_authentication=DISABLED,
-                                force_preemptive=True)
+        auth = HTTPSPNEGOAuth(opportunistic_auth=True)
         response = session.get(auth_url + '/spnego', auth=auth)
         if response.status_code == 401:
             raise Unauthorized('401 Client Error: Unauthorized')
