@@ -1,6 +1,7 @@
 import functools
 
 import requests
+
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
@@ -170,7 +171,7 @@ class YamcsClient(BaseClient):
         :rtype: .ServerInfo
         """
         response = self.get_proto(path='')
-        message = rest_pb2.GetApiOverviewResponse()
+        message = rest_pb2.GetGeneralInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
 
