@@ -37,7 +37,7 @@ setuptools.setup(
     platforms='Posix; MacOS X; Windows',
     install_requires=[
         'protobuf>=3.6',
-        'requests>=2.16.0',
+        'requests',
         'setuptools',
         'websocket-client<=0.48.0',
     ],
