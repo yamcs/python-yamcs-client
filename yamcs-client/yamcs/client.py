@@ -11,11 +11,13 @@ from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
                          Link, LinkEvent, Processor, ServerInfo, Service,
-                         UserInfo)
+                         UserInfo, Cop1Status, Cop1Config)
+
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.web import rest_pb2, websocket_pb2
+from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
@@ -70,6 +72,18 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
                 on_data(link_event)
 
 
+def _wrap_callback_parse_cop1_status(subscription, on_data, message):
+    """
+    Wraps a user callback to parse Cop1Status
+    from a WebSocket data message
+    """    
+    if message.type == message.DATA:
+        if message.data.type == yamcs_pb2.COP1_STATUS:
+            cop1_status = Cop1Status(getattr(message.data, 'cop1Status'))
+            #pylint: disable=protected-access            
+            if on_data:
+                on_data(cop1_status)
+                
 class TimeSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to time updates.
@@ -91,6 +105,7 @@ class TimeSubscription(WebSocketSubscriptionFuture):
         self.time = time
 
 
+        
 class DataLinkSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to data link updates.
@@ -132,6 +147,62 @@ class DataLinkSubscription(WebSocketSubscriptionFuture):
             self._cache[link.name] = link
 
 
+class Cop1Subscription(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to time updates.
+
+    A subscription object stores the last time info.
+    """
+
+    def __init__(self, manager):
+        super(Cop1Subscription, self).__init__(manager)
+
+        self.time = None
+        """
+        The last time info.
+
+        :type: :class:`~datetime.datetime`
+        """
+
+    def _process(self, time):
+        self.time = time
+
+    def add(self,
+            instance,
+            link_name):
+        """
+        Add one link to this subscription.
+
+        :param string instance: The Yamcs instance containing the link to be added
+        :param string link_name: the name of the link to be added
+        """
+
+        # Verify that we already know our assigned subscription_id
+        
+        options = websocket_pb2.Cop1SubscriptionRequest()
+        options.instance = instance
+        options.linkName = link_name
+
+        self._manager.send('subscribe', options)
+    
+    def remove(self,
+            instance,
+            link_name):
+        """
+        Remove one link from this subscription.
+
+        :param string instance: The Yamcs instance containing the link to be removed
+        :param string link_name: the name of the link to be removed
+        """
+
+        # Verify that we already know our assigned subscription_id
+        
+        options = websocket_pb2.Cop1SubscriptionRequest()
+        options.instance = instance
+        options.linkName = link_name
+
+        self._manager.send('unsubscribe', options)
+        
 class YamcsClient(BaseClient):
     """
     Client for accessing core Yamcs resources.
@@ -576,6 +647,136 @@ class YamcsClient(BaseClient):
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_event, on_data)
+
+        manager.open(wrapped_callback, instance)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def get_cop1_config(self, instance, link):
+        """
+        Gets the COP1 configuration for a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :rtype: .Cop1Config
+        """
+        response = self.get_proto('/cop1/{}/{}/config'.format(instance, link))
+        message = cop1_pb2.Cop1Config()
+        message.ParseFromString(response.content)
+        return Cop1Config(message)
+    
+    def set_cop1_config(self, instance, link, cop1_config):
+        """
+        Sets the COP1 configuration for a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :param Cop1Config cop1_config: The config to be set        
+        """
+        req = cop1_pb2.SetConfigRequest()        
+        req.cop1Config.CopyFrom(cop1_config._proto)
+                
+        
+        url = '/cop1/{}/{}/config'.format(instance, link)
+        self.patch_proto(url, data=req.SerializeToString())
+    
+    def disable_cop1(self, instance, link, set_bypass_all=True):
+        """
+        Disable COP1 for a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
+        """
+        req = cop1_pb2.DisableRequest()
+        req.setBypassAll = set_bypass_all
+        url = '/cop1/{}/{}:disable'.format(instance, link)
+        self.post_proto(url, data=req.SerializeToString())
+    
+    def initialize_cop1(self, instance, link, type, clcw_wait_timeout=None, v_r=None):
+        """
+        Initialize COP1.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :param str type: One of  WITH_CLCW_CHECK,  WITHOUT_CLCW_CHECK, UNLOCK, SET_VR
+        :param int clcw_wait_timeout: timeout in milliseconds used for the reception of CLCS, required in case type = WITH_CLCW_CHECK
+        :param int v_r: value of vR in case type = SET_VR
+        """
+        req = cop1_pb2.InitializeRequest()
+        req.type = cop1_pb2.InitializationType.Value(type)
+        
+        if clcw_wait_timeout is not None:
+            req.clcwCheckInitializeTimeout = clcw_wait_timeout
+        if v_r is not None:
+            req.vR = v_r
+        
+        url = '/cop1/{}/{}:initialize'.format(instance, link)
+        self.post_proto(url, data=req.SerializeToString())
+    
+    def resume_cop1(self, instance, link, set_bypass_all=True):
+        """
+        Disable COP1 for a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
+        """
+        req = cop1_pb2.ResumeRequest()        
+        url = '/cop1/{}/{}:resume'.format(instance, link)
+        self.post_proto(url, data=req.SerializeToString())
+        
+    def get_cop1_status(self, instance, link):
+        """
+        Gets the COP1 status for a data link.
+
+        :param str instance: A Yamcs instance name.
+        :param str link: The name of the data link.
+        :rtype: .Cop1Status
+        """
+        response = self.get_proto('/cop1/{}/{}/status'.format(instance, link))
+        message = cop1_pb2.Cop1Status()
+        message.ParseFromString(response.content)
+        return Cop1Status(message)
+    
+    
+    def create_cop1_subscription(self, instance, linkName, on_data, timeout=60):
+        """
+        Create a new subscription for receiving status of the COP1 link.
+
+        This method returns a future, then returns immediately. Stop the
+        subscription by canceling the future.
+
+        :param str instance: A Yamcs instance name
+
+        :param str linkName: The link name (has to be of type Cop1TcPacketHandler)
+        
+        :param on_data: Function that gets called on each :class:`.Cop1Status`.
+        :type on_data: Optional[Callable[.Cop1Status])
+
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: Optional[float]
+
+        :return: Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .Cop1Subscription
+        """
+        
+        options = websocket_pb2.Cop1SubscriptionRequest()
+        options.instance = instance
+        options.linkName = linkName        
+        
+        manager = WebSocketSubscriptionManager(self, resource='cop1', options=options)
+
+        # Represent subscription as a future
+        subscription = Cop1Subscription(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_cop1_status, subscription, on_data)
 
         manager.open(wrapped_callback, instance)
 

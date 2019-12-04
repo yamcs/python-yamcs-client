@@ -1,7 +1,7 @@
 from yamcs.core.helpers import parse_isostring
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
-
+from yamcs.protobuf.cop1 import cop1_pb2
 
 class AuthInfo(object):
     """
@@ -440,3 +440,97 @@ class Processor(object):
 
     def __str__(self):
         return '{} [{}]'.format(self.name, self.state)
+
+class Cop1Status(object):
+    """
+    COP1 status
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def cop1_active(self):
+        return self._proto.cop1Active
+
+    @property
+    def state(self):
+        if self._proto.HasField('state'):
+            return cop1_pb2.Cop1State.Name(self._proto.state)
+    
+    @property
+    def set_bypass_all(self):
+      if self._proto.HasField('setBypassAll'):
+            return self._proto.setBypassAll
+        
+    @property
+    def v_S(self):
+        if self._proto.HasField('vS'):
+            return self._proto.vS
+    
+    @property
+    def nn_R(self):
+        if self._proto.HasField('nnR'):
+            return self._proto.nnR
+        
+    
+    def __str__(self):
+        line = 'COP1_ACTIVE: {}'.format(self.cop1_active)
+        if self.cop1_active:
+            line = line + ", state: {}, nn_R: {}, v_S: {}".format(self.state, self.nn_R, self.v_S) 
+        else:
+            line = line + ", set_bypass_all: {}".format(self.set_bypass_all) 
+            
+        return line
+
+
+class Cop1Config(object):
+    """
+    COP1 configuration
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property    
+    def vc_id(self):
+        """Virtual Channel Id for this link; note that this cannot be changed at runtime"""
+        return self._proto.vcId
+
+    @property
+    def window_width(self):        
+        return self._proto.windowWidth
+    
+    @window_width.setter
+    def window_width(self, width):
+        self._proto.windowWidth = width
+    
+    @property
+    def timeout_type(self):
+        return cop1_pb2.TimeoutType.Name(self._proto.timeoutType)
+
+    @timeout_type.setter
+    def timeout_type(self, timeout_type):
+        self._proto.timeoutType = cop1_pb2.TimeoutType.Value(timeout_type)
+        
+    @property
+    def tx_limit(self):
+        return self._proto.txLimit
+    
+    @tx_limit.setter
+    def tx_limit(self, limit):
+        self._proto.txLimit = limit
+    
+    
+    @property
+    def t1(self):
+        return self._proto.t1
+    
+    @t1.setter
+    def t1(self, millisec):        
+        self._proto.t1 = millisec
+    
+    
+    def __str__(self):
+        line = 'VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}'.format(self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1)
+        return line
