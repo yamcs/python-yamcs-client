@@ -9,7 +9,7 @@ global cop1_status
 
 def callback(status):
     global cop1_status
-    print('In callback COP1 status: ', status)
+    print('<COP1 callback> status: ', status)
     cop1_status = status
 
 
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     print('COP1 congiguration: ', cop1_config)
     
     print("Changing COP1 configuration")
-    cop1_config.t1 = cop1_config.t1 + 100
+    cop1_config.t1 = cop1_config.t1 + 0.1
     #cop1_config.timeout_type = 'SUSPEND'
     cop1_config.tx_limit = cop1_config.tx_limit+1
     client.set_cop1_config('opsim', 'UDP_FRAME_OUT.tc', cop1_config)
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     
     sleep(3)    
     print("initializing COP1 with CLCW_CHECK (if no CLCW is received, COP1 will be suspended in 3 seconds)")
-    client.initialize_cop1('opsim', 'UDP_FRAME_OUT.tc', type='WITH_CLCW_CHECK', clcw_wait_timeout=3000)
+    client.initialize_cop1('opsim', 'UDP_FRAME_OUT.tc', type='WITH_CLCW_CHECK', clcw_wait_timeout=3)
            
     sleep(5)
     

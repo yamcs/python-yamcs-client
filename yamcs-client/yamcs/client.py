@@ -703,14 +703,14 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
         :param str type: One of  WITH_CLCW_CHECK,  WITHOUT_CLCW_CHECK, UNLOCK, SET_VR
-        :param int clcw_wait_timeout: timeout in milliseconds used for the reception of CLCS, required in case type = WITH_CLCW_CHECK
+        :param int clcw_wait_timeout: timeout in seconds used for the reception of CLCS, required in case type = WITH_CLCW_CHECK
         :param int v_r: value of vR in case type = SET_VR
         """
         req = cop1_pb2.InitializeRequest()
         req.type = cop1_pb2.InitializationType.Value(type)
         
         if clcw_wait_timeout is not None:
-            req.clcwCheckInitializeTimeout = clcw_wait_timeout
+            req.clcwCheckInitializeTimeout = int(1000*clcw_wait_timeout)
         if v_r is not None:
             req.vR = v_r
         
