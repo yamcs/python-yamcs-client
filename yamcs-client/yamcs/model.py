@@ -524,11 +524,11 @@ class Cop1Config(object):
     
     @property
     def t1(self):
-        return self._proto.t1
+        return self._proto.t1/1000.0
     
     @t1.setter
-    def t1(self, millisec):        
-        self._proto.t1 = millisec
+    def t1(self, sec):
+        self._proto.t1 = int(round(1000 * sec))
     
     
     def __str__(self):
