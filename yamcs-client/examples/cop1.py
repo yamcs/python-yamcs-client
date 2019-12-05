@@ -52,7 +52,15 @@ if __name__ == '__main__':
     
     sleep(3)
     
+    print("disabling COP1....")
+    client.disable_cop1('opsim', 'UDP_FRAME_OUT.tc')
     
+    
+    sleep(3)    
+    print("initializing COP1 with set v(R)=200 (if no CLCW is received, COP1 will be suspended in 3 seconds)")
+    client.initialize_cop1('opsim', 'UDP_FRAME_OUT.tc', type='SET_VR', v_r=200)
+           
+    sleep(3)
     print("unsubscribing the link")
     cop1.remove('opsim', 'UDP_FRAME_OUT.tc')
     
