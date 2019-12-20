@@ -202,7 +202,7 @@ class IssuedCommand(object):
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField('generationTime'):
-            return parse_isostring(self._proto.generationTime)
+            return self._proto.generationTime.ToDatetime()
         return None
 
     @property
