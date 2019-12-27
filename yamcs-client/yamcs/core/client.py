@@ -8,7 +8,8 @@ from google.protobuf.message import DecodeError
 
 from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
                                    YamcsError)
-from yamcs.protobuf.web import rest_pb2
+from yamcs.protobuf.processing import processing_pb2
+from yamcs.api import exception_pb2
 
 
 class BaseClient(object):
@@ -95,7 +96,7 @@ class BaseClient(object):
         if 200 <= response.status_code < 300:
             return response
 
-        exception_message = rest_pb2.RestExceptionMessage()
+        exception_message = exception_pb2.ExceptionMessage()
         try:
             exception_message.ParseFromString(response.content)
         except DecodeError:

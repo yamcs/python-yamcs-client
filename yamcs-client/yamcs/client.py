@@ -15,8 +15,9 @@ from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
 
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
+from yamcs.protobuf.clients import clients_pb2
 from yamcs.protobuf.iam import iam_pb2
-from yamcs.protobuf.web import rest_pb2, websocket_pb2
+from yamcs.protobuf.web import general_service_pb2, websocket_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
@@ -242,7 +243,7 @@ class YamcsClient(BaseClient):
         :rtype: .ServerInfo
         """
         response = self.get_proto(path='')
-        message = rest_pb2.GetGeneralInfoResponse()
+        message = general_service_pb2.GetGeneralInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
 
@@ -258,7 +259,7 @@ class YamcsClient(BaseClient):
             response = self.session.get(self.auth_root, headers={
                 'Accept': 'application/protobuf'
             })
-            message = rest_pb2.AuthInfo()
+            message = general_service_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
@@ -374,27 +375,23 @@ class YamcsClient(BaseClient):
         if instance:
             url += '/' + instance
         response = self.get_proto(path=url)
-        message = rest_pb2.ListProcessorsResponse()
+        message = processing_pb2.ListProcessorsResponse()
         message.ParseFromString(response.content)
         processors = getattr(message, 'processor')
         return iter([Processor(processor) for processor in processors])
 
-    def list_clients(self, instance=None):
+    def list_clients(self):
         """
         Lists the clients.
 
-        :param Optional[str] instance: A Yamcs instance name.
         :rtype: ~collections.Iterable[yamcs.model.Client]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = '/clients'
-        if instance:
-            url = '/instances/{}/clients'.format(instance)
-        response = self.get_proto(path=url)
-        message = rest_pb2.ListClientsResponse()
+        response = self.get_proto(path='/clients')
+        message = clients_pb2.ListClientsResponse()
         message.ParseFromString(response.content)
-        clients = getattr(message, 'client')
+        clients = getattr(message, 'clients')
         return iter([Client(client) for client in clients])
 
     def get_processor(self, instance, processor):

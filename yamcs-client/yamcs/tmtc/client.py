@@ -604,9 +604,9 @@ class ProcessorClient(object):
         # Return an iterator anyway for similarity with other API methods
         url = '/processors/{}/{}/alarms'.format(self._instance, self._processor)
         response = self._client.get_proto(path=url, params=params)
-        message = archive_pb2.ListAlarmsResponse()
+        message = alarms_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
-        alarms = getattr(message, 'alarm')
+        alarms = getattr(message, 'alarms')
         return iter([_parse_alarm(alarm) for alarm in alarms])
 
     def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
@@ -645,7 +645,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -679,7 +679,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
         """
@@ -698,7 +698,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
                                  distress=None, critical=None, severe=None,
@@ -739,7 +739,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -775,7 +775,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
         """
@@ -794,7 +794,7 @@ class ProcessorClient(object):
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
         """

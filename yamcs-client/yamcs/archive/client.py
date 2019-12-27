@@ -12,7 +12,7 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
-from yamcs.protobuf.web import rest_pb2
+from yamcs.protobuf.web import websocket_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
 
 
@@ -534,7 +534,7 @@ class ArchiveClient(object):
             client=self._client,
             path=path,
             params=params,
-            response_class=rest_pb2.ListCommandsResponse,
+            response_class=archive_pb2.ListCommandsResponse,
             items_key='entry',
             item_mapper=CommandHistory,
         )
@@ -624,7 +624,7 @@ class ArchiveClient(object):
                  subscription
         :rtype: .WebSocketSubscriptionFuture
         """
-        options = rest_pb2.StreamSubscribeRequest()
+        options = websocket_pb2.StreamSubscriptionRequest()
         options.stream = stream
 
         manager = WebSocketSubscriptionManager(
