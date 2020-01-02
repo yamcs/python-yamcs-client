@@ -164,8 +164,8 @@ class Packet(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('generationTimeUTC'):
-            return parse_isostring(self._proto.generationTimeUTC)
+        if self._proto.HasField('generationTime'):
+            return self._proto.generationTime.ToDatetime()
         return None
 
     @property
@@ -175,8 +175,8 @@ class Packet(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('receptionTimeUTC'):
-            return parse_isostring(self._proto.receptionTimeUTC)
+        if self._proto.HasField('receptionTime'):
+            return self._proto.receptionTime.ToDatetime()
         return None
 
     @property

@@ -1,15 +1,12 @@
-from datetime import datetime
-
 import pkg_resources
 import requests
 import six
 import urllib3
 from google.protobuf.message import DecodeError
 
+from yamcs.api import exception_pb2
 from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
                                    YamcsError)
-from yamcs.protobuf.processing import processing_pb2
-from yamcs.api import exception_pb2
 
 
 class BaseClient(object):
@@ -90,8 +87,9 @@ class BaseClient(object):
         except requests.exceptions.SSLError as sslError:
             msg = 'Connection to {} failed: {}'.format(self.address, sslError)
             six.raise_from(ConnectionFailure(msg), None)
-        except requests.exceptions.ConnectionError:
-            raise ConnectionFailure('Connection to {} refused'.format(self.address))
+        except requests.exceptions.ConnectionError as e:
+            raise ConnectionFailure('Connection to {} failed: {}'.format(
+                self.address, e))
 
         if 200 <= response.status_code < 300:
             return response

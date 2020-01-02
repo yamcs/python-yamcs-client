@@ -12,7 +12,6 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
-from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
@@ -24,10 +23,10 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='yamcs/protobuf/alarms/alarms.proto',
   package='yamcs.protobuf.alarms',
   syntax='proto2',
-  serialized_options=b'\n\022org.yamcs.protobuf',
-  serialized_pb=b'\n\"yamcs/protobuf/alarms/alarms.proto\x12\x15yamcs.protobuf.alarms\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\"8\n\x11ListAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"F\n\x12ListAlarmsResponse\x12\x30\n\x06\x61larms\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"\x8d\x01\n\x10\x45\x64itAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\r\n\x05state\x18\x05 \x01(\t\x12\x0f\n\x07\x63omment\x18\x06 \x01(\t\x12\x16\n\x0eshelveDuration\x18\x07 \x01(\x04\"\xbc\x01\n\x0f\x41\x63knowledgeInfo\x12\x16\n\x0e\x61\x63knowledgedBy\x18\x01 \x01(\t\x12\x1a\n\x12\x61\x63knowledgeMessage\x18\x02 \x01(\t\x12 \n\x14yamcsAcknowledgeTime\x18\x03 \x01(\x03\x42\x02\x18\x01\x12\x1e\n\x12\x61\x63knowledgeTimeUTC\x18\x04 \x01(\tB\x02\x18\x01\x12\x33\n\x0f\x61\x63knowledgeTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9c\x01\n\nShelveInfo\x12\x11\n\tshelvedBy\x18\x01 \x01(\t\x12\x15\n\rshelveMessage\x18\x02 \x01(\t\x12.\n\nshelveTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10shelveExpiration\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"c\n\tClearInfo\x12\x11\n\tclearedBy\x18\x01 \x01(\t\x12-\n\tclearTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0c\x63learMessage\x18\x03 \x01(\t\"\xc5\x05\n\tAlarmData\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .yamcs.protobuf.alarms.AlarmType\x12/\n\x0btriggerTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\x02id\x18\x03 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0e\n\x06seqNum\x18\x04 \x01(\r\x12\x36\n\x08severity\x18\x05 \x01(\x0e\x32$.yamcs.protobuf.alarms.AlarmSeverity\x12\x12\n\nviolations\x18\x06 \x01(\r\x12\r\n\x05\x63ount\x18\x07 \x01(\r\x12?\n\x0f\x61\x63knowledgeInfo\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.alarms.AcknowledgeInfo\x12\x46\n\x10notificationType\x18\t \x01(\x0e\x32,.yamcs.protobuf.alarms.AlarmNotificationType\x12\x42\n\x0fparameterDetail\x18\n \x01(\x0b\x32).yamcs.protobuf.alarms.ParameterAlarmData\x12:\n\x0b\x65ventDetail\x18\x0b \x01(\x0b\x32%.yamcs.protobuf.alarms.EventAlarmData\x12\x10\n\x08latching\x18\x0c \x01(\x08\x12\x11\n\tprocessOK\x18\r \x01(\x08\x12\x11\n\ttriggered\x18\x0e \x01(\x08\x12\x14\n\x0c\x61\x63knowledged\x18\x0f \x01(\x08\x12\x35\n\nshelveInfo\x18\x10 \x01(\x0b\x32!.yamcs.protobuf.alarms.ShelveInfo\x12\x33\n\tclearInfo\x18\x11 \x01(\x0b\x32 .yamcs.protobuf.alarms.ClearInfo\"\x84\x02\n\x12ParameterAlarmData\x12;\n\x0ctriggerValue\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12>\n\x0fmostSevereValue\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12;\n\x0c\x63urrentValue\x18\x03 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\x9a\x01\n\x0e\x45ventAlarmData\x12+\n\x0ctriggerEvent\x18\x01 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12.\n\x0fmostSevereEvent\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12+\n\x0c\x63urrentEvent\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Event*\xac\x01\n\x15\x41larmNotificationType\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\r\n\tTRIGGERED\x10\x02\x12\x16\n\x12SEVERITY_INCREASED\x10\x03\x12\x11\n\rVALUE_UPDATED\x10\x04\x12\x10\n\x0c\x41\x43KNOWLEDGED\x10\x05\x12\x0b\n\x07\x43LEARED\x10\x06\x12\x07\n\x03RTN\x10\x07\x12\x0b\n\x07SHELVED\x10\x08\x12\r\n\tUNSHELVED\x10\t\x12\t\n\x05RESET\x10\n*%\n\tAlarmType\x12\r\n\tPARAMETER\x10\x01\x12\t\n\x05\x45VENT\x10\x02*O\n\rAlarmSeverity\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x32\xbc\x02\n\tAlarmsApi\x12\x96\x01\n\nListAlarms\x12(.yamcs.protobuf.alarms.ListAlarmsRequest\x1a).yamcs.protobuf.alarms.ListAlarmsResponse\"3\x8a\x92\x03/\n-/api/processors/{instance}/{processor}/alarms\x12\x95\x01\n\tEditAlarm\x12\'.yamcs.protobuf.alarms.EditAlarmRequest\x1a\x16.google.protobuf.Empty\"G\x8a\x92\x03\x43*>/api/processors/{instance}/{processor}/alarms/{name*}/{seqnum}:\x01*B\x14\n\x12org.yamcs.protobuf'
+  serialized_options=b'\n\022org.yamcs.protobufB\013AlarmsProtoP\001',
+  serialized_pb=b'\n\"yamcs/protobuf/alarms/alarms.proto\x12\x15yamcs.protobuf.alarms\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\"z\n\x0f\x41\x63knowledgeInfo\x12\x16\n\x0e\x61\x63knowledgedBy\x18\x01 \x01(\t\x12\x1a\n\x12\x61\x63knowledgeMessage\x18\x02 \x01(\t\x12\x33\n\x0f\x61\x63knowledgeTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9c\x01\n\nShelveInfo\x12\x11\n\tshelvedBy\x18\x01 \x01(\t\x12\x15\n\rshelveMessage\x18\x02 \x01(\t\x12.\n\nshelveTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10shelveExpiration\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"c\n\tClearInfo\x12\x11\n\tclearedBy\x18\x01 \x01(\t\x12-\n\tclearTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0c\x63learMessage\x18\x03 \x01(\t\"\xc5\x05\n\tAlarmData\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .yamcs.protobuf.alarms.AlarmType\x12/\n\x0btriggerTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\x02id\x18\x03 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0e\n\x06seqNum\x18\x04 \x01(\r\x12\x36\n\x08severity\x18\x05 \x01(\x0e\x32$.yamcs.protobuf.alarms.AlarmSeverity\x12\x12\n\nviolations\x18\x06 \x01(\r\x12\r\n\x05\x63ount\x18\x07 \x01(\r\x12?\n\x0f\x61\x63knowledgeInfo\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.alarms.AcknowledgeInfo\x12\x46\n\x10notificationType\x18\t \x01(\x0e\x32,.yamcs.protobuf.alarms.AlarmNotificationType\x12\x42\n\x0fparameterDetail\x18\n \x01(\x0b\x32).yamcs.protobuf.alarms.ParameterAlarmData\x12:\n\x0b\x65ventDetail\x18\x0b \x01(\x0b\x32%.yamcs.protobuf.alarms.EventAlarmData\x12\x10\n\x08latching\x18\x0c \x01(\x08\x12\x11\n\tprocessOK\x18\r \x01(\x08\x12\x11\n\ttriggered\x18\x0e \x01(\x08\x12\x14\n\x0c\x61\x63knowledged\x18\x0f \x01(\x08\x12\x35\n\nshelveInfo\x18\x10 \x01(\x0b\x32!.yamcs.protobuf.alarms.ShelveInfo\x12\x33\n\tclearInfo\x18\x11 \x01(\x0b\x32 .yamcs.protobuf.alarms.ClearInfo\"\x84\x02\n\x12ParameterAlarmData\x12;\n\x0ctriggerValue\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12>\n\x0fmostSevereValue\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12;\n\x0c\x63urrentValue\x18\x03 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\x9a\x01\n\x0e\x45ventAlarmData\x12+\n\x0ctriggerEvent\x18\x01 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12.\n\x0fmostSevereEvent\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12+\n\x0c\x63urrentEvent\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Event*\xac\x01\n\x15\x41larmNotificationType\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\r\n\tTRIGGERED\x10\x02\x12\x16\n\x12SEVERITY_INCREASED\x10\x03\x12\x11\n\rVALUE_UPDATED\x10\x04\x12\x10\n\x0c\x41\x43KNOWLEDGED\x10\x05\x12\x0b\n\x07\x43LEARED\x10\x06\x12\x07\n\x03RTN\x10\x07\x12\x0b\n\x07SHELVED\x10\x08\x12\r\n\tUNSHELVED\x10\t\x12\t\n\x05RESET\x10\n*%\n\tAlarmType\x12\r\n\tPARAMETER\x10\x01\x12\t\n\x05\x45VENT\x10\x02*O\n\rAlarmSeverity\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x42#\n\x12org.yamcs.protobufB\x0b\x41larmsProtoP\x01'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,])
 
 _ALARMNOTIFICATIONTYPE = _descriptor.EnumDescriptor(
   name='AlarmNotificationType',
@@ -78,8 +77,8 @@ _ALARMNOTIFICATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2104,
-  serialized_end=2276,
+  serialized_start=1734,
+  serialized_end=1906,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMNOTIFICATIONTYPE)
 
@@ -101,8 +100,8 @@ _ALARMTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2278,
-  serialized_end=2315,
+  serialized_start=1908,
+  serialized_end=1945,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMTYPE)
 
@@ -136,8 +135,8 @@ _ALARMSEVERITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2317,
-  serialized_end=2396,
+  serialized_start=1947,
+  serialized_end=2026,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMSEVERITY)
 
@@ -162,148 +161,6 @@ SEVERE = 5
 
 
 
-_LISTALARMSREQUEST = _descriptor.Descriptor(
-  name='ListAlarmsRequest',
-  full_name='yamcs.protobuf.alarms.ListAlarmsRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.alarms.ListAlarmsRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='processor', full_name='yamcs.protobuf.alarms.ListAlarmsRequest.processor', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=246,
-  serialized_end=302,
-)
-
-
-_LISTALARMSRESPONSE = _descriptor.Descriptor(
-  name='ListAlarmsResponse',
-  full_name='yamcs.protobuf.alarms.ListAlarmsResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='alarms', full_name='yamcs.protobuf.alarms.ListAlarmsResponse.alarms', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=304,
-  serialized_end=374,
-)
-
-
-_EDITALARMREQUEST = _descriptor.Descriptor(
-  name='EditAlarmRequest',
-  full_name='yamcs.protobuf.alarms.EditAlarmRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.alarms.EditAlarmRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='processor', full_name='yamcs.protobuf.alarms.EditAlarmRequest.processor', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.alarms.EditAlarmRequest.name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='seqnum', full_name='yamcs.protobuf.alarms.EditAlarmRequest.seqnum', index=3,
-      number=4, type=13, cpp_type=3, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='state', full_name='yamcs.protobuf.alarms.EditAlarmRequest.state', index=4,
-      number=5, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='comment', full_name='yamcs.protobuf.alarms.EditAlarmRequest.comment', index=5,
-      number=6, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='shelveDuration', full_name='yamcs.protobuf.alarms.EditAlarmRequest.shelveDuration', index=6,
-      number=7, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=377,
-  serialized_end=518,
-)
-
-
 _ACKNOWLEDGEINFO = _descriptor.Descriptor(
   name='AcknowledgeInfo',
   full_name='yamcs.protobuf.alarms.AcknowledgeInfo',
@@ -326,21 +183,7 @@ _ACKNOWLEDGEINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='yamcsAcknowledgeTime', full_name='yamcs.protobuf.alarms.AcknowledgeInfo.yamcsAcknowledgeTime', index=2,
-      number=3, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\030\001', file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='acknowledgeTimeUTC', full_name='yamcs.protobuf.alarms.AcknowledgeInfo.acknowledgeTimeUTC', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=b'\030\001', file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='acknowledgeTime', full_name='yamcs.protobuf.alarms.AcknowledgeInfo.acknowledgeTime', index=4,
+      name='acknowledgeTime', full_name='yamcs.protobuf.alarms.AcknowledgeInfo.acknowledgeTime', index=2,
       number=5, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -358,8 +201,8 @@ _ACKNOWLEDGEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=521,
-  serialized_end=709,
+  serialized_start=217,
+  serialized_end=339,
 )
 
 
@@ -410,8 +253,8 @@ _SHELVEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=712,
-  serialized_end=868,
+  serialized_start=342,
+  serialized_end=498,
 )
 
 
@@ -455,8 +298,8 @@ _CLEARINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=870,
-  serialized_end=969,
+  serialized_start=500,
+  serialized_end=599,
 )
 
 
@@ -598,8 +441,8 @@ _ALARMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=972,
-  serialized_end=1681,
+  serialized_start=602,
+  serialized_end=1311,
 )
 
 
@@ -650,8 +493,8 @@ _PARAMETERALARMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1684,
-  serialized_end=1944,
+  serialized_start=1314,
+  serialized_end=1574,
 )
 
 
@@ -695,11 +538,10 @@ _EVENTALARMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1947,
-  serialized_end=2101,
+  serialized_start=1577,
+  serialized_end=1731,
 )
 
-_LISTALARMSRESPONSE.fields_by_name['alarms'].message_type = _ALARMDATA
 _ACKNOWLEDGEINFO.fields_by_name['acknowledgeTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _SHELVEINFO.fields_by_name['shelveTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _SHELVEINFO.fields_by_name['shelveExpiration'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -721,9 +563,6 @@ _PARAMETERALARMDATA.fields_by_name['parameter'].message_type = yamcs_dot_protobu
 _EVENTALARMDATA.fields_by_name['triggerEvent'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._EVENT
 _EVENTALARMDATA.fields_by_name['mostSevereEvent'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._EVENT
 _EVENTALARMDATA.fields_by_name['currentEvent'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._EVENT
-DESCRIPTOR.message_types_by_name['ListAlarmsRequest'] = _LISTALARMSREQUEST
-DESCRIPTOR.message_types_by_name['ListAlarmsResponse'] = _LISTALARMSRESPONSE
-DESCRIPTOR.message_types_by_name['EditAlarmRequest'] = _EDITALARMREQUEST
 DESCRIPTOR.message_types_by_name['AcknowledgeInfo'] = _ACKNOWLEDGEINFO
 DESCRIPTOR.message_types_by_name['ShelveInfo'] = _SHELVEINFO
 DESCRIPTOR.message_types_by_name['ClearInfo'] = _CLEARINFO
@@ -734,27 +573,6 @@ DESCRIPTOR.enum_types_by_name['AlarmNotificationType'] = _ALARMNOTIFICATIONTYPE
 DESCRIPTOR.enum_types_by_name['AlarmType'] = _ALARMTYPE
 DESCRIPTOR.enum_types_by_name['AlarmSeverity'] = _ALARMSEVERITY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
-
-ListAlarmsRequest = _reflection.GeneratedProtocolMessageType('ListAlarmsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _LISTALARMSREQUEST,
-  '__module__' : 'yamcs.protobuf.alarms.alarms_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.alarms.ListAlarmsRequest)
-  })
-_sym_db.RegisterMessage(ListAlarmsRequest)
-
-ListAlarmsResponse = _reflection.GeneratedProtocolMessageType('ListAlarmsResponse', (_message.Message,), {
-  'DESCRIPTOR' : _LISTALARMSRESPONSE,
-  '__module__' : 'yamcs.protobuf.alarms.alarms_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.alarms.ListAlarmsResponse)
-  })
-_sym_db.RegisterMessage(ListAlarmsResponse)
-
-EditAlarmRequest = _reflection.GeneratedProtocolMessageType('EditAlarmRequest', (_message.Message,), {
-  'DESCRIPTOR' : _EDITALARMREQUEST,
-  '__module__' : 'yamcs.protobuf.alarms.alarms_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.alarms.EditAlarmRequest)
-  })
-_sym_db.RegisterMessage(EditAlarmRequest)
 
 AcknowledgeInfo = _reflection.GeneratedProtocolMessageType('AcknowledgeInfo', (_message.Message,), {
   'DESCRIPTOR' : _ACKNOWLEDGEINFO,
@@ -800,39 +618,4 @@ _sym_db.RegisterMessage(EventAlarmData)
 
 
 DESCRIPTOR._options = None
-_ACKNOWLEDGEINFO.fields_by_name['yamcsAcknowledgeTime']._options = None
-_ACKNOWLEDGEINFO.fields_by_name['acknowledgeTimeUTC']._options = None
-
-_ALARMSAPI = _descriptor.ServiceDescriptor(
-  name='AlarmsApi',
-  full_name='yamcs.protobuf.alarms.AlarmsApi',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  serialized_start=2399,
-  serialized_end=2715,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='ListAlarms',
-    full_name='yamcs.protobuf.alarms.AlarmsApi.ListAlarms',
-    index=0,
-    containing_service=None,
-    input_type=_LISTALARMSREQUEST,
-    output_type=_LISTALARMSRESPONSE,
-    serialized_options=b'\212\222\003/\n-/api/processors/{instance}/{processor}/alarms',
-  ),
-  _descriptor.MethodDescriptor(
-    name='EditAlarm',
-    full_name='yamcs.protobuf.alarms.AlarmsApi.EditAlarm',
-    index=1,
-    containing_service=None,
-    input_type=_EDITALARMREQUEST,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=b'\212\222\003C*>/api/processors/{instance}/{processor}/alarms/{name*}/{seqnum}:\001*',
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_ALARMSAPI)
-
-DESCRIPTOR.services_by_name['AlarmsApi'] = _ALARMSAPI
-
 # @@protoc_insertion_point(module_scope)

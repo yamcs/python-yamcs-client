@@ -9,11 +9,7 @@ def issue_command():
     """Issue a command to turn battery 1 off."""
     command = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
         'voltage_num': 1,
-        }, comment='im a comment',
-         attributes = {
-              "extra_attribute1": "attribute_value",
-              "cop1Bypass": True
-         })
+    })
     print('Issued', command)
 
 

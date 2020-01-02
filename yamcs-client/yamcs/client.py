@@ -9,16 +9,15 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
-                         Link, LinkEvent, Processor, ServerInfo, Service,
-                         UserInfo, Cop1Status, Cop1Config)
-
+from yamcs.model import (AuthInfo, Cop1Config, Cop1Status, Event, Instance,
+                         InstanceTemplate, Link, LinkEvent, Processor,
+                         ServerInfo, Service, UserInfo)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
-from yamcs.protobuf.clients import clients_pb2
-from yamcs.protobuf.iam import iam_pb2
-from yamcs.protobuf.web import general_service_pb2, websocket_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
+from yamcs.protobuf.iam import iam_pb2
+from yamcs.protobuf.processing import processing_pb2
+from yamcs.protobuf.web import auth_pb2, general_service_pb2, websocket_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
@@ -31,7 +30,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     if message.type == message.REPLY:
         time_response = websocket_pb2.TimeSubscriptionResponse()
         time_response.ParseFromString(message.reply.data)
-        time = parse_isostring(time_response.timeInfo.currentTimeUTC)
+        time = time_response.timeInfo.currentTime.ToDatetime()
         #pylint: disable=protected-access
         subscription._process(time)
         if on_data:
@@ -39,7 +38,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     elif message.type == message.DATA:
         if message.data.type == yamcs_pb2.TIME_INFO:
             time_message = getattr(message.data, 'timeInfo')
-            time = parse_isostring(time_message.currentTimeUTC)
+            time = time_message.currentTime.ToDatetime()
             #pylint: disable=protected-access
             subscription._process(time)
             if on_data:
@@ -77,14 +76,14 @@ def _wrap_callback_parse_cop1_status(subscription, on_data, message):
     """
     Wraps a user callback to parse Cop1Status
     from a WebSocket data message
-    """    
+    """
     if message.type == message.DATA:
         if message.data.type == yamcs_pb2.COP1_STATUS:
             cop1_status = Cop1Status(getattr(message.data, 'cop1Status'))
-            #pylint: disable=protected-access            
             if on_data:
                 on_data(cop1_status)
-                
+
+
 class TimeSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to time updates.
@@ -106,7 +105,6 @@ class TimeSubscription(WebSocketSubscriptionFuture):
         self.time = time
 
 
-        
 class DataLinkSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to data link updates.
@@ -150,27 +148,13 @@ class DataLinkSubscription(WebSocketSubscriptionFuture):
 
 class Cop1Subscription(WebSocketSubscriptionFuture):
     """
-    Local object providing access to time updates.
-
-    A subscription object stores the last time info.
+    Local object providing access to COP1 status updates.
     """
 
     def __init__(self, manager):
         super(Cop1Subscription, self).__init__(manager)
 
-        self.time = None
-        """
-        The last time info.
-
-        :type: :class:`~datetime.datetime`
-        """
-
-    def _process(self, time):
-        self.time = time
-
-    def add(self,
-            instance,
-            link_name):
+    def add(self, instance, link_name):
         """
         Add one link to this subscription.
 
@@ -179,16 +163,14 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         """
 
         # Verify that we already know our assigned subscription_id
-        
+
         options = websocket_pb2.Cop1SubscriptionRequest()
         options.instance = instance
         options.linkName = link_name
 
         self._manager.send('subscribe', options)
-    
-    def remove(self,
-            instance,
-            link_name):
+
+    def remove(self, instance, link_name):
         """
         Remove one link from this subscription.
 
@@ -197,13 +179,14 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         """
 
         # Verify that we already know our assigned subscription_id
-        
+
         options = websocket_pb2.Cop1SubscriptionRequest()
         options.instance = instance
         options.linkName = link_name
 
         self._manager.send('unsubscribe', options)
-        
+
+
 class YamcsClient(BaseClient):
     """
     Client for accessing core Yamcs resources.
@@ -259,7 +242,7 @@ class YamcsClient(BaseClient):
             response = self.session.get(self.auth_root, headers={
                 'Accept': 'application/protobuf'
             })
-            message = general_service_pb2.AuthInfo()
+            message = auth_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
@@ -379,20 +362,6 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         processors = getattr(message, 'processor')
         return iter([Processor(processor) for processor in processors])
-
-    def list_clients(self):
-        """
-        Lists the clients.
-
-        :rtype: ~collections.Iterable[yamcs.model.Client]
-        """
-        # Server does not do pagination on listings of this resource.
-        # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='/clients')
-        message = clients_pb2.ListClientsResponse()
-        message.ParseFromString(response.content)
-        clients = getattr(message, 'clients')
-        return iter([Client(client) for client in clients])
 
     def get_processor(self, instance, processor):
         """

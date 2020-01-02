@@ -637,8 +637,8 @@ class ProcessorClient(object):
         :param str type: One of ``polynomial`` or ``spline``.
         :param data: Calibration definition for the selected type.
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_CALIBRATOR
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.SET_DEFAULT_CALIBRATOR
         if type:
             _add_calib(req.defaultCalibrator, type, data)
 
@@ -664,8 +664,8 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.SET_CALIBRATORS
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.SET_CALIBRATORS
         for c in calibrators:
             if c.context:
                 context_calib = req.contextCalibrator.add()
@@ -692,8 +692,8 @@ class ProcessorClient(object):
         """
         Reset all calibrators for the specified parameter to their original MDB value.
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.RESET_CALIBRATORS
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.RESET_CALIBRATORS
 
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
@@ -730,8 +730,8 @@ class ProcessorClient(object):
         :param int min_violations: Minimum violations before an alarm is
                                    generated.
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.SET_DEFAULT_ALARMS
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.SET_DEFAULT_ALARMS
         if watch or warning or distress or critical or severe:
             _add_alarms(req.defaultAlarm, watch, warning, distress, critical,
                         severe, min_violations)
@@ -759,8 +759,8 @@ class ProcessorClient(object):
                               in the format ``NAMESPACE/NAME``.
         :param .RangeSet[] sets: List of range sets (either contextual or not)
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.SET_ALARMS
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.SET_ALARMS
         for rs in sets:
             if rs.context:
                 context_alarm = req.contextAlarm.add()
@@ -788,8 +788,8 @@ class ProcessorClient(object):
         """
         Reset all alarm limits for the specified parameter to their original MDB value.
         """
-        req = mdb_pb2.ChangeParameterRequest()
-        req.action = mdb_pb2.ChangeParameterRequest.RESET_ALARMS
+        req = mdb_pb2.UpdateParameterRequest()
+        req.action = mdb_pb2.UpdateParameterRequest.RESET_ALARMS
 
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/parameters{}'.format(
@@ -1038,14 +1038,14 @@ class ProcessorClient(object):
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """
-        req = mdb_pb2.ChangeAlgorithmRequest()
-        req.action = mdb_pb2.ChangeAlgorithmRequest.SET
+        req = mdb_pb2.UpdateAlgorithmRequest()
+        req.action = mdb_pb2.UpdateAlgorithmRequest.SET
         req.algorithm.text = text
 
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/algorithms{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter):
         """
@@ -1054,10 +1054,10 @@ class ProcessorClient(object):
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """
-        req = mdb_pb2.ChangeAlgorithmRequest()
-        req.action = mdb_pb2.ChangeAlgorithmRequest.RESET
+        req = mdb_pb2.UpdateAlgorithmRequest()
+        req.action = mdb_pb2.UpdateAlgorithmRequest.RESET
 
         parameter = adapt_name_for_rest(parameter)
         url = '/mdb/{}/{}/algorithms{}'.format(
             self._instance, self._processor, parameter)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self._client.patch_proto(url, data=req.SerializeToString())

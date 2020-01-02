@@ -300,6 +300,13 @@ class MonitoredCommand(IssuedCommand):
         ack = self._assemble_ack('CommandComplete')
         return ack and (ack.status == 'OK' or ack.status == 'NOK')
 
+    def is_success(self):
+        """
+        Returns true if this command was completed successfully.
+        """
+        ack = self._assemble_ack('CommandComplete')
+        return ack and ack.status == 'OK'
+
     def await_complete(self, timeout=None):
         """
         Wait for the command to be completed.
