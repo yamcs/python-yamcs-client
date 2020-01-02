@@ -9,7 +9,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.mdb.client import MDBClient
-from yamcs.model import (AuthInfo, Client, Event, Instance, InstanceTemplate,
+from yamcs.model import (AuthInfo, Event, Instance, InstanceTemplate,
                          Link, LinkEvent, Processor, ServerInfo, Service,
                          UserInfo, Cop1Status, Cop1Config)
 
@@ -17,7 +17,7 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.clients import clients_pb2
 from yamcs.protobuf.iam import iam_pb2
-from yamcs.protobuf.web import general_service_pb2, websocket_pb2
+from yamcs.protobuf.web import auth_pb2, general_service_pb2, websocket_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
@@ -259,7 +259,7 @@ class YamcsClient(BaseClient):
             response = self.session.get(self.auth_root, headers={
                 'Accept': 'application/protobuf'
             })
-            message = general_service_pb2.AuthInfo()
+            message = auth_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
@@ -379,20 +379,6 @@ class YamcsClient(BaseClient):
         message.ParseFromString(response.content)
         processors = getattr(message, 'processor')
         return iter([Processor(processor) for processor in processors])
-
-    def list_clients(self):
-        """
-        Lists the clients.
-
-        :rtype: ~collections.Iterable[yamcs.model.Client]
-        """
-        # Server does not do pagination on listings of this resource.
-        # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='/clients')
-        message = clients_pb2.ListClientsResponse()
-        message.ParseFromString(response.content)
-        clients = getattr(message, 'clients')
-        return iter([Client(client) for client in clients])
 
     def get_processor(self, instance, processor):
         """

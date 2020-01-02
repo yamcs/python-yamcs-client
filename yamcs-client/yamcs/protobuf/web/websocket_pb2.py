@@ -17,7 +17,6 @@ from yamcs.protobuf.clients import clients_pb2 as yamcs_dot_protobuf_dot_clients
 from yamcs.protobuf.commanding import commanding_pb2 as yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2
 from yamcs.protobuf.pvalue import pvalue_pb2 as yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2
 from yamcs.protobuf.alarms import alarms_pb2 as yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2
-from yamcs.protobuf.iam import iam_pb2 as yamcs_dot_protobuf_dot_iam_dot_iam__pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2 as yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2
 from yamcs.protobuf.cop1 import cop1_pb2 as yamcs_dot_protobuf_dot_cop1_dot_cop1__pb2
 
@@ -27,9 +26,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.web',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\016WebSocketProtoP\001',
-  serialized_pb=b'\n\"yamcs/protobuf/web/websocket.proto\x12\x12yamcs.protobuf.web\x1a\x1ayamcs/protobuf/yamcs.proto\x1a yamcs/protobuf/table/table.proto\x1a$yamcs/protobuf/clients/clients.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a\x1cyamcs/protobuf/iam/iam.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x1a\x1eyamcs/protobuf/cop1/cop1.proto\"|\n\x16WebSocketClientMessage\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\r\x12\x10\n\x08resource\x18\x03 \x01(\t\x12\x11\n\toperation\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\"\xc5\r\n\x16WebSocketServerMessage\x12\x44\n\x04type\x18\x01 \x01(\x0e\x32\x36.yamcs.protobuf.web.WebSocketServerMessage.MessageType\x12L\n\x05reply\x18\x02 \x01(\x0b\x32=.yamcs.protobuf.web.WebSocketServerMessage.WebSocketReplyData\x12T\n\texception\x18\x03 \x01(\x0b\x32\x41.yamcs.protobuf.web.WebSocketServerMessage.WebSocketExceptionData\x12R\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x44.yamcs.protobuf.web.WebSocketServerMessage.WebSocketSubscriptionData\x1ar\n\x12WebSocketReplyData\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\x05\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\x1av\n\x16WebSocketExceptionData\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\x05\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\x1a\xcd\x08\n\x19WebSocketSubscriptionData\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\r\x12+\n\x04type\x18\x02 \x01(\x0e\x32\x1d.yamcs.protobuf.ProtoDataType\x12;\n\rparameterData\x18\x03 \x01(\x0b\x32$.yamcs.protobuf.pvalue.ParameterData\x12?\n\x07\x63ommand\x18\x04 \x01(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x44\n\rprocessorInfo\x18\x05 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\x12\x36\n\nclientInfo\x18\x06 \x01(\x0b\x32\".yamcs.protobuf.clients.ClientInfo\x12>\n\nstatistics\x18\x07 \x01(\x0b\x32*.yamcs.protobuf.yamcsManagement.Statistics\x12$\n\x05\x65vent\x18\x08 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12\x34\n\nstreamData\x18\t \x01(\x0b\x32 .yamcs.protobuf.table.StreamData\x12\x33\n\talarmData\x18\n \x01(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\x12*\n\x08timeInfo\x18\x0b \x01(\x0b\x32\x18.yamcs.protobuf.TimeInfo\x12<\n\tlinkEvent\x18\x0c \x01(\x0b\x32).yamcs.protobuf.yamcsManagement.LinkEvent\x12\x45\n\x10\x63ommandQueueInfo\x18\r \x01(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\x12G\n\x11\x63ommandQueueEvent\x18\x0e \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEvent\x12.\n\x08tmPacket\x18\x0f \x01(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12:\n\x0e\x63onnectionInfo\x18\x10 \x01(\x0b\x32\".yamcs.protobuf.web.ConnectionInfo\x12@\n\x0bstreamEvent\x18\x11 \x01(\x0b\x32+.yamcs.protobuf.yamcsManagement.StreamEvent\x12\x33\n\ncop1Status\x18\x12 \x01(\x0b\x32\x1f.yamcs.protobuf.cop1.Cop1Status\x12\x41\n\rextensionData\x18\x64 \x01(\x0b\x32*.yamcs.protobuf.web.WebSocketExtensionData\"1\n\x0bMessageType\x12\t\n\x05REPLY\x10\x02\x12\r\n\tEXCEPTION\x10\x03\x12\x08\n\x04\x44\x41TA\x10\x04\"4\n\x16WebSocketExtensionData\x12\x0c\n\x04type\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"+\n\x17LinkSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\".\n\x1aStreamsSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"+\n\x17\x43\x66\x64pSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"=\n\x17\x43op1SubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08linkName\x18\x02 \x01(\t\"K\n\x1cProcessorSubscriptionRequest\x12\x15\n\rallProcessors\x18\x01 \x01(\x08\x12\x14\n\x0c\x61llInstances\x18\x02 \x01(\x08\"P\n\x1dManagementSubscriptionRequest\x12\x12\n\nclientInfo\x18\x01 \x01(\x08\x12\x1b\n\x13processorStatistics\x18\x03 \x01(\x08\"+\n\x19StreamSubscriptionRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"*\n\x18\x41larmSubscriptionRequest\x12\x0e\n\x06\x64\x65tail\x18\x01 \x01(\x08\"|\n!CommandHistorySubscriptionRequest\x12;\n\tcommandId\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.commanding.CommandIdB\x02\x18\x01\x12\x1a\n\x12ignorePastCommands\x18\x02 \x01(\x08\"\xc3\x01\n\x1cParameterSubscriptionRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x02 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x03 \x01(\x08\x12\x15\n\rsendFromCache\x18\x04 \x01(\x08\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\x12\x15\n\ruseNumericIds\x18\x06 \x01(\x08\"S\n\x13SubscribedParameter\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnumericId\x18\x02 \x01(\r\"\xa4\x01\n\x1dParameterSubscriptionResponse\x12.\n\x07invalid\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0esubscriptionId\x18\x03 \x01(\x05\x12;\n\nsubscribed\x18\x04 \x03(\x0b\x32\'.yamcs.protobuf.web.SubscribedParameter\"F\n\x18TimeSubscriptionResponse\x12*\n\x08timeInfo\x18\x01 \x01(\x0b\x32\x18.yamcs.protobuf.TimeInfo\"a\n\x1dProcessorSubscriptionResponse\x12@\n\tprocessor\x18\x01 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"\xa5\x01\n\x0e\x43onnectionInfo\x12\x10\n\x08\x63lientId\x18\x01 \x01(\x05\x12?\n\x08instance\x18\x02 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\x12@\n\tprocessor\x18\x03 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"k\n\x08\x41uthFlow\x12/\n\x04type\x18\x01 \x01(\x0e\x32!.yamcs.protobuf.web.AuthFlow.Type\".\n\x04Type\x12\x0c\n\x08PASSWORD\x10\x01\x12\x0c\n\x08REDIRECT\x10\x02\x12\n\n\x06SPNEGO\x10\x03\"U\n\x08\x41uthInfo\x12\x1d\n\x15requireAuthentication\x18\x01 \x01(\x08\x12*\n\x04\x66low\x18\x02 \x03(\x0b\x32\x1c.yamcs.protobuf.web.AuthFlow\"\x90\x01\n\rTokenResponse\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x12\n\ntoken_type\x18\x02 \x01(\t\x12\x12\n\nexpires_in\x18\x03 \x01(\x05\x12\x15\n\rrefresh_token\x18\x04 \x01(\t\x12*\n\x04user\x18\x05 \x01(\x0b\x32\x1c.yamcs.protobuf.iam.UserInfoB&\n\x12org.yamcs.protobufB\x0eWebSocketProtoP\x01'
+  serialized_pb=b'\n\"yamcs/protobuf/web/websocket.proto\x12\x12yamcs.protobuf.web\x1a\x1ayamcs/protobuf/yamcs.proto\x1a yamcs/protobuf/table/table.proto\x1a$yamcs/protobuf/clients/clients.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x1a\x1eyamcs/protobuf/cop1/cop1.proto\"|\n\x16WebSocketClientMessage\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\r\x12\x10\n\x08resource\x18\x03 \x01(\t\x12\x11\n\toperation\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\"\xc5\r\n\x16WebSocketServerMessage\x12\x44\n\x04type\x18\x01 \x01(\x0e\x32\x36.yamcs.protobuf.web.WebSocketServerMessage.MessageType\x12L\n\x05reply\x18\x02 \x01(\x0b\x32=.yamcs.protobuf.web.WebSocketServerMessage.WebSocketReplyData\x12T\n\texception\x18\x03 \x01(\x0b\x32\x41.yamcs.protobuf.web.WebSocketServerMessage.WebSocketExceptionData\x12R\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x44.yamcs.protobuf.web.WebSocketServerMessage.WebSocketSubscriptionData\x1ar\n\x12WebSocketReplyData\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\x05\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\x1av\n\x16WebSocketExceptionData\x12\x17\n\x0fprotocolVersion\x18\x01 \x01(\r\x12\x16\n\x0esequenceNumber\x18\x02 \x01(\x05\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0f\n\x07message\x18\x04 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x05 \x01(\x0c\x1a\xcd\x08\n\x19WebSocketSubscriptionData\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\r\x12+\n\x04type\x18\x02 \x01(\x0e\x32\x1d.yamcs.protobuf.ProtoDataType\x12;\n\rparameterData\x18\x03 \x01(\x0b\x32$.yamcs.protobuf.pvalue.ParameterData\x12?\n\x07\x63ommand\x18\x04 \x01(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x44\n\rprocessorInfo\x18\x05 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\x12\x36\n\nclientInfo\x18\x06 \x01(\x0b\x32\".yamcs.protobuf.clients.ClientInfo\x12>\n\nstatistics\x18\x07 \x01(\x0b\x32*.yamcs.protobuf.yamcsManagement.Statistics\x12$\n\x05\x65vent\x18\x08 \x01(\x0b\x32\x15.yamcs.protobuf.Event\x12\x34\n\nstreamData\x18\t \x01(\x0b\x32 .yamcs.protobuf.table.StreamData\x12\x33\n\talarmData\x18\n \x01(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\x12*\n\x08timeInfo\x18\x0b \x01(\x0b\x32\x18.yamcs.protobuf.TimeInfo\x12<\n\tlinkEvent\x18\x0c \x01(\x0b\x32).yamcs.protobuf.yamcsManagement.LinkEvent\x12\x45\n\x10\x63ommandQueueInfo\x18\r \x01(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\x12G\n\x11\x63ommandQueueEvent\x18\x0e \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEvent\x12.\n\x08tmPacket\x18\x0f \x01(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12:\n\x0e\x63onnectionInfo\x18\x10 \x01(\x0b\x32\".yamcs.protobuf.web.ConnectionInfo\x12@\n\x0bstreamEvent\x18\x11 \x01(\x0b\x32+.yamcs.protobuf.yamcsManagement.StreamEvent\x12\x33\n\ncop1Status\x18\x12 \x01(\x0b\x32\x1f.yamcs.protobuf.cop1.Cop1Status\x12\x41\n\rextensionData\x18\x64 \x01(\x0b\x32*.yamcs.protobuf.web.WebSocketExtensionData\"1\n\x0bMessageType\x12\t\n\x05REPLY\x10\x02\x12\r\n\tEXCEPTION\x10\x03\x12\x08\n\x04\x44\x41TA\x10\x04\"4\n\x16WebSocketExtensionData\x12\x0c\n\x04type\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"+\n\x17LinkSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\".\n\x1aStreamsSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"+\n\x17\x43\x66\x64pSubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"=\n\x17\x43op1SubscriptionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08linkName\x18\x02 \x01(\t\"K\n\x1cProcessorSubscriptionRequest\x12\x15\n\rallProcessors\x18\x01 \x01(\x08\x12\x14\n\x0c\x61llInstances\x18\x02 \x01(\x08\"P\n\x1dManagementSubscriptionRequest\x12\x12\n\nclientInfo\x18\x01 \x01(\x08\x12\x1b\n\x13processorStatistics\x18\x03 \x01(\x08\"+\n\x19StreamSubscriptionRequest\x12\x0e\n\x06stream\x18\x01 \x01(\t\"*\n\x18\x41larmSubscriptionRequest\x12\x0e\n\x06\x64\x65tail\x18\x01 \x01(\x08\"|\n!CommandHistorySubscriptionRequest\x12;\n\tcommandId\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.commanding.CommandIdB\x02\x18\x01\x12\x1a\n\x12ignorePastCommands\x18\x02 \x01(\x08\"\xc3\x01\n\x1cParameterSubscriptionRequest\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x02 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x03 \x01(\x08\x12\x15\n\rsendFromCache\x18\x04 \x01(\x08\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\x12\x15\n\ruseNumericIds\x18\x06 \x01(\x08\"S\n\x13SubscribedParameter\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tnumericId\x18\x02 \x01(\r\"\xa4\x01\n\x1dParameterSubscriptionResponse\x12.\n\x07invalid\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0esubscriptionId\x18\x03 \x01(\x05\x12;\n\nsubscribed\x18\x04 \x03(\x0b\x32\'.yamcs.protobuf.web.SubscribedParameter\"F\n\x18TimeSubscriptionResponse\x12*\n\x08timeInfo\x18\x01 \x01(\x0b\x32\x18.yamcs.protobuf.TimeInfo\"a\n\x1dProcessorSubscriptionResponse\x12@\n\tprocessor\x18\x01 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"\xa5\x01\n\x0e\x43onnectionInfo\x12\x10\n\x08\x63lientId\x18\x01 \x01(\x05\x12?\n\x08instance\x18\x02 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.YamcsInstance\x12@\n\tprocessor\x18\x03 \x01(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfoB&\n\x12org.yamcs.protobufB\x0eWebSocketProtoP\x01'
   ,
-  dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_table_dot_table__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_clients_dot_clients__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_iam_dot_iam__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_cop1_dot_cop1__pb2.DESCRIPTOR,])
+  dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_table_dot_table__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_clients_dot_clients__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_cop1_dot_cop1__pb2.DESCRIPTOR,])
 
 
 
@@ -54,36 +53,10 @@ _WEBSOCKETSERVERMESSAGE_MESSAGETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2201,
-  serialized_end=2250,
+  serialized_start=2171,
+  serialized_end=2220,
 )
 _sym_db.RegisterEnumDescriptor(_WEBSOCKETSERVERMESSAGE_MESSAGETYPE)
-
-_AUTHFLOW_TYPE = _descriptor.EnumDescriptor(
-  name='Type',
-  full_name='yamcs.protobuf.web.AuthFlow.Type',
-  filename=None,
-  file=DESCRIPTOR,
-  values=[
-    _descriptor.EnumValueDescriptor(
-      name='PASSWORD', index=0, number=1,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='REDIRECT', index=1, number=2,
-      serialized_options=None,
-      type=None),
-    _descriptor.EnumValueDescriptor(
-      name='SPNEGO', index=2, number=3,
-      serialized_options=None,
-      type=None),
-  ],
-  containing_type=None,
-  serialized_options=None,
-  serialized_start=3731,
-  serialized_end=3777,
-)
-_sym_db.RegisterEnumDescriptor(_AUTHFLOW_TYPE)
 
 
 _WEBSOCKETCLIENTMESSAGE = _descriptor.Descriptor(
@@ -140,8 +113,8 @@ _WEBSOCKETCLIENTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=390,
-  serialized_end=514,
+  serialized_start=360,
+  serialized_end=484,
 )
 
 
@@ -199,8 +172,8 @@ _WEBSOCKETSERVERMESSAGE_WEBSOCKETREPLYDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=861,
-  serialized_end=975,
+  serialized_start=831,
+  serialized_end=945,
 )
 
 _WEBSOCKETSERVERMESSAGE_WEBSOCKETEXCEPTIONDATA = _descriptor.Descriptor(
@@ -257,8 +230,8 @@ _WEBSOCKETSERVERMESSAGE_WEBSOCKETEXCEPTIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=977,
-  serialized_end=1095,
+  serialized_start=947,
+  serialized_end=1065,
 )
 
 _WEBSOCKETSERVERMESSAGE_WEBSOCKETSUBSCRIPTIONDATA = _descriptor.Descriptor(
@@ -413,8 +386,8 @@ _WEBSOCKETSERVERMESSAGE_WEBSOCKETSUBSCRIPTIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1098,
-  serialized_end=2199,
+  serialized_start=1068,
+  serialized_end=2169,
 )
 
 _WEBSOCKETSERVERMESSAGE = _descriptor.Descriptor(
@@ -465,8 +438,8 @@ _WEBSOCKETSERVERMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=517,
-  serialized_end=2250,
+  serialized_start=487,
+  serialized_end=2220,
 )
 
 
@@ -503,8 +476,8 @@ _WEBSOCKETEXTENSIONDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2252,
-  serialized_end=2304,
+  serialized_start=2222,
+  serialized_end=2274,
 )
 
 
@@ -534,8 +507,8 @@ _LINKSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2306,
-  serialized_end=2349,
+  serialized_start=2276,
+  serialized_end=2319,
 )
 
 
@@ -565,8 +538,8 @@ _STREAMSSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2351,
-  serialized_end=2397,
+  serialized_start=2321,
+  serialized_end=2367,
 )
 
 
@@ -596,8 +569,8 @@ _CFDPSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2399,
-  serialized_end=2442,
+  serialized_start=2369,
+  serialized_end=2412,
 )
 
 
@@ -634,8 +607,8 @@ _COP1SUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2444,
-  serialized_end=2505,
+  serialized_start=2414,
+  serialized_end=2475,
 )
 
 
@@ -672,8 +645,8 @@ _PROCESSORSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2507,
-  serialized_end=2582,
+  serialized_start=2477,
+  serialized_end=2552,
 )
 
 
@@ -710,8 +683,8 @@ _MANAGEMENTSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2584,
-  serialized_end=2664,
+  serialized_start=2554,
+  serialized_end=2634,
 )
 
 
@@ -741,8 +714,8 @@ _STREAMSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2666,
-  serialized_end=2709,
+  serialized_start=2636,
+  serialized_end=2679,
 )
 
 
@@ -772,8 +745,8 @@ _ALARMSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2711,
-  serialized_end=2753,
+  serialized_start=2681,
+  serialized_end=2723,
 )
 
 
@@ -810,8 +783,8 @@ _COMMANDHISTORYSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2755,
-  serialized_end=2879,
+  serialized_start=2725,
+  serialized_end=2849,
 )
 
 
@@ -876,8 +849,8 @@ _PARAMETERSUBSCRIPTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2882,
-  serialized_end=3077,
+  serialized_start=2852,
+  serialized_end=3047,
 )
 
 
@@ -914,8 +887,8 @@ _SUBSCRIBEDPARAMETER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3079,
-  serialized_end=3162,
+  serialized_start=3049,
+  serialized_end=3132,
 )
 
 
@@ -959,8 +932,8 @@ _PARAMETERSUBSCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3165,
-  serialized_end=3329,
+  serialized_start=3135,
+  serialized_end=3299,
 )
 
 
@@ -990,8 +963,8 @@ _TIMESUBSCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3331,
-  serialized_end=3401,
+  serialized_start=3301,
+  serialized_end=3371,
 )
 
 
@@ -1021,8 +994,8 @@ _PROCESSORSUBSCRIPTIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3403,
-  serialized_end=3500,
+  serialized_start=3373,
+  serialized_end=3470,
 )
 
 
@@ -1066,137 +1039,8 @@ _CONNECTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3503,
-  serialized_end=3668,
-)
-
-
-_AUTHFLOW = _descriptor.Descriptor(
-  name='AuthFlow',
-  full_name='yamcs.protobuf.web.AuthFlow',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.web.AuthFlow.type', index=0,
-      number=1, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-    _AUTHFLOW_TYPE,
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3670,
-  serialized_end=3777,
-)
-
-
-_AUTHINFO = _descriptor.Descriptor(
-  name='AuthInfo',
-  full_name='yamcs.protobuf.web.AuthInfo',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='requireAuthentication', full_name='yamcs.protobuf.web.AuthInfo.requireAuthentication', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='flow', full_name='yamcs.protobuf.web.AuthInfo.flow', index=1,
-      number=2, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3779,
-  serialized_end=3864,
-)
-
-
-_TOKENRESPONSE = _descriptor.Descriptor(
-  name='TokenResponse',
-  full_name='yamcs.protobuf.web.TokenResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='access_token', full_name='yamcs.protobuf.web.TokenResponse.access_token', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='token_type', full_name='yamcs.protobuf.web.TokenResponse.token_type', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='expires_in', full_name='yamcs.protobuf.web.TokenResponse.expires_in', index=2,
-      number=3, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='refresh_token', full_name='yamcs.protobuf.web.TokenResponse.refresh_token', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='user', full_name='yamcs.protobuf.web.TokenResponse.user', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=3867,
-  serialized_end=4011,
+  serialized_start=3473,
+  serialized_end=3638,
 )
 
 _WEBSOCKETSERVERMESSAGE_WEBSOCKETREPLYDATA.containing_type = _WEBSOCKETSERVERMESSAGE
@@ -1234,10 +1078,6 @@ _TIMESUBSCRIPTIONRESPONSE.fields_by_name['timeInfo'].message_type = yamcs_dot_pr
 _PROCESSORSUBSCRIPTIONRESPONSE.fields_by_name['processor'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._PROCESSORINFO
 _CONNECTIONINFO.fields_by_name['instance'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._YAMCSINSTANCE
 _CONNECTIONINFO.fields_by_name['processor'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._PROCESSORINFO
-_AUTHFLOW.fields_by_name['type'].enum_type = _AUTHFLOW_TYPE
-_AUTHFLOW_TYPE.containing_type = _AUTHFLOW
-_AUTHINFO.fields_by_name['flow'].message_type = _AUTHFLOW
-_TOKENRESPONSE.fields_by_name['user'].message_type = yamcs_dot_protobuf_dot_iam_dot_iam__pb2._USERINFO
 DESCRIPTOR.message_types_by_name['WebSocketClientMessage'] = _WEBSOCKETCLIENTMESSAGE
 DESCRIPTOR.message_types_by_name['WebSocketServerMessage'] = _WEBSOCKETSERVERMESSAGE
 DESCRIPTOR.message_types_by_name['WebSocketExtensionData'] = _WEBSOCKETEXTENSIONDATA
@@ -1256,9 +1096,6 @@ DESCRIPTOR.message_types_by_name['ParameterSubscriptionResponse'] = _PARAMETERSU
 DESCRIPTOR.message_types_by_name['TimeSubscriptionResponse'] = _TIMESUBSCRIPTIONRESPONSE
 DESCRIPTOR.message_types_by_name['ProcessorSubscriptionResponse'] = _PROCESSORSUBSCRIPTIONRESPONSE
 DESCRIPTOR.message_types_by_name['ConnectionInfo'] = _CONNECTIONINFO
-DESCRIPTOR.message_types_by_name['AuthFlow'] = _AUTHFLOW
-DESCRIPTOR.message_types_by_name['AuthInfo'] = _AUTHINFO
-DESCRIPTOR.message_types_by_name['TokenResponse'] = _TOKENRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 WebSocketClientMessage = _reflection.GeneratedProtocolMessageType('WebSocketClientMessage', (_message.Message,), {
@@ -1410,27 +1247,6 @@ ConnectionInfo = _reflection.GeneratedProtocolMessageType('ConnectionInfo', (_me
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ConnectionInfo)
   })
 _sym_db.RegisterMessage(ConnectionInfo)
-
-AuthFlow = _reflection.GeneratedProtocolMessageType('AuthFlow', (_message.Message,), {
-  'DESCRIPTOR' : _AUTHFLOW,
-  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.AuthFlow)
-  })
-_sym_db.RegisterMessage(AuthFlow)
-
-AuthInfo = _reflection.GeneratedProtocolMessageType('AuthInfo', (_message.Message,), {
-  'DESCRIPTOR' : _AUTHINFO,
-  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.AuthInfo)
-  })
-_sym_db.RegisterMessage(AuthInfo)
-
-TokenResponse = _reflection.GeneratedProtocolMessageType('TokenResponse', (_message.Message,), {
-  'DESCRIPTOR' : _TOKENRESPONSE,
-  '__module__' : 'yamcs.protobuf.web.websocket_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.TokenResponse)
-  })
-_sym_db.RegisterMessage(TokenResponse)
 
 
 DESCRIPTOR._options = None

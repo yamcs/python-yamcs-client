@@ -9,7 +9,7 @@ from yamcs.core.helpers import to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.archive import archive_pb2
+from yamcs.protobuf.archive import archive_pb2, index_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.protobuf.web import websocket_pb2
@@ -73,7 +73,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/packet-index'.format(self._instance),
             params=params,
-            response_class=archive_pb2.IndexResponse,
+            response_class=index_service_pb2.IndexResponse,
             items_key='group',
             item_mapper=IndexGroup,
         )
@@ -117,7 +117,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/parameter-index'.format(self._instance),
             params=params,
-            response_class=archive_pb2.IndexResponse,
+            response_class=index_service_pb2.IndexResponse,
             items_key='group',
             item_mapper=IndexGroup,
         )
@@ -161,7 +161,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/event-index'.format(self._instance),
             params=params,
-            response_class=archive_pb2.IndexResponse,
+            response_class=index_service_pb2.IndexResponse,
             items_key='group',
             item_mapper=IndexGroup,
         )
@@ -190,7 +190,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/command-index'.format(self._instance),
             params=params,
-            response_class=archive_pb2.IndexResponse,
+            response_class=index_service_pb2.IndexResponse,
             items_key='group',
             item_mapper=IndexGroup,
         )
@@ -214,7 +214,7 @@ class ArchiveClient(object):
             client=self._client,
             path='/archive/{}/completeness-index'.format(self._instance),
             params=params,
-            response_class=archive_pb2.IndexResponse,
+            response_class=index_service_pb2.IndexResponse,
             items_key='group',
             item_mapper=IndexGroup,
         )
@@ -575,11 +575,11 @@ class ArchiveClient(object):
         return response.iter_content(chunk_size=chunk_size)
 
     def load_table(self, table, data):
-        path = '/archive/{}/tables/{}/data'.format(self._instance, table)
+        path = '/archive/{}/tables/{}:writeRows'.format(self._instance, table)
         response = self._client.post_proto(path=path, data=data)
-        message = table_pb2.TableLoadResponse()
+        message = table_pb2.WriteRowsResponse()
         message.ParseFromString(response.content)
-        return message.rowsLoaded
+        return message.count
 
     def list_streams(self):
         """
