@@ -535,7 +535,7 @@ class ProcessorClient(object):
             self._instance, self._processor)
         self._client.post_proto(url, data=req.SerializeToString())
 
-    def issue_command(self, command, args=None, dry_run=False, comment=None):
+    def issue_command(self, command, args=None, dry_run=False, comment=None, attributes=None):
         """
         Issue the given command
 
@@ -547,6 +547,11 @@ class ProcessorClient(object):
                              errors when preparing the command (for example
                              because an argument is missing).
         :param str comment: Comment attached to the command.
+        :param dict attributes: named extra attributes that will be added to the command history.
+                                Might be used by the processor or data links to change
+                                the way the command is processed.
+                                For example when commanding over a frame link where the COP1 protocol is used,
+                                the cop1Bypass attribute can be used to by-pass the COP1 stack (the command will be sent into a so called Type-BD frame)
         :return: An object providing access to properties of the newly issued
                  command.
         :rtype: .IssuedCommand
@@ -561,6 +566,12 @@ class ProcessorClient(object):
                 assignment = req.assignment.add()
                 assignment.name = key
                 assignment.value = str(args[key])
+
+        if attributes:
+            for key in attributes:
+                attr = req.attribute.add()
+                attr.name = key
+                attr.value.MergeFrom(_build_value_proto(attributes[key]))
 
         command = adapt_name_for_rest(command)
         url = '/processors/{}/{}/commands{}'.format(
