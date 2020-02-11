@@ -1,13 +1,15 @@
 import functools
 
 import requests
+from google.protobuf import timestamp_pb2
 
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
-from yamcs.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.core.subscriptions import (WebSocketSubscriptionManager,
+                                      WebSocketSubscriptionManagerV2)
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (AuthInfo, Cop1Config, Cop1Status, Event, Instance,
                          InstanceTemplate, Link, LinkEvent, Processor,
@@ -17,6 +19,7 @@ from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.processing import processing_pb2
+from yamcs.protobuf.time import time_service_pb2
 from yamcs.protobuf.web import auth_pb2, general_service_pb2, websocket_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
@@ -27,22 +30,14 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     Wraps a user callback to parse TimeInfo
     from a WebSocket data message
     """
-    if message.type == message.REPLY:
-        time_response = websocket_pb2.TimeSubscriptionResponse()
-        time_response.ParseFromString(message.reply.data)
-        time = time_response.timeInfo.currentTime.ToDatetime()
-        #pylint: disable=protected-access
-        subscription._process(time)
-        if on_data:
-            on_data(time)
-    elif message.type == message.DATA:
-        if message.data.type == yamcs_pb2.TIME_INFO:
-            time_message = getattr(message.data, 'timeInfo')
-            time = time_message.currentTime.ToDatetime()
-            #pylint: disable=protected-access
-            subscription._process(time)
-            if on_data:
-                on_data(time)
+    time_message = timestamp_pb2.Timestamp()
+    message.Unpack(time_message)
+    #pylint: disable=no-member
+    time = time_message.ToDatetime()
+    #pylint: disable=protected-access
+    subscription._process(time)
+    if on_data:
+        on_data(time)
 
 
 def _wrap_callback_parse_event(on_data, message):
@@ -53,7 +48,6 @@ def _wrap_callback_parse_event(on_data, message):
     if message.type == message.DATA:
         if message.data.type == yamcs_pb2.EVENT:
             event = Event(getattr(message.data, 'event'))
-            #pylint: disable=protected-access
             on_data(event)
 
 
@@ -150,9 +144,6 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to COP1 status updates.
     """
-
-    def __init__(self, manager):
-        super(Cop1Subscription, self).__init__(manager)
 
     def add(self, instance, link_name):
         """
@@ -571,7 +562,9 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .TimeSubscription
         """
-        manager = WebSocketSubscriptionManager(self, resource='time')
+        options = time_service_pb2.SubscribeTimeRequest()
+        options.instance = instance
+        manager = WebSocketSubscriptionManagerV2(self, topic='time', options=options)
 
         # Represent subscription as a future
         subscription = TimeSubscription(manager)
@@ -579,7 +572,7 @@ class YamcsClient(BaseClient):
         wrapped_callback = functools.partial(
             _wrap_callback_parse_time_info, subscription, on_data)
 
-        manager.open(wrapped_callback, instance)
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -633,22 +626,21 @@ class YamcsClient(BaseClient):
         message = cop1_pb2.Cop1Config()
         message.ParseFromString(response.content)
         return Cop1Config(message)
-    
+
     def set_cop1_config(self, instance, link, cop1_config):
         """
         Sets the COP1 configuration for a data link.
 
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
-        :param Cop1Config cop1_config: The config to be set        
+        :param Cop1Config cop1_config: The config to be set
         """
-        req = cop1_pb2.SetConfigRequest()        
+        req = cop1_pb2.SetConfigRequest()
         req.cop1Config.CopyFrom(cop1_config._proto)
-                
-        
+
         url = '/cop1/{}/{}/config'.format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
-    
+
     def disable_cop1(self, instance, link, set_bypass_all=True):
         """
         Disable COP1 for a data link.
@@ -661,7 +653,7 @@ class YamcsClient(BaseClient):
         req.setBypassAll = set_bypass_all
         url = '/cop1/{}/{}:disable'.format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
-    
+
     def initialize_cop1(self, instance, link, type, clcw_wait_timeout=None, v_r=None):
         """
         Initialize COP1.
@@ -674,15 +666,15 @@ class YamcsClient(BaseClient):
         """
         req = cop1_pb2.InitializeRequest()
         req.type = cop1_pb2.InitializationType.Value(type)
-        
+
         if clcw_wait_timeout is not None:
-            req.clcwCheckInitializeTimeout = int(1000*clcw_wait_timeout)
+            req.clcwCheckInitializeTimeout = int(1000 * clcw_wait_timeout)
         if v_r is not None:
             req.vR = v_r
-        
+
         url = '/cop1/{}/{}:initialize'.format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
-    
+
     def resume_cop1(self, instance, link, set_bypass_all=True):
         """
         Disable COP1 for a data link.
@@ -691,10 +683,10 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
         """
-        req = cop1_pb2.ResumeRequest()        
+        req = cop1_pb2.ResumeRequest()
         url = '/cop1/{}/{}:resume'.format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
-        
+
     def get_cop1_status(self, instance, link):
         """
         Gets the COP1 status for a data link.
@@ -707,8 +699,7 @@ class YamcsClient(BaseClient):
         message = cop1_pb2.Cop1Status()
         message.ParseFromString(response.content)
         return Cop1Status(message)
-    
-    
+
     def create_cop1_subscription(self, instance, linkName, on_data, timeout=60):
         """
         Create a new subscription for receiving status of the COP1 link.
@@ -731,11 +722,10 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .Cop1Subscription
         """
-        
         options = websocket_pb2.Cop1SubscriptionRequest()
         options.instance = instance
-        options.linkName = linkName        
-        
+        options.linkName = linkName
+
         manager = WebSocketSubscriptionManager(self, resource='cop1', options=options)
 
         # Represent subscription as a future

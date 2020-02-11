@@ -24,10 +24,12 @@ class BaseClient(object):
             self.auth_root = 'https://{}/auth'.format(self.address)
             self.api_root = 'https://{}/api'.format(self.address)
             self.ws_root = 'wss://{}/_websocket'.format(self.address)
+            self.ws_root_v2 = 'wss://{}/api/websocket'.format(self.address)
         else:
             self.auth_root = 'http://{}/auth'.format(self.address)
             self.api_root = 'http://{}/api'.format(self.address)
             self.ws_root = 'ws://{}/_websocket'.format(self.address)
+            self.ws_root_v2 = 'ws://{}/api/websocket'.format(self.address)
 
         self.session = requests.Session()
         if not tls_verify:
@@ -104,9 +106,9 @@ class BaseClient(object):
             raise Unauthorized('401 Client Error: Unauthorized')
         elif response.status_code == 404:
             raise NotFound('404 Client Error: {}'.format(
-                exception_message.msg))
+                getattr(exception_message, 'msg')))
         elif 400 <= response.status_code < 500:
             raise YamcsError('{} Client Error: {}'.format(
-                response.status_code, exception_message.msg))
+                response.status_code, getattr(exception_message, 'msg')))
         raise YamcsError('{} Server Error: {}'.format(
-            response.status_code, exception_message.msg))
+            response.status_code, getattr(exception_message, 'msg')))

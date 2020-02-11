@@ -1,7 +1,10 @@
+from __future__ import division
+
 from yamcs.core.helpers import parse_isostring
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
+from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
+
 
 class AuthInfo(object):
     """
@@ -416,31 +419,32 @@ class Cop1Status(object):
     def state(self):
         if self._proto.HasField('state'):
             return cop1_pb2.Cop1State.Name(self._proto.state)
-    
+        return None
+
     @property
     def set_bypass_all(self):
-      if self._proto.HasField('setBypassAll'):
+        if self._proto.HasField('setBypassAll'):
             return self._proto.setBypassAll
-        
+        return None
+
     @property
     def v_S(self):
         if self._proto.HasField('vS'):
             return self._proto.vS
-    
+        return None
+
     @property
     def nn_R(self):
         if self._proto.HasField('nnR'):
             return self._proto.nnR
-        
-    
+        return None
+
     def __str__(self):
         line = 'COP1_ACTIVE: {}'.format(self.cop1_active)
         if self.cop1_active:
-            line = line + ", state: {}, nn_R: {}, v_S: {}".format(self.state, self.nn_R, self.v_S) 
+            return line + ', state: {}, nn_R: {}, v_S: {}'.format(self.state, self.nn_R, self.v_S)
         else:
-            line = line + ", set_bypass_all: {}".format(self.set_bypass_all) 
-            
-        return line
+            return line + ', set_bypass_all: {}'.format(self.set_bypass_all)
 
 
 class Cop1Config(object):
@@ -451,7 +455,7 @@ class Cop1Config(object):
     def __init__(self, proto):
         self._proto = proto
 
-    @property    
+    @property
     def vc_id(self):
         """Virtual Channel Id for this link; note that this cannot be changed at runtime"""
         return self._proto.vcId
@@ -459,11 +463,11 @@ class Cop1Config(object):
     @property
     def window_width(self):        
         return self._proto.windowWidth
-    
+
     @window_width.setter
     def window_width(self, width):
         self._proto.windowWidth = width
-    
+
     @property
     def timeout_type(self):
         return cop1_pb2.TimeoutType.Name(self._proto.timeoutType)
@@ -471,25 +475,24 @@ class Cop1Config(object):
     @timeout_type.setter
     def timeout_type(self, timeout_type):
         self._proto.timeoutType = cop1_pb2.TimeoutType.Value(timeout_type)
-        
+
     @property
     def tx_limit(self):
         return self._proto.txLimit
-    
+
     @tx_limit.setter
     def tx_limit(self, limit):
         self._proto.txLimit = limit
-    
-    
+
     @property
     def t1(self):
-        return self._proto.t1/1000.0
-    
+        return self._proto.t1 / 1000.0
+
     @t1.setter
     def t1(self, sec):
         self._proto.t1 = int(round(1000 * sec))
-    
-    
+
     def __str__(self):
-        line = 'VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}'.format(self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1)
+        line = 'VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}'.format(
+            self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1)
         return line

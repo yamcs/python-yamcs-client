@@ -171,7 +171,10 @@ class WebSocketSubscriptionFuture(Future):
         """
         self._wait_on_signal(self._response_received)
         if self._response_exception is not None:
-            msg = self._response_exception.message
+            try:
+                msg = self._response_exception.msg
+            except AttributeError:  # Remove if fully migrated to new WebSocket API
+                msg = self._response_exception.message
             raise YamcsError(msg)
         return self._response_reply
 
