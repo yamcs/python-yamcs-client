@@ -347,11 +347,11 @@ class YamcsClient(BaseClient):
         # Return an iterator anyway for similarity with other API methods
         url = '/processors'
         if instance:
-            url += '/' + instance
+            url += '?instance=' + instance
         response = self.get_proto(path=url)
         message = processing_pb2.ListProcessorsResponse()
         message.ParseFromString(response.content)
-        processors = getattr(message, 'processor')
+        processors = getattr(message, 'processors')
         return iter([Processor(processor) for processor in processors])
 
     def get_processor(self, instance, processor):
