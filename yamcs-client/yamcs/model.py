@@ -58,7 +58,7 @@ class UserInfo(object):
 
     @property
     def username(self):
-        return self._proto.login
+        return self._proto.name
 
     @property
     def superuser(self):
