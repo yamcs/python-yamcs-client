@@ -22,7 +22,7 @@ import pkg_resources
 # -- Project information -----------------------------------------------------
 
 project = u'yamcs-client'
-copyright = u'2019, Space Applications Services'
+copyright = u'2020, Space Applications Services'
 author = u'Space Applications Services'
 
 # The short X.Y version
@@ -95,7 +95,6 @@ html_theme_options = {
     #'github_banner': False,
     'fixed_sidebar': False,
     'show_powered_by': False,
-    'analytics_id': 'UA-123272152-1',
     'font_family': 'Helvetica,Arial,sans-serif',
     'font_size': '15px',
 }
