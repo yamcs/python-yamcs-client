@@ -263,6 +263,42 @@ class IssuedCommand(object):
         return '{} {}'.format(self.generation_time, self.source)
 
 
+class VerificationConfig(object):
+    """
+    Contains overrides to the default verification handling of Yamcs.
+    """
+    def __init__(self):
+        self._disabled = []
+        self._disable_all = False
+        self._check_windows = {}
+
+    def disable(self, verifier=None):
+        """
+        Disable verification.
+
+        :param str verifier: Name of a specific verifier to disable. If unspecified
+                             all verifiers are disabled.
+        """
+        if verifier:
+            self._disabled.append(verifier)
+        else:
+            self._disable_all = True
+
+    def modify_check_window(self, verifier, start=None, stop=None):
+        """
+        Set or override the check window.
+
+        Depending on the Mission Database configuration,
+        the time may be relative to either the command release
+        or a preceding verifier.
+
+        :param str verifier: Name of the verifier
+        :param float start: Window start time (relative, in seconds)
+        :param float stop: Window stop time (relative, in seconds)
+        """
+        self._check_windows[verifier] = {'start': start, 'stop': stop}
+
+
 class MonitoredCommand(IssuedCommand):
     """
     Represent an instance of an issued command that is updated

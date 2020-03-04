@@ -3,6 +3,7 @@ from __future__ import print_function
 from time import sleep
 
 from yamcs.client import YamcsClient
+from yamcs.tmtc.model import VerificationConfig
 
 
 def issue_command():
@@ -10,6 +11,31 @@ def issue_command():
     command = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
         'voltage_num': 1,
     })
+    print('Issued', command)
+
+
+def issue_command_modify_verification():
+    """Issue a command with changed verification."""
+    verification = VerificationConfig()
+    verification.disable('Started')
+    verification.modify_check_window('Queued', 1, 5)
+
+    command = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
+        'voltage_num': 1,
+    }, verification=verification)
+
+    print('Issued', command)
+
+
+def issue_command_no_verification():
+    """Issue a command with no verification."""
+    verification = VerificationConfig()
+    verification.disable()
+
+    command = processor.issue_command('/YSS/SIMULATOR/SWITCH_VOLTAGE_OFF', args={
+        'voltage_num': 1,
+    }, verification=verification)
+
     print('Issued', command)
 
 

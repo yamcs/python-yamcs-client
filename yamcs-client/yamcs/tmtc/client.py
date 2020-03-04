@@ -335,23 +335,26 @@ class CommandConnection(WebSocketSubscriptionFuture):
         self._command_cache = {}
         self._client = client
 
-    def issue(self, command, args=None, dry_run=False, comment=None):
+    def issue(self, command, args=None, dry_run=False, comment=None, verification=None):
         """
         Issue the given command
 
         :param str command: Either a fully-qualified XTCE name or an alias in the
                             format ``NAMESPACE/NAME``.
-        :param dict args: named arguments (if the command requires these)
+        :param dict args: Named arguments (if the command requires these)
         :param bool dry_run: If ``True`` the command is not actually issued. This
                              can be used to test if the server would generate
                              errors when preparing the command (for example
                              because an argument is missing).
         :param str comment: Comment attached to the command.
+        :param .VerificationConfig verification: Overrides to the default
+                                                 verification handling of this
+                                                 command.
         :return: An object providing access to properties of the newly issued
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
-        issued_command = self._client.issue_command(command, args, dry_run, comment)
+        issued_command = self._client.issue_command(command, args, dry_run, comment, verification)
         #pylint: disable=protected-access
         command = MonitoredCommand(issued_command._proto, self._client)
 
@@ -535,7 +538,8 @@ class ProcessorClient(object):
             self._instance, self._processor)
         self._client.post_proto(url, data=req.SerializeToString())
 
-    def issue_command(self, command, args=None, dry_run=False, comment=None, attributes=None):
+    def issue_command(self, command, args=None, dry_run=False, comment=None,
+                      verification=None, attributes=None):
         """
         Issue the given command
 
@@ -547,6 +551,9 @@ class ProcessorClient(object):
                              errors when preparing the command (for example
                              because an argument is missing).
         :param str comment: Comment attached to the command.
+        :param .VerificationConfig verification: Overrides to the default
+                                                 verification handling of this
+                                                 command.
         :param dict attributes: named extra attributes that will be added to the command history.
                                 Might be used by the processor or data links to change
                                 the way the command is processed.
@@ -566,6 +573,21 @@ class ProcessorClient(object):
                 assignment = req.assignment.add()
                 assignment.name = key
                 assignment.value = str(args[key])
+
+        if verification:
+            if verification._disable_all:
+                req.commandOptions.disableVerifiers = True
+            else:
+                for verifier in verification._disabled:
+                    req.commandOptions.verifierConfig[verifier].disable = True
+                for verifier in verification._check_windows:
+                    window = verification._check_windows[verifier]
+                    if window['start']:
+                        start = int(window['start'] * 1000)
+                        req.commandOptions.verifierConfig[verifier].checkWindow.timeToStartChecking = start
+                    if window['stop']:
+                        stop = int(window['stop'] * 1000)
+                        req.commandOptions.verifierConfig[verifier].checkWindow.timeToStopChecking = stop
 
         if attributes:
             for key in attributes:
