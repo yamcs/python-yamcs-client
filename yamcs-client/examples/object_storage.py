@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from yamcs import storage
 from yamcs.core import GLOBAL_INSTANCE
 

@@ -6,7 +6,9 @@ Getting Started
 
 Install Python 3.5 or higher.
 
-If necessary, you can also use Python 2.7, but be aware that this final 2.x version will soon reach its long anticipated `End Of Life <https://www.python.org/dev/peps/pep-0373/>`_ date. Python versions lower than 2.7 are already EOL and therefore *not* supported.
+.. note::
+
+    Python 2.7 has reached its long anticipated `End Of Life <https://www.python.org/dev/peps/pep-0373/>`_ date and we are also preparing to drop support for it soon.
 
 Install ``yamcs-client`` from PyPI::
 

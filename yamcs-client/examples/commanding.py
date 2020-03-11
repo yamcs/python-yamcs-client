@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from time import sleep
 
 from yamcs.client import YamcsClient

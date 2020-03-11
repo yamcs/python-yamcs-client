@@ -1,7 +1,6 @@
-from __future__ import print_function
+from time import sleep
 
 from yamcs.client import YamcsClient
-from time import sleep
 
 
 def subscribe_param():

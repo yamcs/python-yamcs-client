@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from time import sleep
 
 from yamcs.client import YamcsClient
@@ -16,10 +14,13 @@ def subscribe_param():
 
 
 def set_algorithm():
-    processor.set_algorithm('/YSS/SIMULATOR/Battery_Voltage_Avg', text="r.value = 10*(b1.value + b2.value+b3.value)")
+    processor.set_algorithm('/YSS/SIMULATOR/Battery_Voltage_Avg',
+                            text='r.value = 10*(b1.value + b2.value+b3.value)')
+
 
 def reset_algorithm():
     processor.reset_algorithm('/YSS/SIMULATOR/Battery_Voltage_Avg')
+
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
