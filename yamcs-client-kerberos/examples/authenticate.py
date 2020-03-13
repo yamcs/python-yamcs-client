@@ -4,7 +4,7 @@ from yamcs.client import YamcsClient
 from yamcs.kerberos import KerberosCredentials
 
 if __name__ == '__main__':
-    client = YamcsClient('edr2y-rt:8090', credentials=KerberosCredentials())
+    client = YamcsClient('localhost:8090', credentials=KerberosCredentials())
 
     while True:
         print(client.get_time('simulator'))
