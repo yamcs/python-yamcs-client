@@ -1,7 +1,10 @@
-.PHONY: clean
+.PHONY: clean build deploy
+
 clean:
 	rm -rf build dist *.egg-info
 
-.PHONY: build
 build:
 	python setup.py sdist bdist_wheel
+
+deploy: clean build
+	twine upload -r pypi dist/*
