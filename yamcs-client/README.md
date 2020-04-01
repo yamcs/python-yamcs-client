@@ -1,5 +1,4 @@
 # Yamcs Client Library for Python
-[![Website](https://img.shields.io/website/http/shields.io.svg?label=docs)](https://yamcs.org/yamcs-python/)
 [![PyPI](https://img.shields.io/pypi/v/yamcs-client.svg)](https://pypi.python.org/pypi/yamcs-client)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/yamcs-client.svg)](https://pypi.python.org/pypi/yamcs-client/)
 

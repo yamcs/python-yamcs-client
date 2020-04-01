@@ -15,7 +15,7 @@ setuptools.setup(
     description='Yamcs API client library',
     long_description=readme,
     long_description_content_type='text/markdown',
-    url='https://github.com/yamcs/yamcs-python',
+    url='https://github.com/yamcs/yamcs-python/yamcs-client',
     author='Space Applications Services',
     author_email='yamcs@spaceapplications.com',
     license='LGPL',
