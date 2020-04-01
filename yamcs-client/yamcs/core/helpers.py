@@ -4,6 +4,8 @@ import logging
 from collections import OrderedDict
 from datetime import datetime, timedelta
 
+from yamcs.protobuf import yamcs_pb2
+
 
 def to_isostring(dt):
     """
@@ -31,33 +33,36 @@ def parse_value(proto):
     """
     Convers a Protobuf `Value` from the API into a python native value
     """
-    if proto.HasField('floatValue'):
+    if proto.type == yamcs_pb2.Value.FLOAT:
         return proto.floatValue
-    elif proto.HasField('doubleValue'):
+    elif proto.type == yamcs_pb2.Value.DOUBLE:
         return proto.doubleValue
-    elif proto.HasField('sint32Value'):
+    elif proto.type == yamcs_pb2.Value.SINT32:
         return proto.sint32Value
-    elif proto.HasField('uint32Value'):
+    elif proto.type == yamcs_pb2.Value.UINT32:
         return proto.uint32Value
-    elif proto.HasField('binaryValue'):
+    elif proto.type == yamcs_pb2.Value.BINARY:
         return proto.binaryValue
-    elif proto.HasField('timestampValue'):
+    elif proto.type == yamcs_pb2.Value.TIMESTAMP:
         # Don't use the actual 'timestampValue' field, it contains a number
         # that is difficult to interpret on the client. Instead parse from
         # the ISO String also set by Yamcs.
         return parse_isostring(proto.stringValue)
-    elif proto.HasField('stringValue'):
+    elif proto.type == yamcs_pb2.Value.STRING:
         return proto.stringValue
-    elif proto.HasField('uint64Value'):
+    elif proto.type == yamcs_pb2.Value.UINT64:
         return proto.uint64Value
-    elif proto.HasField('sint64Value'):
+    elif proto.type == yamcs_pb2.Value.SINT64:
         return proto.sint64Value
-    elif proto.HasField('booleanValue'):
+    elif proto.type == yamcs_pb2.Value.BOOLEAN:
         return proto.booleanValue
-    elif proto.HasField('arrayValue'):
+    elif proto.type == yamcs_pb2.Value.ENUMERATED:
+        return proto.stringValue
+    elif proto.type == yamcs_pb2.Value.ARRAY:
         return [parse_value(v) for v in proto.arrayValue]
-    elif proto.HasField('aggregateValue'):
-        return OrderedDict(zip(proto.aggregateValue.name, proto.aggregateValue.value))
+    elif proto.type == yamcs_pb2.Value.AGGREGATE:
+        tuples = zip(proto.aggregateValue.name, proto.aggregateValue.value)
+        return OrderedDict(map(lambda x: (x[0], parse_value(x[1])), tuples))
     else:
         logging.warning('Unrecognized value type for update %s', proto)
         return None
