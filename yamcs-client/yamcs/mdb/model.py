@@ -161,6 +161,105 @@ class Container(object):
         return self.qualified_name
 
 
+class ArrayType(object):
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Short name of this type."""
+        return self._proto.type.engType
+
+    @property
+    def arrayType(self):
+        """
+        In case the elements of an array of this type are also of type `array`, this returns
+        type info of the elements' array type.
+
+        .. note::
+            This is an uncommon use case. Multi-dimensional arrays are more prevalent.
+
+        :type: :class:`.ArrayType`
+        """
+        if self._proto.type.HasField('arrayInfo'):
+            return ArrayType(self._proto.type.arrayInfo)
+        return None
+
+    @property
+    def members(self):
+        """
+        In case the elements of this array are of type `aggregate`, this returns
+        an ordered list of its direct sub-members.
+
+        :type: List[:class:`.Member`]
+        """
+        return [Member(member) for member in self._proto.type.member]
+
+    @property
+    def dimensions(self):
+        """The number of dimensions in case of a multi-dimensional array."""
+        if self._proto.HasField('dimensions'):
+            return self._proto.dimensions
+
+    def __str__(self):
+        return self.name
+
+
+class Member(object):
+    """
+    A member is a data structure for a specific field of a parent data type
+    (either another member, or a parameter of type `aggregate`).
+
+    This is similar to C structs. The top-level of a member hierarchy is
+    a parameter of type `aggregate`.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """Short name"""
+        return self._proto.name
+
+    @property
+    def type(self):
+        """
+        Engineering type.
+
+        :type: str
+        """
+        if self._proto.HasField('type'):
+            return self._proto.type.engType
+        return None
+
+    @property
+    def arrayType(self):
+        """
+        In case this member is of type `array`, this returns array-specific
+        type info.
+
+        :type: :class:`.ArrayType`
+        """
+        if self._proto.type.HasField('arrayInfo'):
+            return ArrayType(self._proto.type.arrayInfo)
+        return None
+
+    @property
+    def members(self):
+        """
+        In case this member is of type `aggregate`, this returns an ordered list
+        of its direct sub-members.
+
+        :type: List[:class:`.Member`]
+        """
+        return [Member(member) for member in self._proto.type.member]
+
+    def __str__(self):
+        return self.name
+
+
 class Parameter(object):
     """
     From XTCE:
@@ -203,10 +302,47 @@ class Parameter(object):
 
     @property
     def data_source(self):
-        """Specifies how this parameter originated (example: ``TELEMETERED``)"""
+        """
+        Specifies how this parameter originated (example: ``TELEMETERED``)
+
+        :type: str
+        """
         if self._proto.HasField('dataSource'):
             return mdb_pb2.DataSourceType.Name(self._proto.dataSource)
         return None
+
+    @property
+    def type(self):
+        """
+        Engineering type.
+
+        :type: str
+        """
+        if self._proto.type.HasField('engType'):
+            return self._proto.type.engType
+        return None
+
+    @property
+    def arrayType(self):
+        """
+        In case this parameter is of type `array`, this returns array-specific
+        type info.
+
+        :type: :class:`.ArrayType`
+        """
+        if self._proto.type.HasField('arrayInfo'):
+            return ArrayType(self._proto.type.arrayInfo)
+        return None
+
+    @property
+    def members(self):
+        """
+        In case this parameter is of type `aggregate`, this returns an ordered list
+        of its direct members.
+
+        :type: List[:class:`.Member`]
+        """
+        return [Member(member) for member in self._proto.type.member]
 
     def __str__(self):
         return self.qualified_name
