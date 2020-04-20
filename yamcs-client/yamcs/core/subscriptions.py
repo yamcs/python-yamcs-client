@@ -54,6 +54,10 @@ class WebSocketSubscriptionManager(object):
         """
         assert not self._closed
 
+        if self._client.credentials:
+            self._client.credentials.before_request(self._client.session,
+                                                    self._client.auth_root)
+
         ws_url = self._client.ws_root
         if instance:
             ws_url += '/' + instance
@@ -204,6 +208,10 @@ class WebSocketSubscriptionManagerV2(object):
         Begin consuming messages.
         """
         assert not self._closed
+
+        if self._client.credentials:
+            self._client.credentials.before_request(self._client.session,
+                                                    self._client.auth_root)
 
         self._callback = callback
         self._websocket = websocket.WebSocketApp(
