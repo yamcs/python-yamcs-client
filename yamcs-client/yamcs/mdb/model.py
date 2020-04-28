@@ -2,7 +2,6 @@ from yamcs.protobuf.mdb import mdb_pb2
 
 
 class Algorithm(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -24,14 +23,14 @@ class Algorithm(object):
     @property
     def description(self):
         """Short description."""
-        if self._proto.HasField('shortDescription'):
+        if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
     def long_description(self):
         """Long description."""
-        if self._proto.HasField('longDescription'):
+        if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
@@ -40,7 +39,6 @@ class Algorithm(object):
 
 
 class Command(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -62,20 +60,20 @@ class Command(object):
     @property
     def description(self):
         """Short description."""
-        if self._proto.HasField('shortDescription'):
+        if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
     def long_description(self):
         """Long description."""
-        if self._proto.HasField('longDescription'):
+        if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
     @property
     def base_command(self):
-        if self._proto.HasField('baseCommand'):
+        if self._proto.HasField("baseCommand"):
             return Command(self._proto.baseCommand)
         return None
 
@@ -89,7 +87,7 @@ class Command(object):
 
     @property
     def significance(self):
-        if self._proto.HasField('significance'):
+        if self._proto.HasField("significance"):
             return Significance(self._proto.significance)
         return None
 
@@ -98,7 +96,6 @@ class Command(object):
 
 
 class Significance(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -108,23 +105,24 @@ class Significance(object):
         One of ``NONE``, ``WATCH``, ``WARNING``, ``DISTRESS``, ``CRITICAL``
         or ``SEVERE``.
         """
-        if self._proto.HasField('consequenceLevel'):
-            return mdb_pb2.SignificanceInfo.SignificanceLevelType.Name(self._proto.consequenceLevel)
+        if self._proto.HasField("consequenceLevel"):
+            return mdb_pb2.SignificanceInfo.SignificanceLevelType.Name(
+                self._proto.consequenceLevel
+            )
         return None
 
     @property
     def reason(self):
         """Message attached to this significance."""
-        if self._proto.HasField('reasonForWarning'):
+        if self._proto.HasField("reasonForWarning"):
             return self._proto.reasonForWarning
         return None
 
     def __str__(self):
-        return '[{}] {}'.format(self.consequence_level, self.reason)
+        return "[{}] {}".format(self.consequence_level, self.reason)
 
 
 class Container(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -146,14 +144,14 @@ class Container(object):
     @property
     def description(self):
         """Short description."""
-        if self._proto.HasField('shortDescription'):
+        if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
     def long_description(self):
         """Long description."""
-        if self._proto.HasField('longDescription'):
+        if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
@@ -162,7 +160,6 @@ class Container(object):
 
 
 class ArrayType(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -182,7 +179,7 @@ class ArrayType(object):
 
         :type: :class:`.ArrayType`
         """
-        if self._proto.type.HasField('arrayInfo'):
+        if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
@@ -199,7 +196,7 @@ class ArrayType(object):
     @property
     def dimensions(self):
         """The number of dimensions in case of a multi-dimensional array."""
-        if self._proto.HasField('dimensions'):
+        if self._proto.HasField("dimensions"):
             return self._proto.dimensions
 
     def __str__(self):
@@ -230,7 +227,7 @@ class Member(object):
 
         :type: str
         """
-        if self._proto.HasField('type'):
+        if self._proto.HasField("type"):
             return self._proto.type.engType
         return None
 
@@ -242,7 +239,7 @@ class Member(object):
 
         :type: :class:`.ArrayType`
         """
-        if self._proto.type.HasField('arrayInfo'):
+        if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
@@ -289,14 +286,14 @@ class Parameter(object):
     @property
     def description(self):
         """Short description."""
-        if self._proto.HasField('shortDescription'):
+        if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
     def long_description(self):
         """Long description."""
-        if self._proto.HasField('longDescription'):
+        if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
@@ -307,7 +304,7 @@ class Parameter(object):
 
         :type: str
         """
-        if self._proto.HasField('dataSource'):
+        if self._proto.HasField("dataSource"):
             return mdb_pb2.DataSourceType.Name(self._proto.dataSource)
         return None
 
@@ -318,7 +315,7 @@ class Parameter(object):
 
         :type: str
         """
-        if self._proto.type.HasField('engType'):
+        if self._proto.type.HasField("engType"):
             return self._proto.type.engType
         return None
 
@@ -330,7 +327,7 @@ class Parameter(object):
 
         :type: :class:`.ArrayType`
         """
-        if self._proto.type.HasField('arrayInfo'):
+        if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
@@ -380,14 +377,14 @@ class SpaceSystem(object):
     @property
     def description(self):
         """Short description."""
-        if self._proto.HasField('shortDescription'):
+        if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
     def long_description(self):
         """Long description."""
-        if self._proto.HasField('longDescription'):
+        if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 

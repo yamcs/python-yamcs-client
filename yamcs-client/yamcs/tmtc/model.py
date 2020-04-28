@@ -15,11 +15,10 @@ def _parse_alarm(proto):
         return ParameterAlarm(proto)
     if proto.type == alarms_pb2.EVENT:
         return EventAlarm(proto)
-    raise YamcsError('Unexpected type ' + proto.type)
+    raise YamcsError("Unexpected type " + proto.type)
 
 
 class Acknowledgment(object):
-
     def __init__(self, name, time, status, message):
         self.name = name
         """Name of this acknowledgment."""
@@ -34,17 +33,16 @@ class Acknowledgment(object):
         """Message of this acknowledgment."""
 
     def is_terminated(self):
-        return self.status and self.status != 'SCHEDULED' and self.status != 'PENDING'
+        return self.status and self.status != "SCHEDULED" and self.status != "PENDING"
 
     def __repr__(self):
-        return '{}: {}'.format(self.name, self.status)
+        return "{}: {}".format(self.name, self.status)
 
     def __str__(self):
         return self.__repr__()
 
 
 class CommandHistory(object):
-
     def __init__(self, proto):
 
         self.generation_time = parse_isostring(proto.generationTimeUTC)
@@ -69,7 +67,7 @@ class CommandHistory(object):
         The origin of this command. This is often empty, but may
         also be a hostname.
         """
-        if self._commandId.HasField('origin'):
+        if self._commandId.HasField("origin"):
             return self._commandId.origin
         return None
 
@@ -79,59 +77,59 @@ class CommandHistory(object):
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
-        if self._commandId.HasField('sequenceNumber'):
+        if self._commandId.HasField("sequenceNumber"):
             return self._commandId.sequenceNumber
         return None
 
     @property
     def username(self):
         """Username of the issuer."""
-        return self.attributes.get('username')
+        return self.attributes.get("username")
 
     @property
     def source(self):
         """String representation of the command."""
-        return self.attributes.get('source')
+        return self.attributes.get("source")
 
     @property
     def binary(self):
         """Binary representation of the command."""
-        return self.attributes.get('binary')
+        return self.attributes.get("binary")
 
     def is_complete(self):
         """
         Returns whether this command is complete. A command
         can be completed, yet still failed.
         """
-        ack = self._assemble_ack('CommandComplete')
-        return ack and (ack.status == 'OK' or ack.status == 'NOK')
+        ack = self._assemble_ack("CommandComplete")
+        return ack and (ack.status == "OK" or ack.status == "NOK")
 
     def is_success(self):
         """
         Returns True if the command has completed successfully.
         """
-        ack = self._assemble_ack('CommandComplete')
-        return ack and ack.status == 'OK'
+        ack = self._assemble_ack("CommandComplete")
+        return ack and ack.status == "OK"
 
     def is_failure(self):
         """
         Returns True if the command failed.
         """
-        ack = self._assemble_ack('CommandComplete')
-        return ack and ack.status == 'NOK'
+        ack = self._assemble_ack("CommandComplete")
+        return ack and ack.status == "NOK"
 
     @property
     def error(self):
         """Error message in case the command failed."""
-        ack = self._assemble_ack('CommandComplete')
-        if ack and ack.status == 'NOK':
+        ack = self._assemble_ack("CommandComplete")
+        if ack and ack.status == "NOK":
             return ack.message
         return None
 
     @property
     def comment(self):
         """Optional user comment attached when issuing the command."""
-        return self.attributes.get('comment')
+        return self.attributes.get("comment")
 
     @property
     def acknowledgments(self):
@@ -143,11 +141,11 @@ class CommandHistory(object):
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
-            if name.startswith('CommandComplete'):
+            if name.startswith("CommandComplete"):
                 continue
-            if name.startswith('TransmissionConstraints'):
+            if name.startswith("TransmissionConstraints"):
                 continue
-            if name.endswith('_Status'):
+            if name.endswith("_Status"):
                 ack = self._assemble_ack(name[:-7])
                 if ack:
                     acks[ack.name] = ack
@@ -155,9 +153,9 @@ class CommandHistory(object):
         return acks
 
     def _assemble_ack(self, name):
-        time = self.attributes.get(name + '_Time')
-        status = self.attributes.get(name + '_Status')
-        message = self.attributes.get(name + '_Message')
+        time = self.attributes.get(name + "_Time")
+        status = self.attributes.get(name + "_Status")
+        message = self.attributes.get(name + "_Message")
         if time and status:
             return Acknowledgment(name, time, status, message)
         return None
@@ -168,12 +166,11 @@ class CommandHistory(object):
             self.attributes[attr.name] = value
 
     def __str__(self):
-        acks = ', '.join(ack.__repr__() for _, ack in self.acknowledgments.items())
-        return '{} [{}]'.format(self.name, acks)
+        acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
+        return "{} [{}]".format(self.name, acks)
 
 
 class IssuedCommand(object):
-
     def __init__(self, proto, client):
         self._proto = proto
         self._client = client
@@ -190,7 +187,7 @@ class IssuedCommand(object):
         """
         The fully-qualified name of this command.
         """
-        if self._proto.HasField('commandName'):
+        if self._proto.HasField("commandName"):
             return self._proto.commandName
         return None
 
@@ -201,21 +198,21 @@ class IssuedCommand(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('generationTime'):
+        if self._proto.HasField("generationTime"):
             return self._proto.generationTime.ToDatetime()
         return None
 
     @property
     def username(self):
         """The username of the issuer."""
-        if self._proto.HasField('username'):
+        if self._proto.HasField("username"):
             return self._proto.username
         return None
 
     @property
     def queue(self):
         """The name of the queue that this command was assigned to."""
-        if self._proto.HasField('queue'):
+        if self._proto.HasField("queue"):
             return self._proto.queue
         return None
 
@@ -224,7 +221,7 @@ class IssuedCommand(object):
         """
         The origin of this command. Usually the IP address of the issuer.
         """
-        if self._proto.HasField('origin'):
+        if self._proto.HasField("origin"):
             return self._proto.origin
         return None
 
@@ -234,39 +231,40 @@ class IssuedCommand(object):
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
-        if self._proto.HasField('sequenceNumber'):
+        if self._proto.HasField("sequenceNumber"):
             return self._proto.sequenceNumber
         return None
 
     @property
     def source(self):
         """String representation of this command."""
-        if self._proto.HasField('source'):
+        if self._proto.HasField("source"):
             return self._proto.source
         return None
 
     @property
     def hex(self):
         """Hexadecimal string representation of this command."""
-        if self._proto.HasField('hex'):
+        if self._proto.HasField("hex"):
             return self._proto.hex
         return None
 
     @property
     def binary(self):
         """Binary representation of this command."""
-        if self._proto.HasField('binary'):
+        if self._proto.HasField("binary"):
             return self._proto.binary
         return None
 
     def __str__(self):
-        return '{} {}'.format(self.generation_time, self.source)
+        return "{} {}".format(self.generation_time, self.source)
 
 
 class VerificationConfig(object):
     """
     Contains overrides to the default verification handling of Yamcs.
     """
+
     def __init__(self):
         self._disabled = []
         self._disable_all = False
@@ -296,7 +294,7 @@ class VerificationConfig(object):
         :param float start: Window start time (relative, in seconds)
         :param float stop: Window stop time (relative, in seconds)
         """
-        self._check_windows[verifier] = {'start': start, 'stop': stop}
+        self._check_windows[verifier] = {"start": start, "stop": stop}
 
 
 class MonitoredCommand(IssuedCommand):
@@ -333,15 +331,15 @@ class MonitoredCommand(IssuedCommand):
         Returns whether this command is complete. A command
         can be completed, yet still failed.
         """
-        ack = self._assemble_ack('CommandComplete')
-        return ack and (ack.status == 'OK' or ack.status == 'NOK')
+        ack = self._assemble_ack("CommandComplete")
+        return ack and (ack.status == "OK" or ack.status == "NOK")
 
     def is_success(self):
         """
         Returns true if this command was completed successfully.
         """
-        ack = self._assemble_ack('CommandComplete')
-        return ack and ack.status == 'OK'
+        ack = self._assemble_ack("CommandComplete")
+        return ack and ack.status == "OK"
 
     def await_complete(self, timeout=None):
         """
@@ -375,7 +373,7 @@ class MonitoredCommand(IssuedCommand):
             if not event.wait(timeout=timeout):
                 # Remark that a timeout does *not* mean that the underlying
                 # work is canceled.
-                raise TimeoutError('Timed out.')
+                raise TimeoutError("Timed out.")
         else:
             # The actual timeout value does not have any impact
             while not event.wait(timeout=10):
@@ -384,15 +382,15 @@ class MonitoredCommand(IssuedCommand):
     @property
     def error(self):
         """Error message in case the command failed."""
-        ack = self._assemble_ack('CommandComplete')
-        if ack and ack.status == 'NOK':
+        ack = self._assemble_ack("CommandComplete")
+        if ack and ack.status == "NOK":
             return ack.message
         return None
 
     @property
     def comment(self):
         """Optional user comment attached when issuing the command."""
-        return self.attributes.get('comment')
+        return self.attributes.get("comment")
 
     @property
     def acknowledgments(self):
@@ -404,11 +402,11 @@ class MonitoredCommand(IssuedCommand):
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
-            if name.startswith('CommandComplete'):
+            if name.startswith("CommandComplete"):
                 continue
-            if name.startswith('TransmissionConstraints'):
+            if name.startswith("TransmissionConstraints"):
                 continue
-            if name.endswith('_Status'):
+            if name.endswith("_Status"):
                 ack = self._assemble_ack(name[:-7])
                 if ack:
                     acks[ack.name] = ack
@@ -416,9 +414,9 @@ class MonitoredCommand(IssuedCommand):
         return acks
 
     def _assemble_ack(self, name):
-        time = self.attributes.get(name + '_Time')
-        status = self.attributes.get(name + '_Status')
-        message = self.attributes.get(name + '_Message')
+        time = self.attributes.get(name + "_Time")
+        status = self.attributes.get(name + "_Status")
+        message = self.attributes.get(name + "_Message")
         if time and status:
             return Acknowledgment(name, time, status, message)
         return None
@@ -429,8 +427,8 @@ class MonitoredCommand(IssuedCommand):
             self.attributes[attr.name] = value
 
     def __str__(self):
-        acks = ', '.join(ack.__repr__() for _, ack in self.acknowledgments.items())
-        return '{} [{}]'.format(self.name, acks)
+        acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
+        return "{} [{}]".format(self.name, acks)
 
 
 class AlarmUpdate(object):
@@ -456,19 +454,18 @@ class AlarmUpdate(object):
         return _parse_alarm(self._proto)
 
     def __str__(self):
-        return '[{}] {}'.format(self.update_type, self.alarm)
+        return "[{}] {}".format(self.update_type, self.alarm)
 
 
 class Alarm(object):
-
     def __init__(self, proto):
         self._proto = proto
 
     @property
     def name(self):
         """Fully-qualified name of the source of this alarm."""
-        if self._proto.id.HasField('namespace'):
-            return self._proto.id.namespace + '/' + self._proto.id.name
+        if self._proto.id.HasField("namespace"):
+            return self._proto.id.namespace + "/" + self._proto.id.name
         return self._proto.id.name
 
     @property
@@ -478,13 +475,13 @@ class Alarm(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('triggerTime'):
+        if self._proto.HasField("triggerTime"):
             return parse_isostring(self._proto.triggerTime)
         return None
 
     @property
     def severity(self):
-        if self._proto.HasField('severity'):
+        if self._proto.HasField("severity"):
             return alarms_pb2.AlarmSeverity.Name(self._proto.severity)
         return None
 
@@ -495,7 +492,7 @@ class Alarm(object):
         that operations (such as acknowledgment) are done on the expected alarm
         instance.
         """
-        if self._proto.HasField('seqNum'):
+        if self._proto.HasField("seqNum"):
             return self._proto.seqNum
         return None
 
@@ -526,7 +523,7 @@ class Alarm(object):
         True if this is a latching alarm. A latching alarm returns to
         normal only when the operator resets it
         """
-        return self._proto.HasField('latching') and self._proto.latching
+        return self._proto.HasField("latching") and self._proto.latching
 
     @property
     def is_latched(self):
@@ -543,16 +540,18 @@ class Alarm(object):
     @property
     def acknowledged_by(self):
         """Username of the acknowledger."""
-        if (self.is_acknowledged and
-                self._proto.acknowledgeInfo.HasField('acknowledgedBy')):
+        if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
+            "acknowledgedBy"
+        ):
             return self._proto.acknowledgeInfo.acknowledgedBy
         return None
 
     @property
     def acknowledge_message(self):
         """Comment provided when acknowledging the alarm."""
-        if (self.is_acknowledged and
-                self._proto.acknowledgeInfo.HasField('acknowledgeMessage')):
+        if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
+            "acknowledgeMessage"
+        ):
             return self._proto.acknowledgeInfo.acknowledgeMessage
         return None
 
@@ -563,22 +562,23 @@ class Alarm(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if (self.is_acknowledged and
-                self._proto.acknowledgeInfo.HasField('acknowledgeTime')):
+        if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
+            "acknowledgeTime"
+        ):
             return parse_isostring(self._proto.acknowledgeInfo.acknowledgeTime)
         return None
 
     @property
     def is_shelved(self):
         """True if this alarm has been shelved."""
-        return self._proto.HasField('shelveInfo')
+        return self._proto.HasField("shelveInfo")
 
     @property
     def violation_count(self):
         """
         Number of violating samples while this alarm is active.
         """
-        if self._proto.HasField('violations'):
+        if self._proto.HasField("violations"):
             return self._proto.violations
         return None
 
@@ -587,13 +587,12 @@ class Alarm(object):
         """
         Total number of samples while this alarm is active.
         """
-        if self._proto.HasField('count'):
+        if self._proto.HasField("count"):
             return self._proto.count
         return None
 
     def __str__(self):
-        return '{} ({} violations)'.format(
-            self.name, self.violation_count)
+        return "{} ({} violations)".format(self.name, self.violation_count)
 
 
 class ParameterAlarm(Alarm):
@@ -608,7 +607,7 @@ class ParameterAlarm(Alarm):
 
         :type: :class:`.ParameterValue`
         """
-        if self._proto.parameterDetail.HasField('triggerValue'):
+        if self._proto.parameterDetail.HasField("triggerValue"):
             return ParameterValue(self._proto.parameterDetail.triggerValue)
         return None
 
@@ -620,7 +619,7 @@ class ParameterAlarm(Alarm):
 
         :type: :class:`.ParameterValue`
         """
-        if self._proto.parameterDetail.HasField('mostSevereValue'):
+        if self._proto.parameterDetail.HasField("mostSevereValue"):
             return ParameterValue(self._proto.parameterDetail.mostSevereValue)
         return None
 
@@ -631,7 +630,7 @@ class ParameterAlarm(Alarm):
 
         :type: :class:`.ParameterValue`
         """
-        if self._proto.parameterDetail.HasField('currentValue'):
+        if self._proto.parameterDetail.HasField("currentValue"):
             return ParameterValue(self._proto.parameterDetail.currentValue)
         return None
 
@@ -648,7 +647,7 @@ class EventAlarm(Alarm):
 
         :type: :class:`.Event`
         """
-        if self._proto.eventDetail.HasField('triggerEvent'):
+        if self._proto.eventDetail.HasField("triggerEvent"):
             return Event(self._proto.eventDetail.triggerEvent)
         return None
 
@@ -660,7 +659,7 @@ class EventAlarm(Alarm):
 
         :type: :class:`.Event`
         """
-        if self._proto.eventDetail.HasField('mostSevereEvent'):
+        if self._proto.eventDetail.HasField("mostSevereEvent"):
             return Event(self._proto.eventDetail.mostSevereEvent)
         return None
 
@@ -671,13 +670,12 @@ class EventAlarm(Alarm):
 
         :type: :class:`.Event`
         """
-        if self._proto.eventDetail.HasField('currentEvent'):
+        if self._proto.eventDetail.HasField("currentEvent"):
             return Event(self._proto.eventDetail.currentEvent)
         return None
 
 
 class ParameterData(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -690,7 +688,6 @@ class ParameterData(object):
 
 
 class ParameterValue(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -702,7 +699,7 @@ class ParameterValue(object):
         on how the parameter update was requested.
         """
         if self._proto.id.namespace:
-            return self._proto.id.namespace + '/' + self._proto.id.name
+            return self._proto.id.namespace + "/" + self._proto.id.name
         return self._proto.id.name
 
     @property
@@ -713,7 +710,7 @@ class ParameterValue(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('generationTimeUTC'):
+        if self._proto.HasField("generationTimeUTC"):
             return parse_isostring(self._proto.generationTimeUTC)
         return None
 
@@ -724,7 +721,7 @@ class ParameterValue(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('acquisitionTimeUTC'):
+        if self._proto.HasField("acquisitionTimeUTC"):
             return parse_isostring(self._proto.acquisitionTimeUTC)
         return None
 
@@ -738,7 +735,7 @@ class ParameterValue(object):
 
         :type: :class:`~datetime.timedelta`
         """
-        if self._proto.HasField('expireMillis'):
+        if self._proto.HasField("expireMillis"):
             return timedelta(milliseconds=self._proto.expireMillis)
         return None
 
@@ -747,7 +744,7 @@ class ParameterValue(object):
         """
         The raw (uncalibrated) value.
         """
-        if self._proto.HasField('rawValue'):
+        if self._proto.HasField("rawValue"):
             return parse_value(self._proto.rawValue)
         return None
 
@@ -756,13 +753,13 @@ class ParameterValue(object):
         """
         The engineering (calibrated) value.
         """
-        if self._proto.HasField('engValue'):
+        if self._proto.HasField("engValue"):
             return parse_value(self._proto.engValue)
         return None
 
     @property
     def monitoring_result(self):
-        if self._proto.HasField('monitoringResult'):
+        if self._proto.HasField("monitoringResult"):
             return pvalue_pb2.MonitoringResult.Name(self._proto.monitoringResult)
         return None
 
@@ -771,13 +768,13 @@ class ParameterValue(object):
         """
         If the value is out of limits, this indicates ``LOW`` or ``HIGH``.
         """
-        if self._proto.HasField('rangeCondition'):
+        if self._proto.HasField("rangeCondition"):
             return pvalue_pb2.RangeCondition.Name(self._proto.rangeCondition)
         return None
 
     @property
     def validity_status(self):
-        if self._proto.HasField('acquisitionStatus'):
+        if self._proto.HasField("acquisitionStatus"):
             return pvalue_pb2.AcquisitionStatus.Name(self._proto.acquisitionStatus)
         return None
 
@@ -786,9 +783,11 @@ class ParameterValue(object):
         return self._proto.processingStatus
 
     def __str__(self):
-        line = '{} {} {} {}'.format(self.generation_time, self.name, self.raw_value, self.eng_value)
+        line = "{} {} {} {}".format(
+            self.generation_time, self.name, self.raw_value, self.eng_value
+        )
         if self.monitoring_result:
-            line += ' [' + self.monitoring_result + ']'
+            line += " [" + self.monitoring_result + "]"
         return line
 
 
@@ -809,8 +808,8 @@ class Calibrator(object):
         The `data` argument must be an array of ``[x, y]`` points.
     """
 
-    POLYNOMIAL = 'polynomial'
-    SPLINE = 'spline'
+    POLYNOMIAL = "polynomial"
+    SPLINE = "spline"
 
     def __init__(self, context, type, data):  # pylint: disable=W0622
         """
@@ -831,8 +830,16 @@ class RangeSet(object):
     A set of alarm range that apply in a specific context.
     """
 
-    def __init__(self, context, watch=None, warning=None, distress=None,
-                 critical=None, severe=None, min_violations=1):
+    def __init__(
+        self,
+        context,
+        watch=None,
+        warning=None,
+        distress=None,
+        critical=None,
+        severe=None,
+        min_violations=1,
+    ):
         """
         :param str context: Condition under which this range set is
                             applicable. The value ``None`` indicates the

@@ -2,7 +2,6 @@ from yamcs.core.helpers import parse_isostring
 
 
 class Bucket(object):
-
     def __init__(self, proto, instance, client):
         self._proto = proto
         self._instance = instance
@@ -37,8 +36,11 @@ class Bucket(object):
                               omitted.
         """
         return self._client.list_objects(
-            instance=self._instance, bucket_name=self.name, prefix=prefix,
-            delimiter=delimiter)
+            instance=self._instance,
+            bucket_name=self.name,
+            prefix=prefix,
+            delimiter=delimiter,
+        )
 
     def download_object(self, object_name):
         """
@@ -46,8 +48,7 @@ class Bucket(object):
 
         :param str object_name: The object to fetch.
         """
-        return self._client.download_object(
-            self._instance, self.name, object_name)
+        return self._client.download_object(self._instance, self.name, object_name)
 
     def upload_object(self, object_name, file_obj):
         """
@@ -62,7 +63,8 @@ class Bucket(object):
                                  from the specified ``file_obj``.
         """
         return self._client.upload_object(
-            self._instance, self.name, object_name, file_obj)
+            self._instance, self.name, object_name, file_obj
+        )
 
     def delete_object(self, object_name):
         """
@@ -83,7 +85,6 @@ class Bucket(object):
 
 
 class ObjectListing(object):
-
     def __init__(self, proto, instance, bucket, client):
         self._proto = proto
         self._instance = instance
@@ -106,12 +107,13 @@ class ObjectListing(object):
 
         :type: List[:class:`.ObjectInfo`]
         """
-        return [ObjectInfo(o, self._instance, self._bucket, self._client)
-                for o in self._proto.objects]
+        return [
+            ObjectInfo(o, self._instance, self._bucket, self._client)
+            for o in self._proto.objects
+        ]
 
 
 class ObjectInfo(object):
-
     def __init__(self, proto, instance, bucket, client):
         self._proto = proto
         self._instance = instance
@@ -135,7 +137,7 @@ class ObjectInfo(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('created'):
+        if self._proto.HasField("created"):
             return parse_isostring(self._proto.created)
         return None
 
@@ -145,8 +147,7 @@ class ObjectInfo(object):
 
     def download(self):
         """Download this object."""
-        return self._client.download_object(
-            self._instance, self._bucket, self.name)
+        return self._client.download_object(self._instance, self._bucket, self.name)
 
     def upload(self, file_obj):
         """
@@ -155,8 +156,8 @@ class ObjectInfo(object):
         :param file file_obj: The file (or file-like object) to upload.
         """
         return self._client.upload_object(
-            self._instance, self._bucket, self.name, file_obj)
+            self._instance, self._bucket, self.name, file_obj
+        )
 
     def __str__(self):
-        return '{} ({} bytes, created {})'.format(
-            self.name, self.size, self.created)
+        return "{} ({} bytes, created {})".format(self.name, self.size, self.created)

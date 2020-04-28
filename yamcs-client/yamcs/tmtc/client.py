@@ -14,13 +14,21 @@ from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.web import websocket_pb2
-from yamcs.tmtc.model import (AlarmUpdate, Calibrator, CommandHistory,
-                              IssuedCommand, MonitoredCommand, ParameterData,
-                              ParameterValue, _parse_alarm)
+from yamcs.tmtc.model import (
+    AlarmUpdate,
+    Calibrator,
+    CommandHistory,
+    IssuedCommand,
+    MonitoredCommand,
+    ParameterData,
+    ParameterValue,
+    _parse_alarm,
+)
 
 
 class SequenceGenerator(object):
     """Static atomic counter."""
+
     _counter = 0
     _lock = threading.Lock()
 
@@ -40,10 +48,9 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
         data = websocket_pb2.ParameterSubscriptionResponse()
         data.ParseFromString(message.reply.data)
         subscription.subscription_id = data.subscriptionId
-    elif (message.type == message.DATA and
-          message.data.type == yamcs_pb2.PARAMETER):
-        parameter_data = ParameterData(getattr(message.data, 'parameterData'))
-        #pylint: disable=protected-access
+    elif message.type == message.DATA and message.data.type == yamcs_pb2.PARAMETER:
+        parameter_data = ParameterData(getattr(message.data, "parameterData"))
+        # pylint: disable=protected-access
         subscription._process(parameter_data)
         if on_data:
             on_data(parameter_data)
@@ -54,10 +61,9 @@ def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse CommandHistoryEntry
     from a WebSocket data message
     """
-    if (message.type == message.DATA and
-            message.data.type == yamcs_pb2.CMD_HISTORY):
-        entry = getattr(message.data, 'command')
-        #pylint: disable=protected-access
+    if message.type == message.DATA and message.data.type == yamcs_pb2.CMD_HISTORY:
+        entry = getattr(message.data, "command")
+        # pylint: disable=protected-access
         rec = subscription._process(entry)
         if on_data:
             on_data(rec)
@@ -68,11 +74,10 @@ def _wrap_callback_parse_alarm_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse Alarm data
     from a WebSocket data message
     """
-    if (message.type == message.DATA and
-            message.data.type == yamcs_pb2.ALARM_DATA):
-        proto = getattr(message.data, 'alarmData')
+    if message.type == message.DATA and message.data.type == yamcs_pb2.ALARM_DATA:
+        proto = getattr(message.data, "alarmData")
         alarm_update = AlarmUpdate(proto)
-        #pylint: disable=protected-access
+        # pylint: disable=protected-access
         subscription._process(alarm_update)
         if on_data:
             on_data(alarm_update)
@@ -87,14 +92,16 @@ def _build_named_object_id(parameter):
     name fields.
     """
     named_object_id = yamcs_pb2.NamedObjectId()
-    if parameter.startswith('/'):
+    if parameter.startswith("/"):
         named_object_id.name = parameter
     else:
-        parts = parameter.split('/', 1)
+        parts = parameter.split("/", 1)
         if len(parts) < 2:
-            raise ValueError('Failed to process {}. Use fully-qualified '
-                             'XTCE names or, alternatively, an alias in '
-                             'in the format NAMESPACE/NAME'.format(parameter))
+            raise ValueError(
+                "Failed to process {}. Use fully-qualified "
+                "XTCE names or, alternatively, an alias in "
+                "in the format NAMESPACE/NAME".format(parameter)
+            )
         named_object_id.namespace = parts[0]
         named_object_id.name = parts[1]
     return named_object_id
@@ -125,7 +132,7 @@ def _build_value_proto(value):
         proto.type = proto.STRING
         proto.stringValue = value
     else:
-        raise YamcsError('Unrecognized type')
+        raise YamcsError("Unrecognized type")
     return proto
 
 
@@ -170,7 +177,7 @@ def _add_calib(calib_info, type, data):
             spi.raw = p[0]
             spi.calibrated = p[1]
     else:
-        raise YamcsError('Unrecognized type')
+        raise YamcsError("Unrecognized type")
 
 
 class CommandHistorySubscription(WebSocketSubscriptionFuture):
@@ -194,8 +201,9 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
     @staticmethod
     def _cache_key(cmd_id):
         """commandId is a tuple. Convert to the equivalent string identifier."""
-        return '{}-{}-{}'.format(
-            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber)
+        return "{}-{}-{}".format(
+            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber
+        )
 
     def __init__(self, manager):
         super(CommandHistorySubscription, self).__init__(manager)
@@ -215,7 +223,7 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
                                               previously issued command.
         :rtype: .CommandHistory
         """
-        #pylint: disable=protected-access
+        # pylint: disable=protected-access
         if issued_command.id in self._cache:
             return self._cache[issued_command.id]
         return None
@@ -224,7 +232,7 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         key = self._cache_key(entry.commandId)
         if key in self._cache:
             cmdhist = self._cache[key]
-            #pylint: disable=protected-access
+            # pylint: disable=protected-access
             cmdhist._update(entry.attr)
         else:
             cmdhist = CommandHistory(entry)
@@ -255,10 +263,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         """Subscription number assigned by the server. This is set async,
         so may not be immediately available."""
 
-    def add(self,
-            parameters,
-            abort_on_invalid=True,
-            send_from_cache=True):
+    def add(self, parameters, abort_on_invalid=True, send_from_cache=True):
         """
         Add one or more parameters to this subscription.
 
@@ -286,7 +291,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         options.sendFromCache = send_from_cache
         options.id.extend(_build_named_object_ids(parameters))
 
-        self._manager.send('subscribe', options)
+        self._manager.send("subscribe", options)
 
     def remove(self, parameters):
         """
@@ -306,7 +311,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         options.subscriptionId = self.subscription_id
         options.id.extend(_build_named_object_ids(parameters))
 
-        self._manager.send('unsubscribe', options)
+        self._manager.send("unsubscribe", options)
 
     def get_value(self, parameter):
         """
@@ -355,8 +360,10 @@ class CommandConnection(WebSocketSubscriptionFuture):
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
-        issued_command = self._client.issue_command(command, args, dry_run, comment, verification)
-        #pylint: disable=protected-access
+        issued_command = self._client.issue_command(
+            command, args, dry_run, comment, verification
+        )
+        # pylint: disable=protected-access
         command = MonitoredCommand(issued_command._proto, self._client)
 
         self._command_cache[command.id] = command
@@ -369,12 +376,14 @@ class CommandConnection(WebSocketSubscriptionFuture):
 
         return command
 
-    #pylint: disable=protected-access
+    # pylint: disable=protected-access
     def _process(self, entry):
         # TODO would be nice if the server gave this.
-        command_id = '{}-{}-{}'.format(
-            entry.commandId.generationTime, entry.commandId.origin,
-            entry.commandId.sequenceNumber)
+        command_id = "{}-{}-{}".format(
+            entry.commandId.generationTime,
+            entry.commandId.origin,
+            entry.commandId.sequenceNumber,
+        )
 
         if command_id in self._cmdhist_cache:
             cmdhist = self._cmdhist_cache[command_id]
@@ -454,19 +463,20 @@ class ProcessorClient(object):
         :rtype: .ParameterValue
         """
         params = {
-            'fromCache': from_cache,
-            'timeout': int(timeout * 1000),
+            "fromCache": from_cache,
+            "timeout": int(timeout * 1000),
         }
         parameter = adapt_name_for_rest(parameter)
-        url = '/processors/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/processors/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         response = self._client.get_proto(url, params=params)
         proto = pvalue_pb2.ParameterValue()
         proto.ParseFromString(response.content)
 
         # Server returns ParameterValue with only 'id' set if no
         # value existed. Convert this to ``None``.
-        if proto.HasField('rawValue') or proto.HasField('engValue'):
+        if proto.HasField("rawValue") or proto.HasField("engValue"):
             return ParameterValue(proto)
         return None
 
@@ -492,8 +502,9 @@ class ProcessorClient(object):
         req.id.extend(_build_named_object_ids(parameters))
         req.fromCache = from_cache
         req.timeout = int(timeout * 1000)
-        url = '/processors/{}/{}/parameters:batchGet'.format(
-            self._instance, self._processor)
+        url = "/processors/{}/{}/parameters:batchGet".format(
+            self._instance, self._processor
+        )
         response = self._client.post_proto(url, data=req.SerializeToString())
         proto = processing_pb2.BatchGetParameterValuesResponse()
         proto.ParseFromString(response.content)
@@ -517,8 +528,9 @@ class ProcessorClient(object):
         :param value: The value to set
         """
         parameter = adapt_name_for_rest(parameter)
-        url = '/processors/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/processors/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         req = _build_value_proto(value)
         self._client.put_proto(url, data=req.SerializeToString())
 
@@ -535,12 +547,20 @@ class ProcessorClient(object):
             item = req.request.add()
             item.id.MergeFrom(_build_named_object_id(key))
             item.value.MergeFrom(_build_value_proto(values[key]))
-        url = '/processors/{}/{}/parameters:batchSet'.format(
-            self._instance, self._processor)
+        url = "/processors/{}/{}/parameters:batchSet".format(
+            self._instance, self._processor
+        )
         self._client.post_proto(url, data=req.SerializeToString())
 
-    def issue_command(self, command, args=None, dry_run=False, comment=None,
-                      verification=None, attributes=None):
+    def issue_command(
+        self,
+        command,
+        args=None,
+        dry_run=False,
+        comment=None,
+        verification=None,
+        attributes=None,
+    ):
         """
         Issue the given command
 
@@ -575,7 +595,8 @@ class ProcessorClient(object):
                 assignment.name = key
 
                 value = args[key]
-                if isinstance(value, six.string_types):  # This clause could be remove when we drop py2 (where bytes=str)
+                if isinstance(value, six.string_types):
+                    # This clause could be remove when we drop py2 (where bytes=str)
                     assignment.value = value
                 elif isinstance(value, (bytes, bytearray)):
                     assignment.value = binascii.hexlify(value)
@@ -590,12 +611,16 @@ class ProcessorClient(object):
                     req.commandOptions.verifierConfig[verifier].disable = True
                 for verifier in verification._check_windows:
                     window = verification._check_windows[verifier]
-                    if window['start']:
-                        start = int(window['start'] * 1000)
-                        req.commandOptions.verifierConfig[verifier].checkWindow.timeToStartChecking = start
-                    if window['stop']:
-                        stop = int(window['stop'] * 1000)
-                        req.commandOptions.verifierConfig[verifier].checkWindow.timeToStopChecking = stop
+                    if window["start"]:
+                        start = int(window["start"] * 1000)
+                        req.commandOptions.verifierConfig[
+                            verifier
+                        ].checkWindow.timeToStartChecking = start
+                    if window["stop"]:
+                        stop = int(window["stop"] * 1000)
+                        req.commandOptions.verifierConfig[
+                            verifier
+                        ].checkWindow.timeToStopChecking = stop
 
         if attributes:
             for key in attributes:
@@ -604,8 +629,9 @@ class ProcessorClient(object):
                 attr.value.MergeFrom(_build_value_proto(attributes[key]))
 
         command = adapt_name_for_rest(command)
-        url = '/processors/{}/{}/commands{}'.format(
-            self._instance, self._processor, command)
+        url = "/processors/{}/{}/commands{}".format(
+            self._instance, self._processor, command
+        )
         response = self._client.post_proto(url, data=req.SerializeToString())
         proto = processing_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
@@ -623,20 +649,18 @@ class ProcessorClient(object):
         :rtype: ~collections.Iterable[.Alarm]
         """
         # TODO implement continuation token on server
-        params = {
-            'order': 'asc'
-        }
+        params = {"order": "asc"}
         if start is not None:
-            params['start'] = to_isostring(start)
+            params["start"] = to_isostring(start)
         if stop is not None:
-            params['stop'] = to_isostring(stop)
+            params["stop"] = to_isostring(stop)
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = '/processors/{}/{}/alarms'.format(self._instance, self._processor)
+        url = "/processors/{}/{}/alarms".format(self._instance, self._processor)
         response = self._client.get_proto(path=url, params=params)
         message = alarms_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
-        alarms = getattr(message, 'alarms')
+        alarms = getattr(message, "alarms")
         return iter([_parse_alarm(alarm) for alarm in alarms])
 
     def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
@@ -673,8 +697,9 @@ class ProcessorClient(object):
             _add_calib(req.defaultCalibrator, type, data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
@@ -707,8 +732,9 @@ class ProcessorClient(object):
             _add_calib(calib_info, c.type, c.data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
@@ -726,13 +752,21 @@ class ProcessorClient(object):
         req.action = mdb_pb2.UpdateParameterRequest.RESET_CALIBRATORS
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
-    def set_default_alarm_ranges(self, parameter, watch=None, warning=None,
-                                 distress=None, critical=None, severe=None,
-                                 min_violations=1):
+    def set_default_alarm_ranges(
+        self,
+        parameter,
+        watch=None,
+        warning=None,
+        distress=None,
+        critical=None,
+        severe=None,
+        min_violations=1,
+    ):
         """
         Generate out-of-limit alarms for a parameter using the specified
         alarm ranges.
@@ -763,12 +797,20 @@ class ProcessorClient(object):
         req = mdb_pb2.UpdateParameterRequest()
         req.action = mdb_pb2.UpdateParameterRequest.SET_DEFAULT_ALARMS
         if watch or warning or distress or critical or severe:
-            _add_alarms(req.defaultAlarm, watch, warning, distress, critical,
-                        severe, min_violations)
+            _add_alarms(
+                req.defaultAlarm,
+                watch,
+                warning,
+                distress,
+                critical,
+                severe,
+                min_violations,
+            )
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
@@ -799,12 +841,20 @@ class ProcessorClient(object):
             else:
                 alarm_info = req.defaultAlarm
 
-            _add_alarms(alarm_info, rs.watch, rs.warning, rs.distress, rs.critical,
-                        rs.severe, rs.min_violations)
+            _add_alarms(
+                alarm_info,
+                rs.watch,
+                rs.warning,
+                rs.distress,
+                rs.critical,
+                rs.severe,
+                rs.min_violations,
+            )
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
@@ -822,8 +872,9 @@ class ProcessorClient(object):
         req.action = mdb_pb2.UpdateParameterRequest.RESET_ALARMS
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/parameters{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/parameters{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
@@ -836,10 +887,11 @@ class ProcessorClient(object):
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = '/processors/{}/{}/alarms{}/{}'.format(
-            self._instance, self._processor, name, alarm.sequence_number)
+        url = "/processors/{}/{}/alarms{}/{}".format(
+            self._instance, self._processor, name, alarm.sequence_number
+        )
         req = alarms_pb2.EditAlarmRequest()
-        req.state = 'acknowledged'
+        req.state = "acknowledged"
         if comment is not None:
             req.comment = comment
         self._client.patch_proto(url, data=req.SerializeToString())
@@ -854,10 +906,11 @@ class ProcessorClient(object):
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = '/processors/{}/{}/alarms{}/{}'.format(
-            self._instance, self._processor, name, alarm.sequence_number)
+        url = "/processors/{}/{}/alarms{}/{}".format(
+            self._instance, self._processor, name, alarm.sequence_number
+        )
         req = alarms_pb2.EditAlarmRequest()
-        req.state = 'unshelved'
+        req.state = "unshelved"
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def shelve_alarm(self, alarm, comment=None):
@@ -870,10 +923,11 @@ class ProcessorClient(object):
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = '/processors/{}/{}/alarms{}/{}'.format(
-            self._instance, self._processor, name, alarm.sequence_number)
+        url = "/processors/{}/{}/alarms{}/{}".format(
+            self._instance, self._processor, name, alarm.sequence_number
+        )
         req = alarms_pb2.EditAlarmRequest()
-        req.state = 'shelved'
+        req.state = "shelved"
         if comment is not None:
             req.comment = comment
         self._client.patch_proto(url, data=req.SerializeToString())
@@ -892,10 +946,11 @@ class ProcessorClient(object):
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = '/processors/{}/{}/alarms{}/{}'.format(
-            self._instance, self._processor, name, alarm.sequence_number)
+        url = "/processors/{}/{}/alarms{}/{}".format(
+            self._instance, self._processor, name, alarm.sequence_number
+        )
         req = alarms_pb2.EditAlarmRequest()
-        req.state = 'cleared'
+        req.state = "cleared"
         if comment is not None:
             req.comment = comment
         self._client.patch_proto(url, data=req.SerializeToString())
@@ -924,25 +979,26 @@ class ProcessorClient(object):
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource='cmdhistory', options=options)
+            self._client, resource="cmdhistory", options=options
+        )
 
         # Represent subscription as a future
         subscription = CommandConnection(manager, self)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_cmdhist_data, subscription, on_data)
+            _wrap_callback_parse_cmdhist_data, subscription, on_data
+        )
 
-        manager.open(wrapped_callback, instance=self._instance,
-                     processor=self._processor)
+        manager.open(
+            wrapped_callback, instance=self._instance, processor=self._processor
+        )
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
 
         return subscription
 
-    def create_command_history_subscription(self,
-                                            on_data=None,
-                                            timeout=60):
+    def create_command_history_subscription(self, on_data=None, timeout=60):
         """
         Create a new command history subscription.
 
@@ -959,29 +1015,34 @@ class ProcessorClient(object):
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource='cmdhistory', options=options)
+            self._client, resource="cmdhistory", options=options
+        )
 
         # Represent subscription as a future
         subscription = CommandHistorySubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_cmdhist_data, subscription, on_data)
+            _wrap_callback_parse_cmdhist_data, subscription, on_data
+        )
 
-        manager.open(wrapped_callback, instance=self._instance,
-                     processor=self._processor)
+        manager.open(
+            wrapped_callback, instance=self._instance, processor=self._processor
+        )
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
 
         return subscription
 
-    def create_parameter_subscription(self,
-                                      parameters,
-                                      on_data=None,
-                                      abort_on_invalid=True,
-                                      update_on_expiration=False,
-                                      send_from_cache=True,
-                                      timeout=60):
+    def create_parameter_subscription(
+        self,
+        parameters,
+        on_data=None,
+        abort_on_invalid=True,
+        update_on_expiration=False,
+        send_from_cache=True,
+        timeout=60,
+    ):
         """
         Create a new parameter subscription.
 
@@ -1015,16 +1076,19 @@ class ProcessorClient(object):
         options.id.extend(_build_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource='parameter', options=options)
+            self._client, resource="parameter", options=options
+        )
 
         # Represent subscription as a future
         subscription = ParameterSubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_parameter_data, subscription, on_data)
+            _wrap_callback_parse_parameter_data, subscription, on_data
+        )
 
-        manager.open(wrapped_callback, instance=self._instance,
-                     processor=self._processor)
+        manager.open(
+            wrapped_callback, instance=self._instance, processor=self._processor
+        )
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -1044,16 +1108,18 @@ class ProcessorClient(object):
                  subscription.
         :rtype: .AlarmSubscription
         """
-        manager = WebSocketSubscriptionManager(self._client, resource='alarms')
+        manager = WebSocketSubscriptionManager(self._client, resource="alarms")
 
         # Represent subscription as a future
         subscription = AlarmSubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_alarm_data, subscription, on_data)
+            _wrap_callback_parse_alarm_data, subscription, on_data
+        )
 
-        manager.open(wrapped_callback, instance=self._instance,
-                     processor=self._processor)
+        manager.open(
+            wrapped_callback, instance=self._instance, processor=self._processor
+        )
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -1073,8 +1139,9 @@ class ProcessorClient(object):
         req.algorithm.text = text
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/algorithms{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/algorithms{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter):
@@ -1088,6 +1155,7 @@ class ProcessorClient(object):
         req.action = mdb_pb2.UpdateAlgorithmRequest.RESET
 
         parameter = adapt_name_for_rest(parameter)
-        url = '/mdb/{}/{}/algorithms{}'.format(
-            self._instance, self._processor, parameter)
+        url = "/mdb/{}/{}/algorithms{}".format(
+            self._instance, self._processor, parameter
+        )
         self._client.patch_proto(url, data=req.SerializeToString())

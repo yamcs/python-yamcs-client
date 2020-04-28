@@ -5,52 +5,60 @@ from requests.auth import HTTPBasicAuth
 from yamcs.core.exceptions import Unauthorized, YamcsError
 
 
-def _convert_user_credentials(session, token_url, username=None, password=None, refresh_token=None):
+def _convert_user_credentials(
+    session, token_url, username=None, password=None, refresh_token=None
+):
     """
     Converts username/password credentials to token credentials by
     using Yamcs as the authentication server.
     """
     if username and password:
-        data = {'grant_type': 'password', 'username': username, 'password': password}
+        data = {"grant_type": "password", "username": username, "password": password}
     elif refresh_token:
-        data = {'grant_type': 'refresh_token', 'refresh_token': refresh_token}
+        data = {"grant_type": "refresh_token", "refresh_token": refresh_token}
     else:
         raise NotImplementedError()
 
     response = session.post(token_url, data=data)
     if response.status_code == 401:
-        raise Unauthorized('401 Client Error: Unauthorized')
+        raise Unauthorized("401 Client Error: Unauthorized")
     elif response.status_code == 200:
         d = response.json()
-        expiry = datetime.utcnow() + timedelta(seconds=d['expires_in'])
-        return Credentials(access_token=d['access_token'],
-                           refresh_token=d['refresh_token'],
-                           expiry=expiry)
+        expiry = datetime.utcnow() + timedelta(seconds=d["expires_in"])
+        return Credentials(
+            access_token=d["access_token"],
+            refresh_token=d["refresh_token"],
+            expiry=expiry,
+        )
     else:
-        raise YamcsError('{} Server Error'.format(response.status_code))
+        raise YamcsError("{} Server Error".format(response.status_code))
 
 
-def _convert_service_account_credentials(session, token_url, client_id,
-                                         client_secret, become):
+def _convert_service_account_credentials(
+    session, token_url, client_id, client_secret, become
+):
     """
     Converts service account credentials to impersonated token credentials.
     """
-    data = {'grant_type': 'client_credentials', 'become': become}
+    data = {"grant_type": "client_credentials", "become": become}
 
-    response = session.post(token_url, data=data,
-                            auth=HTTPBasicAuth(client_id, client_secret))
+    response = session.post(
+        token_url, data=data, auth=HTTPBasicAuth(client_id, client_secret)
+    )
     if response.status_code == 401:
-        raise Unauthorized('401 Client Error: Unauthorized')
+        raise Unauthorized("401 Client Error: Unauthorized")
     elif response.status_code == 200:
         d = response.json()
-        expiry = datetime.utcnow() + timedelta(seconds=d['expires_in'])
-        return Credentials(access_token=d['access_token'],
-                           client_id=client_id,
-                           client_secret=client_secret,
-                           become=become,
-                           expiry=expiry)
+        expiry = datetime.utcnow() + timedelta(seconds=d["expires_in"])
+        return Credentials(
+            access_token=d["access_token"],
+            client_id=client_id,
+            client_secret=client_secret,
+            become=become,
+            expiry=expiry,
+        )
     else:
-        raise YamcsError('{} Server Error'.format(response.status_code))
+        raise YamcsError("{} Server Error".format(response.status_code))
 
 
 class Credentials(object):
@@ -61,9 +69,17 @@ class Credentials(object):
     * Bearer tokens (fields ``access_token`` and optionally ``refresh_token``)
     """
 
-    def __init__(self, username=None, password=None, access_token=None,
-                 refresh_token=None, expiry=None, client_id=None,
-                 client_secret=None, become=None):
+    def __init__(
+        self,
+        username=None,
+        password=None,
+        access_token=None,
+        refresh_token=None,
+        expiry=None,
+        client_id=None,
+        client_secret=None,
+        become=None,
+    ):
         self.username = username
         """Username (only needed when using username/password credentials)."""
 
@@ -95,14 +111,19 @@ class Credentials(object):
 
     def login(self, session, auth_url, on_token_update):
         self._on_token_update = on_token_update
-        token_url = auth_url + '/token'
+        token_url = auth_url + "/token"
         if self.username:  # Convert u/p to bearer
             creds = _convert_user_credentials(
-                session, token_url, username=self.username, password=self.password)
+                session, token_url, username=self.username, password=self.password
+            )
         elif self.become:  # Impersonate from service account
             creds = _convert_service_account_credentials(
-                session, token_url, client_id=self.client_id,
-                client_secret=self.client_secret, become=self.become)
+                session,
+                token_url,
+                client_id=self.client_id,
+                client_secret=self.client_secret,
+                become=self.become,
+            )
         else:
             creds = self
 
@@ -117,15 +138,15 @@ class Credentials(object):
         if self.become:
             new_creds = _convert_service_account_credentials(
                 session,
-                auth_url + '/token',
+                auth_url + "/token",
                 client_id=self.client_id,
                 client_secret=self.client_secret,
-                become=self.become)
+                become=self.become,
+            )
         else:
             new_creds = _convert_user_credentials(
-                session,
-                auth_url + '/token',
-                refresh_token=self.refresh_token)
+                session, auth_url + "/token", refresh_token=self.refresh_token
+            )
         self.access_token = new_creds.access_token
         self.refresh_token = new_creds.refresh_token
         self.expiry = new_creds.expiry
@@ -137,6 +158,4 @@ class Credentials(object):
             self.refresh(session, auth_url)
 
         if self.access_token:
-            session.headers.update({
-                'Authorization': 'Bearer ' + self.access_token
-            })
+            session.headers.update({"Authorization": "Bearer " + self.access_token})

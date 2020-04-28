@@ -1,3 +1,4 @@
+# fmt: off
 from yamcs.client import YamcsClient
 
 

@@ -1,1 +1,1 @@
-GLOBAL_INSTANCE = '_global'
+GLOBAL_INSTANCE = "_global"

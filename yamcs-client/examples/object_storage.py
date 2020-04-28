@@ -1,3 +1,4 @@
+# fmt: off
 from yamcs import storage
 from yamcs.core import GLOBAL_INSTANCE
 

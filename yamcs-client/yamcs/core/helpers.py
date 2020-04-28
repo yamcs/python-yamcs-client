@@ -13,10 +13,12 @@ def to_isostring(dt):
     This assumes the datetime is UTC.
     """
     if dt.tzinfo is not None and dt.tzinfo.utcoffset(dt) > timedelta(0):
-        logging.warning('Warning: aware datetimes are interpreted as if they were naive')
+        logging.warning(
+            "Warning: aware datetimes are interpreted as if they were naive"
+        )
 
     # -3 to change microseconds to milliseconds
-    return dt.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
+    return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
 def parse_isostring(isostring):
@@ -25,8 +27,7 @@ def parse_isostring(isostring):
     """
     if not isostring:
         return None
-    return datetime.strptime(isostring.replace('Z', 'GMT'),
-                             '%Y-%m-%dT%H:%M:%S.%f%Z')
+    return datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
 
 
 def parse_value(proto):
@@ -64,7 +65,7 @@ def parse_value(proto):
         tuples = zip(proto.aggregateValue.name, proto.aggregateValue.value)
         return OrderedDict(map(lambda x: (x[0], parse_value(x[1])), tuples))
     else:
-        logging.warning('Unrecognized value type for update %s', proto)
+        logging.warning("Unrecognized value type for update %s", proto)
         return None
 
 
@@ -74,8 +75,8 @@ def adapt_name_for_rest(name):
     Basically we want an alias like 'MDB:OPS Name/SIMULATOR_BatteryVoltage2'
     to be prepended with a slash.
     """
-    if name.startswith('/'):
+    if name.startswith("/"):
         return name
-    elif not '/' in name:
-        raise ValueError('Provided name is not a fully-qualified XTCE name.')
-    return '/' + name
+    elif not "/" in name:
+        raise ValueError("Provided name is not a fully-qualified XTCE name.")
+    return "/" + name

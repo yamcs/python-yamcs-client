@@ -12,7 +12,6 @@ from yamcs.protobuf.web import websocket_pb2
 
 
 class WebSocketSubscriptionManager(object):
-
     def __init__(self, client, resource, options=None):
         self._client = client
         self._resource = resource
@@ -55,14 +54,15 @@ class WebSocketSubscriptionManager(object):
         assert not self._closed
 
         if self._client.credentials:
-            self._client.credentials.before_request(self._client.session,
-                                                    self._client.auth_root)
+            self._client.credentials.before_request(
+                self._client.session, self._client.auth_root
+            )
 
         ws_url = self._client.ws_root
         if instance:
-            ws_url += '/' + instance
+            ws_url += "/" + instance
             if processor:
-                ws_url += '/' + processor
+                ws_url += "/" + processor
 
         self._callback = callback
         self._websocket = websocket.WebSocketApp(
@@ -70,19 +70,20 @@ class WebSocketSubscriptionManager(object):
             on_open=self._on_websocket_open,
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
-            subprotocols=['protobuf'],
+            subprotocols=["protobuf"],
             header=[
-                '{}: {}'.format(k, self._client.session.headers[k])
+                "{}: {}".format(k, self._client.session.headers[k])
                 for k in self._client.session.headers
             ],
         )
 
         kwargs = {}
         if not self._client.session.verify:
-            kwargs['sslopt'] = {'cert_reqs': ssl.CERT_NONE}
+            kwargs["sslopt"] = {"cert_reqs": ssl.CERT_NONE}
 
-        self._consumer = threading.Thread(target=self._websocket.run_forever,
-                                          kwargs=kwargs)
+        self._consumer = threading.Thread(
+            target=self._websocket.run_forever, kwargs=kwargs
+        )
 
         # Running this as a daemon thread improves possibilities
         # for consumers of our API to control shutdown.
@@ -126,7 +127,7 @@ class WebSocketSubscriptionManager(object):
         self._websocket.send(frame_data, websocket.ABNF.OPCODE_BINARY)
 
     def _on_websocket_open(self, ws):
-        self.send('subscribe', self._options)
+        self.send("subscribe", self._options)
 
     def _on_websocket_message(self, ws, message):
         try:
@@ -141,25 +142,22 @@ class WebSocketSubscriptionManager(object):
                     cb(self, exception=pb2_message.exception)
             self._callback(pb2_message)
         except Exception as e:  # pylint: disable=W0703
-            logging.exception('Problem while processing message. Closing connection')
+            logging.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 
     def _on_websocket_error(self, ws, error):
-        logging.exception('WebSocket error')
+        logging.exception("WebSocket error")
 
         # Generate our own exception.
         # (the default message is misleading 'connection is already closed')
         if isinstance(error, websocket.WebSocketConnectionClosedException):
-            error = ConnectionFailure('Connection closed')
+            error = ConnectionFailure("Connection closed")
 
         self._close_async(reason=error)
 
     def _close_async(self, reason):
         # Close async. This is to not get stuck in the above ``join()``.
-        closer = threading.Thread(
-            target=self.close,
-            kwargs={'reason': reason}
-        )
+        closer = threading.Thread(target=self.close, kwargs={"reason": reason})
         closer.daemon = True
         closer.start()
 
@@ -170,7 +168,6 @@ class WebSocketSubscriptionManager(object):
 
 
 class WebSocketSubscriptionManagerV2(object):
-
     def __init__(self, client, topic, options=None):
         self._client = client
         self._topic = topic
@@ -210,8 +207,9 @@ class WebSocketSubscriptionManagerV2(object):
         assert not self._closed
 
         if self._client.credentials:
-            self._client.credentials.before_request(self._client.session,
-                                                    self._client.auth_root)
+            self._client.credentials.before_request(
+                self._client.session, self._client.auth_root
+            )
 
         self._callback = callback
         self._websocket = websocket.WebSocketApp(
@@ -219,19 +217,20 @@ class WebSocketSubscriptionManagerV2(object):
             on_open=self._on_websocket_open,
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
-            subprotocols=['protobuf'],
+            subprotocols=["protobuf"],
             header=[
-                '{}: {}'.format(k, self._client.session.headers[k])
+                "{}: {}".format(k, self._client.session.headers[k])
                 for k in self._client.session.headers
             ],
         )
 
         kwargs = {}
         if not self._client.session.verify:
-            kwargs['sslopt'] = {'cert_reqs': ssl.CERT_NONE}
+            kwargs["sslopt"] = {"cert_reqs": ssl.CERT_NONE}
 
-        self._consumer = threading.Thread(target=self._websocket.run_forever,
-                                          kwargs=kwargs)
+        self._consumer = threading.Thread(
+            target=self._websocket.run_forever, kwargs=kwargs
+        )
 
         # Running this as a daemon thread improves possibilities
         # for consumers of our API to control shutdown.
@@ -265,7 +264,7 @@ class WebSocketSubscriptionManagerV2(object):
         message.type = self._topic
         message.id = self._next_sequence_number()
         if options:
-            getattr(message, 'options').Pack(options)
+            getattr(message, "options").Pack(options)
 
         frame_data = message.SerializeToString()
         self._websocket.send(frame_data, websocket.ABNF.OPCODE_BINARY)
@@ -278,39 +277,36 @@ class WebSocketSubscriptionManagerV2(object):
             pb2_message = websocket_v2_pb2.ServerMessage()
             pb2_message.ParseFromString(message)
 
-            type_ = getattr(pb2_message, 'type')
-            if type_ == 'reply':
+            type_ = getattr(pb2_message, "type")
+            if type_ == "reply":
                 reply = websocket_v2_pb2.Reply()
-                getattr(pb2_message, 'data').Unpack(reply)
-                if reply.HasField('exception'):
+                getattr(pb2_message, "data").Unpack(reply)
+                if reply.HasField("exception"):
                     for cb in self._response_callbacks:
-                        cb(self, exception=getattr(reply, 'exception'))
+                        cb(self, exception=getattr(reply, "exception"))
                 else:
                     for cb in self._response_callbacks:
                         cb(self)
             else:
-                data = getattr(pb2_message, 'data')
+                data = getattr(pb2_message, "data")
                 self._callback(data)
         except Exception as e:  # pylint: disable=W0703
-            logging.exception('Problem while processing message. Closing connection')
+            logging.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 
     def _on_websocket_error(self, ws, error):
-        logging.exception('WebSocket error')
+        logging.exception("WebSocket error")
 
         # Generate our own exception.
         # (the default message is misleading 'connection is already closed')
         if isinstance(error, websocket.WebSocketConnectionClosedException):
-            error = ConnectionFailure('Connection closed')
+            error = ConnectionFailure("Connection closed")
 
         self._close_async(reason=error)
 
     def _close_async(self, reason):
         # Close async. This is to not get stuck in the above ``join()``.
-        closer = threading.Thread(
-            target=self.close,
-            kwargs={'reason': reason}
-        )
+        closer = threading.Thread(target=self.close, kwargs={"reason": reason})
         closer.daemon = True
         closer.start()
 

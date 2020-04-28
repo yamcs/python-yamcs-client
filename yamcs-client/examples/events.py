@@ -1,3 +1,4 @@
+# fmt: off
 from time import sleep
 
 from yamcs.client import YamcsClient

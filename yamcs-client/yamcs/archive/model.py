@@ -2,7 +2,6 @@ from yamcs.core.helpers import parse_isostring, parse_value
 
 
 class Table(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -16,7 +15,6 @@ class Table(object):
 
 
 class Stream(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -30,7 +28,6 @@ class Stream(object):
 
 
 class StreamData(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -45,11 +42,10 @@ class StreamData(object):
         return [ColumnData(c) for c in self._proto.column]
 
     def __str__(self):
-        return '{} ({} columns)'.format(self.stream, len(self.columns))
+        return "{} ({} columns)".format(self.stream, len(self.columns))
 
 
 class ColumnData(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -64,7 +60,7 @@ class ColumnData(object):
         return parse_value(self._proto.value)
 
     def __str__(self):
-        return '{}: {}'.format(self.name, self.value)
+        return "{}: {}".format(self.name, self.value)
 
 
 class IndexGroup(object):
@@ -85,7 +81,7 @@ class IndexGroup(object):
         * In an index of events, index records are grouped by ``source``.
         * In an index of packets, index records are grouped by ``packet name``.
         """
-        if self._proto.HasField('id'):
+        if self._proto.HasField("id"):
             return self._proto.id.name
         return None
 
@@ -99,7 +95,7 @@ class IndexGroup(object):
         return [IndexRecord(rec) for rec in self._proto.entry]
 
     def __str__(self):
-        return '{} ({} records)'.format(self.name, len(self.records))
+        return "{} ({} records)".format(self.name, len(self.records))
 
 
 class IndexRecord(object):
@@ -138,11 +134,10 @@ class IndexRecord(object):
         return self._proto.count
 
     def __str__(self):
-        return '{} - {} (n={})'.format(self.start, self.stop, self.count)
+        return "{} - {} (n={})".format(self.start, self.stop, self.count)
 
 
 class Packet(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -153,7 +148,7 @@ class Packet(object):
         fully-qualified name of the first container in the hierarchy that
         this packet maps to.
         """
-        if self._proto.HasField('id'):
+        if self._proto.HasField("id"):
             return self._proto.id.name
         return None
 
@@ -164,7 +159,7 @@ class Packet(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('generationTime'):
+        if self._proto.HasField("generationTime"):
             return self._proto.generationTime.ToDatetime()
         return None
 
@@ -175,7 +170,7 @@ class Packet(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('receptionTime'):
+        if self._proto.HasField("receptionTime"):
             return self._proto.receptionTime.ToDatetime()
         return None
 
@@ -185,7 +180,7 @@ class Packet(object):
         The sequence number of the packet. This is usually decoded from
         the packet.
         """
-        if self._proto.HasField('sequenceNumber'):
+        if self._proto.HasField("sequenceNumber"):
             return self._proto.sequenceNumber
         return None
 
@@ -194,12 +189,14 @@ class Packet(object):
         """
         Raw binary of this packet
         """
-        if self._proto.HasField('packet'):
+        if self._proto.HasField("packet"):
             return self._proto.packet
         return None
 
     def __str__(self):
-        return '{} #{} ({})'.format(self.generation_time, self.sequence_number, self.name)
+        return "{} #{} ({})".format(
+            self.generation_time, self.sequence_number, self.name
+        )
 
 
 class Sample(object):
@@ -223,21 +220,21 @@ class Sample(object):
     @property
     def avg(self):
         """Average value."""
-        if self._proto.HasField('avg'):
+        if self._proto.HasField("avg"):
             return self._proto.avg
         return None
 
     @property
     def min(self):
         """Minimum value."""
-        if self._proto.HasField('min'):
+        if self._proto.HasField("min"):
             return self._proto.min
         return None
 
     @property
     def max(self):
         """Maximum value."""
-        if self._proto.HasField('max'):
+        if self._proto.HasField("max"):
             return self._proto.max
         return None
 
@@ -247,7 +244,7 @@ class Sample(object):
         return self._proto.n
 
     def __str__(self):
-        return '{} {}'.format(self.time, self.avg)
+        return "{} {}".format(self.time, self.avg)
 
 
 class ParameterRange(object):
@@ -288,4 +285,4 @@ class ParameterRange(object):
         return self._proto.count
 
     def __str__(self):
-        return '{} - {}: {}'.format(self.start, self.stop, self.eng_value)
+        return "{} - {}: {}".format(self.start, self.stop, self.eng_value)

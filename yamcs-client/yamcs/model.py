@@ -40,12 +40,12 @@ class ServerInfo(object):
     @property
     def default_yamcs_instance(self):
         """Returns the default Yamcs instance."""
-        if self._proto.HasField('defaultYamcsInstance'):
+        if self._proto.HasField("defaultYamcsInstance"):
             return self._proto.defaultYamcsInstance
         return None
 
     def __str__(self):
-        return '{} (v{})'.format(self.id, self.version)
+        return "{} (v{})".format(self.id, self.version)
 
 
 class UserInfo(object):
@@ -77,7 +77,6 @@ class UserInfo(object):
 
 
 class ObjectPrivilege(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -109,7 +108,7 @@ class Event(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('generationTimeUTC'):
+        if self._proto.HasField("generationTimeUTC"):
             return parse_isostring(self._proto.generationTimeUTC)
         return None
 
@@ -120,7 +119,7 @@ class Event(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('receptionTimeUTC'):
+        if self._proto.HasField("receptionTimeUTC"):
             return parse_isostring(self._proto.receptionTimeUTC)
         return None
 
@@ -130,7 +129,7 @@ class Event(object):
         Severity level of the event. One of ``INFO``, ``WATCH``,
         ``WARNING``, ``DISTRESS``, ``CRITICAL`` or ``SEVERE``.
         """
-        if self._proto.HasField('severity'):
+        if self._proto.HasField("severity"):
             return yamcs_pb2.Event.EventSeverity.Name(self._proto.severity)
         return None
 
@@ -139,7 +138,7 @@ class Event(object):
         """
         Event message.
         """
-        if self._proto.HasField('message'):
+        if self._proto.HasField("message"):
             return self._proto.message
         return None
 
@@ -148,7 +147,7 @@ class Event(object):
         """
         Sequence number. Usually this is assigned by the source of the event.
         """
-        if self._proto.HasField('seqNumber'):
+        if self._proto.HasField("seqNumber"):
             return self._proto.seqNumber
         return None
 
@@ -157,7 +156,7 @@ class Event(object):
         """
         The event type. This is mission-specific and can be any string.
         """
-        if self._proto.HasField('type'):
+        if self._proto.HasField("type"):
             return self._proto.type
         return None
 
@@ -166,12 +165,12 @@ class Event(object):
         """
         The event source. Can be any string.
         """
-        if self._proto.HasField('source'):
+        if self._proto.HasField("source"):
             return self._proto.source
         return None
 
     def __str__(self):
-        return '{} [{}] {}'.format(self.generation_time, self.severity, self.message)
+        return "{} [{}] {}".format(self.generation_time, self.severity, self.message)
 
 
 class LinkEvent(object):
@@ -200,7 +199,8 @@ class LinkEvent(object):
         return Link(self._proto.linkInfo)
 
     def __str__(self):
-        return '[{}] {}'.format(self.event_type, self.link)
+        return "[{}] {}".format(self.event_type, self.link)
+
 
 class Link(object):
     """
@@ -248,12 +248,12 @@ class Link(object):
         return self._proto.dataOutCount
 
     def __str__(self):
-        return '{}/{}: {} (in: {} out: {})'.format(
-            self.instance, self.name, self.status, self.in_count, self.out_count)
+        return "{}/{}: {} (in: {} out: {})".format(
+            self.instance, self.name, self.status, self.in_count, self.out_count
+        )
 
 
 class Instance(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -269,14 +269,16 @@ class Instance(object):
         ``INITIALIZED``, ``STARTING``, ``RUNNING``, ``STOPPING`` or
         ``FAILED``.
         """
-        if self._proto.HasField('state'):
-            return yamcsManagement_pb2.YamcsInstance.InstanceState.Name(self._proto.state)
+        if self._proto.HasField("state"):
+            return yamcsManagement_pb2.YamcsInstance.InstanceState.Name(
+                self._proto.state
+            )
         return None
 
     @property
     def failure_cause(self):
         """Failure message when ``state == 'FAILED'``"""
-        if self._proto.HasField('failureCause'):
+        if self._proto.HasField("failureCause"):
             return self._proto.failureCause
         return None
 
@@ -287,12 +289,12 @@ class Instance(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('missionTime'):
+        if self._proto.HasField("missionTime"):
             return parse_isostring(self._proto.missionTime)
         return None
 
     def __str__(self):
-        return '{} [{}]'.format(self.name, self.state)
+        return "{} [{}]".format(self.name, self.state)
 
 
 class InstanceTemplate(object):
@@ -324,14 +326,14 @@ class Service(object):
     @property
     def instance(self):
         """Name of the instance where this service is defined."""
-        if self._proto.HasField('instance'):
+        if self._proto.HasField("instance"):
             return self._proto.instance
         return None
 
     @property
     def processor(self):
         """Name of the processor where this service is defined."""
-        if self._proto.HasField('processor'):
+        if self._proto.HasField("processor"):
             return self._proto.processor
         return None
 
@@ -343,16 +345,15 @@ class Service(object):
     @property
     def state(self):
         """State of this service."""
-        if self._proto.HasField('state'):
+        if self._proto.HasField("state"):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
         return None
 
     def __str__(self):
-        return '{} [{}]'.format(self.name, self.state)
+        return "{} [{}]".format(self.name, self.state)
 
 
 class Processor(object):
-
     def __init__(self, proto):
         self._proto = proto
 
@@ -369,7 +370,7 @@ class Processor(object):
     @property
     def state(self):
         """State of this processor."""
-        if self._proto.HasField('state'):
+        if self._proto.HasField("state"):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
         return None
 
@@ -395,12 +396,12 @@ class Processor(object):
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField('time'):
+        if self._proto.HasField("time"):
             return parse_isostring(self._proto.time)
         return None
 
     def __str__(self):
-        return '{} [{}]'.format(self.name, self.state)
+        return "{} [{}]".format(self.name, self.state)
 
 
 class Cop1Status(object):
@@ -417,34 +418,36 @@ class Cop1Status(object):
 
     @property
     def state(self):
-        if self._proto.HasField('state'):
+        if self._proto.HasField("state"):
             return cop1_pb2.Cop1State.Name(self._proto.state)
         return None
 
     @property
     def set_bypass_all(self):
-        if self._proto.HasField('setBypassAll'):
+        if self._proto.HasField("setBypassAll"):
             return self._proto.setBypassAll
         return None
 
     @property
     def v_S(self):
-        if self._proto.HasField('vS'):
+        if self._proto.HasField("vS"):
             return self._proto.vS
         return None
 
     @property
     def nn_R(self):
-        if self._proto.HasField('nnR'):
+        if self._proto.HasField("nnR"):
             return self._proto.nnR
         return None
 
     def __str__(self):
-        line = 'COP1_ACTIVE: {}'.format(self.cop1_active)
+        line = "COP1_ACTIVE: {}".format(self.cop1_active)
         if self.cop1_active:
-            return line + ', state: {}, nn_R: {}, v_S: {}'.format(self.state, self.nn_R, self.v_S)
+            return line + ", state: {}, nn_R: {}, v_S: {}".format(
+                self.state, self.nn_R, self.v_S
+            )
         else:
-            return line + ', set_bypass_all: {}'.format(self.set_bypass_all)
+            return line + ", set_bypass_all: {}".format(self.set_bypass_all)
 
 
 class Cop1Config(object):
@@ -461,7 +464,7 @@ class Cop1Config(object):
         return self._proto.vcId
 
     @property
-    def window_width(self):        
+    def window_width(self):
         return self._proto.windowWidth
 
     @window_width.setter
@@ -493,6 +496,7 @@ class Cop1Config(object):
         self._proto.t1 = int(round(1000 * sec))
 
     def __str__(self):
-        line = 'VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}'.format(
-            self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1)
+        line = "VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}".format(
+            self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1
+        )
         return line

@@ -8,12 +8,25 @@ from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
-from yamcs.core.subscriptions import (WebSocketSubscriptionManager,
-                                      WebSocketSubscriptionManagerV2)
+from yamcs.core.subscriptions import (
+    WebSocketSubscriptionManager,
+    WebSocketSubscriptionManagerV2,
+)
 from yamcs.mdb.client import MDBClient
-from yamcs.model import (AuthInfo, Cop1Config, Cop1Status, Event, Instance,
-                         InstanceTemplate, Link, LinkEvent, Processor,
-                         ServerInfo, Service, UserInfo)
+from yamcs.model import (
+    AuthInfo,
+    Cop1Config,
+    Cop1Status,
+    Event,
+    Instance,
+    InstanceTemplate,
+    Link,
+    LinkEvent,
+    Processor,
+    ServerInfo,
+    Service,
+    UserInfo,
+)
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
@@ -32,9 +45,9 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     """
     time_message = timestamp_pb2.Timestamp()
     message.Unpack(time_message)
-    #pylint: disable=no-member
+    # pylint: disable=no-member
     time = time_message.ToDatetime()
-    #pylint: disable=protected-access
+    # pylint: disable=protected-access
     subscription._process(time)
     if on_data:
         on_data(time)
@@ -47,7 +60,7 @@ def _wrap_callback_parse_event(on_data, message):
     """
     if message.type == message.DATA:
         if message.data.type == yamcs_pb2.EVENT:
-            event = Event(getattr(message.data, 'event'))
+            event = Event(getattr(message.data, "event"))
             on_data(event)
 
 
@@ -58,9 +71,9 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
     """
     if message.type == message.DATA:
         if message.data.type == yamcs_pb2.LINK_EVENT:
-            link_message = getattr(message.data, 'linkEvent')
+            link_message = getattr(message.data, "linkEvent")
             link_event = LinkEvent(link_message)
-            #pylint: disable=protected-access
+            # pylint: disable=protected-access
             subscription._process(link_event)
             if on_data:
                 on_data(link_event)
@@ -73,7 +86,7 @@ def _wrap_callback_parse_cop1_status(subscription, on_data, message):
     """
     if message.type == message.DATA:
         if message.data.type == yamcs_pb2.COP1_STATUS:
-            cop1_status = Cop1Status(getattr(message.data, 'cop1Status'))
+            cop1_status = Cop1Status(getattr(message.data, "cop1Status"))
             if on_data:
                 on_data(cop1_status)
 
@@ -134,7 +147,7 @@ class DataLinkSubscription(WebSocketSubscriptionFuture):
 
     def _process(self, link_event):
         link = link_event.link
-        if link_event.event_type == 'UNREGISTERED':
+        if link_event.event_type == "UNREGISTERED":
             del self._cache[link.name]
         else:
             self._cache[link.name] = link
@@ -159,7 +172,7 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         options.instance = instance
         options.linkName = link_name
 
-        self._manager.send('subscribe', options)
+        self._manager.send("subscribe", options)
 
     def remove(self, instance, link_name):
         """
@@ -175,7 +188,7 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         options.instance = instance
         options.linkName = link_name
 
-        self._manager.send('unsubscribe', options)
+        self._manager.send("unsubscribe", options)
 
 
 class YamcsClient(BaseClient):
@@ -202,11 +215,11 @@ class YamcsClient(BaseClient):
 
         :rtype: ~datetime.datetime
         """
-        url = '/instances/{}'.format(instance)
+        url = "/instances/{}".format(instance)
         response = self.get_proto(url)
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
-        if message.HasField('missionTime'):
+        if message.HasField("missionTime"):
             return parse_isostring(message.missionTime)
         return None
 
@@ -216,7 +229,7 @@ class YamcsClient(BaseClient):
 
         :rtype: .ServerInfo
         """
-        response = self.get_proto(path='')
+        response = self.get_proto(path="")
         message = general_service_pb2.GetGeneralInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
@@ -230,14 +243,14 @@ class YamcsClient(BaseClient):
         :rtype: .AuthInfo
         """
         try:
-            response = self.session.get(self.auth_root, headers={
-                'Accept': 'application/protobuf'
-            })
+            response = self.session.get(
+                self.auth_root, headers={"Accept": "application/protobuf"}
+            )
             message = auth_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
-            raise ConnectionFailure('Connection to {} refused'.format(self.address))
+            raise ConnectionFailure("Connection to {} refused".format(self.address))
 
     def get_user_info(self):
         """
@@ -245,7 +258,7 @@ class YamcsClient(BaseClient):
 
         :rtype: .UserInfo
         """
-        response = self.get_proto(path='/user')
+        response = self.get_proto(path="/user")
         message = iam_pb2.UserInfo()
         message.ParseFromString(response.content)
         return UserInfo(message)
@@ -285,17 +298,17 @@ class YamcsClient(BaseClient):
         if labels:
             for k in labels:
                 req.labels[k] = labels[k]
-        url = '/instances'
+        url = "/instances"
         self.post_proto(url, data=req.SerializeToString())
 
     def list_instance_templates(self):
         """
         List the available instance templates.
         """
-        response = self.get_proto(path='/instance-templates')
+        response = self.get_proto(path="/instance-templates")
         message = yamcsManagement_pb2.ListInstanceTemplatesResponse()
         message.ParseFromString(response.content)
-        templates = getattr(message, 'templates')
+        templates = getattr(message, "templates")
         return iter([InstanceTemplate(template) for template in templates])
 
     def list_services(self, instance):
@@ -307,11 +320,11 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = '/services/{}'.format(instance)
+        url = "/services/{}".format(instance)
         response = self.get_proto(path=url)
         message = yamcsManagement_pb2.ListServicesResponse()
         message.ParseFromString(response.content)
-        services = getattr(message, 'services')
+        services = getattr(message, "services")
         return iter([Service(service) for service in services])
 
     def start_service(self, instance, service):
@@ -321,7 +334,7 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        url = '/services/{}/{}:start'.format(instance, service)
+        url = "/services/{}/{}:start".format(instance, service)
         self.post_proto(url)
 
     def stop_service(self, instance, service):
@@ -331,7 +344,7 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        url = '/services/{}/{}:stop'.format(instance, service)
+        url = "/services/{}/{}:stop".format(instance, service)
         self.post_proto(url)
 
     def list_processors(self, instance=None):
@@ -345,13 +358,13 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = '/processors'
+        url = "/processors"
         if instance:
-            url += '?instance=' + instance
+            url += "?instance=" + instance
         response = self.get_proto(path=url)
         message = processing_pb2.ListProcessorsResponse()
         message.ParseFromString(response.content)
-        processors = getattr(message, 'processors')
+        processors = getattr(message, "processors")
         return iter([Processor(processor) for processor in processors])
 
     def get_processor(self, instance, processor):
@@ -374,10 +387,10 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='/instances')
+        response = self.get_proto(path="/instances")
         message = yamcsManagement_pb2.ListInstancesResponse()
         message.ParseFromString(response.content)
-        instances = getattr(message, 'instances')
+        instances = getattr(message, "instances")
         return iter([Instance(instance) for instance in instances])
 
     def start_instance(self, instance):
@@ -386,7 +399,7 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        url = '/instances/{}:start'.format(instance)
+        url = "/instances/{}:start".format(instance)
         self.post_proto(url)
 
     def stop_instance(self, instance):
@@ -395,7 +408,7 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        url = '/instances/{}:stop'.format(instance)
+        url = "/instances/{}:stop".format(instance)
         self.post_proto(url)
 
     def restart_instance(self, instance):
@@ -404,7 +417,7 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         """
-        url = '/instances/{}:restart'.format(instance)
+        url = "/instances/{}:restart".format(instance)
         self.post_proto(url)
 
     def list_data_links(self, instance):
@@ -418,14 +431,22 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path='/links/' + instance)
+        response = self.get_proto(path="/links/" + instance)
         message = yamcsManagement_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
-        links = getattr(message, 'links')
+        links = getattr(message, "links")
         return iter([Link(link) for link in links])
 
-    def send_event(self, instance, message, event_type=None, time=None,
-                   severity='info', source=None, sequence_number=None):
+    def send_event(
+        self,
+        instance,
+        message,
+        event_type=None,
+        time=None,
+        severity="info",
+        source=None,
+        sequence_number=None,
+    ):
         """
         Post a new event.
 
@@ -464,7 +485,7 @@ class YamcsClient(BaseClient):
         if sequence_number is not None:
             req.sequence_number = sequence_number
 
-        url = '/archive/{}/events'.format(instance)
+        url = "/archive/{}/events".format(instance)
         self.post_proto(url, data=req.SerializeToString())
 
     def get_data_link(self, instance, link):
@@ -475,7 +496,7 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         :rtype: .Link
         """
-        response = self.get_proto('/links/{}/{}'.format(instance, link))
+        response = self.get_proto("/links/{}/{}".format(instance, link))
         message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)
@@ -488,8 +509,8 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         """
         req = yamcsManagement_pb2.EditLinkRequest()
-        req.state = 'enabled'
-        url = '/links/{}/{}'.format(instance, link)
+        req.state = "enabled"
+        url = "/links/{}/{}".format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
 
     def disable_data_link(self, instance, link):
@@ -500,8 +521,8 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         """
         req = yamcsManagement_pb2.EditLinkRequest()
-        req.state = 'disabled'
-        url = '/links/{}/{}'.format(instance, link)
+        req.state = "disabled"
+        url = "/links/{}/{}".format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
 
     def create_data_link_subscription(self, instance, on_data=None, timeout=60):
@@ -525,13 +546,14 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .DataLinkSubscription
         """
-        manager = WebSocketSubscriptionManager(self, resource='links')
+        manager = WebSocketSubscriptionManager(self, resource="links")
 
         # Represent subscription as a future
         subscription = DataLinkSubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_link_event, subscription, on_data)
+            _wrap_callback_parse_link_event, subscription, on_data
+        )
 
         manager.open(wrapped_callback, instance)
 
@@ -564,13 +586,14 @@ class YamcsClient(BaseClient):
         """
         options = time_service_pb2.SubscribeTimeRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManagerV2(self, topic='time', options=options)
+        manager = WebSocketSubscriptionManagerV2(self, topic="time", options=options)
 
         # Represent subscription as a future
         subscription = TimeSubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_time_info, subscription, on_data)
+            _wrap_callback_parse_time_info, subscription, on_data
+        )
 
         manager.open(wrapped_callback)
 
@@ -599,13 +622,12 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .WebSocketSubscriptionFuture
         """
-        manager = WebSocketSubscriptionManager(self, resource='events')
+        manager = WebSocketSubscriptionManager(self, resource="events")
 
         # Represent subscription as a future
         subscription = WebSocketSubscriptionFuture(manager)
 
-        wrapped_callback = functools.partial(
-            _wrap_callback_parse_event, on_data)
+        wrapped_callback = functools.partial(_wrap_callback_parse_event, on_data)
 
         manager.open(wrapped_callback, instance)
 
@@ -622,7 +644,7 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         :rtype: .Cop1Config
         """
-        response = self.get_proto('/cop1/{}/{}/config'.format(instance, link))
+        response = self.get_proto("/cop1/{}/{}/config".format(instance, link))
         message = cop1_pb2.Cop1Config()
         message.ParseFromString(response.content)
         return Cop1Config(message)
@@ -638,7 +660,7 @@ class YamcsClient(BaseClient):
         req = cop1_pb2.SetConfigRequest()
         req.cop1Config.CopyFrom(cop1_config._proto)
 
-        url = '/cop1/{}/{}/config'.format(instance, link)
+        url = "/cop1/{}/{}/config".format(instance, link)
         self.patch_proto(url, data=req.SerializeToString())
 
     def disable_cop1(self, instance, link, set_bypass_all=True):
@@ -651,7 +673,7 @@ class YamcsClient(BaseClient):
         """
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = set_bypass_all
-        url = '/cop1/{}/{}:disable'.format(instance, link)
+        url = "/cop1/{}/{}:disable".format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
 
     def initialize_cop1(self, instance, link, type, clcw_wait_timeout=None, v_r=None):
@@ -672,7 +694,7 @@ class YamcsClient(BaseClient):
         if v_r is not None:
             req.vR = v_r
 
-        url = '/cop1/{}/{}:initialize'.format(instance, link)
+        url = "/cop1/{}/{}:initialize".format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
 
     def resume_cop1(self, instance, link, set_bypass_all=True):
@@ -684,7 +706,7 @@ class YamcsClient(BaseClient):
         :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
         """
         req = cop1_pb2.ResumeRequest()
-        url = '/cop1/{}/{}:resume'.format(instance, link)
+        url = "/cop1/{}/{}:resume".format(instance, link)
         self.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_status(self, instance, link):
@@ -695,7 +717,7 @@ class YamcsClient(BaseClient):
         :param str link: The name of the data link.
         :rtype: .Cop1Status
         """
-        response = self.get_proto('/cop1/{}/{}/status'.format(instance, link))
+        response = self.get_proto("/cop1/{}/{}/status".format(instance, link))
         message = cop1_pb2.Cop1Status()
         message.ParseFromString(response.content)
         return Cop1Status(message)
@@ -726,13 +748,14 @@ class YamcsClient(BaseClient):
         options.instance = instance
         options.linkName = linkName
 
-        manager = WebSocketSubscriptionManager(self, resource='cop1', options=options)
+        manager = WebSocketSubscriptionManager(self, resource="cop1", options=options)
 
         # Represent subscription as a future
         subscription = Cop1Subscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_cop1_status, subscription, on_data)
+            _wrap_callback_parse_cop1_status, subscription, on_data
+        )
 
         manager.open(wrapped_callback, instance)
 

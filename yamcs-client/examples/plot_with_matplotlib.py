@@ -1,7 +1,7 @@
+# fmt: off
 from datetime import datetime, timedelta
 
 import matplotlib.pyplot as plt
-
 from yamcs.client import YamcsClient
 
 if __name__ == '__main__':

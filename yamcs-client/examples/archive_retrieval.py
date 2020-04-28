@@ -1,3 +1,4 @@
+# fmt: off
 from datetime import datetime, timedelta
 from itertools import islice
 

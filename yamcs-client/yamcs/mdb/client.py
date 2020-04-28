@@ -1,12 +1,10 @@
 from yamcs.core import pagination
 from yamcs.core.helpers import adapt_name_for_rest
-from yamcs.mdb.model import (Algorithm, Command, Container, Parameter,
-                             SpaceSystem)
+from yamcs.mdb.model import Algorithm, Command, Container, Parameter, SpaceSystem
 from yamcs.protobuf.mdb import mdb_pb2
 
 
 class MDBClient(object):
-
     def __init__(self, client, instance):
         super(MDBClient, self).__init__()
         self._client = client
@@ -23,14 +21,14 @@ class MDBClient(object):
         params = {}
 
         if page_size is not None:
-            params['limit'] = page_size
+            params["limit"] = page_size
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/space-systems'.format(self._instance),
+            path="/mdb/{}/space-systems".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
-            items_key='spaceSystems',
+            items_key="spaceSystems",
             item_mapper=SpaceSystem,
         )
 
@@ -41,7 +39,7 @@ class MDBClient(object):
         :param str name: A fully-qualified XTCE name
         :rtype: .SpaceSystem
         """
-        url = '/mdb/{}/space-systems{}'.format(self._instance, name)
+        url = "/mdb/{}/space-systems{}".format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
@@ -55,19 +53,19 @@ class MDBClient(object):
         :param str parameter_type: The type of parameter
         :rtype: :class:`.Parameter` iterator
         """
-        params = {'details': True}
+        params = {"details": True}
 
         if parameter_type is not None:
-            params['type'] = parameter_type
+            params["type"] = parameter_type
         if page_size is not None:
-            params['limit'] = page_size
+            params["limit"] = page_size
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/parameters'.format(self._instance),
+            path="/mdb/{}/parameters".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
-            items_key='parameters',
+            items_key="parameters",
             item_mapper=Parameter,
         )
 
@@ -80,7 +78,7 @@ class MDBClient(object):
         :rtype: .Parameter
         """
         name = adapt_name_for_rest(name)
-        url = '/mdb/{}/parameters{}'.format(self._instance, name)
+        url = "/mdb/{}/parameters{}".format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
@@ -97,14 +95,14 @@ class MDBClient(object):
         params = {}
 
         if page_size is not None:
-            params['limit'] = page_size
+            params["limit"] = page_size
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/containers'.format(self._instance),
+            path="/mdb/{}/containers".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
-            items_key='containers',
+            items_key="containers",
             item_mapper=Container,
         )
 
@@ -117,7 +115,7 @@ class MDBClient(object):
         :rtype: .Container
         """
         name = adapt_name_for_rest(name)
-        url = '/mdb/{}/containers{}'.format(self._instance, name)
+        url = "/mdb/{}/containers{}".format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
@@ -134,14 +132,14 @@ class MDBClient(object):
         params = {}
 
         if page_size is not None:
-            params['limit'] = page_size
+            params["limit"] = page_size
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/commands'.format(self._instance),
+            path="/mdb/{}/commands".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
-            items_key='commands',
+            items_key="commands",
             item_mapper=Command,
         )
 
@@ -154,7 +152,7 @@ class MDBClient(object):
         :rtype: .Command
         """
         name = adapt_name_for_rest(name)
-        url = '/mdb/{}/commands{}'.format(self._instance, name)
+        url = "/mdb/{}/commands{}".format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
@@ -171,14 +169,14 @@ class MDBClient(object):
         params = {}
 
         if page_size is not None:
-            params['limit'] = page_size
+            params["limit"] = page_size
 
         return pagination.Iterator(
             client=self._client,
-            path='/mdb/{}/algorithms'.format(self._instance),
+            path="/mdb/{}/algorithms".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
-            items_key='algorithms',
+            items_key="algorithms",
             item_mapper=Algorithm,
         )
 
@@ -191,7 +189,7 @@ class MDBClient(object):
         :rtype: .Algorithm
         """
         name = adapt_name_for_rest(name)
-        url = '/mdb/{}/algorithms{}'.format(self._instance, name)
+        url = "/mdb/{}/algorithms{}".format(self._instance, name)
         response = self._client.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)

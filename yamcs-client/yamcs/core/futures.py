@@ -130,8 +130,7 @@ class WebSocketSubscriptionFuture(Future):
         # notion, so close the connection.
         if exception:
             closer = threading.Thread(
-                target=self._manager.close,
-                kwargs={'reason': exception},
+                target=self._manager.close, kwargs={"reason": exception},
             )
             closer.daemon = True
             closer.start()
@@ -160,8 +159,7 @@ class WebSocketSubscriptionFuture(Future):
 
     def done(self):
         # We're assuming that None cannot be a valid result
-        return (self._exception is not None or
-                self._result is not None)
+        return self._exception is not None or self._result is not None
 
     def reply(self, timeout=None):
         """
@@ -201,7 +199,7 @@ class WebSocketSubscriptionFuture(Future):
             if not event.wait(timeout=timeout):
                 # Remark that a timeout does *not* mean that the underlying
                 # work is canceled.
-                raise TimeoutError('Timed out.')
+                raise TimeoutError("Timed out.")
         else:
             # The actual timeout value does not have any impact
             while not event.wait(timeout=10):
