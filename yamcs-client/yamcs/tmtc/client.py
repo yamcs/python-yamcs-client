@@ -1,5 +1,5 @@
+import binascii
 import functools
-import socket
 import threading
 
 from yamcs.core.exceptions import YamcsError
@@ -8,7 +8,6 @@ from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.alarms import alarms_pb2
-from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -572,7 +571,12 @@ class ProcessorClient(object):
             for key in args:
                 assignment = req.assignment.add()
                 assignment.name = key
-                assignment.value = str(args[key])
+
+                value = args[key]
+                if isinstance(value, (bytes, bytearray)):
+                    assignment.value = binascii.hexlify(value)
+                else:
+                    assignment.value = str(value)
 
         if verification:
             if verification._disable_all:
