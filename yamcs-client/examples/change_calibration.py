@@ -16,20 +16,23 @@ def subscribe_param():
 
 def set_calibrator():
     """Set the calibrator to a constant polynomial."""
-    processor.set_default_calibrator('/YSS/SIMULATOR/BatteryVoltage2', 'polynomial', [1, 0.1])
+    processor.set_default_calibrator('/YSS/SIMULATOR/BatteryVoltage2',
+                                     'polynomial', [1, 0.1])
+
 
 def reset_calibrator():
     """Reset the calibrator to the original MDB value."""
     processor.reset_calibrators('/YSS/SIMULATOR/BatteryVoltage2')
 
+
 def clear_calibrator():
     """Clear(remove) the calibrator."""
     processor.clear_calibrators('/YSS/SIMULATOR/BatteryVoltage2')
 
+
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
-    processor = client.get_processor(instance='simulator',
-                                     processor='realtime')
+    processor = client.get_processor(instance='simulator', processor='realtime')
 
     subscribe_param()
     sleep(5)

@@ -8,8 +8,8 @@ class Future(object):
 
     """Future for capturing asynchronous execution.
 
-    This interface is based on :class:`concurrent.futures.Future` available in Python 3 (not
-    in Python 2).
+    This interface is based on :class:`concurrent.futures.Future` available in Python 3
+    (not in Python 2).
     """
 
     @abc.abstractmethod
@@ -28,7 +28,9 @@ class Future(object):
 
     @abc.abstractmethod
     def running(self):
-        """Return True if the call is currently being executed and cannot be cancelled."""
+        """
+        Return True if the call is currently being executed and cannot be cancelled.
+        """
         raise NotImplementedError()
 
     @abc.abstractmethod
@@ -176,7 +178,6 @@ class WebSocketSubscriptionFuture(Future):
             raise YamcsError(msg)
         return self._response_reply
 
-    # pylint: disable-msg=E0702
     def result(self, timeout=None):
         err = self.exception(timeout=timeout)
         if err is None:

@@ -6,9 +6,6 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-import os
-import sys
-
 import pkg_resources
 
 # -- Path setup --------------------------------------------------------------
@@ -90,9 +87,6 @@ html_theme = "alabaster"
 #
 html_theme_options = {
     "description": "Yamcs Client Library for Python",
-    #'github_user': 'yamcs',
-    #'github_repo': 'yamcs-python',
-    #'github_banner': False,
     "fixed_sidebar": False,
     "show_powered_by": False,
     "font_family": "Helvetica,Arial,sans-serif",

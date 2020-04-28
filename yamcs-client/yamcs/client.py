@@ -45,9 +45,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     """
     time_message = timestamp_pb2.Timestamp()
     message.Unpack(time_message)
-    # pylint: disable=no-member
     time = time_message.ToDatetime()
-    # pylint: disable=protected-access
     subscription._process(time)
     if on_data:
         on_data(time)
@@ -73,7 +71,6 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
         if message.data.type == yamcs_pb2.LINK_EVENT:
             link_message = getattr(message.data, "linkEvent")
             link_event = LinkEvent(link_message)
-            # pylint: disable=protected-access
             subscription._process(link_event)
             if on_data:
                 on_data(link_event)
@@ -202,9 +199,10 @@ class YamcsClient(BaseClient):
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         :param Optional[bool] tls: Whether TLS encryption is expected
-        :param Optional[bool] tls_verify: Whether server certificate verification is enabled
-                                          (only applicable if ``tls=True``)
-        :param Optional[.Credentials] credentials: Credentials for when the server is secured
+        :param Optional[bool] tls_verify: Whether server certificate verification is
+                                          enabled (only applicable if ``tls=True``)
+        :param Optional[.Credentials] credentials: Credentials for when the server is
+                                                   secured
         :param Optional[str] user_agent: Optionally override the default user agent
         """
         super(YamcsClient, self).__init__(address, **kwargs)
@@ -669,7 +667,8 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
-        :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
+        :param bool set_bypass_all: If True(default) then all frames will have the
+                                    Bypass flag activated (i.e. they will be BD frames)
         """
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = set_bypass_all
@@ -683,7 +682,8 @@ class YamcsClient(BaseClient):
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
         :param str type: One of  WITH_CLCW_CHECK,  WITHOUT_CLCW_CHECK, UNLOCK, SET_VR
-        :param int clcw_wait_timeout: timeout in seconds used for the reception of CLCS, required in case type = WITH_CLCW_CHECK
+        :param int clcw_wait_timeout: timeout in seconds used for the reception of
+                                      CLCS, required in case type = WITH_CLCW_CHECK
         :param int v_r: value of v(R) in case type = SET_VR
         """
         req = cop1_pb2.InitializeRequest()
@@ -703,7 +703,9 @@ class YamcsClient(BaseClient):
 
         :param str instance: A Yamcs instance name.
         :param str link: The name of the data link.
-        :param bool set_bypass_all: If True(default) then all frames will have the Bypass flag activated (i.e. they will be BD frames)
+        :param bool set_bypass_all: If True(default) then all frames will have the
+                                    Bypass flag activated (i.e. they will be BD
+                                    frames)
         """
         req = cop1_pb2.ResumeRequest()
         url = "/cop1/{}/{}:resume".format(instance, link)
@@ -730,16 +732,12 @@ class YamcsClient(BaseClient):
         subscription by canceling the future.
 
         :param str instance: A Yamcs instance name
-
         :param str linkName: The link name (has to be of type Cop1TcPacketHandler)
-        
         :param on_data: Function that gets called on each :class:`.Cop1Status`.
         :type on_data: Optional[Callable[.Cop1Status])
-
         :param timeout: The amount of seconds to wait for the request to
                         complete.
         :type timeout: Optional[float]
-
         :return: Future that can be used to manage the background websocket
                  subscription.
         :rtype: .Cop1Subscription

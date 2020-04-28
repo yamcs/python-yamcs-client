@@ -171,8 +171,8 @@ class ArrayType(object):
     @property
     def arrayType(self):
         """
-        In case the elements of an array of this type are also of type `array`, this returns
-        type info of the elements' array type.
+        In case the elements of an array of this type are also of type `array`, this
+        returns type info of the elements' array type.
 
         .. note::
             This is an uncommon use case. Multi-dimensional arrays are more prevalent.

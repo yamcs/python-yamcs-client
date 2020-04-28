@@ -811,7 +811,7 @@ class Calibrator(object):
     POLYNOMIAL = "polynomial"
     SPLINE = "spline"
 
-    def __init__(self, context, type, data):  # pylint: disable=W0622
+    def __init__(self, context, type, data):
         """
         :param str context: Condition under which this calibrator may be
                             applied. The value ``None`` indicates the

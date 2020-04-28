@@ -85,9 +85,9 @@ class WebSocketSubscriptionManager(object):
             target=self._websocket.run_forever, kwargs=kwargs
         )
 
-        # Running this as a daemon thread improves possibilities
-        # for consumers of our API to control shutdown.
-        # (example: can just use time.sleep on the main thread instead of blocking on the future)
+        # Running this as a daemon thread improves possibilities for consumers
+        # of our API to control shutdown. For example can can just use
+        # time.sleep on the main thread instead of blocking on the future.
         self._consumer.daemon = True
 
         self._consumer.start()
@@ -141,7 +141,7 @@ class WebSocketSubscriptionManager(object):
                 for cb in self._response_callbacks:
                     cb(self, exception=pb2_message.exception)
             self._callback(pb2_message)
-        except Exception as e:  # pylint: disable=W0703
+        except Exception as e:
             logging.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 
@@ -232,9 +232,9 @@ class WebSocketSubscriptionManagerV2(object):
             target=self._websocket.run_forever, kwargs=kwargs
         )
 
-        # Running this as a daemon thread improves possibilities
-        # for consumers of our API to control shutdown.
-        # (example: can just use time.sleep on the main thread instead of blocking on the future)
+        # Running this as a daemon thread improves possibilities for consumers
+        # of our API to control shutdown. For example can can just use
+        # time.sleep on the main thread instead of blocking on the future.
         self._consumer.daemon = True
 
         self._consumer.start()
@@ -290,7 +290,7 @@ class WebSocketSubscriptionManagerV2(object):
             else:
                 data = getattr(pb2_message, "data")
                 self._callback(data)
-        except Exception as e:  # pylint: disable=W0703
+        except Exception as e:
             logging.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 

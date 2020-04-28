@@ -77,6 +77,6 @@ def adapt_name_for_rest(name):
     """
     if name.startswith("/"):
         return name
-    elif not "/" in name:
+    elif "/" not in name:
         raise ValueError("Provided name is not a fully-qualified XTCE name.")
     return "/" + name

@@ -460,7 +460,9 @@ class Cop1Config(object):
 
     @property
     def vc_id(self):
-        """Virtual Channel Id for this link; note that this cannot be changed at runtime"""
+        """
+        Virtual Channel Id for this link; note that this cannot be changed at runtime.
+        """
         return self._proto.vcId
 
     @property
@@ -496,7 +498,7 @@ class Cop1Config(object):
         self._proto.t1 = int(round(1000 * sec))
 
     def __str__(self):
-        line = "VC_ID: {}, window_width: {}, timeout_type: {}, tx_limit: {}, t1: {}".format(
+        line = "VC_ID: {}, win: {}, timeout_type: {}, tx_limit: {}, t1: {}".format(
             self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1
         )
         return line

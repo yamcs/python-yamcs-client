@@ -34,7 +34,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     platforms="Posix; MacOS X; Windows",
-    install_requires=["requests-gssapi", "yamcs-client",],
+    install_requires=["requests-gssapi", "yamcs-client"],
     include_package_data=True,
     zip_safe=False,
 )

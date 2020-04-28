@@ -7,6 +7,7 @@ from yamcs.core.auth import Credentials
 # For this example to work, enable security in Yamcs by
 # configuring appropriate authentication modules.
 
+
 def authenticate_with_username_password():
     """Authenticate by directly providing username/password to Yamcs."""
     credentials = Credentials(username='admin', password='password')
@@ -26,7 +27,8 @@ def authenticate_with_access_token(access_token):
 
 
 def impersonate_with_client_credentials():
-    credentials = Credentials(client_id='cf79cfbd-ed01-4ae2-93e1-c606a2ebc36f', client_secret='!#?hgbu1*3', become='admin')
+    credentials = Credentials(client_id='cf79cfbd-ed01-4ae2-93e1-c606a2ebc36f',
+                              client_secret='!#?hgbu1*3', become='admin')
     client = YamcsClient('localhost:8090', credentials=credentials)
     print('have', client.get_user_info().username)
     while True:

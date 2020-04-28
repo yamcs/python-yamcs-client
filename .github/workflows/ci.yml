@@ -3,6 +3,21 @@ name: CI
 on: [push, pull_request]
 
 jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install flake8
+      - name: Lint with flake8
+        run: flake8 . --exclude '*pb2.py' --count --show-source --statistics
+
   docs:
     name: Documentation
     runs-on: ubuntu-latest

@@ -50,7 +50,6 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
         subscription.subscription_id = data.subscriptionId
     elif message.type == message.DATA and message.data.type == yamcs_pb2.PARAMETER:
         parameter_data = ParameterData(getattr(message.data, "parameterData"))
-        # pylint: disable=protected-access
         subscription._process(parameter_data)
         if on_data:
             on_data(parameter_data)
@@ -63,7 +62,6 @@ def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
     """
     if message.type == message.DATA and message.data.type == yamcs_pb2.CMD_HISTORY:
         entry = getattr(message.data, "command")
-        # pylint: disable=protected-access
         rec = subscription._process(entry)
         if on_data:
             on_data(rec)
@@ -77,7 +75,6 @@ def _wrap_callback_parse_alarm_data(subscription, on_data, message):
     if message.type == message.DATA and message.data.type == yamcs_pb2.ALARM_DATA:
         proto = getattr(message.data, "alarmData")
         alarm_update = AlarmUpdate(proto)
-        # pylint: disable=protected-access
         subscription._process(alarm_update)
         if on_data:
             on_data(alarm_update)
@@ -223,7 +220,6 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
                                               previously issued command.
         :rtype: .CommandHistory
         """
-        # pylint: disable=protected-access
         if issued_command.id in self._cache:
             return self._cache[issued_command.id]
         return None
@@ -232,7 +228,6 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         key = self._cache_key(entry.commandId)
         if key in self._cache:
             cmdhist = self._cache[key]
-            # pylint: disable=protected-access
             cmdhist._update(entry.attr)
         else:
             cmdhist = CommandHistory(entry)
@@ -363,7 +358,6 @@ class CommandConnection(WebSocketSubscriptionFuture):
         issued_command = self._client.issue_command(
             command, args, dry_run, comment, verification
         )
-        # pylint: disable=protected-access
         command = MonitoredCommand(issued_command._proto, self._client)
 
         self._command_cache[command.id] = command
@@ -376,7 +370,6 @@ class CommandConnection(WebSocketSubscriptionFuture):
 
         return command
 
-    # pylint: disable=protected-access
     def _process(self, entry):
         # TODO would be nice if the server gave this.
         command_id = "{}-{}-{}".format(
@@ -575,11 +568,13 @@ class ProcessorClient(object):
         :param .VerificationConfig verification: Overrides to the default
                                                  verification handling of this
                                                  command.
-        :param dict attributes: named extra attributes that will be added to the command history.
-                                Might be used by the processor or data links to change
-                                the way the command is processed.
-                                For example when commanding over a frame link where the COP1 protocol is used,
-                                the cop1Bypass attribute can be used to by-pass the COP1 stack (the command will be sent into a so called Type-BD frame)
+        :param dict attributes: named extra attributes that will be added to the
+                                command history. Might be used by the processor or data
+                                links to change the way the command is processed. For
+                                example when commanding over a frame link where the
+                                COP1 protocol is used, the cop1Bypass attribute can be
+                                used to by-pass the COP1 stack (the command will be
+                                sent into a so called Type-BD frame)
         :return: An object providing access to properties of the newly issued
                  command.
         :rtype: .IssuedCommand
@@ -644,8 +639,10 @@ class ProcessorClient(object):
         Remark that this does not query the archive. Only active alarms on the
         current processor are returned.
 
-        :param ~datetime.datetime start: Minimum trigger time of the returned alarms (inclusive)
-        :param ~datetime.datetime stop: Maximum trigger time of the returned alarms (exclusive)
+        :param ~datetime.datetime start: Minimum trigger time of the returned alarms
+                                         (inclusive)
+        :param ~datetime.datetime stop: Maximum trigger time of the returned alarms
+                                        (exclusive)
         :rtype: ~collections.Iterable[.Alarm]
         """
         # TODO implement continuation token on server
@@ -663,7 +660,7 @@ class ProcessorClient(object):
         alarms = getattr(message, "alarms")
         return iter([_parse_alarm(alarm) for alarm in alarms])
 
-    def set_default_calibrator(self, parameter, type, data):  # pylint: disable=W0622
+    def set_default_calibrator(self, parameter, type, data):
         """
         Apply a calibrator while processing raw values of the specified
         parameter. If there is already a default calibrator associated
@@ -717,7 +714,8 @@ class ProcessorClient(object):
 
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
-        :param .Calibrator[] calibrators: List of calibrators (either contextual or not)
+        :param .Calibrator[] calibrators: List of calibrators (either contextual or
+                                          not)
         """
         req = mdb_pb2.UpdateParameterRequest()
         req.action = mdb_pb2.UpdateParameterRequest.SET_CALIBRATORS
@@ -782,15 +780,15 @@ class ProcessorClient(object):
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
-                                where lo and hi are assumed exclusive.
+                                    where lo and hi are assumed exclusive.
         :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
-                                  where lo and hi are assumed exclusive.
+                                      where lo and hi are assumed exclusive.
         :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
-                                   where lo and hi are assumed exclusive.
+                                       where lo and hi are assumed exclusive.
         :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
-                                   where lo and hi are assumed exclusive.
+                                       where lo and hi are assumed exclusive.
         :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
-                                 where lo and hi are assumed exclusive.
+                                     where lo and hi are assumed exclusive.
         :param int min_violations: Minimum violations before an alarm is
                                    generated.
         """
@@ -1128,7 +1126,8 @@ class ProcessorClient(object):
 
     def set_algorithm(self, parameter, text):
         """
-        Change an algorithm text. Can only be peformed on JavaScript or Python algorithms.
+        Change an algorithm text. Can only be peformed on JavaScript or Python
+        algorithms.
 
         :param string text: new algorithm text (as it would appear in excel or XTCE)
         :param str parameter: Either a fully-qualified XTCE name or an alias

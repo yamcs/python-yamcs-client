@@ -61,7 +61,8 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
+        :param float merge_time: Maximum gap in seconds before two consecutive index
+                                 records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -107,7 +108,8 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
+        :param float merge_time: Maximum gap in seconds before two consecutive index
+                                 records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -151,7 +153,8 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
+        :param float merge_time: Maximum gap in seconds before two consecutive index
+                                 records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -180,7 +183,8 @@ class ArchiveClient(object):
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index records are merged together.
+        :param float merge_time: Maximum gap in seconds before two consecutive index
+                                 records are merged together.
         :rtype: ~collections.Iterable[.IndexGroup]
         """
         params = {}
@@ -240,7 +244,8 @@ class ArchiveClient(object):
         :param ~datetime.datetime stop: Maximum genreation time of the returned
                                         packets (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size limit.
+                              less overhead, but risk hitting the maximum message size
+                              limit.
         :param bool descending: If set to ``True`` packets are fetched in reverse
                                 order (most recent first).
         :rtype: ~collections.Iterable[.Packet]
@@ -270,7 +275,8 @@ class ArchiveClient(object):
         """
         Gets a single packet by its identifying key (gentime, seqNum).
 
-        :param ~datetime.datetime generation_time: When the packet was generated (packet time)
+        :param ~datetime.datetime generation_time: When the packet was generated
+                                                   (packet time)
         :param int sequence_number: Sequence number of the packet
         :rtype: .Packet
         """
@@ -302,10 +308,13 @@ class ArchiveClient(object):
                              One of ``INFO``, ``WATCH``, ``WARNING``, ``DISTRESS``,
                              ``CRITICAL`` or ``SEVERE``.
         :param str text_filter: Filter the text message of the returned events
-        :param ~datetime.datetime start: Minimum start date of the returned events (inclusive)
-        :param ~datetime.datetime stop: Maximum start date of the returned events (exclusive)
+        :param ~datetime.datetime start: Minimum start date of the returned events
+                                         (inclusive)
+        :param ~datetime.datetime stop: Maximum start date of the returned events
+                                        (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size limit.
+                              less overhead, but risk hitting the maximum message size
+                              limit.
         :param bool descending: If set to ``True`` events are fetched in reverse
                                 order (most recent first).
         :rtype: ~collections.Iterable[.Event]
@@ -491,7 +500,8 @@ class ArchiveClient(object):
         :param ~datetime.datetime stop: Maximum generation time of the returned
                                         values (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size limit.
+                              less overhead, but risk hitting the maximum message size
+                              limit.
         :param bool descending: If set to ``True`` values are fetched in reverse
                                 order (most recent first).
         :param str parameter_cache: Specify the name of the processor who's
@@ -545,7 +555,8 @@ class ArchiveClient(object):
         :param ~datetime.datetime stop: Maximum generation time of the returned
                                         command history entries (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size limit.
+                              less overhead, but risk hitting the maximum message size
+                              limit.
         :param bool descending: If set to ``True`` results are fetched in reverse
                                 order (most recent first).
         :rtype: ~collections.Iterable[.CommandHistory]

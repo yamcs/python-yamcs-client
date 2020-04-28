@@ -8,7 +8,7 @@ def print_buckets(instance):
         print(' {} ({} objects, {} bytes)'.format(
             bucket, bucket.object_count, bucket.size))
         listing = bucket.list_objects()
-        print ('  prefixes:', listing.prefixes)
+        print('  prefixes:', listing.prefixes)
         for obj in listing.objects:
             print('  object:', obj)
 
