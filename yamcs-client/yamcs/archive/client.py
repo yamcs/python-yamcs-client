@@ -17,6 +17,9 @@ from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2, index_service_pb2
+from yamcs.protobuf.commanding import command_history_service_pb2
+from yamcs.protobuf.events import events_service_pb2
+from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.protobuf.web import websocket_pb2
@@ -49,7 +52,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/packet-names".format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.ListPacketNamesResponse()
+        message = packets_service_pb2.ListPacketNamesResponse()
         message.ParseFromString(response.content)
         names = getattr(message, "name")
         return iter(names)
@@ -141,7 +144,7 @@ class ArchiveClient(object):
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/events/sources".format(self._instance)
         response = self._client.get_proto(path=path)
-        message = archive_pb2.ListEventSourcesResponse()
+        message = events_service_pb2.ListEventSourcesResponse()
         message.ParseFromString(response.content)
         sources = getattr(message, "source")
         return iter(sources)
@@ -266,7 +269,7 @@ class ArchiveClient(object):
             client=self._client,
             path="/archive/{}/packets".format(self._instance),
             params=params,
-            response_class=archive_pb2.ListPacketsResponse,
+            response_class=packets_service_pb2.ListPacketsResponse,
             items_key="packet",
             item_mapper=Packet,
         )
@@ -339,7 +342,7 @@ class ArchiveClient(object):
             client=self._client,
             path="/archive/{}/events".format(self._instance),
             params=params,
-            response_class=archive_pb2.ListEventsResponse,
+            response_class=events_service_pb2.ListEventsResponse,
             items_key="event",
             item_mapper=Event,
         )
@@ -580,7 +583,7 @@ class ArchiveClient(object):
             client=self._client,
             path=path,
             params=params,
-            response_class=archive_pb2.ListCommandsResponse,
+            response_class=command_history_service_pb2.ListCommandsResponse,
             items_key="entry",
             item_mapper=CommandHistory,
         )

@@ -28,8 +28,8 @@ from yamcs.model import (
     UserInfo,
 )
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.archive import archive_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
+from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.time import time_service_pb2
@@ -471,7 +471,7 @@ class YamcsClient(BaseClient):
                                 every submitted event is unique.
         :type sequence_number: Optional[int]
         """
-        req = archive_pb2.CreateEventRequest()
+        req = events_service_pb2.CreateEventRequest()
         req.message = message
         req.severity = severity
         if event_type:
