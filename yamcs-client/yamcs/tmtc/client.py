@@ -9,7 +9,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.alarms import alarms_pb2
+from yamcs.protobuf.alarms import alarms_service_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -655,7 +655,7 @@ class ProcessorClient(object):
         # Return an iterator anyway for similarity with other API methods
         url = "/processors/{}/{}/alarms".format(self._instance, self._processor)
         response = self._client.get_proto(path=url, params=params)
-        message = alarms_pb2.ListAlarmsResponse()
+        message = alarms_service_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
         alarms = getattr(message, "alarms")
         return iter([_parse_alarm(alarm) for alarm in alarms])
@@ -888,7 +888,7 @@ class ProcessorClient(object):
         url = "/processors/{}/{}/alarms{}/{}".format(
             self._instance, self._processor, name, alarm.sequence_number
         )
-        req = alarms_pb2.EditAlarmRequest()
+        req = alarms_service_pb2.EditAlarmRequest()
         req.state = "acknowledged"
         if comment is not None:
             req.comment = comment
@@ -907,7 +907,7 @@ class ProcessorClient(object):
         url = "/processors/{}/{}/alarms{}/{}".format(
             self._instance, self._processor, name, alarm.sequence_number
         )
-        req = alarms_pb2.EditAlarmRequest()
+        req = alarms_service_pb2.EditAlarmRequest()
         req.state = "unshelved"
         self._client.patch_proto(url, data=req.SerializeToString())
 
@@ -924,7 +924,7 @@ class ProcessorClient(object):
         url = "/processors/{}/{}/alarms{}/{}".format(
             self._instance, self._processor, name, alarm.sequence_number
         )
-        req = alarms_pb2.EditAlarmRequest()
+        req = alarms_service_pb2.EditAlarmRequest()
         req.state = "shelved"
         if comment is not None:
             req.comment = comment
@@ -947,7 +947,7 @@ class ProcessorClient(object):
         url = "/processors/{}/{}/alarms{}/{}".format(
             self._instance, self._processor, name, alarm.sequence_number
         )
-        req = alarms_pb2.EditAlarmRequest()
+        req = alarms_service_pb2.EditAlarmRequest()
         req.state = "cleared"
         if comment is not None:
             req.comment = comment
