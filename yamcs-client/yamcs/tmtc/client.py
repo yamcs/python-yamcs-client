@@ -426,7 +426,7 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
 
     def _process(self, alarm_update):
         alarm = alarm_update.alarm
-        if alarm.processOK and not alarm.triggered and alarm.acknowledged:
+        if alarm.is_process_ok and not alarm.is_ok and alarm.is_acknowledged:
             del self._cache[alarm.name]
         else:
             self._cache[alarm.name] = alarm
