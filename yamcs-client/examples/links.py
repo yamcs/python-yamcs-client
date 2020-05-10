@@ -4,8 +4,9 @@ from time import sleep
 from yamcs.client import YamcsClient
 
 
-def enable_all_links():
-    """Enable all links."""
+def enable_link(link):
+    """Enable a link."""
+    link.enable_link()
     for link in client.list_data_links(instance='simulator'):
         client.enable_data_link(instance=link.instance, link=link.name)
 
@@ -16,11 +17,12 @@ def callback(message):
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
+    link = client.get_link('simulator', link='tm_dump')
 
-    print('Enabling all links')
-    enable_all_links()
+    print('Enabling link')
+    enable_link(link)
 
-    subscription = client.create_data_link_subscription('simulator', callback)
+    subscription = client.create_link_subscription('simulator', callback)
 
     sleep(10)
 

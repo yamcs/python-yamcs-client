@@ -17,7 +17,8 @@ called ``/YSS/SIMULATOR``.
     authenticate
     ccsds_completeness
     commanding
-    data_links
+    cop1
+    links
     events
     mission_time
     parameter_subscription

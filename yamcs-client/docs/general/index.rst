@@ -51,14 +51,3 @@ Send an event:
     :pyobject: send_event
     :start-after: """
     :dedent: 4
-
-
-Data Links
-^^^^^^^^^^
-
-Enable all links:
-
-.. literalinclude:: ../../examples/data_links.py
-    :pyobject: enable_all_links
-    :start-after: """
-    :dedent: 4

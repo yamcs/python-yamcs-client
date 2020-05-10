@@ -1,69 +1,50 @@
-# fmt: off
 from time import sleep
 
 from yamcs.client import YamcsClient
 
-global cop1_status
-
 
 def callback(status):
-    global cop1_status
-    print('<COP1 callback> status: ', status)
-    cop1_status = status
+    print("<callback> status:", status)
 
 
-if __name__ == '__main__':
-    client = YamcsClient('localhost:8090')
+if __name__ == "__main__":
+    client = YamcsClient("localhost:8090")
+    link = client.get_link("simulator", link="UDP_FRAME_OUT.vc0")
 
-    cop1_config = client.get_cop1_config('opsim', 'UDP_FRAME_OUT.tc')
-    print('COP1 congiguration:', cop1_config)
+    config = link.get_cop1_config()
+    print(config)
 
-    print('Changing COP1 configuration')
-    cop1_config.t1 = cop1_config.t1 + 0.1
-    # cop1_config.timeout_type = 'SUSPEND'
-    cop1_config.tx_limit = cop1_config.tx_limit+1
-    client.set_cop1_config('opsim', 'UDP_FRAME_OUT.tc', cop1_config)
+    print("Changing COP1 configuration")
+    link.update_cop1_config(t1=3.1, tx_limit=4)
 
-    cop1_config = client.get_cop1_config('opsim', 'UDP_FRAME_OUT.tc')
-    print('New COP1 configuration:', cop1_config)
-
-    cop1_status = client.get_cop1_status('opsim', 'UDP_FRAME_OUT.tc')
-    print('Initial COP1 status from get_cop1_status():', cop1_status)
-
-    cop1 = client.create_cop1_subscription('opsim', 'UDP_FRAME_OUT.tc', callback)
-    print('COP1 status subscribed.')
-
-    print('Disabling COP1....')
-    client.disable_cop1('opsim', 'UDP_FRAME_OUT.tc')
-
-    sleep(3)
-    print('Initializing COP1 with CLCW_CHECK')
-    print('  (if no CLCW is received, COP1 will be suspended in 3 seconds)')
-    client.initialize_cop1('opsim', 'UDP_FRAME_OUT.tc', type='WITH_CLCW_CHECK',
-                           clcw_wait_timeout=3)
+    monitor = link.create_cop1_subscription(on_data=callback)
+    print("COP1 status subscribed.")
 
     sleep(5)
 
-    if cop1_status.state == 'SUSPENDED':
-        print('Resuming COP1')
-        client.resume_cop1('opsim', 'UDP_FRAME_OUT.tc')
+    print("Disabling COP1....")
+    link.disable_cop1()
+
+    sleep(3)
+    print("Initializing COP1 with CLCW_CHECK")
+    print("  (if no CLCW is received, COP1 will be suspended in 3 seconds)")
+    link.initialize_cop1("WITH_CLCW_CHECK", clcw_wait_timeout=3)
+
+    sleep(5)
+
+    if monitor.state == "SUSPENDED":
+        print("Resuming COP1")
+        link.resume_cop1()
 
     sleep(3)
 
-    print('Disabling COP1....')
-    client.disable_cop1('opsim', 'UDP_FRAME_OUT.tc')
+    print("Disabling COP1....")
+    link.disable_cop1()
 
     sleep(3)
-    print('Initializing COP1 with set v(R)=200')
-    print('  (if no CLCW is received, COP1 will be suspended in 3 seconds)')
-    client.initialize_cop1('opsim', 'UDP_FRAME_OUT.tc', type='SET_VR', v_r=200)
 
-    sleep(3)
-    print('Unsubscribing link')
-    cop1.remove('opsim', 'UDP_FRAME_OUT.tc')
-
-    sleep(1)
-    print('Resubscribing link')
-    cop1.add('opsim', 'UDP_FRAME_OUT.tc')
+    print("Initializing COP1 with set v(R)=200")
+    print("  (if no CLCW is received, COP1 will be suspended in 3 seconds)")
+    link.initialize_cop1("SET_VR", v_r=200)
 
     sleep(2)

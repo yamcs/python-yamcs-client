@@ -11,7 +11,7 @@ YamcsClient
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.client.DataLinkSubscription
+.. autoclass:: yamcs.client.LinkSubscription
     :members:
     :undoc-members:
     :show-inheritance:
