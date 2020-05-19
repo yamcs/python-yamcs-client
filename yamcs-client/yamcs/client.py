@@ -9,10 +9,7 @@ from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_isostring, to_isostring
-from yamcs.core.subscriptions import (
-    WebSocketSubscriptionManager,
-    WebSocketSubscriptionManagerV2,
-)
+from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (
@@ -42,9 +39,9 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     Wraps a user callback to parse TimeInfo
     from a WebSocket data message
     """
-    time_message = timestamp_pb2.Timestamp()
-    message.Unpack(time_message)
-    time = time_message.ToDatetime()
+    pb = timestamp_pb2.Timestamp()
+    message.Unpack(pb)
+    time = pb.ToDatetime()
     subscription._process(time)
     if on_data:
         on_data(time)
@@ -55,10 +52,10 @@ def _wrap_callback_parse_event(on_data, message):
     Wraps a user callback to parse Events
     from a WebSocket data message
     """
-    if message.type == message.DATA:
-        if message.data.type == yamcs_pb2.EVENT:
-            event = Event(getattr(message.data, "event"))
-            on_data(event)
+    pb = yamcs_pb2.Event()
+    message.Unpack(pb)
+    event = Event(pb)
+    on_data(event)
 
 
 def _wrap_callback_parse_link_event(subscription, on_data, message):
@@ -66,13 +63,12 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
     Wraps a user callback to parse LinkEvents
     from a WebSocket data message
     """
-    if message.type == message.DATA:
-        if message.data.type == yamcs_pb2.LINK_EVENT:
-            link_message = getattr(message.data, "linkEvent")
-            link_event = LinkEvent(link_message)
-            subscription._process(link_event)
-            if on_data:
-                on_data(link_event)
+    pb = yamcsManagement_pb2.LinkEvent()
+    message.Unpack(pb)
+    link_event = LinkEvent(pb)
+    subscription._process(link_event)
+    if on_data:
+        on_data(link_event)
 
 
 class TimeSubscription(WebSocketSubscriptionFuture):
@@ -496,7 +492,9 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .LinkSubscription
         """
-        manager = WebSocketSubscriptionManager(self, resource="links")
+        options = yamcsManagement_pb2.SubscribeLinksRequest()
+        options.instance = instance
+        manager = WebSocketSubscriptionManager(self, topic="links", options=options)
 
         # Represent subscription as a future
         subscription = LinkSubscription(manager)
@@ -505,7 +503,7 @@ class YamcsClient(BaseClient):
             _wrap_callback_parse_link_event, subscription, on_data
         )
 
-        manager.open(wrapped_callback, instance)
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -540,7 +538,7 @@ class YamcsClient(BaseClient):
 
         :param timeout: The amount of seconds to wait for the request to
                         complete.
-        :type timeout: Optional[float]
+        :type timeout: Optional[float]j
 
         :return: Future that can be used to manage the background websocket
                  subscription.
@@ -548,7 +546,7 @@ class YamcsClient(BaseClient):
         """
         options = time_service_pb2.SubscribeTimeRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManagerV2(self, topic="time", options=options)
+        manager = WebSocketSubscriptionManager(self, topic="time", options=options)
 
         # Represent subscription as a future
         subscription = TimeSubscription(manager)
@@ -584,14 +582,16 @@ class YamcsClient(BaseClient):
                  subscription.
         :rtype: .WebSocketSubscriptionFuture
         """
-        manager = WebSocketSubscriptionManager(self, resource="events")
+        options = events_service_pb2.SubscribeEventsRequest()
+        options.instance = instance
+        manager = WebSocketSubscriptionManager(self, topic="events", options=options)
 
         # Represent subscription as a future
         subscription = WebSocketSubscriptionFuture(manager)
 
         wrapped_callback = functools.partial(_wrap_callback_parse_event, on_data)
 
-        manager.open(wrapped_callback, instance)
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)

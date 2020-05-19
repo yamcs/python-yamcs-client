@@ -676,20 +676,26 @@ class EventAlarm(Alarm):
 
 
 class ParameterData(object):
-    def __init__(self, proto):
+    def __init__(self, proto, mapping):
         self._proto = proto
+        self._mapping = mapping
 
     @property
     def parameters(self):
         """
         :type: List[:class:`.ParameterValue`]
         """
-        return [ParameterValue(p) for p in self._proto.parameter]
+        pvals = []
+        for pval_pb in self._proto.values:
+            id = self._mapping[pval_pb.numericId]
+            pvals.append(ParameterValue(pval_pb, id=id))
+        return pvals
 
 
 class ParameterValue(object):
-    def __init__(self, proto):
+    def __init__(self, proto, id=None):
         self._proto = proto
+        self._id = id or proto.id
 
     @property
     def name(self):
@@ -698,9 +704,9 @@ class ParameterValue(object):
         fully-qualified XTCE name, but it may also be an alias depending
         on how the parameter update was requested.
         """
-        if self._proto.id.namespace:
-            return self._proto.id.namespace + "/" + self._proto.id.name
-        return self._proto.id.name
+        if self._id.namespace:
+            return self._id.namespace + "/" + self._id.name
+        return self._id.name
 
     @property
     def generation_time(self):

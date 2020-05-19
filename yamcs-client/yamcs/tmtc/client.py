@@ -9,11 +9,11 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.alarms import alarms_service_pb2
+from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
+from yamcs.protobuf.commanding import command_history_service_pb2, commanding_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
-from yamcs.protobuf.web import websocket_pb2
 from yamcs.tmtc.model import (
     AlarmUpdate,
     Calibrator,
@@ -44,15 +44,11 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse ParameterData
     from a WebSocket data message
     """
-    if message.type == message.REPLY:
-        data = websocket_pb2.ParameterSubscriptionResponse()
-        data.ParseFromString(message.reply.data)
-        subscription.subscription_id = data.subscriptionId
-    elif message.type == message.DATA and message.data.type == yamcs_pb2.PARAMETER:
-        parameter_data = ParameterData(getattr(message.data, "parameterData"))
-        subscription._process(parameter_data)
-        if on_data:
-            on_data(parameter_data)
+    pb = processing_pb2.SubscribeParametersData()
+    message.Unpack(pb)
+    parameter_data = subscription._process(pb)
+    if on_data:
+        on_data(parameter_data)
 
 
 def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
@@ -60,11 +56,11 @@ def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse CommandHistoryEntry
     from a WebSocket data message
     """
-    if message.type == message.DATA and message.data.type == yamcs_pb2.CMD_HISTORY:
-        entry = getattr(message.data, "command")
-        rec = subscription._process(entry)
-        if on_data:
-            on_data(rec)
+    pb = commanding_pb2.CommandHistoryEntry()
+    message.Unpack(pb)
+    rec = subscription._process(pb)
+    if on_data:
+        on_data(rec)
 
 
 def _wrap_callback_parse_alarm_data(subscription, on_data, message):
@@ -72,12 +68,12 @@ def _wrap_callback_parse_alarm_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse Alarm data
     from a WebSocket data message
     """
-    if message.type == message.DATA and message.data.type == yamcs_pb2.ALARM_DATA:
-        proto = getattr(message.data, "alarmData")
-        alarm_update = AlarmUpdate(proto)
-        subscription._process(alarm_update)
-        if on_data:
-            on_data(alarm_update)
+    pb = alarms_pb2.AlarmData()
+    message.Unpack(pb)
+    alarm_update = AlarmUpdate(pb)
+    subscription._process(alarm_update)
+    if on_data:
+        on_data(alarm_update)
 
 
 def _build_named_object_id(parameter):
@@ -246,17 +242,14 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
 
     def __init__(self, manager):
         super(ParameterSubscription, self).__init__(manager)
+        self._mapping = {}
+        """Mapping from server-assigned identifier, to requested parameter"""
 
         self.value_cache = {}
         """Value cache keyed by parameter name."""
 
         self.delivery_count = 0
         """The number of parameter deliveries."""
-
-        # The actual subscription_id is set async after server reply
-        self.subscription_id = -1
-        """Subscription number assigned by the server. This is set async,
-        so may not be immediately available."""
 
     def add(self, parameters, abort_on_invalid=True, send_from_cache=True):
         """
@@ -273,20 +266,16 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
                                      When ``False`` only newly processed
                                      parameters are received.
         """
-
-        # Verify that we already know our assigned subscription_id
-        assert self.subscription_id != -1
-
         if not parameters:
             return
 
-        options = websocket_pb2.ParameterSubscriptionRequest()
-        options.subscriptionId = self.subscription_id
+        options = processing_pb2.SubscribeParametersRequest()
+        options.action = processing_pb2.SubscribeParametersRequest.ADD
         options.abortOnInvalid = abort_on_invalid
         options.sendFromCache = send_from_cache
         options.id.extend(_build_named_object_ids(parameters))
 
-        self._manager.send("subscribe", options)
+        self._manager.send(options)
 
     def remove(self, parameters):
         """
@@ -295,18 +284,14 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         :param parameters: Parameter(s) to be removed
         :type parameters: Union[str, str[]]
         """
-
-        # Verify that we already know our assigned subscription_id
-        assert self.subscription_id != -1
-
         if not parameters:
             return
 
-        options = websocket_pb2.ParameterSubscriptionRequest()
-        options.subscriptionId = self.subscription_id
+        options = processing_pb2.SubscribeParametersRequest()
+        options.action = processing_pb2.SubscribeParametersRequest.REMOVE
         options.id.extend(_build_named_object_ids(parameters))
 
-        self._manager.send("unsubscribe", options)
+        self._manager.send(options)
 
     def get_value(self, parameter):
         """
@@ -316,10 +301,20 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         """
         return self.value_cache[parameter]
 
-    def _process(self, parameter_data):
-        self.delivery_count += 1
-        for pval in parameter_data.parameters:
-            self.value_cache[pval.name] = pval
+    def _process(self, pb):
+        # Mapping is only set on the first reply, or whenever
+        # the subscription is modifed. Store it in an internal
+        # reference, so that we can find it back when receiving
+        # future parameter_data updates.
+        for k in pb.mapping:
+            self._mapping[k] = pb.mapping[k]
+
+        if pb.values:
+            self.delivery_count += 1
+            parameter_data = ParameterData(pb, self._mapping)
+            for pval in parameter_data.parameters:
+                self.value_cache[pval.name] = pval
+            return parameter_data
 
 
 class CommandConnection(WebSocketSubscriptionFuture):
@@ -984,11 +979,13 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandConnection
         """
-        options = websocket_pb2.CommandHistorySubscriptionRequest()
+        options = command_history_service_pb2.SubscribeCommandsRequest()
+        options.instance = self._instance
+        options.processor = self._processor
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource="cmdhistory", options=options
+            self._client, topic="commands", options=options
         )
 
         # Represent subscription as a future
@@ -998,9 +995,7 @@ class ProcessorClient(object):
             _wrap_callback_parse_cmdhist_data, subscription, on_data
         )
 
-        manager.open(
-            wrapped_callback, instance=self._instance, processor=self._processor
-        )
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -1020,11 +1015,13 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandHistorySubscription
         """
-        options = websocket_pb2.CommandHistorySubscriptionRequest()
+        options = command_history_service_pb2.SubscribeCommandsRequest()
+        options.instance = self._instance
+        options.processor = self._processor
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource="cmdhistory", options=options
+            self._client, topic="commands", options=options
         )
 
         # Represent subscription as a future
@@ -1034,9 +1031,7 @@ class ProcessorClient(object):
             _wrap_callback_parse_cmdhist_data, subscription, on_data
         )
 
-        manager.open(
-            wrapped_callback, instance=self._instance, processor=self._processor
-        )
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -1077,15 +1072,16 @@ class ProcessorClient(object):
                  subscription.
         :rtype: .ParameterSubscription
         """
-        options = websocket_pb2.ParameterSubscriptionRequest()
-        options.subscriptionId = -1  # This means 'create a new subscription'
+        options = processing_pb2.SubscribeParametersRequest()
+        options.instance = self._instance
+        options.processor = self._processor
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
         options.sendFromCache = send_from_cache
         options.id.extend(_build_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource="parameter", options=options
+            self._client, topic="parameters", options=options
         )
 
         # Represent subscription as a future
@@ -1095,9 +1091,7 @@ class ProcessorClient(object):
             _wrap_callback_parse_parameter_data, subscription, on_data
         )
 
-        manager.open(
-            wrapped_callback, instance=self._instance, processor=self._processor
-        )
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
@@ -1117,7 +1111,10 @@ class ProcessorClient(object):
                  subscription.
         :rtype: .AlarmSubscription
         """
-        manager = WebSocketSubscriptionManager(self._client, resource="alarms")
+        options = alarms_service_pb2.SubscribeAlarmsRequest()
+        options.instance = self._instance
+        options.processor = self._processor
+        manager = WebSocketSubscriptionManager(self._client, topic="alarms")
 
         # Represent subscription as a future
         subscription = AlarmSubscription(manager)
@@ -1126,9 +1123,7 @@ class ProcessorClient(object):
             _wrap_callback_parse_alarm_data, subscription, on_data
         )
 
-        manager.open(
-            wrapped_callback, instance=self._instance, processor=self._processor
-        )
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)

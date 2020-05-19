@@ -22,7 +22,6 @@ from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
-from yamcs.protobuf.web import websocket_pb2
 from yamcs.tmtc.model import CommandHistory, ParameterValue
 
 
@@ -31,9 +30,9 @@ def _wrap_callback_parse_stream_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse StreamData
     from a WebSocket data message
     """
-    if message.type == message.DATA and message.data.type == yamcs_pb2.STREAM_DATA:
-        stream_data = getattr(message.data, "streamData")
-        on_data(StreamData(stream_data))
+    pb = table_pb2.StreamData()
+    message.Unpack(pb)
+    on_data(StreamData(pb))
 
 
 class ArchiveClient(object):
@@ -673,11 +672,12 @@ class ArchiveClient(object):
                  subscription
         :rtype: .WebSocketSubscriptionFuture
         """
-        options = websocket_pb2.StreamSubscriptionRequest()
+        options = table_pb2.SubscribeStreamRequest()
+        options.instance = self._instance
         options.stream = stream
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource="stream", options=options
+            self._client, topic="stream", options=options
         )
 
         # Represent subscription as a future
@@ -687,7 +687,7 @@ class ArchiveClient(object):
             _wrap_callback_parse_stream_data, subscription, on_data
         )
 
-        manager.open(wrapped_callback, instance=self._instance)
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)

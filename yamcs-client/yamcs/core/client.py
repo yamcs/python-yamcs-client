@@ -29,13 +29,11 @@ class BaseClient(object):
         if tls:
             self.auth_root = "https://{}/auth".format(self.address)
             self.api_root = "https://{}/api".format(self.address)
-            self.ws_root = "wss://{}/_websocket".format(self.address)
-            self.ws_root_v2 = "wss://{}/api/websocket".format(self.address)
+            self.ws_root = "wss://{}/api/websocket".format(self.address)
         else:
             self.auth_root = "http://{}/auth".format(self.address)
             self.api_root = "http://{}/api".format(self.address)
-            self.ws_root = "ws://{}/_websocket".format(self.address)
-            self.ws_root_v2 = "ws://{}/api/websocket".format(self.address)
+            self.ws_root = "ws://{}/api/websocket".format(self.address)
 
         self.session = requests.Session()
         if not tls_verify:

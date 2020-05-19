@@ -4,9 +4,7 @@ from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.model import Cop1Config, Cop1Status
 from yamcs.model import Link
-from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
-from yamcs.protobuf.web import websocket_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
@@ -15,13 +13,12 @@ def _wrap_callback_parse_cop1_status(subscription, on_data, message):
     Wraps a user callback to parse Cop1Status
     from a WebSocket data message
     """
-    if message.type == message.DATA:
-        if message.data.type == yamcs_pb2.COP1_STATUS:
-            proto = getattr(message.data, "cop1Status")
-            cop1_status = Cop1Status(proto)
-            subscription._process(cop1_status)
-            if on_data:
-                on_data(cop1_status)
+    pb = cop1_pb2.Cop1Status()
+    message.Unpack(pb)
+    cop1_status = Cop1Status(pb)
+    subscription._process(cop1_status)
+    if on_data:
+        on_data(cop1_status)
 
 
 class Cop1Subscription(WebSocketSubscriptionFuture):
@@ -223,12 +220,12 @@ class LinkClient(object):
                  subscription.
         :rtype: .Cop1Subscription
         """
-        options = websocket_pb2.Cop1SubscriptionRequest()
+        options = cop1_pb2.SubscribeStatusRequest()
         options.instance = self._instance
-        options.linkName = self._link
+        options.link = self._link
 
         manager = WebSocketSubscriptionManager(
-            self._client, resource="cop1", options=options
+            self._client, topic="cop1", options=options
         )
 
         # Represent subscription as a future
@@ -238,7 +235,7 @@ class LinkClient(object):
             _wrap_callback_parse_cop1_status, subscription, on_data
         )
 
-        manager.open(wrapped_callback, instance=self._instance)
+        manager.open(wrapped_callback)
 
         # Wait until a reply or exception is received
         subscription.reply(timeout=timeout)
