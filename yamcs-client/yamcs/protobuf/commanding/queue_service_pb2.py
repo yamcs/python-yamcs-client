@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.commanding',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\021QueueServiceProtoP\001',
-  serialized_pb=b'\n-yamcs/protobuf/commanding/queue_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/commanding/commanding.proto\"8\n\x11ListQueuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Q\n\x12ListQueuesResponse\x12;\n\x06queues\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"D\n\x0fGetQueueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"T\n\x10\x45\x64itQueueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05state\x18\x04 \x01(\t\"L\n\x17ListQueueEntriesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"Y\n\x18ListQueueEntriesResponse\x12=\n\x07\x65ntries\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"g\n\x15\x45\x64itQueueEntryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t2\xe5\x06\n\x08QueueApi\x12\x9e\x01\n\nListQueues\x12,.yamcs.protobuf.commanding.ListQueuesRequest\x1a-.yamcs.protobuf.commanding.ListQueuesResponse\"3\x8a\x92\x03/\n-/api/processors/{instance}/{processor}/queues\x12\x9f\x01\n\x08GetQueue\x12*.yamcs.protobuf.commanding.GetQueueRequest\x1a+.yamcs.protobuf.commanding.CommandQueueInfo\":\x8a\x92\x03\x36\n4/api/processors/{instance}/{processor}/queues/{name}\x12\xa6\x01\n\x0bUpdateQueue\x12+.yamcs.protobuf.commanding.EditQueueRequest\x1a+.yamcs.protobuf.commanding.CommandQueueInfo\"=\x8a\x92\x03\x39*4/api/processors/{instance}/{processor}/queues/{name}:\x01*\x12\xbf\x01\n\x10ListQueueEntries\x12\x32.yamcs.protobuf.commanding.ListQueueEntriesRequest\x1a\x33.yamcs.protobuf.commanding.ListQueueEntriesResponse\"B\x8a\x92\x03>\n</api/processors/{instance}/{processor}/queues/{name}/entries\x12\xaa\x01\n\x10UpdateQueueEntry\x12\x30.yamcs.protobuf.commanding.EditQueueEntryRequest\x1a\x16.google.protobuf.Empty\"L\x8a\x92\x03H*C/api/processors/{instance}/{processor}/queues/{name}/entries/{uuid}:\x01*B)\n\x12org.yamcs.protobufB\x11QueueServiceProtoP\x01'
+  serialized_pb=b'\n-yamcs/protobuf/commanding/queue_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/commanding/commanding.proto\"8\n\x11ListQueuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Q\n\x12ListQueuesResponse\x12;\n\x06queues\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\"F\n\x1fSubscribeQueueStatisticsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"B\n\x1bSubscribeQueueEventsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"D\n\x0fGetQueueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"T\n\x10\x45\x64itQueueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05state\x18\x04 \x01(\t\"L\n\x17ListQueueEntriesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"Y\n\x18ListQueueEntriesResponse\x12=\n\x07\x65ntries\x18\x01 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"g\n\x15\x45\x64itQueueEntryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04uuid\x18\x04 \x01(\t\x12\r\n\x05state\x18\x05 \x01(\t2\x95\t\n\x08QueueApi\x12\x9e\x01\n\nListQueues\x12,.yamcs.protobuf.commanding.ListQueuesRequest\x1a-.yamcs.protobuf.commanding.ListQueuesResponse\"3\x8a\x92\x03/\n-/api/processors/{instance}/{processor}/queues\x12\x9f\x01\n\x08GetQueue\x12*.yamcs.protobuf.commanding.GetQueueRequest\x1a+.yamcs.protobuf.commanding.CommandQueueInfo\":\x8a\x92\x03\x36\n4/api/processors/{instance}/{processor}/queues/{name}\x12\xa6\x01\n\x0bUpdateQueue\x12+.yamcs.protobuf.commanding.EditQueueRequest\x1a+.yamcs.protobuf.commanding.CommandQueueInfo\"=\x8a\x92\x03\x39*4/api/processors/{instance}/{processor}/queues/{name}:\x01*\x12\x98\x01\n\x18SubscribeQueueStatistics\x12:.yamcs.protobuf.commanding.SubscribeQueueStatisticsRequest\x1a+.yamcs.protobuf.commanding.CommandQueueInfo\"\x11\xda\x92\x03\r\n\x0bqueue-stats0\x01\x12\x92\x01\n\x14SubscribeQueueEvents\x12\x36.yamcs.protobuf.commanding.SubscribeQueueEventsRequest\x1a,.yamcs.protobuf.commanding.CommandQueueEvent\"\x12\xda\x92\x03\x0e\n\x0cqueue-events0\x01\x12\xbf\x01\n\x10ListQueueEntries\x12\x32.yamcs.protobuf.commanding.ListQueueEntriesRequest\x1a\x33.yamcs.protobuf.commanding.ListQueueEntriesResponse\"B\x8a\x92\x03>\n</api/processors/{instance}/{processor}/queues/{name}/entries\x12\xaa\x01\n\x10UpdateQueueEntry\x12\x30.yamcs.protobuf.commanding.EditQueueEntryRequest\x1a\x16.google.protobuf.Empty\"L\x8a\x92\x03H*C/api/processors/{instance}/{processor}/queues/{name}/entries/{uuid}:\x01*B)\n\x12org.yamcs.protobufB\x11QueueServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,])
 
@@ -97,6 +97,82 @@ _LISTQUEUESRESPONSE = _descriptor.Descriptor(
 )
 
 
+_SUBSCRIBEQUEUESTATISTICSREQUEST = _descriptor.Descriptor(
+  name='SubscribeQueueStatisticsRequest',
+  full_name='yamcs.protobuf.commanding.SubscribeQueueStatisticsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.commanding.SubscribeQueueStatisticsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.commanding.SubscribeQueueStatisticsRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=319,
+  serialized_end=389,
+)
+
+
+_SUBSCRIBEQUEUEEVENTSREQUEST = _descriptor.Descriptor(
+  name='SubscribeQueueEventsRequest',
+  full_name='yamcs.protobuf.commanding.SubscribeQueueEventsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.commanding.SubscribeQueueEventsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.commanding.SubscribeQueueEventsRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=391,
+  serialized_end=457,
+)
+
+
 _GETQUEUEREQUEST = _descriptor.Descriptor(
   name='GetQueueRequest',
   full_name='yamcs.protobuf.commanding.GetQueueRequest',
@@ -137,8 +213,8 @@ _GETQUEUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=319,
-  serialized_end=387,
+  serialized_start=459,
+  serialized_end=527,
 )
 
 
@@ -189,8 +265,8 @@ _EDITQUEUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=389,
-  serialized_end=473,
+  serialized_start=529,
+  serialized_end=613,
 )
 
 
@@ -234,8 +310,8 @@ _LISTQUEUEENTRIESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=475,
-  serialized_end=551,
+  serialized_start=615,
+  serialized_end=691,
 )
 
 
@@ -265,8 +341,8 @@ _LISTQUEUEENTRIESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=553,
-  serialized_end=642,
+  serialized_start=693,
+  serialized_end=782,
 )
 
 
@@ -324,14 +400,16 @@ _EDITQUEUEENTRYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=644,
-  serialized_end=747,
+  serialized_start=784,
+  serialized_end=887,
 )
 
 _LISTQUEUESRESPONSE.fields_by_name['queues'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDQUEUEINFO
 _LISTQUEUEENTRIESRESPONSE.fields_by_name['entries'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDQUEUEENTRY
 DESCRIPTOR.message_types_by_name['ListQueuesRequest'] = _LISTQUEUESREQUEST
 DESCRIPTOR.message_types_by_name['ListQueuesResponse'] = _LISTQUEUESRESPONSE
+DESCRIPTOR.message_types_by_name['SubscribeQueueStatisticsRequest'] = _SUBSCRIBEQUEUESTATISTICSREQUEST
+DESCRIPTOR.message_types_by_name['SubscribeQueueEventsRequest'] = _SUBSCRIBEQUEUEEVENTSREQUEST
 DESCRIPTOR.message_types_by_name['GetQueueRequest'] = _GETQUEUEREQUEST
 DESCRIPTOR.message_types_by_name['EditQueueRequest'] = _EDITQUEUEREQUEST
 DESCRIPTOR.message_types_by_name['ListQueueEntriesRequest'] = _LISTQUEUEENTRIESREQUEST
@@ -352,6 +430,20 @@ ListQueuesResponse = _reflection.GeneratedProtocolMessageType('ListQueuesRespons
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.ListQueuesResponse)
   })
 _sym_db.RegisterMessage(ListQueuesResponse)
+
+SubscribeQueueStatisticsRequest = _reflection.GeneratedProtocolMessageType('SubscribeQueueStatisticsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBEQUEUESTATISTICSREQUEST,
+  '__module__' : 'yamcs.protobuf.commanding.queue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.SubscribeQueueStatisticsRequest)
+  })
+_sym_db.RegisterMessage(SubscribeQueueStatisticsRequest)
+
+SubscribeQueueEventsRequest = _reflection.GeneratedProtocolMessageType('SubscribeQueueEventsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBEQUEUEEVENTSREQUEST,
+  '__module__' : 'yamcs.protobuf.commanding.queue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.SubscribeQueueEventsRequest)
+  })
+_sym_db.RegisterMessage(SubscribeQueueEventsRequest)
 
 GetQueueRequest = _reflection.GeneratedProtocolMessageType('GetQueueRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETQUEUEREQUEST,
@@ -397,8 +489,8 @@ _QUEUEAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=750,
-  serialized_end=1619,
+  serialized_start=890,
+  serialized_end=2063,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListQueues',
@@ -428,9 +520,27 @@ _QUEUEAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\0039*4/api/processors/{instance}/{processor}/queues/{name}:\001*',
   ),
   _descriptor.MethodDescriptor(
+    name='SubscribeQueueStatistics',
+    full_name='yamcs.protobuf.commanding.QueueApi.SubscribeQueueStatistics',
+    index=3,
+    containing_service=None,
+    input_type=_SUBSCRIBEQUEUESTATISTICSREQUEST,
+    output_type=yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDQUEUEINFO,
+    serialized_options=b'\332\222\003\r\n\013queue-stats',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeQueueEvents',
+    full_name='yamcs.protobuf.commanding.QueueApi.SubscribeQueueEvents',
+    index=4,
+    containing_service=None,
+    input_type=_SUBSCRIBEQUEUEEVENTSREQUEST,
+    output_type=yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDQUEUEEVENT,
+    serialized_options=b'\332\222\003\016\n\014queue-events',
+  ),
+  _descriptor.MethodDescriptor(
     name='ListQueueEntries',
     full_name='yamcs.protobuf.commanding.QueueApi.ListQueueEntries',
-    index=3,
+    index=5,
     containing_service=None,
     input_type=_LISTQUEUEENTRIESREQUEST,
     output_type=_LISTQUEUEENTRIESRESPONSE,
@@ -439,7 +549,7 @@ _QUEUEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='UpdateQueueEntry',
     full_name='yamcs.protobuf.commanding.QueueApi.UpdateQueueEntry',
-    index=4,
+    index=6,
     containing_service=None,
     input_type=_EDITQUEUEENTRYREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,

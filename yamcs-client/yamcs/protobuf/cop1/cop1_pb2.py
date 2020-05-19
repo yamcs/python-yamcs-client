@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.cop1',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\tCop1ProtoP\001',
-  serialized_pb=b'\n\x1eyamcs/protobuf/cop1/cop1.proto\x12\x13yamcs.protobuf.cop1\x1a\x1byamcs/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9a\x01\n\x11InitializeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x35\n\x04type\x18\x03 \x01(\x0e\x32\'.yamcs.protobuf.cop1.InitializationType\x12\"\n\x1a\x63lcwCheckInitializeTimeout\x18\x04 \x01(\x04\x12\n\n\x02vR\x18\x05 \x01(\r\"g\n\x10SetConfigRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x33\n\ncop1Config\x18\x03 \x01(\x0b\x32\x1f.yamcs.protobuf.cop1.Cop1Config\"2\n\x10GetConfigRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"2\n\x10GetStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"/\n\rResumeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"F\n\x0e\x44isableRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x14\n\x0csetBypassAll\x18\x03 \x01(\x08\"x\n\x04\x43lcw\x12\x31\n\rreceptionTime\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07lockout\x18\x02 \x01(\x08\x12\x0c\n\x04wait\x18\x03 \x01(\x08\x12\x12\n\nretransmit\x18\x04 \x01(\x08\x12\n\n\x02nR\x18\x05 \x01(\r\"\x95\x02\n\nCop1Status\x12\x0c\n\x04name\x18\x0b \x01(\t\x12\x12\n\ncop1Active\x18\x01 \x01(\x08\x12\x14\n\x0csetBypassAll\x18\x02 \x01(\x08\x12\'\n\x04\x63lcw\x18\x03 \x01(\x0b\x32\x19.yamcs.protobuf.cop1.Clcw\x12-\n\x05state\x18\x04 \x01(\x0e\x32\x1e.yamcs.protobuf.cop1.Cop1State\x12\n\n\x02vS\x18\x05 \x01(\r\x12\x0b\n\x03nnR\x18\x06 \x01(\r\x12\x16\n\x0ewaitQueueNumTC\x18\x07 \x01(\r\x12\x1a\n\x12sentQueueNumFrames\x18\x08 \x01(\r\x12\x19\n\x11outQueueNumFrames\x18\t \x01(\r\x12\x0f\n\x07txCount\x18\n \x01(\r\"\x9f\x01\n\nCop1Config\x12\x0c\n\x04vcId\x18\x01 \x01(\r\x12\x1a\n\x12\x62\x64\x41\x62solutePriority\x18\x03 \x01(\x08\x12\x13\n\x0bwindowWidth\x18\x04 \x01(\r\x12\x35\n\x0btimeoutType\x18\x05 \x01(\x0e\x32 .yamcs.protobuf.cop1.TimeoutType\x12\x0f\n\x07txLimit\x18\x06 \x01(\r\x12\n\n\x02t1\x18\x07 \x01(\x04*Y\n\x12InitializationType\x12\x13\n\x0fWITH_CLCW_CHECK\x10\x01\x12\x16\n\x12WITHOUT_CLCW_CHECK\x10\x02\x12\n\n\x06UNLOCK\x10\x03\x12\n\n\x06SET_VR\x10\x04*\xa7\x01\n\tCop1State\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\x1b\n\x17RETRANSMIT_WITHOUT_WAIT\x10\x02\x12\x18\n\x14RETRANSMIT_WITH_WAIT\x10\x03\x12\x1b\n\x17INITIALIZING_WITHOUT_BC\x10\x04\x12\x18\n\x14INITIALIZING_WITH_BC\x10\x05\x12\x11\n\rUNINITIALIZED\x10\x06\x12\r\n\tSUSPENDED\x10\x07**\n\x0bTimeoutType\x12\x0e\n\nUNITIALIZE\x10\x00\x12\x0b\n\x07SUSPEND\x10\x01\x32\xe8\x05\n\x07\x43op1Api\x12}\n\nInitialize\x12&.yamcs.protobuf.cop1.InitializeRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+\x1a&/api/cop1/{instance}/{name}:initialize:\x01*\x12q\n\x06Resume\x12\".yamcs.protobuf.cop1.ResumeRequest\x1a\x16.google.protobuf.Empty\"+\x8a\x92\x03\'\x1a\"/api/cop1/{instance}/{name}:resume:\x01*\x12t\n\x07\x44isable\x12#.yamcs.protobuf.cop1.DisableRequest\x1a\x16.google.protobuf.Empty\",\x8a\x92\x03(\x1a#/api/cop1/{instance}/{name}:disable:\x01*\x12w\n\tSetConfig\x12%.yamcs.protobuf.cop1.SetConfigRequest\x1a\x16.google.protobuf.Empty\"+\x8a\x92\x03\'*\"/api/cop1/{instance}/{name}/config:\x01*\x12}\n\tGetConfig\x12%.yamcs.protobuf.cop1.GetConfigRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Config\"(\x8a\x92\x03$\n\"/api/cop1/{instance}/{name}/config\x12}\n\tGetStatus\x12%.yamcs.protobuf.cop1.GetStatusRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Status\"(\x8a\x92\x03$\n\"/api/cop1/{instance}/{name}/statusB!\n\x12org.yamcs.protobufB\tCop1ProtoP\x01'
+  serialized_pb=b'\n\x1eyamcs/protobuf/cop1/cop1.proto\x12\x13yamcs.protobuf.cop1\x1a\x1byamcs/api/annotations.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\x9a\x01\n\x11InitializeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x35\n\x04type\x18\x03 \x01(\x0e\x32\'.yamcs.protobuf.cop1.InitializationType\x12\"\n\x1a\x63lcwCheckInitializeTimeout\x18\x04 \x01(\x04\x12\n\n\x02vR\x18\x05 \x01(\r\"j\n\x13UpdateConfigRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x33\n\ncop1Config\x18\x03 \x01(\x0b\x32\x1f.yamcs.protobuf.cop1.Cop1Config\"2\n\x10GetConfigRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"2\n\x10GetStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"/\n\rResumeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"F\n\x0e\x44isableRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x14\n\x0csetBypassAll\x18\x03 \x01(\x08\"x\n\x04\x43lcw\x12\x31\n\rreceptionTime\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07lockout\x18\x02 \x01(\x08\x12\x0c\n\x04wait\x18\x03 \x01(\x08\x12\x12\n\nretransmit\x18\x04 \x01(\x08\x12\n\n\x02nR\x18\x05 \x01(\r\"\x95\x02\n\nCop1Status\x12\x0c\n\x04link\x18\x0b \x01(\t\x12\x12\n\ncop1Active\x18\x01 \x01(\x08\x12\x14\n\x0csetBypassAll\x18\x02 \x01(\x08\x12\'\n\x04\x63lcw\x18\x03 \x01(\x0b\x32\x19.yamcs.protobuf.cop1.Clcw\x12-\n\x05state\x18\x04 \x01(\x0e\x32\x1e.yamcs.protobuf.cop1.Cop1State\x12\n\n\x02vS\x18\x05 \x01(\r\x12\x0b\n\x03nnR\x18\x06 \x01(\r\x12\x16\n\x0ewaitQueueNumTC\x18\x07 \x01(\r\x12\x1a\n\x12sentQueueNumFrames\x18\x08 \x01(\r\x12\x19\n\x11outQueueNumFrames\x18\t \x01(\r\x12\x0f\n\x07txCount\x18\n \x01(\r\"\x9f\x01\n\nCop1Config\x12\x0c\n\x04vcId\x18\x01 \x01(\r\x12\x1a\n\x12\x62\x64\x41\x62solutePriority\x18\x03 \x01(\x08\x12\x13\n\x0bwindowWidth\x18\x04 \x01(\r\x12\x35\n\x0btimeoutType\x18\x05 \x01(\x0e\x32 .yamcs.protobuf.cop1.TimeoutType\x12\x0f\n\x07txLimit\x18\x06 \x01(\r\x12\n\n\x02t1\x18\x07 \x01(\x04\"8\n\x16SubscribeStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t*Y\n\x12InitializationType\x12\x13\n\x0fWITH_CLCW_CHECK\x10\x01\x12\x16\n\x12WITHOUT_CLCW_CHECK\x10\x02\x12\n\n\x06UNLOCK\x10\x03\x12\n\n\x06SET_VR\x10\x04*\xa7\x01\n\tCop1State\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\x1b\n\x17RETRANSMIT_WITHOUT_WAIT\x10\x02\x12\x18\n\x14RETRANSMIT_WITH_WAIT\x10\x03\x12\x1b\n\x17INITIALIZING_WITHOUT_BC\x10\x04\x12\x18\n\x14INITIALIZING_WITH_BC\x10\x05\x12\x11\n\rUNINITIALIZED\x10\x06\x12\r\n\tSUSPENDED\x10\x07*,\n\x0bTimeoutType\x12\x10\n\x0cUNINITIALIZE\x10\x00\x12\x0b\n\x07SUSPEND\x10\x01\x32\xed\x06\n\x07\x43op1Api\x12}\n\nInitialize\x12&.yamcs.protobuf.cop1.InitializeRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+\x1a&/api/cop1/{instance}/{link}:initialize:\x01*\x12n\n\x06Resume\x12\".yamcs.protobuf.cop1.ResumeRequest\x1a\x16.google.protobuf.Empty\"(\x8a\x92\x03$\x1a\"/api/cop1/{instance}/{link}:resume\x12t\n\x07\x44isable\x12#.yamcs.protobuf.cop1.DisableRequest\x1a\x16.google.protobuf.Empty\",\x8a\x92\x03(\x1a#/api/cop1/{instance}/{link}:disable:\x01*\x12\x8f\x01\n\x0cUpdateConfig\x12(.yamcs.protobuf.cop1.UpdateConfigRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Config\"4\x8a\x92\x03\x30*\"/api/cop1/{instance}/{link}/config:\ncop1Config\x12}\n\tGetConfig\x12%.yamcs.protobuf.cop1.GetConfigRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Config\"(\x8a\x92\x03$\n\"/api/cop1/{instance}/{link}/config\x12}\n\tGetStatus\x12%.yamcs.protobuf.cop1.GetStatusRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Status\"(\x8a\x92\x03$\n\"/api/cop1/{instance}/{link}/status\x12m\n\x0fSubscribeStatus\x12+.yamcs.protobuf.cop1.SubscribeStatusRequest\x1a\x1f.yamcs.protobuf.cop1.Cop1Status\"\n\xda\x92\x03\x06\n\x04\x63op10\x01\x42!\n\x12org.yamcs.protobufB\tCop1ProtoP\x01'
   ,
   dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -51,8 +51,8 @@ _INITIALIZATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1197,
-  serialized_end=1286,
+  serialized_start=1258,
+  serialized_end=1347,
 )
 _sym_db.RegisterEnumDescriptor(_INITIALIZATIONTYPE)
 
@@ -94,8 +94,8 @@ _COP1STATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1289,
-  serialized_end=1456,
+  serialized_start=1350,
+  serialized_end=1517,
 )
 _sym_db.RegisterEnumDescriptor(_COP1STATE)
 
@@ -107,7 +107,7 @@ _TIMEOUTTYPE = _descriptor.EnumDescriptor(
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='UNITIALIZE', index=0, number=0,
+      name='UNINITIALIZE', index=0, number=0,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -117,8 +117,8 @@ _TIMEOUTTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1458,
-  serialized_end=1500,
+  serialized_start=1519,
+  serialized_end=1563,
 )
 _sym_db.RegisterEnumDescriptor(_TIMEOUTTYPE)
 
@@ -134,7 +134,7 @@ INITIALIZING_WITHOUT_BC = 4
 INITIALIZING_WITH_BC = 5
 UNINITIALIZED = 6
 SUSPENDED = 7
-UNITIALIZE = 0
+UNINITIALIZE = 0
 SUSPEND = 1
 
 
@@ -154,7 +154,7 @@ _INITIALIZEREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.InitializeRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.InitializeRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -198,29 +198,29 @@ _INITIALIZEREQUEST = _descriptor.Descriptor(
 )
 
 
-_SETCONFIGREQUEST = _descriptor.Descriptor(
-  name='SetConfigRequest',
-  full_name='yamcs.protobuf.cop1.SetConfigRequest',
+_UPDATECONFIGREQUEST = _descriptor.Descriptor(
+  name='UpdateConfigRequest',
+  full_name='yamcs.protobuf.cop1.UpdateConfigRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.cop1.SetConfigRequest.instance', index=0,
+      name='instance', full_name='yamcs.protobuf.cop1.UpdateConfigRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.SetConfigRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.UpdateConfigRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='cop1Config', full_name='yamcs.protobuf.cop1.SetConfigRequest.cop1Config', index=2,
+      name='cop1Config', full_name='yamcs.protobuf.cop1.UpdateConfigRequest.cop1Config', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -239,7 +239,7 @@ _SETCONFIGREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=303,
-  serialized_end=406,
+  serialized_end=409,
 )
 
 
@@ -258,7 +258,7 @@ _GETCONFIGREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.GetConfigRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.GetConfigRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -276,8 +276,8 @@ _GETCONFIGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=408,
-  serialized_end=458,
+  serialized_start=411,
+  serialized_end=461,
 )
 
 
@@ -296,7 +296,7 @@ _GETSTATUSREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.GetStatusRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.GetStatusRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -314,8 +314,8 @@ _GETSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=460,
-  serialized_end=510,
+  serialized_start=463,
+  serialized_end=513,
 )
 
 
@@ -334,7 +334,7 @@ _RESUMEREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.ResumeRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.ResumeRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -352,8 +352,8 @@ _RESUMEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=512,
-  serialized_end=559,
+  serialized_start=515,
+  serialized_end=562,
 )
 
 
@@ -372,7 +372,7 @@ _DISABLEREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.DisableRequest.name', index=1,
+      name='link', full_name='yamcs.protobuf.cop1.DisableRequest.link', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -397,8 +397,8 @@ _DISABLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=561,
-  serialized_end=631,
+  serialized_start=564,
+  serialized_end=634,
 )
 
 
@@ -456,8 +456,8 @@ _CLCW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=633,
-  serialized_end=753,
+  serialized_start=636,
+  serialized_end=756,
 )
 
 
@@ -469,7 +469,7 @@ _COP1STATUS = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.cop1.Cop1Status.name', index=0,
+      name='link', full_name='yamcs.protobuf.cop1.Cop1Status.link', index=0,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -557,8 +557,8 @@ _COP1STATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=756,
-  serialized_end=1033,
+  serialized_start=759,
+  serialized_end=1036,
 )
 
 
@@ -623,18 +623,56 @@ _COP1CONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1036,
-  serialized_end=1195,
+  serialized_start=1039,
+  serialized_end=1198,
+)
+
+
+_SUBSCRIBESTATUSREQUEST = _descriptor.Descriptor(
+  name='SubscribeStatusRequest',
+  full_name='yamcs.protobuf.cop1.SubscribeStatusRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.cop1.SubscribeStatusRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='link', full_name='yamcs.protobuf.cop1.SubscribeStatusRequest.link', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1200,
+  serialized_end=1256,
 )
 
 _INITIALIZEREQUEST.fields_by_name['type'].enum_type = _INITIALIZATIONTYPE
-_SETCONFIGREQUEST.fields_by_name['cop1Config'].message_type = _COP1CONFIG
+_UPDATECONFIGREQUEST.fields_by_name['cop1Config'].message_type = _COP1CONFIG
 _CLCW.fields_by_name['receptionTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _COP1STATUS.fields_by_name['clcw'].message_type = _CLCW
 _COP1STATUS.fields_by_name['state'].enum_type = _COP1STATE
 _COP1CONFIG.fields_by_name['timeoutType'].enum_type = _TIMEOUTTYPE
 DESCRIPTOR.message_types_by_name['InitializeRequest'] = _INITIALIZEREQUEST
-DESCRIPTOR.message_types_by_name['SetConfigRequest'] = _SETCONFIGREQUEST
+DESCRIPTOR.message_types_by_name['UpdateConfigRequest'] = _UPDATECONFIGREQUEST
 DESCRIPTOR.message_types_by_name['GetConfigRequest'] = _GETCONFIGREQUEST
 DESCRIPTOR.message_types_by_name['GetStatusRequest'] = _GETSTATUSREQUEST
 DESCRIPTOR.message_types_by_name['ResumeRequest'] = _RESUMEREQUEST
@@ -642,6 +680,7 @@ DESCRIPTOR.message_types_by_name['DisableRequest'] = _DISABLEREQUEST
 DESCRIPTOR.message_types_by_name['Clcw'] = _CLCW
 DESCRIPTOR.message_types_by_name['Cop1Status'] = _COP1STATUS
 DESCRIPTOR.message_types_by_name['Cop1Config'] = _COP1CONFIG
+DESCRIPTOR.message_types_by_name['SubscribeStatusRequest'] = _SUBSCRIBESTATUSREQUEST
 DESCRIPTOR.enum_types_by_name['InitializationType'] = _INITIALIZATIONTYPE
 DESCRIPTOR.enum_types_by_name['Cop1State'] = _COP1STATE
 DESCRIPTOR.enum_types_by_name['TimeoutType'] = _TIMEOUTTYPE
@@ -654,12 +693,12 @@ InitializeRequest = _reflection.GeneratedProtocolMessageType('InitializeRequest'
   })
 _sym_db.RegisterMessage(InitializeRequest)
 
-SetConfigRequest = _reflection.GeneratedProtocolMessageType('SetConfigRequest', (_message.Message,), {
-  'DESCRIPTOR' : _SETCONFIGREQUEST,
+UpdateConfigRequest = _reflection.GeneratedProtocolMessageType('UpdateConfigRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATECONFIGREQUEST,
   '__module__' : 'yamcs.protobuf.cop1.cop1_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.cop1.SetConfigRequest)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.cop1.UpdateConfigRequest)
   })
-_sym_db.RegisterMessage(SetConfigRequest)
+_sym_db.RegisterMessage(UpdateConfigRequest)
 
 GetConfigRequest = _reflection.GeneratedProtocolMessageType('GetConfigRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETCONFIGREQUEST,
@@ -710,6 +749,13 @@ Cop1Config = _reflection.GeneratedProtocolMessageType('Cop1Config', (_message.Me
   })
 _sym_db.RegisterMessage(Cop1Config)
 
+SubscribeStatusRequest = _reflection.GeneratedProtocolMessageType('SubscribeStatusRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBESTATUSREQUEST,
+  '__module__' : 'yamcs.protobuf.cop1.cop1_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.cop1.SubscribeStatusRequest)
+  })
+_sym_db.RegisterMessage(SubscribeStatusRequest)
+
 
 DESCRIPTOR._options = None
 
@@ -719,8 +765,8 @@ _COP1API = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1503,
-  serialized_end=2247,
+  serialized_start=1566,
+  serialized_end=2443,
   methods=[
   _descriptor.MethodDescriptor(
     name='Initialize',
@@ -729,7 +775,7 @@ _COP1API = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_INITIALIZEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=b'\212\222\003+\032&/api/cop1/{instance}/{name}:initialize:\001*',
+    serialized_options=b'\212\222\003+\032&/api/cop1/{instance}/{link}:initialize:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='Resume',
@@ -738,7 +784,7 @@ _COP1API = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_RESUMEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=b'\212\222\003\'\032\"/api/cop1/{instance}/{name}:resume:\001*',
+    serialized_options=b'\212\222\003$\032\"/api/cop1/{instance}/{link}:resume',
   ),
   _descriptor.MethodDescriptor(
     name='Disable',
@@ -747,16 +793,16 @@ _COP1API = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_DISABLEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=b'\212\222\003(\032#/api/cop1/{instance}/{name}:disable:\001*',
+    serialized_options=b'\212\222\003(\032#/api/cop1/{instance}/{link}:disable:\001*',
   ),
   _descriptor.MethodDescriptor(
-    name='SetConfig',
-    full_name='yamcs.protobuf.cop1.Cop1Api.SetConfig',
+    name='UpdateConfig',
+    full_name='yamcs.protobuf.cop1.Cop1Api.UpdateConfig',
     index=3,
     containing_service=None,
-    input_type=_SETCONFIGREQUEST,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=b'\212\222\003\'*\"/api/cop1/{instance}/{name}/config:\001*',
+    input_type=_UPDATECONFIGREQUEST,
+    output_type=_COP1CONFIG,
+    serialized_options=b'\212\222\0030*\"/api/cop1/{instance}/{link}/config:\ncop1Config',
   ),
   _descriptor.MethodDescriptor(
     name='GetConfig',
@@ -765,7 +811,7 @@ _COP1API = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETCONFIGREQUEST,
     output_type=_COP1CONFIG,
-    serialized_options=b'\212\222\003$\n\"/api/cop1/{instance}/{name}/config',
+    serialized_options=b'\212\222\003$\n\"/api/cop1/{instance}/{link}/config',
   ),
   _descriptor.MethodDescriptor(
     name='GetStatus',
@@ -774,7 +820,16 @@ _COP1API = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETSTATUSREQUEST,
     output_type=_COP1STATUS,
-    serialized_options=b'\212\222\003$\n\"/api/cop1/{instance}/{name}/status',
+    serialized_options=b'\212\222\003$\n\"/api/cop1/{instance}/{link}/status',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeStatus',
+    full_name='yamcs.protobuf.cop1.Cop1Api.SubscribeStatus',
+    index=6,
+    containing_service=None,
+    input_type=_SUBSCRIBESTATUSREQUEST,
+    output_type=_COP1STATUS,
+    serialized_options=b'\332\222\003\006\n\004cop1',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_COP1API)

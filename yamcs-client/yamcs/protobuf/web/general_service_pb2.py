@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.web',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\023GeneralServiceProtoP\001',
-  serialized_pb=b'\n(yamcs/protobuf/web/general_service.proto\x12\x12yamcs.protobuf.web\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"C\n\x12ListRoutesResponse\x12-\n\x06routes\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.web.RouteInfo\"^\n\x1dListClientConnectionsResponse\x12=\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.web.ClientConnectionInfo\"$\n\x16\x43loseConnectionRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xc7\x01\n\tRouteInfo\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\nhttpMethod\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x11\n\tinputType\x18\x06 \x01(\t\x12\x12\n\noutputType\x18\x07 \x01(\t\x12\x12\n\ndeprecated\x18\x08 \x01(\x08\x12\x14\n\x0crequestCount\x18\t \x01(\x03\x12\x12\n\nerrorCount\x18\n \x01(\x03\"\x8a\x02\n\x16GetGeneralInfoResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x06 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x46\n\x07plugins\x18\x05 \x03(\x0b\x32\x35.yamcs.protobuf.web.GetGeneralInfoResponse.PluginInfo\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\"\xfa\x02\n\x14\x43lientConnectionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04open\x18\x02 \x01(\x08\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x10\n\x08writable\x18\x04 \x01(\x08\x12\x15\n\rremoteAddress\x18\x05 \x01(\t\x12\x11\n\treadBytes\x18\x06 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x07 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x08 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\t \x01(\x04\x12M\n\x0bhttpRequest\x18\n \x01(\x0b\x32\x38.yamcs.protobuf.web.ClientConnectionInfo.HttpRequestInfo\x1a\x66\n\x0fHttpRequestInfo\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x0b\n\x03uri\x18\x03 \x01(\t\x12\x11\n\tkeepAlive\x18\x04 \x01(\x08\x12\x11\n\tuserAgent\x18\x05 \x01(\t2\xbf\x03\n\nGeneralApi\x12`\n\x0eGetGeneralInfo\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.web.GetGeneralInfoResponse\"\n\x8a\x92\x03\x06\n\x04/api\x12_\n\nListRoutes\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.web.ListRoutesResponse\"\x11\x8a\x92\x03\r\n\x0b/api/routes\x12z\n\x15ListClientConnections\x12\x16.google.protobuf.Empty\x1a\x31.yamcs.protobuf.web.ListClientConnectionsResponse\"\x16\x8a\x92\x03\x12\n\x10/api/connections\x12r\n\x0f\x43loseConnection\x12*.yamcs.protobuf.web.CloseConnectionRequest\x1a\x16.google.protobuf.Empty\"\x1b\x8a\x92\x03\x17\"\x15/api/connections/{id}B+\n\x12org.yamcs.protobufB\x13GeneralServiceProtoP\x01'
+  serialized_pb=b'\n(yamcs/protobuf/web/general_service.proto\x12\x12yamcs.protobuf.web\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"C\n\x12ListRoutesResponse\x12-\n\x06routes\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.web.RouteInfo\"C\n\x12ListTopicsResponse\x12-\n\x06topics\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.web.TopicInfo\"^\n\x1dListClientConnectionsResponse\x12=\n\x0b\x63onnections\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.web.ClientConnectionInfo\"$\n\x16\x43loseConnectionRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\xc7\x01\n\tRouteInfo\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\nhttpMethod\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x11\n\tinputType\x18\x06 \x01(\t\x12\x12\n\noutputType\x18\x07 \x01(\t\x12\x12\n\ndeprecated\x18\x08 \x01(\x08\x12\x14\n\x0crequestCount\x18\t \x01(\x03\x12\x12\n\nerrorCount\x18\n \x01(\x03\"\x8b\x01\n\tTopicInfo\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x0f\n\x07service\x18\x02 \x01(\t\x12\x0e\n\x06method\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x11\n\tinputType\x18\x05 \x01(\t\x12\x12\n\noutputType\x18\x06 \x01(\t\x12\x12\n\ndeprecated\x18\x07 \x01(\x08\"\xb2\x03\n\x16GetGeneralInfoResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x06 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12\x46\n\x07plugins\x18\x05 \x03(\x0b\x32\x35.yamcs.protobuf.web.GetGeneralInfoResponse.PluginInfo\x12T\n\x0e\x63ommandOptions\x18\x07 \x03(\x0b\x32<.yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\x1aP\n\x11\x43ommandOptionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0bverboseName\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04help\x18\x04 \x01(\t\"\xfa\x02\n\x14\x43lientConnectionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04open\x18\x02 \x01(\x08\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x10\n\x08writable\x18\x04 \x01(\x08\x12\x15\n\rremoteAddress\x18\x05 \x01(\t\x12\x11\n\treadBytes\x18\x06 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x07 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x08 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\t \x01(\x04\x12M\n\x0bhttpRequest\x18\n \x01(\x0b\x32\x38.yamcs.protobuf.web.ClientConnectionInfo.HttpRequestInfo\x1a\x66\n\x0fHttpRequestInfo\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x0b\n\x03uri\x18\x03 \x01(\t\x12\x11\n\tkeepAlive\x18\x04 \x01(\x08\x12\x11\n\tuserAgent\x18\x05 \x01(\t2\xa0\x04\n\nGeneralApi\x12`\n\x0eGetGeneralInfo\x12\x16.google.protobuf.Empty\x1a*.yamcs.protobuf.web.GetGeneralInfoResponse\"\n\x8a\x92\x03\x06\n\x04/api\x12_\n\nListRoutes\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.web.ListRoutesResponse\"\x11\x8a\x92\x03\r\n\x0b/api/routes\x12_\n\nListTopics\x12\x16.google.protobuf.Empty\x1a&.yamcs.protobuf.web.ListTopicsResponse\"\x11\x8a\x92\x03\r\n\x0b/api/topics\x12z\n\x15ListClientConnections\x12\x16.google.protobuf.Empty\x1a\x31.yamcs.protobuf.web.ListClientConnectionsResponse\"\x16\x8a\x92\x03\x12\n\x10/api/connections\x12r\n\x0f\x43loseConnection\x12*.yamcs.protobuf.web.CloseConnectionRequest\x1a\x16.google.protobuf.Empty\"\x1b\x8a\x92\x03\x17\"\x15/api/connections/{id}B+\n\x12org.yamcs.protobufB\x13GeneralServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -58,6 +58,37 @@ _LISTROUTESRESPONSE = _descriptor.Descriptor(
 )
 
 
+_LISTTOPICSRESPONSE = _descriptor.Descriptor(
+  name='ListTopicsResponse',
+  full_name='yamcs.protobuf.web.ListTopicsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='topics', full_name='yamcs.protobuf.web.ListTopicsResponse.topics', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=191,
+  serialized_end=258,
+)
+
+
 _LISTCLIENTCONNECTIONSRESPONSE = _descriptor.Descriptor(
   name='ListClientConnectionsResponse',
   full_name='yamcs.protobuf.web.ListClientConnectionsResponse',
@@ -84,8 +115,8 @@ _LISTCLIENTCONNECTIONSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=191,
-  serialized_end=285,
+  serialized_start=260,
+  serialized_end=354,
 )
 
 
@@ -115,8 +146,8 @@ _CLOSECONNECTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=287,
-  serialized_end=323,
+  serialized_start=356,
+  serialized_end=392,
 )
 
 
@@ -209,8 +240,81 @@ _ROUTEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=326,
-  serialized_end=525,
+  serialized_start=395,
+  serialized_end=594,
+)
+
+
+_TOPICINFO = _descriptor.Descriptor(
+  name='TopicInfo',
+  full_name='yamcs.protobuf.web.TopicInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='topic', full_name='yamcs.protobuf.web.TopicInfo.topic', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='service', full_name='yamcs.protobuf.web.TopicInfo.service', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='method', full_name='yamcs.protobuf.web.TopicInfo.method', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='yamcs.protobuf.web.TopicInfo.description', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='inputType', full_name='yamcs.protobuf.web.TopicInfo.inputType', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='outputType', full_name='yamcs.protobuf.web.TopicInfo.outputType', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='deprecated', full_name='yamcs.protobuf.web.TopicInfo.deprecated', index=6,
+      number=7, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=597,
+  serialized_end=736,
 )
 
 
@@ -261,8 +365,59 @@ _GETGENERALINFORESPONSE_PLUGININFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=714,
-  serialized_end=794,
+  serialized_start=1011,
+  serialized_end=1091,
+)
+
+_GETGENERALINFORESPONSE_COMMANDOPTIONINFO = _descriptor.Descriptor(
+  name='CommandOptionInfo',
+  full_name='yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo.id', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='verboseName', full_name='yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo.verboseName', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo.type', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='help', full_name='yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo.help', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1093,
+  serialized_end=1173,
 )
 
 _GETGENERALINFORESPONSE = _descriptor.Descriptor(
@@ -307,10 +462,17 @@ _GETGENERALINFORESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='commandOptions', full_name='yamcs.protobuf.web.GetGeneralInfoResponse.commandOptions', index=5,
+      number=7, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[_GETGENERALINFORESPONSE_PLUGININFO, ],
+  nested_types=[_GETGENERALINFORESPONSE_PLUGININFO, _GETGENERALINFORESPONSE_COMMANDOPTIONINFO, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -319,8 +481,8 @@ _GETGENERALINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=528,
-  serialized_end=794,
+  serialized_start=739,
+  serialized_end=1173,
 )
 
 
@@ -378,8 +540,8 @@ _CLIENTCONNECTIONINFO_HTTPREQUESTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1073,
-  serialized_end=1175,
+  serialized_start=1452,
+  serialized_end=1554,
 )
 
 _CLIENTCONNECTIONINFO = _descriptor.Descriptor(
@@ -471,20 +633,25 @@ _CLIENTCONNECTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=797,
-  serialized_end=1175,
+  serialized_start=1176,
+  serialized_end=1554,
 )
 
 _LISTROUTESRESPONSE.fields_by_name['routes'].message_type = _ROUTEINFO
+_LISTTOPICSRESPONSE.fields_by_name['topics'].message_type = _TOPICINFO
 _LISTCLIENTCONNECTIONSRESPONSE.fields_by_name['connections'].message_type = _CLIENTCONNECTIONINFO
 _GETGENERALINFORESPONSE_PLUGININFO.containing_type = _GETGENERALINFORESPONSE
+_GETGENERALINFORESPONSE_COMMANDOPTIONINFO.containing_type = _GETGENERALINFORESPONSE
 _GETGENERALINFORESPONSE.fields_by_name['plugins'].message_type = _GETGENERALINFORESPONSE_PLUGININFO
+_GETGENERALINFORESPONSE.fields_by_name['commandOptions'].message_type = _GETGENERALINFORESPONSE_COMMANDOPTIONINFO
 _CLIENTCONNECTIONINFO_HTTPREQUESTINFO.containing_type = _CLIENTCONNECTIONINFO
 _CLIENTCONNECTIONINFO.fields_by_name['httpRequest'].message_type = _CLIENTCONNECTIONINFO_HTTPREQUESTINFO
 DESCRIPTOR.message_types_by_name['ListRoutesResponse'] = _LISTROUTESRESPONSE
+DESCRIPTOR.message_types_by_name['ListTopicsResponse'] = _LISTTOPICSRESPONSE
 DESCRIPTOR.message_types_by_name['ListClientConnectionsResponse'] = _LISTCLIENTCONNECTIONSRESPONSE
 DESCRIPTOR.message_types_by_name['CloseConnectionRequest'] = _CLOSECONNECTIONREQUEST
 DESCRIPTOR.message_types_by_name['RouteInfo'] = _ROUTEINFO
+DESCRIPTOR.message_types_by_name['TopicInfo'] = _TOPICINFO
 DESCRIPTOR.message_types_by_name['GetGeneralInfoResponse'] = _GETGENERALINFORESPONSE
 DESCRIPTOR.message_types_by_name['ClientConnectionInfo'] = _CLIENTCONNECTIONINFO
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -495,6 +662,13 @@ ListRoutesResponse = _reflection.GeneratedProtocolMessageType('ListRoutesRespons
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListRoutesResponse)
   })
 _sym_db.RegisterMessage(ListRoutesResponse)
+
+ListTopicsResponse = _reflection.GeneratedProtocolMessageType('ListTopicsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTTOPICSRESPONSE,
+  '__module__' : 'yamcs.protobuf.web.general_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.ListTopicsResponse)
+  })
+_sym_db.RegisterMessage(ListTopicsResponse)
 
 ListClientConnectionsResponse = _reflection.GeneratedProtocolMessageType('ListClientConnectionsResponse', (_message.Message,), {
   'DESCRIPTOR' : _LISTCLIENTCONNECTIONSRESPONSE,
@@ -517,6 +691,13 @@ RouteInfo = _reflection.GeneratedProtocolMessageType('RouteInfo', (_message.Mess
   })
 _sym_db.RegisterMessage(RouteInfo)
 
+TopicInfo = _reflection.GeneratedProtocolMessageType('TopicInfo', (_message.Message,), {
+  'DESCRIPTOR' : _TOPICINFO,
+  '__module__' : 'yamcs.protobuf.web.general_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.TopicInfo)
+  })
+_sym_db.RegisterMessage(TopicInfo)
+
 GetGeneralInfoResponse = _reflection.GeneratedProtocolMessageType('GetGeneralInfoResponse', (_message.Message,), {
 
   'PluginInfo' : _reflection.GeneratedProtocolMessageType('PluginInfo', (_message.Message,), {
@@ -525,12 +706,20 @@ GetGeneralInfoResponse = _reflection.GeneratedProtocolMessageType('GetGeneralInf
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetGeneralInfoResponse.PluginInfo)
     })
   ,
+
+  'CommandOptionInfo' : _reflection.GeneratedProtocolMessageType('CommandOptionInfo', (_message.Message,), {
+    'DESCRIPTOR' : _GETGENERALINFORESPONSE_COMMANDOPTIONINFO,
+    '__module__' : 'yamcs.protobuf.web.general_service_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetGeneralInfoResponse.CommandOptionInfo)
+    })
+  ,
   'DESCRIPTOR' : _GETGENERALINFORESPONSE,
   '__module__' : 'yamcs.protobuf.web.general_service_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.web.GetGeneralInfoResponse)
   })
 _sym_db.RegisterMessage(GetGeneralInfoResponse)
 _sym_db.RegisterMessage(GetGeneralInfoResponse.PluginInfo)
+_sym_db.RegisterMessage(GetGeneralInfoResponse.CommandOptionInfo)
 
 ClientConnectionInfo = _reflection.GeneratedProtocolMessageType('ClientConnectionInfo', (_message.Message,), {
 
@@ -556,8 +745,8 @@ _GENERALAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1178,
-  serialized_end=1625,
+  serialized_start=1557,
+  serialized_end=2101,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetGeneralInfo',
@@ -578,9 +767,18 @@ _GENERALAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\003\r\n\013/api/routes',
   ),
   _descriptor.MethodDescriptor(
+    name='ListTopics',
+    full_name='yamcs.protobuf.web.GeneralApi.ListTopics',
+    index=2,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_LISTTOPICSRESPONSE,
+    serialized_options=b'\212\222\003\r\n\013/api/topics',
+  ),
+  _descriptor.MethodDescriptor(
     name='ListClientConnections',
     full_name='yamcs.protobuf.web.GeneralApi.ListClientConnections',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_LISTCLIENTCONNECTIONSRESPONSE,
@@ -589,7 +787,7 @@ _GENERALAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='CloseConnection',
     full_name='yamcs.protobuf.web.GeneralApi.CloseConnection',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_CLOSECONNECTIONREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,

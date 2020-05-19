@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.commanding',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\032CommandHistoryServiceProtoP\001',
-  serialized_pb=b'\n7yamcs/protobuf/commanding/command_history_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/commanding/commanding.proto\"\xc0\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\t\n\x01q\x18\x05 \x01(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"1\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"\x8c\x01\n\x15StreamCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t2\xf6\x03\n\x11\x43ommandHistoryApi\x12\x97\x01\n\x0cListCommands\x12..yamcs.protobuf.commanding.ListCommandsRequest\x1a/.yamcs.protobuf.commanding.ListCommandsResponse\"&\x8a\x92\x03\"\n /api/archive/{instance}/commands\x12\x97\x01\n\nGetCommand\x12,.yamcs.protobuf.commanding.GetCommandRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"+\x8a\x92\x03\'\n%/api/archive/{instance}/commands/{id}\x12\xac\x01\n\x0eStreamCommands\x12\x30.yamcs.protobuf.commanding.StreamCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"6\x8a\x92\x03\x32\x1a-/api/stream-archive/{instance}:streamCommands:\x01*0\x01\x42\x32\n\x12org.yamcs.protobufB\x1a\x43ommandHistoryServiceProtoP\x01'
+  serialized_pb=b'\n7yamcs/protobuf/commanding/command_history_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/commanding/commanding.proto\"\xc0\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\t\n\x01q\x18\x05 \x01(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"1\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"\x8c\x01\n\x15StreamCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"[\n\x18SubscribeCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x1a\n\x12ignorePastCommands\x18\x03 \x01(\x08\x32\x83\x05\n\x11\x43ommandHistoryApi\x12\x97\x01\n\x0cListCommands\x12..yamcs.protobuf.commanding.ListCommandsRequest\x1a/.yamcs.protobuf.commanding.ListCommandsResponse\"&\x8a\x92\x03\"\n /api/archive/{instance}/commands\x12\x97\x01\n\nGetCommand\x12,.yamcs.protobuf.commanding.GetCommandRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"+\x8a\x92\x03\'\n%/api/archive/{instance}/commands/{id}\x12\xac\x01\n\x0eStreamCommands\x12\x30.yamcs.protobuf.commanding.StreamCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"6\x8a\x92\x03\x32\x1a-/api/stream-archive/{instance}:streamCommands:\x01*0\x01\x12\x8a\x01\n\x11SubscribeCommands\x12\x33.yamcs.protobuf.commanding.SubscribeCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"\x0e\xda\x92\x03\n\n\x08\x63ommands0\x01\x42\x32\n\x12org.yamcs.protobufB\x1a\x43ommandHistoryServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,])
 
@@ -235,6 +235,51 @@ _STREAMCOMMANDSREQUEST = _descriptor.Descriptor(
   serialized_end=693,
 )
 
+
+_SUBSCRIBECOMMANDSREQUEST = _descriptor.Descriptor(
+  name='SubscribeCommandsRequest',
+  full_name='yamcs.protobuf.commanding.SubscribeCommandsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.commanding.SubscribeCommandsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.commanding.SubscribeCommandsRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ignorePastCommands', full_name='yamcs.protobuf.commanding.SubscribeCommandsRequest.ignorePastCommands', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=695,
+  serialized_end=786,
+)
+
 _LISTCOMMANDSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTCOMMANDSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTCOMMANDSRESPONSE.fields_by_name['entry'].message_type = yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDHISTORYENTRY
@@ -244,6 +289,7 @@ DESCRIPTOR.message_types_by_name['ListCommandsRequest'] = _LISTCOMMANDSREQUEST
 DESCRIPTOR.message_types_by_name['ListCommandsResponse'] = _LISTCOMMANDSRESPONSE
 DESCRIPTOR.message_types_by_name['GetCommandRequest'] = _GETCOMMANDREQUEST
 DESCRIPTOR.message_types_by_name['StreamCommandsRequest'] = _STREAMCOMMANDSREQUEST
+DESCRIPTOR.message_types_by_name['SubscribeCommandsRequest'] = _SUBSCRIBECOMMANDSREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ListCommandsRequest = _reflection.GeneratedProtocolMessageType('ListCommandsRequest', (_message.Message,), {
@@ -274,6 +320,13 @@ StreamCommandsRequest = _reflection.GeneratedProtocolMessageType('StreamCommands
   })
 _sym_db.RegisterMessage(StreamCommandsRequest)
 
+SubscribeCommandsRequest = _reflection.GeneratedProtocolMessageType('SubscribeCommandsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBECOMMANDSREQUEST,
+  '__module__' : 'yamcs.protobuf.commanding.command_history_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.commanding.SubscribeCommandsRequest)
+  })
+_sym_db.RegisterMessage(SubscribeCommandsRequest)
+
 
 DESCRIPTOR._options = None
 
@@ -283,8 +336,8 @@ _COMMANDHISTORYAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=696,
-  serialized_end=1198,
+  serialized_start=789,
+  serialized_end=1432,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListCommands',
@@ -312,6 +365,15 @@ _COMMANDHISTORYAPI = _descriptor.ServiceDescriptor(
     input_type=_STREAMCOMMANDSREQUEST,
     output_type=yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDHISTORYENTRY,
     serialized_options=b'\212\222\0032\032-/api/stream-archive/{instance}:streamCommands:\001*',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeCommands',
+    full_name='yamcs.protobuf.commanding.CommandHistoryApi.SubscribeCommands',
+    index=3,
+    containing_service=None,
+    input_type=_SUBSCRIBECOMMANDSREQUEST,
+    output_type=yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2._COMMANDHISTORYENTRY,
+    serialized_options=b'\332\222\003\n\n\010commands',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_COMMANDHISTORYAPI)

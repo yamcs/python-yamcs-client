@@ -336,7 +336,15 @@ class CommandConnection(WebSocketSubscriptionFuture):
         self._command_cache = {}
         self._client = client
 
-    def issue(self, command, args=None, dry_run=False, comment=None, verification=None):
+    def issue(
+        self,
+        command,
+        args=None,
+        dry_run=False,
+        comment=None,
+        verification=None,
+        extra=None,
+    ):
         """
         Issue the given command
 
@@ -351,12 +359,18 @@ class CommandConnection(WebSocketSubscriptionFuture):
         :param .VerificationConfig verification: Overrides to the default
                                                  verification handling of this
                                                  command.
+        :param dict extra: Extra command options for interpretation by non-core
+                           extensions (custom preprocessor, datalinks, command
+                           listeners).
+                           Note that Yamcs will refuse command options that it
+                           does now know about. Extensions should therefore
+                           register available options.
         :return: An object providing access to properties of the newly issued
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
         issued_command = self._client.issue_command(
-            command, args, dry_run, comment, verification
+            command, args, dry_run, comment, verification, extra
         )
         command = MonitoredCommand(issued_command._proto, self._client)
 
@@ -552,7 +566,7 @@ class ProcessorClient(object):
         dry_run=False,
         comment=None,
         verification=None,
-        attributes=None,
+        extra=None,
     ):
         """
         Issue the given command
@@ -568,13 +582,12 @@ class ProcessorClient(object):
         :param .VerificationConfig verification: Overrides to the default
                                                  verification handling of this
                                                  command.
-        :param dict attributes: named extra attributes that will be added to the
-                                command history. Might be used by the processor or data
-                                links to change the way the command is processed. For
-                                example when commanding over a frame link where the
-                                COP1 protocol is used, the cop1Bypass attribute can be
-                                used to by-pass the COP1 stack (the command will be
-                                sent into a so called Type-BD frame)
+        :param dict extra: Extra command options for interpretation by non-core
+                           extensions (custom preprocessor, datalinks, command
+                           listeners).
+                           Note that Yamcs will refuse command options that it
+                           does now know about. Extensions should therefore
+                           register available options.
         :return: An object providing access to properties of the newly issued
                  command.
         :rtype: .IssuedCommand
@@ -600,28 +613,26 @@ class ProcessorClient(object):
 
         if verification:
             if verification._disable_all:
-                req.commandOptions.disableVerifiers = True
+                req.disableVerifiers = True
             else:
                 for verifier in verification._disabled:
-                    req.commandOptions.verifierConfig[verifier].disable = True
+                    req.verifierConfig[verifier].disable = True
                 for verifier in verification._check_windows:
                     window = verification._check_windows[verifier]
                     if window["start"]:
                         start = int(window["start"] * 1000)
-                        req.commandOptions.verifierConfig[
+                        req.verifierConfig[
                             verifier
                         ].checkWindow.timeToStartChecking = start
                     if window["stop"]:
                         stop = int(window["stop"] * 1000)
-                        req.commandOptions.verifierConfig[
+                        req.verifierConfig[
                             verifier
                         ].checkWindow.timeToStopChecking = stop
 
-        if attributes:
-            for key in attributes:
-                attr = req.attribute.add()
-                attr.name = key
-                attr.value.MergeFrom(_build_value_proto(attributes[key]))
+        if extra:
+            for key in extra:
+                req.extra[key] = _build_value_proto(extra[key])
 
         command = adapt_name_for_rest(command)
         url = "/processors/{}/{}/commands{}".format(
