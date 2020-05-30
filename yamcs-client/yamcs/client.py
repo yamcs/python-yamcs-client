@@ -29,7 +29,7 @@ from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.time import time_service_pb2
-from yamcs.protobuf.web import auth_pb2, general_service_pb2
+from yamcs.protobuf.web import auth_pb2, server_service_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.tmtc.client import ProcessorClient
 
@@ -173,7 +173,7 @@ class YamcsClient(BaseClient):
         :rtype: .ServerInfo
         """
         response = self.get_proto(path="")
-        message = general_service_pb2.GetGeneralInfoResponse()
+        message = server_service_pb2.GetGeneralInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
 

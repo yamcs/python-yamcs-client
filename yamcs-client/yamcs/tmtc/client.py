@@ -10,7 +10,7 @@ from yamcs.core.helpers import adapt_name_for_rest, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
-from yamcs.protobuf.commanding import command_history_service_pb2, commanding_pb2
+from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -979,7 +979,7 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandConnection
         """
-        options = command_history_service_pb2.SubscribeCommandsRequest()
+        options = commands_service_pb2.SubscribeCommandsRequest()
         options.instance = self._instance
         options.processor = self._processor
         options.ignorePastCommands = True
@@ -1015,7 +1015,7 @@ class ProcessorClient(object):
                  subscription
         :rtype: .CommandHistorySubscription
         """
-        options = command_history_service_pb2.SubscribeCommandsRequest()
+        options = commands_service_pb2.SubscribeCommandsRequest()
         options.instance = self._instance
         options.processor = self._processor
         options.ignorePastCommands = True

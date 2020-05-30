@@ -17,7 +17,7 @@ from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import archive_pb2, index_service_pb2
-from yamcs.protobuf.commanding import command_history_service_pb2
+from yamcs.protobuf.commanding import commands_service_pb2
 from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -582,7 +582,7 @@ class ArchiveClient(object):
             client=self._client,
             path=path,
             params=params,
-            response_class=command_history_service_pb2.ListCommandsResponse,
+            response_class=commands_service_pb2.ListCommandsResponse,
             items_key="entry",
             item_mapper=CommandHistory,
         )
