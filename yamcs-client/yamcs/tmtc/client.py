@@ -587,7 +587,7 @@ class ProcessorClient(object):
                  command.
         :rtype: .IssuedCommand
         """
-        req = processing_pb2.IssueCommandRequest()
+        req = commands_service_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
         req.dryRun = dry_run
         if comment:
@@ -634,7 +634,7 @@ class ProcessorClient(object):
             self._instance, self._processor, command
         )
         response = self._client.post_proto(url, data=req.SerializeToString())
-        proto = processing_pb2.IssueCommandResponse()
+        proto = commands_service_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
         return IssuedCommand(proto, self)
 

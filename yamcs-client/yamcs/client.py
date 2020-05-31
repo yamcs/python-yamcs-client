@@ -173,7 +173,7 @@ class YamcsClient(BaseClient):
         :rtype: .ServerInfo
         """
         response = self.get_proto(path="")
-        message = server_service_pb2.GetGeneralInfoResponse()
+        message = server_service_pb2.GetServerInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
 

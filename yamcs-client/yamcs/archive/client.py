@@ -5,6 +5,7 @@ from yamcs.archive.model import (
     IndexGroup,
     Packet,
     ParameterRange,
+    ResultSet,
     Sample,
     Stream,
     StreamData,
@@ -699,16 +700,14 @@ class ArchiveClient(object):
         Executes a single SQL statement.
 
         :param statement: SQL string
-        :return: String response
-        :rtype: str
+        :return: A result set for consuming rows
+        :rtype: .ResultSet
         """
-        path = "/archive/{}:executeSql".format(self._instance)
+        path = "/archive/{}:executeStreamingSql".format(self._instance)
         req = table_pb2.ExecuteSqlRequest()
         req.statement = statement
 
-        response = self._client.post_proto(path=path, data=req.SerializeToString())
-        message = table_pb2.ExecuteSqlResponse()
-        message.ParseFromString(response.content)
-        if message.HasField("result"):
-            return message.result
-        return None
+        response = self._client.post_proto(
+            path=path, data=req.SerializeToString(), stream=True
+        )
+        return ResultSet(response)
