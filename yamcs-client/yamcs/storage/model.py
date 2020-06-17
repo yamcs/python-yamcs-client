@@ -1,6 +1,3 @@
-from yamcs.core.helpers import parse_isostring
-
-
 class Bucket:
     def __init__(self, proto, instance, client):
         self._proto = proto
@@ -138,7 +135,7 @@ class ObjectInfo:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("created"):
-            return parse_isostring(self._proto.created)
+            return self._proto.created.ToDatetime()
         return None
 
     def delete(self):

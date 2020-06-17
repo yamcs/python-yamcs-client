@@ -8,7 +8,7 @@ from yamcs.archive.client import ArchiveClient
 from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import parse_isostring, to_isostring
+from yamcs.core.helpers import to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
@@ -163,7 +163,7 @@ class YamcsClient(BaseClient):
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
         if message.HasField("missionTime"):
-            return parse_isostring(message.missionTime)
+            return message.missionTime.ToDatetime()
         return None
 
     def get_server_info(self):

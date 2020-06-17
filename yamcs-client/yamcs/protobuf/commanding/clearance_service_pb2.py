@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.commanding',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\025ClearanceServiceProtoP\001',
-  serialized_pb=b'\n1yamcs/protobuf/commanding/clearance_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\"V\n\x16ListClearancesResponse\x12<\n\nclearances\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.commanding.ClearanceInfo\"\xad\x01\n\rClearanceInfo\x12\x10\n\x08username\x18\x01 \x01(\t\x12I\n\x05level\x18\x02 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\x12\x10\n\x08issuedBy\x18\x03 \x01(\t\x12-\n\tissueTime\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"u\n\x16UpdateClearanceRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12I\n\x05level\x18\x02 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\"*\n\x16\x44\x65leteClearanceRequest\x12\x10\n\x08username\x18\x01 \x01(\t2\x98\x03\n\x0c\x43learanceApi\x12r\n\x0eListClearances\x12\x16.google.protobuf.Empty\x1a\x31.yamcs.protobuf.commanding.ListClearancesResponse\"\x15\x8a\x92\x03\x11\n\x0f/api/clearances\x12\x93\x01\n\x0fUpdateClearance\x12\x31.yamcs.protobuf.commanding.UpdateClearanceRequest\x1a(.yamcs.protobuf.commanding.ClearanceInfo\"#\x8a\x92\x03\x1f*\x1a/api/clearances/{username}:\x01*\x12~\n\x0f\x44\x65leteClearance\x12\x31.yamcs.protobuf.commanding.DeleteClearanceRequest\x1a\x16.google.protobuf.Empty\" \x8a\x92\x03\x1c\"\x1a/api/clearances/{username}B-\n\x12org.yamcs.protobufB\x15\x43learanceServiceProtoP\x01'
+  serialized_pb=b'\n1yamcs/protobuf/commanding/clearance_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\"V\n\x16ListClearancesResponse\x12<\n\nclearances\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.commanding.ClearanceInfo\"\xad\x01\n\rClearanceInfo\x12\x10\n\x08username\x18\x01 \x01(\t\x12I\n\x05level\x18\x02 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\x12\x10\n\x08issuedBy\x18\x03 \x01(\t\x12-\n\tissueTime\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"u\n\x16UpdateClearanceRequest\x12\x10\n\x08username\x18\x01 \x01(\t\x12I\n\x05level\x18\x02 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\"*\n\x16\x44\x65leteClearanceRequest\x12\x10\n\x08username\x18\x01 \x01(\t2\x83\x04\n\x0c\x43learanceApi\x12r\n\x0eListClearances\x12\x16.google.protobuf.Empty\x1a\x31.yamcs.protobuf.commanding.ListClearancesResponse\"\x15\x8a\x92\x03\x11\n\x0f/api/clearances\x12\x93\x01\n\x0fUpdateClearance\x12\x31.yamcs.protobuf.commanding.UpdateClearanceRequest\x1a(.yamcs.protobuf.commanding.ClearanceInfo\"#\x8a\x92\x03\x1f*\x1a/api/clearances/{username}:\x01*\x12~\n\x0f\x44\x65leteClearance\x12\x31.yamcs.protobuf.commanding.DeleteClearanceRequest\x1a\x16.google.protobuf.Empty\" \x8a\x92\x03\x1c\"\x1a/api/clearances/{username}\x12i\n\x12SubscribeClearance\x12\x16.google.protobuf.Empty\x1a(.yamcs.protobuf.commanding.ClearanceInfo\"\x0f\xda\x92\x03\x0b\n\tclearance0\x01\x42-\n\x12org.yamcs.protobufB\x15\x43learanceServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,])
 
@@ -228,7 +228,7 @@ _CLEARANCEAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=629,
-  serialized_end=1037,
+  serialized_end=1144,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListClearances',
@@ -256,6 +256,15 @@ _CLEARANCEAPI = _descriptor.ServiceDescriptor(
     input_type=_DELETECLEARANCEREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=b'\212\222\003\034\"\032/api/clearances/{username}',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeClearance',
+    full_name='yamcs.protobuf.commanding.ClearanceApi.SubscribeClearance',
+    index=3,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_CLEARANCEINFO,
+    serialized_options=b'\332\222\003\013\n\tclearance',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_CLEARANCEAPI)

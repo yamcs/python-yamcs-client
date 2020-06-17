@@ -468,7 +468,7 @@ class Alarm:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("triggerTime"):
-            return parse_isostring(self._proto.triggerTime)
+            return self._proto.triggerTime.ToDatetime()
         return None
 
     @property
@@ -557,7 +557,7 @@ class Alarm:
         if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
             "acknowledgeTime"
         ):
-            return parse_isostring(self._proto.acknowledgeInfo.acknowledgeTime)
+            return self._proto.acknowledgeInfo.acknowledgeTime.ToDatetime()
         return None
 
     @property
@@ -708,8 +708,8 @@ class ParameterValue:
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField("generationTimeUTC"):
-            return parse_isostring(self._proto.generationTimeUTC)
+        if self._proto.HasField("generationTime"):
+            return self._proto.generationTime.ToDatetime()
         return None
 
     @property
@@ -719,8 +719,8 @@ class ParameterValue:
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField("acquisitionTimeUTC"):
-            return parse_isostring(self._proto.acquisitionTimeUTC)
+        if self._proto.HasField("acquisitionTime"):
+            return self._proto.acquisitionTime.ToDatetime()
         return None
 
     @property

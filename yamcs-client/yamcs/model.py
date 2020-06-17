@@ -1,4 +1,3 @@
-from yamcs.core.helpers import parse_isostring
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
@@ -105,8 +104,8 @@ class Event:
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField("generationTimeUTC"):
-            return parse_isostring(self._proto.generationTimeUTC)
+        if self._proto.HasField("generationTime"):
+            return self._proto.generationTime.ToDatetime()
         return None
 
     @property
@@ -116,8 +115,8 @@ class Event:
 
         :type: :class:`~datetime.datetime`
         """
-        if self._proto.HasField("receptionTimeUTC"):
-            return parse_isostring(self._proto.receptionTimeUTC)
+        if self._proto.HasField("receptionTime"):
+            return self._proto.receptionTime.ToDatetime()
         return None
 
     @property
@@ -287,7 +286,7 @@ class Instance:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("missionTime"):
-            return parse_isostring(self._proto.missionTime)
+            return self._proto.missionTime.ToDatetime()
         return None
 
     def __str__(self):
@@ -394,7 +393,7 @@ class Processor:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("time"):
-            return parse_isostring(self._proto.time)
+            return self._proto.time.ToDatetime()
         return None
 
     def __str__(self):
