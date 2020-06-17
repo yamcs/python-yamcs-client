@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 import logging
 import ssl
 import threading
@@ -10,7 +8,7 @@ from yamcs.api import websocket_pb2
 from yamcs.core.exceptions import ConnectionFailure
 
 
-class WebSocketSubscriptionManager(object):
+class WebSocketSubscriptionManager:
     def __init__(self, client, topic, options=None):
         self._client = client
         self._topic = topic

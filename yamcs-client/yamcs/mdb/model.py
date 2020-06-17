@@ -1,7 +1,7 @@
 from yamcs.protobuf.mdb import mdb_pb2
 
 
-class Algorithm(object):
+class Algorithm:
     def __init__(self, proto):
         self._proto = proto
 
@@ -38,7 +38,7 @@ class Algorithm(object):
         return self.qualified_name
 
 
-class Command(object):
+class Command:
     def __init__(self, proto):
         self._proto = proto
 
@@ -95,7 +95,7 @@ class Command(object):
         return self.qualified_name
 
 
-class Significance(object):
+class Significance:
     def __init__(self, proto):
         self._proto = proto
 
@@ -122,7 +122,7 @@ class Significance(object):
         return "[{}] {}".format(self.consequence_level, self.reason)
 
 
-class Container(object):
+class Container:
     def __init__(self, proto):
         self._proto = proto
 
@@ -159,7 +159,7 @@ class Container(object):
         return self.qualified_name
 
 
-class ArrayType(object):
+class ArrayType:
     def __init__(self, proto):
         self._proto = proto
 
@@ -203,7 +203,7 @@ class ArrayType(object):
         return self.name
 
 
-class Member(object):
+class Member:
     """
     A member is a data structure for a specific field of a parent data type
     (either another member, or a parameter of type `aggregate`).
@@ -257,7 +257,7 @@ class Member(object):
         return self.name
 
 
-class Parameter(object):
+class Parameter:
     """
     From XTCE:
 
@@ -345,7 +345,7 @@ class Parameter(object):
         return self.qualified_name
 
 
-class SpaceSystem(object):
+class SpaceSystem:
     """
     From XTCE:
 

@@ -21,6 +21,7 @@ setuptools.setup(
     license="LGPL",
     packages=packages,
     namespace_packages=["yamcs"],
+    python_requires=">=3.5",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",

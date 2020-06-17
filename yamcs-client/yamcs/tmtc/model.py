@@ -18,7 +18,7 @@ def _parse_alarm(proto):
     raise YamcsError("Unexpected type " + proto.type)
 
 
-class Acknowledgment(object):
+class Acknowledgment:
     def __init__(self, name, time, status, message):
         self.name = name
         """Name of this acknowledgment."""
@@ -42,7 +42,7 @@ class Acknowledgment(object):
         return self.__repr__()
 
 
-class CommandHistory(object):
+class CommandHistory:
     def __init__(self, proto):
 
         self.generation_time = parse_isostring(proto.generationTimeUTC)
@@ -170,7 +170,7 @@ class CommandHistory(object):
         return "{} [{}]".format(self.name, acks)
 
 
-class IssuedCommand(object):
+class IssuedCommand:
     def __init__(self, proto, client):
         self._proto = proto
         self._client = client
@@ -260,7 +260,7 @@ class IssuedCommand(object):
         return "{} {}".format(self.generation_time, self.source)
 
 
-class VerificationConfig(object):
+class VerificationConfig:
     """
     Contains overrides to the default verification handling of Yamcs.
     """
@@ -366,18 +366,10 @@ class MonitoredCommand(IssuedCommand):
         return self.acknowledgments.get(name)
 
     def _wait_on_signal(self, event, timeout=None):
-        # Wait until the future is done. We do not use wait() without timeout
-        # because on Python 2.x this does not generate ``KeyboardInterrupt``.
-        # https://bugs.python.org/issue8844
-        if timeout is not None:
-            if not event.wait(timeout=timeout):
-                # Remark that a timeout does *not* mean that the underlying
-                # work is canceled.
-                raise TimeoutError("Timed out.")
-        else:
-            # The actual timeout value does not have any impact
-            while not event.wait(timeout=10):
-                pass  # tick
+        if not event.wait(timeout=timeout):
+            # Remark that a timeout does *not* mean that the underlying
+            # work is canceled.
+            raise TimeoutError("Timed out.")
 
     @property
     def error(self):
@@ -431,7 +423,7 @@ class MonitoredCommand(IssuedCommand):
         return "{} [{}]".format(self.name, acks)
 
 
-class AlarmUpdate(object):
+class AlarmUpdate:
     """
     Object received through callbacks when subscribing to alarm updates.
     """
@@ -457,7 +449,7 @@ class AlarmUpdate(object):
         return "[{}] {}".format(self.update_type, self.alarm)
 
 
-class Alarm(object):
+class Alarm:
     def __init__(self, proto):
         self._proto = proto
 
@@ -675,7 +667,7 @@ class EventAlarm(Alarm):
         return None
 
 
-class ParameterData(object):
+class ParameterData:
     def __init__(self, proto, mapping):
         self._proto = proto
         self._mapping = mapping
@@ -692,7 +684,7 @@ class ParameterData(object):
         return pvals
 
 
-class ParameterValue(object):
+class ParameterValue:
     def __init__(self, proto, id=None):
         self._proto = proto
         self._id = id or proto.id
@@ -797,7 +789,7 @@ class ParameterValue(object):
         return line
 
 
-class Calibrator(object):
+class Calibrator:
     """
     A calibrator that may be applied to a numeric raw value.
 
@@ -831,7 +823,7 @@ class Calibrator(object):
         self.data = data
 
 
-class RangeSet(object):
+class RangeSet:
     """
     A set of alarm range that apply in a specific context.
     """

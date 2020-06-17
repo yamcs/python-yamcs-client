@@ -26,7 +26,7 @@ from yamcs.tmtc.model import (
 )
 
 
-class SequenceGenerator(object):
+class SequenceGenerator:
     """Static atomic counter."""
 
     _counter = 0
@@ -441,7 +441,7 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
             self._cache[alarm.name] = alarm
 
 
-class ProcessorClient(object):
+class ProcessorClient:
     """Client object that groups operations linked to a specific processor."""
 
     def __init__(self, client, instance, processor):
@@ -588,7 +588,7 @@ class ProcessorClient(object):
         :rtype: .IssuedCommand
         """
         req = commands_service_pb2.IssueCommandRequest()
-        req.sequenceNumber = SequenceGenerator.next()
+        req.sequenceNumber = next(SequenceGenerator)
         req.dryRun = dry_run
         if comment:
             req.comment = comment

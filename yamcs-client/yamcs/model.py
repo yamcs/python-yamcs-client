@@ -1,11 +1,9 @@
-from __future__ import division
-
 from yamcs.core.helpers import parse_isostring
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
-class AuthInfo(object):
+class AuthInfo:
     """
     Authentication information
     """
@@ -18,7 +16,7 @@ class AuthInfo(object):
         return self._proto.requireAuthentication
 
 
-class ServerInfo(object):
+class ServerInfo:
     """
     General server properties.
     """
@@ -47,7 +45,7 @@ class ServerInfo(object):
         return "{} (v{})".format(self.id, self.version)
 
 
-class UserInfo(object):
+class UserInfo:
     """
     Info on a Yamcs User.
     """
@@ -75,7 +73,7 @@ class UserInfo(object):
         return self.username
 
 
-class ObjectPrivilege(object):
+class ObjectPrivilege:
     def __init__(self, proto):
         self._proto = proto
 
@@ -91,7 +89,7 @@ class ObjectPrivilege(object):
         return self.name
 
 
-class Event(object):
+class Event:
     """
     A timetagged free-text message. Events work a lot like log
     messages in logging frameworks, but then targeted at operators.
@@ -172,7 +170,7 @@ class Event(object):
         return "{} [{}] {}".format(self.generation_time, self.severity, self.message)
 
 
-class LinkEvent(object):
+class LinkEvent:
     """
     Data holder used in link subscriptions.
     """
@@ -201,7 +199,7 @@ class LinkEvent(object):
         return "[{}] {}".format(self.event_type, self.link)
 
 
-class Link(object):
+class Link:
     """
     Represents a link with an external system. Depending on the
     semantics of the link, this may imply inbound data, outbound
@@ -252,7 +250,7 @@ class Link(object):
         )
 
 
-class Instance(object):
+class Instance:
     def __init__(self, proto):
         self._proto = proto
 
@@ -296,7 +294,7 @@ class Instance(object):
         return "{} [{}]".format(self.name, self.state)
 
 
-class InstanceTemplate(object):
+class InstanceTemplate:
     """A template for creating an instance."""
 
     def __init__(self, proto):
@@ -311,7 +309,7 @@ class InstanceTemplate(object):
         return self.name
 
 
-class Service(object):
+class Service:
     """A Yamcs service."""
 
     def __init__(self, proto):
@@ -352,7 +350,7 @@ class Service(object):
         return "{} [{}]".format(self.name, self.state)
 
 
-class Processor(object):
+class Processor:
     def __init__(self, proto):
         self._proto = proto
 

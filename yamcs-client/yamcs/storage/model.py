@@ -1,7 +1,7 @@
 from yamcs.core.helpers import parse_isostring
 
 
-class Bucket(object):
+class Bucket:
     def __init__(self, proto, instance, client):
         self._proto = proto
         self._instance = instance
@@ -84,7 +84,7 @@ class Bucket(object):
         return self.name
 
 
-class ObjectListing(object):
+class ObjectListing:
     def __init__(self, proto, instance, bucket, client):
         self._proto = proto
         self._instance = instance
@@ -113,7 +113,7 @@ class ObjectListing(object):
         ]
 
 
-class ObjectInfo(object):
+class ObjectInfo:
     def __init__(self, proto, instance, bucket, client):
         self._proto = proto
         self._instance = instance

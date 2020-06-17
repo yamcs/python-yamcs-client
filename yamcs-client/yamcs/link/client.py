@@ -72,7 +72,7 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         self._status = update
 
 
-class LinkClient(object):
+class LinkClient:
     """Client object that groups operations for a specific link."""
 
     def __init__(self, client, instance, link):

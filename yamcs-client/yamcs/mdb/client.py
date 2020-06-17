@@ -4,7 +4,7 @@ from yamcs.mdb.model import Algorithm, Command, Container, Parameter, SpaceSyste
 from yamcs.protobuf.mdb import mdb_pb2
 
 
-class MDBClient(object):
+class MDBClient:
     def __init__(self, client, instance):
         super(MDBClient, self).__init__()
         self._client = client

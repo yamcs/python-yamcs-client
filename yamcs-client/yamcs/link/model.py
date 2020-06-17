@@ -1,7 +1,7 @@
 from yamcs.protobuf.cop1 import cop1_pb2
 
 
-class Cop1Status(object):
+class Cop1Status:
     """
     COP1 status
     """
@@ -47,7 +47,7 @@ class Cop1Status(object):
             return line + ", bypass_all: {}".format(self.bypass_all)
 
 
-class Cop1Config(object):
+class Cop1Config:
     """
     COP1 configuration
     """

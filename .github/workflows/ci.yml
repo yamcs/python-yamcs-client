@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Install dependencies
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Set up sphinx
@@ -31,7 +31,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r yamcs-client/requirements.txt
           pip install -r docs/requirements.txt
-      - name: Generate HTTP API documentation
+      - name: Generate documentation
         run: |
           cd yamcs-client
           python setup.py install

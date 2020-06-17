@@ -61,7 +61,7 @@ def _convert_service_account_credentials(
         raise YamcsError("{} Server Error".format(response.status_code))
 
 
-class Credentials(object):
+class Credentials:
     """
     Data holder for different types of credentials. Currently this includes:
 

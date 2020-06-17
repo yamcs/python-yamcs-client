@@ -3,7 +3,7 @@ from yamcs.protobuf.buckets import buckets_pb2
 from yamcs.storage.model import Bucket, ObjectListing
 
 
-class Client(object):
+class Client:
     """
     Client for working with buckets and objects managed by Yamcs.
     """

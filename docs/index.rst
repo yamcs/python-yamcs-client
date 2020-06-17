@@ -6,10 +6,6 @@ Getting Started
 
 Install Python 3.5 or higher.
 
-.. note::
-
-    Python 2.7 has reached its long anticipated `End Of Life <https://www.python.org/dev/peps/pep-0373/>`_ date and we are also preparing to drop support for it soon.
-
 Install ``yamcs-client`` from PyPI::
 
     pip install --upgrade yamcs-client

@@ -4,7 +4,7 @@ from yamcs.core.helpers import parse_isostring, parse_value
 from yamcs.protobuf.table import table_pb2
 
 
-class Table(object):
+class Table:
     def __init__(self, proto):
         self._proto = proto
 
@@ -17,7 +17,7 @@ class Table(object):
         return self.name
 
 
-class Stream(object):
+class Stream:
     def __init__(self, proto):
         self._proto = proto
 
@@ -30,7 +30,7 @@ class Stream(object):
         return self.name
 
 
-class StreamData(object):
+class StreamData:
     def __init__(self, proto):
         self._proto = proto
 
@@ -48,7 +48,7 @@ class StreamData(object):
         return "{} ({} columns)".format(self.stream, len(self.columns))
 
 
-class ColumnData(object):
+class ColumnData:
     def __init__(self, proto):
         self._proto = proto
 
@@ -66,7 +66,7 @@ class ColumnData(object):
         return "{}: {}".format(self.name, self.value)
 
 
-class ResultSet(object):
+class ResultSet:
     """
     Provides capability to consume the rows returned by a
     SQL query, or access related information.
@@ -128,7 +128,7 @@ class ResultSet(object):
         return None
 
 
-class IndexGroup(object):
+class IndexGroup:
     """
     Group of index records that represent the same
     type of underlying objects.
@@ -163,7 +163,7 @@ class IndexGroup(object):
         return "{} ({} records)".format(self.name, len(self.records))
 
 
-class IndexRecord(object):
+class IndexRecord:
     """
     Represents a block of uninterrupted data (derived from the index definition
     for the type of underlying objects, in combination with the requested
@@ -202,7 +202,7 @@ class IndexRecord(object):
         return "{} - {} (n={})".format(self.start, self.stop, self.count)
 
 
-class Packet(object):
+class Packet:
     def __init__(self, proto):
         self._proto = proto
 
@@ -264,7 +264,7 @@ class Packet(object):
         )
 
 
-class Sample(object):
+class Sample:
     """
     Provides aggregation properties over a range of a parameter's
     values.
@@ -312,7 +312,7 @@ class Sample(object):
         return "{} {}".format(self.time, self.avg)
 
 
-class ParameterRange(object):
+class ParameterRange:
     """
     Indicates an interval during which a parameter's
     value was uninterrupted and unchanged.

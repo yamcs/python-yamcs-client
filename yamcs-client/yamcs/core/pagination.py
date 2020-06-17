@@ -1,4 +1,4 @@
-class Iterator(object):
+class Iterator:
     def __init__(
         self, client, path, params, response_class, items_key="items", item_mapper=None
     ):

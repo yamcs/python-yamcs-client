@@ -36,7 +36,7 @@ def _wrap_callback_parse_stream_data(subscription, on_data, message):
     on_data(StreamData(pb))
 
 
-class ArchiveClient(object):
+class ArchiveClient:
     def __init__(self, client, instance):
         super(ArchiveClient, self).__init__()
         self._client = client
