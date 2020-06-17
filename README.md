@@ -1,4 +1,4 @@
-# Yamcs Libraries for Python
+# Yamcs Client for Python
 
 | Module                                              | Description                       ||
 | --------------------------------------------------- | --------------------------------- | ----- |
@@ -8,4 +8,4 @@
 
 ## License
 
-LGPL-3.0. See [LICENSE](https://github.com/yamcs/yamcs-python/blob/master/LICENSE)
+LGPL-3.0. See [LICENSE](https://github.com/yamcs/python-yamcs-client/blob/master/LICENSE)

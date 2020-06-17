@@ -16,16 +16,11 @@
 
 ## Installation
 
-The easiest way to install is via pip
+Install with pip
 
     pip install yamcs-client
 
 
-## Documentation
-
-All available operations are documented at https://yamcs.org/docs/yamcs-python/
-
-
 ## License
 
-LGPL-3.0. See [LICENSE](https://github.com/yamcs/yamcs-python/blob/master/LICENSE)
+LGPL-3.0. See [LICENSE](https://github.com/yamcs/python-yamcs-client/blob/master/LICENSE)

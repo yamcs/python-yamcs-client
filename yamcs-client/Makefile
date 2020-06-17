@@ -1,4 +1,4 @@
-.PHONY: clean build deploy docs
+.PHONY: clean build deploy
 
 clean:
 	rm -rf build dist *.egg-info
@@ -8,6 +8,3 @@ build:
 
 deploy: clean build
 	twine upload -r pypi dist/*
-
-docs:
-	cd docs && make clean html

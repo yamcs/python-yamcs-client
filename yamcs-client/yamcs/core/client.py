@@ -47,7 +47,7 @@ class BaseClient(object):
 
         if not user_agent:
             dist = pkg_resources.get_distribution("yamcs-client")
-            user_agent = "yamcs-python-client v" + dist.version
+            user_agent = "python-yamcs-client v" + dist.version
         self.session.headers.update({"User-Agent": user_agent})
 
     def get_proto(self, path, **kwargs):
