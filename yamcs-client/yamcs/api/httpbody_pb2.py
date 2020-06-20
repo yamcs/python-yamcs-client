@@ -18,11 +18,48 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.api',
   syntax='proto2',
   serialized_options=b'\n\rorg.yamcs.apiB\rHttpBodyProtoP\001',
-  serialized_pb=b'\n\x18yamcs/api/httpbody.proto\x12\tyamcs.api\"@\n\x08HttpBody\x12\x14\n\x0c\x63ontent_type\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x42 \n\rorg.yamcs.apiB\rHttpBodyProtoP\x01'
+  serialized_pb=b'\n\x18yamcs/api/httpbody.proto\x12\tyamcs.api\"\xa6\x01\n\x08HttpBody\x12\x14\n\x0c\x63ontent_type\x18\x01 \x01(\t\x12\x10\n\x08\x66ilename\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61ta\x18\x03 \x01(\x0c\x12\x33\n\x08metadata\x18\x04 \x03(\x0b\x32!.yamcs.api.HttpBody.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x42 \n\rorg.yamcs.apiB\rHttpBodyProtoP\x01'
 )
 
 
 
+
+_HTTPBODY_METADATAENTRY = _descriptor.Descriptor(
+  name='MetadataEntry',
+  full_name='yamcs.api.HttpBody.MetadataEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.api.HttpBody.MetadataEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.api.HttpBody.MetadataEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=159,
+  serialized_end=206,
+)
 
 _HTTPBODY = _descriptor.Descriptor(
   name='HttpBody',
@@ -52,10 +89,17 @@ _HTTPBODY = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='metadata', full_name='yamcs.api.HttpBody.metadata', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[],
+  nested_types=[_HTTPBODY_METADATAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -64,20 +108,31 @@ _HTTPBODY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=39,
-  serialized_end=103,
+  serialized_start=40,
+  serialized_end=206,
 )
 
+_HTTPBODY_METADATAENTRY.containing_type = _HTTPBODY
+_HTTPBODY.fields_by_name['metadata'].message_type = _HTTPBODY_METADATAENTRY
 DESCRIPTOR.message_types_by_name['HttpBody'] = _HTTPBODY
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 HttpBody = _reflection.GeneratedProtocolMessageType('HttpBody', (_message.Message,), {
+
+  'MetadataEntry' : _reflection.GeneratedProtocolMessageType('MetadataEntry', (_message.Message,), {
+    'DESCRIPTOR' : _HTTPBODY_METADATAENTRY,
+    '__module__' : 'yamcs.api.httpbody_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.api.HttpBody.MetadataEntry)
+    })
+  ,
   'DESCRIPTOR' : _HTTPBODY,
   '__module__' : 'yamcs.api.httpbody_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.api.HttpBody)
   })
 _sym_db.RegisterMessage(HttpBody)
+_sym_db.RegisterMessage(HttpBody.MetadataEntry)
 
 
 DESCRIPTOR._options = None
+_HTTPBODY_METADATAENTRY._options = None
 # @@protoc_insertion_point(module_scope)

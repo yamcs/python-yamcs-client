@@ -191,13 +191,6 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         information may be incomplete.
     """
 
-    @staticmethod
-    def _cache_key(cmd_id):
-        """commandId is a tuple. Convert to the equivalent string identifier."""
-        return "{}-{}-{}".format(
-            cmd_id.generationTime, cmd_id.origin, cmd_id.sequenceNumber
-        )
-
     def __init__(self, manager):
         super(CommandHistorySubscription, self).__init__(manager)
         self._cache = {}
@@ -221,13 +214,12 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         return None
 
     def _process(self, entry):
-        key = self._cache_key(entry.commandId)
-        if key in self._cache:
-            cmdhist = self._cache[key]
+        if entry.id in self._cache:
+            cmdhist = self._cache[entry.id]
             cmdhist._update(entry.attr)
         else:
             cmdhist = CommandHistory(entry)
-            self._cache[key] = cmdhist
+            self._cache[entry.id] = cmdhist
 
         return cmdhist
 
@@ -380,21 +372,14 @@ class CommandConnection(WebSocketSubscriptionFuture):
         return command
 
     def _process(self, entry):
-        # TODO would be nice if the server gave this.
-        command_id = "{}-{}-{}".format(
-            entry.commandId.generationTime,
-            entry.commandId.origin,
-            entry.commandId.sequenceNumber,
-        )
-
-        if command_id in self._cmdhist_cache:
-            cmdhist = self._cmdhist_cache[command_id]
+        if entry.id in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[entry.id]
             cmdhist._update(entry.attr)
         else:
             cmdhist = CommandHistory(entry)
-            self._cmdhist_cache[command_id] = cmdhist
+            self._cmdhist_cache[entry.id] = cmdhist
 
-        command = self._command_cache.get(command_id)
+        command = self._command_cache.get(entry.id)
         if command:
             command._process_cmdhist(cmdhist)
 

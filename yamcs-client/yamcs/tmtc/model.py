@@ -3,7 +3,7 @@ from collections import OrderedDict
 from datetime import timedelta
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
-from yamcs.core.helpers import parse_isostring, parse_value
+from yamcs.core.helpers import parse_value
 from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -45,21 +45,21 @@ class Acknowledgment:
 class CommandHistory:
     def __init__(self, proto):
 
-        self.generation_time = parse_isostring(proto.generationTimeUTC)
+        self.generation_time = proto.generationTime.ToDatetime()
         """
         The generation time as set by Yamcs
 
         :type: :class:`~datetime.datetime`
         """
 
-        self._commandId = proto.commandId
+        self._proto = proto
         self.attributes = OrderedDict()
         self._update(proto.attr)
 
     @property
     def name(self):
         """Name of the command."""
-        return self._commandId.commandName
+        return self._proto.commandName
 
     @property
     def origin(self):
@@ -67,8 +67,8 @@ class CommandHistory:
         The origin of this command. This is often empty, but may
         also be a hostname.
         """
-        if self._commandId.HasField("origin"):
-            return self._commandId.origin
+        if self._proto.HasField("origin"):
+            return self._proto.origin
         return None
 
     @property
@@ -77,8 +77,8 @@ class CommandHistory:
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
-        if self._commandId.HasField("sequenceNumber"):
-            return self._commandId.sequenceNumber
+        if self._proto.HasField("sequenceNumber"):
+            return self._proto.sequenceNumber
         return None
 
     @property

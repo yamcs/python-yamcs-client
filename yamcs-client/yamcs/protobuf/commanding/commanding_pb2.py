@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.commanding',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobuf',
-  serialized_pb=b'\n*yamcs/protobuf/commanding/commanding.proto\x12\x19yamcs.protobuf.commanding\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"`\n\tCommandId\x12\x16\n\x0egenerationTime\x18\x01 \x02(\x03\x12\x0e\n\x06origin\x18\x02 \x02(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x02(\x05\x12\x13\n\x0b\x63ommandName\x18\x04 \x01(\t\"\x8a\x03\n\x10\x43ommandQueueInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x34\n\x05state\x18\x04 \x01(\x0e\x32%.yamcs.protobuf.commanding.QueueState\x12\x16\n\x0enbSentCommands\x18\x05 \x01(\x05\x12\x1a\n\x12nbRejectedCommands\x18\x06 \x01(\x05\x12\x1c\n\x14stateExpirationTimeS\x18\x07 \x01(\x05\x12;\n\x05\x65ntry\x18\x08 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\r\n\x05order\x18\t \x01(\x05\x12\r\n\x05users\x18\n \x03(\t\x12\x0e\n\x06groups\x18\x0b \x03(\t\x12L\n\x08minLevel\x18\x0c \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\"\xb1\x02\n\x11\x43ommandQueueEntry\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x15\n\rprocessorName\x18\x02 \x02(\t\x12\x11\n\tqueueName\x18\x03 \x02(\t\x12\x33\n\x05\x63mdId\x18\x04 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x0e\n\x06\x62inary\x18\x06 \x01(\x0c\x12\x10\n\x08username\x18\x07 \x01(\t\x12\x0c\n\x04uuid\x18\t \x01(\t\x12\x0f\n\x07\x63omment\x18\x0b \x01(\t\x12\x32\n\x0egenerationTime\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12&\n\x1ependingTransmissionConstraints\x18\r \x01(\x08\"\xe8\x01\n\x11\x43ommandQueueEvent\x12?\n\x04type\x18\x01 \x01(\x0e\x32\x31.yamcs.protobuf.commanding.CommandQueueEvent.Type\x12:\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"V\n\x04Type\x12\x11\n\rCOMMAND_ADDED\x10\x01\x12\x14\n\x10\x43OMMAND_REJECTED\x10\x02\x12\x10\n\x0c\x43OMMAND_SENT\x10\x03\x12\x13\n\x0f\x43OMMAND_UPDATED\x10\x04\"\xaf\x01\n\x13\x43ommandQueueRequest\x12>\n\tqueueInfo\x18\x01 \x01(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\x12@\n\nqueueEntry\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x16\n\x07rebuild\x18\x03 \x01(\x08:\x05\x66\x61lse\"i\n\x13\x43ommandSignificance\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\x05\x12:\n\x0csignificance\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\"\xb5\x01\n\x0eVerifierConfig\x12\x0f\n\x07\x64isable\x18\x02 \x01(\x08\x12J\n\x0b\x63heckWindow\x18\x03 \x01(\x0b\x32\x35.yamcs.protobuf.commanding.VerifierConfig.CheckWindow\x1a\x46\n\x0b\x43heckWindow\x12\x1b\n\x13timeToStartChecking\x18\x01 \x01(\x03\x12\x1a\n\x12timeToStopChecking\x18\x02 \x01(\x03\"[\n\x17\x43ommandHistoryAttribute\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x0c\n\x04time\x18\x03 \x01(\x03\"Z\n\x11\x43ommandAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x11\n\tuserInput\x18\x03 \x01(\x08\"\xed\x01\n\x13\x43ommandHistoryEntry\x12\x37\n\tcommandId\x18\x01 \x02(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12@\n\x04\x61ttr\x18\x03 \x03(\x0b\x32\x32.yamcs.protobuf.commanding.CommandHistoryAttribute\x12\x19\n\x11generationTimeUTC\x18\x04 \x01(\t\x12@\n\nassignment\x18\x05 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandAssignment*4\n\nQueueState\x12\x0b\n\x07\x42LOCKED\x10\x01\x12\x0c\n\x08\x44ISABLED\x10\x02\x12\x0b\n\x07\x45NABLED\x10\x03\x42\x14\n\x12org.yamcs.protobuf'
+  serialized_pb=b'\n*yamcs/protobuf/commanding/commanding.proto\x12\x19yamcs.protobuf.commanding\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"`\n\tCommandId\x12\x16\n\x0egenerationTime\x18\x01 \x02(\x03\x12\x0e\n\x06origin\x18\x02 \x02(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x02(\x05\x12\x13\n\x0b\x63ommandName\x18\x04 \x01(\t\"\x8a\x03\n\x10\x43ommandQueueInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x34\n\x05state\x18\x04 \x01(\x0e\x32%.yamcs.protobuf.commanding.QueueState\x12\x16\n\x0enbSentCommands\x18\x05 \x01(\x05\x12\x1a\n\x12nbRejectedCommands\x18\x06 \x01(\x05\x12\x1c\n\x14stateExpirationTimeS\x18\x07 \x01(\x05\x12;\n\x05\x65ntry\x18\x08 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\r\n\x05order\x18\t \x01(\x05\x12\r\n\x05users\x18\n \x03(\t\x12\x0e\n\x06groups\x18\x0b \x03(\t\x12L\n\x08minLevel\x18\x0c \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\"\xc5\x02\n\x11\x43ommandQueueEntry\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x15\n\rprocessorName\x18\x02 \x01(\t\x12\x11\n\tqueueName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x0e \x01(\t\x12\x0e\n\x06origin\x18\x0f \x01(\t\x12\x16\n\x0esequenceNumber\x18\x10 \x01(\x05\x12\x13\n\x0b\x63ommandName\x18\x11 \x01(\t\x12\x0e\n\x06source\x18\x05 \x01(\t\x12\x0e\n\x06\x62inary\x18\x06 \x01(\x0c\x12\x10\n\x08username\x18\x07 \x01(\t\x12\x0c\n\x04uuid\x18\t \x01(\t\x12\x0f\n\x07\x63omment\x18\x0b \x01(\t\x12\x32\n\x0egenerationTime\x18\x0c \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12&\n\x1ependingTransmissionConstraints\x18\r \x01(\x08\"\xe8\x01\n\x11\x43ommandQueueEvent\x12?\n\x04type\x18\x01 \x01(\x0e\x32\x31.yamcs.protobuf.commanding.CommandQueueEvent.Type\x12:\n\x04\x64\x61ta\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\"V\n\x04Type\x12\x11\n\rCOMMAND_ADDED\x10\x01\x12\x14\n\x10\x43OMMAND_REJECTED\x10\x02\x12\x10\n\x0c\x43OMMAND_SENT\x10\x03\x12\x13\n\x0f\x43OMMAND_UPDATED\x10\x04\"\xaf\x01\n\x13\x43ommandQueueRequest\x12>\n\tqueueInfo\x18\x01 \x01(\x0b\x32+.yamcs.protobuf.commanding.CommandQueueInfo\x12@\n\nqueueEntry\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.commanding.CommandQueueEntry\x12\x16\n\x07rebuild\x18\x03 \x01(\x08:\x05\x66\x61lse\"i\n\x13\x43ommandSignificance\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\x05\x12:\n\x0csignificance\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\"\xb5\x01\n\x0eVerifierConfig\x12\x0f\n\x07\x64isable\x18\x02 \x01(\x08\x12J\n\x0b\x63heckWindow\x18\x03 \x01(\x0b\x32\x35.yamcs.protobuf.commanding.VerifierConfig.CheckWindow\x1a\x46\n\x0b\x43heckWindow\x12\x1b\n\x13timeToStartChecking\x18\x01 \x01(\x03\x12\x1a\n\x12timeToStopChecking\x18\x02 \x01(\x03\"[\n\x17\x43ommandHistoryAttribute\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x0c\n\x04time\x18\x03 \x01(\x03\"Z\n\x11\x43ommandAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x11\n\tuserInput\x18\x03 \x01(\x08\"\xee\x02\n\x13\x43ommandHistoryEntry\x12\n\n\x02id\x18\x07 \x01(\t\x12\x13\n\x0b\x63ommandName\x18\x08 \x01(\t\x12\x0e\n\x06origin\x18\t \x01(\t\x12\x16\n\x0esequenceNumber\x18\n \x01(\x05\x12\x37\n\tcommandId\x18\x01 \x01(\x0b\x32$.yamcs.protobuf.commanding.CommandId\x12@\n\x04\x61ttr\x18\x03 \x03(\x0b\x32\x32.yamcs.protobuf.commanding.CommandHistoryAttribute\x12\x1d\n\x11generationTimeUTC\x18\x04 \x01(\tB\x02\x18\x01\x12\x32\n\x0egenerationTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12@\n\nassignment\x18\x05 \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandAssignment*4\n\nQueueState\x12\x0b\n\x07\x42LOCKED\x10\x01\x12\x0c\n\x08\x44ISABLED\x10\x02\x12\x0b\n\x07\x45NABLED\x10\x03\x42\x14\n\x12org.yamcs.protobuf'
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -47,8 +47,8 @@ _QUEUESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2096,
-  serialized_end=2148,
+  serialized_start=2245,
+  serialized_end=2297,
 )
 _sym_db.RegisterEnumDescriptor(_QUEUESTATE)
 
@@ -83,8 +83,8 @@ _COMMANDQUEUEEVENT_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1114,
-  serialized_end=1200,
+  serialized_start=1134,
+  serialized_end=1220,
 )
 _sym_db.RegisterEnumDescriptor(_COMMANDQUEUEEVENT_TYPE)
 
@@ -258,76 +258,97 @@ _COMMANDQUEUEENTRY = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='instance', full_name='yamcs.protobuf.commanding.CommandQueueEntry.instance', index=0,
-      number=1, type=9, cpp_type=9, label=2,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='processorName', full_name='yamcs.protobuf.commanding.CommandQueueEntry.processorName', index=1,
-      number=2, type=9, cpp_type=9, label=2,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='queueName', full_name='yamcs.protobuf.commanding.CommandQueueEntry.queueName', index=2,
-      number=3, type=9, cpp_type=9, label=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='cmdId', full_name='yamcs.protobuf.commanding.CommandQueueEntry.cmdId', index=3,
-      number=4, type=11, cpp_type=10, label=2,
-      has_default_value=False, default_value=None,
+      name='id', full_name='yamcs.protobuf.commanding.CommandQueueEntry.id', index=3,
+      number=14, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.commanding.CommandQueueEntry.source', index=4,
+      name='origin', full_name='yamcs.protobuf.commanding.CommandQueueEntry.origin', index=4,
+      number=15, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='yamcs.protobuf.commanding.CommandQueueEntry.sequenceNumber', index=5,
+      number=16, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='commandName', full_name='yamcs.protobuf.commanding.CommandQueueEntry.commandName', index=6,
+      number=17, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.commanding.CommandQueueEntry.source', index=7,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='binary', full_name='yamcs.protobuf.commanding.CommandQueueEntry.binary', index=5,
+      name='binary', full_name='yamcs.protobuf.commanding.CommandQueueEntry.binary', index=8,
       number=6, type=12, cpp_type=9, label=1,
       has_default_value=False, default_value=b"",
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='username', full_name='yamcs.protobuf.commanding.CommandQueueEntry.username', index=6,
+      name='username', full_name='yamcs.protobuf.commanding.CommandQueueEntry.username', index=9,
       number=7, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='uuid', full_name='yamcs.protobuf.commanding.CommandQueueEntry.uuid', index=7,
+      name='uuid', full_name='yamcs.protobuf.commanding.CommandQueueEntry.uuid', index=10,
       number=9, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='comment', full_name='yamcs.protobuf.commanding.CommandQueueEntry.comment', index=8,
+      name='comment', full_name='yamcs.protobuf.commanding.CommandQueueEntry.comment', index=11,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='generationTime', full_name='yamcs.protobuf.commanding.CommandQueueEntry.generationTime', index=9,
+      name='generationTime', full_name='yamcs.protobuf.commanding.CommandQueueEntry.generationTime', index=12,
       number=12, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='pendingTransmissionConstraints', full_name='yamcs.protobuf.commanding.CommandQueueEntry.pendingTransmissionConstraints', index=10,
+      name='pendingTransmissionConstraints', full_name='yamcs.protobuf.commanding.CommandQueueEntry.pendingTransmissionConstraints', index=13,
       number=13, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -346,7 +367,7 @@ _COMMANDQUEUEENTRY = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=660,
-  serialized_end=965,
+  serialized_end=985,
 )
 
 
@@ -384,8 +405,8 @@ _COMMANDQUEUEEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=968,
-  serialized_end=1200,
+  serialized_start=988,
+  serialized_end=1220,
 )
 
 
@@ -429,8 +450,8 @@ _COMMANDQUEUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1203,
-  serialized_end=1378,
+  serialized_start=1223,
+  serialized_end=1398,
 )
 
 
@@ -467,8 +488,8 @@ _COMMANDSIGNIFICANCE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1380,
-  serialized_end=1485,
+  serialized_start=1400,
+  serialized_end=1505,
 )
 
 
@@ -505,8 +526,8 @@ _VERIFIERCONFIG_CHECKWINDOW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1599,
-  serialized_end=1669,
+  serialized_start=1619,
+  serialized_end=1689,
 )
 
 _VERIFIERCONFIG = _descriptor.Descriptor(
@@ -542,8 +563,8 @@ _VERIFIERCONFIG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1488,
-  serialized_end=1669,
+  serialized_start=1508,
+  serialized_end=1689,
 )
 
 
@@ -587,8 +608,8 @@ _COMMANDHISTORYATTRIBUTE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1671,
-  serialized_end=1762,
+  serialized_start=1691,
+  serialized_end=1782,
 )
 
 
@@ -632,8 +653,8 @@ _COMMANDASSIGNMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1764,
-  serialized_end=1854,
+  serialized_start=1784,
+  serialized_end=1874,
 )
 
 
@@ -645,28 +666,63 @@ _COMMANDHISTORYENTRY = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='commandId', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.commandId', index=0,
-      number=1, type=11, cpp_type=10, label=2,
+      name='id', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.id', index=0,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='commandName', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.commandName', index=1,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='origin', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.origin', index=2,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sequenceNumber', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.sequenceNumber', index=3,
+      number=10, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='commandId', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.commandId', index=4,
+      number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='attr', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.attr', index=1,
+      name='attr', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.attr', index=5,
       number=3, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='generationTimeUTC', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.generationTimeUTC', index=2,
+      name='generationTimeUTC', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.generationTimeUTC', index=6,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=b'\030\001', file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='generationTime', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.generationTime', index=7,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='assignment', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.assignment', index=3,
+      name='assignment', full_name='yamcs.protobuf.commanding.CommandHistoryEntry.assignment', index=8,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -684,14 +740,13 @@ _COMMANDHISTORYENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1857,
-  serialized_end=2094,
+  serialized_start=1877,
+  serialized_end=2243,
 )
 
 _COMMANDQUEUEINFO.fields_by_name['state'].enum_type = _QUEUESTATE
 _COMMANDQUEUEINFO.fields_by_name['entry'].message_type = _COMMANDQUEUEENTRY
 _COMMANDQUEUEINFO.fields_by_name['minLevel'].enum_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._SIGNIFICANCEINFO_SIGNIFICANCELEVELTYPE
-_COMMANDQUEUEENTRY.fields_by_name['cmdId'].message_type = _COMMANDID
 _COMMANDQUEUEENTRY.fields_by_name['generationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _COMMANDQUEUEEVENT.fields_by_name['type'].enum_type = _COMMANDQUEUEEVENT_TYPE
 _COMMANDQUEUEEVENT.fields_by_name['data'].message_type = _COMMANDQUEUEENTRY
@@ -705,6 +760,7 @@ _COMMANDHISTORYATTRIBUTE.fields_by_name['value'].message_type = yamcs_dot_protob
 _COMMANDASSIGNMENT.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
 _COMMANDHISTORYENTRY.fields_by_name['commandId'].message_type = _COMMANDID
 _COMMANDHISTORYENTRY.fields_by_name['attr'].message_type = _COMMANDHISTORYATTRIBUTE
+_COMMANDHISTORYENTRY.fields_by_name['generationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _COMMANDHISTORYENTRY.fields_by_name['assignment'].message_type = _COMMANDASSIGNMENT
 DESCRIPTOR.message_types_by_name['CommandId'] = _COMMANDID
 DESCRIPTOR.message_types_by_name['CommandQueueInfo'] = _COMMANDQUEUEINFO
@@ -799,4 +855,5 @@ _sym_db.RegisterMessage(CommandHistoryEntry)
 
 
 DESCRIPTOR._options = None
+_COMMANDHISTORYENTRY.fields_by_name['generationTimeUTC']._options = None
 # @@protoc_insertion_point(module_scope)
