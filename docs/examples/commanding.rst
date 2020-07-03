@@ -1,4 +1,4 @@
 commanding.py
 =============
 
-.. literalinclude:: ../../examples/commanding.py
+.. literalinclude:: ../../yamcs-client/examples/commanding.py

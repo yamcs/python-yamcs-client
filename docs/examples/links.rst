@@ -1,4 +1,4 @@
 links.py
 ========
 
-.. literalinclude:: ../../examples/links.py
+.. literalinclude:: ../../yamcs-client/examples/links.py

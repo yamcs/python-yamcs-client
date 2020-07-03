@@ -38,6 +38,7 @@ Documentation
 * :doc:`mdb/index`
 * :doc:`tmtc/index`
 * :doc:`archive/index`
+* :doc:`link/index`
 * :doc:`storage/index`
 
 Examples
@@ -55,5 +56,6 @@ Examples
     mdb/index
     tmtc/index
     archive/index
+    link/index
     storage/index
     examples/index

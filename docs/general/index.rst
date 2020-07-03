@@ -40,14 +40,14 @@ Events
 
 Receive :class:`.Event` callbacks:
 
-.. literalinclude:: ../../examples/events.py
+.. literalinclude:: ../../yamcs-client/examples/events.py
     :pyobject: listen_to_event_updates
     :start-after: """
     :dedent: 4
 
 Send an event:
 
-.. literalinclude:: ../../examples/events.py
+.. literalinclude:: ../../yamcs-client/examples/events.py
     :pyobject: send_event
     :start-after: """
     :dedent: 4

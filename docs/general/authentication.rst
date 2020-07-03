@@ -12,7 +12,7 @@ server such as an LDAP tree).
 
 To authenticate in such a scenario simply do:
 
-.. literalinclude:: ../../examples/authenticate.py
+.. literalinclude:: ../../yamcs-client/examples/authenticate.py
     :pyobject: authenticate_with_username_password
     :start-after: """
     :lines: 1-2

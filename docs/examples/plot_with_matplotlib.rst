@@ -8,4 +8,4 @@ plot_with_matplotlib.py
         pip install matplotlib
 
 
-.. literalinclude:: ../../examples/plot_with_matplotlib.py
+.. literalinclude:: ../../yamcs-client/examples/plot_with_matplotlib.py

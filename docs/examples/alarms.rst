@@ -1,4 +1,4 @@
 alarms.py
 =========
 
-.. literalinclude:: ../../examples/alarms.py
+.. literalinclude:: ../../yamcs-client/examples/alarms.py

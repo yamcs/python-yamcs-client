@@ -29,7 +29,7 @@ Create a :class:`.LinkClient` for a specific link:
 
 Enable a link:
 
-.. literalinclude:: ../../examples/links.py
+.. literalinclude:: ../../yamcs-client/examples/links.py
     :pyobject: enable_link
     :start-after: """
     :dedent: 4

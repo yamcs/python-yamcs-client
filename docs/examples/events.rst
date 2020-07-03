@@ -1,4 +1,4 @@
 events.py
 =========
 
-.. literalinclude:: ../../examples/events.py
+.. literalinclude:: ../../yamcs-client/examples/events.py

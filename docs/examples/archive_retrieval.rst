@@ -1,4 +1,4 @@
 archive_retrieval.py
 ====================
 
-.. literalinclude:: ../../examples/archive_retrieval.py
+.. literalinclude:: ../../yamcs-client/examples/archive_retrieval.py

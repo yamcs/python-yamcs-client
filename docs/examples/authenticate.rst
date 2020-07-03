@@ -1,4 +1,4 @@
 authenticate.py
 ===============
 
-.. literalinclude:: ../../examples/authenticate.py
+.. literalinclude:: ../../yamcs-client/examples/authenticate.py
