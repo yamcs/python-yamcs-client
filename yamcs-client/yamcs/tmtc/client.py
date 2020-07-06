@@ -573,7 +573,7 @@ class ProcessorClient:
         :rtype: .IssuedCommand
         """
         req = commands_service_pb2.IssueCommandRequest()
-        req.sequenceNumber = next(SequenceGenerator)
+        req.sequenceNumber = SequenceGenerator.next()
         req.dryRun = dry_run
         if comment:
             req.comment = comment
