@@ -2,8 +2,6 @@ import binascii
 import functools
 import threading
 
-import six
-
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import adapt_name_for_rest, to_isostring
@@ -583,10 +581,7 @@ class ProcessorClient:
                 assignment.name = key
 
                 value = args[key]
-                if isinstance(value, six.string_types):
-                    # This clause could be remove when we drop py2 (where bytes=str)
-                    assignment.value = value
-                elif isinstance(value, (bytes, bytearray)):
+                if isinstance(value, (bytes, bytearray)):
                     assignment.value = binascii.hexlify(value)
                 else:
                     assignment.value = str(value)
