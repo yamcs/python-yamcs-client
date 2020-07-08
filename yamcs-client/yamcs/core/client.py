@@ -1,6 +1,5 @@
 import pkg_resources
 import requests
-import six
 import urllib3
 from google.protobuf.message import DecodeError
 
@@ -93,8 +92,16 @@ class BaseClient:
             response = self.session.request(method, path, **kwargs)
         except requests.exceptions.SSLError as sslError:
             msg = "Connection to {} failed: {}".format(self.address, sslError)
-            six.raise_from(ConnectionFailure(msg), None)
+            raise ConnectionFailure(msg) from None
         except requests.exceptions.ConnectionError as e:
+            # Requests gives us a horribly confusing error when a connection is refused
+            # Try to unwrap it, if we confirm that it really is this.
+            if e.args and isinstance(e.args[0], urllib3.exceptions.MaxRetryError):
+                msg = e.args[0].args[0]  # This is a string (which is still confusing ....)
+                if 'refused' in msg:
+                    msg = 'Connection to {} failed: connection refused'.format(self.address)
+                    raise ConnectionFailure(msg) from None
+
             raise ConnectionFailure(
                 "Connection to {} failed: {}".format(self.address, e)
             )
