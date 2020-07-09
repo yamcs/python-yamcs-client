@@ -14,7 +14,7 @@ def print_buckets(instance):
 
 if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
-    storage_client = client.create_storage_client()
+    storage_client = client.get_storage_client()
 
     print('Buckets:')
     print_buckets()

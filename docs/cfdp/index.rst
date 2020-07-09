@@ -22,4 +22,4 @@ Create a :class:`.CFDPClient` for a specific instance:
     from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
-    cfdp = client.create_cfdp_client(instance='cfdp')
+    cfdp = client.get_cfdp_client(instance='cfdp')

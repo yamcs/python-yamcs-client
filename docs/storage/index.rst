@@ -22,4 +22,4 @@ Create a :class:`.StorageClient` for a specific instance:
     from yamcs.client import YamcsClient
 
     client = YamcsClient('localhost:8090')
-    storage = client.create_storage_client()
+    storage = client.get_storage_client()

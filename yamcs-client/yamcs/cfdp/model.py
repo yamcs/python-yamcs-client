@@ -1,6 +1,7 @@
 import threading
 from yamcs.protobuf.cfdp import cfdp_pb2
 
+
 class Transfer:
     """
     Represents a CFDP transfer.
@@ -14,23 +15,23 @@ class Transfer:
     def id(self):
         """Yamcs-local transfer identifier."""
         return self._proto.id
-    
+
     @property
     def bucket(self):
         return self._proto.bucket
-    
+
     @property
     def object_name(self):
         return self._proto.objectName
-    
+
     @property
     def remote_path(self):
         return self._proto.remotePath
-    
+
     @property
     def time(self):
         """Time when the transfer was started."""
-        if self._proto.HasField('startTime'):
+        if self._proto.HasField("startTime"):
             return self._proto.startTime.ToDatetime()
         return None
 
@@ -38,7 +39,7 @@ class Transfer:
     def reliable(self):
         """True if this is a Class 2 CFDP transfer."""
         return self._proto.reliable
-    
+
     @property
     def state(self):
         """Current transfer state."""
@@ -50,32 +51,32 @@ class Transfer:
     def size(self):
         """Total bytes to transfer."""
         return self._proto.totalSize
-    
+
     @property
     def transferred_size(self):
         """Total bytes already transferred."""
         return self._proto.sizeTransferred
-    
+
     def is_complete(self):
         """
         Returns whether this transfer is complete. A transfer
         can be completed, yet still failed.
         """
         return self.state == "FAILED" or self.state == "COMPLETED"
-    
+
     def is_success(self):
         """
         Returns true if this transfer was completed successfully.
         """
         return self.state == "COMPLETED"
-    
+
     @property
     def error(self):
         """Error message in case the transfer failed."""
         if self.state == "FAILED" and self._proto.HasField("failureReason"):
             return self._proto.failureReason
         return None
-    
+
     def pause(self):
         """
         Pause this transfer
@@ -93,7 +94,7 @@ class Transfer:
         Cancel this transfer
         """
         self._client.cancel_transfer(self.id)
-    
+
     def await_complete(self, timeout=None):
         """
         Wait for the transfer to be completed.
@@ -101,7 +102,7 @@ class Transfer:
         :param float timeout: The amount of seconds to wait.
         """
         completed = threading.Event()
-        
+
         def callback(updated_transfer):
             if updated_transfer.id == self.id:
                 self._proto = updated_transfer._proto
