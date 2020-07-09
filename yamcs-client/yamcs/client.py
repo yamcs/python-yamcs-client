@@ -225,7 +225,7 @@ class YamcsClient(BaseClient):
         :rtype: .ArchiveClient
         """
         return ArchiveClient(self, instance)
-    
+
     def get_cfdp_client(self, instance):
         """
         Return an object for working with CFDP transfers on a specified instance.
@@ -234,8 +234,8 @@ class YamcsClient(BaseClient):
         :rtype: .CFDPClient
         """
         return CFDPClient(self, instance)
-    
-    def get_storage_client(self, instance='_global'):
+
+    def get_storage_client(self, instance="_global"):
         """
         Return an object for working with object storage
 

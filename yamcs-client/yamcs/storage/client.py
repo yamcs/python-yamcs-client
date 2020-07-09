@@ -1,4 +1,3 @@
-from yamcs.core.client import BaseClient
 from yamcs.protobuf.buckets import buckets_pb2
 from yamcs.storage.model import Bucket, ObjectListing
 
@@ -8,7 +7,7 @@ class StorageClient:
     Client for working with buckets and objects managed by Yamcs.
     """
 
-    def __init__(self, client, instance='_global'):
+    def __init__(self, client, instance="_global"):
         super(StorageClient, self).__init__()
         self._client = client
         self._instance = instance
@@ -26,7 +25,7 @@ class StorageClient:
         message.ParseFromString(response.content)
         buckets = getattr(message, "buckets")
         return iter([Bucket(bucket, self) for bucket in buckets])
-    
+
     def get_bucket(self, name):
         """
         Get a specific bucket.
@@ -92,13 +91,13 @@ class StorageClient:
         :param str bucket_name: The name of the bucket.
         :param str object_name: The object to fetch.
         """
-        url = "/buckets/{}/{}/objects/{}".format(self._instance, bucket_name, object_name)
+        url = "/buckets/{}/{}/objects/{}".format(
+            self._instance, bucket_name, object_name
+        )
         response = self._client.get_proto(path=url)
         return response.content
 
-    def upload_object(
-        self, bucket_name, object_name, file_obj, content_type=None
-    ):
+    def upload_object(self, bucket_name, object_name, file_obj, content_type=None):
         """
         Upload an object to a bucket.
 
@@ -111,7 +110,9 @@ class StorageClient:
                                  content type *may* be automatically derived
                                  from the specified ``file_obj``.
         """
-        url = "/buckets/{}/{}/objects/{}".format(self._instance, bucket_name, object_name)
+        url = "/buckets/{}/{}/objects/{}".format(
+            self._instance, bucket_name, object_name
+        )
         if content_type:
             files = {object_name: (object_name, file_obj, content_type)}
         else:
@@ -125,5 +126,7 @@ class StorageClient:
         :param str bucket_name: The name of the bucket.
         :param str object_name: The object to remove.
         """
-        url = "/buckets/{}/{}/objects/{}".format(self._instance, bucket_name, object_name)
+        url = "/buckets/{}/{}/objects/{}".format(
+            self._instance, bucket_name, object_name
+        )
         self._client.delete_proto(url)
