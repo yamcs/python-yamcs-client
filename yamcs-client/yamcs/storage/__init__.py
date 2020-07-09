@@ -1,1 +1,1 @@
-from yamcs.storage.client import Client  # noqa
+from yamcs.storage.client import StorageClient  # noqa

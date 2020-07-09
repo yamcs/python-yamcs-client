@@ -1,10 +1,9 @@
 # fmt: off
-from yamcs import storage
-from yamcs.core import GLOBAL_INSTANCE
+from yamcs.client import YamcsClient
 
 
 def print_buckets(instance):
-    for bucket in client.list_buckets(instance=instance):
+    for bucket in storage_client.list_buckets():
         print(' {} ({} objects, {} bytes)'.format(
             bucket, bucket.object_count, bucket.size))
         listing = bucket.list_objects()
@@ -14,10 +13,8 @@ def print_buckets(instance):
 
 
 if __name__ == '__main__':
-    client = storage.Client('localhost:8090')
+    client = YamcsClient('localhost:8090')
+    storage_client = client.create_storage_client()
 
     print('Buckets:')
-    print_buckets(instance='simulator')
-
-    print('\nGlobal buckets:')
-    print_buckets(instance=GLOBAL_INSTANCE)
+    print_buckets()

@@ -12,6 +12,8 @@ from yamcs.core.helpers import to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
+from yamcs.cfdp.client import CFDPClient
+from yamcs.storage.client import StorageClient
 from yamcs.model import (
     AuthInfo,
     Event,
@@ -223,6 +225,24 @@ class YamcsClient(BaseClient):
         :rtype: .ArchiveClient
         """
         return ArchiveClient(self, instance)
+    
+    def get_cfdp_client(self, instance):
+        """
+        Return an object for working with CFDP transfers on a specified instance.
+
+        :param str instance: A Yamcs instance name.
+        :rtype: .CFDPClient
+        """
+        return CFDPClient(self, instance)
+    
+    def get_storage_client(self, instance='_global'):
+        """
+        Return an object for working with object storage
+
+        :param str instance: The storage instance.
+        :rtype: .StorageClient
+        """
+        return StorageClient(self, instance)
 
     def create_instance(self, name, template, args=None, labels=None):
         """

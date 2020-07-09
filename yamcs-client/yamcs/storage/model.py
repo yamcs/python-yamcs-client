@@ -1,7 +1,6 @@
 class Bucket:
-    def __init__(self, proto, instance, client):
+    def __init__(self, proto, client):
         self._proto = proto
-        self._instance = instance
         self._client = client
 
     @property
@@ -33,7 +32,6 @@ class Bucket:
                               omitted.
         """
         return self._client.list_objects(
-            instance=self._instance,
             bucket_name=self.name,
             prefix=prefix,
             delimiter=delimiter,
@@ -45,9 +43,9 @@ class Bucket:
 
         :param str object_name: The object to fetch.
         """
-        return self._client.download_object(self._instance, self.name, object_name)
+        return self._client.download_object(self.name, object_name)
 
-    def upload_object(self, object_name, file_obj):
+    def upload_object(self, object_name, file_obj, content_type=None):
         """
         Upload an object to this bucket.
 
@@ -60,7 +58,7 @@ class Bucket:
                                  from the specified ``file_obj``.
         """
         return self._client.upload_object(
-            self._instance, self.name, object_name, file_obj
+            self.name, object_name, file_obj, content_type=content_type
         )
 
     def delete_object(self, object_name):
@@ -69,22 +67,21 @@ class Bucket:
 
         :param str object_name: The object to remove.
         """
-        self._client.remove_object(self._instance, self.name, object_name)
+        self._client.remove_object(self.name, object_name)
 
     def delete(self):
         """
         Remove this bucket in its entirety.
         """
-        self._client.remove_bucket(self._instance, self.name)
+        self._client.remove_bucket(self.name)
 
     def __str__(self):
         return self.name
 
 
 class ObjectListing:
-    def __init__(self, proto, instance, bucket, client):
+    def __init__(self, proto, bucket, client):
         self._proto = proto
-        self._instance = instance
         self._bucket = bucket
         self._client = client
 
@@ -105,15 +102,14 @@ class ObjectListing:
         :type: List[:class:`.ObjectInfo`]
         """
         return [
-            ObjectInfo(o, self._instance, self._bucket, self._client)
+            ObjectInfo(o, self._bucket, self._client)
             for o in self._proto.objects
         ]
 
 
 class ObjectInfo:
-    def __init__(self, proto, instance, bucket, client):
+    def __init__(self, proto, bucket, client):
         self._proto = proto
-        self._instance = instance
         self._bucket = bucket
         self._client = client
 
@@ -140,11 +136,11 @@ class ObjectInfo:
 
     def delete(self):
         """Remove this object."""
-        self._client.remove_object(self._instance, self._bucket, self.name)
+        self._client.remove_object(self._bucket, self.name)
 
     def download(self):
         """Download this object."""
-        return self._client.download_object(self._instance, self._bucket, self.name)
+        return self._client.download_object(self._bucket, self.name)
 
     def upload(self, file_obj):
         """
@@ -152,9 +148,7 @@ class ObjectInfo:
 
         :param file file_obj: The file (or file-like object) to upload.
         """
-        return self._client.upload_object(
-            self._instance, self._bucket, self.name, file_obj
-        )
+        return self._client.upload_object(self._bucket, self.name, file_obj)
 
     def __str__(self):
         return "{} ({} bytes, created {})".format(self.name, self.size, self.created)

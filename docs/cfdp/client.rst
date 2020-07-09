@@ -1,6 +1,6 @@
 Client
 ------
 
-.. autoclass:: yamcs.storage.StorageClient
+.. autoclass:: yamcs.cfdp.CFDPClient
     :members:
     :undoc-members:
