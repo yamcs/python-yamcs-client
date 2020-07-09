@@ -41,7 +41,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
         if id in self._cache:
             return self._cache[id]
         return None
-    
+
     def list_transfers(self):
         """
         Returns a snapshot of all transfer info.
@@ -49,7 +49,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
         :rtype: .Transfer[]
         """
         return [self._cache[k] for k in self._cache]
-    
+
     def list_ongoing(self):
         """
         Returns all ongoing transfers.
@@ -57,7 +57,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
         :rtype: .Transfer[]
         """
         return [t for t in self.list_transfers() if not t.is_complete()]
-    
+
     def list_completed(self):
         """
         Returns all completed transfers (successful or not).
@@ -113,7 +113,15 @@ class CFDPClient:
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
-    def upload(self, bucket_name, object_name, remote_path, overwrite=True, parents=True, reliable=False):
+    def upload(
+        self,
+        bucket_name,
+        object_name,
+        remote_path,
+        overwrite=True,
+        parents=True,
+        reliable=False,
+    ):
         """
         Uploads a file located in a bucket to a remote destination path.
 
