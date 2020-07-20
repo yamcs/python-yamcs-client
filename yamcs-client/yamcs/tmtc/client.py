@@ -607,7 +607,7 @@ class ProcessorClient:
 
         if extra:
             for key in extra:
-                req.extra[key] = _build_value_proto(extra[key])
+                req.extra[key].MergeFrom(_build_value_proto(extra[key]))
 
         command = adapt_name_for_rest(command)
         url = "/processors/{}/{}/commands{}".format(
