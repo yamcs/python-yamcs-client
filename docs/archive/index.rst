@@ -48,6 +48,13 @@ Iterate a specific range of packets:
     :start-after: """
     :dedent: 4
 
+Download raw packet binary to a file:
+
+.. literalinclude:: ../../yamcs-client/examples/archive_retrieval.py
+    :pyobject: export_raw_packets
+    :start-after: """
+    :dedent: 4
+
 
 Parameter Retrieval
 ^^^^^^^^^^^^^^^^^^^

@@ -242,9 +242,10 @@ class ArchiveClient:
 
         Packets are sorted by generation time and sequence number.
 
+        :param str name: Archived name of the packet
         :param ~datetime.datetime start: Minimum generation time of the returned
                                          packets (inclusive)
-        :param ~datetime.datetime stop: Maximum genreation time of the returned
+        :param ~datetime.datetime stop: Maximum generation time of the returned
                                         packets (exclusive)
         :param int page_size: Page size of underlying requests. Higher values imply
                               less overhead, but risk hitting the maximum message size
@@ -290,6 +291,31 @@ class ArchiveClient:
         message = yamcs_pb2.TmPacketData()
         message.ParseFromString(response.content)
         return Packet(message)
+
+    def export_packets(self, name=None, start=None, stop=None, chunk_size=1024):
+        """
+        Export raw packets.
+
+        Packets are sorted by generation time and sequence number.
+
+        :param str name: Archived name of the packet
+        :param ~datetime.datetime start: Minimum generation time of the returned
+                                         packets (inclusive)
+        :param ~datetime.datetime stop: Maximum generation time of the returned
+                                        packets (exclusive)
+        :rtype: An iterator over received chunks
+        """
+        params = {}
+        if name is not None:
+            params["name"] = name
+        if start is not None:
+            params["start"] = to_isostring(start)
+        if stop is not None:
+            params["stop"] = to_isostring(stop)
+
+        path = "/archive/{}:exportPackets".format(self._instance)
+        response = self._client.get_proto(path=path, params=params, stream=True)
+        return response.iter_content(chunk_size=chunk_size)
 
     def list_events(
         self,

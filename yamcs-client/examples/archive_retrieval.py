@@ -34,6 +34,16 @@ def iterate_specific_packet_range():
     print('Found', total, 'packets in range')
 
 
+def export_raw_packets():
+    """Export raw packet binary."""
+    now = datetime.utcnow()
+    start = now - timedelta(hours=1)
+
+    with open('/tmp/dump.raw', 'wb') as f:
+        for chunk in archive.export_packets(start=start, stop=now):
+            f.write(chunk)
+
+
 def iterate_specific_event_range():
     """Count the number of events in a specific range."""
     now = datetime.utcnow()
