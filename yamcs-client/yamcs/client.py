@@ -5,15 +5,14 @@ import requests
 from google.protobuf import timestamp_pb2
 
 from yamcs.archive.client import ArchiveClient
+from yamcs.cfdp.client import CFDPClient
 from yamcs.core.client import BaseClient
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import to_isostring
+from yamcs.core.helpers import parse_timestamp_pb, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
-from yamcs.cfdp.client import CFDPClient
-from yamcs.storage.client import StorageClient
 from yamcs.model import (
     AuthInfo,
     Event,
@@ -33,6 +32,7 @@ from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.time import time_service_pb2
 from yamcs.protobuf.web import auth_pb2, server_service_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
+from yamcs.storage.client import StorageClient
 from yamcs.tmtc.client import ProcessorClient
 
 
@@ -43,7 +43,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     """
     pb = timestamp_pb2.Timestamp()
     message.Unpack(pb)
-    time = pb.ToDatetime()
+    time = parse_timestamp_pb(pb)
     subscription._process(time)
     if on_data:
         on_data(time)
@@ -165,7 +165,7 @@ class YamcsClient(BaseClient):
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
         if message.HasField("missionTime"):
-            return message.missionTime.ToDatetime()
+            return parse_timestamp_pb(message.missionTime)
         return None
 
     def get_server_info(self):

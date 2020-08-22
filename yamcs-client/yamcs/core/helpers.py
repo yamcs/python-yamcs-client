@@ -1,8 +1,6 @@
-
-
 import logging
 from collections import OrderedDict
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from yamcs.protobuf import yamcs_pb2
 
@@ -23,11 +21,19 @@ def to_isostring(dt):
 
 def parse_isostring(isostring):
     """
-    Parse the ISO String to a native ``datetime``.
+    Parse the ISO String to a native ``datetime.datetime``.
     """
     if not isostring:
         return None
-    return datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
+    naive = datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
+    return naive.replace(tzinfo=timezone.utc)
+
+
+def parse_timestamp_pb(pb):
+    """
+    Converts a Protobuf timestamp message to a UTC ``datetime.datetime``.
+    """
+    return pb.ToDatetime().replace(tzinfo=timezone.utc)
 
 
 def parse_value(proto):

@@ -1,3 +1,6 @@
+from yamcs.core.helpers import parse_timestamp_pb
+
+
 class Bucket:
     def __init__(self, proto, client):
         self._proto = proto
@@ -32,9 +35,7 @@ class Bucket:
                               omitted.
         """
         return self._client.list_objects(
-            bucket_name=self.name,
-            prefix=prefix,
-            delimiter=delimiter,
+            bucket_name=self.name, prefix=prefix, delimiter=delimiter,
         )
 
     def download_object(self, object_name):
@@ -101,10 +102,7 @@ class ObjectListing:
 
         :type: List[:class:`.ObjectInfo`]
         """
-        return [
-            ObjectInfo(o, self._bucket, self._client)
-            for o in self._proto.objects
-        ]
+        return [ObjectInfo(o, self._bucket, self._client) for o in self._proto.objects]
 
 
 class ObjectInfo:
@@ -131,7 +129,7 @@ class ObjectInfo:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("created"):
-            return self._proto.created.ToDatetime()
+            return parse_timestamp_pb(self._proto.created)
         return None
 
     def delete(self):

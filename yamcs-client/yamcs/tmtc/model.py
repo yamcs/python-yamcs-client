@@ -3,7 +3,7 @@ from collections import OrderedDict
 from datetime import timedelta
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
-from yamcs.core.helpers import parse_value
+from yamcs.core.helpers import parse_timestamp_pb, parse_value
 from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -45,7 +45,7 @@ class Acknowledgment:
 class CommandHistory:
     def __init__(self, proto):
 
-        self.generation_time = proto.generationTime.ToDatetime()
+        self.generation_time = parse_timestamp_pb(proto.generationTime)
         """
         The generation time as set by Yamcs
 
@@ -199,7 +199,7 @@ class IssuedCommand:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
-            return self._proto.generationTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.generationTime)
         return None
 
     @property
@@ -468,7 +468,7 @@ class Alarm:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("triggerTime"):
-            return self._proto.triggerTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.triggerTime)
         return None
 
     @property
@@ -557,7 +557,7 @@ class Alarm:
         if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
             "acknowledgeTime"
         ):
-            return self._proto.acknowledgeInfo.acknowledgeTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.acknowledgeInfo.acknowledgeTime)
         return None
 
     @property
@@ -709,7 +709,7 @@ class ParameterValue:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
-            return self._proto.generationTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.generationTime)
         return None
 
     @property
@@ -720,7 +720,7 @@ class ParameterValue:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("acquisitionTime"):
-            return self._proto.acquisitionTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.acquisitionTime)
         return None
 
     @property

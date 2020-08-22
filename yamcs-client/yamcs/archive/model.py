@@ -1,6 +1,6 @@
 from google.protobuf.internal.decoder import _DecodeVarint32
 
-from yamcs.core.helpers import parse_isostring, parse_value
+from yamcs.core.helpers import parse_isostring, parse_timestamp_pb, parse_value
 from yamcs.protobuf.table import table_pb2
 
 
@@ -225,7 +225,7 @@ class Packet:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
-            return self._proto.generationTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.generationTime)
         return None
 
     @property
@@ -236,7 +236,7 @@ class Packet:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
-            return self._proto.receptionTime.ToDatetime()
+            return parse_timestamp_pb(self._proto.receptionTime)
         return None
 
     @property
