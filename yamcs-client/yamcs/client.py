@@ -9,7 +9,7 @@ from yamcs.cfdp.client import CFDPClient
 from yamcs.core.context import Context
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import parse_timestamp_pb, to_isostring
+from yamcs.core.helpers import parse_server_time, to_isostring
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
@@ -43,7 +43,7 @@ def _wrap_callback_parse_time_info(subscription, on_data, message):
     """
     pb = timestamp_pb2.Timestamp()
     message.Unpack(pb)
-    time = parse_timestamp_pb(pb)
+    time = parse_server_time(pb)
     subscription._process(time)
     if on_data:
         on_data(time)
@@ -138,8 +138,6 @@ class LinkSubscription(WebSocketSubscriptionFuture):
 class YamcsClient:
     """
     Client for accessing core Yamcs resources.
-
-    The only state managed by this client is its connection info to Yamcs.
     """
 
     def __init__(self, address, **kwargs):
@@ -165,7 +163,7 @@ class YamcsClient:
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
         if message.HasField("missionTime"):
-            return parse_timestamp_pb(message.missionTime)
+            return parse_server_time(message.missionTime)
         return None
 
     def get_server_info(self):
@@ -604,7 +602,9 @@ class YamcsClient:
         """
         options = events_service_pb2.SubscribeEventsRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManager(self.ctx, topic="events", options=options)
+        manager = WebSocketSubscriptionManager(
+            self.ctx, topic="events", options=options
+        )
 
         # Represent subscription as a future
         subscription = WebSocketSubscriptionFuture(manager)

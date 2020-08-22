@@ -1,6 +1,6 @@
 from google.protobuf.internal.decoder import _DecodeVarint32
 
-from yamcs.core.helpers import parse_isostring, parse_timestamp_pb, parse_value
+from yamcs.core.helpers import parse_server_timestring, parse_server_time, parse_value
 from yamcs.protobuf.table import table_pb2
 
 
@@ -180,7 +180,7 @@ class IndexRecord:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_isostring(self._proto.start)
+        return parse_server_timestring(self._proto.start)
 
     @property
     def stop(self):
@@ -189,7 +189,7 @@ class IndexRecord:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_isostring(self._proto.stop)
+        return parse_server_timestring(self._proto.stop)
 
     @property
     def count(self):
@@ -225,7 +225,7 @@ class Packet:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
-            return parse_timestamp_pb(self._proto.generationTime)
+            return parse_server_time(self._proto.generationTime)
         return None
 
     @property
@@ -236,7 +236,7 @@ class Packet:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
-            return parse_timestamp_pb(self._proto.receptionTime)
+            return parse_server_time(self._proto.receptionTime)
         return None
 
     @property
@@ -280,7 +280,7 @@ class Sample:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_isostring(self._proto.time)
+        return parse_server_timestring(self._proto.time)
 
     @property
     def avg(self):
@@ -328,7 +328,7 @@ class ParameterRange:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_isostring(self._proto.timeStart)
+        return parse_server_timestring(self._proto.timeStart)
 
     @property
     def stop(self):
@@ -337,7 +337,7 @@ class ParameterRange:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_isostring(self._proto.timeStop)
+        return parse_server_timestring(self._proto.timeStop)
 
     @property
     def eng_value(self):

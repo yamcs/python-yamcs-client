@@ -1,6 +1,6 @@
 import threading
 
-from yamcs.core.helpers import parse_timestamp_pb
+from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.cfdp import cfdp_pb2
 
 
@@ -34,7 +34,7 @@ class Transfer:
     def time(self):
         """Time when the transfer was started."""
         if self._proto.HasField("startTime"):
-            return parse_timestamp_pb(self._proto.startTime)
+            return parse_server_time(self._proto.startTime)
         return None
 
     @property

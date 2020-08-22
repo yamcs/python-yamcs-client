@@ -19,7 +19,7 @@ def to_isostring(dt):
     return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
 
 
-def parse_isostring(isostring):
+def parse_server_timestring(isostring):
     """
     Parse the ISO String to a native ``datetime.datetime``.
     """
@@ -29,7 +29,7 @@ def parse_isostring(isostring):
     return naive.replace(tzinfo=timezone.utc)
 
 
-def parse_timestamp_pb(pb):
+def parse_server_time(pb):
     """
     Converts a Protobuf timestamp message to a UTC ``datetime.datetime``.
     """
@@ -38,7 +38,7 @@ def parse_timestamp_pb(pb):
 
 def parse_value(proto):
     """
-    Convers a Protobuf `Value` from the API into a python native value
+    Converts a Protobuf `Value` from the API into a python native value
     """
     if proto.type == yamcs_pb2.Value.FLOAT:
         return proto.floatValue
@@ -54,7 +54,7 @@ def parse_value(proto):
         # Don't use the actual 'timestampValue' field, it contains a number
         # that is difficult to interpret on the client. Instead parse from
         # the ISO String also set by Yamcs.
-        return parse_isostring(proto.stringValue)
+        return parse_server_timestring(proto.stringValue)
     elif proto.type == yamcs_pb2.Value.STRING:
         return proto.stringValue
     elif proto.type == yamcs_pb2.Value.UINT64:

@@ -1,4 +1,4 @@
-from yamcs.core.helpers import parse_timestamp_pb
+from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
@@ -106,7 +106,7 @@ class Event:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
-            return parse_timestamp_pb(self._proto.generationTime)
+            return parse_server_time(self._proto.generationTime)
         return None
 
     @property
@@ -117,7 +117,7 @@ class Event:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
-            return parse_timestamp_pb(self._proto.receptionTime)
+            return parse_server_time(self._proto.receptionTime)
         return None
 
     @property
@@ -287,7 +287,7 @@ class Instance:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("missionTime"):
-            return parse_timestamp_pb(self._proto.missionTime)
+            return parse_server_time(self._proto.missionTime)
         return None
 
     def __str__(self):
@@ -394,7 +394,7 @@ class Processor:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("time"):
-            return parse_timestamp_pb(self._proto.time)
+            return parse_server_time(self._proto.time)
         return None
 
     def __str__(self):

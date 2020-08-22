@@ -1,4 +1,4 @@
-from yamcs.core.helpers import parse_timestamp_pb
+from yamcs.core.helpers import parse_server_time
 
 
 class Bucket:
@@ -132,7 +132,7 @@ class ObjectInfo:
         :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("created"):
-            return parse_timestamp_pb(self._proto.created)
+            return parse_server_time(self._proto.created)
         return None
 
     def delete(self):
