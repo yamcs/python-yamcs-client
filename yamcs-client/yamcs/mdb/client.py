@@ -24,7 +24,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/mdb/{}/space-systems".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
@@ -61,7 +61,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/mdb/{}/parameters".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
@@ -98,7 +98,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/mdb/{}/containers".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
@@ -135,7 +135,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/mdb/{}/commands".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
@@ -172,7 +172,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/mdb/{}/algorithms".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,

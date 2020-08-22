@@ -72,7 +72,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
             transfer = self._cache[proto.id]
             transfer._proto = proto
         else:
-            transfer = Transfer(proto, client=self.cfdp_client)
+            transfer = Transfer(proto, cfdp_client=self.cfdp_client)
             self._cache[transfer.id] = transfer
 
         return transfer

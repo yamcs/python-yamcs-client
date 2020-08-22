@@ -79,7 +79,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/packet-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -126,7 +126,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/parameter-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -171,7 +171,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/event-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -201,7 +201,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/command-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -225,7 +225,7 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/completeness-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -267,7 +267,7 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/packets".format(self._instance),
             params=params,
             response_class=packets_service_pb2.ListPacketsResponse,
@@ -365,7 +365,7 @@ class ArchiveClient:
             params["q"] = text_filter
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/events".format(self._instance),
             params=params,
             response_class=events_service_pb2.ListEventsResponse,
@@ -563,7 +563,7 @@ class ArchiveClient:
             params["norealtime"] = True
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path="/archive/{}/parameters{}".format(self._instance, parameter),
             params=params,
             response_class=archive_pb2.ListParameterHistoryResponse,
@@ -606,7 +606,7 @@ class ArchiveClient:
             path = "/archive/{}/commands".format(self._instance)
 
         return pagination.Iterator(
-            client=self.ctx,
+            ctx=self.ctx,
             path=path,
             params=params,
             response_class=commands_service_pb2.ListCommandsResponse,

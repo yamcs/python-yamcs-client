@@ -9,7 +9,7 @@ from yamcs.cfdp.client import CFDPClient
 from yamcs.core.context import Context
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import parse_server_time, to_isostring
+from yamcs.core.helpers import parse_server_time, to_server_time
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
@@ -260,7 +260,7 @@ class YamcsClient:
             for k in labels:
                 req.labels[k] = labels[k]
         url = "/instances"
-        self.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def list_instance_templates(self):
         """
@@ -296,7 +296,7 @@ class YamcsClient:
         :param str service: The name of the service.
         """
         url = "/services/{}/{}:start".format(instance, service)
-        self.post_proto(url)
+        self.ctx.post_proto(url)
 
     def stop_service(self, instance, service):
         """
@@ -306,7 +306,7 @@ class YamcsClient:
         :param str service: The name of the service.
         """
         url = "/services/{}/{}:stop".format(instance, service)
-        self.post_proto(url)
+        self.ctx.post_proto(url)
 
     def list_processors(self, instance=None):
         """
@@ -371,7 +371,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         """
         url = "/instances/{}:start".format(instance)
-        self.post_proto(url)
+        self.ctx.post_proto(url)
 
     def stop_instance(self, instance):
         """
@@ -380,7 +380,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         """
         url = "/instances/{}:stop".format(instance)
-        self.post_proto(url)
+        self.ctx.post_proto(url)
 
     def restart_instance(self, instance):
         """
@@ -389,7 +389,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         """
         url = "/instances/{}:restart".format(instance)
-        self.post_proto(url)
+        self.ctx.post_proto(url)
 
     def list_data_links(self, instance):
         """
@@ -450,14 +450,14 @@ class YamcsClient:
         if event_type:
             req.type = event_type
         if time:
-            req.time = to_isostring(time)
+            req.time.MergeFrom(to_server_time(time))
         if source:
             req.source = source
         if sequence_number is not None:
             req.sequence_number = sequence_number
 
         url = "/archive/{}/events".format(instance)
-        self.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_data_link(self, instance, link):
         """

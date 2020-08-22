@@ -1,8 +1,8 @@
 class Iterator:
     def __init__(
-        self, client, path, params, response_class, items_key="items", item_mapper=None
+        self, ctx, path, params, response_class, items_key="items", item_mapper=None
     ):
-        self.client = client
+        self.ctx = ctx
         self.path = path
         self.params = params
         self.response_class = response_class
@@ -36,7 +36,7 @@ class Iterator:
             if self._continuation_token is not None:
                 params["next"] = self._continuation_token
 
-            response = self.client.get_proto(path=self.path, params=params)
+            response = self.ctx.get_proto(path=self.path, params=params)
             message = self.response_class()
             message.ParseFromString(response.content)
             items = getattr(message, self.items_key)

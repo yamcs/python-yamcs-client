@@ -2,6 +2,8 @@ import logging
 from collections import OrderedDict
 from datetime import datetime, timedelta, timezone
 
+from google.protobuf import timestamp_pb2
+
 from yamcs.protobuf import yamcs_pb2
 
 
@@ -17,6 +19,18 @@ def to_isostring(dt):
 
     # -3 to change microseconds to milliseconds
     return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+
+
+def to_server_time(dt):
+    if dt.tzinfo is None:
+        logging.warning(
+            "A datetime without tzinfo will be naively interpreted as UTC. "
+            + "Make your datetime time-aware to avoid this message"
+        )
+
+    pb = timestamp_pb2.Timestamp()
+    pb.FromDatetime(dt)
+    return pb
 
 
 def parse_server_timestring(isostring):
