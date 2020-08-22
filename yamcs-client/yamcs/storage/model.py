@@ -2,9 +2,9 @@ from yamcs.core.helpers import parse_timestamp_pb
 
 
 class Bucket:
-    def __init__(self, proto, client):
+    def __init__(self, proto, storage_client):
         self._proto = proto
-        self._client = client
+        self._storage_client = storage_client
 
     @property
     def name(self):
@@ -34,7 +34,7 @@ class Bucket:
                               truncated after the delimiter. Duplicates are
                               omitted.
         """
-        return self._client.list_objects(
+        return self._storage_client.list_objects(
             bucket_name=self.name, prefix=prefix, delimiter=delimiter,
         )
 
@@ -44,7 +44,7 @@ class Bucket:
 
         :param str object_name: The object to fetch.
         """
-        return self._client.download_object(self.name, object_name)
+        return self._storage_client.download_object(self.name, object_name)
 
     def upload_object(self, object_name, file_obj, content_type=None):
         """
@@ -58,7 +58,7 @@ class Bucket:
                                  content type *may* be automatically derived
                                  from the specified ``file_obj``.
         """
-        return self._client.upload_object(
+        return self._storage_client.upload_object(
             self.name, object_name, file_obj, content_type=content_type
         )
 
@@ -68,23 +68,23 @@ class Bucket:
 
         :param str object_name: The object to remove.
         """
-        self._client.remove_object(self.name, object_name)
+        self._storage_client.remove_object(self.name, object_name)
 
     def delete(self):
         """
         Remove this bucket in its entirety.
         """
-        self._client.remove_bucket(self.name)
+        self._storage_client.remove_bucket(self.name)
 
     def __str__(self):
         return self.name
 
 
 class ObjectListing:
-    def __init__(self, proto, bucket, client):
+    def __init__(self, proto, bucket, storage_client):
         self._proto = proto
         self._bucket = bucket
-        self._client = client
+        self._storage_client = storage_client
 
     @property
     def prefixes(self):
@@ -102,14 +102,17 @@ class ObjectListing:
 
         :type: List[:class:`.ObjectInfo`]
         """
-        return [ObjectInfo(o, self._bucket, self._client) for o in self._proto.objects]
+        return [
+            ObjectInfo(o, self._bucket, self._storage_client)
+            for o in self._proto.objects
+        ]
 
 
 class ObjectInfo:
-    def __init__(self, proto, bucket, client):
+    def __init__(self, proto, bucket, storage_client):
         self._proto = proto
         self._bucket = bucket
-        self._client = client
+        self._storage_client = storage_client
 
     @property
     def name(self):
@@ -134,11 +137,11 @@ class ObjectInfo:
 
     def delete(self):
         """Remove this object."""
-        self._client.remove_object(self._bucket, self.name)
+        self._storage_client.remove_object(self._bucket, self.name)
 
     def download(self):
         """Download this object."""
-        return self._client.download_object(self._bucket, self.name)
+        return self._storage_client.download_object(self._bucket, self.name)
 
     def upload(self, file_obj):
         """
@@ -146,7 +149,7 @@ class ObjectInfo:
 
         :param file file_obj: The file (or file-like object) to upload.
         """
-        return self._client.upload_object(self._bucket, self.name, file_obj)
+        return self._storage_client.upload_object(self._bucket, self.name, file_obj)
 
     def __str__(self):
         return "{} ({} bytes, created {})".format(self.name, self.size, self.created)

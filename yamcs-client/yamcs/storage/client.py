@@ -7,9 +7,9 @@ class StorageClient:
     Client for working with buckets and objects managed by Yamcs.
     """
 
-    def __init__(self, client, instance="_global"):
+    def __init__(self, ctx, instance="_global"):
         super(StorageClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
 
     def list_buckets(self):
@@ -20,7 +20,7 @@ class StorageClient:
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self._client.get_proto(path="/buckets/" + self._instance)
+        response = self.ctx.get_proto(path="/buckets/" + self._instance)
         message = buckets_pb2.ListBucketsResponse()
         message.ParseFromString(response.content)
         buckets = getattr(message, "buckets")
@@ -59,7 +59,7 @@ class StorageClient:
             params["prefix"] = prefix
         if delimiter is not None:
             params["delimiter"] = delimiter
-        response = self._client.get_proto(path=url, params=params)
+        response = self.ctx.get_proto(path=url, params=params)
         message = buckets_pb2.ListObjectsResponse()
         message.ParseFromString(response.content)
         return ObjectListing(message, bucket_name, self)
@@ -73,7 +73,7 @@ class StorageClient:
         req = buckets_pb2.CreateBucketRequest()
         req.name = bucket_name
         url = "/buckets/{}".format(self._instance)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def remove_bucket(self, bucket_name):
         """
@@ -82,7 +82,7 @@ class StorageClient:
         :param str bucket_name: The name of the bucket.
         """
         url = "/buckets/{}/{}".format(self._instance, bucket_name)
-        self._client.delete_proto(url)
+        self.ctx.delete_proto(url)
 
     def download_object(self, bucket_name, object_name):
         """
@@ -94,7 +94,7 @@ class StorageClient:
         url = "/buckets/{}/{}/objects/{}".format(
             self._instance, bucket_name, object_name
         )
-        response = self._client.get_proto(path=url)
+        response = self.ctx.get_proto(path=url)
         return response.content
 
     def upload_object(self, bucket_name, object_name, file_obj, content_type=None):
@@ -117,7 +117,7 @@ class StorageClient:
             files = {object_name: (object_name, file_obj, content_type)}
         else:
             files = {object_name: (object_name, file_obj)}
-        self._client.request(path=url, method="post", files=files)
+        self.ctx.request(path=url, method="post", files=files)
 
     def remove_object(self, bucket_name, object_name):
         """
@@ -129,4 +129,4 @@ class StorageClient:
         url = "/buckets/{}/{}/objects/{}".format(
             self._instance, bucket_name, object_name
         )
-        self._client.delete_proto(url)
+        self.ctx.delete_proto(url)

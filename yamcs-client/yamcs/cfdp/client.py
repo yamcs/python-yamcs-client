@@ -1,9 +1,9 @@
 import functools
 
-from yamcs.protobuf.cfdp import cfdp_pb2
 from yamcs.cfdp.model import Transfer
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.protobuf.cfdp import cfdp_pb2
 
 
 def _wrap_callback_parse_transfer_data(subscription, on_data, message):
@@ -26,8 +26,9 @@ class TransferSubscription(WebSocketSubscriptionFuture):
     each transfer.
     """
 
-    def __init__(self, manager):
+    def __init__(self, manager, cfdp_client):
         super(TransferSubscription, self).__init__(manager)
+        self.cfdp_client = cfdp_client
         self._cache = {}
         """Transfer cache keyed by id."""
 
@@ -71,7 +72,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
             transfer = self._cache[proto.id]
             transfer._proto = proto
         else:
-            transfer = Transfer(proto, client=self._manager._client)
+            transfer = Transfer(proto, client=self.cfdp_client)
             self._cache[transfer.id] = transfer
 
         return transfer
@@ -82,9 +83,9 @@ class CFDPClient:
     Client for working with CFDP transfers managed by Yamcs.
     """
 
-    def __init__(self, client, instance):
+    def __init__(self, ctx, instance):
         super(CFDPClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
 
     def list_transfers(self):
@@ -95,7 +96,7 @@ class CFDPClient:
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self._client.get_proto(path="/cfdp/" + self._instance + "/transfers")
+        response = self.ctx.get_proto(path="/cfdp/" + self._instance + "/transfers")
         message = cfdp_pb2.ListTransfersResponse()
         message.ParseFromString(response.content)
         transfers = getattr(message, "transfers")
@@ -108,7 +109,7 @@ class CFDPClient:
         :rtype: .Transfer
         """
         url = "/cfdp/{}/transfers/{}".format(self._instance, id)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = cfdp_pb2.TransferInfo()
         message.ParseFromString(response.content)
         return Transfer(message, self)
@@ -142,7 +143,7 @@ class CFDPClient:
         req.uploadOptions.createPath = parents
         req.uploadOptions.reliable = reliable
         url = "/cfdp/{}/transfers".format(self._instance)
-        response = self._client.post_proto(url, data=req.SerializeToString())
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = cfdp_pb2.TransferInfo()
         message.ParseFromString(response.content)
         return Transfer(message, self)
@@ -152,21 +153,21 @@ class CFDPClient:
         Pauses a transfer
         """
         url = "/cfdp/{}/transfers/{}:pause".format(self._instance, id)
-        self._client.post_proto(url)
+        self.ctx.post_proto(url)
 
     def resume_transfer(self, id):
         """
         Resume a transfer
         """
         url = "/cfdp/{}/transfers/{}:resume".format(self._instance, id)
-        self._client.post_proto(url)
+        self.ctx.post_proto(url)
 
     def cancel_transfer(self, id):
         """
         Cancel a transfer
         """
         url = "/cfdp/{}/transfers/{}:cancel".format(self._instance, id)
-        self._client.post_proto(url)
+        self.ctx.post_proto(url)
 
     def create_transfer_subscription(self, on_data=None, timeout=60):
         """
@@ -185,7 +186,7 @@ class CFDPClient:
         options.instance = self._instance
 
         manager = WebSocketSubscriptionManager(
-            self._client, topic="cfdp-transfers", options=options
+            self.ctx, topic="cfdp-transfers", options=options
         )
 
         # Represent subscription as a future

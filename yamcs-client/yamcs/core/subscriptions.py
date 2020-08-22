@@ -9,8 +9,8 @@ from yamcs.core.exceptions import ConnectionFailure
 
 
 class WebSocketSubscriptionManager:
-    def __init__(self, client, topic, options=None):
-        self._client = client
+    def __init__(self, ctx, topic, options=None):
+        self.ctx = ctx
         self._topic = topic
         self._options = options
 
@@ -49,26 +49,24 @@ class WebSocketSubscriptionManager:
         """
         assert not self._closed
 
-        if self._client.credentials:
-            self._client.credentials.before_request(
-                self._client.session, self._client.auth_root
-            )
+        if self.ctx.credentials:
+            self.ctx.credentials.before_request(self.ctx.session, self.ctx.auth_root)
 
         self._callback = callback
         self._websocket = websocket.WebSocketApp(
-            self._client.ws_root,
+            self.ctx.ws_root,
             on_open=self._on_websocket_open,
             on_message=self._on_websocket_message,
             on_error=self._on_websocket_error,
             subprotocols=["protobuf"],
             header=[
-                "{}: {}".format(k, self._client.session.headers[k])
-                for k in self._client.session.headers
+                "{}: {}".format(k, self.ctx.session.headers[k])
+                for k in self.ctx.session.headers
             ],
         )
 
         kwargs = {}
-        if not self._client.session.verify:
+        if not self.ctx.session.verify:
             kwargs["sslopt"] = {"cert_reqs": ssl.CERT_NONE}
 
         self._consumer = threading.Thread(

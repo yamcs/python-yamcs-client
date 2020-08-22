@@ -315,11 +315,11 @@ class CommandConnection(WebSocketSubscriptionFuture):
     Only commands issued from this object are monitored.
     """
 
-    def __init__(self, manager, client):
+    def __init__(self, manager, tmtc_client):
         super(CommandConnection, self).__init__(manager)
         self._cmdhist_cache = {}
         self._command_cache = {}
-        self._client = client
+        self._tmtc_client = tmtc_client
 
     def issue(
         self,
@@ -354,10 +354,10 @@ class CommandConnection(WebSocketSubscriptionFuture):
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
-        issued_command = self._client.issue_command(
+        issued_command = self.tmtc_client.issue_command(
             command, args, dry_run, comment, verification, extra
         )
-        command = MonitoredCommand(issued_command._proto, self._client)
+        command = MonitoredCommand(issued_command._proto)
 
         self._command_cache[command.id] = command
 
@@ -427,9 +427,9 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
 class ProcessorClient:
     """Client object that groups operations linked to a specific processor."""
 
-    def __init__(self, client, instance, processor):
+    def __init__(self, ctx, instance, processor):
         super(ProcessorClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
         self._processor = processor
 
@@ -455,7 +455,7 @@ class ProcessorClient:
         url = "/processors/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        response = self._client.get_proto(url, params=params)
+        response = self.ctx.get_proto(url, params=params)
         proto = pvalue_pb2.ParameterValue()
         proto.ParseFromString(response.content)
 
@@ -490,7 +490,7 @@ class ProcessorClient:
         url = "/processors/{}/{}/parameters:batchGet".format(
             self._instance, self._processor
         )
-        response = self._client.post_proto(url, data=req.SerializeToString())
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
         proto = processing_pb2.BatchGetParameterValuesResponse()
         proto.ParseFromString(response.content)
 
@@ -517,7 +517,7 @@ class ProcessorClient:
             self._instance, self._processor, parameter
         )
         req = _build_value_proto(value)
-        self._client.put_proto(url, data=req.SerializeToString())
+        self.ctx.put_proto(url, data=req.SerializeToString())
 
     def set_parameter_values(self, values):
         """
@@ -535,7 +535,7 @@ class ProcessorClient:
         url = "/processors/{}/{}/parameters:batchSet".format(
             self._instance, self._processor
         )
-        self._client.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def issue_command(
         self,
@@ -613,7 +613,7 @@ class ProcessorClient:
         url = "/processors/{}/{}/commands{}".format(
             self._instance, self._processor, command
         )
-        response = self._client.post_proto(url, data=req.SerializeToString())
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
         proto = commands_service_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
         return IssuedCommand(proto, self)
@@ -640,7 +640,7 @@ class ProcessorClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         url = "/processors/{}/{}/alarms".format(self._instance, self._processor)
-        response = self._client.get_proto(path=url, params=params)
+        response = self.ctx.get_proto(path=url, params=params)
         message = alarms_service_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
         alarms = getattr(message, "alarms")
@@ -683,7 +683,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -719,7 +719,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
         """
@@ -739,7 +739,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(
         self,
@@ -795,7 +795,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -839,7 +839,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
         """
@@ -859,7 +859,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
@@ -878,7 +878,7 @@ class ProcessorClient:
         req.state = "acknowledged"
         if comment is not None:
             req.comment = comment
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def unshelve_alarm(self, alarm, comment=None):
         """
@@ -895,7 +895,7 @@ class ProcessorClient:
         )
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "unshelved"
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def shelve_alarm(self, alarm, comment=None):
         """
@@ -914,7 +914,7 @@ class ProcessorClient:
         req.state = "shelved"
         if comment is not None:
             req.comment = comment
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def clear_alarm(self, alarm, comment=None):
         """
@@ -937,7 +937,7 @@ class ProcessorClient:
         req.state = "cleared"
         if comment is not None:
             req.comment = comment
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def create_command_connection(self, on_data=None, timeout=60):
         """
@@ -965,7 +965,7 @@ class ProcessorClient:
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, topic="commands", options=options
+            self.ctx, topic="commands", options=options
         )
 
         # Represent subscription as a future
@@ -1001,7 +1001,7 @@ class ProcessorClient:
         options.ignorePastCommands = True
 
         manager = WebSocketSubscriptionManager(
-            self._client, topic="commands", options=options
+            self.ctx, topic="commands", options=options
         )
 
         # Represent subscription as a future
@@ -1061,7 +1061,7 @@ class ProcessorClient:
         options.id.extend(_build_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
-            self._client, topic="parameters", options=options
+            self.ctx, topic="parameters", options=options
         )
 
         # Represent subscription as a future
@@ -1094,7 +1094,7 @@ class ProcessorClient:
         options = alarms_service_pb2.SubscribeAlarmsRequest()
         options.instance = self._instance
         options.processor = self._processor
-        manager = WebSocketSubscriptionManager(self._client, topic="alarms")
+        manager = WebSocketSubscriptionManager(self.ctx, topic="alarms")
 
         # Represent subscription as a future
         subscription = AlarmSubscription(manager)
@@ -1127,7 +1127,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/algorithms{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter):
         """
@@ -1143,4 +1143,4 @@ class ProcessorClient:
         url = "/mdb/{}/{}/algorithms{}".format(
             self._instance, self._processor, parameter
         )
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch.proto(url, data=req.SerializeToString())

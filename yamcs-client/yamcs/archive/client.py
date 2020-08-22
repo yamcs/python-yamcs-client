@@ -37,9 +37,9 @@ def _wrap_callback_parse_stream_data(subscription, on_data, message):
 
 
 class ArchiveClient:
-    def __init__(self, client, instance):
+    def __init__(self, ctx, instance):
         super(ArchiveClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
 
     def list_packet_names(self):
@@ -51,7 +51,7 @@ class ArchiveClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/packet-names".format(self._instance)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = packets_service_pb2.ListPacketNamesResponse()
         message.ParseFromString(response.content)
         names = getattr(message, "name")
@@ -79,7 +79,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/packet-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -96,7 +96,7 @@ class ArchiveClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/parameter-groups".format(self._instance)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = archive_pb2.ParameterGroupInfo()
         message.ParseFromString(response.content)
         groups = getattr(message, "group")
@@ -126,7 +126,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/parameter-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -143,7 +143,7 @@ class ArchiveClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/events/sources".format(self._instance)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = events_service_pb2.ListEventSourcesResponse()
         message.ParseFromString(response.content)
         sources = getattr(message, "source")
@@ -171,7 +171,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/event-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -201,7 +201,7 @@ class ArchiveClient:
             params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/command-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -225,7 +225,7 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/completeness-index".format(self._instance),
             params=params,
             response_class=index_service_pb2.IndexResponse,
@@ -267,7 +267,7 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/packets".format(self._instance),
             params=params,
             response_class=packets_service_pb2.ListPacketsResponse,
@@ -287,7 +287,7 @@ class ArchiveClient:
         url = "/archive/{}/packets/{}/{}".format(
             self._instance, to_isostring(generation_time), sequence_number
         )
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = yamcs_pb2.TmPacketData()
         message.ParseFromString(response.content)
         return Packet(message)
@@ -314,7 +314,7 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
 
         path = "/archive/{}:exportPackets".format(self._instance)
-        response = self._client.get_proto(path=path, params=params, stream=True)
+        response = self.ctx.get_proto(path=path, params=params, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
     def list_events(
@@ -365,7 +365,7 @@ class ArchiveClient:
             params["q"] = text_filter
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/events".format(self._instance),
             params=params,
             response_class=events_service_pb2.ListEventsResponse,
@@ -436,7 +436,7 @@ class ArchiveClient:
         else:
             params["norealtime"] = True
 
-        response = self._client.get_proto(path=path, params=params)
+        response = self.ctx.get_proto(path=path, params=params)
         message = pvalue_pb2.TimeSeries()
         message.ParseFromString(response.content)
         samples = getattr(message, "sample")
@@ -503,7 +503,7 @@ class ArchiveClient:
         else:
             params["norealtime"] = True
 
-        response = self._client.get_proto(path=path, params=params)
+        response = self.ctx.get_proto(path=path, params=params)
         message = pvalue_pb2.Ranges()
         message.ParseFromString(response.content)
         ranges = getattr(message, "range")
@@ -563,7 +563,7 @@ class ArchiveClient:
             params["norealtime"] = True
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/archive/{}/parameters{}".format(self._instance, parameter),
             params=params,
             response_class=archive_pb2.ListParameterHistoryResponse,
@@ -606,7 +606,7 @@ class ArchiveClient:
             path = "/archive/{}/commands".format(self._instance)
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path=path,
             params=params,
             response_class=commands_service_pb2.ListCommandsResponse,
@@ -625,7 +625,7 @@ class ArchiveClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/tables".format(self._instance)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = table_pb2.ListTablesResponse()
         message.ParseFromString(response.content)
         tables = getattr(message, "tables")
@@ -639,19 +639,19 @@ class ArchiveClient:
         :rtype: .Table
         """
         path = "/archive/{}/tables/{}".format(self._instance, table)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = table_pb2.TableInfo()
         message.ParseFromString(response.content)
         return Table(message)
 
     def dump_table(self, table, chunk_size=1024):
         path = "/archive/{}/tables/{}:readRows".format(self._instance, table)
-        response = self._client.post_proto(path=path, stream=True)
+        response = self.ctx.post_proto(path=path, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
     def load_table(self, table, data):
         path = "/archive/{}/tables/{}:writeRows".format(self._instance, table)
-        response = self._client.post_proto(path=path, data=data)
+        response = self.ctx.post_proto(path=path, data=data)
         message = table_pb2.WriteRowsResponse()
         message.ParseFromString(response.content)
         return message.count
@@ -667,7 +667,7 @@ class ArchiveClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         path = "/archive/{}/streams".format(self._instance)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = table_pb2.ListStreamsResponse()
         message.ParseFromString(response.content)
         streams = getattr(message, "streams")
@@ -681,7 +681,7 @@ class ArchiveClient:
         :rtype: .Stream
         """
         path = "/archive/{}/streams/{}".format(self._instance, stream)
-        response = self._client.get_proto(path=path)
+        response = self.ctx.get_proto(path=path)
         message = table_pb2.StreamInfo()
         message.ParseFromString(response.content)
         return Stream(message)
@@ -704,7 +704,7 @@ class ArchiveClient:
         options.stream = stream
 
         manager = WebSocketSubscriptionManager(
-            self._client, topic="stream", options=options
+            self.ctx, topic="stream", options=options
         )
 
         # Represent subscription as a future
@@ -733,7 +733,7 @@ class ArchiveClient:
         req = table_pb2.ExecuteSqlRequest()
         req.statement = statement
 
-        response = self._client.post_proto(
+        response = self.ctx.post_proto(
             path=path, data=req.SerializeToString(), stream=True
         )
         return ResultSet(response)

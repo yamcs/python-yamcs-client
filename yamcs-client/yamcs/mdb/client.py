@@ -5,9 +5,9 @@ from yamcs.protobuf.mdb import mdb_pb2
 
 
 class MDBClient:
-    def __init__(self, client, instance):
+    def __init__(self, ctx, instance):
         super(MDBClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
 
     def list_space_systems(self, page_size=None):
@@ -24,7 +24,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/mdb/{}/space-systems".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
@@ -40,7 +40,7 @@ class MDBClient:
         :rtype: .SpaceSystem
         """
         url = "/mdb/{}/space-systems{}".format(self._instance, name)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
         return SpaceSystem(message)
@@ -61,7 +61,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/mdb/{}/parameters".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
@@ -79,7 +79,7 @@ class MDBClient:
         """
         name = adapt_name_for_rest(name)
         url = "/mdb/{}/parameters{}".format(self._instance, name)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
         return Parameter(message)
@@ -98,7 +98,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/mdb/{}/containers".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
@@ -116,7 +116,7 @@ class MDBClient:
         """
         name = adapt_name_for_rest(name)
         url = "/mdb/{}/containers{}".format(self._instance, name)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
         return Container(message)
@@ -135,7 +135,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/mdb/{}/commands".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
@@ -153,7 +153,7 @@ class MDBClient:
         """
         name = adapt_name_for_rest(name)
         url = "/mdb/{}/commands{}".format(self._instance, name)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
         return Command(message)
@@ -172,7 +172,7 @@ class MDBClient:
             params["limit"] = page_size
 
         return pagination.Iterator(
-            client=self._client,
+            client=self.ctx,
             path="/mdb/{}/algorithms".format(self._instance),
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
@@ -190,7 +190,7 @@ class MDBClient:
         """
         name = adapt_name_for_rest(name)
         url = "/mdb/{}/algorithms{}".format(self._instance, name)
-        response = self._client.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
         return Algorithm(message)

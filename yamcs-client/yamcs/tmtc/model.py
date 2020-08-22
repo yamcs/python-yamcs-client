@@ -171,9 +171,8 @@ class CommandHistory:
 
 
 class IssuedCommand:
-    def __init__(self, proto, client):
+    def __init__(self, proto):
         self._proto = proto
-        self._client = client
 
     @property
     def id(self):
@@ -305,8 +304,8 @@ class MonitoredCommand(IssuedCommand):
     Objects of this class are owned by a :class:`.CommandConnection` instance.
     """
 
-    def __init__(self, proto, client):
-        super(MonitoredCommand, self).__init__(proto, client)
+    def __init__(self, proto):
+        super(MonitoredCommand, self).__init__(proto)
         self._cmdhist = None
         self._completed = threading.Event()
         self._ack_events = {}

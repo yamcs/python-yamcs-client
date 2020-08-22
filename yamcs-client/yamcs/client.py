@@ -6,7 +6,7 @@ from google.protobuf import timestamp_pb2
 
 from yamcs.archive.client import ArchiveClient
 from yamcs.cfdp.client import CFDPClient
-from yamcs.core.client import BaseClient
+from yamcs.core.context import Context
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_timestamp_pb, to_isostring
@@ -135,7 +135,7 @@ class LinkSubscription(WebSocketSubscriptionFuture):
             self._cache[link.name] = link
 
 
-class YamcsClient(BaseClient):
+class YamcsClient:
     """
     Client for accessing core Yamcs resources.
 
@@ -152,7 +152,7 @@ class YamcsClient(BaseClient):
                                                    secured
         :param Optional[str] user_agent: Optionally override the default user agent
         """
-        super(YamcsClient, self).__init__(address, **kwargs)
+        self.ctx = Context(address, **kwargs)
 
     def get_time(self, instance):
         """
@@ -161,7 +161,7 @@ class YamcsClient(BaseClient):
         :rtype: ~datetime.datetime
         """
         url = "/instances/{}".format(instance)
-        response = self.get_proto(url)
+        response = self.ctx.get_proto(url)
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
         if message.HasField("missionTime"):
@@ -174,7 +174,7 @@ class YamcsClient(BaseClient):
 
         :rtype: .ServerInfo
         """
-        response = self.get_proto(path="")
+        response = self.ctx.get_proto(path="")
         message = server_service_pb2.GetServerInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
@@ -203,7 +203,7 @@ class YamcsClient(BaseClient):
 
         :rtype: .UserInfo
         """
-        response = self.get_proto(path="/user")
+        response = self.ctx.get_proto(path="/user")
         message = iam_pb2.UserInfo()
         message.ParseFromString(response.content)
         return UserInfo(message)
@@ -268,7 +268,7 @@ class YamcsClient(BaseClient):
         """
         List the available instance templates.
         """
-        response = self.get_proto(path="/instance-templates")
+        response = self.ctx.get_proto(path="/instance-templates")
         message = yamcsManagement_pb2.ListInstanceTemplatesResponse()
         message.ParseFromString(response.content)
         templates = getattr(message, "templates")
@@ -284,7 +284,7 @@ class YamcsClient(BaseClient):
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         url = "/services/{}".format(instance)
-        response = self.get_proto(path=url)
+        response = self.ctx.get_proto(path=url)
         message = yamcsManagement_pb2.ListServicesResponse()
         message.ParseFromString(response.content)
         services = getattr(message, "services")
@@ -324,7 +324,7 @@ class YamcsClient(BaseClient):
         url = "/processors"
         if instance:
             url += "?instance=" + instance
-        response = self.get_proto(path=url)
+        response = self.ctx.get_proto(path=url)
         message = processing_pb2.ListProcessorsResponse()
         message.ParseFromString(response.content)
         processors = getattr(message, "processors")
@@ -360,7 +360,7 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path="/instances")
+        response = self.ctx.get_proto(path="/instances")
         message = yamcsManagement_pb2.ListInstancesResponse()
         message.ParseFromString(response.content)
         instances = getattr(message, "instances")
@@ -404,7 +404,7 @@ class YamcsClient(BaseClient):
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.get_proto(path="/links/" + instance)
+        response = self.ctx.get_proto(path="/links/" + instance)
         message = yamcsManagement_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
         links = getattr(message, "links")
@@ -514,7 +514,7 @@ class YamcsClient(BaseClient):
         """
         options = yamcsManagement_pb2.SubscribeLinksRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManager(self, topic="links", options=options)
+        manager = WebSocketSubscriptionManager(self.ctx, topic="links", options=options)
 
         # Represent subscription as a future
         subscription = LinkSubscription(manager)
@@ -566,7 +566,7 @@ class YamcsClient(BaseClient):
         """
         options = time_service_pb2.SubscribeTimeRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManager(self, topic="time", options=options)
+        manager = WebSocketSubscriptionManager(self.ctx, topic="time", options=options)
 
         # Represent subscription as a future
         subscription = TimeSubscription(manager)
@@ -604,7 +604,7 @@ class YamcsClient(BaseClient):
         """
         options = events_service_pb2.SubscribeEventsRequest()
         options.instance = instance
-        manager = WebSocketSubscriptionManager(self, topic="events", options=options)
+        manager = WebSocketSubscriptionManager(self.ctx, topic="events", options=options)
 
         # Represent subscription as a future
         subscription = WebSocketSubscriptionFuture(manager)

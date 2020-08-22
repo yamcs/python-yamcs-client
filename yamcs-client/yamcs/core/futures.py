@@ -11,6 +11,7 @@ class WebSocketSubscriptionFuture(Future):
 
     def __init__(self, manager):
         super(WebSocketSubscriptionFuture, self).__init__()
+        self.ctx = manager.ctx
         self._manager = manager
         self._manager.add_response_callback(self._on_response_callback)
         self._manager.add_close_callback(self._on_close_callback)

@@ -75,9 +75,9 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
 class LinkClient:
     """Client object that groups operations for a specific link."""
 
-    def __init__(self, client, instance, link):
+    def __init__(self, ctx, instance, link):
         super(LinkClient, self).__init__()
-        self._client = client
+        self.ctx = ctx
         self._instance = instance
         self._link = link
 
@@ -87,9 +87,7 @@ class LinkClient:
 
         :rtype: .Link
         """
-        response = self._client.get_proto(
-            "/links/{}/{}".format(self._instance, self._link)
-        )
+        response = self.ctx.get_proto("/links/{}/{}".format(self._instance, self._link))
         message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)
@@ -101,7 +99,7 @@ class LinkClient:
         req = yamcsManagement_pb2.EditLinkRequest()
         req.state = "enabled"
         url = "/links/{}/{}".format(self._instance, self._link)
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def disable_link(self):
         """
@@ -110,7 +108,7 @@ class LinkClient:
         req = yamcsManagement_pb2.EditLinkRequest()
         req.state = "disabled"
         url = "/links/{}/{}".format(self._instance, self._link)
-        self._client.patch_proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def get_cop1_config(self):
         """
@@ -118,7 +116,7 @@ class LinkClient:
 
         :rtype: .Cop1Config
         """
-        response = self._client.get_proto(
+        response = self.ctx.get_proto(
             "/cop1/{}/{}/config".format(self._instance, self._link)
         )
         message = cop1_pb2.Cop1Config()
@@ -144,7 +142,7 @@ class LinkClient:
             req.t1 = int(round(1000 * t1))
 
         url = "/cop1/{}/{}/config".format(self._instance, self._link)
-        response = self._client.patch_proto(url, data=req.SerializeToString())
+        response = self.ctx.patch_proto(url, data=req.SerializeToString())
 
         message = cop1_pb2.Cop1Config()
         message.ParseFromString(response.content)
@@ -160,7 +158,7 @@ class LinkClient:
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = bypass_all
         url = "/cop1/{}/{}:disable".format(self._instance, self._link)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def initialize_cop1(self, type, clcw_wait_timeout=None, v_r=None):
         """
@@ -181,7 +179,7 @@ class LinkClient:
             req.vR = v_r
 
         url = "/cop1/{}/{}:initialize".format(self._instance, self._link)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def resume_cop1(self):
         """
@@ -189,7 +187,7 @@ class LinkClient:
         """
         req = cop1_pb2.ResumeRequest()
         url = "/cop1/{}/{}:resume".format(self._instance, self._link)
-        self._client.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_status(self):
         """
@@ -197,7 +195,7 @@ class LinkClient:
 
         :rtype: .Cop1Status
         """
-        response = self._client.get_proto(
+        response = self.ctx.get_proto(
             "/cop1/{}/{}/status".format(self._instance, self._link)
         )
         message = cop1_pb2.Cop1Status()
@@ -224,9 +222,7 @@ class LinkClient:
         options.instance = self._instance
         options.link = self._link
 
-        manager = WebSocketSubscriptionManager(
-            self._client, topic="cop1", options=options
-        )
+        manager = WebSocketSubscriptionManager(self.ctx, topic="cop1", options=options)
 
         # Represent subscription as a future
         subscription = Cop1Subscription(manager)

@@ -7,7 +7,7 @@ from yamcs.api import exception_pb2
 from yamcs.core.exceptions import ConnectionFailure, NotFound, Unauthorized, YamcsError
 
 
-class BaseClient:
+class Context:
 
     credentials = None
 

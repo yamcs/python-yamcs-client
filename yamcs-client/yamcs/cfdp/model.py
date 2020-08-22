@@ -9,9 +9,9 @@ class Transfer:
     Represents a CFDP transfer.
     """
 
-    def __init__(self, proto, client):
+    def __init__(self, proto, cfdp_client):
         self._proto = proto
-        self._client = client
+        self._cfdp_client = cfdp_client
 
     @property
     def id(self):
@@ -83,19 +83,19 @@ class Transfer:
         """
         Pause this transfer
         """
-        self._client.pause_transfer(self.id)
+        self._cfdp_client.pause_transfer(self.id)
 
     def resume(self):
         """
         Resume this transfer
         """
-        self._client.resume_transfer(self.id)
+        self._cfdp_client.resume_transfer(self.id)
 
     def cancel(self):
         """
         Cancel this transfer
         """
-        self._client.cancel_transfer(self.id)
+        self._cfdp_client.cancel_transfer(self.id)
 
     def await_complete(self, timeout=None):
         """
@@ -111,7 +111,7 @@ class Transfer:
                 if self.is_complete():
                     completed.set()
 
-        self._client.create_transfer_subscription(on_data=callback)
+        self._cfdp_client.create_transfer_subscription(on_data=callback)
 
         if not completed.wait(timeout=timeout):
             # Remark that a timeout does *not* mean that the underlying
