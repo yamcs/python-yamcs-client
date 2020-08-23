@@ -1,6 +1,6 @@
 import logging
 from collections import OrderedDict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from google.protobuf import timestamp_pb2
 
@@ -9,23 +9,21 @@ from yamcs.protobuf import yamcs_pb2
 
 def to_isostring(dt):
     """
-    Converts the given datetime to an ISO String.
-    This assumes the datetime is UTC.
+    Converts the given datetime to an ISO String for use as URL parameter.
     """
-    if dt.tzinfo is not None and dt.tzinfo.utcoffset(dt) > timedelta(0):
-        logging.warning(
-            "Warning: aware datetimes are interpreted as if they were naive"
-        )
-
-    # -3 to change microseconds to milliseconds
-    return dt.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    pb = to_server_time(dt)
+    return pb.ToJsonString()
 
 
 def to_server_time(dt):
+    """
+    Converts the given ``datetime.datetime`` to a
+    ``google.protobuf.timestamp_pb2.Timestamp``.
+    """
     if dt.tzinfo is None:
         logging.warning(
-            "A datetime without tzinfo will be naively interpreted as UTC. "
-            + "Make your datetime time-aware to avoid this message"
+            "A datetime without tzinfo is naively interpreted as UTC. "
+            + "Make your datetime timezone-aware to avoid this message"
         )
 
     pb = timestamp_pb2.Timestamp()
@@ -35,7 +33,7 @@ def to_server_time(dt):
 
 def parse_server_timestring(isostring):
     """
-    Parse the ISO String to a native ``datetime.datetime``.
+    Parse the ISO String to a UTC ``datetime.datetime``.
     """
     if not isostring:
         return None
