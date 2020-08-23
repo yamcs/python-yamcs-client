@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from requests.auth import HTTPBasicAuth
 
@@ -24,7 +24,7 @@ def _convert_user_credentials(
         raise Unauthorized("401 Client Error: Unauthorized")
     elif response.status_code == 200:
         d = response.json()
-        expiry = datetime.utcnow() + timedelta(seconds=d["expires_in"])
+        expiry = datetime.now(tz=timezone.utc) + timedelta(seconds=d["expires_in"])
         return Credentials(
             access_token=d["access_token"],
             refresh_token=d["refresh_token"],
@@ -49,7 +49,7 @@ def _convert_service_account_credentials(
         raise Unauthorized("401 Client Error: Unauthorized")
     elif response.status_code == 200:
         d = response.json()
-        expiry = datetime.utcnow() + timedelta(seconds=d["expires_in"])
+        expiry = datetime.now(tz=timezone.utc) + timedelta(seconds=d["expires_in"])
         return Credentials(
             access_token=d["access_token"],
             client_id=client_id,
@@ -132,7 +132,7 @@ class Credentials:
         return creds
 
     def is_expired(self):
-        return self.expiry and datetime.utcnow() >= self.expiry
+        return self.expiry and datetime.now(tz=timezone.utc) >= self.expiry
 
     def refresh(self, session, auth_url):
         if self.become:

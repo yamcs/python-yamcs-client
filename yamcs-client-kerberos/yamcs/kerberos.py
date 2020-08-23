@@ -1,7 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from requests_gssapi import HTTPSPNEGOAuth
-
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import Unauthorized, YamcsError
 
@@ -36,7 +35,7 @@ class KerberosCredentials(Credentials):
             raise Unauthorized("401 Client Error: Unauthorized")
         elif response.status_code == 200:
             d = response.json()
-            expiry = datetime.utcnow() + timedelta(seconds=d["expires_in"])
+            expiry = datetime.now(tz=timezone.utc) + timedelta(seconds=d["expires_in"])
             return Credentials(
                 access_token=d["access_token"],
                 refresh_token=d["refresh_token"],

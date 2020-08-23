@@ -213,7 +213,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :rtype: .MDBClient
         """
-        return MDBClient(self, instance)
+        return MDBClient(self.ctx, instance)
 
     def get_archive(self, instance):
         """
@@ -222,7 +222,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :rtype: .ArchiveClient
         """
-        return ArchiveClient(self, instance)
+        return ArchiveClient(self.ctx, instance)
 
     def get_cfdp_client(self, instance):
         """
@@ -231,7 +231,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :rtype: .CFDPClient
         """
-        return CFDPClient(self, instance)
+        return CFDPClient(self.ctx, instance)
 
     def get_storage_client(self, instance="_global"):
         """
@@ -240,7 +240,7 @@ class YamcsClient:
         :param str instance: The storage instance.
         :rtype: .StorageClient
         """
-        return StorageClient(self, instance)
+        return StorageClient(self.ctx, instance)
 
     def create_instance(self, name, template, args=None, labels=None):
         """
@@ -336,7 +336,7 @@ class YamcsClient:
         :param str processor: A processor name within that instance.
         :rtype: .ProcessorClient
         """
-        return ProcessorClient(self, instance, processor)
+        return ProcessorClient(self.ctx, instance, processor)
 
     def get_link(self, instance, link):
         """
@@ -346,7 +346,7 @@ class YamcsClient:
         :param str link: A link name within that instance.
         :rtype: .LinkClient
         """
-        return LinkClient(self, instance, link)
+        return LinkClient(self.ctx, instance, link)
 
     def list_instances(self):
         """
@@ -467,7 +467,7 @@ class YamcsClient:
             "Use LinkClient to get info on a link: get_link(instance, link).get_info()",
             DeprecationWarning,
         )
-        return LinkClient(self, instance, link).get_info()
+        return LinkClient(self.ctx, instance, link).get_info()
 
     def enable_data_link(self, instance, link):
         """
@@ -477,7 +477,7 @@ class YamcsClient:
             "Use LinkClient to enable a link: get_link(instance, link).enable_link()",
             DeprecationWarning,
         )
-        return LinkClient(self, instance, link).enable_link()
+        return LinkClient(self.ctx, instance, link).enable_link()
 
     def disable_data_link(self, instance, link):
         """
@@ -487,7 +487,7 @@ class YamcsClient:
             "Use LinkClient to disable a link: get_link(instance, link).disable_link()",
             DeprecationWarning,
         )
-        return LinkClient(self, instance, link).disable_link()
+        return LinkClient(self.ctx, instance, link).disable_link()
 
     def create_link_subscription(self, instance, on_data=None, timeout=60):
         """

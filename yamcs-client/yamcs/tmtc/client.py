@@ -616,7 +616,7 @@ class ProcessorClient:
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         proto = commands_service_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
-        return IssuedCommand(proto, self)
+        return IssuedCommand(proto)
 
     def list_alarms(self, start=None, stop=None):
         """
@@ -683,7 +683,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
         """
@@ -719,7 +719,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
         """
@@ -739,7 +739,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(
         self,
@@ -795,7 +795,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
         """
@@ -839,7 +839,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
         """
@@ -859,7 +859,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/parameters{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
         """
@@ -878,7 +878,7 @@ class ProcessorClient:
         req.state = "acknowledged"
         if comment is not None:
             req.comment = comment
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def unshelve_alarm(self, alarm, comment=None):
         """
@@ -895,7 +895,7 @@ class ProcessorClient:
         )
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "unshelved"
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def shelve_alarm(self, alarm, comment=None):
         """
@@ -914,7 +914,7 @@ class ProcessorClient:
         req.state = "shelved"
         if comment is not None:
             req.comment = comment
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm(self, alarm, comment=None):
         """
@@ -937,7 +937,7 @@ class ProcessorClient:
         req.state = "cleared"
         if comment is not None:
             req.comment = comment
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def create_command_connection(self, on_data=None, timeout=60):
         """
@@ -1127,7 +1127,7 @@ class ProcessorClient:
         url = "/mdb/{}/{}/algorithms{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter):
         """
@@ -1143,4 +1143,4 @@ class ProcessorClient:
         url = "/mdb/{}/{}/algorithms{}".format(
             self._instance, self._processor, parameter
         )
-        self.ctx.patch.proto(url, data=req.SerializeToString())
+        self.ctx.patch_proto(url, data=req.SerializeToString())

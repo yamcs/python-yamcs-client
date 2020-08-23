@@ -1,5 +1,5 @@
 # fmt: off
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from itertools import islice
 
 from yamcs.client import YamcsClient
@@ -24,7 +24,7 @@ def print_packet_range():
 
 def iterate_specific_packet_range():
     """Count the number of packets in a specific range."""
-    now = datetime.utcnow()
+    now = datetime.now(tz=timezone.utc)
     start = now - timedelta(hours=1)
 
     total = 0
@@ -36,7 +36,7 @@ def iterate_specific_packet_range():
 
 def export_raw_packets():
     """Export raw packet binary."""
-    now = datetime.utcnow()
+    now = datetime.now(tz=timezone.utc)
     start = now - timedelta(hours=1)
 
     with open('/tmp/dump.raw', 'wb') as f:
@@ -46,7 +46,7 @@ def export_raw_packets():
 
 def iterate_specific_event_range():
     """Count the number of events in a specific range."""
-    now = datetime.utcnow()
+    now = datetime.now(tz=timezone.utc)
     start = now - timedelta(hours=1)
 
     total = 0
@@ -66,7 +66,7 @@ def print_last_values():
 
 def iterate_specific_parameter_range():
     """Count the number of parameter values in a specific range."""
-    now = datetime.utcnow()
+    now = datetime.now(tz=timezone.utc)
     start = now - timedelta(hours=1)
 
     total = 0

@@ -1,5 +1,5 @@
 import functools
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from yamcs.archive.model import (
     IndexGroup,
@@ -419,7 +419,7 @@ class ArchiveClient:
         :rtype: .Sample[]
         """
         path = "/archive/{}/parameters{}/samples".format(self._instance, parameter)
-        now = datetime.utcnow()
+        now = datetime.now(tz=timezone.utc)
         params = {
             "count": sample_count,
             "source": source,

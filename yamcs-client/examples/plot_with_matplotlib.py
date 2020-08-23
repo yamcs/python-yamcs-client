@@ -1,5 +1,5 @@
 # fmt: off
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import matplotlib.pyplot as plt
 from yamcs.client import YamcsClient
@@ -8,7 +8,7 @@ if __name__ == '__main__':
     client = YamcsClient('localhost:8090')
     archive = client.get_archive(instance='simulator')
 
-    stop = datetime.utcnow()
+    stop = datetime.now(tz=timezone.utc)
     start = stop - timedelta(hours=1)
 
     samples = archive.sample_parameter_values(

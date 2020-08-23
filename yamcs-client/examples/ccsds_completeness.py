@@ -1,5 +1,5 @@
 # fmt: off
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from yamcs.client import YamcsClient
 
@@ -8,7 +8,7 @@ def print_latest():
     """
     Prints completeness records for the last two days
     """
-    now = datetime.utcnow()
+    now = datetime.now(tz=timezone.utc)
     start = now - timedelta(days=2)
 
     # Results are returned in records per 'group'.
