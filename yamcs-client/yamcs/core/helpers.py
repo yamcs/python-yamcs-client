@@ -3,7 +3,7 @@ from collections import OrderedDict
 from datetime import datetime, timezone
 
 from google.protobuf import timestamp_pb2
-
+from yamcs.core.exceptions import YamcsError
 from yamcs.protobuf import yamcs_pb2
 
 
@@ -21,9 +21,15 @@ def to_server_time(dt):
     ``google.protobuf.timestamp_pb2.Timestamp``.
     """
     if dt.tzinfo is None:
-        logging.warning(
-            "A datetime without tzinfo is naively interpreted as UTC. "
-            + "Make your datetime timezone-aware to avoid this message"
+        # TODO - this is a temporary error.
+        # Old versions of this client interpreted naive times as UTC,
+        # but we would like to gradually adapt to use the system's
+        # default instead. Until known users have adapted, the
+        # safest solution is to just enforce a timezone.
+        raise YamcsError(
+            "Datetimes must be timezone-aware. For example: use "
+            + "``datetime.now(tz=timezone.utc)`` instead of "
+            + "``datetime.now()``"
         )
 
     pb = timestamp_pb2.Timestamp()
