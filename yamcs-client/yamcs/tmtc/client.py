@@ -1,5 +1,8 @@
 import binascii
+import collections
+import datetime
 import functools
+import json
 import threading
 
 from yamcs.core.exceptions import YamcsError
@@ -125,6 +128,39 @@ def _build_value_proto(value):
     else:
         raise YamcsError("Unrecognized type")
     return proto
+
+
+def _to_argument_value(value):
+    if isinstance(value, (bytes, bytearray)):
+        return binascii.hexlify(value)
+    elif isinstance(value, collections.Mapping):
+        # Careful to do the JSON dump only at the end,
+        # and not at every level of a nested hierarchy
+        obj = _compose_aggregate_members(value)
+        return json.dumps(obj)
+    elif isinstance(value, datetime.datetime):
+        return to_isostring(value)
+    else:
+        return str(value)
+
+
+def _compose_aggregate_members(value):
+    """
+    Recursively creates an object that can eventually be serialized to a valid
+    aggregate value in JSON. This is a bit different than non-aggregate values,
+    because Yamcs is more strict in the values that it accepts (for example:
+    unlike regular arguments you cannot assign a numeric string to an integer
+    argument, the JSON type needs to be numeric too).
+    """
+    if isinstance(value, (bytes, bytearray)):
+        return binascii.hexlify(value)
+    elif isinstance(value, collections.Mapping):
+        return {k: _compose_aggregate_members(v) for k, v in value.items()}
+    elif isinstance(value, datetime.datetime):
+        return to_isostring(value)
+    else:
+        # No string conversion here, use whatever the user is giving
+        return value
 
 
 def _set_range(ar, range, level):
@@ -579,12 +615,7 @@ class ProcessorClient:
             for key in args:
                 assignment = req.assignment.add()
                 assignment.name = key
-
-                value = args[key]
-                if isinstance(value, (bytes, bytearray)):
-                    assignment.value = binascii.hexlify(value)
-                else:
-                    assignment.value = str(value)
+                assignment.value = _to_argument_value(args[key])
 
         if verification:
             if verification._disable_all:
