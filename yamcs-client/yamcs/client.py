@@ -1,5 +1,4 @@
 import functools
-import warnings
 
 import requests
 from google.protobuf import timestamp_pb2
@@ -459,36 +458,6 @@ class YamcsClient:
         url = "/archive/{}/events".format(instance)
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def get_data_link(self, instance, link):
-        """
-        Deprecated. Use ``get_link(instance, link).get_info()``.
-        """
-        warnings.warn(
-            "Use LinkClient to get info on a link: get_link(instance, link).get_info()",
-            DeprecationWarning,
-        )
-        return LinkClient(self.ctx, instance, link).get_info()
-
-    def enable_data_link(self, instance, link):
-        """
-        Deprecated. Use ``get_link(instance, link).enable_link()``.
-        """
-        warnings.warn(
-            "Use LinkClient to enable a link: get_link(instance, link).enable_link()",
-            DeprecationWarning,
-        )
-        return LinkClient(self.ctx, instance, link).enable_link()
-
-    def disable_data_link(self, instance, link):
-        """
-        Deprecated. Use ``get_link(instance, link).disable_link()``.
-        """
-        warnings.warn(
-            "Use LinkClient to disable a link: get_link(instance, link).disable_link()",
-            DeprecationWarning,
-        )
-        return LinkClient(self.ctx, instance, link).disable_link()
-
     def create_link_subscription(self, instance, on_data=None, timeout=60):
         """
         Create a new subscription for receiving data link updates of an instance.
@@ -527,18 +496,6 @@ class YamcsClient:
         subscription.reply(timeout=timeout)
 
         return subscription
-
-    def create_data_link_subscription(self, instance, on_data=None, timeout=60):
-        """
-        Deprecated. Rename to ``create_link_subscription``.
-        """
-        warnings.warn(
-            "Rename create_data_link_subscription to create_link_subscription",
-            DeprecationWarning,
-        )
-        return self.create_link_subscription(
-            instance=instance, on_data=on_data, timeout=timeout
-        )
 
     def create_time_subscription(self, instance, on_data=None, timeout=60):
         """
