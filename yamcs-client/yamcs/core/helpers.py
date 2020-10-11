@@ -1,4 +1,5 @@
 import logging
+import os
 from collections import OrderedDict
 from datetime import datetime, timezone
 
@@ -39,19 +40,31 @@ def to_server_time(dt):
 
 def parse_server_timestring(isostring):
     """
-    Parse the ISO String to a UTC ``datetime.datetime``.
+    Converts an ISO string to a timezone-aware ``datetime.datetime``.
+    The timezone uses the system-default. This can be overriden to UTC
+    by setting the environment variable ``PYTHON_YAMCS_CLIENT_UTC``.
     """
     if not isostring:
         return None
     naive = datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
-    return naive.replace(tzinfo=timezone.utc)
+    utctime = naive.replace(tzinfo=timezone.utc)
+
+    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0",):
+        return utctime
+    return utctime.astimezone(tz=None)
 
 
 def parse_server_time(pb):
     """
-    Converts a Protobuf timestamp message to a UTC ``datetime.datetime``.
+    Converts a Protobuf timestamp message to a timezone-aware ``datetime.datetime``.
+    The timezone uses the system-default. This can be overriden to UTC by setting
+    the environment variable ``PYTHON_YAMCS_CLIENT_UTC``.
     """
-    return pb.ToDatetime().replace(tzinfo=timezone.utc)
+    utctime = pb.ToDatetime().replace(tzinfo=timezone.utc)
+
+    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0",):
+        return utctime
+    return utctime.astimezone(tz=None)
 
 
 def parse_value(proto):
