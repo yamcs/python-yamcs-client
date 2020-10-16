@@ -2,7 +2,7 @@
 from yamcs.client import YamcsClient
 
 
-def print_buckets(instance):
+def print_buckets():
     for bucket in storage_client.list_buckets():
         print(' {} ({} objects, {} bytes)'.format(
             bucket, bucket.object_count, bucket.size))
