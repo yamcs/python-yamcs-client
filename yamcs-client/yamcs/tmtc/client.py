@@ -390,7 +390,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
-        issued_command = self.tmtc_client.issue_command(
+        issued_command = self._tmtc_client.issue_command(
             command, args, dry_run, comment, verification, extra
         )
         command = MonitoredCommand(issued_command._proto)
@@ -1125,7 +1125,9 @@ class ProcessorClient:
         options = alarms_service_pb2.SubscribeAlarmsRequest()
         options.instance = self._instance
         options.processor = self._processor
-        manager = WebSocketSubscriptionManager(self.ctx, topic="alarms")
+        manager = WebSocketSubscriptionManager(
+            self.ctx, topic="alarms", options=options
+        )
 
         # Represent subscription as a future
         subscription = AlarmSubscription(manager)

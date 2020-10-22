@@ -190,7 +190,7 @@ class CFDPClient:
         )
 
         # Represent subscription as a future
-        subscription = TransferSubscription(manager)
+        subscription = TransferSubscription(manager, self)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_transfer_data, subscription, on_data

@@ -7,8 +7,6 @@ from yamcs.client import YamcsClient
 def enable_link(link):
     """Enable a link."""
     link.enable_link()
-    for link in client.list_data_links(instance='simulator'):
-        client.enable_data_link(instance=link.instance, link=link.name)
 
 
 def callback(message):
