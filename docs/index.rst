@@ -4,7 +4,7 @@ Yamcs Client Library for Python
 Getting Started
 ---------------
 
-Install Python 3.5 or higher.
+Install Python 3.6 or higher.
 
 Install ``yamcs-client`` from PyPI::
 
