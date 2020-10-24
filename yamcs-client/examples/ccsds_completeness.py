@@ -32,7 +32,7 @@ def print_latest():
         for rec in records:
             print('  -', rec)
             total += rec.count
-        print('  --> Total packets for {}: {}'.format(apid, total))
+        print(f'  --> Total packets for {apid}: {total}')
 
 
 if __name__ == '__main__':

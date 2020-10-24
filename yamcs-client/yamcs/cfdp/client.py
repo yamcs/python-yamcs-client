@@ -96,7 +96,7 @@ class CFDPClient:
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.ctx.get_proto(path="/cfdp/" + self._instance + "/transfers")
+        response = self.ctx.get_proto(path=f"/cfdp/{self._instance}/transfers")
         message = cfdp_pb2.ListTransfersResponse()
         message.ParseFromString(response.content)
         transfers = getattr(message, "transfers")
@@ -108,7 +108,7 @@ class CFDPClient:
 
         :rtype: .Transfer
         """
-        url = "/cfdp/{}/transfers/{}".format(self._instance, id)
+        url = f"/cfdp/{self._instance}/transfers/{id}"
         response = self.ctx.get_proto(url)
         message = cfdp_pb2.TransferInfo()
         message.ParseFromString(response.content)
@@ -142,7 +142,7 @@ class CFDPClient:
         req.uploadOptions.overwrite = overwrite
         req.uploadOptions.createPath = parents
         req.uploadOptions.reliable = reliable
-        url = "/cfdp/{}/transfers".format(self._instance)
+        url = f"/cfdp/{self._instance}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = cfdp_pb2.TransferInfo()
         message.ParseFromString(response.content)
@@ -152,21 +152,21 @@ class CFDPClient:
         """
         Pauses a transfer
         """
-        url = "/cfdp/{}/transfers/{}:pause".format(self._instance, id)
+        url = f"/cfdp/{self._instance}/transfers/{id}:pause"
         self.ctx.post_proto(url)
 
     def resume_transfer(self, id):
         """
         Resume a transfer
         """
-        url = "/cfdp/{}/transfers/{}:resume".format(self._instance, id)
+        url = f"/cfdp/{self._instance}/transfers/{id}:resume"
         self.ctx.post_proto(url)
 
     def cancel_transfer(self, id):
         """
         Cancel a transfer
         """
-        url = "/cfdp/{}/transfers/{}:cancel".format(self._instance, id)
+        url = f"/cfdp/{self._instance}/transfers/{id}:cancel"
         self.ctx.post_proto(url)
 
     def create_transfer_subscription(self, on_data=None, timeout=60):

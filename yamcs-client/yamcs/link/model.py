@@ -38,13 +38,11 @@ class Cop1Status:
         return None
 
     def __str__(self):
-        line = "COP1_ACTIVE: {}".format(self.cop1_active)
+        line = f"COP1_ACTIVE: {self.cop1_active}"
         if self.cop1_active:
-            return line + ", state: {}, nn_r: {}, v_s: {}".format(
-                self.state, self.nn_r, self.v_s
-            )
+            return line + f", state: {self.state}, nn_r: {self.nn_r}, v_s: {self.v_s}"
         else:
-            return line + ", bypass_all: {}".format(self.bypass_all)
+            return line + f", bypass_all: {self.bypass_all}"
 
 
 class Cop1Config:
@@ -79,6 +77,6 @@ class Cop1Config:
         return self._proto.t1 / 1000.0
 
     def __str__(self):
-        return "VC_ID: {}, win: {}, timeout_type: {}, tx_limit: {}, t1: {}".format(
-            self.vc_id, self.window_width, self.timeout_type, self.tx_limit, self.t1
-        )
+        res = f"VC_ID: {self.vc_id}, win: {self.window_width}"
+        res += f", timeout_type: {self.timeout_type}"
+        return res + f", tx_limit: {self.tx_limit}, t1: {self.t1}"

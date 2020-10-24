@@ -1,7 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
 from requests.auth import HTTPBasicAuth
-
 from yamcs.core.exceptions import Unauthorized, YamcsError
 
 
@@ -31,7 +30,7 @@ def _convert_user_credentials(
             expiry=expiry,
         )
     else:
-        raise YamcsError("{} Server Error".format(response.status_code))
+        raise YamcsError(f"{response.status_code} Server Error")
 
 
 def _convert_service_account_credentials(
@@ -58,7 +57,7 @@ def _convert_service_account_credentials(
             expiry=expiry,
         )
     else:
-        raise YamcsError("{} Server Error".format(response.status_code))
+        raise YamcsError(f"{response.status_code} Server Error")
 
 
 class Credentials:

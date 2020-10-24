@@ -22,8 +22,4 @@ if __name__ == "__main__":
     if not upload.is_success():
         print("Upload failure:", upload.error)
     else:
-        print(
-            "Successfully uploaded {} ({} bytes)".format(
-                upload.remote_path, upload.size
-            )
-        )
+        print(f"Successfully uploaded {upload.remote_path} ({upload.size} bytes)")

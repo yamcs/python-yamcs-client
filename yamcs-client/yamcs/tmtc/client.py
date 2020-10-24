@@ -92,9 +92,9 @@ def _build_named_object_id(parameter):
         parts = parameter.split("/", 1)
         if len(parts) < 2:
             raise ValueError(
-                "Failed to process {}. Use fully-qualified "
+                f"Failed to process {parameter}. Use fully-qualified "
                 "XTCE names or, alternatively, an alias in "
-                "in the format NAMESPACE/NAME".format(parameter)
+                "in the format NAMESPACE/NAME"
             )
         named_object_id.namespace = parts[0]
         named_object_id.name = parts[1]
@@ -488,9 +488,7 @@ class ProcessorClient:
             "timeout": int(timeout * 1000),
         }
         parameter = adapt_name_for_rest(parameter)
-        url = "/processors/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/processors/{self._instance}/{self._processor}/parameters{parameter}"
         response = self.ctx.get_proto(url, params=params)
         proto = pvalue_pb2.ParameterValue()
         proto.ParseFromString(response.content)
@@ -523,9 +521,7 @@ class ProcessorClient:
         req.id.extend(_build_named_object_ids(parameters))
         req.fromCache = from_cache
         req.timeout = int(timeout * 1000)
-        url = "/processors/{}/{}/parameters:batchGet".format(
-            self._instance, self._processor
-        )
+        url = f"/processors/{self._instance}/{self._processor}/parameters:batchGet"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         proto = processing_pb2.BatchGetParameterValuesResponse()
         proto.ParseFromString(response.content)
@@ -549,9 +545,7 @@ class ProcessorClient:
         :param value: The value to set
         """
         parameter = adapt_name_for_rest(parameter)
-        url = "/processors/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/processors/{self._instance}/{self._processor}/parameters{parameter}"
         req = _build_value_proto(value)
         self.ctx.put_proto(url, data=req.SerializeToString())
 
@@ -568,9 +562,7 @@ class ProcessorClient:
             item = req.request.add()
             item.id.MergeFrom(_build_named_object_id(key))
             item.value.MergeFrom(_build_value_proto(values[key]))
-        url = "/processors/{}/{}/parameters:batchSet".format(
-            self._instance, self._processor
-        )
+        url = f"/processors/{self._instance}/{self._processor}/parameters:batchSet"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def issue_command(
@@ -641,9 +633,7 @@ class ProcessorClient:
                 req.extra[key].MergeFrom(_build_value_proto(extra[key]))
 
         command = adapt_name_for_rest(command)
-        url = "/processors/{}/{}/commands{}".format(
-            self._instance, self._processor, command
-        )
+        url = f"/processors/{self._instance}/{self._processor}/commands{command}"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         proto = commands_service_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
@@ -670,7 +660,7 @@ class ProcessorClient:
             params["stop"] = to_isostring(stop)
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = "/processors/{}/{}/alarms".format(self._instance, self._processor)
+        url = f"/processors/{self._instance}/{self._processor}/alarms"
         response = self.ctx.get_proto(path=url, params=params)
         message = alarms_service_pb2.ListAlarmsResponse()
         message.ParseFromString(response.content)
@@ -711,9 +701,7 @@ class ProcessorClient:
             _add_calib(req.defaultCalibrator, type, data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter, calibrators):
@@ -747,9 +735,7 @@ class ProcessorClient:
             _add_calib(calib_info, c.type, c.data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter):
@@ -767,9 +753,7 @@ class ProcessorClient:
         req.action = mdb_pb2.UpdateParameterRequest.RESET_CALIBRATORS
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(
@@ -823,9 +807,7 @@ class ProcessorClient:
             )
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter, sets):
@@ -867,9 +849,7 @@ class ProcessorClient:
             )
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter):
@@ -887,9 +867,7 @@ class ProcessorClient:
         req.action = mdb_pb2.UpdateParameterRequest.RESET_ALARMS
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/parameters{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(self, alarm, comment=None):
@@ -902,9 +880,8 @@ class ProcessorClient:
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = "/processors/{}/{}/alarms{}/{}".format(
-            self._instance, self._processor, name, alarm.sequence_number
-        )
+        url = f"/processors/{self._instance}/{self._processor}"
+        url += f"/alarms{name}/{alarm.sequence_number}"
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "acknowledged"
         if comment is not None:
@@ -921,9 +898,8 @@ class ProcessorClient:
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = "/processors/{}/{}/alarms{}/{}".format(
-            self._instance, self._processor, name, alarm.sequence_number
-        )
+        url = f"/processors/{self._instance}/{self._processor}"
+        url += f"/alarms{name}/{alarm.sequence_number}"
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "unshelved"
         self.ctx.patch_proto(url, data=req.SerializeToString())
@@ -938,9 +914,8 @@ class ProcessorClient:
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = "/processors/{}/{}/alarms{}/{}".format(
-            self._instance, self._processor, name, alarm.sequence_number
-        )
+        url = f"/processors/{self._instance}/{self._processor}"
+        url += f"/alarms{name}/{alarm.sequence_number}"
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "shelved"
         if comment is not None:
@@ -961,9 +936,8 @@ class ProcessorClient:
                             change.
         """
         name = adapt_name_for_rest(alarm.name)
-        url = "/processors/{}/{}/alarms{}/{}".format(
-            self._instance, self._processor, name, alarm.sequence_number
-        )
+        url = f"/processors/{self._instance}/{self._processor}"
+        url += f"/alarms{name}/{alarm.sequence_number}"
         req = alarms_service_pb2.EditAlarmRequest()
         req.state = "cleared"
         if comment is not None:
@@ -1157,9 +1131,7 @@ class ProcessorClient:
         req.algorithm.text = text
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/algorithms{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter):
@@ -1173,7 +1145,5 @@ class ProcessorClient:
         req.action = mdb_pb2.UpdateAlgorithmRequest.RESET
 
         parameter = adapt_name_for_rest(parameter)
-        url = "/mdb/{}/{}/algorithms{}".format(
-            self._instance, self._processor, parameter
-        )
+        url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())

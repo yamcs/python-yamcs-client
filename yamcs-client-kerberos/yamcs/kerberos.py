@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
 
 from requests_gssapi import HTTPSPNEGOAuth
+
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import Unauthorized, YamcsError
 
@@ -26,7 +27,7 @@ class KerberosCredentials(Credentials):
         elif response.status_code == 200:
             return response.text
         else:
-            raise YamcsError("{} Server Error".format(response.status_code))
+            raise YamcsError(f"{response.status_code} Server Error")
 
     def convert_authorization_code(self, session, auth_url, code):
         data = {"grant_type": "authorization_code", "code": code}
@@ -42,4 +43,4 @@ class KerberosCredentials(Credentials):
                 expiry=expiry,
             )
         else:
-            raise YamcsError("{} Server Error".format(response.status_code))
+            raise YamcsError(f"{response.status_code} Server Error")

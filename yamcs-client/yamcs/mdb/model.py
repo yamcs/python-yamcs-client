@@ -119,7 +119,7 @@ class Significance:
         return None
 
     def __str__(self):
-        return "[{}] {}".format(self.consequence_level, self.reason)
+        return f"[{self.consequence_level}] {self.reason}"
 
 
 class Container:

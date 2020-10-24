@@ -42,7 +42,7 @@ class ServerInfo:
         return None
 
     def __str__(self):
-        return "{} (v{})".format(self.id, self.version)
+        return f"{self.id} (v{self.version})"
 
 
 class UserInfo:
@@ -167,7 +167,7 @@ class Event:
         return None
 
     def __str__(self):
-        return "{} [{}] {}".format(self.generation_time, self.severity, self.message)
+        return f"{self.generation_time} [{self.severity}] {self.message}"
 
 
 class LinkEvent:
@@ -196,7 +196,7 @@ class LinkEvent:
         return Link(self._proto.linkInfo)
 
     def __str__(self):
-        return "[{}] {}".format(self.event_type, self.link)
+        return f"[{self.event_type}] {self.link}"
 
 
 class Link:
@@ -245,9 +245,8 @@ class Link:
         return self._proto.dataOutCount
 
     def __str__(self):
-        return "{}/{}: {} (in: {} out: {})".format(
-            self.instance, self.name, self.status, self.in_count, self.out_count
-        )
+        desc = f"{self.instance}/{self.name}"
+        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})"
 
 
 class Instance:
@@ -291,7 +290,7 @@ class Instance:
         return None
 
     def __str__(self):
-        return "{} [{}]".format(self.name, self.state)
+        return f"{self.name} [{self.state}]"
 
 
 class InstanceTemplate:
@@ -347,7 +346,7 @@ class Service:
         return None
 
     def __str__(self):
-        return "{} [{}]".format(self.name, self.state)
+        return f"{self.name} [{self.state}]"
 
 
 class Processor:
@@ -398,4 +397,4 @@ class Processor:
         return None
 
     def __str__(self):
-        return "{} [{}]".format(self.name, self.state)
+        return f"{self.name} [{self.state}]"
