@@ -5,8 +5,6 @@ from yamcs.client import YamcsClient
 def print_packet_count():
     """Print the number of packets grouped by packet name."""
     for name in archive.list_packet_names():
-        if not name == '/YSS/SIMULATOR/DHS':
-            continue
         packet_count = 0
         for group in archive.list_packet_histogram(name):
             for rec in group.records:
