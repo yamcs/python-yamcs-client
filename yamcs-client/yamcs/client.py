@@ -185,14 +185,14 @@ class YamcsClient:
         :rtype: .AuthInfo
         """
         try:
-            response = self.session.get(
-                self.auth_root, headers={"Accept": "application/protobuf"}
+            response = self.ctx.session.get(
+                self.ctx.auth_root, headers={"Accept": "application/protobuf"}
             )
             message = auth_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
-            raise ConnectionFailure(f"Connection to {self.address} refused")
+            raise ConnectionFailure(f"Connection to {self.ctx.address} refused")
 
     def get_user_info(self):
         """
