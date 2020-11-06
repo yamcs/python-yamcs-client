@@ -9,7 +9,7 @@ def print_packet_count():
         for group in archive.list_packet_histogram(name):
             for rec in group.records:
                 packet_count += rec.count
-        print('  {: <40} {: >20}'.format(name, packet_count))
+        print(f'  {name: <40} {packet_count: >20}')
 
 
 def print_pp_groups():
@@ -19,7 +19,7 @@ def print_pp_groups():
         for pp_group in archive.list_processed_parameter_group_histogram(group):
             for rec in pp_group.records:
                 frame_count += rec.count
-        print('  {: <40} {: >20}'.format(group, frame_count))
+        print(f'  {group: <40} {frame_count: >20}')
 
 
 def print_event_count():
@@ -29,7 +29,7 @@ def print_event_count():
         for group in archive.list_event_histogram(source):
             for rec in group.records:
                 event_count += rec.count
-        print('  {: <40} {: >20}'.format(source, event_count))
+        print(f'  {source: <40} {event_count: >20}')
 
 
 def print_command_count():
@@ -40,7 +40,7 @@ def print_command_count():
         for group in archive.list_command_histogram(command.qualified_name):
             for rec in group.records:
                 total += rec.count
-        print('  {: <40} {: >20}'.format(command.qualified_name, total))
+        print(f'  {command.qualified_name: <40} {total: >20}')
 
 
 if __name__ == '__main__':

@@ -36,7 +36,7 @@ class Acknowledgment:
         return self.status and self.status != "SCHEDULED" and self.status != "PENDING"
 
     def __repr__(self):
-        return "{}: {}".format(self.name, self.status)
+        return f"{self.name}: {self.status}"
 
     def __str__(self):
         return self.__repr__()
@@ -167,7 +167,7 @@ class CommandHistory:
 
     def __str__(self):
         acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
-        return "{} [{}]".format(self.name, acks)
+        return f"{self.name} [{acks}]"
 
 
 class IssuedCommand:
@@ -256,7 +256,7 @@ class IssuedCommand:
         return None
 
     def __str__(self):
-        return "{} {}".format(self.generation_time, self.source)
+        return f"{self.generation_time} {self.source}"
 
 
 class VerificationConfig:
@@ -419,7 +419,7 @@ class MonitoredCommand(IssuedCommand):
 
     def __str__(self):
         acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
-        return "{} [{}]".format(self.name, acks)
+        return f"{self.name} [{acks}]"
 
 
 class AlarmUpdate:
@@ -445,7 +445,7 @@ class AlarmUpdate:
         return _parse_alarm(self._proto)
 
     def __str__(self):
-        return "[{}] {}".format(self.update_type, self.alarm)
+        return f"[{self.update_type}] {self.alarm}"
 
 
 class Alarm:
@@ -583,7 +583,7 @@ class Alarm:
         return None
 
     def __str__(self):
-        return "{} ({} violations)".format(self.name, self.violation_count)
+        return f"{self.name} ({self.violation_count} violations)"
 
 
 class ParameterAlarm(Alarm):
@@ -780,9 +780,7 @@ class ParameterValue:
         return self._proto.processingStatus
 
     def __str__(self):
-        line = "{} {} {} {}".format(
-            self.generation_time, self.name, self.raw_value, self.eng_value
-        )
+        line = f"{self.generation_time} {self.name} {self.raw_value} {self.eng_value}"
         if self.monitoring_result:
             line += " [" + self.monitoring_result + "]"
         return line

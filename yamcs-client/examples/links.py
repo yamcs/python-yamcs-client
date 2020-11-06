@@ -10,7 +10,7 @@ def enable_link(link):
 
 
 def callback(message):
-    print('Link Event: {}'.format(message))
+    print('Link Event:', message)
 
 
 if __name__ == '__main__':

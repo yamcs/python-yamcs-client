@@ -157,7 +157,7 @@ class YamcsClient:
 
         :rtype: ~datetime.datetime
         """
-        url = "/instances/{}".format(instance)
+        url = f"/instances/{instance}"
         response = self.ctx.get_proto(url)
         message = yamcsManagement_pb2.YamcsInstance()
         message.ParseFromString(response.content)
@@ -185,14 +185,14 @@ class YamcsClient:
         :rtype: .AuthInfo
         """
         try:
-            response = self.session.get(
-                self.auth_root, headers={"Accept": "application/protobuf"}
+            response = self.ctx.session.get(
+                self.ctx.auth_root, headers={"Accept": "application/protobuf"}
             )
             message = auth_pb2.AuthInfo()
             message.ParseFromString(response.content)
             return AuthInfo(message)
         except requests.exceptions.ConnectionError:
-            raise ConnectionFailure("Connection to {} refused".format(self.address))
+            raise ConnectionFailure(f"Connection to {self.ctx.address} refused")
 
     def get_user_info(self):
         """
@@ -280,7 +280,7 @@ class YamcsClient:
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        url = "/services/{}".format(instance)
+        url = f"/services/{instance}"
         response = self.ctx.get_proto(path=url)
         message = yamcsManagement_pb2.ListServicesResponse()
         message.ParseFromString(response.content)
@@ -294,7 +294,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        url = "/services/{}/{}:start".format(instance, service)
+        url = f"/services/{instance}/{service}:start"
         self.ctx.post_proto(url)
 
     def stop_service(self, instance, service):
@@ -304,7 +304,7 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :param str service: The name of the service.
         """
-        url = "/services/{}/{}:stop".format(instance, service)
+        url = f"/services/{instance}/{service}:stop"
         self.ctx.post_proto(url)
 
     def list_processors(self, instance=None):
@@ -369,7 +369,7 @@ class YamcsClient:
 
         :param str instance: A Yamcs instance name.
         """
-        url = "/instances/{}:start".format(instance)
+        url = f"/instances/{instance}:start"
         self.ctx.post_proto(url)
 
     def stop_instance(self, instance):
@@ -378,7 +378,7 @@ class YamcsClient:
 
         :param str instance: A Yamcs instance name.
         """
-        url = "/instances/{}:stop".format(instance)
+        url = f"/instances/{instance}:stop"
         self.ctx.post_proto(url)
 
     def restart_instance(self, instance):
@@ -387,7 +387,7 @@ class YamcsClient:
 
         :param str instance: A Yamcs instance name.
         """
-        url = "/instances/{}:restart".format(instance)
+        url = f"/instances/{instance}:restart"
         self.ctx.post_proto(url)
 
     def list_data_links(self, instance):
@@ -455,7 +455,7 @@ class YamcsClient:
         if sequence_number is not None:
             req.sequence_number = sequence_number
 
-        url = "/archive/{}/events".format(instance)
+        url = f"/archive/{instance}/events"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def create_link_subscription(self, instance, on_data=None, timeout=60):

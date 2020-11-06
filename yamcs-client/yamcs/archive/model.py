@@ -1,6 +1,5 @@
 from google.protobuf.internal.decoder import _DecodeVarint32
-
-from yamcs.core.helpers import parse_server_timestring, parse_server_time, parse_value
+from yamcs.core.helpers import parse_server_time, parse_server_timestring, parse_value
 from yamcs.protobuf.table import table_pb2
 
 
@@ -45,7 +44,7 @@ class StreamData:
         return [ColumnData(c) for c in self._proto.column]
 
     def __str__(self):
-        return "{} ({} columns)".format(self.stream, len(self.columns))
+        return f"{self.stream} ({len(self.columns)} columns)"
 
 
 class ColumnData:
@@ -63,7 +62,7 @@ class ColumnData:
         return parse_value(self._proto.value)
 
     def __str__(self):
-        return "{}: {}".format(self.name, self.value)
+        return f"{self.name}: {self.value}"
 
 
 class ResultSet:
@@ -160,7 +159,7 @@ class IndexGroup:
         return [IndexRecord(rec) for rec in self._proto.entry]
 
     def __str__(self):
-        return "{} ({} records)".format(self.name, len(self.records))
+        return f"{self.name} ({len(self.records)} records)"
 
 
 class IndexRecord:
@@ -199,7 +198,7 @@ class IndexRecord:
         return self._proto.count
 
     def __str__(self):
-        return "{} - {} (n={})".format(self.start, self.stop, self.count)
+        return f"{self.start} - {self.stop} (n={self.count})"
 
 
 class Packet:
@@ -259,9 +258,7 @@ class Packet:
         return None
 
     def __str__(self):
-        return "{} #{} ({})".format(
-            self.generation_time, self.sequence_number, self.name
-        )
+        return f"{self.generation_time} #{self.sequence_number} ({self.name})"
 
 
 class Sample:
@@ -309,7 +306,7 @@ class Sample:
         return self._proto.n
 
     def __str__(self):
-        return "{} {}".format(self.time, self.avg)
+        return f"{self.time} {self.avg}"
 
 
 class ParameterRange:
@@ -350,4 +347,4 @@ class ParameterRange:
         return self._proto.count
 
     def __str__(self):
-        return "{} - {}: {}".format(self.start, self.stop, self.eng_value)
+        return f"{self.start} - {self.stop}: {self.eng_value}"

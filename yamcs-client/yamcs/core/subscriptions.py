@@ -3,7 +3,6 @@ import ssl
 import threading
 
 import websocket
-
 from yamcs.api import websocket_pb2
 from yamcs.core.exceptions import ConnectionFailure
 
@@ -60,8 +59,7 @@ class WebSocketSubscriptionManager:
             on_error=self._on_websocket_error,
             subprotocols=["protobuf"],
             header=[
-                "{}: {}".format(k, self.ctx.session.headers[k])
-                for k in self.ctx.session.headers
+                f"{k}: {self.ctx.session.headers[k]}" for k in self.ctx.session.headers
             ],
         )
 

@@ -152,4 +152,4 @@ class ObjectInfo:
         return self._storage_client.upload_object(self._bucket, self.name, file_obj)
 
     def __str__(self):
-        return "{} ({} bytes, created {})".format(self.name, self.size, self.created)
+        return f"{self.name} ({self.size} bytes, created {self.created})"

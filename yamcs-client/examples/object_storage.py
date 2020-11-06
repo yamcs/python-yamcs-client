@@ -4,8 +4,7 @@ from yamcs.client import YamcsClient
 
 def print_buckets():
     for bucket in storage_client.list_buckets():
-        print(' {} ({} objects, {} bytes)'.format(
-            bucket, bucket.object_count, bucket.size))
+        print(f' {bucket} ({bucket.object_count} objects, {bucket.size} bytes)')
         listing = bucket.list_objects()
         print('  prefixes:', listing.prefixes)
         for obj in listing.objects:

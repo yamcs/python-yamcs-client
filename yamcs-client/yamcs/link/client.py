@@ -87,7 +87,7 @@ class LinkClient:
 
         :rtype: .Link
         """
-        response = self.ctx.get_proto("/links/{}/{}".format(self._instance, self._link))
+        response = self.ctx.get_proto(f"/links/{self._instance}/{self._link}")
         message = yamcsManagement_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)
@@ -98,7 +98,7 @@ class LinkClient:
         """
         req = yamcsManagement_pb2.EditLinkRequest()
         req.state = "enabled"
-        url = "/links/{}/{}".format(self._instance, self._link)
+        url = f"/links/{self._instance}/{self._link}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def disable_link(self):
@@ -107,7 +107,7 @@ class LinkClient:
         """
         req = yamcsManagement_pb2.EditLinkRequest()
         req.state = "disabled"
-        url = "/links/{}/{}".format(self._instance, self._link)
+        url = f"/links/{self._instance}/{self._link}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def get_cop1_config(self):
@@ -116,9 +116,7 @@ class LinkClient:
 
         :rtype: .Cop1Config
         """
-        response = self.ctx.get_proto(
-            "/cop1/{}/{}/config".format(self._instance, self._link)
-        )
+        response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/config")
         message = cop1_pb2.Cop1Config()
         message.ParseFromString(response.content)
         return Cop1Config(message)
@@ -141,7 +139,7 @@ class LinkClient:
         if t1 is not None:
             req.t1 = int(round(1000 * t1))
 
-        url = "/cop1/{}/{}/config".format(self._instance, self._link)
+        url = f"/cop1/{self._instance}/{self._link}/config"
         response = self.ctx.patch_proto(url, data=req.SerializeToString())
 
         message = cop1_pb2.Cop1Config()
@@ -157,7 +155,7 @@ class LinkClient:
         """
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = bypass_all
-        url = "/cop1/{}/{}:disable".format(self._instance, self._link)
+        url = f"/cop1/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def initialize_cop1(self, type, clcw_wait_timeout=None, v_r=None):
@@ -178,7 +176,7 @@ class LinkClient:
         if v_r is not None:
             req.vR = v_r
 
-        url = "/cop1/{}/{}:initialize".format(self._instance, self._link)
+        url = f"/cop1/{self._instance}/{self._link}:initialize"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def resume_cop1(self):
@@ -186,7 +184,7 @@ class LinkClient:
         Resume COP1.
         """
         req = cop1_pb2.ResumeRequest()
-        url = "/cop1/{}/{}:resume".format(self._instance, self._link)
+        url = f"/cop1/{self._instance}/{self._link}:resume"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_status(self):
@@ -195,9 +193,7 @@ class LinkClient:
 
         :rtype: .Cop1Status
         """
-        response = self.ctx.get_proto(
-            "/cop1/{}/{}/status".format(self._instance, self._link)
-        )
+        response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/status")
         message = cop1_pb2.Cop1Status()
         message.ParseFromString(response.content)
         return Cop1Status(message)

@@ -25,7 +25,7 @@ class MDBClient:
 
         return pagination.Iterator(
             ctx=self.ctx,
-            path="/mdb/{}/space-systems".format(self._instance),
+            path=f"/mdb/{self._instance}/space-systems",
             params=params,
             response_class=mdb_pb2.ListSpaceSystemsResponse,
             items_key="spaceSystems",
@@ -39,7 +39,7 @@ class MDBClient:
         :param str name: A fully-qualified XTCE name
         :rtype: .SpaceSystem
         """
-        url = "/mdb/{}/space-systems{}".format(self._instance, name)
+        url = f"/mdb/{self._instance}/space-systems{name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
@@ -62,7 +62,7 @@ class MDBClient:
 
         return pagination.Iterator(
             ctx=self.ctx,
-            path="/mdb/{}/parameters".format(self._instance),
+            path=f"/mdb/{self._instance}/parameters",
             params=params,
             response_class=mdb_pb2.ListParametersResponse,
             items_key="parameters",
@@ -78,7 +78,7 @@ class MDBClient:
         :rtype: .Parameter
         """
         name = adapt_name_for_rest(name)
-        url = "/mdb/{}/parameters{}".format(self._instance, name)
+        url = f"/mdb/{self._instance}/parameters{name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.ParameterInfo()
         message.ParseFromString(response.content)
@@ -99,7 +99,7 @@ class MDBClient:
 
         return pagination.Iterator(
             ctx=self.ctx,
-            path="/mdb/{}/containers".format(self._instance),
+            path=f"/mdb/{self._instance}/containers",
             params=params,
             response_class=mdb_pb2.ListContainersResponse,
             items_key="containers",
@@ -115,7 +115,7 @@ class MDBClient:
         :rtype: .Container
         """
         name = adapt_name_for_rest(name)
-        url = "/mdb/{}/containers{}".format(self._instance, name)
+        url = f"/mdb/{self._instance}/containers{name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.ContainerInfo()
         message.ParseFromString(response.content)
@@ -136,7 +136,7 @@ class MDBClient:
 
         return pagination.Iterator(
             ctx=self.ctx,
-            path="/mdb/{}/commands".format(self._instance),
+            path=f"/mdb/{self._instance}/commands",
             params=params,
             response_class=mdb_pb2.ListCommandsResponse,
             items_key="commands",
@@ -152,7 +152,7 @@ class MDBClient:
         :rtype: .Command
         """
         name = adapt_name_for_rest(name)
-        url = "/mdb/{}/commands{}".format(self._instance, name)
+        url = f"/mdb/{self._instance}/commands{name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.CommandInfo()
         message.ParseFromString(response.content)
@@ -173,7 +173,7 @@ class MDBClient:
 
         return pagination.Iterator(
             ctx=self.ctx,
-            path="/mdb/{}/algorithms".format(self._instance),
+            path=f"/mdb/{self._instance}/algorithms",
             params=params,
             response_class=mdb_pb2.ListAlgorithmsResponse,
             items_key="algorithms",
@@ -189,7 +189,7 @@ class MDBClient:
         :rtype: .Algorithm
         """
         name = adapt_name_for_rest(name)
-        url = "/mdb/{}/algorithms{}".format(self._instance, name)
+        url = f"/mdb/{self._instance}/algorithms{name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.AlgorithmInfo()
         message.ParseFromString(response.content)
