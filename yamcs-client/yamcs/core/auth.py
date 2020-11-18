@@ -142,10 +142,13 @@ class Credentials:
                 client_secret=self.client_secret,
                 become=self.become,
             )
-        else:
+        elif self.refresh_token:
             new_creds = _convert_user_credentials(
                 session, auth_url + "/token", refresh_token=self.refresh_token
             )
+        else:
+            raise YamcsError("Missing refresh token")
+
         self.access_token = new_creds.access_token
         self.refresh_token = new_creds.refresh_token
         self.expiry = new_creds.expiry
