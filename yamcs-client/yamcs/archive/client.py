@@ -656,8 +656,11 @@ class ArchiveClient:
                 chunk = file_object.read(chunk_size)
 
         path = f"/archive/{self._instance}/tables/{table}:writeRows"
-        generator = read_in_chunks(data, chunk_size)
-        response = self.ctx.post_proto(path=path, data=generator)
+        if chunk_size:
+            generator = read_in_chunks(data, chunk_size)
+            response = self.ctx.post_proto(path=path, data=generator)
+        else:
+            response = self.ctx.post_proto(path=path, data=data)
         message = table_pb2.WriteRowsResponse()
         message.ParseFromString(response.content)
         return message.count
