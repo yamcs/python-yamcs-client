@@ -11,7 +11,7 @@ packages = [
 
 setuptools.setup(
     name="yamcs-client-kerberos",
-    version="1.0.1",
+    version="1.1.0",
     description="Kerberos integration for Yamcs API client library",
     long_description=readme,
     long_description_content_type="text/markdown",
