@@ -15,8 +15,11 @@ if __name__ == "__main__":
     file_like = io.StringIO("Sample file content")
     out_bucket.upload_object("myfile", file_like)
 
+    # Assume only one CFDP service
+    service = next(cfdp.list_services())
+
     # Transfer myfile from bucket to spacecraft
-    upload = cfdp.upload(out_bucket.name, "myfile", "/CF:/mytarget")
+    upload = service.upload(out_bucket.name, "myfile", "/CF:/mytarget")
     upload.await_complete(timeout=10)
 
     if not upload.is_success():

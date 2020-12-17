@@ -1,6 +1,7 @@
 import functools
+import warnings
 
-from yamcs.cfdp.model import Transfer
+from yamcs.cfdp.model import Service, Transfer
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf.cfdp import cfdp_pb2
@@ -26,9 +27,9 @@ class TransferSubscription(WebSocketSubscriptionFuture):
     each transfer.
     """
 
-    def __init__(self, manager, cfdp_client):
+    def __init__(self, manager, service_client):
         super(TransferSubscription, self).__init__(manager)
-        self.cfdp_client = cfdp_client
+        self.service_client = service_client
         self._cache = {}
         """Transfer cache keyed by id."""
 
@@ -72,7 +73,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
             transfer = self._cache[proto.id]
             transfer._proto = proto
         else:
-            transfer = Transfer(proto, cfdp_client=self.cfdp_client)
+            transfer = Transfer(proto, service_client=self.service_client)
             self._cache[transfer.id] = transfer
 
         return transfer
@@ -87,53 +88,138 @@ class CFDPClient:
         super(CFDPClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
+        self._default_service = None
 
-    def list_transfers(self):
+    def list_services(self):
         """
-        List the transfers.
+        List the services.
 
-        :rtype: ~collections.Iterable[.Transfer]
+        :rtype: ~collections.Iterable[.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.ctx.get_proto(path=f"/cfdp/{self._instance}/transfers")
-        message = cfdp_pb2.ListTransfersResponse()
+        response = self.ctx.get_proto(path=f"/cfdp/{self._instance}/services")
+        message = cfdp_pb2.ListCFDPServicesResponse()
         message.ParseFromString(response.content)
-        transfers = getattr(message, "transfers")
-        return iter([Transfer(transfer, self) for transfer in transfers])
+        services = getattr(message, "services")
+        result = []
+        for proto in services:
+            service_client = ServiceClient(self.ctx, proto)
+            result.append(Service(proto, service_client))
+        return iter(result)
+
+    def get_service(self, name):
+        """
+        Get a specific CFDP service.
+
+        :param str name: The CFDP service name.
+        :rtype: .CFDPService
+        """
+        # TODO should have an actual server-side operation for this
+        for service in self.list_services():
+            if service.name == name:
+                return service
+
+    def list_transfers(self):
+        """
+        Deprecated. Use ``get_service(service).list_transfers()``.
+        """
+        warnings.warn(
+            "Use a specific service: get_service(service).list_transfers()",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.list_transfers()
 
     def get_transfer(self, id):
         """
-        Get a specific transfer.
-
-        :rtype: .Transfer
+        Deprecated. Use ``get_service(service).get_transfer(id)``.
         """
-        url = f"/cfdp/{self._instance}/transfers/{id}"
-        response = self.ctx.get_proto(url)
-        message = cfdp_pb2.TransferInfo()
-        message.ParseFromString(response.content)
-        return Transfer(message, self)
+        warnings.warn(
+            "Use a specific service: get_service(service).get_transfer(id)",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.get_transfer(id)
+
+    def upload(self, *args, **kwargs):
+        """
+        Deprecated. Use ``get_service(service).upload(...)``.
+        """
+        warnings.warn(
+            "Use a specific service: get_service(service).upload(...)", FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.upload(*args, **kwargs)
+
+    def pause_transfer(self, id):
+        """
+        Deprecated. Use ``get_service(service).pause_transfer(id)``.
+        """
+        warnings.warn(
+            "Use a specific service: get_service(service).pause_transfer(id)",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.pause_transfer(id)
+
+    def resume_transfer(self, id):
+        """
+        Deprecated. Use ``get_service(service).resume_transfer(id)``.
+        """
+        warnings.warn(
+            "Use a specific service: get_service(service).resume_transfer(id)",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.resume_transfer(id)
+
+    def cancel_transfer(self, id):
+        """
+        Deprecated. Use ``get_service(service).cancel_transfer(id)``.
+        """
+        warnings.warn(
+            "Use a specific service: get_service(service).cancel_transfer(id)",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+
+        return self._default_service.cancel_transfer(id)
+
+    def create_transfer_subscription(self, *args, **kwargs):
+        """
+        Deprecated. Use ``get_service(service).create_transfer_subscription(...)``.
+        """
+        warnings.warn(
+            "Use a specific service: "
+            "get_service(service).create_transfer_subscription(...)",
+            FutureWarning,
+        )
+        if not self._default_service:
+            self._default_service = next(self.list_services(), None)
+        return self._default_service.create_transfer_subscription(*args, **kwargs)
+
+
+class ServiceClient:
+    def __init__(self, ctx, proto):
+        self.ctx = ctx
+        self._instance = proto.instance
+        self._service = proto.name
 
     def upload(
-        self,
-        bucket_name,
-        object_name,
-        remote_path,
-        overwrite=True,
-        parents=True,
-        reliable=False,
+        self, bucket_name, object_name, remote_path, overwrite, parents, reliable,
     ):
-        """
-        Uploads a file located in a bucket to a remote destination path.
-
-        :param str bucket_name: Name of the bucket containing the source object.
-        :param str object_name: Name of the source object.
-        :param str remote_path: Remote destination.
-        :param bool overwrite: Replace a destination if it already exists.
-        :param bool parents: Create the remote path if it does not yet exist.
-        :param bool reliable: Whether to use a Class 2 CFDP transfer.
-        :rtype: .Transfer
-        """
         req = cfdp_pb2.CreateTransferRequest()
         req.direction = cfdp_pb2.TransferDirection.UPLOAD
         req.bucket = bucket_name
@@ -142,48 +228,28 @@ class CFDPClient:
         req.uploadOptions.overwrite = overwrite
         req.uploadOptions.createPath = parents
         req.uploadOptions.reliable = reliable
-        url = f"/cfdp/{self._instance}/transfers"
+        url = f"/cfdp/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = cfdp_pb2.TransferInfo()
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
     def pause_transfer(self, id):
-        """
-        Pauses a transfer
-        """
-        url = f"/cfdp/{self._instance}/transfers/{id}:pause"
+        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:pause"
         self.ctx.post_proto(url)
 
     def resume_transfer(self, id):
-        """
-        Resume a transfer
-        """
-        url = f"/cfdp/{self._instance}/transfers/{id}:resume"
+        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:resume"
         self.ctx.post_proto(url)
 
     def cancel_transfer(self, id):
-        """
-        Cancel a transfer
-        """
-        url = f"/cfdp/{self._instance}/transfers/{id}:cancel"
+        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:cancel"
         self.ctx.post_proto(url)
 
     def create_transfer_subscription(self, on_data=None, timeout=60):
-        """
-        Create a new transfer subscription.
-
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.TransferInfo` updates.
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: float
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .TransferSubscription
-        """
         options = cfdp_pb2.SubscribeTransfersRequest()
         options.instance = self._instance
+        options.serviceName = self._service
 
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="cfdp-transfers", options=options

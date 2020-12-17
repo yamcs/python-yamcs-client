@@ -23,3 +23,7 @@ Create a :class:`.CFDPClient` for a specific instance:
 
     client = YamcsClient('localhost:8090')
     cfdp = client.get_cfdp_client(instance='cfdp')
+
+    # Operations are grouped by service.
+    # Here: take the first available
+    service = next(cfdp.list_services())

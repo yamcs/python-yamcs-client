@@ -15,6 +15,7 @@ _sym_db = _symbol_database.Default()
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2 as yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -22,9 +23,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.table',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n yamcs/protobuf/table/table.proto\x12\x14yamcs.protobuf.table\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\"\xdd\x01\n\x03Row\x12\x35\n\x07\x63olumns\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.table.Row.ColumnInfo\x12-\n\x05\x63\x65lls\x18\x02 \x03(\x0b\x32\x1e.yamcs.protobuf.table.Row.Cell\x1aH\n\nColumnInfo\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x12\n\nprotoClass\x18\x04 \x01(\t\x1a&\n\x04\x43\x65ll\x12\x10\n\x08\x63olumnId\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"@\n\x0fReadRowsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x0c\n\x04\x63ols\x18\x03 \x03(\t\"[\n\x10WriteRowsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12&\n\x03row\x18\x03 \x01(\x0b\x32\x19.yamcs.protobuf.table.Row\"\"\n\x11WriteRowsResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\r\")\n\x18WriteRowsExceptionDetail\x12\r\n\x05\x63ount\x18\x01 \x01(\r\"2\n\tListValue\x12%\n\x06values\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Value\"8\n\x11\x45xecuteSqlRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tstatement\x18\x02 \x01(\t\"m\n\tResultSet\x12\x31\n\x07\x63olumns\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12-\n\x04rows\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.table.ListValue\"%\n\x11ListTablesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"E\n\x12ListTablesResponse\x12/\n\x06tables\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.table.TableInfo\"1\n\x0fGetTableRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"n\n\x13GetTableDataRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x63ols\x18\x03 \x03(\t\x12\x0b\n\x03pos\x18\x04 \x01(\x03\x12\r\n\x05limit\x18\x05 \x01(\x05\x12\r\n\x05order\x18\x06 \x01(\t\"&\n\x12ListStreamsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"H\n\x13ListStreamsResponse\x12\x31\n\x07streams\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.StreamInfo\"2\n\x10GetStreamRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\":\n\x16SubscribeStreamRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\"@\n\nColumnData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"N\n\nStreamData\x12\x0e\n\x06stream\x18\x01 \x01(\t\x12\x30\n\x06\x63olumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnData\"4\n SubscribeStreamStatisticsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\x89\x01\n\tTableData\x12;\n\x06record\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.table.TableData.TableRecord\x1a?\n\x0bTableRecord\x12\x30\n\x06\x63olumn\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnData\"\\\n\nColumnInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x32\n\tenumValue\x18\x03 \x03(\x0b\x32\x1f.yamcs.protobuf.table.EnumValue\")\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x05\x12\r\n\x05label\x18\x02 \x01(\t\"\xc6\x02\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x33\n\tkeyColumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x35\n\x0bvalueColumn\x18\x03 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x0e\n\x06script\x18\x04 \x01(\t\x12\x17\n\x0fhistogramColumn\x18\x05 \x03(\t\x12\x15\n\rstorageEngine\x18\x06 \x01(\t\x12\x15\n\rformatVersion\x18\x07 \x01(\x05\x12\x12\n\ntablespace\x18\x08 \x01(\t\x12\x12\n\ncompressed\x18\t \x01(\x08\x12@\n\x10partitioningInfo\x18\n \x01(\x0b\x32&.yamcs.protobuf.table.PartitioningInfo\"\xf5\x01\n\x10PartitioningInfo\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32\x37.yamcs.protobuf.table.PartitioningInfo.PartitioningType\x12\x12\n\ntimeColumn\x18\x02 \x01(\t\x12\x1b\n\x13timePartitionSchema\x18\x03 \x01(\t\x12\x13\n\x0bvalueColumn\x18\x04 \x01(\t\x12\x17\n\x0fvalueColumnType\x18\x05 \x01(\t\";\n\x10PartitioningType\x12\x08\n\x04TIME\x10\x01\x12\t\n\x05VALUE\x10\x02\x12\x12\n\x0eTIME_AND_VALUE\x10\x03\"o\n\nStreamInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x30\n\x06\x63olumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x0e\n\x06script\x18\x03 \x01(\t\x12\x11\n\tdataCount\x18\x04 \x01(\x03\x32\x89\x0c\n\x08TableApi\x12\x83\x01\n\nExecuteSql\x12\'.yamcs.protobuf.table.ExecuteSqlRequest\x1a\x1f.yamcs.protobuf.table.ResultSet\"+\x8a\x92\x03\'\x1a\"/api/archive/{instance}:executeSql:\x01*\x12\x97\x01\n\x13\x45xecuteStreamingSql\x12\'.yamcs.protobuf.table.ExecuteSqlRequest\x1a\x1f.yamcs.protobuf.table.ResultSet\"4\x8a\x92\x03\x30\x1a+/api/archive/{instance}:executeStreamingSql:\x01*0\x01\x12\x89\x01\n\x0bListStreams\x12(.yamcs.protobuf.table.ListStreamsRequest\x1a).yamcs.protobuf.table.ListStreamsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/streams\x12\x96\x01\n\x19SubscribeStreamStatistics\x12\x36.yamcs.protobuf.table.SubscribeStreamStatisticsRequest\x1a+.yamcs.protobuf.yamcsManagement.StreamEvent\"\x12\xda\x92\x03\x0e\n\x0cstream-stats0\x01\x12\x83\x01\n\tGetStream\x12&.yamcs.protobuf.table.GetStreamRequest\x1a .yamcs.protobuf.table.StreamInfo\",\x8a\x92\x03(\n&/api/archive/{instance}/streams/{name}\x12q\n\x0fSubscribeStream\x12,.yamcs.protobuf.table.SubscribeStreamRequest\x1a .yamcs.protobuf.table.StreamData\"\x0c\xda\x92\x03\x08\n\x06stream0\x01\x12\x85\x01\n\nListTables\x12\'.yamcs.protobuf.table.ListTablesRequest\x1a(.yamcs.protobuf.table.ListTablesResponse\"$\x8a\x92\x03 \n\x1e/api/archive/{instance}/tables\x12\x7f\n\x08GetTable\x12%.yamcs.protobuf.table.GetTableRequest\x1a\x1f.yamcs.protobuf.table.TableInfo\"+\x8a\x92\x03\'\n%/api/archive/{instance}/tables/{name}\x12\x8c\x01\n\x0cGetTableData\x12).yamcs.protobuf.table.GetTableDataRequest\x1a\x1f.yamcs.protobuf.table.TableData\"0\x8a\x92\x03,\n*/api/archive/{instance}/tables/{name}/data\x12\x88\x01\n\x08ReadRows\x12%.yamcs.protobuf.table.ReadRowsRequest\x1a\x19.yamcs.protobuf.table.Row\"8\x8a\x92\x03\x34\x1a//api/archive/{instance}/tables/{table}:readRows:\x01*0\x01\x12\x9b\x01\n\tWriteRows\x12&.yamcs.protobuf.table.WriteRowsRequest\x1a\'.yamcs.protobuf.table.WriteRowsResponse\";\x8a\x92\x03\x37\x1a\x30/api/archive/{instance}/tables/{table}:writeRows:\x03row(\x01\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n yamcs/protobuf/table/table.proto\x12\x14yamcs.protobuf.table\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xdd\x01\n\x03Row\x12\x35\n\x07\x63olumns\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.table.Row.ColumnInfo\x12-\n\x05\x63\x65lls\x18\x02 \x03(\x0b\x32\x1e.yamcs.protobuf.table.Row.Cell\x1aH\n\nColumnInfo\x12\n\n\x02id\x18\x01 \x01(\r\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x12\n\nprotoClass\x18\x04 \x01(\t\x1a&\n\x04\x43\x65ll\x12\x10\n\x08\x63olumnId\x18\x01 \x01(\r\x12\x0c\n\x04\x64\x61ta\x18\x02 \x01(\x0c\"@\n\x0fReadRowsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12\x0c\n\x04\x63ols\x18\x03 \x03(\t\"[\n\x10WriteRowsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12&\n\x03row\x18\x03 \x01(\x0b\x32\x19.yamcs.protobuf.table.Row\"\"\n\x11WriteRowsResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\r\")\n\x18WriteRowsExceptionDetail\x12\r\n\x05\x63ount\x18\x01 \x01(\r\"2\n\tListValue\x12%\n\x06values\x18\x01 \x03(\x0b\x32\x15.yamcs.protobuf.Value\"8\n\x11\x45xecuteSqlRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tstatement\x18\x02 \x01(\t\"m\n\tResultSet\x12\x31\n\x07\x63olumns\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12-\n\x04rows\x18\x02 \x03(\x0b\x32\x1f.yamcs.protobuf.table.ListValue\"%\n\x11ListTablesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"E\n\x12ListTablesResponse\x12/\n\x06tables\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.table.TableInfo\"1\n\x0fGetTableRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"n\n\x13GetTableDataRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x63ols\x18\x03 \x03(\t\x12\x0b\n\x03pos\x18\x04 \x01(\x03\x12\r\n\x05limit\x18\x05 \x01(\x05\x12\r\n\x05order\x18\x06 \x01(\t\"&\n\x12ListStreamsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"H\n\x13ListStreamsResponse\x12\x31\n\x07streams\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.StreamInfo\"2\n\x10GetStreamRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\":\n\x16SubscribeStreamRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\"@\n\nColumnData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"N\n\nStreamData\x12\x0e\n\x06stream\x18\x01 \x01(\t\x12\x30\n\x06\x63olumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnData\"4\n SubscribeStreamStatisticsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\x89\x01\n\tTableData\x12;\n\x06record\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.table.TableData.TableRecord\x1a?\n\x0bTableRecord\x12\x30\n\x06\x63olumn\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnData\"\\\n\nColumnInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x32\n\tenumValue\x18\x03 \x03(\x0b\x32\x1f.yamcs.protobuf.table.EnumValue\")\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x05\x12\r\n\x05label\x18\x02 \x01(\t\"\xc6\x02\n\tTableInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x33\n\tkeyColumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x35\n\x0bvalueColumn\x18\x03 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x0e\n\x06script\x18\x04 \x01(\t\x12\x17\n\x0fhistogramColumn\x18\x05 \x03(\t\x12\x15\n\rstorageEngine\x18\x06 \x01(\t\x12\x15\n\rformatVersion\x18\x07 \x01(\x05\x12\x12\n\ntablespace\x18\x08 \x01(\t\x12\x12\n\ncompressed\x18\t \x01(\x08\x12@\n\x10partitioningInfo\x18\n \x01(\x0b\x32&.yamcs.protobuf.table.PartitioningInfo\"\xf5\x01\n\x10PartitioningInfo\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32\x37.yamcs.protobuf.table.PartitioningInfo.PartitioningType\x12\x12\n\ntimeColumn\x18\x02 \x01(\t\x12\x1b\n\x13timePartitionSchema\x18\x03 \x01(\t\x12\x13\n\x0bvalueColumn\x18\x04 \x01(\t\x12\x17\n\x0fvalueColumnType\x18\x05 \x01(\t\";\n\x10PartitioningType\x12\x08\n\x04TIME\x10\x01\x12\t\n\x05VALUE\x10\x02\x12\x12\n\x0eTIME_AND_VALUE\x10\x03\"o\n\nStreamInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x30\n\x06\x63olumn\x18\x02 \x03(\x0b\x32 .yamcs.protobuf.table.ColumnInfo\x12\x0e\n\x06script\x18\x03 \x01(\t\x12\x11\n\tdataCount\x18\x04 \x01(\x03\"\x8f\x01\n\x17RebuildHistogramRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05table\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x1a\n\x18RebuildHistogramResponse2\xbf\r\n\x08TableApi\x12\x83\x01\n\nExecuteSql\x12\'.yamcs.protobuf.table.ExecuteSqlRequest\x1a\x1f.yamcs.protobuf.table.ResultSet\"+\x8a\x92\x03\'\x1a\"/api/archive/{instance}:executeSql:\x01*\x12\x97\x01\n\x13\x45xecuteStreamingSql\x12\'.yamcs.protobuf.table.ExecuteSqlRequest\x1a\x1f.yamcs.protobuf.table.ResultSet\"4\x8a\x92\x03\x30\x1a+/api/archive/{instance}:executeStreamingSql:\x01*0\x01\x12\x89\x01\n\x0bListStreams\x12(.yamcs.protobuf.table.ListStreamsRequest\x1a).yamcs.protobuf.table.ListStreamsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/streams\x12\x96\x01\n\x19SubscribeStreamStatistics\x12\x36.yamcs.protobuf.table.SubscribeStreamStatisticsRequest\x1a+.yamcs.protobuf.yamcsManagement.StreamEvent\"\x12\xda\x92\x03\x0e\n\x0cstream-stats0\x01\x12\x83\x01\n\tGetStream\x12&.yamcs.protobuf.table.GetStreamRequest\x1a .yamcs.protobuf.table.StreamInfo\",\x8a\x92\x03(\n&/api/archive/{instance}/streams/{name}\x12q\n\x0fSubscribeStream\x12,.yamcs.protobuf.table.SubscribeStreamRequest\x1a .yamcs.protobuf.table.StreamData\"\x0c\xda\x92\x03\x08\n\x06stream0\x01\x12\x85\x01\n\nListTables\x12\'.yamcs.protobuf.table.ListTablesRequest\x1a(.yamcs.protobuf.table.ListTablesResponse\"$\x8a\x92\x03 \n\x1e/api/archive/{instance}/tables\x12\x7f\n\x08GetTable\x12%.yamcs.protobuf.table.GetTableRequest\x1a\x1f.yamcs.protobuf.table.TableInfo\"+\x8a\x92\x03\'\n%/api/archive/{instance}/tables/{name}\x12\x8c\x01\n\x0cGetTableData\x12).yamcs.protobuf.table.GetTableDataRequest\x1a\x1f.yamcs.protobuf.table.TableData\"0\x8a\x92\x03,\n*/api/archive/{instance}/tables/{name}/data\x12\x88\x01\n\x08ReadRows\x12%.yamcs.protobuf.table.ReadRowsRequest\x1a\x19.yamcs.protobuf.table.Row\"8\x8a\x92\x03\x34\x1a//api/archive/{instance}/tables/{table}:readRows:\x01*0\x01\x12\x9b\x01\n\tWriteRows\x12&.yamcs.protobuf.table.WriteRowsRequest\x1a\'.yamcs.protobuf.table.WriteRowsResponse\";\x8a\x92\x03\x37\x1a\x30/api/archive/{instance}/tables/{table}:writeRows:\x03row(\x01\x12\xb3\x01\n\x10RebuildHistogram\x12-.yamcs.protobuf.table.RebuildHistogramRequest\x1a..yamcs.protobuf.table.RebuildHistogramResponse\"@\x8a\x92\x03<\x1a\x37/api/archive/{instance}/tables/{table}:rebuildHistogram:\x01*B\x14\n\x12org.yamcs.protobuf')
   ,
-  dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,])
+  dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
 
 
@@ -49,8 +50,8 @@ _PARTITIONINGINFO_PARTITIONINGTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2344,
-  serialized_end=2403,
+  serialized_start=2377,
+  serialized_end=2436,
 )
 _sym_db.RegisterEnumDescriptor(_PARTITIONINGINFO_PARTITIONINGTYPE)
 
@@ -102,8 +103,8 @@ _ROW_COLUMNINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=279,
-  serialized_end=351,
+  serialized_start=312,
+  serialized_end=384,
 )
 
 _ROW_CELL = _descriptor.Descriptor(
@@ -139,8 +140,8 @@ _ROW_CELL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=353,
-  serialized_end=391,
+  serialized_start=386,
+  serialized_end=424,
 )
 
 _ROW = _descriptor.Descriptor(
@@ -176,8 +177,8 @@ _ROW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=170,
-  serialized_end=391,
+  serialized_start=203,
+  serialized_end=424,
 )
 
 
@@ -221,8 +222,8 @@ _READROWSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=393,
-  serialized_end=457,
+  serialized_start=426,
+  serialized_end=490,
 )
 
 
@@ -266,8 +267,8 @@ _WRITEROWSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=459,
-  serialized_end=550,
+  serialized_start=492,
+  serialized_end=583,
 )
 
 
@@ -297,8 +298,8 @@ _WRITEROWSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=552,
-  serialized_end=586,
+  serialized_start=585,
+  serialized_end=619,
 )
 
 
@@ -328,8 +329,8 @@ _WRITEROWSEXCEPTIONDETAIL = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=588,
-  serialized_end=629,
+  serialized_start=621,
+  serialized_end=662,
 )
 
 
@@ -359,8 +360,8 @@ _LISTVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=631,
-  serialized_end=681,
+  serialized_start=664,
+  serialized_end=714,
 )
 
 
@@ -397,8 +398,8 @@ _EXECUTESQLREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=683,
-  serialized_end=739,
+  serialized_start=716,
+  serialized_end=772,
 )
 
 
@@ -435,8 +436,8 @@ _RESULTSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=741,
-  serialized_end=850,
+  serialized_start=774,
+  serialized_end=883,
 )
 
 
@@ -466,8 +467,8 @@ _LISTTABLESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=852,
-  serialized_end=889,
+  serialized_start=885,
+  serialized_end=922,
 )
 
 
@@ -497,8 +498,8 @@ _LISTTABLESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=891,
-  serialized_end=960,
+  serialized_start=924,
+  serialized_end=993,
 )
 
 
@@ -535,8 +536,8 @@ _GETTABLEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=962,
-  serialized_end=1011,
+  serialized_start=995,
+  serialized_end=1044,
 )
 
 
@@ -601,8 +602,8 @@ _GETTABLEDATAREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1013,
-  serialized_end=1123,
+  serialized_start=1046,
+  serialized_end=1156,
 )
 
 
@@ -632,8 +633,8 @@ _LISTSTREAMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1125,
-  serialized_end=1163,
+  serialized_start=1158,
+  serialized_end=1196,
 )
 
 
@@ -663,8 +664,8 @@ _LISTSTREAMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1165,
-  serialized_end=1237,
+  serialized_start=1198,
+  serialized_end=1270,
 )
 
 
@@ -701,8 +702,8 @@ _GETSTREAMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1239,
-  serialized_end=1289,
+  serialized_start=1272,
+  serialized_end=1322,
 )
 
 
@@ -739,8 +740,8 @@ _SUBSCRIBESTREAMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1291,
-  serialized_end=1349,
+  serialized_start=1324,
+  serialized_end=1382,
 )
 
 
@@ -777,8 +778,8 @@ _COLUMNDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1351,
-  serialized_end=1415,
+  serialized_start=1384,
+  serialized_end=1448,
 )
 
 
@@ -815,8 +816,8 @@ _STREAMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1417,
-  serialized_end=1495,
+  serialized_start=1450,
+  serialized_end=1528,
 )
 
 
@@ -846,8 +847,8 @@ _SUBSCRIBESTREAMSTATISTICSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1497,
-  serialized_end=1549,
+  serialized_start=1530,
+  serialized_end=1582,
 )
 
 
@@ -877,8 +878,8 @@ _TABLEDATA_TABLERECORD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1626,
-  serialized_end=1689,
+  serialized_start=1659,
+  serialized_end=1722,
 )
 
 _TABLEDATA = _descriptor.Descriptor(
@@ -907,8 +908,8 @@ _TABLEDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1552,
-  serialized_end=1689,
+  serialized_start=1585,
+  serialized_end=1722,
 )
 
 
@@ -952,8 +953,8 @@ _COLUMNINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1691,
-  serialized_end=1783,
+  serialized_start=1724,
+  serialized_end=1816,
 )
 
 
@@ -990,8 +991,8 @@ _ENUMVALUE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1785,
-  serialized_end=1826,
+  serialized_start=1818,
+  serialized_end=1859,
 )
 
 
@@ -1084,8 +1085,8 @@ _TABLEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1829,
-  serialized_end=2155,
+  serialized_start=1862,
+  serialized_end=2188,
 )
 
 
@@ -1144,8 +1145,8 @@ _PARTITIONINGINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2158,
-  serialized_end=2403,
+  serialized_start=2191,
+  serialized_end=2436,
 )
 
 
@@ -1196,8 +1197,84 @@ _STREAMINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2405,
-  serialized_end=2516,
+  serialized_start=2438,
+  serialized_end=2549,
+)
+
+
+_REBUILDHISTOGRAMREQUEST = _descriptor.Descriptor(
+  name='RebuildHistogramRequest',
+  full_name='yamcs.protobuf.table.RebuildHistogramRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.table.RebuildHistogramRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='table', full_name='yamcs.protobuf.table.RebuildHistogramRequest.table', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.table.RebuildHistogramRequest.start', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.table.RebuildHistogramRequest.stop', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2552,
+  serialized_end=2695,
+)
+
+
+_REBUILDHISTOGRAMRESPONSE = _descriptor.Descriptor(
+  name='RebuildHistogramResponse',
+  full_name='yamcs.protobuf.table.RebuildHistogramResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2697,
+  serialized_end=2723,
 )
 
 _ROW_COLUMNINFO.containing_type = _ROW
@@ -1222,6 +1299,8 @@ _TABLEINFO.fields_by_name['partitioningInfo'].message_type = _PARTITIONINGINFO
 _PARTITIONINGINFO.fields_by_name['type'].enum_type = _PARTITIONINGINFO_PARTITIONINGTYPE
 _PARTITIONINGINFO_PARTITIONINGTYPE.containing_type = _PARTITIONINGINFO
 _STREAMINFO.fields_by_name['column'].message_type = _COLUMNINFO
+_REBUILDHISTOGRAMREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_REBUILDHISTOGRAMREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['Row'] = _ROW
 DESCRIPTOR.message_types_by_name['ReadRowsRequest'] = _READROWSREQUEST
 DESCRIPTOR.message_types_by_name['WriteRowsRequest'] = _WRITEROWSREQUEST
@@ -1247,6 +1326,8 @@ DESCRIPTOR.message_types_by_name['EnumValue'] = _ENUMVALUE
 DESCRIPTOR.message_types_by_name['TableInfo'] = _TABLEINFO
 DESCRIPTOR.message_types_by_name['PartitioningInfo'] = _PARTITIONINGINFO
 DESCRIPTOR.message_types_by_name['StreamInfo'] = _STREAMINFO
+DESCRIPTOR.message_types_by_name['RebuildHistogramRequest'] = _REBUILDHISTOGRAMREQUEST
+DESCRIPTOR.message_types_by_name['RebuildHistogramResponse'] = _REBUILDHISTOGRAMRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Row = _reflection.GeneratedProtocolMessageType('Row', (_message.Message,), dict(
@@ -1448,6 +1529,20 @@ StreamInfo = _reflection.GeneratedProtocolMessageType('StreamInfo', (_message.Me
   ))
 _sym_db.RegisterMessage(StreamInfo)
 
+RebuildHistogramRequest = _reflection.GeneratedProtocolMessageType('RebuildHistogramRequest', (_message.Message,), dict(
+  DESCRIPTOR = _REBUILDHISTOGRAMREQUEST,
+  __module__ = 'yamcs.protobuf.table.table_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.RebuildHistogramRequest)
+  ))
+_sym_db.RegisterMessage(RebuildHistogramRequest)
+
+RebuildHistogramResponse = _reflection.GeneratedProtocolMessageType('RebuildHistogramResponse', (_message.Message,), dict(
+  DESCRIPTOR = _REBUILDHISTOGRAMRESPONSE,
+  __module__ = 'yamcs.protobuf.table.table_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.table.RebuildHistogramResponse)
+  ))
+_sym_db.RegisterMessage(RebuildHistogramResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -1457,8 +1552,8 @@ _TABLEAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2519,
-  serialized_end=4064,
+  serialized_start=2726,
+  serialized_end=4453,
   methods=[
   _descriptor.MethodDescriptor(
     name='ExecuteSql',
@@ -1558,6 +1653,15 @@ _TABLEAPI = _descriptor.ServiceDescriptor(
     input_type=_WRITEROWSREQUEST,
     output_type=_WRITEROWSRESPONSE,
     serialized_options=_b('\212\222\0037\0320/api/archive/{instance}/tables/{table}:writeRows:\003row'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='RebuildHistogram',
+    full_name='yamcs.protobuf.table.TableApi.RebuildHistogram',
+    index=11,
+    containing_service=None,
+    input_type=_REBUILDHISTOGRAMREQUEST,
+    output_type=_REBUILDHISTOGRAMRESPONSE,
+    serialized_options=_b('\212\222\003<\0327/api/archive/{instance}/tables/{table}:rebuildHistogram:\001*'),
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_TABLEAPI)
