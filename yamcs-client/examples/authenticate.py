@@ -13,7 +13,7 @@ def authenticate_with_username_password():
     credentials = Credentials(username='admin', password='password')
     client = YamcsClient('localhost:8090', credentials=credentials)
 
-    for link in client.list_data_links('simulator'):
+    for link in client.list_links('simulator'):
         print(link)
 
 
@@ -22,7 +22,7 @@ def authenticate_with_access_token(access_token):
     credentials = Credentials(access_token=access_token)
     client = YamcsClient('localhost:8090', credentials=credentials)
 
-    for link in client.list_data_links('simulator'):
+    for link in client.list_links('simulator'):
         print(link)
 
 

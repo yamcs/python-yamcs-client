@@ -1,4 +1,5 @@
 import functools
+import warnings
 
 import requests
 from google.protobuf import timestamp_pb2
@@ -109,6 +110,17 @@ class LinkSubscription(WebSocketSubscriptionFuture):
 
     def get_data_link(self, name):
         """
+        Deprecated. Use ``get_link(name)``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: get_link(name) instead of get_data_link(name)",
+            FutureWarning,
+        )
+        return self.get_link(name)
+
+    def get_link(self, name):
+        """
         Returns the latest link state.
 
         :param str name: Identifying name of the data link
@@ -119,6 +131,17 @@ class LinkSubscription(WebSocketSubscriptionFuture):
         return None
 
     def list_data_links(self):
+        """
+        Deprecated. Use ``list_links()``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: list_links() instead of list_data_links()",
+            FutureWarning,
+        )
+        return self.list_links()
+
+    def list_links(self):
         """
         Returns a snapshot of all instance links.
 
@@ -391,6 +414,17 @@ class YamcsClient:
         self.ctx.post_proto(url)
 
     def list_data_links(self, instance):
+        """
+        Deprecated. Use ``list_links(instance)``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: list_links(instance) instead of list_data_links(instance)",
+            FutureWarning,
+        )
+        return self.list_links(instance)
+
+    def list_links(self, instance):
         """
         Lists the data links visible to this client.
 
