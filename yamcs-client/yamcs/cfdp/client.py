@@ -94,7 +94,7 @@ class CFDPClient:
         """
         List the services.
 
-        :rtype: ~collections.Iterable[.Service]
+        :rtype: ~collections.Iterable[~yamcs.cfdp.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -113,7 +113,7 @@ class CFDPClient:
         Get a specific CFDP service.
 
         :param str name: The CFDP service name.
-        :rtype: .CFDPService
+        :rtype: ~yamcs.cfdp.model.Service
         """
         # TODO should have an actual server-side operation for this
         for service in self.list_services():

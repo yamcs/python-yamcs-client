@@ -299,7 +299,7 @@ class YamcsClient:
         List the services for an instance.
 
         :param str instance: A Yamcs instance name.
-        :rtype: ~collections.Iterable[.Service]
+        :rtype: ~collections.Iterable[~yamcs.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
