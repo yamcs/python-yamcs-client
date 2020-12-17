@@ -26,3 +26,14 @@ if __name__ == "__main__":
         print("Upload failure:", upload.error)
     else:
         print(f"Successfully uploaded {upload.remote_path} ({upload.size} bytes)")
+
+    # Transfer myfile, but use an alternative destination entity
+    upload = service.upload(
+        out_bucket.name, "myfile", "/CF:/mytarget", destination_entity="target2",
+    )
+    upload.await_complete(timeout=10)
+
+    if not upload.is_success():
+        print("Upload failure:", upload.error)
+    else:
+        print(f"Successfully uploaded {upload.remote_path} ({upload.size} bytes)")

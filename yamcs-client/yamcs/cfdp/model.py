@@ -19,6 +19,8 @@ class Service:
         bucket_name,
         object_name,
         remote_path,
+        source_entity=None,
+        destination_entity=None,
         overwrite=True,
         parents=True,
         reliable=False,
@@ -29,6 +31,10 @@ class Service:
         :param str bucket_name: Name of the bucket containing the source object.
         :param str object_name: Name of the source object.
         :param str remote_path: Remote destination.
+        :param str source_entity: Use a specific source entity.
+                                  (useful in case of multiples)
+        :param str destination_entity: Use a specific destination entity.
+                                       (useful in case of multiples)
         :param bool overwrite: Replace a destination if it already exists.
         :param bool parents: Create the remote path if it does not yet exist.
         :param bool reliable: Whether to use a Class 2 CFDP transfer.
@@ -38,6 +44,8 @@ class Service:
             bucket_name=bucket_name,
             object_name=object_name,
             remote_path=remote_path,
+            source_entity=source_entity,
+            destination_entity=destination_entity,
             overwrite=overwrite,
             parents=parents,
             reliable=reliable,

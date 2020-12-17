@@ -218,13 +218,25 @@ class ServiceClient:
         self._service = proto.name
 
     def upload(
-        self, bucket_name, object_name, remote_path, overwrite, parents, reliable,
+        self,
+        bucket_name,
+        object_name,
+        remote_path,
+        source_entity,
+        destination_entity,
+        overwrite,
+        parents,
+        reliable,
     ):
         req = cfdp_pb2.CreateTransferRequest()
         req.direction = cfdp_pb2.TransferDirection.UPLOAD
         req.bucket = bucket_name
         req.objectName = object_name
         req.remotePath = remote_path
+        if source_entity:
+            req.source = source_entity
+        if destination_entity:
+            req.destination = destination_entity
         req.uploadOptions.overwrite = overwrite
         req.uploadOptions.createPath = parents
         req.uploadOptions.reliable = reliable
