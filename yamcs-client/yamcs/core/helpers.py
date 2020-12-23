@@ -101,6 +101,8 @@ def parse_value(proto):
     elif proto.type == yamcs_pb2.Value.AGGREGATE:
         tuples = zip(proto.aggregateValue.name, proto.aggregateValue.value)
         return OrderedDict(map(lambda x: (x[0], parse_value(x[1])), tuples))
+    elif proto.type == yamcs_pb2.Value.NONE:
+        return None
     else:
         logging.warning("Unrecognized value type for update %s", proto)
         return None
