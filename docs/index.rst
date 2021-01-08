@@ -41,6 +41,7 @@ Documentation
 * :doc:`link/index`
 * :doc:`storage/index`
 * :doc:`cfdp/index`
+* :doc:`tco/index`
 
 Examples
 ~~~~~~~~

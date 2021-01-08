@@ -33,6 +33,7 @@ from yamcs.protobuf.time import time_service_pb2
 from yamcs.protobuf.web import auth_pb2, server_service_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.storage.client import StorageClient
+from yamcs.tco.client import TCOClient
 from yamcs.tmtc.client import ProcessorClient
 
 
@@ -254,6 +255,16 @@ class YamcsClient:
         :rtype: .CFDPClient
         """
         return CFDPClient(self.ctx, instance)
+
+    def get_tco_client(self, instance, service):
+        """
+        Return an object for Time Correlation API calls on a specified service.
+
+        :param str instance: A Yamcs instance name.
+        :param str service: Target service name.
+        :rtype: .TCOClient
+        """
+        return TCOClient(self.ctx, instance, service)
 
     def get_storage_client(self, instance="_global"):
         """
