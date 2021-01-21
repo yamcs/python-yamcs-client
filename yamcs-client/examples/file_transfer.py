@@ -5,7 +5,7 @@ from yamcs.client import YamcsClient
 if __name__ == "__main__":
     client = YamcsClient("localhost:8090")
     storage = client.get_storage_client()
-    cfdp = client.get_cfdp_client(instance="cfdp")
+    cfdp = client.get_file_transfer_client(instance="cfdp")
 
     # Use pre-existing buckets, one for each direction
     out_bucket = storage.get_bucket("cfdpUp")

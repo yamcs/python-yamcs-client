@@ -1,7 +1,7 @@
 import threading
 
 from yamcs.core.helpers import parse_server_time
-from yamcs.protobuf.cfdp import cfdp_pb2
+from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 
 class Service:
@@ -92,7 +92,7 @@ class Service:
 
 class Transfer:
     """
-    Represents a CFDP transfer.
+    Represents a file transfer.
     """
 
     def __init__(self, proto, service_client):
@@ -132,7 +132,7 @@ class Transfer:
     def state(self):
         """Current transfer state."""
         if self._proto.HasField("state"):
-            return cfdp_pb2.TransferState.Name(self._proto.state)
+            return filetransfer_pb2.TransferState.Name(self._proto.state)
         return None
 
     @property

@@ -1,10 +1,10 @@
 import functools
 import warnings
 
-from yamcs.cfdp.model import Service, Transfer
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.protobuf.cfdp import cfdp_pb2
+from yamcs.filetransfer.model import Service, Transfer
+from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 
 def _wrap_callback_parse_transfer_data(subscription, on_data, message):
@@ -12,7 +12,7 @@ def _wrap_callback_parse_transfer_data(subscription, on_data, message):
     Wraps an (optional) user callback to parse TransferInfo
     from a WebSocket data message
     """
-    pb = cfdp_pb2.TransferInfo()
+    pb = filetransfer_pb2.TransferInfo()
     message.Unpack(pb)
     transfer = subscription._process(pb)
     if on_data:
@@ -79,13 +79,13 @@ class TransferSubscription(WebSocketSubscriptionFuture):
         return transfer
 
 
-class CFDPClient:
+class FileTransferClient:
     """
-    Client for working with CFDP transfers managed by Yamcs.
+    Client for working with file transfers (e.g. CFDP) managed by Yamcs.
     """
 
     def __init__(self, ctx, instance):
-        super(CFDPClient, self).__init__()
+        super(FileTransferClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
         self._default_service = None
@@ -94,12 +94,12 @@ class CFDPClient:
         """
         List the services.
 
-        :rtype: ~collections.Iterable[~yamcs.cfdp.model.Service]
+        :rtype: ~collections.Iterable[~yamcs.filetransfer.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.ctx.get_proto(path=f"/cfdp/{self._instance}/services")
-        message = cfdp_pb2.ListCFDPServicesResponse()
+        response = self.ctx.get_proto(path=f"/filetransfer/{self._instance}/services")
+        message = filetransfer_pb2.ListFileTransferServicesResponse()
         message.ParseFromString(response.content)
         services = getattr(message, "services")
         result = []
@@ -110,10 +110,10 @@ class CFDPClient:
 
     def get_service(self, name):
         """
-        Get a specific CFDP service.
+        Get a specific File Transfer service.
 
-        :param str name: The CFDP service name.
-        :rtype: ~yamcs.cfdp.model.Service
+        :param str name: The service name.
+        :rtype: ~yamcs.filetransfer.model.Service
         """
         # TODO should have an actual server-side operation for this
         for service in self.list_services():
@@ -228,8 +228,8 @@ class ServiceClient:
         parents,
         reliable,
     ):
-        req = cfdp_pb2.CreateTransferRequest()
-        req.direction = cfdp_pb2.TransferDirection.UPLOAD
+        req = filetransfer_pb2.CreateTransferRequest()
+        req.direction = filetransfer_pb2.TransferDirection.UPLOAD
         req.bucket = bucket_name
         req.objectName = object_name
         req.remotePath = remote_path
@@ -240,31 +240,31 @@ class ServiceClient:
         req.uploadOptions.overwrite = overwrite
         req.uploadOptions.createPath = parents
         req.uploadOptions.reliable = reliable
-        url = f"/cfdp/{self._instance}/{self._service}/transfers"
+        url = f"/filetransfer/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
-        message = cfdp_pb2.TransferInfo()
+        message = filetransfer_pb2.TransferInfo()
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
     def pause_transfer(self, id):
-        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:pause"
+        url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
         self.ctx.post_proto(url)
 
     def resume_transfer(self, id):
-        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:resume"
+        url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:resume"
         self.ctx.post_proto(url)
 
     def cancel_transfer(self, id):
-        url = f"/cfdp/{self._instance}/{self._service}/transfers/{id}:cancel"
+        url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:cancel"
         self.ctx.post_proto(url)
 
     def create_transfer_subscription(self, on_data=None, timeout=60):
-        options = cfdp_pb2.SubscribeTransfersRequest()
+        options = filetransfer_pb2.SubscribeTransfersRequest()
         options.instance = self._instance
         options.serviceName = self._service
 
         manager = WebSocketSubscriptionManager(
-            self.ctx, topic="cfdp-transfers", options=options
+            self.ctx, topic="file-transfers", options=options
         )
 
         # Represent subscription as a future

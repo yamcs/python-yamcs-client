@@ -5,12 +5,12 @@ import requests
 from google.protobuf import timestamp_pb2
 
 from yamcs.archive.client import ArchiveClient
-from yamcs.cfdp.client import CFDPClient
 from yamcs.core.context import Context
 from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_server_time, to_server_time
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.filetransfer.client import FileTransferClient
 from yamcs.link.client import LinkClient
 from yamcs.mdb.client import MDBClient
 from yamcs.model import (
@@ -247,14 +247,24 @@ class YamcsClient:
         """
         return ArchiveClient(self.ctx, instance)
 
-    def get_cfdp_client(self, instance):
+    def get_file_transfer_client(self, instance):
         """
-        Return an object for working with CFDP transfers on a specified instance.
+        Return an object for working with file transfers on a specified instance.
 
         :param str instance: A Yamcs instance name.
-        :rtype: .CFDPClient
+        :rtype: .FileTransferClient
         """
-        return CFDPClient(self.ctx, instance)
+        return FileTransferClient(self.ctx, instance)
+
+    def get_cfdp_client(self, instance):
+        """
+        Deprecated. Use ``get_file_transfer_client()``.
+        """
+        warnings.warn(
+            "Use get_file_transfer_client() instead of get_cfdp_client()",
+            FutureWarning,
+        )
+        return FileTransferClient(self.ctx, instance)
 
     def get_tco_client(self, instance, service):
         """

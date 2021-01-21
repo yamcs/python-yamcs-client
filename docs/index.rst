@@ -40,7 +40,7 @@ Documentation
 * :doc:`archive/index`
 * :doc:`link/index`
 * :doc:`storage/index`
-* :doc:`cfdp/index`
+* :doc:`filetransfer/index`
 * :doc:`tco/index`
 
 Examples
@@ -60,5 +60,5 @@ Examples
     archive/index
     link/index
     storage/index
-    cfdp/index
+    filetransfer/index
     examples/index

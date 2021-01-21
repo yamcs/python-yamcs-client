@@ -1,6 +1,6 @@
 Model
 =====
 
-.. automodule:: yamcs.cfdp.model
+.. automodule:: yamcs.filetransfer.model
     :members:
     :undoc-members:

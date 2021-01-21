@@ -16,9 +16,9 @@ called ``/YSS/SIMULATOR``.
     archive_retrieval
     authenticate
     ccsds_completeness
-    cfdp
     commanding
     cop1
+    file_transfer
     links
     events
     mission_time
