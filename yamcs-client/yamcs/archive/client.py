@@ -13,11 +13,15 @@ from yamcs.archive.model import (
 )
 from yamcs.core import pagination
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import to_isostring
+from yamcs.core.helpers import to_isostring, to_server_time
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.archive import archive_pb2, index_service_pb2
+from yamcs.protobuf.archive import (
+    archive_pb2,
+    index_service_pb2,
+    parameter_archive_service_pb2,
+)
 from yamcs.protobuf.commanding import commands_service_pb2
 from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_service_pb2
@@ -664,6 +668,59 @@ class ArchiveClient:
         message = table_pb2.WriteRowsResponse()
         message.ParseFromString(response.content)
         return message.count
+
+    def rebuild_histogram(self, table, start=None, stop=None):
+        """
+        Rebuilds the histogram for a table. This may be necessary
+        for example after bulk loading data.
+
+        The rebuild may be constrained by using the
+        ``start`` and ``stop`` parameters. When
+        specified all partitions overlapping this range
+        are reconsidered.
+
+        .. note::
+            Histogram rebuilds run synchronously: this
+            method will await the outcome.
+
+        :param str table: The name of the table
+        :param start: Start time
+        :type start: Optional[~datetime.datetime]
+        :param stop: Stop time
+        :type stop: Optional[~datetime.datetime]
+        """
+        req = table_pb2.RebuildHistogramRequest()
+        if start:
+            req.start.MergeFrom(to_server_time(start))
+        if stop:
+            req.stop.MergeFrom(to_server_time(stop))
+        url = f"/archive/{self._instance}/tables/{table}:rebuildHistogram"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
+    def rebuild_parameter_archive(self, start, stop):
+        """
+        Rebuilds the Parameter Archive.
+
+        The rebuild must be constrained by using the
+        ``start`` and ``stop`` parameters. This values
+        are only hints to the Parameter Archive, which
+        will extend the requested range based on archive
+        segmentation.
+
+        .. note::
+            Rebuilds run as an asynchronous operation: this
+            method will not await the outcome.
+
+        :param start: Start time
+        :type start: ~datetime.datetime
+        :param stop: Stop time
+        :type stop: ~datetime.datetime
+        """
+        req = parameter_archive_service_pb2.RebuildRangeRequest()
+        req.start.MergeFrom(to_server_time(start))
+        req.stop.MergeFrom(to_server_time(stop))
+        url = f"/archive/{self._instance}/parameterArchive:rebuild"
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def list_streams(self):
         """
