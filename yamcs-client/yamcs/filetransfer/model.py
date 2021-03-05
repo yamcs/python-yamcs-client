@@ -51,6 +51,43 @@ class Service:
             reliable=reliable,
         )
 
+    def download(
+        self,
+        bucket_name,
+        object_name,
+        remote_path,
+        source_entity=None,
+        destination_entity=None,
+        overwrite=True,
+        parents=True,
+        reliable=False,
+    ):
+        """
+        Downloads a file from the destination to a bucket.
+
+        :param str bucket_name: Name of the bucket to receive the file.
+        :param str object_name: Name of the file received in the bucket.
+        :param str remote_path: Name of the file to be downloaded from the destination.
+        :param str source_entity: Use a specific source entity.
+                                  (useful in case of multiples)
+        :param str destination_entity: Use a specific destination entity.
+                                       (useful in case of multiples)
+        :param bool overwrite: Replace file if it already exists.
+        :param bool parents: Create the remote path if it does not yet exist.
+        :param bool reliable: Enable reliable transfers.
+        :rtype: .Transfer
+        """
+        return self._service_client.download(
+            bucket_name=bucket_name,
+            object_name=object_name,
+            remote_path=remote_path,
+            source_entity=source_entity,
+            destination_entity=destination_entity,
+            overwrite=overwrite,
+            parents=parents,
+            reliable=reliable,
+        )
+
     def pause_transfer(self, id):
         """
         Pauses a transfer

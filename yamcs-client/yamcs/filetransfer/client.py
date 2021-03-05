@@ -246,6 +246,35 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
+    def download(
+        self,
+        bucket_name,
+        object_name,
+        remote_path,
+        source_entity,
+        destination_entity,
+        overwrite,
+        parents,
+        reliable,
+    ):
+        req = filetransfer_pb2.CreateTransferRequest()
+        req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
+        req.bucket = bucket_name
+        req.objectName = object_name
+        req.remotePath = remote_path
+        if source_entity:
+            req.source = source_entity
+        if destination_entity:
+            req.destination = destination_entity
+        req.uploadOptions.overwrite = overwrite
+        req.uploadOptions.createPath = parents
+        req.uploadOptions.reliable = reliable
+        url = f"/filetransfer/{self._instance}/{self._service}/transfers"
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
+        message = filetransfer_pb2.TransferInfo()
+        message.ParseFromString(response.content)
+        return Transfer(message, self)
+
     def pause_transfer(self, id):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
         self.ctx.post_proto(url)
