@@ -125,6 +125,24 @@ def _build_value_proto(value):
     elif isinstance(value, str):
         proto.type = proto.STRING
         proto.stringValue = value
+    elif isinstance(value, bytes):
+        proto.type = proto.BINARY
+        proto.binaryValue = value
+    elif isinstance(value, bytearray):
+        proto.type = proto.BINARY
+        proto.binaryValue = bytes(value)
+    elif isinstance(value, datetime.datetime):
+        proto.type = proto.TIMESTAMP
+        proto.stringValue = to_isostring(value)
+    elif isinstance(value, collections.Mapping):
+        proto.type = proto.AGGREGATE
+        proto.aggregateValue.name.extend(value.keys())
+        proto.aggregateValue.value.extend(
+            [_build_value_proto(v) for v in value.values()]
+        )
+    elif isinstance(value, collections.Sequence):
+        proto.type = proto.ARRAY
+        proto.arrayValue.extend([_build_value_proto(v) for v in value])
     else:
         raise YamcsError("Unrecognized type")
     return proto
