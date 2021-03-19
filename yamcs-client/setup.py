@@ -39,7 +39,7 @@ setuptools.setup(
         "protobuf>=3.6",
         "requests",
         "setuptools",
-        "websocket-client<=0.48.0",
+        "websocket-client",
     ],
     include_package_data=True,
     zip_safe=False,
