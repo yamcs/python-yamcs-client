@@ -1,7 +1,7 @@
-import pkg_resources
 import requests
 import urllib3
 from google.protobuf.message import DecodeError
+from yamcs import clientversion
 from yamcs.api import exception_pb2
 from yamcs.core.exceptions import ConnectionFailure, NotFound, Unauthorized, YamcsError
 
@@ -44,8 +44,7 @@ class Context:
             )
 
         if not user_agent:
-            dist = pkg_resources.get_distribution("yamcs-client")
-            user_agent = "python-yamcs-client v" + dist.version
+            user_agent = "python-yamcs-client v" + clientversion.__version__
         self.session.headers.update({"User-Agent": user_agent})
 
     def get_proto(self, path, **kwargs):

@@ -9,9 +9,14 @@ packages = [
     package for package in setuptools.find_packages() if package.startswith("yamcs")
 ]
 
+version = {}
+with io.open("yamcs/clientversion.py", encoding="utf-8") as f:
+    exec(f.read(), version)
+version = version["__version__"]
+
 setuptools.setup(
     name="yamcs-client",
-    version="1.6.5",
+    version=version,
     description="Yamcs API client library",
     long_description=readme,
     long_description_content_type="text/markdown",
@@ -35,12 +40,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     platforms="Posix; MacOS X; Windows",
-    install_requires=[
-        "protobuf>=3.6",
-        "requests",
-        "setuptools",
-        "websocket-client",
-    ],
+    install_requires=["protobuf>=3.6", "requests", "setuptools", "websocket-client",],
     include_package_data=True,
     zip_safe=False,
 )
