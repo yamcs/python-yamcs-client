@@ -61,4 +61,5 @@ Examples
     link/index
     storage/index
     filetransfer/index
+    tco/index
     examples/index
