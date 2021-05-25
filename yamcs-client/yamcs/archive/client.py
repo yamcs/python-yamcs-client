@@ -3,7 +3,6 @@ from datetime import datetime, timedelta, timezone
 
 from yamcs.archive.model import (
     IndexGroup,
-    Packet,
     ParameterRange,
     ResultSet,
     Sample,
@@ -27,7 +26,7 @@ from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
-from yamcs.tmtc.model import CommandHistory, ParameterValue
+from yamcs.tmtc.model import CommandHistory, Packet, ParameterValue
 
 
 def _wrap_callback_parse_stream_data(subscription, on_data, message):

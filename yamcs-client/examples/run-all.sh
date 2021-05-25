@@ -19,6 +19,7 @@ python links.py
 python mission_time.py
 # python multiple_commands.py  # runs forever
 python object_storage.py
+python packet_subscription.py
 python parameter_subscription.py
 python query_mdb.py
 python read_write_parameters.py

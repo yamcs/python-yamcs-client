@@ -38,3 +38,8 @@ Client
     :members:
     :undoc-members:
     :show-inheritance:
+
+.. autoclass:: yamcs.tmtc.client.PacketSubscription
+    :members:
+    :undoc-members:
+    :show-inheritance:

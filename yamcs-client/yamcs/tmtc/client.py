@@ -13,6 +13,7 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
 from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
 from yamcs.protobuf.mdb import mdb_pb2
+from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.tmtc.model import (
@@ -21,6 +22,7 @@ from yamcs.tmtc.model import (
     CommandHistory,
     IssuedCommand,
     MonitoredCommand,
+    Packet,
     ParameterData,
     ParameterValue,
     _parse_alarm,
@@ -50,6 +52,18 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     parameter_data = subscription._process(pb)
     if on_data:
         on_data(parameter_data)
+
+
+def _wrap_callback_parse_packet_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse Packet
+    from a WebSocket data message
+    """
+    pb = yamcs_pb2.TmPacketData()
+    message.Unpack(pb)
+    packet_data = subscription._process(pb)
+    if on_data:
+        on_data(packet_data)
 
 
 def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
@@ -274,6 +288,39 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
             self._cache[entry.id] = cmdhist
 
         return cmdhist
+
+
+class PacketSubscription(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to packet updates.
+    """
+
+    def __init__(self, manager):
+        super(PacketSubscription, self).__init__(manager)
+        self._cache = {}
+        """Packet cache keyed by packet name."""
+
+    def get_packet(self, name):
+        """
+        Returns the latest packet of a specific name.
+
+        :param str name: Packet name
+        :rtype: .Packet
+        """
+        return self._cache[name]
+
+    def list_packets(self):
+        """
+        Returns the latest packets for each name.
+
+        :rtype: .Packet[]
+        """
+        return [self._cache[k] for k in self._cache]
+
+    def _process(self, proto):
+        packet = Packet(proto)
+        self._cache[packet.name] = packet
+        return packet
 
 
 class ParameterSubscription(WebSocketSubscriptionFuture):
@@ -1032,6 +1079,44 @@ class ProcessorClient:
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_cmdhist_data, subscription, on_data
+        )
+
+        manager.open(wrapped_callback)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def create_packet_subscription(
+        self, on_data=None, stream="tm_realtime", timeout=60
+    ):
+        """
+        Create a new packet subscription.
+
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.Packet` updates.
+        :param Optional[str] stream: Stream to subscribe to.
+        :param float timeout: The amount of seconds to wait for the request
+                              to complete.
+        :return: A Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .PacketSubscription
+        """
+        options = packets_service_pb2.SubscribePacketsRequest()
+        options.instance = self._instance
+        # TODO options.processor = self._processor
+        options.stream = stream
+
+        manager = WebSocketSubscriptionManager(
+            self.ctx, topic="packets", options=options
+        )
+
+        # Represent subscription as a future
+        subscription = PacketSubscription(manager)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_packet_data, subscription, on_data
         )
 
         manager.open(wrapped_callback)
