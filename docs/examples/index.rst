@@ -22,6 +22,7 @@ called ``/YSS/SIMULATOR``.
     links
     events
     mission_time
+    packet_subscription
     parameter_subscription
     plot_with_matplotlib
     query_mdb
