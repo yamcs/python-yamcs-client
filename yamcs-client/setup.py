@@ -40,7 +40,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     platforms="Posix; MacOS X; Windows",
-    install_requires=["protobuf>=3.6", "requests", "setuptools", "websocket-client",],
+    install_requires=["protobuf>=3.6", "requests", "setuptools", "websocket-client"],
     include_package_data=True,
     zip_safe=False,
 )
