@@ -20,6 +20,7 @@ from yamcs.tmtc.model import (
     AlarmUpdate,
     Calibrator,
     CommandHistory,
+    ContainerData,
     IssuedCommand,
     MonitoredCommand,
     Packet,
@@ -54,16 +55,27 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
         on_data(parameter_data)
 
 
-def _wrap_callback_parse_packet_data(subscription, on_data, message):
+def _wrap_callback_parse_packet_data(on_data, message):
     """
     Wraps an (optional) user callback to parse Packet
     from a WebSocket data message
     """
     pb = yamcs_pb2.TmPacketData()
     message.Unpack(pb)
-    packet_data = subscription._process(pb)
+    packet = Packet(pb)
+    on_data(packet)
+
+
+def _wrap_callback_parse_container_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse ContainerData
+    from a WebSocket data message
+    """
+    pb = packets_service_pb2.ContainerData()
+    message.Unpack(pb)
+    container_data = subscription._process(pb)
     if on_data:
-        on_data(packet_data)
+        on_data(container_data)
 
 
 def _wrap_callback_parse_cmdhist_data(subscription, on_data, message):
@@ -290,37 +302,37 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         return cmdhist
 
 
-class PacketSubscription(WebSocketSubscriptionFuture):
+class ContainerSubscription(WebSocketSubscriptionFuture):
     """
-    Local object providing access to packet updates.
+    Local object providing access to container updates
     """
 
     def __init__(self, manager):
-        super(PacketSubscription, self).__init__(manager)
+        super(ContainerSubscription, self).__init__(manager)
         self._cache = {}
-        """Packet cache keyed by packet name."""
+        """Container cache keyed by container name."""
 
-    def get_packet(self, name):
+    def get_container(self, name):
         """
-        Returns the latest packet of a specific name.
+        Returns the latest container of a specific name.
 
-        :param str name: Packet name
-        :rtype: .Packet
+        :param str name: Container name
+        :rtype: .ContainerData
         """
         return self._cache[name]
 
-    def list_packets(self):
+    def list_containers(self):
         """
-        Returns the latest packets for each name.
+        Returns the latest container for each name.
 
-        :rtype: .Packet[]
+        :rtype: .ContainerData[]
         """
         return [self._cache[k] for k in self._cache]
 
     def _process(self, proto):
-        packet = Packet(proto)
-        self._cache[packet.name] = packet
-        return packet
+        container = ContainerData(proto)
+        self._cache[container.name] = container
+        return container
 
 
 class ParameterSubscription(WebSocketSubscriptionFuture):
@@ -1088,35 +1100,86 @@ class ProcessorClient:
 
         return subscription
 
-    def create_packet_subscription(
-        self, on_data=None, stream="tm_realtime", timeout=60
-    ):
+    def create_packet_subscription(self, on_data, stream="tm_realtime", timeout=60):
         """
         Create a new packet subscription.
 
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.Packet` updates.
-        :param Optional[str] stream: Stream to subscribe to.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        .. versionadded:: 1.6.6
+
+        :param on_data: Function that gets called with :class:`.Packet`
+                        updates.
+        :type on_data: Optional[Callable[.Packet]]
+        :param stream: Stream to subscribe to.
+        :type stream: str
+        :param timeout: The amount of seconds to wait for the request
+                        to complete.
+        :type timeout: Optional[float]
         :return: A Future that can be used to manage the background websocket
                  subscription.
-        :rtype: .PacketSubscription
+        :rtype: .WebSocketSubscriptionFuture
         """
         options = packets_service_pb2.SubscribePacketsRequest()
         options.instance = self._instance
-        # TODO options.processor = self._processor
+
+        # TODO remove stream default to tm_realtime within a few releases.
+        # (processor option only added as of Yamcs 5.5.x)
+        # if stream:
         options.stream = stream
+        # else:
+        #    options.processor = self._processor
 
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="packets", options=options
         )
 
         # Represent subscription as a future
-        subscription = PacketSubscription(manager)
+        subscription = WebSocketSubscriptionFuture(manager)
+
+        wrapped_callback = functools.partial(_wrap_callback_parse_packet_data, on_data)
+
+        manager.open(wrapped_callback)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def create_container_subscription(self, containers, on_data=None, timeout=60):
+        """
+        Create a new container subscription.
+
+        .. versionadded:: 1.6.7
+           Compatible with Yamcs 5.5.0 onwards
+
+        :param containers: Container names.
+        :type containers: Union[str, str[]]
+        :param on_data: Function that gets called with :class:`.ContainerData`
+                        updates.
+        :type on_data: Optional[Callable[.ContainerData]]
+        :param timeout: The amount of seconds to wait for the request
+                        to complete.
+        :type timeout: Optional[float]
+        :return: A Future that can be used to manage the background websocket
+                 subscription.
+        :rtype: .ContainerSubscription
+        """
+        options = packets_service_pb2.SubscribeContainersRequest()
+        options.instance = self._instance
+        options.processor = self._processor
+        if isinstance(containers, str):
+            options.names.extend([containers])
+        else:
+            options.names.extend(containers)
+
+        manager = WebSocketSubscriptionManager(
+            self.ctx, topic="containers", options=options
+        )
+
+        # Represent subscription as a future
+        subscription = ContainerSubscription(manager)
 
         wrapped_callback = functools.partial(
-            _wrap_callback_parse_packet_data, subscription, on_data
+            _wrap_callback_parse_container_data, subscription, on_data
         )
 
         manager.open(wrapped_callback)

@@ -11,7 +11,10 @@ def receive_callbacks():
         hexpacket = hexlify(packet.binary).decode("ascii")
         print(packet.generation_time, ":", hexpacket)
 
-    processor.create_packet_subscription(on_data=print_data)
+    processor.create_container_subscription(
+        containers=["/YSS/SIMULATOR/FlightData", "/YSS/SIMULATOR/Power"],
+        on_data=print_data,
+    )
 
 
 if __name__ == "__main__":

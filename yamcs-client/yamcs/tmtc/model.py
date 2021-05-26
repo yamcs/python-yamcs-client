@@ -820,6 +820,54 @@ class Calibrator:
         self.data = data
 
 
+class ContainerData:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self):
+        """
+        The name of the container.
+        """
+        if self._proto.HasField("name"):
+            return self._proto.name
+        return None
+
+    @property
+    def generation_time(self):
+        """
+        The time when this container's packet was generated (packet time).
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField("generationTime"):
+            return parse_server_time(self._proto.generationTime)
+        return None
+
+    @property
+    def reception_time(self):
+        """
+        The time when this container's packet was received by Yamcs.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField("receptionTime"):
+            return parse_server_time(self._proto.receptionTime)
+        return None
+
+    @property
+    def binary(self):
+        """
+        Raw binary
+        """
+        if self._proto.HasField("binary"):
+            return self._proto.binary
+        return None
+
+    def __str__(self):
+        return f"{self.generation_time} ({self.name})"
+
+
 class Packet:
     def __init__(self, proto):
         self._proto = proto
