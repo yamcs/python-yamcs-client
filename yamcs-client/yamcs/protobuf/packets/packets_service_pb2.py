@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.packets',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\023PacketsServiceProtoP\001'),
-  serialized_pb=_b('\n,yamcs/protobuf/packets/packets_service.proto\x12\x16yamcs.protobuf.packets\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"*\n\x16ListPacketNamesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\'\n\x17ListPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"\xc2\x01\n\x12ListPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"a\n\x10GetPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14StreamPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"d\n\x13\x45xportPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14\x45xportPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\";\n\x17SubscribePacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t2\xf0\x07\n\nPacketsApi\x12\x9e\x01\n\x0fListPacketNames\x12..yamcs.protobuf.packets.ListPacketNamesRequest\x1a/.yamcs.protobuf.packets.ListPacketNamesResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-names\x12\x8d\x01\n\x0bListPackets\x12*.yamcs.protobuf.packets.ListPacketsRequest\x1a+.yamcs.protobuf.packets.ListPacketsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/packets\x12\x8d\x01\n\tGetPacket\x12(.yamcs.protobuf.packets.GetPacketRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"8\x8a\x92\x03\x34\n2/api/archive/{instance}/packets/{gentime}/{seqnum}\x12\x94\x01\n\rStreamPackets\x12,.yamcs.protobuf.packets.StreamPacketsRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"5\x8a\x92\x03\x31\x1a,/api/stream-archive/{instance}:streamPackets:\x01*0\x01\x12\x91\x01\n\x0c\x45xportPacket\x12+.yamcs.protobuf.packets.ExportPacketRequest\x1a\x13.yamcs.api.HttpBody\"?\x8a\x92\x03;\n9/api/archive/{instance}/packets/{gentime}/{seqnum}:export\x12\x81\x01\n\rExportPackets\x12,.yamcs.protobuf.packets.ExportPacketsRequest\x1a\x13.yamcs.api.HttpBody\"+\x8a\x92\x03\'\n%/api/archive/{instance}:exportPackets0\x01\x12r\n\x10SubscribePackets\x12/.yamcs.protobuf.packets.SubscribePacketsRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"\r\xda\x92\x03\t\n\x07packets0\x01\x42+\n\x12org.yamcs.protobufB\x13PacketsServiceProtoP\x01')
+  serialized_pb=_b('\n,yamcs/protobuf/packets/packets_service.proto\x12\x16yamcs.protobuf.packets\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"*\n\x16ListPacketNamesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\'\n\x17ListPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"\xc2\x01\n\x12ListPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x13ListPacketsResponse\x12,\n\x06packet\x18\x01 \x03(\x0b\x32\x1c.yamcs.protobuf.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"a\n\x10GetPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14StreamPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"d\n\x13\x45xportPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14\x45xportPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"N\n\x17SubscribePacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t2\xf0\x07\n\nPacketsApi\x12\x9e\x01\n\x0fListPacketNames\x12..yamcs.protobuf.packets.ListPacketNamesRequest\x1a/.yamcs.protobuf.packets.ListPacketNamesResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-names\x12\x8d\x01\n\x0bListPackets\x12*.yamcs.protobuf.packets.ListPacketsRequest\x1a+.yamcs.protobuf.packets.ListPacketsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/packets\x12\x8d\x01\n\tGetPacket\x12(.yamcs.protobuf.packets.GetPacketRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"8\x8a\x92\x03\x34\n2/api/archive/{instance}/packets/{gentime}/{seqnum}\x12\x94\x01\n\rStreamPackets\x12,.yamcs.protobuf.packets.StreamPacketsRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"5\x8a\x92\x03\x31\x1a,/api/stream-archive/{instance}:streamPackets:\x01*0\x01\x12\x91\x01\n\x0c\x45xportPacket\x12+.yamcs.protobuf.packets.ExportPacketRequest\x1a\x13.yamcs.api.HttpBody\"?\x8a\x92\x03;\n9/api/archive/{instance}/packets/{gentime}/{seqnum}:export\x12\x81\x01\n\rExportPackets\x12,.yamcs.protobuf.packets.ExportPacketsRequest\x1a\x13.yamcs.api.HttpBody\"+\x8a\x92\x03\'\n%/api/archive/{instance}:exportPackets0\x01\x12r\n\x10SubscribePackets\x12/.yamcs.protobuf.packets.SubscribePacketsRequest\x1a\x1c.yamcs.protobuf.TmPacketData\"\r\xda\x92\x03\t\n\x07packets0\x01\x42+\n\x12org.yamcs.protobufB\x13PacketsServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -425,6 +425,13 @@ _SUBSCRIBEPACKETSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.packets.SubscribePacketsRequest.processor', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -438,7 +445,7 @@ _SUBSCRIBEPACKETSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1051,
-  serialized_end=1110,
+  serialized_end=1129,
 )
 
 _LISTPACKETSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -533,8 +540,8 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1113,
-  serialized_end=2121,
+  serialized_start=1132,
+  serialized_end=2140,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListPacketNames',

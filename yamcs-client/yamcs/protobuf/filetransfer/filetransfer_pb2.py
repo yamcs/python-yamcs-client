@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.filetransfer',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\021FileTransferProtoP\001'),
-  serialized_pb=_b('\n.yamcs/protobuf/filetransfer/filetransfer.proto\x12\x1byamcs.protobuf.filetransfer\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"@\n\rTransactionId\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\r\x12\x17\n\x0finitiatorEntity\x18\x02 \x01(\x04\"3\n\x1fListFileTransferServicesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"j\n ListFileTransferServicesResponse\x12\x46\n\x08services\x18\x01 \x03(\x0b\x32\x34.yamcs.protobuf.filetransfer.FileTransferServiceInfo\"Q\n\x18\x46ileTransferCapabilities\x12\x0e\n\x06upload\x18\x01 \x01(\x08\x12\x10\n\x08\x64ownload\x18\x02 \x01(\x08\x12\x13\n\x0breliability\x18\x03 \x01(\x08\"\x87\x02\n\x17\x46ileTransferServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12>\n\rlocalEntities\x18\x03 \x03(\x0b\x32\'.yamcs.protobuf.filetransfer.EntityInfo\x12?\n\x0eremoteEntities\x18\x04 \x03(\x0b\x32\'.yamcs.protobuf.filetransfer.EntityInfo\x12K\n\x0c\x63\x61pabilities\x18\x05 \x01(\x0b\x32\x35.yamcs.protobuf.filetransfer.FileTransferCapabilities\"&\n\nEntityInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x04\"\x97\x03\n\x0cTransferInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12-\n\tstartTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x39\n\x05state\x18\x03 \x01(\x0e\x32*.yamcs.protobuf.filetransfer.TransferState\x12\x0e\n\x06\x62ucket\x18\x04 \x01(\t\x12\x12\n\nobjectName\x18\x05 \x01(\t\x12\x12\n\nremotePath\x18\x06 \x01(\t\x12\x41\n\tdirection\x18\x07 \x01(\x0e\x32..yamcs.protobuf.filetransfer.TransferDirection\x12\x11\n\ttotalSize\x18\x08 \x01(\x04\x12\x17\n\x0fsizeTransferred\x18\t \x01(\x04\x12\x10\n\x08reliable\x18\n \x01(\x08\x12\x15\n\rfailureReason\x18\x0b \x01(\t\x12\x41\n\rtransactionId\x18\x0c \x01(\x0b\x32*.yamcs.protobuf.filetransfer.TransactionId\"\x8b\x04\n\x15\x43reateTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x08 \x01(\t\x12\x41\n\tdirection\x18\x02 \x01(\x0e\x32..yamcs.protobuf.filetransfer.TransferDirection\x12\x0e\n\x06\x62ucket\x18\x03 \x01(\t\x12\x12\n\nobjectName\x18\x04 \x01(\t\x12\x12\n\nremotePath\x18\x05 \x01(\t\x12[\n\x0f\x64ownloadOptions\x18\x06 \x01(\x0b\x32\x42.yamcs.protobuf.filetransfer.CreateTransferRequest.DownloadOptions\x12W\n\ruploadOptions\x18\x07 \x01(\x0b\x32@.yamcs.protobuf.filetransfer.CreateTransferRequest.UploadOptions\x12\x0e\n\x06source\x18\t \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\n \x01(\t\x1a\x62\n\rUploadOptions\x12\x11\n\toverwrite\x18\x01 \x01(\x08\x12\x12\n\ncreatePath\x18\x02 \x01(\x08\x12\x10\n\x08reliable\x18\x03 \x01(\x08\x12\x18\n\x10\x63losureRequested\x18\x04 \x01(\x08\x1a\x11\n\x0f\x44ownloadOptions\"I\n\x14PauseTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"J\n\x15\x43\x61ncelTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"J\n\x15ResumeTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"=\n\x14ListTransfersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x02 \x01(\t\"G\n\x12GetTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"U\n\x15ListTransfersResponse\x12<\n\ttransfers\x18\x01 \x03(\x0b\x32).yamcs.protobuf.filetransfer.TransferInfo\"B\n\x19SubscribeTransfersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x02 \x01(\t*-\n\x11TransferDirection\x12\n\n\x06UPLOAD\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02*_\n\rTransferState\x12\x0b\n\x07RUNNING\x10\x01\x12\n\n\x06PAUSED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\r\n\tCOMPLETED\x10\x04\x12\n\n\x06QUEUED\x10\x05\x12\x0e\n\nCANCELLING\x10\x06\x32\xf0\x0f\n\x0f\x46ileTransferApi\x12\xe5\x01\n\x18ListFileTransferServices\x12<.yamcs.protobuf.filetransfer.ListFileTransferServicesRequest\x1a=.yamcs.protobuf.filetransfer.ListFileTransferServicesResponse\"L\x8a\x92\x03H\n%/api/filetransfer/{instance}/servicesZ\x1f\n\x1d/api/cfdp/{instance}/services\x12\x86\x02\n\rListTransfers\x12\x31.yamcs.protobuf.filetransfer.ListTransfersRequest\x1a\x32.yamcs.protobuf.filetransfer.ListTransfersResponse\"\x8d\x01\x8a\x92\x03\x88\x01\n4/api/filetransfer/{instance}/{serviceName}/transfersZ.\n,/api/cfdp/{instance}/{serviceName}/transfersZ \n\x1e/api/cfdp/{instance}/transfers\x12\x88\x02\n\x0bGetTransfer\x12/.yamcs.protobuf.filetransfer.GetTransferRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"\x9c\x01\x8a\x92\x03\x97\x01\n9/api/filetransfer/{instance}/{serviceName}/transfers/{id}Z3\n1/api/cfdp/{instance}/{serviceName}/transfers/{id}Z%\n#/api/cfdp/{instance}/transfers/{id}\x12\x88\x02\n\x0e\x43reateTransfer\x12\x32.yamcs.protobuf.filetransfer.CreateTransferRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"\x96\x01\x8a\x92\x03\x91\x01\x1a\x34/api/filetransfer/{instance}/{serviceName}/transfers:\x01*Z1\x1a,/api/cfdp/{instance}/{serviceName}/transfers:\x01*Z#\x1a\x1e/api/cfdp/{instance}/transfers:\x01*\x12\x8b\x02\n\rPauseTransfer\x12\x31.yamcs.protobuf.filetransfer.PauseTransferRequest\x1a\x16.google.protobuf.Empty\"\xae\x01\x8a\x92\x03\xa9\x01\x1a?/api/filetransfer/{instance}/{serviceName}/transfers/{id}:pauseZ9\x1a\x37/api/cfdp/{instance}/{serviceName}/transfers/{id}:pauseZ+\x1a)/api/cfdp/{instance}/transfers/{id}:pause\x12\x90\x02\n\x0e\x43\x61ncelTransfer\x12\x32.yamcs.protobuf.filetransfer.CancelTransferRequest\x1a\x16.google.protobuf.Empty\"\xb1\x01\x8a\x92\x03\xac\x01\x1a@/api/filetransfer/{instance}/{serviceName}/transfers/{id}:cancelZ:\x1a\x38/api/cfdp/{instance}/{serviceName}/transfers/{id}:cancelZ,\x1a*/api/cfdp/{instance}/transfers/{id}:cancel\x12\x90\x02\n\x0eResumeTransfer\x12\x32.yamcs.protobuf.filetransfer.ResumeTransferRequest\x1a\x16.google.protobuf.Empty\"\xb1\x01\x8a\x92\x03\xac\x01\x1a@/api/filetransfer/{instance}/{serviceName}/transfers/{id}:resumeZ:\x1a\x38/api/cfdp/{instance}/{serviceName}/transfers/{id}:resumeZ,\x1a*/api/cfdp/{instance}/transfers/{id}:resume\x12\xa1\x01\n\x12SubscribeTransfers\x12\x36.yamcs.protobuf.filetransfer.SubscribeTransfersRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"&\xda\x92\x03\"\n\x0e\x66ile-transfers\x1a\x10\n\x0e\x63\x66\x64p-transfers0\x01\x42)\n\x12org.yamcs.protobufB\x11\x46ileTransferProtoP\x01')
+  serialized_pb=_b('\n.yamcs/protobuf/filetransfer/filetransfer.proto\x12\x1byamcs.protobuf.filetransfer\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"@\n\rTransactionId\x12\x16\n\x0esequenceNumber\x18\x01 \x01(\r\x12\x17\n\x0finitiatorEntity\x18\x02 \x01(\x04\"3\n\x1fListFileTransferServicesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"j\n ListFileTransferServicesResponse\x12\x46\n\x08services\x18\x01 \x03(\x0b\x32\x34.yamcs.protobuf.filetransfer.FileTransferServiceInfo\"e\n\x18\x46ileTransferCapabilities\x12\x0e\n\x06upload\x18\x01 \x01(\x08\x12\x10\n\x08\x64ownload\x18\x02 \x01(\x08\x12\x13\n\x0breliability\x18\x03 \x01(\x08\x12\x12\n\nremotePath\x18\x04 \x01(\x08\"\x87\x02\n\x17\x46ileTransferServiceInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12>\n\rlocalEntities\x18\x03 \x03(\x0b\x32\'.yamcs.protobuf.filetransfer.EntityInfo\x12?\n\x0eremoteEntities\x18\x04 \x03(\x0b\x32\'.yamcs.protobuf.filetransfer.EntityInfo\x12K\n\x0c\x63\x61pabilities\x18\x05 \x01(\x0b\x32\x35.yamcs.protobuf.filetransfer.FileTransferCapabilities\"&\n\nEntityInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x04\"\xc9\x03\n\x0cTransferInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12-\n\tstartTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x39\n\x05state\x18\x03 \x01(\x0e\x32*.yamcs.protobuf.filetransfer.TransferState\x12\x0e\n\x06\x62ucket\x18\x04 \x01(\t\x12\x12\n\nobjectName\x18\x05 \x01(\t\x12\x12\n\nremotePath\x18\x06 \x01(\t\x12\x41\n\tdirection\x18\x07 \x01(\x0e\x32..yamcs.protobuf.filetransfer.TransferDirection\x12\x11\n\ttotalSize\x18\x08 \x01(\x04\x12\x17\n\x0fsizeTransferred\x18\t \x01(\x04\x12\x10\n\x08reliable\x18\n \x01(\x08\x12\x15\n\rfailureReason\x18\x0b \x01(\t\x12\x41\n\rtransactionId\x18\x0c \x01(\x0b\x32*.yamcs.protobuf.filetransfer.TransactionId\x12\x30\n\x0c\x63reationTime\x18\r \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8b\x04\n\x15\x43reateTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x08 \x01(\t\x12\x41\n\tdirection\x18\x02 \x01(\x0e\x32..yamcs.protobuf.filetransfer.TransferDirection\x12\x0e\n\x06\x62ucket\x18\x03 \x01(\t\x12\x12\n\nobjectName\x18\x04 \x01(\t\x12\x12\n\nremotePath\x18\x05 \x01(\t\x12[\n\x0f\x64ownloadOptions\x18\x06 \x01(\x0b\x32\x42.yamcs.protobuf.filetransfer.CreateTransferRequest.DownloadOptions\x12W\n\ruploadOptions\x18\x07 \x01(\x0b\x32@.yamcs.protobuf.filetransfer.CreateTransferRequest.UploadOptions\x12\x0e\n\x06source\x18\t \x01(\t\x12\x13\n\x0b\x64\x65stination\x18\n \x01(\t\x1a\x62\n\rUploadOptions\x12\x11\n\toverwrite\x18\x01 \x01(\x08\x12\x12\n\ncreatePath\x18\x02 \x01(\x08\x12\x10\n\x08reliable\x18\x03 \x01(\x08\x12\x18\n\x10\x63losureRequested\x18\x04 \x01(\x08\x1a\x11\n\x0f\x44ownloadOptions\"I\n\x14PauseTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"J\n\x15\x43\x61ncelTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"J\n\x15ResumeTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"=\n\x14ListTransfersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x02 \x01(\t\"G\n\x12GetTransferRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x03 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\x03\"U\n\x15ListTransfersResponse\x12<\n\ttransfers\x18\x01 \x03(\x0b\x32).yamcs.protobuf.filetransfer.TransferInfo\"B\n\x19SubscribeTransfersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x13\n\x0bserviceName\x18\x02 \x01(\t*-\n\x11TransferDirection\x12\n\n\x06UPLOAD\x10\x01\x12\x0c\n\x08\x44OWNLOAD\x10\x02*_\n\rTransferState\x12\x0b\n\x07RUNNING\x10\x01\x12\n\n\x06PAUSED\x10\x02\x12\n\n\x06\x46\x41ILED\x10\x03\x12\r\n\tCOMPLETED\x10\x04\x12\n\n\x06QUEUED\x10\x05\x12\x0e\n\nCANCELLING\x10\x06\x32\xf0\x0f\n\x0f\x46ileTransferApi\x12\xe5\x01\n\x18ListFileTransferServices\x12<.yamcs.protobuf.filetransfer.ListFileTransferServicesRequest\x1a=.yamcs.protobuf.filetransfer.ListFileTransferServicesResponse\"L\x8a\x92\x03H\n%/api/filetransfer/{instance}/servicesZ\x1f\n\x1d/api/cfdp/{instance}/services\x12\x86\x02\n\rListTransfers\x12\x31.yamcs.protobuf.filetransfer.ListTransfersRequest\x1a\x32.yamcs.protobuf.filetransfer.ListTransfersResponse\"\x8d\x01\x8a\x92\x03\x88\x01\n4/api/filetransfer/{instance}/{serviceName}/transfersZ.\n,/api/cfdp/{instance}/{serviceName}/transfersZ \n\x1e/api/cfdp/{instance}/transfers\x12\x88\x02\n\x0bGetTransfer\x12/.yamcs.protobuf.filetransfer.GetTransferRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"\x9c\x01\x8a\x92\x03\x97\x01\n9/api/filetransfer/{instance}/{serviceName}/transfers/{id}Z3\n1/api/cfdp/{instance}/{serviceName}/transfers/{id}Z%\n#/api/cfdp/{instance}/transfers/{id}\x12\x88\x02\n\x0e\x43reateTransfer\x12\x32.yamcs.protobuf.filetransfer.CreateTransferRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"\x96\x01\x8a\x92\x03\x91\x01\x1a\x34/api/filetransfer/{instance}/{serviceName}/transfers:\x01*Z1\x1a,/api/cfdp/{instance}/{serviceName}/transfers:\x01*Z#\x1a\x1e/api/cfdp/{instance}/transfers:\x01*\x12\x8b\x02\n\rPauseTransfer\x12\x31.yamcs.protobuf.filetransfer.PauseTransferRequest\x1a\x16.google.protobuf.Empty\"\xae\x01\x8a\x92\x03\xa9\x01\x1a?/api/filetransfer/{instance}/{serviceName}/transfers/{id}:pauseZ9\x1a\x37/api/cfdp/{instance}/{serviceName}/transfers/{id}:pauseZ+\x1a)/api/cfdp/{instance}/transfers/{id}:pause\x12\x90\x02\n\x0e\x43\x61ncelTransfer\x12\x32.yamcs.protobuf.filetransfer.CancelTransferRequest\x1a\x16.google.protobuf.Empty\"\xb1\x01\x8a\x92\x03\xac\x01\x1a@/api/filetransfer/{instance}/{serviceName}/transfers/{id}:cancelZ:\x1a\x38/api/cfdp/{instance}/{serviceName}/transfers/{id}:cancelZ,\x1a*/api/cfdp/{instance}/transfers/{id}:cancel\x12\x90\x02\n\x0eResumeTransfer\x12\x32.yamcs.protobuf.filetransfer.ResumeTransferRequest\x1a\x16.google.protobuf.Empty\"\xb1\x01\x8a\x92\x03\xac\x01\x1a@/api/filetransfer/{instance}/{serviceName}/transfers/{id}:resumeZ:\x1a\x38/api/cfdp/{instance}/{serviceName}/transfers/{id}:resumeZ,\x1a*/api/cfdp/{instance}/transfers/{id}:resume\x12\xa1\x01\n\x12SubscribeTransfers\x12\x36.yamcs.protobuf.filetransfer.SubscribeTransfersRequest\x1a).yamcs.protobuf.filetransfer.TransferInfo\"&\xda\x92\x03\"\n\x0e\x66ile-transfers\x1a\x10\n\x0e\x63\x66\x64p-transfers0\x01\x42)\n\x12org.yamcs.protobufB\x11\x46ileTransferProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -44,8 +44,8 @@ _TRANSFERDIRECTION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2240,
-  serialized_end=2285,
+  serialized_start=2310,
+  serialized_end=2355,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSFERDIRECTION)
 
@@ -83,8 +83,8 @@ _TRANSFERSTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2287,
-  serialized_end=2382,
+  serialized_start=2357,
+  serialized_end=2452,
 )
 _sym_db.RegisterEnumDescriptor(_TRANSFERSTATE)
 
@@ -228,6 +228,13 @@ _FILETRANSFERCAPABILITIES = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='remotePath', full_name='yamcs.protobuf.filetransfer.FileTransferCapabilities.remotePath', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -241,7 +248,7 @@ _FILETRANSFERCAPABILITIES = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=397,
-  serialized_end=478,
+  serialized_end=498,
 )
 
 
@@ -299,8 +306,8 @@ _FILETRANSFERSERVICEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=481,
-  serialized_end=744,
+  serialized_start=501,
+  serialized_end=764,
 )
 
 
@@ -337,8 +344,8 @@ _ENTITYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=746,
-  serialized_end=784,
+  serialized_start=766,
+  serialized_end=804,
 )
 
 
@@ -433,6 +440,13 @@ _TRANSFERINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='creationTime', full_name='yamcs.protobuf.filetransfer.TransferInfo.creationTime', index=12,
+      number=13, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -445,8 +459,8 @@ _TRANSFERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=787,
-  serialized_end=1194,
+  serialized_start=807,
+  serialized_end=1264,
 )
 
 
@@ -497,8 +511,8 @@ _CREATETRANSFERREQUEST_UPLOADOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1603,
-  serialized_end=1701,
+  serialized_start=1673,
+  serialized_end=1771,
 )
 
 _CREATETRANSFERREQUEST_DOWNLOADOPTIONS = _descriptor.Descriptor(
@@ -520,8 +534,8 @@ _CREATETRANSFERREQUEST_DOWNLOADOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1703,
-  serialized_end=1720,
+  serialized_start=1773,
+  serialized_end=1790,
 )
 
 _CREATETRANSFERREQUEST = _descriptor.Descriptor(
@@ -613,8 +627,8 @@ _CREATETRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1197,
-  serialized_end=1720,
+  serialized_start=1267,
+  serialized_end=1790,
 )
 
 
@@ -658,8 +672,8 @@ _PAUSETRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1722,
-  serialized_end=1795,
+  serialized_start=1792,
+  serialized_end=1865,
 )
 
 
@@ -703,8 +717,8 @@ _CANCELTRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1797,
-  serialized_end=1871,
+  serialized_start=1867,
+  serialized_end=1941,
 )
 
 
@@ -748,8 +762,8 @@ _RESUMETRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1873,
-  serialized_end=1947,
+  serialized_start=1943,
+  serialized_end=2017,
 )
 
 
@@ -786,8 +800,8 @@ _LISTTRANSFERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1949,
-  serialized_end=2010,
+  serialized_start=2019,
+  serialized_end=2080,
 )
 
 
@@ -831,8 +845,8 @@ _GETTRANSFERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2012,
-  serialized_end=2083,
+  serialized_start=2082,
+  serialized_end=2153,
 )
 
 
@@ -862,8 +876,8 @@ _LISTTRANSFERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2085,
-  serialized_end=2170,
+  serialized_start=2155,
+  serialized_end=2240,
 )
 
 
@@ -900,8 +914,8 @@ _SUBSCRIBETRANSFERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2172,
-  serialized_end=2238,
+  serialized_start=2242,
+  serialized_end=2308,
 )
 
 _LISTFILETRANSFERSERVICESRESPONSE.fields_by_name['services'].message_type = _FILETRANSFERSERVICEINFO
@@ -912,6 +926,7 @@ _TRANSFERINFO.fields_by_name['startTime'].message_type = google_dot_protobuf_dot
 _TRANSFERINFO.fields_by_name['state'].enum_type = _TRANSFERSTATE
 _TRANSFERINFO.fields_by_name['direction'].enum_type = _TRANSFERDIRECTION
 _TRANSFERINFO.fields_by_name['transactionId'].message_type = _TRANSACTIONID
+_TRANSFERINFO.fields_by_name['creationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _CREATETRANSFERREQUEST_UPLOADOPTIONS.containing_type = _CREATETRANSFERREQUEST
 _CREATETRANSFERREQUEST_DOWNLOADOPTIONS.containing_type = _CREATETRANSFERREQUEST
 _CREATETRANSFERREQUEST.fields_by_name['direction'].enum_type = _TRANSFERDIRECTION
@@ -1067,8 +1082,8 @@ _FILETRANSFERAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2385,
-  serialized_end=4417,
+  serialized_start=2455,
+  serialized_end=4487,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListFileTransferServices',

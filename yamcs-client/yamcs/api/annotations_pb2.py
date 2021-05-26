@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.api',
   syntax='proto2',
   serialized_options=_b('\n\rorg.yamcs.apiB\020AnnotationsProtoP\001'),
-  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"\xe6\x01\n\tHttpRoute\x12\r\n\x03get\x18\x01 \x01(\tH\x00\x12\r\n\x03put\x18\x02 \x01(\tH\x00\x12\x0e\n\x04post\x18\x03 \x01(\tH\x00\x12\x10\n\x06\x64\x65lete\x18\x04 \x01(\tH\x00\x12\x0f\n\x05patch\x18\x05 \x01(\tH\x00\x12\x12\n\ndeprecated\x18\x06 \x01(\x08\x12\x0c\n\x04\x62ody\x18\x07 \x01(\t\x12\x15\n\rmax_body_size\x18\x08 \x01(\x05\x12\x11\n\toffloaded\x18\t \x01(\x08\x12\x31\n\x13\x61\x64\x64itional_bindings\x18\x0b \x03(\x0b\x32\x14.yamcs.api.HttpRouteB\t\n\x07pattern\"k\n\x0eWebSocketTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\ndeprecated\x18\x02 \x01(\x08\x12\x36\n\x13\x61\x64\x64itional_bindings\x18\x03 \x03(\x0b\x32\x19.yamcs.api.WebSocketTopic:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRoute:M\n\twebsocket\x12\x1e.google.protobuf.MethodOptions\x18\xab\x32 \x01(\x0b\x32\x19.yamcs.api.WebSocketTopicB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
+  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"\xff\x01\n\tHttpRoute\x12\r\n\x03get\x18\x01 \x01(\tH\x00\x12\r\n\x03put\x18\x02 \x01(\tH\x00\x12\x0e\n\x04post\x18\x03 \x01(\tH\x00\x12\x10\n\x06\x64\x65lete\x18\x04 \x01(\tH\x00\x12\x0f\n\x05patch\x18\x05 \x01(\tH\x00\x12\x12\n\ndeprecated\x18\x06 \x01(\x08\x12\x0c\n\x04\x62ody\x18\x07 \x01(\t\x12\x15\n\rmax_body_size\x18\x08 \x01(\x05\x12\x11\n\toffloaded\x18\t \x01(\x08\x12\x17\n\x0f\x66ield_mask_root\x18\n \x01(\t\x12\x31\n\x13\x61\x64\x64itional_bindings\x18\x0b \x03(\x0b\x32\x14.yamcs.api.HttpRouteB\t\n\x07pattern\"k\n\x0eWebSocketTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\ndeprecated\x18\x02 \x01(\x08\x12\x36\n\x13\x61\x64\x64itional_bindings\x18\x03 \x03(\x0b\x32\x19.yamcs.api.WebSocketTopic:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRoute:M\n\twebsocket\x12\x1e.google.protobuf.MethodOptions\x18\xab\x32 \x01(\x0b\x32\x19.yamcs.api.WebSocketTopicB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_descriptor__pb2.DESCRIPTOR,])
 
@@ -114,7 +114,14 @@ _HTTPROUTE = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='additional_bindings', full_name='yamcs.api.HttpRoute.additional_bindings', index=9,
+      name='field_mask_root', full_name='yamcs.api.HttpRoute.field_mask_root', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='additional_bindings', full_name='yamcs.api.HttpRoute.additional_bindings', index=10,
       number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -136,7 +143,7 @@ _HTTPROUTE = _descriptor.Descriptor(
       index=0, containing_type=None, fields=[]),
   ],
   serialized_start=77,
-  serialized_end=307,
+  serialized_end=332,
 )
 
 
@@ -180,8 +187,8 @@ _WEBSOCKETTOPIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=309,
-  serialized_end=416,
+  serialized_start=334,
+  serialized_end=441,
 )
 
 _HTTPROUTE.fields_by_name['additional_bindings'].message_type = _HTTPROUTE
