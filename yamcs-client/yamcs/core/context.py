@@ -25,10 +25,12 @@ class Context:
             self.address = address + ":8090"
 
         if tls:
+            self.url = f"https://{self.address}"
             self.auth_root = f"https://{self.address}/auth"
             self.api_root = f"https://{self.address}/api"
             self.ws_root = f"wss://{self.address}/api/websocket"
         else:
+            self.url = f"http://{self.address}"
             self.auth_root = f"http://{self.address}/auth"
             self.api_root = f"http://{self.address}/api"
             self.ws_root = f"ws://{self.address}/api/websocket"
