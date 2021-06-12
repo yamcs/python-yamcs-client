@@ -5,10 +5,6 @@ import setuptools
 with io.open("README.md", encoding="utf-8") as f:
     readme = f.read()
 
-packages = [
-    package for package in setuptools.find_packages() if package.startswith("yamcs")
-]
-
 version = {}
 with io.open("yamcs/clientversion.py", encoding="utf-8") as f:
     exec(f.read(), version)
@@ -24,8 +20,7 @@ setuptools.setup(
     author="Space Applications Services",
     author_email="yamcs@spaceapplications.com",
     license="LGPL",
-    packages=packages,
-    namespace_packages=["yamcs", "yamcs.protobuf"],
+    packages=setuptools.find_namespace_packages(include=["yamcs.*"]),
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
