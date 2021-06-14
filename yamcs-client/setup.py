@@ -6,7 +6,7 @@ with io.open("README.md", encoding="utf-8") as f:
     readme = f.read()
 
 version = {}
-with io.open("yamcs/clientversion.py", encoding="utf-8") as f:
+with io.open("src/yamcs/clientversion.py", encoding="utf-8") as f:
     exec(f.read(), version)
 version = version["__version__"]
 
@@ -20,7 +20,8 @@ setuptools.setup(
     author="Space Applications Services",
     author_email="yamcs@spaceapplications.com",
     license="LGPL",
-    packages=setuptools.find_namespace_packages(include=["yamcs.*"]),
+    packages=setuptools.find_namespace_packages(where="src"),
+    package_dir={"": "src"},
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",

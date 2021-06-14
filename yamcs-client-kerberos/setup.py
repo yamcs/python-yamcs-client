@@ -15,7 +15,8 @@ setuptools.setup(
     author="Space Applications Services",
     author_email="yamcs@spaceapplications.com",
     license="LGPL",
-    packages=setuptools.find_namespace_packages(include=["yamcs.*"]),
+    packages=setuptools.find_namespace_packages(where="src"),
+    package_dir={"": "src"},
     python_requires=">=3.6",
     classifiers=[
         "Development Status :: 5 - Production/Stable",

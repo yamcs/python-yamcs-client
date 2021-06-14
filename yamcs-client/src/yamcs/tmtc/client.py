@@ -14,7 +14,7 @@ from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
 from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
 from yamcs.protobuf.mdb import mdb_pb2
 from yamcs.protobuf.packets import packets_service_pb2
-from yamcs.protobuf.processing import processing_pb2
+from yamcs.protobuf.processing import mdb_override_service_pb2, processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.tmtc.model import (
     AlarmUpdate,
@@ -772,8 +772,10 @@ class ProcessorClient:
         :param str type: One of ``polynomial`` or ``spline``.
         :param data: Calibration definition for the selected type.
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.SET_DEFAULT_CALIBRATOR
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = (
+            mdb_override_service_pb2.UpdateParameterRequest.SET_DEFAULT_CALIBRATOR
+        )
         if type:
             _add_calib(req.defaultCalibrator, type, data)
 
@@ -799,8 +801,8 @@ class ProcessorClient:
         :param .Calibrator[] calibrators: List of calibrators (either contextual or
                                           not)
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.SET_CALIBRATORS
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_CALIBRATORS
         for c in calibrators:
             if c.context:
                 context_calib = req.contextCalibrator.add()
@@ -826,8 +828,8 @@ class ProcessorClient:
         """
         Reset all calibrators for the specified parameter to their original MDB value.
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.RESET_CALIBRATORS
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = mdb_override_service_pb2.UpdateParameterRequest.RESET_CALIBRATORS
 
         parameter = adapt_name_for_rest(parameter)
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
@@ -870,8 +872,8 @@ class ProcessorClient:
         :param int min_violations: Minimum violations before an alarm is
                                    generated.
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.SET_DEFAULT_ALARMS
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_DEFAULT_ALARMS
         if watch or warning or distress or critical or severe:
             _add_alarms(
                 req.defaultAlarm,
@@ -905,8 +907,8 @@ class ProcessorClient:
                               in the format ``NAMESPACE/NAME``.
         :param .RangeSet[] sets: List of range sets (either contextual or not)
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.SET_ALARMS
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_ALARMS
         for rs in sets:
             if rs.context:
                 context_alarm = req.contextAlarm.add()
@@ -940,8 +942,8 @@ class ProcessorClient:
         """
         Reset all alarm limits for the specified parameter to their original MDB value.
         """
-        req = mdb_pb2.UpdateParameterRequest()
-        req.action = mdb_pb2.UpdateParameterRequest.RESET_ALARMS
+        req = mdb_override_service_pb2.UpdateParameterRequest()
+        req.action = mdb_override_service_pb2.UpdateParameterRequest.RESET_ALARMS
 
         parameter = adapt_name_for_rest(parameter)
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
@@ -1292,8 +1294,8 @@ class ProcessorClient:
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """
-        req = mdb_pb2.UpdateAlgorithmRequest()
-        req.action = mdb_pb2.UpdateAlgorithmRequest.SET
+        req = mdb_override_service_pb2.UpdateAlgorithmRequest()
+        req.action = mdb_override_service_pb2.UpdateAlgorithmRequest.SET
         req.algorithm.text = text
 
         parameter = adapt_name_for_rest(parameter)
@@ -1307,8 +1309,8 @@ class ProcessorClient:
         :param str parameter: Either a fully-qualified XTCE name or an alias
                               in the format ``NAMESPACE/NAME``.
         """
-        req = mdb_pb2.UpdateAlgorithmRequest()
-        req.action = mdb_pb2.UpdateAlgorithmRequest.RESET
+        req = mdb_override_service_pb2.UpdateAlgorithmRequest()
+        req.action = mdb_override_service_pb2.UpdateAlgorithmRequest.RESET
 
         parameter = adapt_name_for_rest(parameter)
         url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
