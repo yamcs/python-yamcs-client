@@ -16,7 +16,7 @@ class StorageClient:
         """
         List the buckets.
 
-        :rtype: ~collections.Iterable[.Bucket]
+        :rtype: ~collections.abc.Iterable[.Bucket]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods

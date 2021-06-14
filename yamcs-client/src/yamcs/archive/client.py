@@ -49,7 +49,7 @@ class ArchiveClient:
         """
         Returns the existing packet names.
 
-        :rtype: ~collections.Iterable[str]
+        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -69,7 +69,7 @@ class ArchiveClient:
 
         :param float merge_time: Maximum gap in seconds before two consecutive index
                                  records are merged together.
-        :rtype: ~collections.Iterable[.IndexGroup]
+        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if name is not None:
@@ -94,7 +94,7 @@ class ArchiveClient:
         """
         Returns the existing parameter groups.
 
-        :rtype: ~collections.Iterable[str]
+        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -116,7 +116,7 @@ class ArchiveClient:
 
         :param float merge_time: Maximum gap in seconds before two consecutive index
                                  records are merged together.
-        :rtype: ~collections.Iterable[.IndexGroup]
+        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if group is not None:
@@ -141,7 +141,7 @@ class ArchiveClient:
         """
         Returns the existing event sources.
 
-        :rtype: ~collections.Iterable[str]
+        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -161,7 +161,7 @@ class ArchiveClient:
 
         :param float merge_time: Maximum gap in seconds before two consecutive index
                                  records are merged together.
-        :rtype: ~collections.Iterable[.IndexGroup]
+        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if source is not None:
@@ -191,7 +191,7 @@ class ArchiveClient:
 
         :param float merge_time: Maximum gap in seconds before two consecutive index
                                  records are merged together.
-        :rtype: ~collections.Iterable[.IndexGroup]
+        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if name is not None:
@@ -219,7 +219,7 @@ class ArchiveClient:
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :rtype: ~collections.Iterable[.IndexGroup]
+        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if start is not None:
@@ -255,7 +255,7 @@ class ArchiveClient:
                               limit.
         :param bool descending: If set to ``True`` packets are fetched in reverse
                                 order (most recent first).
-        :rtype: ~collections.Iterable[.Packet]
+        :rtype: ~collections.abc.Iterable[.Packet]
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -348,7 +348,7 @@ class ArchiveClient:
                               limit.
         :param bool descending: If set to ``True`` events are fetched in reverse
                                 order (most recent first).
-        :rtype: ~collections.Iterable[.Event]
+        :rtype: ~collections.abc.Iterable[.Event]
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -546,7 +546,7 @@ class ArchiveClient:
                            still get results by specifying ``replay`` as the
                            source. Replay requests take longer to return because
                            the data needs to be reprocessed.
-        :rtype: ~collections.Iterable[.ParameterValue]
+        :rtype: ~collections.abc.Iterable[.ParameterValue]
         """
         params = {
             "source": source,
@@ -590,7 +590,7 @@ class ArchiveClient:
                               limit.
         :param bool descending: If set to ``True`` results are fetched in reverse
                                 order (most recent first).
-        :rtype: ~collections.Iterable[.CommandHistory]
+        :rtype: ~collections.abc.Iterable[.CommandHistory]
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -622,7 +622,7 @@ class ArchiveClient:
 
         Tables are returned in lexicographical order.
 
-        :rtype: ~collections.Iterable[.Table]
+        :rtype: ~collections.abc.Iterable[.Table]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -727,7 +727,7 @@ class ArchiveClient:
 
         Streams are returned in lexicographical order.
 
-        :rtype: ~collections.Iterable[.Stream]
+        :rtype: ~collections.abc.Iterable[.Stream]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods

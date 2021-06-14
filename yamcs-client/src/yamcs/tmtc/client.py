@@ -1,5 +1,5 @@
 import binascii
-import collections
+import collections.abc
 import datetime
 import functools
 import json
@@ -160,13 +160,13 @@ def _build_value_proto(value):
     elif isinstance(value, datetime.datetime):
         proto.type = proto.TIMESTAMP
         proto.stringValue = to_isostring(value)
-    elif isinstance(value, collections.Mapping):
+    elif isinstance(value, collections.abc.Mapping):
         proto.type = proto.AGGREGATE
         proto.aggregateValue.name.extend(value.keys())
         proto.aggregateValue.value.extend(
             [_build_value_proto(v) for v in value.values()]
         )
-    elif isinstance(value, collections.Sequence):
+    elif isinstance(value, collections.abc.Sequence):
         proto.type = proto.ARRAY
         proto.arrayValue.extend([_build_value_proto(v) for v in value])
     else:
@@ -177,7 +177,7 @@ def _build_value_proto(value):
 def _to_argument_value(value):
     if isinstance(value, (bytes, bytearray)):
         return binascii.hexlify(value)
-    elif isinstance(value, collections.Mapping):
+    elif isinstance(value, collections.abc.Mapping):
         # Careful to do the JSON dump only at the end,
         # and not at every level of a nested hierarchy
         obj = _compose_aggregate_members(value)
@@ -198,7 +198,7 @@ def _compose_aggregate_members(value):
     """
     if isinstance(value, (bytes, bytearray)):
         return binascii.hexlify(value)
-    elif isinstance(value, collections.Mapping):
+    elif isinstance(value, collections.abc.Mapping):
         return {k: _compose_aggregate_members(v) for k, v in value.items()}
     elif isinstance(value, datetime.datetime):
         return to_isostring(value)
@@ -727,7 +727,7 @@ class ProcessorClient:
                                          (inclusive)
         :param ~datetime.datetime stop: Maximum trigger time of the returned alarms
                                         (exclusive)
-        :rtype: ~collections.Iterable[.Alarm]
+        :rtype: ~collections.abc.Iterable[.Alarm]
         """
         # TODO implement continuation token on server
         params = {"order": "asc"}
@@ -1150,7 +1150,7 @@ class ProcessorClient:
         """
         Create a new container subscription.
 
-        .. versionadded:: 1.6.7
+        .. versionadded:: 1.7.0
            Compatible with Yamcs 5.5.0 onwards
 
         :param containers: Container names.

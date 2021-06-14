@@ -320,7 +320,7 @@ class YamcsClient:
         List the services for an instance.
 
         :param str instance: A Yamcs instance name.
-        :rtype: ~collections.Iterable[~yamcs.model.Service]
+        :rtype: ~collections.abc.Iterable[~yamcs.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -358,7 +358,7 @@ class YamcsClient:
         Processors are returned in lexicographical order.
 
         :param Optional[str] instance: A Yamcs instance name.
-        :rtype: ~collections.Iterable[.Processor]
+        :rtype: ~collections.abc.Iterable[.Processor]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -397,7 +397,7 @@ class YamcsClient:
 
         Instances are returned in lexicographical order.
 
-        :rtype: ~collections.Iterable[.Instance]
+        :rtype: ~collections.abc.Iterable[.Instance]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -452,7 +452,7 @@ class YamcsClient:
         Data links are returned in random order.
 
         :param str instance: A Yamcs instance name.
-        :rtype: ~collections.Iterable[.Link]
+        :rtype: ~collections.abc.Iterable[.Link]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods

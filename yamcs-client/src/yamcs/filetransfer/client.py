@@ -94,7 +94,7 @@ class FileTransferClient:
         """
         List the services.
 
-        :rtype: ~collections.Iterable[~yamcs.filetransfer.model.Service]
+        :rtype: ~collections.abc.Iterable[~yamcs.filetransfer.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
