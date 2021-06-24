@@ -109,17 +109,6 @@ class LinkSubscription(WebSocketSubscriptionFuture):
         self._cache = {}
         """Link cache keyed by name."""
 
-    def get_data_link(self, name):
-        """
-        Deprecated. Use ``get_link(name)``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: get_link(name) instead of get_data_link(name)",
-            FutureWarning,
-        )
-        return self.get_link(name)
-
     def get_link(self, name):
         """
         Returns the latest link state.
@@ -130,17 +119,6 @@ class LinkSubscription(WebSocketSubscriptionFuture):
         if name in self._cache:
             return self._cache[name]
         return None
-
-    def list_data_links(self):
-        """
-        Deprecated. Use ``list_links()``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: list_links() instead of list_data_links()",
-            FutureWarning,
-        )
-        return self.list_links()
 
     def list_links(self):
         """
@@ -254,16 +232,6 @@ class YamcsClient:
         :param str instance: A Yamcs instance name.
         :rtype: .FileTransferClient
         """
-        return FileTransferClient(self.ctx, instance)
-
-    def get_cfdp_client(self, instance):
-        """
-        Deprecated. Use ``get_file_transfer_client()``.
-        """
-        warnings.warn(
-            "Use get_file_transfer_client() instead of get_cfdp_client()",
-            FutureWarning,
-        )
         return FileTransferClient(self.ctx, instance)
 
     def get_tco_client(self, instance, service):

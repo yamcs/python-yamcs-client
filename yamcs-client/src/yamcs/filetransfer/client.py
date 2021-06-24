@@ -1,5 +1,4 @@
 import functools
-import warnings
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
@@ -119,96 +118,6 @@ class FileTransferClient:
         for service in self.list_services():
             if service.name == name:
                 return service
-
-    def list_transfers(self):
-        """
-        Deprecated. Use ``get_service(service).list_transfers()``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).list_transfers()",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.list_transfers()
-
-    def get_transfer(self, id):
-        """
-        Deprecated. Use ``get_service(service).get_transfer(id)``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).get_transfer(id)",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.get_transfer(id)
-
-    def upload(self, *args, **kwargs):
-        """
-        Deprecated. Use ``get_service(service).upload(...)``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).upload(...)", FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.upload(*args, **kwargs)
-
-    def pause_transfer(self, id):
-        """
-        Deprecated. Use ``get_service(service).pause_transfer(id)``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).pause_transfer(id)",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.pause_transfer(id)
-
-    def resume_transfer(self, id):
-        """
-        Deprecated. Use ``get_service(service).resume_transfer(id)``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).resume_transfer(id)",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.resume_transfer(id)
-
-    def cancel_transfer(self, id):
-        """
-        Deprecated. Use ``get_service(service).cancel_transfer(id)``.
-        """
-        warnings.warn(
-            "Use a specific service: get_service(service).cancel_transfer(id)",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-
-        return self._default_service.cancel_transfer(id)
-
-    def create_transfer_subscription(self, *args, **kwargs):
-        """
-        Deprecated. Use ``get_service(service).create_transfer_subscription(...)``.
-        """
-        warnings.warn(
-            "Use a specific service: "
-            "get_service(service).create_transfer_subscription(...)",
-            FutureWarning,
-        )
-        if not self._default_service:
-            self._default_service = next(self.list_services(), None)
-        return self._default_service.create_transfer_subscription(*args, **kwargs)
 
 
 class ServiceClient:
