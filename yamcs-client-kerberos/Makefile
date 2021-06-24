@@ -6,7 +6,7 @@ clean:
 lint:
 	flake8 src --exclude '*pb2.py' --count --show-source --statistics
 
-build:
+build: lint
 	python setup.py sdist bdist_wheel
 
 deploy: clean build
