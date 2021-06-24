@@ -85,13 +85,13 @@ class Context:
     def request(self, method, path, **kwargs):
         path = f"{self.api_root}{path}"
 
-        if self.credentials:
-            self.credentials.before_request(self.session, self.auth_root)
-
         try:
+            if self.credentials:
+                self.credentials.before_request(self.session, self.auth_root)
+
             response = self.session.request(method, path, **kwargs)
         except requests.exceptions.SSLError as ssl_error:
-            msg = f"Connection to {self.address} failed: {ssl_error}"
+            msg = f"Connection to {self.url} failed: {ssl_error}"
             raise ConnectionFailure(msg) from None
         except requests.exceptions.ConnectionError as e:
             # Requests gives us a horribly confusing error when a connection
@@ -100,10 +100,13 @@ class Context:
                 # This is a string (which is still confusing ....)
                 msg = e.args[0].args[0]
                 if "refused" in msg:
-                    msg = f"Connection to {self.address} failed: connection refused"
+                    msg = f"Connection to {self.url} failed: connection refused"
+                    raise ConnectionFailure(msg) from None
+                elif "not known" in msg:
+                    msg = f"Connection to {self.url} failed: could not resolve hostname"
                     raise ConnectionFailure(msg) from None
 
-            raise ConnectionFailure(f"Connection to {self.address} failed: {e}")
+            raise ConnectionFailure(f"Connection to {self.url} failed: {e}")
 
         if 200 <= response.status_code < 300:
             return response
