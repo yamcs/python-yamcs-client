@@ -1,3 +1,5 @@
+import warnings
+
 from yamcs.protobuf.mdb import mdb_pb2
 
 
@@ -169,7 +171,7 @@ class ArrayType:
         return self._proto.type.engType
 
     @property
-    def arrayType(self):
+    def array_type(self):
         """
         In case the elements of an array of this type are also of type `array`, this
         returns type info of the elements' array type.
@@ -182,6 +184,18 @@ class ArrayType:
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
+
+    @property
+    def arrayType(self):
+        """
+        Deprecated. Use ``array_type``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: array_type() instead of arrayType()",
+            FutureWarning,
+        )
+        return self.array_type
 
     @property
     def members(self):
@@ -232,7 +246,7 @@ class Member:
         return None
 
     @property
-    def arrayType(self):
+    def array_type(self):
         """
         In case this member is of type `array`, this returns array-specific
         type info.
@@ -242,6 +256,18 @@ class Member:
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
+
+    @property
+    def arrayType(self):
+        """
+        Deprecated. Use ``array_type``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: array_type() instead of arrayType()",
+            FutureWarning,
+        )
+        return self.array_type
 
     @property
     def members(self):
@@ -379,7 +405,7 @@ class Parameter:
         return None
 
     @property
-    def arrayType(self):
+    def array_type(self):
         """
         In case this parameter is of type `array`, this returns array-specific
         type info.
@@ -389,6 +415,18 @@ class Parameter:
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
+
+    @property
+    def arrayType(self):
+        """
+        Deprecated. Use ``array_type``.
+        """
+        warnings.warn(
+            "Method renamed for consistency. "
+            "Use: array_type() instead of arrayType()",
+            FutureWarning,
+        )
+        return self.array_type
 
     @property
     def members(self):
