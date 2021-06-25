@@ -257,6 +257,65 @@ class Member:
         return self.name
 
 
+class EnumValue:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def value(self):
+        """Numeric value"""
+        return self._proto.value
+
+    @property
+    def label(self):
+        """String value"""
+        return self._proto.label
+
+    @property
+    def description(self):
+        """State description"""
+        if self._proto.HasField("description"):
+            return self.__proto.description
+        return None
+
+    def __str__(self):
+        return self.label
+
+
+class DataEncoding:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def type(self):
+        """Raw type"""
+        if self._proto.HasField("type"):
+            return mdb_pb2.DataEncodingInfo.Type.Name(self._proto.type)
+        return None
+
+    @property
+    def little_endian(self):
+        """True if little-endian"""
+        return self._proto.littleEndian
+
+    @property
+    def bitlength(self):
+        """The size in bits"""
+        if self._proto.HasField("sizeInBits"):
+            return self._proto.sizeInBits
+        return None
+
+    @property
+    def encoding(self):
+        """Encoding detail"""
+        if self._proto.HasField("encoding"):
+            return self._proto.encoding
+        return None
+
+    def __str__(self):
+        return self.type
+
+
 class Parameter:
     """
     From XTCE:
@@ -340,6 +399,36 @@ class Parameter:
         :type: List[:class:`.Member`]
         """
         return [Member(member) for member in self._proto.type.member]
+
+    @property
+    def units(self):
+        """
+        Engineering unit(s)
+
+        :type: List[str]
+        """
+        return [info.unit for info in self._proto.type.unitSet]
+
+    @property
+    def enum_values(self):
+        """
+        In case this parameter is of type `enumeration`, this returns an ordered list
+        of possible values.
+
+        :type: List[:class:`.EnumValue`]
+        """
+        return [EnumValue(enumValue) for enumValue in self._proto.type.enumValue]
+
+    @property
+    def data_encoding(self):
+        """
+        Information on the raw encoding of this parameter, if applicable.
+
+        :type: :class:`.DataEncoding`
+        """
+        if self._proto.type.HasField("dataEncoding"):
+            return DataEncoding(self._proto.type.dataEncoding)
+        return None
 
     def __str__(self):
         return self.qualified_name
