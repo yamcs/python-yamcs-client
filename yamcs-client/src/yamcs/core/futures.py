@@ -77,7 +77,7 @@ class WebSocketSubscriptionFuture(Future):
         data is emitted. This function raises an exception if the subscription
         attempt failed.
         """
-        self._wait_on_signal(self._response_received)
+        self._wait_on_signal(self._response_received, timeout)
         if self._response_exception is not None:
             msg = self._response_exception.msg
             raise YamcsError(msg)
