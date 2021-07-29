@@ -77,6 +77,7 @@ class Context:
 
     def delete_proto(self, path, **kwargs):
         headers = kwargs.pop("headers", {})
+        headers["Content-Type"] = "application/protobuf"
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("delete", path, **kwargs)
