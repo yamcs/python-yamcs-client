@@ -1,4 +1,3 @@
-# fmt: off
 from datetime import datetime, timedelta, timezone
 
 from yamcs.client import YamcsClient
@@ -26,16 +25,16 @@ def print_latest():
         records_by_apid[group.name].extend(group.records)
 
     for apid, records in records_by_apid.items():
-        print('APID:', apid)
+        print("APID:", apid)
 
         total = 0
         for rec in records:
-            print('  -', rec)
+            print("  -", rec)
             total += rec.count
-        print(f'  --> Total packets for {apid}: {total}')
+        print(f"  --> Total packets for {apid}: {total}")
 
 
-if __name__ == '__main__':
-    client = YamcsClient('localhost:8090')
-    archive = client.get_archive(instance='simulator')
+if __name__ == "__main__":
+    client = YamcsClient("localhost:8090")
+    archive = client.get_archive(instance="simulator")
     print_latest()

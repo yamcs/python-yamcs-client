@@ -1,4 +1,3 @@
-# fmt: off
 from yamcs.client import YamcsClient
 
 
@@ -10,7 +9,7 @@ def print_space_systems():
 
 def print_parameters():
     """Print all float parameters."""
-    for parameter in mdb.list_parameters(parameter_type='float'):
+    for parameter in mdb.list_parameters(parameter_type="float"):
         print(parameter)
 
 
@@ -22,25 +21,25 @@ def print_commands():
 
 def find_parameter():
     """Find one parameter."""
-    p1 = mdb.get_parameter('/YSS/SIMULATOR/BatteryVoltage2')
-    print('Via qualified name:', p1)
+    p1 = mdb.get_parameter("/YSS/SIMULATOR/BatteryVoltage2")
+    print("Via qualified name:", p1)
 
-    p2 = mdb.get_parameter('MDB:OPS Name/SIMULATOR_BatteryVoltage2')
-    print('Via domain-specific alias:', p2)
+    p2 = mdb.get_parameter("MDB:OPS Name/SIMULATOR_BatteryVoltage2")
+    print("Via domain-specific alias:", p2)
 
 
-if __name__ == '__main__':
-    client = YamcsClient('localhost:8090')
-    mdb = client.get_mdb(instance='simulator')
+if __name__ == "__main__":
+    client = YamcsClient("localhost:8090")
+    mdb = client.get_mdb(instance="simulator")
 
-    print('\nSpace systems:')
+    print("\nSpace systems:")
     print_space_systems()
 
-    print('\nParameters:')
+    print("\nParameters:")
     print_parameters()
 
-    print('\nCommands:')
+    print("\nCommands:")
     print_commands()
 
-    print('\nFind a specific parameter using different names')
+    print("\nFind a specific parameter using different names")
     find_parameter()
