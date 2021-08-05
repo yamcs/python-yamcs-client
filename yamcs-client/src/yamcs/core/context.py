@@ -36,9 +36,9 @@ class Context:
             self.ws_root = f"ws://{self.address}/api/websocket"
 
         self.session = requests.Session()
+        self.session.verify = tls_verify
         if not tls_verify:
             urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-            self.session.verify = False
 
         if credentials:
             self.credentials = credentials.login(

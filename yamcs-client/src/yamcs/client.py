@@ -145,8 +145,12 @@ class YamcsClient:
         """
         :param str address: The address of Yamcs in the format 'hostname:port'
         :param Optional[bool] tls: Whether TLS encryption is expected
-        :param Optional[bool] tls_verify: Whether server certificate verification is
-                                          enabled (only applicable if ``tls=True``)
+        :param tls_verify: Whether server certificate verification is
+                           enabled (only applicable if ``tls=True``).
+                           As an alternative to a boolean value, this option
+                           may be set to a path containing the appropriate
+                           TLS CA certificate bundle.
+        :type tls_verify: Optional[Union[bool, str]]
         :param Optional[.Credentials] credentials: Credentials for when the server is
                                                    secured
         :param Optional[str] user_agent: Optionally override the default user agent
