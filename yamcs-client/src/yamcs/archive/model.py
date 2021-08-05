@@ -249,6 +249,29 @@ class Sample:
         return f"{self.time} {self.avg}"
 
 
+class ParameterRangeEntry:
+    """
+    Value holder for an engineering value and its
+    number of appearances within a ParameterRange.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def eng_value(self):
+        """The engineering (calibrated) value."""
+        return parse_value(self._proto.engValue)
+
+    @property
+    def parameter_count(self):
+        """The number of received parameter values during this range."""
+        return self._proto.count
+
+    def __str__(self):
+        return f"{self.eng_value} {self.parameter_count}x"
+
+
 class ParameterRange:
     """
     Indicates an interval during which a parameter's
@@ -278,13 +301,44 @@ class ParameterRange:
 
     @property
     def eng_value(self):
-        """The engineering (calibrated) value."""
-        return parse_value(self._proto.engValue)
+        """
+        The engineering (calibrated) value within this range.
+
+        If the request was made using ``min_range`` option,
+        this will be the most-frequent value only. Retrieve
+        the complete distribution using the ``entries``
+        attribute.
+        """
+        max_count = None
+        result = None
+        for idx, count in enumerate(self._proto.counts):
+            if max_count is None or (count > max_count):
+                max_count = count
+                result = self._proto.engValues[idx]
+
+        if result:
+            return parse_value(result)
+        else:
+            return None
 
     @property
     def parameter_count(self):
-        """The number of received parameter values during this range."""
+        """
+        The total number of parameter values within this range.
+        """
         return self._proto.count
+
+    @property
+    def entries(self):
+        """
+        Value distribution within this range.
+
+        Unless the request was made using ``min_range`` option,
+        there should be only one entry only.
+
+        :type: List[:class:`ParameterRangeEntry`]
+        """
+        return [ParameterRangeEntry(proto) for proto in self._proto.engValues]
 
     def __str__(self):
         return f"{self.start} - {self.stop}: {self.eng_value}"

@@ -451,6 +451,8 @@ class ArchiveClient:
         stop=None,
         min_gap=None,
         max_gap=None,
+        min_range=None,
+        max_values=None,
         parameter_cache="realtime",
     ):
         """
@@ -469,24 +471,35 @@ class ArchiveClient:
 
         :param str parameter: Either a fully-qualified XTCE name or an alias in the
                               format ``NAMESPACE/NAME``.
-        :param ~datetime.datetime start: Minimum generation time of the considered
-                                         values (inclusive)
-        :param ~datetime.datetime stop: Maximum generation time of the considered
-                                        values (exclusive)
-        :param float min_gap: Time in seconds. Any gap (detected based on parameter
-                              expiration) smaller than this will be ignored.
-                              However if the parameter changes value, the ranges
-                              will still be split.
-        :param float max_gap: Time in seconds. If the distance between two
-                              subsequent parameter values is bigger than
-                              this value (but smaller than the parameter
-                              expiration), then an artificial gap is
-                              created. This also applies if there is no
-                              expiration defined for the parameter.
+        :param start: Minimum generation time of the considered values (inclusive)
+        :type start: Optional[~datetime.datetime]
+        :param stop: Maximum generation time of the considered values (exclusive)
+        :type stop: Optional[~datetime.datetime]
+        :param min_gap: Time in seconds. Any gap (detected based on parameter
+                        expiration) smaller than this will be ignored.
+                        However if the parameter changes value, the ranges
+                        will still be split.
+        :type max_gap: Optional[float]
+        :param max_gap: Time in seconds. If the distance between two
+                        subsequent parameter values is bigger than
+                        this value (but smaller than the parameter
+                        expiration), then an artificial gap is
+                        created. This also applies if there is no
+                        expiration defined for the parameter.
+        :type max_gap: Optional[float]
+        :param min_range: Time in seconds. Minimum duration of returned
+                          ranges. If multiple values occur within the
+                          range, the most frequent can be accessed using
+                          the ``entries`` property.
+        :type min_range: Optional[float]
+        :param max_values: Maximum number of unique values, tallied across the
+                           full requested range. Use this in combination with
+                           ``min_range`` to further optimize for transfer size.
         :param str parameter_cache: Specify the name of the processor who's
                                     parameter cache is merged with already
                                     archived values. To disable results from
                                     the parameter cache, set this to ``None``.
+        :type parameter_cache: Optional[str]
         :rtype: .ParameterRange[]
         """
         path = f"/archive/{self._instance}/parameters{parameter}/ranges"
@@ -499,6 +512,10 @@ class ArchiveClient:
             params["minGap"] = int(min_gap * 1000)
         if max_gap is not None:
             params["maxGap"] = int(max_gap * 1000)
+        if min_range is not None:
+            params["minRange"] = int(min_range * 1000)
+        if max_values is not None:
+            params["maxValues"] = max_values
 
         if parameter_cache:
             params["processor"] = parameter_cache

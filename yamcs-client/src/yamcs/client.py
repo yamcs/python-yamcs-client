@@ -536,7 +536,7 @@ class YamcsClient:
 
         :param timeout: The amount of seconds to wait for the request to
                         complete.
-        :type timeout: Optional[float]j
+        :type timeout: Optional[float]
 
         :return: Future that can be used to manage the background websocket
                  subscription.
