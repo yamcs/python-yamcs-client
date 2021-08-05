@@ -64,8 +64,10 @@ class WebSocketSubscriptionManager:
         )
 
         kwargs = {}
-        if not self.ctx.session.verify:
+        if self.ctx.session.verify is False:
             kwargs["sslopt"] = {"cert_reqs": ssl.CERT_NONE}
+        elif self.ctx.session.verify is not True:
+            kwargs["sslopt"] = {"ca_certs": self.ctx.session.verify}
 
         self._consumer = threading.Thread(
             target=self._websocket.run_forever, kwargs=kwargs
