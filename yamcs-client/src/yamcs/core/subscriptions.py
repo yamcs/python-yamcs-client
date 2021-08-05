@@ -6,6 +6,8 @@ import websocket
 from yamcs.api import websocket_pb2
 from yamcs.core.exceptions import ConnectionFailure
 
+logger = logging.getLogger("yamcs-client")
+
 
 class WebSocketSubscriptionManager:
     def __init__(self, ctx, topic, options=None):
@@ -145,16 +147,31 @@ class WebSocketSubscriptionManager:
                 data = getattr(pb2_message, "data")
                 self._callback(data)
         except Exception as e:
-            logging.exception("Problem while processing message. Closing connection")
+            logger.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 
     def _on_websocket_error(self, ws, error):
-        logging.exception("WebSocket error")
+        # Set to False to avoid printing some errors twice
+        # (the ones that are generated during an initial connection)
+        log_error = True
 
-        # Generate our own exception.
+        # Generate custom exception.
         # (the default message is misleading 'connection is already closed')
         if isinstance(error, websocket.WebSocketConnectionClosedException):
             error = ConnectionFailure("Connection closed")
+        elif isinstance(error, websocket.WebSocketAddressException):
+            # No log because this error usually happens while blocking on an
+            # initial connection, so prefer not to print it twice.
+            log_error = False
+            msg = f"Connection to {self.ctx.url} failed: could not resolve hostname"
+            error = ConnectionFailure(msg)
+        elif isinstance(error, ConnectionRefusedError):
+            log_error = False
+            msg = f"Connection to {self.ctx.url} failed: connection refused"
+            error = ConnectionFailure(msg)
+
+        if log_error:
+            logger.error("WebSocket error: %s", error)
 
         self._close_async(reason=error)
 

@@ -18,7 +18,8 @@ class WebSocketSubscriptionFuture(Future):
 
         # Yamcs send either a 'reply' message or an 'exception' message on
         # every websocket subscription. If the ``_response_received`` event
-        # is set it means either of these two has arrived.
+        # is set it means either of these two has arrived, or the connection
+        # failed entirely
         self._response_received = threading.Event()
         self._response_reply = None
         self._response_exception = None
@@ -51,6 +52,10 @@ class WebSocketSubscriptionFuture(Future):
         else:
             self.set_exception(result)
 
+            # Make sure no subscriptions get stuck
+            # on waiting for an initial reply.
+            self._response_received.set()
+
     def cancel(self):
         """
         Closes the websocket and shutdowns the background thread consuming
@@ -68,7 +73,7 @@ class WebSocketSubscriptionFuture(Future):
         return True
 
     def done(self):
-        # We're assuming that None cannot be a valid result
+        # Assume that None cannot be a valid result
         return self._exception is not None or self._result is not None
 
     def reply(self, timeout=None):
@@ -81,6 +86,8 @@ class WebSocketSubscriptionFuture(Future):
         if self._response_exception is not None:
             msg = self._response_exception.msg
             raise YamcsError(msg)
+        elif self._exception:
+            raise self._exception
         return self._response_reply
 
     def result(self, timeout=None):

@@ -7,6 +7,8 @@ from google.protobuf import timestamp_pb2
 from yamcs.core.exceptions import YamcsError
 from yamcs.protobuf import yamcs_pb2
 
+logger = logging.getLogger("yamcs-client")
+
 
 def to_isostring(dt):
     """
@@ -104,7 +106,7 @@ def parse_value(proto):
     elif proto.type == yamcs_pb2.Value.NONE:
         return None
     else:
-        logging.warning("Unrecognized value type for update %s", proto)
+        logger.warning("Unrecognized value type for update %s", proto)
         return None
 
 
