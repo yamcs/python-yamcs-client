@@ -140,8 +140,8 @@ def _build_value_proto(value):
         proto.type = proto.BOOLEAN
         proto.booleanValue = value
     elif isinstance(value, float):
-        proto.type = proto.FLOAT
-        proto.floatValue = value
+        proto.type = proto.DOUBLE
+        proto.doubleValue = value
     elif isinstance(value, int) and value > 2147483647:
         proto.type = proto.SINT64
         proto.sint64Value = value
