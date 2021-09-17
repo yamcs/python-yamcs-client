@@ -666,23 +666,6 @@ class EventAlarm(Alarm):
         return None
 
 
-class ParameterData:
-    def __init__(self, proto, mapping):
-        self._proto = proto
-        self._mapping = mapping
-
-    @property
-    def parameters(self):
-        """
-        :type: List[:class:`.ParameterValue`]
-        """
-        pvals = []
-        for pval_pb in self._proto.values:
-            id = self._mapping[pval_pb.numericId]
-            pvals.append(ParameterValue(pval_pb, id=id))
-        return pvals
-
-
 class ParameterValue:
     def __init__(self, proto, id=None):
         self._proto = proto
@@ -784,6 +767,48 @@ class ParameterValue:
         if self.monitoring_result:
             line += " [" + self.monitoring_result + "]"
         return line
+
+
+class ParameterData:
+    def __init__(self, proto, mapping=None):
+        self._proto = proto
+        self._mapping = mapping
+
+        self._pvals = {}
+        if self._mapping is None:  # ParameterData proto
+            for pval_pb in proto.parameter:
+                pval = ParameterValue(pval_pb)
+                self._pvals[pval.name] = pval
+        else:  # SubscribeParametersData proto
+            for pval_pb in self._proto.values:
+                id = self._mapping[pval_pb.numericId]
+                pval = ParameterValue(pval_pb, id=id)
+                self._pvals[pval.name] = pval
+
+    def __iter__(self):
+        for pval in self._pvals.values():
+            yield pval
+
+    def get_value(self, parameter):
+        """
+        Returns the value of a specific parameter.
+        Or ``None`` if the parameter is not included in
+        this update.
+
+        :param string parameter: Parameter name.
+        :rtype: .ParameterValue
+        """
+        return self._pvals.get(parameter)
+
+    @property
+    def parameters(self):
+        """
+        :type: List[:class:`.ParameterValue`]
+        """
+        return list(self._pvals.values())
+
+    def __str__(self):
+        return self.parameters.__str__()
 
 
 class Calibrator:

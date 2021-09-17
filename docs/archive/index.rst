@@ -73,6 +73,13 @@ Iterate a specific range of values:
     :start-after: """
     :dedent: 4
 
+Iterate values of multiple parameters by unique generation time:
+
+.. literalinclude:: ../../yamcs-client/examples/archive_retrieval.py
+    :pyobject: stream_specific_parameter_range
+    :start-after: """
+    :dedent: 4
+
 
 Event Retrieval
 ^^^^^^^^^^^^^^^

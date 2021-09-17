@@ -1,7 +1,7 @@
 import struct
 
-from google.protobuf.internal.decoder import _DecodeVarint32
 from google.protobuf.internal.encoder import _VarintBytes
+from yamcs.core.helpers import split_protobuf_stream
 from yamcs.protobuf.table import table_pb2
 
 """
@@ -23,28 +23,9 @@ def read_in_chunks(file_object, chunk_size=1024):
 
 
 def read_rows(file_object):
-    buf = None
-    for chunk in read_in_chunks(file_object):
-        if buf is None:
-            buf = chunk
-        else:
-            buf += chunk
-
-        while len(buf):
-            try:
-                # n is advanced beyond the varint
-                msg_len, n = _DecodeVarint32(buf, 0)
-            except IndexError:
-                break  # Need another chunk
-
-            if n + msg_len > len(buf):
-                break  # Need another chunk
-
-            msg_buf = buf[n : (n + msg_len)]
-            buf = buf[(n + msg_len) :]
-            message = table_pb2.Row()
-            message.ParseFromString(msg_buf)
-            yield message
+    chunk_generator = read_in_chunks(file_object)
+    for message in split_protobuf_stream(chunk_generator, table_pb2.Row):
+        yield message
 
 
 def replace_cell_data(data, search, replacement):

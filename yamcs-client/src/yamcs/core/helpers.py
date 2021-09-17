@@ -4,6 +4,7 @@ from collections import OrderedDict
 from datetime import datetime, timezone
 
 from google.protobuf import timestamp_pb2
+from google.protobuf.internal.decoder import _DecodeVarint32
 from yamcs.core.exceptions import YamcsError
 from yamcs.protobuf import yamcs_pb2
 
@@ -121,3 +122,59 @@ def adapt_name_for_rest(name):
     elif "/" not in name:
         raise ValueError("Provided name is not a fully-qualified XTCE name.")
     return "/" + name
+
+
+def to_named_object_id(parameter):
+    """
+    Builds a NamedObjectId. This is a bit more complex than it really
+    should be. In Python (for convenience) we allow the user to simply address
+    entries by their alias via the NAMESPACE/NAME convention. Yamcs is not
+    aware of this convention so we decompose it into distinct namespace and
+    name fields.
+    """
+    named_object_id = yamcs_pb2.NamedObjectId()
+    if parameter.startswith("/"):
+        named_object_id.name = parameter
+    else:
+        parts = parameter.split("/", 1)
+        if len(parts) < 2:
+            raise ValueError(
+                f"Failed to process {parameter}. Use fully-qualified "
+                "XTCE names or, alternatively, an alias in "
+                "in the format NAMESPACE/NAME"
+            )
+        named_object_id.namespace = parts[0]
+        named_object_id.name = parts[1]
+    return named_object_id
+
+
+def to_named_object_ids(parameters):
+    """Builds a list of NamedObjectId."""
+    if isinstance(parameters, str):
+        return [to_named_object_id(parameters)]
+    return [to_named_object_id(parameter) for parameter in parameters]
+
+
+def split_protobuf_stream(chunk_iterator, message_class):
+    buf = None
+    for chunk in chunk_iterator:
+        if buf is None:
+            buf = chunk
+        else:
+            buf += chunk
+
+        while len(buf):
+            try:
+                # n is advanced beyond the varint
+                msg_len, n = _DecodeVarint32(buf, 0)
+            except IndexError:
+                break  # Need another chunk
+
+            if n + msg_len > len(buf):
+                break  # Need another chunk
+
+            msg_buf = buf[n : (n + msg_len)]
+            buf = buf[(n + msg_len) :]
+            message = message_class()
+            message.ParseFromString(msg_buf)
+            yield message

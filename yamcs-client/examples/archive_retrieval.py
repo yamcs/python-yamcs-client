@@ -78,6 +78,22 @@ def iterate_specific_parameter_range():
     print("Found", total, "parameter values in range")
 
 
+def stream_specific_parameter_range():
+    """Stream one or more parameters in a specific range."""
+    now = datetime.now(tz=timezone.utc)
+    start = now - timedelta(hours=1)
+
+    total = 0
+    for pdata in archive.stream_parameter_values(
+        ["/YSS/SIMULATOR/BatteryVoltage1", "/YSS/SIMULATOR/BatteryVoltage2"],
+        start=start,
+        stop=now,
+    ):
+        total += 1
+        # print(pdata)
+    print("Found", total, "updates in range")
+
+
 def print_last_commands():
     """Print the last 10 commands."""
     iterable = archive.list_command_history(descending=True)
@@ -106,6 +122,9 @@ if __name__ == "__main__":
 
     print("\nIterate specific parameter range:")
     iterate_specific_parameter_range()
+
+    # print("\nStream specific parameter range:")
+    # stream_specific_parameter_range()
 
     print("\nLast 10 commands:")
     print_last_commands()

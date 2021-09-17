@@ -12,7 +12,12 @@ from yamcs.archive.model import (
 )
 from yamcs.core import pagination
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import to_isostring, to_server_time
+from yamcs.core.helpers import (
+    split_protobuf_stream,
+    to_isostring,
+    to_named_object_ids,
+    to_server_time,
+)
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
 from yamcs.protobuf import yamcs_pb2
@@ -26,7 +31,7 @@ from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
-from yamcs.tmtc.model import CommandHistory, Packet, ParameterValue
+from yamcs.tmtc.model import CommandHistory, Packet, ParameterData, ParameterValue
 
 
 def _wrap_callback_parse_stream_data(subscription, on_data, message):
@@ -541,6 +546,14 @@ class ArchiveClient:
         """
         Reads parameter values between the specified start and stop time.
 
+        .. note::
+
+            This method will send out multiple requests when more than
+            ``page_size`` values are queried. For large queries, consider
+            using :meth:`stream_parameter_values` instead, it uses server-streaming
+            based on a single request, and supports downloading the values of
+            multiple parameter at the same time.
+
         :param str parameter: Either a fully-qualified XTCE name or an alias in the
                               format ``NAMESPACE/NAME``.
         :param ~datetime.datetime start: Minimum generation time of the returned
@@ -589,6 +602,43 @@ class ArchiveClient:
             items_key="parameter",
             item_mapper=ParameterValue,
         )
+
+    def stream_parameter_values(
+        self, parameters, start=None, stop=None, chunk_size=32 * 1024
+    ):
+        """
+        Reads parameter values between the specified start and stop time.
+
+        Value updates are emitted for each unique generation time within
+        the queried range. If one of the parameters does not have a value
+        for a specific generation time, it is not included in the update.
+
+        :param parameters: Parameter(s) to be queried.
+        :type parameters: Union[str, str[]]
+        :param ~datetime.datetime start: Minimum generation time of the returned
+                                         values (inclusive)
+        :param ~datetime.datetime stop: Maximum generation time of the returned
+                                        values (exclusive)
+        :return: :rtype: ~collections.abc.Iterable[:class:`.ParameterData`]
+        """
+        options = archive_pb2.StreamParameterValuesRequest()
+        options.ids.extend(to_named_object_ids(parameters))
+        if start is not None:
+            options.start.MergeFrom(to_server_time(start))
+        if stop is not None:
+            options.stop.MergeFrom(to_server_time(stop))
+
+        def generate():
+            path = f"/stream-archive/{self._instance}:streamParameterValues"
+            response = self.ctx.post_proto(
+                path=path, data=options.SerializeToString(), stream=True
+            )
+            for message in split_protobuf_stream(
+                response.iter_content(chunk_size=chunk_size), pvalue_pb2.ParameterData
+            ):
+                yield ParameterData(message)
+
+        return generate()
 
     def list_command_history(
         self, command=None, start=None, stop=None, page_size=500, descending=False

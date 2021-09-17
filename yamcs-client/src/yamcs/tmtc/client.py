@@ -7,7 +7,12 @@ import threading
 
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import adapt_name_for_rest, to_isostring
+from yamcs.core.helpers import (
+    adapt_name_for_rest,
+    to_isostring,
+    to_named_object_id,
+    to_named_object_ids,
+)
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
@@ -101,37 +106,6 @@ def _wrap_callback_parse_alarm_data(subscription, on_data, message):
     subscription._process(alarm_update)
     if on_data:
         on_data(alarm_update)
-
-
-def _build_named_object_id(parameter):
-    """
-    Builds a NamedObjectId. This is a bit more complex than it really
-    should be. In Python (for convenience) we allow the user to simply address
-    entries by their alias via the NAMESPACE/NAME convention. Yamcs is not
-    aware of this convention so we decompose it into distinct namespace and
-    name fields.
-    """
-    named_object_id = yamcs_pb2.NamedObjectId()
-    if parameter.startswith("/"):
-        named_object_id.name = parameter
-    else:
-        parts = parameter.split("/", 1)
-        if len(parts) < 2:
-            raise ValueError(
-                f"Failed to process {parameter}. Use fully-qualified "
-                "XTCE names or, alternatively, an alias in "
-                "in the format NAMESPACE/NAME"
-            )
-        named_object_id.namespace = parts[0]
-        named_object_id.name = parts[1]
-    return named_object_id
-
-
-def _build_named_object_ids(parameters):
-    """Builds a list of NamedObjectId."""
-    if isinstance(parameters, str):
-        return [_build_named_object_id(parameters)]
-    return [_build_named_object_id(parameter) for parameter in parameters]
 
 
 def _build_value_proto(value):
@@ -376,7 +350,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         options.action = processing_pb2.SubscribeParametersRequest.ADD
         options.abortOnInvalid = abort_on_invalid
         options.sendFromCache = send_from_cache
-        options.id.extend(_build_named_object_ids(parameters))
+        options.id.extend(to_named_object_ids(parameters))
 
         self._manager.send(options)
 
@@ -392,7 +366,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
 
         options = processing_pb2.SubscribeParametersRequest()
         options.action = processing_pb2.SubscribeParametersRequest.REMOVE
-        options.id.extend(_build_named_object_ids(parameters))
+        options.id.extend(to_named_object_ids(parameters))
 
         self._manager.send(options)
 
@@ -400,6 +374,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         """
         Returns the last value of a specific parameter from local cache.
 
+        :param string parameter: Parameter name.
         :rtype: .ParameterValue
         """
         return self.value_cache[parameter]
@@ -595,7 +570,7 @@ class ProcessorClient:
         :rtype: .ParameterValue[]
         """
         req = processing_pb2.BatchGetParameterValuesRequest()
-        req.id.extend(_build_named_object_ids(parameters))
+        req.id.extend(to_named_object_ids(parameters))
         req.fromCache = from_cache
         req.timeout = int(timeout * 1000)
         url = f"/processors/{self._instance}/{self._processor}/parameters:batchGet"
@@ -637,7 +612,7 @@ class ProcessorClient:
         req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
             item = req.request.add()
-            item.id.MergeFrom(_build_named_object_id(key))
+            item.id.MergeFrom(to_named_object_id(key))
             item.value.MergeFrom(_build_value_proto(values[key]))
         url = f"/processors/{self._instance}/{self._processor}/parameters:batchSet"
         self.ctx.post_proto(url, data=req.SerializeToString())
@@ -1231,7 +1206,7 @@ class ProcessorClient:
         options.abortOnInvalid = abort_on_invalid
         options.updateOnExpiration = update_on_expiration
         options.sendFromCache = send_from_cache
-        options.id.extend(_build_named_object_ids(parameters))
+        options.id.extend(to_named_object_ids(parameters))
 
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="parameters", options=options
