@@ -56,7 +56,7 @@ def _wrap_callback_parse_parameter_data(subscription, on_data, message):
     pb = processing_pb2.SubscribeParametersData()
     message.Unpack(pb)
     parameter_data = subscription._process(pb)
-    if on_data:
+    if on_data and parameter_data:
         on_data(parameter_data)
 
 
