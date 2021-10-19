@@ -457,7 +457,7 @@ class ArchiveClient:
         min_gap=None,
         max_gap=None,
         min_range=None,
-        max_values=None,
+        max_values=100,
         parameter_cache="realtime",
     ):
         """
@@ -500,6 +500,7 @@ class ArchiveClient:
         :param max_values: Maximum number of unique values, tallied across the
                            full requested range. Use this in combination with
                            ``min_range`` to further optimize for transfer size.
+                           This value is limited to 100 at most.
         :param str parameter_cache: Specify the name of the processor who's
                                     parameter cache is merged with already
                                     archived values. To disable results from
