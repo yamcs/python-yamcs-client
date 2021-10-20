@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.web',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\017TagServiceProtoP\001'),
-  serialized_pb=_b('\n(yamcs/protobuf/archive/tag_service.proto\x12\x12yamcs.protobuf.web\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"x\n\x0fListTagsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"A\n\rGetTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\"s\n\x10\x43reateTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05start\x18\x03 \x01(\t\x12\x0c\n\x04stop\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05\x63olor\x18\x06 \x01(\t\"\x91\x01\n\x0e\x45\x64itTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\r\n\x05start\x18\x05 \x01(\t\x12\x0c\n\x04stop\x18\x06 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\r\n\x05\x63olor\x18\x08 \x01(\t\"D\n\x10\x44\x65leteTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\x32\xba\x05\n\x06TagApi\x12y\n\x08ListTags\x12#.yamcs.protobuf.web.ListTagsRequest\x1a$.yamcs.protobuf.web.ListTagsResponse\"\"\x8a\x92\x03\x1e\n\x1c/api/archive/{instance}/tags\x12}\n\x06GetTag\x12!.yamcs.protobuf.web.GetTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"4\x8a\x92\x03\x30\n./api/archive/{instance}/tags/{tagTime}/{tagId}\x12t\n\tCreateTag\x12$.yamcs.protobuf.web.CreateTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"%\x8a\x92\x03!\x1a\x1c/api/archive/{instance}/tags:\x01*\x12\xb9\x01\n\tUpdateTag\x12\".yamcs.protobuf.web.EditTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"l\x8a\x92\x03h*./api/archive/{instance}/tags/{tagTime}/{tagId}:\x01*Z3\x12./api/archive/{instance}/tags/{tagTime}/{tagId}:\x01*\x12\x83\x01\n\tDeleteTag\x12$.yamcs.protobuf.web.DeleteTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"4\x8a\x92\x03\x30\"./api/archive/{instance}/tags/{tagTime}/{tagId}B\'\n\x12org.yamcs.protobufB\x0fTagServiceProtoP\x01')
+  serialized_pb=_b('\n(yamcs/protobuf/archive/tag_service.proto\x12\x12yamcs.protobuf.web\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"x\n\x0fListTagsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\";\n\x10ListTagsResponse\x12\'\n\x03tag\x18\x01 \x03(\x0b\x32\x1a.yamcs.protobuf.ArchiveTag\"A\n\rGetTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\"s\n\x10\x43reateTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05start\x18\x03 \x01(\t\x12\x0c\n\x04stop\x18\x04 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x05 \x01(\t\x12\r\n\x05\x63olor\x18\x06 \x01(\t\"\x91\x01\n\x0e\x45\x64itTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\r\n\x05start\x18\x05 \x01(\t\x12\x0c\n\x04stop\x18\x06 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x07 \x01(\t\x12\r\n\x05\x63olor\x18\x08 \x01(\t\"D\n\x10\x44\x65leteTagRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07tagTime\x18\x02 \x01(\x03\x12\r\n\x05tagId\x18\x03 \x01(\x05\x32\xc6\x05\n\x06TagApi\x12{\n\x08ListTags\x12#.yamcs.protobuf.web.ListTagsRequest\x1a$.yamcs.protobuf.web.ListTagsResponse\"$\x8a\x92\x03 \n\x1c/api/archive/{instance}/tags0\x01\x12\x7f\n\x06GetTag\x12!.yamcs.protobuf.web.GetTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"6\x8a\x92\x03\x32\n./api/archive/{instance}/tags/{tagTime}/{tagId}0\x01\x12v\n\tCreateTag\x12$.yamcs.protobuf.web.CreateTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"\'\x8a\x92\x03#\x1a\x1c/api/archive/{instance}/tags0\x01:\x01*\x12\xbd\x01\n\tUpdateTag\x12\".yamcs.protobuf.web.EditTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"p\x8a\x92\x03l*./api/archive/{instance}/tags/{tagTime}/{tagId}0\x01:\x01*Z5\x12./api/archive/{instance}/tags/{tagTime}/{tagId}0\x01:\x01*\x12\x85\x01\n\tDeleteTag\x12$.yamcs.protobuf.web.DeleteTagRequest\x1a\x1a.yamcs.protobuf.ArchiveTag\"6\x8a\x92\x03\x32\"./api/archive/{instance}/tags/{tagTime}/{tagId}0\x01\x42\'\n\x12org.yamcs.protobufB\x0fTagServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -403,7 +403,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=740,
-  serialized_end=1438,
+  serialized_end=1450,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListTags',
@@ -412,7 +412,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LISTTAGSREQUEST,
     output_type=_LISTTAGSRESPONSE,
-    serialized_options=_b('\212\222\003\036\n\034/api/archive/{instance}/tags'),
+    serialized_options=_b('\212\222\003 \n\034/api/archive/{instance}/tags0\001'),
   ),
   _descriptor.MethodDescriptor(
     name='GetTag',
@@ -421,7 +421,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETTAGREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\0030\n./api/archive/{instance}/tags/{tagTime}/{tagId}'),
+    serialized_options=_b('\212\222\0032\n./api/archive/{instance}/tags/{tagTime}/{tagId}0\001'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateTag',
@@ -430,7 +430,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CREATETAGREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\003!\032\034/api/archive/{instance}/tags:\001*'),
+    serialized_options=_b('\212\222\003#\032\034/api/archive/{instance}/tags0\001:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='UpdateTag',
@@ -439,7 +439,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_EDITTAGREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\003h*./api/archive/{instance}/tags/{tagTime}/{tagId}:\001*Z3\022./api/archive/{instance}/tags/{tagTime}/{tagId}:\001*'),
+    serialized_options=_b('\212\222\003l*./api/archive/{instance}/tags/{tagTime}/{tagId}0\001:\001*Z5\022./api/archive/{instance}/tags/{tagTime}/{tagId}0\001:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteTag',
@@ -448,7 +448,7 @@ _TAGAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_DELETETAGREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVETAG,
-    serialized_options=_b('\212\222\0030\"./api/archive/{instance}/tags/{tagTime}/{tagId}'),
+    serialized_options=_b('\212\222\0032\"./api/archive/{instance}/tags/{tagTime}/{tagId}0\001'),
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_TAGAPI)

@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xb1\x01\n\x1cStreamParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x03ids\x18\x04 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\".\n\x1aListParameterGroupsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\x94\x02\n\x1bListParameterHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03pos\x18\x03 \x01(\x03\x12\r\n\x05limit\x18\x04 \x01(\x05\x12\x10\n\x08norepeat\x18\x05 \x01(\x08\x12)\n\x05start\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x08 \x01(\t\x12\x12\n\nnorealtime\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\n \x01(\t\x12\x0e\n\x06source\x18\x0b \x01(\t\x12\x0c\n\x04next\x18\x0c \x01(\t\"s\n\x1cListParameterHistoryResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xec\x01\n\x1aGetParameterSamplesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x12\n\nnorealtime\x18\x06 \x01(\x08\x12\x13\n\x0buseRawValue\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0e\n\x06source\x18\x08 \x01(\t\"\xbb\x01\n\x1c\x45xportParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nparameters\x18\x04 \x03(\t\x12\x11\n\tnamespace\x18\x05 \x01(\t\x12\r\n\x05\x65xtra\x18\x06 \x03(\t2\x82\x07\n\x10StreamArchiveApi\x12\xa5\x01\n\x13ListParameterGroups\x12\x32.yamcs.protobuf.archive.ListParameterGroupsRequest\x1a*.yamcs.protobuf.archive.ParameterGroupInfo\".\x8a\x92\x03*\n(/api/archive/{instance}/parameter-groups\x12\xba\x01\n\x14ListParameterHistory\x12\x33.yamcs.protobuf.archive.ListParameterHistoryRequest\x1a\x34.yamcs.protobuf.archive.ListParameterHistoryResponse\"7\x8a\x92\x03\x33\n1/api/stream-archive/{instance}/parameters/{name*}\x12\xb4\x01\n\x15StreamParameterValues\x12\x34.yamcs.protobuf.archive.StreamParameterValuesRequest\x1a$.yamcs.protobuf.pvalue.ParameterData\"=\x8a\x92\x03\x39\x1a\x34/api/stream-archive/{instance}:streamParameterValues:\x01*0\x01\x12\xb5\x01\n\x13GetParameterSamples\x12\x32.yamcs.protobuf.archive.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"G\x8a\x92\x03\x43\n9/api/stream-archive/{instance}/parameters/{name*}/samplesR\x06sample\x12\x99\x01\n\x15\x45xportParameterValues\x12\x34.yamcs.protobuf.archive.ExportParameterValuesRequest\x1a\x13.yamcs.api.HttpBody\"3\x8a\x92\x03/\n-/api/archive/{instance}:exportParameterValues0\x01\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n$yamcs/protobuf/archive/archive.proto\x12\x16yamcs.protobuf.archive\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xb1\x01\n\x1cStreamParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x03ids\x18\x04 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"#\n\x12ParameterGroupInfo\x12\r\n\x05group\x18\x01 \x03(\t\".\n\x1aListParameterGroupsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\x94\x02\n\x1bListParameterHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03pos\x18\x03 \x01(\x03\x12\r\n\x05limit\x18\x04 \x01(\x05\x12\x10\n\x08norepeat\x18\x05 \x01(\x08\x12)\n\x05start\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x08 \x01(\t\x12\x12\n\nnorealtime\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\n \x01(\t\x12\x0e\n\x06source\x18\x0b \x01(\t\x12\x0c\n\x04next\x18\x0c \x01(\t\"s\n\x1cListParameterHistoryResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xec\x01\n\x1aGetParameterSamplesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x12\n\nnorealtime\x18\x06 \x01(\x08\x12\x13\n\x0buseRawValue\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0e\n\x06source\x18\x08 \x01(\t\"\xce\x01\n\x1c\x45xportParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nparameters\x18\x04 \x03(\t\x12\x11\n\tnamespace\x18\x05 \x01(\t\x12\r\n\x05\x65xtra\x18\x06 \x03(\t\x12\x11\n\tdelimiter\x18\x07 \x01(\t2\x82\x07\n\x10StreamArchiveApi\x12\xa5\x01\n\x13ListParameterGroups\x12\x32.yamcs.protobuf.archive.ListParameterGroupsRequest\x1a*.yamcs.protobuf.archive.ParameterGroupInfo\".\x8a\x92\x03*\n(/api/archive/{instance}/parameter-groups\x12\xba\x01\n\x14ListParameterHistory\x12\x33.yamcs.protobuf.archive.ListParameterHistoryRequest\x1a\x34.yamcs.protobuf.archive.ListParameterHistoryResponse\"7\x8a\x92\x03\x33\n1/api/stream-archive/{instance}/parameters/{name*}\x12\xb4\x01\n\x15StreamParameterValues\x12\x34.yamcs.protobuf.archive.StreamParameterValuesRequest\x1a$.yamcs.protobuf.pvalue.ParameterData\"=\x8a\x92\x03\x39\x1a\x34/api/stream-archive/{instance}:streamParameterValues:\x01*0\x01\x12\xb5\x01\n\x13GetParameterSamples\x12\x32.yamcs.protobuf.archive.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"G\x8a\x92\x03\x43\n9/api/stream-archive/{instance}/parameters/{name*}/samplesR\x06sample\x12\x99\x01\n\x15\x45xportParameterValues\x12\x34.yamcs.protobuf.archive.ExportParameterValuesRequest\x1a\x13.yamcs.api.HttpBody\"3\x8a\x92\x03/\n-/api/archive/{instance}:exportParameterValues0\x01\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -427,6 +427,13 @@ _EXPORTPARAMETERVALUESREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='delimiter', full_name='yamcs.protobuf.archive.ExportParameterValuesRequest.delimiter', index=6,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -440,7 +447,7 @@ _EXPORTPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1117,
-  serialized_end=1304,
+  serialized_end=1323,
 )
 
 _STREAMPARAMETERVALUESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -520,8 +527,8 @@ _STREAMARCHIVEAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1307,
-  serialized_end=2205,
+  serialized_start=1326,
+  serialized_end=2224,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListParameterGroups',
