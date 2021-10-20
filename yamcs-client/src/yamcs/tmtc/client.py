@@ -148,7 +148,7 @@ def _build_value_proto(value):
     return proto
 
 
-def _to_argument_value(value):
+def _to_argument_value(value, force_string):
     if isinstance(value, (bytes, bytearray)):
         return binascii.hexlify(value)
     elif isinstance(value, collections.abc.Mapping):
@@ -158,8 +158,10 @@ def _to_argument_value(value):
         return json.dumps(obj)
     elif isinstance(value, datetime.datetime):
         return to_isostring(value)
-    else:
+    elif force_string:
         return str(value)
+    else:
+        return value
 
 
 def _compose_aggregate_members(value):
@@ -625,6 +627,7 @@ class ProcessorClient:
         comment=None,
         verification=None,
         extra=None,
+        beta_args_v2=False,
     ):
         """
         Issue the given command
@@ -655,11 +658,16 @@ class ProcessorClient:
         req.dryRun = dry_run
         if comment:
             req.comment = comment
-        if args:
+        if beta_args_v2:
+            for key in beta_args_v2:
+                req.args[key] = _to_argument_value(
+                    beta_args_v2[key], force_string=False
+                )
+        elif args:
             for key in args:
                 assignment = req.assignment.add()
                 assignment.name = key
-                assignment.value = _to_argument_value(args[key])
+                assignment.value = _to_argument_value(args[key], force_string=True)
 
         if verification:
             if verification._disable_all:
