@@ -419,6 +419,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
         comment=None,
         verification=None,
         extra=None,
+        beta_args_v2=False,
     ):
         """
         Issue the given command
@@ -445,7 +446,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
         :rtype: .MonitoredCommand
         """
         issued_command = self._tmtc_client.issue_command(
-            command, args, dry_run, comment, verification, extra
+            command, args, dry_run, comment, verification, extra, beta_args_v2
         )
         command = MonitoredCommand(issued_command._proto)
 
