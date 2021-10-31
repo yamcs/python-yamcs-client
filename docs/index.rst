@@ -1,8 +1,7 @@
 Yamcs Client Library for Python
 ===============================
 
-Getting Started
----------------
+.. rubric:: Getting Started
 
 Install Python 3.6 or higher.
 
@@ -11,8 +10,7 @@ Install ``yamcs-client`` from PyPI::
     pip install --upgrade yamcs-client
 
 
-Usage
------
+.. rubric:: Usage
 
 Get domain-specific clients:
 
@@ -31,8 +29,7 @@ Get domain-specific clients:
     # ...
 
 
-Documentation
-~~~~~~~~~~~~~
+.. rubric:: Documentation
 
 * :doc:`general/index`
 * :doc:`mdb/index`
@@ -43,8 +40,8 @@ Documentation
 * :doc:`filetransfer/index`
 * :doc:`tco/index`
 
-Examples
-~~~~~~~~
+
+.. rubric:: Examples
 
 * :doc:`examples/index`
 
