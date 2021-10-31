@@ -131,7 +131,7 @@ htmlhelp_basename = "YamcsPythonClientdoc"
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
-    # 'papersize': 'letterpaper',
+    "papersize": "a4paper",
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
@@ -140,7 +140,7 @@ latex_elements = {
     # 'preamble': '',
     # Latex figure (float) alignment
     #
-    # 'figure_align': 'htbp',
+    "figure_align": "htbp",
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
@@ -149,8 +149,8 @@ latex_elements = {
 latex_documents = [
     (
         master_doc,
-        "YamcsPythonClient.tex",
-        u"Yamcs Python Client Documentation",
+        "python-yamcs-client.tex",
+        u"Python Yamcs Client",
         u"Space Applications Services",
         "manual",
     ),
@@ -192,4 +192,4 @@ intersphinx_mapping = {
 
 
 def setup(app):
-    app.add_stylesheet("css-overrides.css")
+    app.add_css_file("css-overrides.css")
