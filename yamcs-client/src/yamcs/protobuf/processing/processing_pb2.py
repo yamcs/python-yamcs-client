@@ -25,7 +25,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.processing',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\017ProcessingProtoP\001'),
-  serialized_pb=_b('\n*yamcs/protobuf/processing/processing.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"+\n\x1aListProcessorTypesResponse\x12\r\n\x05types\x18\x01 \x03(\t\")\n\x15ListProcessorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"[\n\x16ListProcessorsResponse\x12\x41\n\nprocessors\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"C\n\x1cSubscribeTMStatisticsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"A\n\x1aSubscribeProcessorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\xb1\x02\n\x1aSubscribeParametersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x04 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x05 \x01(\x08\x12\x15\n\rsendFromCache\x18\x06 \x01(\x08\x12L\n\x06\x61\x63tion\x18\x07 \x01(\x0e\x32<.yamcs.protobuf.processing.SubscribeParametersRequest.Action\"*\n\x06\x41\x63tion\x12\x0b\n\x07REPLACE\x10\x00\x12\x07\n\x03\x41\x44\x44\x10\x01\x12\n\n\x06REMOVE\x10\x02\"\xa1\x02\n\x17SubscribeParametersData\x12P\n\x07mapping\x18\x01 \x03(\x0b\x32?.yamcs.protobuf.processing.SubscribeParametersData.MappingEntry\x12.\n\x07invalid\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x35\n\x06values\x18\x03 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x1aM\n\x0cMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12,\n\x05value\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId:\x02\x38\x01\":\n\x13GetProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"=\n\x16\x44\x65leteProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"|\n\x16\x43reateProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x10\n\x08\x63lientId\x18\x03 \x03(\x05\x12\x12\n\npersistent\x18\x04 \x01(\x08\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x06 \x01(\t\"\x83\x01\n\x14\x45\x64itProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\t\x12(\n\x04seek\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05speed\x18\x05 \x01(\t\"q\n\x18GetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x11\n\tfromCache\x18\x04 \x01(\x08\x12\x0f\n\x07timeout\x18\x05 \x01(\x04\"\xa7\x01\n\x18SetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12$\n\x05value\x18\x04 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x94\x01\n\x1e\x42\x61tchGetParameterValuesRequest\x12\x10\n\x08instance\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"W\n\x1f\x42\x61tchGetParameterValuesResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xcc\x02\n\x1e\x42\x61tchSetParameterValuesRequest\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t\x12\x63\n\x07request\x18\x01 \x03(\x0b\x32R.yamcs.protobuf.processing.BatchSetParameterValuesRequest.SetParameterValueRequest\x1a\x9f\x01\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"N\n\x19GetAlgorithmStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"T\n\x1fSubscribeAlgorithmStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"M\n\x18GetAlgorithmTraceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"]\n\x19\x45\x64itAlgorithmTraceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05state\x18\x04 \x01(\t\"\xe3\x01\n\x0f\x41lgorithmStatus\x12\x0e\n\x06\x61\x63tive\x18\x01 \x01(\x08\x12\x14\n\x0ctraceEnabled\x18\x02 \x01(\x08\x12\x10\n\x08runCount\x18\x03 \x01(\r\x12+\n\x07lastRun\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nerrorCount\x18\x05 \x01(\r\x12\x14\n\x0c\x65rrorMessage\x18\x06 \x01(\t\x12-\n\terrorTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nexecTimeNs\x18\x08 \x01(\x04\"\x8d\x03\n\x0e\x41lgorithmTrace\x12;\n\x04runs\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.processing.AlgorithmTrace.Run\x12;\n\x04logs\x18\x02 \x03(\x0b\x32-.yamcs.protobuf.processing.AlgorithmTrace.Log\x1a\xc2\x01\n\x03Run\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x35\n\x06inputs\x18\x02 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x36\n\x07outputs\x18\x03 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x13\n\x0breturnValue\x18\x04 \x01(\t\x12\r\n\x05\x65rror\x18\x05 \x01(\t\x1a<\n\x03Log\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03msg\x18\x03 \x01(\t2\x85\x16\n\rProcessingApi\x12\x7f\n\x12ListProcessorTypes\x12\x16.google.protobuf.Empty\x1a\x35.yamcs.protobuf.processing.ListProcessorTypesResponse\"\x1a\x8a\x92\x03\x16\n\x14/api/processor-types\x12\x8c\x01\n\x0eListProcessors\x12\x30.yamcs.protobuf.processing.ListProcessorsRequest\x1a\x31.yamcs.protobuf.processing.ListProcessorsResponse\"\x15\x8a\x92\x03\x11\n\x0f/api/processors\x12\x9b\x01\n\x0cGetProcessor\x12..yamcs.protobuf.processing.GetProcessorRequest\x1a-.yamcs.protobuf.yamcsManagement.ProcessorInfo\",\x8a\x92\x03(\n&/api/processors/{instance}/{processor}\x12\x8a\x01\n\x0f\x44\x65leteProcessor\x12\x31.yamcs.protobuf.processing.DeleteProcessorRequest\x1a\x16.google.protobuf.Empty\",\x8a\x92\x03(\"&/api/processors/{instance}/{processor}\x12\x89\x01\n\rEditProcessor\x12/.yamcs.protobuf.processing.EditProcessorRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+*&/api/processors/{instance}/{processor}:\x01*\x12v\n\x0f\x43reateProcessor\x12\x31.yamcs.protobuf.processing.CreateProcessorRequest\x1a\x16.google.protobuf.Empty\"\x18\x8a\x92\x03\x14\x1a\x0f/api/processors:\x01*\x12\xb0\x01\n\x11GetParameterValue\x12\x33.yamcs.protobuf.processing.GetParameterValueRequest\x1a%.yamcs.protobuf.pvalue.ParameterValue\"?\x8a\x92\x03;\n9/api/processors/{instance}/{processor}/parameters/{name*}\x12\xee\x01\n\x11SetParameterValue\x12\x33.yamcs.protobuf.processing.SetParameterValueRequest\x1a\x16.google.protobuf.Empty\"\x8b\x01\x8a\x92\x03\x86\x01\x12\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05valueZB\x1a\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05value\x12\xd5\x01\n\x17\x42\x61tchGetParameterValues\x12\x39.yamcs.protobuf.processing.BatchGetParameterValuesRequest\x1a:.yamcs.protobuf.processing.BatchGetParameterValuesResponse\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchGet:\x01*\x12\xb1\x01\n\x17\x42\x61tchSetParameterValues\x12\x39.yamcs.protobuf.processing.BatchSetParameterValuesRequest\x1a\x16.google.protobuf.Empty\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchSet:\x01*\x12\x8d\x01\n\x15SubscribeTMStatistics\x12\x37.yamcs.protobuf.processing.SubscribeTMStatisticsRequest\x1a*.yamcs.protobuf.yamcsManagement.Statistics\"\r\xda\x92\x03\t\n\x07tmstats0\x01\x12\x96\x01\n\x13SubscribeParameters\x12\x35.yamcs.protobuf.processing.SubscribeParametersRequest\x1a\x32.yamcs.protobuf.processing.SubscribeParametersData\"\x10\xda\x92\x03\x0c\n\nparameters(\x01\x30\x01\x12\x8f\x01\n\x13SubscribeProcessors\x12\x35.yamcs.protobuf.processing.SubscribeProcessorsRequest\x1a-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"\x10\xda\x92\x03\x0c\n\nprocessors0\x01\x12\xbe\x01\n\x12GetAlgorithmStatus\x12\x34.yamcs.protobuf.processing.GetAlgorithmStatusRequest\x1a*.yamcs.protobuf.processing.AlgorithmStatus\"F\x8a\x92\x03\x42\n@/api/processors/{instance}/{processor}/algorithms/{name*}/status\x12\x9c\x01\n\x18SubscribeAlgorithmStatus\x12:.yamcs.protobuf.processing.SubscribeAlgorithmStatusRequest\x1a*.yamcs.protobuf.processing.AlgorithmStatus\"\x16\xda\x92\x03\x12\n\x10\x61lgorithm-status0\x01\x12\xba\x01\n\x11GetAlgorithmTrace\x12\x33.yamcs.protobuf.processing.GetAlgorithmTraceRequest\x1a).yamcs.protobuf.processing.AlgorithmTrace\"E\x8a\x92\x03\x41\n?/api/processors/{instance}/{processor}/algorithms/{name*}/trace\x12\xac\x01\n\x12\x45\x64itAlgorithmTrace\x12\x34.yamcs.protobuf.processing.EditAlgorithmTraceRequest\x1a\x16.google.protobuf.Empty\"H\x8a\x92\x03\x44*?/api/processors/{instance}/{processor}/algorithms/{name*}/trace:\x01*B\'\n\x12org.yamcs.protobufB\x0fProcessingProtoP\x01')
+  serialized_pb=_b('\n*yamcs/protobuf/processing/processing.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x34yamcs/protobuf/yamcsManagement/yamcsManagement.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"+\n\x1aListProcessorTypesResponse\x12\r\n\x05types\x18\x01 \x03(\t\")\n\x15ListProcessorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"[\n\x16ListProcessorsResponse\x12\x41\n\nprocessors\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"C\n\x1cSubscribeTMStatisticsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"A\n\x1aSubscribeProcessorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\xb1\x02\n\x1aSubscribeParametersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12)\n\x02id\x18\x03 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x16\n\x0e\x61\x62ortOnInvalid\x18\x04 \x01(\x08\x12\x1a\n\x12updateOnExpiration\x18\x05 \x01(\x08\x12\x15\n\rsendFromCache\x18\x06 \x01(\x08\x12L\n\x06\x61\x63tion\x18\x07 \x01(\x0e\x32<.yamcs.protobuf.processing.SubscribeParametersRequest.Action\"*\n\x06\x41\x63tion\x12\x0b\n\x07REPLACE\x10\x00\x12\x07\n\x03\x41\x44\x44\x10\x01\x12\n\n\x06REMOVE\x10\x02\"\xa1\x02\n\x17SubscribeParametersData\x12P\n\x07mapping\x18\x01 \x03(\x0b\x32?.yamcs.protobuf.processing.SubscribeParametersData.MappingEntry\x12.\n\x07invalid\x18\x02 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x35\n\x06values\x18\x03 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x1aM\n\x0cMappingEntry\x12\x0b\n\x03key\x18\x01 \x01(\r\x12,\n\x05value\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId:\x02\x38\x01\":\n\x13GetProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"=\n\x16\x44\x65leteProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"j\n\x16\x43reateProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\npersistent\x18\x04 \x01(\x08\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x06 \x01(\t\"\x83\x01\n\x14\x45\x64itProcessorRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\t\x12(\n\x04seek\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05speed\x18\x05 \x01(\t\"q\n\x18GetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x11\n\tfromCache\x18\x04 \x01(\x08\x12\x0f\n\x07timeout\x18\x05 \x01(\x04\"\xa7\x01\n\x18SetParameterValueRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12$\n\x05value\x18\x04 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x94\x01\n\x1e\x42\x61tchGetParameterValuesRequest\x12\x10\n\x08instance\x18\x04 \x01(\t\x12\x11\n\tprocessor\x18\x05 \x01(\t\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x11\n\tfromCache\x18\x02 \x01(\x08\x12\x0f\n\x07timeout\x18\x03 \x01(\x04\"W\n\x1f\x42\x61tchGetParameterValuesResponse\x12\x34\n\x05value\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\"\xcc\x02\n\x1e\x42\x61tchSetParameterValuesRequest\x12\x10\n\x08instance\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t\x12\x63\n\x07request\x18\x01 \x03(\x0b\x32R.yamcs.protobuf.processing.BatchSetParameterValuesRequest.SetParameterValueRequest\x1a\x9f\x01\n\x18SetParameterValueRequest\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"N\n\x19GetAlgorithmStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"T\n\x1fSubscribeAlgorithmStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"M\n\x18GetAlgorithmTraceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"]\n\x19\x45\x64itAlgorithmTraceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05state\x18\x04 \x01(\t\"\xe3\x01\n\x0f\x41lgorithmStatus\x12\x0e\n\x06\x61\x63tive\x18\x01 \x01(\x08\x12\x14\n\x0ctraceEnabled\x18\x02 \x01(\x08\x12\x10\n\x08runCount\x18\x03 \x01(\r\x12+\n\x07lastRun\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nerrorCount\x18\x05 \x01(\r\x12\x14\n\x0c\x65rrorMessage\x18\x06 \x01(\t\x12-\n\terrorTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nexecTimeNs\x18\x08 \x01(\x04\"\x8d\x03\n\x0e\x41lgorithmTrace\x12;\n\x04runs\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.processing.AlgorithmTrace.Run\x12;\n\x04logs\x18\x02 \x03(\x0b\x32-.yamcs.protobuf.processing.AlgorithmTrace.Log\x1a\xc2\x01\n\x03Run\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x35\n\x06inputs\x18\x02 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x36\n\x07outputs\x18\x03 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x13\n\x0breturnValue\x18\x04 \x01(\t\x12\r\n\x05\x65rror\x18\x05 \x01(\t\x1a<\n\x03Log\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03msg\x18\x03 \x01(\t2\x85\x16\n\rProcessingApi\x12\x7f\n\x12ListProcessorTypes\x12\x16.google.protobuf.Empty\x1a\x35.yamcs.protobuf.processing.ListProcessorTypesResponse\"\x1a\x8a\x92\x03\x16\n\x14/api/processor-types\x12\x8c\x01\n\x0eListProcessors\x12\x30.yamcs.protobuf.processing.ListProcessorsRequest\x1a\x31.yamcs.protobuf.processing.ListProcessorsResponse\"\x15\x8a\x92\x03\x11\n\x0f/api/processors\x12\x9b\x01\n\x0cGetProcessor\x12..yamcs.protobuf.processing.GetProcessorRequest\x1a-.yamcs.protobuf.yamcsManagement.ProcessorInfo\",\x8a\x92\x03(\n&/api/processors/{instance}/{processor}\x12\x8a\x01\n\x0f\x44\x65leteProcessor\x12\x31.yamcs.protobuf.processing.DeleteProcessorRequest\x1a\x16.google.protobuf.Empty\",\x8a\x92\x03(\"&/api/processors/{instance}/{processor}\x12\x89\x01\n\rEditProcessor\x12/.yamcs.protobuf.processing.EditProcessorRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+*&/api/processors/{instance}/{processor}:\x01*\x12v\n\x0f\x43reateProcessor\x12\x31.yamcs.protobuf.processing.CreateProcessorRequest\x1a\x16.google.protobuf.Empty\"\x18\x8a\x92\x03\x14\x1a\x0f/api/processors:\x01*\x12\xb0\x01\n\x11GetParameterValue\x12\x33.yamcs.protobuf.processing.GetParameterValueRequest\x1a%.yamcs.protobuf.pvalue.ParameterValue\"?\x8a\x92\x03;\n9/api/processors/{instance}/{processor}/parameters/{name*}\x12\xee\x01\n\x11SetParameterValue\x12\x33.yamcs.protobuf.processing.SetParameterValueRequest\x1a\x16.google.protobuf.Empty\"\x8b\x01\x8a\x92\x03\x86\x01\x12\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05valueZB\x1a\x39/api/processors/{instance}/{processor}/parameters/{name*}:\x05value\x12\xd5\x01\n\x17\x42\x61tchGetParameterValues\x12\x39.yamcs.protobuf.processing.BatchGetParameterValuesRequest\x1a:.yamcs.protobuf.processing.BatchGetParameterValuesResponse\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchGet:\x01*\x12\xb1\x01\n\x17\x42\x61tchSetParameterValues\x12\x39.yamcs.protobuf.processing.BatchSetParameterValuesRequest\x1a\x16.google.protobuf.Empty\"C\x8a\x92\x03?\x1a:/api/processors/{instance}/{processor}/parameters:batchSet:\x01*\x12\x8d\x01\n\x15SubscribeTMStatistics\x12\x37.yamcs.protobuf.processing.SubscribeTMStatisticsRequest\x1a*.yamcs.protobuf.yamcsManagement.Statistics\"\r\xda\x92\x03\t\n\x07tmstats0\x01\x12\x96\x01\n\x13SubscribeParameters\x12\x35.yamcs.protobuf.processing.SubscribeParametersRequest\x1a\x32.yamcs.protobuf.processing.SubscribeParametersData\"\x10\xda\x92\x03\x0c\n\nparameters(\x01\x30\x01\x12\x8f\x01\n\x13SubscribeProcessors\x12\x35.yamcs.protobuf.processing.SubscribeProcessorsRequest\x1a-.yamcs.protobuf.yamcsManagement.ProcessorInfo\"\x10\xda\x92\x03\x0c\n\nprocessors0\x01\x12\xbe\x01\n\x12GetAlgorithmStatus\x12\x34.yamcs.protobuf.processing.GetAlgorithmStatusRequest\x1a*.yamcs.protobuf.processing.AlgorithmStatus\"F\x8a\x92\x03\x42\n@/api/processors/{instance}/{processor}/algorithms/{name*}/status\x12\x9c\x01\n\x18SubscribeAlgorithmStatus\x12:.yamcs.protobuf.processing.SubscribeAlgorithmStatusRequest\x1a*.yamcs.protobuf.processing.AlgorithmStatus\"\x16\xda\x92\x03\x12\n\x10\x61lgorithm-status0\x01\x12\xba\x01\n\x11GetAlgorithmTrace\x12\x33.yamcs.protobuf.processing.GetAlgorithmTraceRequest\x1a).yamcs.protobuf.processing.AlgorithmTrace\"E\x8a\x92\x03\x41\n?/api/processors/{instance}/{processor}/algorithms/{name*}/trace\x12\xac\x01\n\x12\x45\x64itAlgorithmTrace\x12\x34.yamcs.protobuf.processing.EditAlgorithmTraceRequest\x1a\x16.google.protobuf.Empty\"H\x8a\x92\x03\x44*?/api/processors/{instance}/{processor}/algorithms/{name*}/trace:\x01*B\'\n\x12org.yamcs.protobufB\x0fProcessingProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -481,28 +481,21 @@ _CREATEPROCESSORREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='clientId', full_name='yamcs.protobuf.processing.CreateProcessorRequest.clientId', index=2,
-      number=3, type=5, cpp_type=1, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='persistent', full_name='yamcs.protobuf.processing.CreateProcessorRequest.persistent', index=3,
+      name='persistent', full_name='yamcs.protobuf.processing.CreateProcessorRequest.persistent', index=2,
       number=4, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.processing.CreateProcessorRequest.type', index=4,
+      name='type', full_name='yamcs.protobuf.processing.CreateProcessorRequest.type', index=3,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='config', full_name='yamcs.protobuf.processing.CreateProcessorRequest.config', index=5,
+      name='config', full_name='yamcs.protobuf.processing.CreateProcessorRequest.config', index=4,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -521,7 +514,7 @@ _CREATEPROCESSORREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1322,
-  serialized_end=1446,
+  serialized_end=1428,
 )
 
 
@@ -579,8 +572,8 @@ _EDITPROCESSORREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1449,
-  serialized_end=1580,
+  serialized_start=1431,
+  serialized_end=1562,
 )
 
 
@@ -638,8 +631,8 @@ _GETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1582,
-  serialized_end=1695,
+  serialized_start=1564,
+  serialized_end=1677,
 )
 
 
@@ -697,8 +690,8 @@ _SETPARAMETERVALUEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1698,
-  serialized_end=1865,
+  serialized_start=1680,
+  serialized_end=1847,
 )
 
 
@@ -756,8 +749,8 @@ _BATCHGETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1868,
-  serialized_end=2016,
+  serialized_start=1850,
+  serialized_end=1998,
 )
 
 
@@ -787,8 +780,8 @@ _BATCHGETPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2018,
-  serialized_end=2105,
+  serialized_start=2000,
+  serialized_end=2087,
 )
 
 
@@ -832,8 +825,8 @@ _BATCHSETPARAMETERVALUESREQUEST_SETPARAMETERVALUEREQUEST = _descriptor.Descripto
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2281,
-  serialized_end=2440,
+  serialized_start=2263,
+  serialized_end=2422,
 )
 
 _BATCHSETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
@@ -876,8 +869,8 @@ _BATCHSETPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2108,
-  serialized_end=2440,
+  serialized_start=2090,
+  serialized_end=2422,
 )
 
 
@@ -921,8 +914,8 @@ _GETALGORITHMSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2442,
-  serialized_end=2520,
+  serialized_start=2424,
+  serialized_end=2502,
 )
 
 
@@ -966,8 +959,8 @@ _SUBSCRIBEALGORITHMSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2522,
-  serialized_end=2606,
+  serialized_start=2504,
+  serialized_end=2588,
 )
 
 
@@ -1011,8 +1004,8 @@ _GETALGORITHMTRACEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2608,
-  serialized_end=2685,
+  serialized_start=2590,
+  serialized_end=2667,
 )
 
 
@@ -1063,8 +1056,8 @@ _EDITALGORITHMTRACEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2687,
-  serialized_end=2780,
+  serialized_start=2669,
+  serialized_end=2762,
 )
 
 
@@ -1143,8 +1136,8 @@ _ALGORITHMSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2783,
-  serialized_end=3010,
+  serialized_start=2765,
+  serialized_end=2992,
 )
 
 
@@ -1202,8 +1195,8 @@ _ALGORITHMTRACE_RUN = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3154,
-  serialized_end=3348,
+  serialized_start=3136,
+  serialized_end=3330,
 )
 
 _ALGORITHMTRACE_LOG = _descriptor.Descriptor(
@@ -1239,8 +1232,8 @@ _ALGORITHMTRACE_LOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3350,
-  serialized_end=3410,
+  serialized_start=3332,
+  serialized_end=3392,
 )
 
 _ALGORITHMTRACE = _descriptor.Descriptor(
@@ -1276,8 +1269,8 @@ _ALGORITHMTRACE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3013,
-  serialized_end=3410,
+  serialized_start=2995,
+  serialized_end=3392,
 )
 
 _LISTPROCESSORSRESPONSE.fields_by_name['processors'].message_type = yamcs_dot_protobuf_dot_yamcsManagement_dot_yamcsManagement__pb2._PROCESSORINFO
@@ -1529,8 +1522,8 @@ _PROCESSINGAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=3413,
-  serialized_end=6234,
+  serialized_start=3395,
+  serialized_end=6216,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListProcessorTypes',

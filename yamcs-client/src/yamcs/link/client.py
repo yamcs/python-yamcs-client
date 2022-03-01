@@ -5,6 +5,7 @@ from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.model import Cop1Config, Cop1Status
 from yamcs.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
+from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
@@ -88,7 +89,7 @@ class LinkClient:
         :rtype: .Link
         """
         response = self.ctx.get_proto(f"/links/{self._instance}/{self._link}")
-        message = yamcsManagement_pb2.LinkInfo()
+        message = links_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)
 
@@ -96,19 +97,17 @@ class LinkClient:
         """
         Enables this link.
         """
-        req = yamcsManagement_pb2.EditLinkRequest()
-        req.state = "enabled"
-        url = f"/links/{self._instance}/{self._link}"
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        req = links_pb2.EnableLinkRequest()
+        url = f"/links/{self._instance}/{self._link}:enable"
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def disable_link(self):
         """
         Disables this link.
         """
-        req = yamcsManagement_pb2.EditLinkRequest()
-        req.state = "disabled"
-        url = f"/links/{self._instance}/{self._link}"
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        req = links_pb2.DisableLinkRequest()
+        url = f"/links/{self._instance}/{self._link}:disable"
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_config(self):
         """
@@ -122,7 +121,11 @@ class LinkClient:
         return Cop1Config(message)
 
     def update_cop1_config(
-        self, window_width=None, timeout_type=None, tx_limit=None, t1=None,
+        self,
+        window_width=None,
+        timeout_type=None,
+        tx_limit=None,
+        t1=None,
     ):
         """
         Sets the COP1 configuration for a data link.

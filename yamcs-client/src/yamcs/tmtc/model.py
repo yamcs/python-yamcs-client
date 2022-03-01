@@ -471,6 +471,17 @@ class Alarm:
         return None
 
     @property
+    def update_time(self):
+        """
+        Processor time when the alarm was last updated.
+
+        :type: :class:`~datetime.datetime`
+        """
+        if self._proto.HasField("updateTime"):
+            return parse_server_time(self._proto.updateTime)
+        return None
+
+    @property
     def severity(self):
         if self._proto.HasField("severity"):
             return alarms_pb2.AlarmSeverity.Name(self._proto.severity)

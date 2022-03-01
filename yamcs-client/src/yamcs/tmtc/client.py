@@ -19,7 +19,7 @@ from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
 from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
 from yamcs.protobuf.mdb import mdb_pb2
-from yamcs.protobuf.packets import packets_service_pb2
+from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.processing import mdb_override_service_pb2, processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.tmtc.model import (
@@ -67,7 +67,7 @@ def _wrap_callback_parse_packet_data(on_data, message):
     Wraps an (optional) user callback to parse Packet
     from a WebSocket data message
     """
-    pb = yamcs_pb2.TmPacketData()
+    pb = packets_pb2.TmPacketData()
     message.Unpack(pb)
     packet = Packet(pb)
     on_data(packet)
@@ -968,12 +968,11 @@ class ProcessorClient:
         """
         name = adapt_name_for_rest(alarm.name)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}"
-        req = alarms_service_pb2.EditAlarmRequest()
-        req.state = "acknowledged"
+        url += f"/alarms{name}/{alarm.sequence_number}:acknowledge"
+        req = alarms_service_pb2.AcknowledgeAlarmRequest()
         if comment is not None:
             req.comment = comment
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def unshelve_alarm(self, alarm, comment=None):
         """
@@ -986,10 +985,9 @@ class ProcessorClient:
         """
         name = adapt_name_for_rest(alarm.name)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}"
-        req = alarms_service_pb2.EditAlarmRequest()
-        req.state = "unshelved"
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        url += f"/alarms{name}/{alarm.sequence_number}:unshelve"
+        req = alarms_service_pb2.UnshelveAlarmRequest()
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def shelve_alarm(self, alarm, comment=None):
         """
@@ -1002,12 +1000,11 @@ class ProcessorClient:
         """
         name = adapt_name_for_rest(alarm.name)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}"
-        req = alarms_service_pb2.EditAlarmRequest()
-        req.state = "shelved"
+        url += f"/alarms{name}/{alarm.sequence_number}:shelve"
+        req = alarms_service_pb2.ShelveAlarmRequest()
         if comment is not None:
             req.comment = comment
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def clear_alarm(self, alarm, comment=None):
         """
@@ -1024,12 +1021,11 @@ class ProcessorClient:
         """
         name = adapt_name_for_rest(alarm.name)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}"
-        req = alarms_service_pb2.EditAlarmRequest()
-        req.state = "cleared"
+        url += f"/alarms{name}/{alarm.sequence_number}:clear"
+        req = alarms_service_pb2.ClearAlarmRequest()
         if comment is not None:
             req.comment = comment
-        self.ctx.patch_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def create_command_connection(self, on_data=None, timeout=60):
         """

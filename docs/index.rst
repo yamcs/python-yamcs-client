@@ -1,5 +1,5 @@
-Yamcs Client Library for Python
-===============================
+Python Yamcs Client
+===================
 
 .. rubric:: Getting Started
 

@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.commanding',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\024CommandsServiceProtoP\001'),
-  serialized_pb=_b('\n0yamcs/protobuf/commanding/commands_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xc4\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x03pos\x18\x02 \x01(\x03\x42\x02\x18\x01\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\t\n\x01q\x18\x05 \x01(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd5\x05\n\x13IssueCommandRequest\x12\x10\n\x08instance\x18\x06 \x01(\t\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0c\n\x04name\x18\x08 \x01(\t\x12%\n\x04\x61rgs\x18\x10 \x01(\x0b\x32\x17.google.protobuf.Struct\x12Q\n\nassignment\x18\x01 \x03(\x0b\x32\x39.yamcs.protobuf.commanding.IssueCommandRequest.AssignmentB\x02\x18\x01\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x12\x0e\n\x06stream\x18\x0b \x01(\t\x12&\n\x1e\x64isableTransmissionConstraints\x18\x0c \x01(\x08\x12\x18\n\x10\x64isableVerifiers\x18\r \x01(\x08\x12Z\n\x0everifierConfig\x18\x0e \x03(\x0b\x32\x42.yamcs.protobuf.commanding.IssueCommandRequest.VerifierConfigEntry\x12H\n\x05\x65xtra\x18\x0f \x03(\x0b\x32\x39.yamcs.protobuf.commanding.IssueCommandRequest.ExtraEntry\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x1a`\n\x13VerifierConfigEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x38\n\x05value\x18\x02 \x01(\x0b\x32).yamcs.protobuf.commanding.VerifierConfig:\x02\x38\x01\x1a\x43\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value:\x02\x38\x01\"\xac\x02\n\x14IssueCommandResponse\x12\n\n\x02id\x18\x05 \x01(\t\x12\x32\n\x0egenerationTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06origin\x18\x07 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x08 \x01(\x05\x12\x13\n\x0b\x63ommandName\x18\t \x01(\t\x12\x12\n\x06source\x18\x02 \x01(\tB\x02\x18\x01\x12\x0f\n\x03hex\x18\x03 \x01(\tB\x02\x18\x01\x12\x41\n\x0b\x61ssignments\x18\x0c \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandAssignment\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\x12\x10\n\x08username\x18\x0b \x01(\t\x12\r\n\x05queue\x18\n \x01(\t\"\xa4\x01\n\x1bUpdateCommandHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\t\x12\x46\n\nattributes\x18\x05 \x03(\x0b\x32\x32.yamcs.protobuf.commanding.CommandHistoryAttribute\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"1\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"4\n\x14\x45xportCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"\x8c\x01\n\x15StreamCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"[\n\x18SubscribeCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x1a\n\x12ignorePastCommands\x18\x03 \x01(\x08\x32\xee\x08\n\x0b\x43ommandsApi\x12\xb1\x01\n\x0cIssueCommand\x12..yamcs.protobuf.commanding.IssueCommandRequest\x1a/.yamcs.protobuf.commanding.IssueCommandResponse\"@\x8a\x92\x03<\x1a\x37/api/processors/{instance}/{processor}/commands/{name*}:\x01*\x12\xae\x01\n\x14UpdateCommandHistory\x12\x36.yamcs.protobuf.commanding.UpdateCommandHistoryRequest\x1a\x16.google.protobuf.Empty\"F\x8a\x92\x03\x42\x1a=/api/processors/{instance}/{processor}/commandhistory/{name*}:\x01*\x12\x97\x01\n\x0cListCommands\x12..yamcs.protobuf.commanding.ListCommandsRequest\x1a/.yamcs.protobuf.commanding.ListCommandsResponse\"&\x8a\x92\x03\"\n /api/archive/{instance}/commands\x12\x97\x01\n\nGetCommand\x12,.yamcs.protobuf.commanding.GetCommandRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"+\x8a\x92\x03\'\n%/api/archive/{instance}/commands/{id}\x12\xac\x01\n\x0eStreamCommands\x12\x30.yamcs.protobuf.commanding.StreamCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"6\x8a\x92\x03\x32\x1a-/api/stream-archive/{instance}:streamCommands:\x01*0\x01\x12\x8a\x01\n\x11SubscribeCommands\x12\x33.yamcs.protobuf.commanding.SubscribeCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"\x0e\xda\x92\x03\n\n\x08\x63ommands0\x01\x12\x89\x01\n\rExportCommand\x12/.yamcs.protobuf.commanding.ExportCommandRequest\x1a\x13.yamcs.api.HttpBody\"2\x8a\x92\x03.\n,/api/archive/{instance}/commands/{id}:exportB,\n\x12org.yamcs.protobufB\x14\x43ommandsServiceProtoP\x01')
+  serialized_pb=_b('\n0yamcs/protobuf/commanding/commands_service.proto\x12\x19yamcs.protobuf.commanding\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a*yamcs/protobuf/commanding/commanding.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xd3\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x03pos\x18\x02 \x01(\x03\x42\x02\x18\x01\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\t\n\x01q\x18\x05 \x01(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05queue\x18\t \x01(\t\"\xd5\x05\n\x13IssueCommandRequest\x12\x10\n\x08instance\x18\x06 \x01(\t\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0c\n\x04name\x18\x08 \x01(\t\x12%\n\x04\x61rgs\x18\x10 \x01(\x0b\x32\x17.google.protobuf.Struct\x12Q\n\nassignment\x18\x01 \x03(\x0b\x32\x39.yamcs.protobuf.commanding.IssueCommandRequest.AssignmentB\x02\x18\x01\x12\x0e\n\x06origin\x18\x02 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x03 \x01(\x05\x12\x0e\n\x06\x64ryRun\x18\x04 \x01(\x08\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x12\x0e\n\x06stream\x18\x0b \x01(\t\x12&\n\x1e\x64isableTransmissionConstraints\x18\x0c \x01(\x08\x12\x18\n\x10\x64isableVerifiers\x18\r \x01(\x08\x12Z\n\x0everifierConfig\x18\x0e \x03(\x0b\x32\x42.yamcs.protobuf.commanding.IssueCommandRequest.VerifierConfigEntry\x12H\n\x05\x65xtra\x18\x0f \x03(\x0b\x32\x39.yamcs.protobuf.commanding.IssueCommandRequest.ExtraEntry\x1a)\n\nAssignment\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\x1a`\n\x13VerifierConfigEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x38\n\x05value\x18\x02 \x01(\x0b\x32).yamcs.protobuf.commanding.VerifierConfig:\x02\x38\x01\x1a\x43\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value:\x02\x38\x01\"\xac\x02\n\x14IssueCommandResponse\x12\n\n\x02id\x18\x05 \x01(\t\x12\x32\n\x0egenerationTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06origin\x18\x07 \x01(\t\x12\x16\n\x0esequenceNumber\x18\x08 \x01(\x05\x12\x13\n\x0b\x63ommandName\x18\t \x01(\t\x12\x12\n\x06source\x18\x02 \x01(\tB\x02\x18\x01\x12\x0f\n\x03hex\x18\x03 \x01(\tB\x02\x18\x01\x12\x41\n\x0b\x61ssignments\x18\x0c \x03(\x0b\x32,.yamcs.protobuf.commanding.CommandAssignment\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\x12\x10\n\x08username\x18\x0b \x01(\t\x12\r\n\x05queue\x18\n \x01(\t\"\xa4\x01\n\x1bUpdateCommandHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\n\n\x02id\x18\x04 \x01(\t\x12\x46\n\nattributes\x18\x05 \x03(\x0b\x32\x32.yamcs.protobuf.commanding.CommandHistoryAttribute\"p\n\x14ListCommandsResponse\x12=\n\x05\x65ntry\x18\x01 \x03(\x0b\x32..yamcs.protobuf.commanding.CommandHistoryEntry\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"1\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"4\n\x14\x45xportCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\"\x8c\x01\n\x15StreamCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"[\n\x18SubscribeCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x1a\n\x12ignorePastCommands\x18\x03 \x01(\x08\x32\xee\x08\n\x0b\x43ommandsApi\x12\xb1\x01\n\x0cIssueCommand\x12..yamcs.protobuf.commanding.IssueCommandRequest\x1a/.yamcs.protobuf.commanding.IssueCommandResponse\"@\x8a\x92\x03<\x1a\x37/api/processors/{instance}/{processor}/commands/{name*}:\x01*\x12\xae\x01\n\x14UpdateCommandHistory\x12\x36.yamcs.protobuf.commanding.UpdateCommandHistoryRequest\x1a\x16.google.protobuf.Empty\"F\x8a\x92\x03\x42\x1a=/api/processors/{instance}/{processor}/commandhistory/{name*}:\x01*\x12\x97\x01\n\x0cListCommands\x12..yamcs.protobuf.commanding.ListCommandsRequest\x1a/.yamcs.protobuf.commanding.ListCommandsResponse\"&\x8a\x92\x03\"\n /api/archive/{instance}/commands\x12\x97\x01\n\nGetCommand\x12,.yamcs.protobuf.commanding.GetCommandRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"+\x8a\x92\x03\'\n%/api/archive/{instance}/commands/{id}\x12\xac\x01\n\x0eStreamCommands\x12\x30.yamcs.protobuf.commanding.StreamCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"6\x8a\x92\x03\x32\x1a-/api/stream-archive/{instance}:streamCommands:\x01*0\x01\x12\x8a\x01\n\x11SubscribeCommands\x12\x33.yamcs.protobuf.commanding.SubscribeCommandsRequest\x1a..yamcs.protobuf.commanding.CommandHistoryEntry\"\x0e\xda\x92\x03\n\n\x08\x63ommands0\x01\x12\x89\x01\n\rExportCommand\x12/.yamcs.protobuf.commanding.ExportCommandRequest\x1a\x13.yamcs.api.HttpBody\"2\x8a\x92\x03.\n,/api/archive/{instance}/commands/{id}:exportB,\n\x12org.yamcs.protobufB\x14\x43ommandsServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_commanding_dot_commanding__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -96,6 +96,13 @@ _LISTCOMMANDSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='queue', full_name='yamcs.protobuf.commanding.ListCommandsRequest.queue', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -109,7 +116,7 @@ _LISTCOMMANDSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=299,
-  serialized_end=495,
+  serialized_end=510,
 )
 
 
@@ -146,8 +153,8 @@ _ISSUECOMMANDREQUEST_ASSIGNMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1015,
-  serialized_end=1056,
+  serialized_start=1030,
+  serialized_end=1071,
 )
 
 _ISSUECOMMANDREQUEST_VERIFIERCONFIGENTRY = _descriptor.Descriptor(
@@ -183,8 +190,8 @@ _ISSUECOMMANDREQUEST_VERIFIERCONFIGENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1058,
-  serialized_end=1154,
+  serialized_start=1073,
+  serialized_end=1169,
 )
 
 _ISSUECOMMANDREQUEST_EXTRAENTRY = _descriptor.Descriptor(
@@ -220,8 +227,8 @@ _ISSUECOMMANDREQUEST_EXTRAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1156,
-  serialized_end=1223,
+  serialized_start=1171,
+  serialized_end=1238,
 )
 
 _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
@@ -341,8 +348,8 @@ _ISSUECOMMANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=498,
-  serialized_end=1223,
+  serialized_start=513,
+  serialized_end=1238,
 )
 
 
@@ -442,8 +449,8 @@ _ISSUECOMMANDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1226,
-  serialized_end=1526,
+  serialized_start=1241,
+  serialized_end=1541,
 )
 
 
@@ -501,8 +508,8 @@ _UPDATECOMMANDHISTORYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1529,
-  serialized_end=1693,
+  serialized_start=1544,
+  serialized_end=1708,
 )
 
 
@@ -539,8 +546,8 @@ _LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1695,
-  serialized_end=1807,
+  serialized_start=1710,
+  serialized_end=1822,
 )
 
 
@@ -577,8 +584,8 @@ _GETCOMMANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1809,
-  serialized_end=1858,
+  serialized_start=1824,
+  serialized_end=1873,
 )
 
 
@@ -615,8 +622,8 @@ _EXPORTCOMMANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1860,
-  serialized_end=1912,
+  serialized_start=1875,
+  serialized_end=1927,
 )
 
 
@@ -667,8 +674,8 @@ _STREAMCOMMANDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1915,
-  serialized_end=2055,
+  serialized_start=1930,
+  serialized_end=2070,
 )
 
 
@@ -712,8 +719,8 @@ _SUBSCRIBECOMMANDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2057,
-  serialized_end=2148,
+  serialized_start=2072,
+  serialized_end=2163,
 )
 
 _LISTCOMMANDSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -846,8 +853,8 @@ _COMMANDSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2151,
-  serialized_end=3285,
+  serialized_start=2166,
+  serialized_end=3300,
   methods=[
   _descriptor.MethodDescriptor(
     name='IssueCommand',

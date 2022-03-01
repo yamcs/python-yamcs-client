@@ -25,9 +25,9 @@ from yamcs.model import (
     Service,
     UserInfo,
 )
-from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf.events import events_service_pb2
+from yamcs.protobuf.events import events_pb2, events_service_pb2
 from yamcs.protobuf.iam import iam_pb2
+from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.time import time_service_pb2
 from yamcs.protobuf.web import auth_pb2, server_service_pb2
@@ -55,7 +55,7 @@ def _wrap_callback_parse_event(on_data, message):
     Wraps a user callback to parse Events
     from a WebSocket data message
     """
-    pb = yamcs_pb2.Event()
+    pb = events_pb2.Event()
     message.Unpack(pb)
     event = Event(pb)
     on_data(event)
@@ -66,7 +66,7 @@ def _wrap_callback_parse_link_event(subscription, on_data, message):
     Wraps a user callback to parse LinkEvents
     from a WebSocket data message
     """
-    pb = yamcsManagement_pb2.LinkEvent()
+    pb = links_pb2.LinkEvent()
     message.Unpack(pb)
     link_event = LinkEvent(pb)
     subscription._process(link_event)
@@ -429,7 +429,7 @@ class YamcsClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.ctx.get_proto(path="/links/" + instance)
-        message = yamcsManagement_pb2.ListLinksResponse()
+        message = links_pb2.ListLinksResponse()
         message.ParseFromString(response.content)
         links = getattr(message, "links")
         return iter([Link(link) for link in links])
@@ -506,7 +506,7 @@ class YamcsClient:
                  subscription.
         :rtype: .LinkSubscription
         """
-        options = yamcsManagement_pb2.SubscribeLinksRequest()
+        options = links_pb2.SubscribeLinksRequest()
         options.instance = instance
         manager = WebSocketSubscriptionManager(self.ctx, topic="links", options=options)
 

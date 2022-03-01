@@ -3,6 +3,7 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -20,10 +21,35 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.api',
   syntax='proto2',
   serialized_options=_b('\n\rorg.yamcs.apiB\020AnnotationsProtoP\001'),
-  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"\xff\x01\n\tHttpRoute\x12\r\n\x03get\x18\x01 \x01(\tH\x00\x12\r\n\x03put\x18\x02 \x01(\tH\x00\x12\x0e\n\x04post\x18\x03 \x01(\tH\x00\x12\x10\n\x06\x64\x65lete\x18\x04 \x01(\tH\x00\x12\x0f\n\x05patch\x18\x05 \x01(\tH\x00\x12\x12\n\ndeprecated\x18\x06 \x01(\x08\x12\x0c\n\x04\x62ody\x18\x07 \x01(\t\x12\x15\n\rmax_body_size\x18\x08 \x01(\x05\x12\x11\n\toffloaded\x18\t \x01(\x08\x12\x17\n\x0f\x66ield_mask_root\x18\n \x01(\t\x12\x31\n\x13\x61\x64\x64itional_bindings\x18\x0b \x03(\x0b\x32\x14.yamcs.api.HttpRouteB\t\n\x07pattern\"k\n\x0eWebSocketTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\ndeprecated\x18\x02 \x01(\x08\x12\x36\n\x13\x61\x64\x64itional_bindings\x18\x03 \x03(\x0b\x32\x19.yamcs.api.WebSocketTopic:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRoute:M\n\twebsocket\x12\x1e.google.protobuf.MethodOptions\x18\xab\x32 \x01(\x0b\x32\x19.yamcs.api.WebSocketTopicB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
+  serialized_pb=_b('\n\x1byamcs/api/annotations.proto\x12\tyamcs.api\x1a google/protobuf/descriptor.proto\"\x8c\x02\n\tHttpRoute\x12\r\n\x03get\x18\x01 \x01(\tH\x00\x12\r\n\x03put\x18\x02 \x01(\tH\x00\x12\x0e\n\x04post\x18\x03 \x01(\tH\x00\x12\x10\n\x06\x64\x65lete\x18\x04 \x01(\tH\x00\x12\x0f\n\x05patch\x18\x05 \x01(\tH\x00\x12\x12\n\ndeprecated\x18\x06 \x01(\x08\x12\x0c\n\x04\x62ody\x18\x07 \x01(\t\x12\x15\n\rmax_body_size\x18\x08 \x01(\x05\x12\x11\n\toffloaded\x18\t \x01(\x08\x12\x17\n\x0f\x66ield_mask_root\x18\n \x01(\t\x12\x31\n\x13\x61\x64\x64itional_bindings\x18\x0b \x03(\x0b\x32\x14.yamcs.api.HttpRoute\x12\x0b\n\x03log\x18\x0c \x01(\tB\t\n\x07pattern\"k\n\x0eWebSocketTopic\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x12\n\ndeprecated\x18\x02 \x01(\x08\x12\x36\n\x13\x61\x64\x64itional_bindings\x18\x03 \x03(\x0b\x32\x19.yamcs.api.WebSocketTopic*;\n\rFieldBehavior\x12\x1e\n\x1a\x46IELD_BEHAVIOR_UNSPECIFIED\x10\x00\x12\n\n\x06SECRET\x10\x01:D\n\x05route\x12\x1e.google.protobuf.MethodOptions\x18\xa1\x32 \x01(\x0b\x32\x14.yamcs.api.HttpRoute:M\n\twebsocket\x12\x1e.google.protobuf.MethodOptions\x18\xab\x32 \x01(\x0b\x32\x19.yamcs.api.WebSocketTopic:P\n\x0e\x66ield_behavior\x12\x1d.google.protobuf.FieldOptions\x18\x85\x33 \x03(\x0e\x32\x18.yamcs.api.FieldBehaviorB#\n\rorg.yamcs.apiB\x10\x41nnotationsProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_descriptor__pb2.DESCRIPTOR,])
 
+_FIELDBEHAVIOR = _descriptor.EnumDescriptor(
+  name='FieldBehavior',
+  full_name='yamcs.api.FieldBehavior',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='FIELD_BEHAVIOR_UNSPECIFIED', index=0, number=0,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SECRET', index=1, number=1,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=456,
+  serialized_end=515,
+)
+_sym_db.RegisterEnumDescriptor(_FIELDBEHAVIOR)
+
+FieldBehavior = enum_type_wrapper.EnumTypeWrapper(_FIELDBEHAVIOR)
+FIELD_BEHAVIOR_UNSPECIFIED = 0
+SECRET = 1
 
 ROUTE_FIELD_NUMBER = 6433
 route = _descriptor.FieldDescriptor(
@@ -38,6 +64,14 @@ websocket = _descriptor.FieldDescriptor(
   name='websocket', full_name='yamcs.api.websocket', index=1,
   number=6443, type=11, cpp_type=10, label=1,
   has_default_value=False, default_value=None,
+  message_type=None, enum_type=None, containing_type=None,
+  is_extension=True, extension_scope=None,
+  serialized_options=None, file=DESCRIPTOR)
+FIELD_BEHAVIOR_FIELD_NUMBER = 6533
+field_behavior = _descriptor.FieldDescriptor(
+  name='field_behavior', full_name='yamcs.api.field_behavior', index=2,
+  number=6533, type=14, cpp_type=8, label=3,
+  has_default_value=False, default_value=[],
   message_type=None, enum_type=None, containing_type=None,
   is_extension=True, extension_scope=None,
   serialized_options=None, file=DESCRIPTOR)
@@ -127,6 +161,13 @@ _HTTPROUTE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='log', full_name='yamcs.api.HttpRoute.log', index=11,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -143,7 +184,7 @@ _HTTPROUTE = _descriptor.Descriptor(
       index=0, containing_type=None, fields=[]),
   ],
   serialized_start=77,
-  serialized_end=332,
+  serialized_end=345,
 )
 
 
@@ -187,8 +228,8 @@ _WEBSOCKETTOPIC = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=334,
-  serialized_end=441,
+  serialized_start=347,
+  serialized_end=454,
 )
 
 _HTTPROUTE.fields_by_name['additional_bindings'].message_type = _HTTPROUTE
@@ -210,8 +251,10 @@ _HTTPROUTE.fields_by_name['patch'].containing_oneof = _HTTPROUTE.oneofs_by_name[
 _WEBSOCKETTOPIC.fields_by_name['additional_bindings'].message_type = _WEBSOCKETTOPIC
 DESCRIPTOR.message_types_by_name['HttpRoute'] = _HTTPROUTE
 DESCRIPTOR.message_types_by_name['WebSocketTopic'] = _WEBSOCKETTOPIC
+DESCRIPTOR.enum_types_by_name['FieldBehavior'] = _FIELDBEHAVIOR
 DESCRIPTOR.extensions_by_name['route'] = route
 DESCRIPTOR.extensions_by_name['websocket'] = websocket
+DESCRIPTOR.extensions_by_name['field_behavior'] = field_behavior
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 HttpRoute = _reflection.GeneratedProtocolMessageType('HttpRoute', (_message.Message,), dict(
@@ -232,6 +275,8 @@ route.message_type = _HTTPROUTE
 google_dot_protobuf_dot_descriptor__pb2.MethodOptions.RegisterExtension(route)
 websocket.message_type = _WEBSOCKETTOPIC
 google_dot_protobuf_dot_descriptor__pb2.MethodOptions.RegisterExtension(websocket)
+field_behavior.enum_type = _FIELDBEHAVIOR
+google_dot_protobuf_dot_descriptor__pb2.FieldOptions.RegisterExtension(field_behavior)
 
 DESCRIPTOR._options = None
 # @@protoc_insertion_point(module_scope)

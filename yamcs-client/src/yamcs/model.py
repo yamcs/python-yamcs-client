@@ -1,5 +1,6 @@
 from yamcs.core.helpers import parse_server_time
-from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf.events import events_pb2
+from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
@@ -127,7 +128,7 @@ class Event:
         ``WARNING``, ``DISTRESS``, ``CRITICAL`` or ``SEVERE``.
         """
         if self._proto.HasField("severity"):
-            return yamcs_pb2.Event.EventSeverity.Name(self._proto.severity)
+            return events_pb2.Event.EventSeverity.Name(self._proto.severity)
         return None
 
     @property
@@ -184,7 +185,7 @@ class LinkEvent:
         The type of the event. One of ``REGISTERED``, ``UNREGISTERED``,
         or ``UPDATED``.
         """
-        return yamcsManagement_pb2.LinkEvent.Type.Name(self._proto.type)
+        return links_pb2.LinkEvent.Type.Name(self._proto.type)
 
     @property
     def link(self):

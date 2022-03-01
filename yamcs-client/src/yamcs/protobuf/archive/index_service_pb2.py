@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\021IndexServiceProtoP\001'),
-  serialized_pb=_b('\n*yamcs/protobuf/archive/index_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xc5\x01\n\x1eListCommandHistoryIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xbe\x01\n\x15ListEventIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0e\n\x06source\x18\x07 \x03(\t\"\xbd\x01\n\x16ListPacketIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xc1\x01\n\x19ListParameterIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\r\n\x05group\x18\x07 \x03(\t\"\xa2\x01\n\x1cListCompletenessIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x05 \x01(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"[\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x10\n\x08seqStart\x18\x04 \x01(\x03\x12\x0f\n\x07seqStop\x18\x05 \x01(\x03\"\xa1\x01\n\x12StreamIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07\x66ilters\x18\x04 \x03(\t\x12\x13\n\x0bpacketnames\x18\x05 \x03(\t\"\x90\x01\n\x18StreamPacketIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05names\x18\x04 \x03(\t\"\x84\x01\n\x1bStreamParameterIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x82\x01\n\x19StreamCommandIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x80\x01\n\x17StreamEventIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x87\x01\n\x1eStreamCompletenessIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x81\x01\n\x18RebuildCcsdsIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xf3\x0e\n\nIndexesApi\x12\xa5\x01\n\x17ListCommandHistoryIndex\x12\x36.yamcs.protobuf.archive.ListCommandHistoryIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"+\x8a\x92\x03\'\n%/api/archive/{instance}/command-index\x12\x91\x01\n\x0eListEventIndex\x12-.yamcs.protobuf.archive.ListEventIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\")\x8a\x92\x03%\n#/api/archive/{instance}/event-index\x12\x94\x01\n\x0fListPacketIndex\x12..yamcs.protobuf.archive.ListPacketIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-index\x12\x9d\x01\n\x12ListParameterIndex\x12\x31.yamcs.protobuf.archive.ListParameterIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"-\x8a\x92\x03)\n\'/api/archive/{instance}/parameter-index\x12\xa6\x01\n\x15ListCompletenessIndex\x12\x34.yamcs.protobuf.archive.ListCompletenessIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/completeness-index\x12\x88\x01\n\x0bStreamIndex\x12*.yamcs.protobuf.archive.StreamIndexRequest\x1a\x1b.yamcs.protobuf.IndexResult\".\x8a\x92\x03*\x1a#/api/archive/{instance}:streamIndex0\x01:\x01*0\x01\x12\x9a\x01\n\x11StreamPacketIndex\x12\x30.yamcs.protobuf.archive.StreamPacketIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"2\x8a\x92\x03.\x1a)/api/archive/{instance}:streamPacketIndex:\x01*0\x01\x12\xa3\x01\n\x14StreamParameterIndex\x12\x33.yamcs.protobuf.archive.StreamParameterIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"5\x8a\x92\x03\x31\x1a,/api/archive/{instance}:streamParameterIndex:\x01*0\x01\x12\x9d\x01\n\x12StreamCommandIndex\x12\x31.yamcs.protobuf.archive.StreamCommandIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"3\x8a\x92\x03/\x1a*/api/archive/{instance}:streamCommandIndex:\x01*0\x01\x12\x97\x01\n\x10StreamEventIndex\x12/.yamcs.protobuf.archive.StreamEventIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"1\x8a\x92\x03-\x1a(/api/archive/{instance}:streamEventIndex:\x01*0\x01\x12\xac\x01\n\x17StreamCompletenessIndex\x12\x36.yamcs.protobuf.archive.StreamCompletenessIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"8\x8a\x92\x03\x34\x1a//api/archive/{instance}:streamCompletenessIndex:\x01*0\x01\x12\x91\x01\n\x11RebuildCcsdsIndex\x12\x30.yamcs.protobuf.archive.RebuildCcsdsIndexRequest\x1a\x16.google.protobuf.Empty\"2\x8a\x92\x03.\x1a)/api/archive/{instance}:rebuildCcsdsIndex:\x01*B)\n\x12org.yamcs.protobufB\x11IndexServiceProtoP\x01')
+  serialized_pb=_b('\n*yamcs/protobuf/archive/index_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xc5\x01\n\x1eListCommandHistoryIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xbe\x01\n\x15ListEventIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0e\n\x06source\x18\x07 \x03(\t\"\xbd\x01\n\x16ListPacketIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x03(\t\"\xc1\x01\n\x19ListParameterIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tmergeTime\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x06 \x01(\t\x12\r\n\x05group\x18\x07 \x03(\t\"\xa2\x01\n\x1cListCompletenessIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04next\x18\x05 \x01(\t\"]\n\rIndexResponse\x12\x31\n\x05group\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexGroup\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"j\n\nIndexGroup\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x31\n\x05\x65ntry\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.archive.IndexEntry\"[\n\nIndexEntry\x12\r\n\x05start\x18\x01 \x01(\t\x12\x0c\n\x04stop\x18\x02 \x01(\t\x12\r\n\x05\x63ount\x18\x03 \x01(\x05\x12\x10\n\x08seqStart\x18\x04 \x01(\x03\x12\x0f\n\x07seqStop\x18\x05 \x01(\x03\"\x90\x01\n\x18StreamPacketIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05names\x18\x04 \x03(\t\"\x84\x01\n\x1bStreamParameterIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x82\x01\n\x19StreamCommandIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x80\x01\n\x17StreamEventIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x87\x01\n\x1eStreamCompletenessIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x81\x01\n\x18RebuildCcsdsIndexRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xe8\r\n\nIndexesApi\x12\xa5\x01\n\x17ListCommandHistoryIndex\x12\x36.yamcs.protobuf.archive.ListCommandHistoryIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"+\x8a\x92\x03\'\n%/api/archive/{instance}/command-index\x12\x91\x01\n\x0eListEventIndex\x12-.yamcs.protobuf.archive.ListEventIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\")\x8a\x92\x03%\n#/api/archive/{instance}/event-index\x12\x94\x01\n\x0fListPacketIndex\x12..yamcs.protobuf.archive.ListPacketIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-index\x12\x9d\x01\n\x12ListParameterIndex\x12\x31.yamcs.protobuf.archive.ListParameterIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"-\x8a\x92\x03)\n\'/api/archive/{instance}/parameter-index\x12\xa6\x01\n\x15ListCompletenessIndex\x12\x34.yamcs.protobuf.archive.ListCompletenessIndexRequest\x1a%.yamcs.protobuf.archive.IndexResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/completeness-index\x12\x9a\x01\n\x11StreamPacketIndex\x12\x30.yamcs.protobuf.archive.StreamPacketIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"2\x8a\x92\x03.\x1a)/api/archive/{instance}:streamPacketIndex:\x01*0\x01\x12\xa3\x01\n\x14StreamParameterIndex\x12\x33.yamcs.protobuf.archive.StreamParameterIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"5\x8a\x92\x03\x31\x1a,/api/archive/{instance}:streamParameterIndex:\x01*0\x01\x12\x9d\x01\n\x12StreamCommandIndex\x12\x31.yamcs.protobuf.archive.StreamCommandIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"3\x8a\x92\x03/\x1a*/api/archive/{instance}:streamCommandIndex:\x01*0\x01\x12\x97\x01\n\x10StreamEventIndex\x12/.yamcs.protobuf.archive.StreamEventIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"1\x8a\x92\x03-\x1a(/api/archive/{instance}:streamEventIndex:\x01*0\x01\x12\xac\x01\n\x17StreamCompletenessIndex\x12\x36.yamcs.protobuf.archive.StreamCompletenessIndexRequest\x1a\x1d.yamcs.protobuf.ArchiveRecord\"8\x8a\x92\x03\x34\x1a//api/archive/{instance}:streamCompletenessIndex:\x01*0\x01\x12\x91\x01\n\x11RebuildCcsdsIndex\x12\x30.yamcs.protobuf.archive.RebuildCcsdsIndexRequest\x1a\x16.google.protobuf.Empty\"2\x8a\x92\x03.\x1a)/api/archive/{instance}:rebuildCcsdsIndex:\x01*B)\n\x12org.yamcs.protobufB\x11IndexServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -516,65 +516,6 @@ _INDEXENTRY = _descriptor.Descriptor(
 )
 
 
-_STREAMINDEXREQUEST = _descriptor.Descriptor(
-  name='StreamIndexRequest',
-  full_name='yamcs.protobuf.archive.StreamIndexRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.archive.StreamIndexRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.archive.StreamIndexRequest.start', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.archive.StreamIndexRequest.stop', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='filters', full_name='yamcs.protobuf.archive.StreamIndexRequest.filters', index=3,
-      number=4, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='packetnames', full_name='yamcs.protobuf.archive.StreamIndexRequest.packetnames', index=4,
-      number=5, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1432,
-  serialized_end=1593,
-)
-
-
 _STREAMPACKETINDEXREQUEST = _descriptor.Descriptor(
   name='StreamPacketIndexRequest',
   full_name='yamcs.protobuf.archive.StreamPacketIndexRequest',
@@ -622,8 +563,8 @@ _STREAMPACKETINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1596,
-  serialized_end=1740,
+  serialized_start=1432,
+  serialized_end=1576,
 )
 
 
@@ -667,8 +608,8 @@ _STREAMPARAMETERINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1743,
-  serialized_end=1875,
+  serialized_start=1579,
+  serialized_end=1711,
 )
 
 
@@ -712,8 +653,8 @@ _STREAMCOMMANDINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1878,
-  serialized_end=2008,
+  serialized_start=1714,
+  serialized_end=1844,
 )
 
 
@@ -757,8 +698,8 @@ _STREAMEVENTINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2011,
-  serialized_end=2139,
+  serialized_start=1847,
+  serialized_end=1975,
 )
 
 
@@ -802,8 +743,8 @@ _STREAMCOMPLETENESSINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2142,
-  serialized_end=2277,
+  serialized_start=1978,
+  serialized_end=2113,
 )
 
 
@@ -847,8 +788,8 @@ _REBUILDCCSDSINDEXREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2280,
-  serialized_end=2409,
+  serialized_start=2116,
+  serialized_end=2245,
 )
 
 _LISTCOMMANDHISTORYINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -864,8 +805,6 @@ _LISTCOMPLETENESSINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_p
 _INDEXRESPONSE.fields_by_name['group'].message_type = _INDEXGROUP
 _INDEXGROUP.fields_by_name['id'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _INDEXGROUP.fields_by_name['entry'].message_type = _INDEXENTRY
-_STREAMINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_STREAMINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _STREAMPACKETINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _STREAMPACKETINDEXREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _STREAMPARAMETERINDEXREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -886,7 +825,6 @@ DESCRIPTOR.message_types_by_name['ListCompletenessIndexRequest'] = _LISTCOMPLETE
 DESCRIPTOR.message_types_by_name['IndexResponse'] = _INDEXRESPONSE
 DESCRIPTOR.message_types_by_name['IndexGroup'] = _INDEXGROUP
 DESCRIPTOR.message_types_by_name['IndexEntry'] = _INDEXENTRY
-DESCRIPTOR.message_types_by_name['StreamIndexRequest'] = _STREAMINDEXREQUEST
 DESCRIPTOR.message_types_by_name['StreamPacketIndexRequest'] = _STREAMPACKETINDEXREQUEST
 DESCRIPTOR.message_types_by_name['StreamParameterIndexRequest'] = _STREAMPARAMETERINDEXREQUEST
 DESCRIPTOR.message_types_by_name['StreamCommandIndexRequest'] = _STREAMCOMMANDINDEXREQUEST
@@ -951,13 +889,6 @@ IndexEntry = _reflection.GeneratedProtocolMessageType('IndexEntry', (_message.Me
   ))
 _sym_db.RegisterMessage(IndexEntry)
 
-StreamIndexRequest = _reflection.GeneratedProtocolMessageType('StreamIndexRequest', (_message.Message,), dict(
-  DESCRIPTOR = _STREAMINDEXREQUEST,
-  __module__ = 'yamcs.protobuf.archive.index_service_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StreamIndexRequest)
-  ))
-_sym_db.RegisterMessage(StreamIndexRequest)
-
 StreamPacketIndexRequest = _reflection.GeneratedProtocolMessageType('StreamPacketIndexRequest', (_message.Message,), dict(
   DESCRIPTOR = _STREAMPACKETINDEXREQUEST,
   __module__ = 'yamcs.protobuf.archive.index_service_pb2'
@@ -1009,8 +940,8 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=2412,
-  serialized_end=4319,
+  serialized_start=2248,
+  serialized_end=4016,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListCommandHistoryIndex',
@@ -1058,18 +989,9 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
     serialized_options=_b('\212\222\003,\n*/api/archive/{instance}/completeness-index'),
   ),
   _descriptor.MethodDescriptor(
-    name='StreamIndex',
-    full_name='yamcs.protobuf.archive.IndexesApi.StreamIndex',
-    index=5,
-    containing_service=None,
-    input_type=_STREAMINDEXREQUEST,
-    output_type=yamcs_dot_protobuf_dot_yamcs__pb2._INDEXRESULT,
-    serialized_options=_b('\212\222\003*\032#/api/archive/{instance}:streamIndex0\001:\001*'),
-  ),
-  _descriptor.MethodDescriptor(
     name='StreamPacketIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.StreamPacketIndex',
-    index=6,
+    index=5,
     containing_service=None,
     input_type=_STREAMPACKETINDEXREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVERECORD,
@@ -1078,7 +1000,7 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamParameterIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.StreamParameterIndex',
-    index=7,
+    index=6,
     containing_service=None,
     input_type=_STREAMPARAMETERINDEXREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVERECORD,
@@ -1087,7 +1009,7 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamCommandIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.StreamCommandIndex',
-    index=8,
+    index=7,
     containing_service=None,
     input_type=_STREAMCOMMANDINDEXREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVERECORD,
@@ -1096,7 +1018,7 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamEventIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.StreamEventIndex',
-    index=9,
+    index=8,
     containing_service=None,
     input_type=_STREAMEVENTINDEXREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVERECORD,
@@ -1105,7 +1027,7 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='StreamCompletenessIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.StreamCompletenessIndex',
-    index=10,
+    index=9,
     containing_service=None,
     input_type=_STREAMCOMPLETENESSINDEXREQUEST,
     output_type=yamcs_dot_protobuf_dot_yamcs__pb2._ARCHIVERECORD,
@@ -1114,7 +1036,7 @@ _INDEXESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='RebuildCcsdsIndex',
     full_name='yamcs.protobuf.archive.IndexesApi.RebuildCcsdsIndex',
-    index=11,
+    index=10,
     containing_service=None,
     input_type=_REBUILDCCSDSINDEXREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,

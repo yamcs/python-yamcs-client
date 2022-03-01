@@ -20,7 +20,6 @@ from yamcs.core.helpers import (
 )
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
-from yamcs.protobuf import yamcs_pb2
 from yamcs.protobuf.archive import (
     archive_pb2,
     index_service_pb2,
@@ -28,7 +27,7 @@ from yamcs.protobuf.archive import (
 )
 from yamcs.protobuf.commanding import commands_service_pb2
 from yamcs.protobuf.events import events_service_pb2
-from yamcs.protobuf.packets import packets_service_pb2
+from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import CommandHistory, Packet, ParameterData, ParameterValue
@@ -295,7 +294,7 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/packets/"
         url += f"{to_isostring(generation_time)}/{sequence_number}"
         response = self.ctx.get_proto(url)
-        message = yamcs_pb2.TmPacketData()
+        message = packets_pb2.TmPacketData()
         message.ParseFromString(response.content)
         return Packet(message)
 
@@ -642,13 +641,20 @@ class ArchiveClient:
         return generate()
 
     def list_command_history(
-        self, command=None, start=None, stop=None, page_size=500, descending=False
+        self,
+        command=None,
+        queue=None,
+        start=None,
+        stop=None,
+        page_size=500,
+        descending=False,
     ):
         """
         Reads command history entries between the specified start and stop time.
 
         :param str command: Either a fully-qualified XTCE name or an alias in the
                             format ``NAMESPACE/NAME``.
+        :param str queue: Name of the queue that the command was assigned to.
         :param ~datetime.datetime start: Minimum generation time of the returned
                                          command history entries (inclusive)
         :param ~datetime.datetime stop: Maximum generation time of the returned
@@ -663,6 +669,8 @@ class ArchiveClient:
         params = {
             "order": "desc" if descending else "asc",
         }
+        if queue:
+            params["queue"] = queue
         if page_size is not None:
             params["limit"] = page_size
         if start is not None:
