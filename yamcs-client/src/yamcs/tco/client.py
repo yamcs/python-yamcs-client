@@ -72,8 +72,8 @@ class TCOClient:
         req = tco_pb2.AddTimeOfFlightIntervalsRequest()
         for interval in intervals:
             tof = req.intervals.add()
-            tof.ertStart = to_server_time(interval.start)
-            tof.ertStop = to_server_time(interval.stop)
+            tof.ertStart.MergeFrom(to_server_time(interval.start))
+            tof.ertStop.MergeFrom(to_server_time(interval.stop))
             tof.polCoef.extend(interval.polynomial)
 
         url = f"/tco/{self._instance}/{self._service}/tof:addIntervals"
@@ -88,8 +88,8 @@ class TCOClient:
         :param ~datetime.datetime stop: ERT stop
         """
         req = tco_pb2.DeleteTimeOfFlightIntervalsRequest()
-        req.start = to_server_time(start)
-        req.stop = to_server_time(stop)
+        req.start.MergeFrom(to_server_time(start))
+        req.stop.MergeFrom(to_server_time(stop))
 
         url = f"/tco/{self._instance}/{self._service}/tof:deleteIntervals"
         self.ctx.post_proto(url, data=req.SerializeToString())
@@ -117,7 +117,7 @@ class TCOClient:
         :param Optional[float] offset: Offset
         """
         req = tco_pb2.TcoCoefficients()
-        req.utc = to_server_time(utc)
+        req.utc.MergeFrom(to_server_time(utc))
         req.obt = obt
         req.gradient = gradient
         req.offset = offset
