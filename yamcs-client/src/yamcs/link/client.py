@@ -6,7 +6,6 @@ from yamcs.link.model import Cop1Config, Cop1Status
 from yamcs.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
-from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 
 
 def _wrap_callback_parse_cop1_status(subscription, on_data, message):
