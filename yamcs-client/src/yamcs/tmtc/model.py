@@ -993,3 +993,20 @@ class RangeSet:
         self.critical = critical
         self.severe = severe
         self.min_violations = min_violations
+
+
+class ValueUpdate:
+    """
+    Data holder for passing a value along with its generation time when
+    updating a software parameter.
+    """
+
+    def __init__(self, value, generation_time=None):
+        """
+        :param value: The value to set
+        :param generation_time: Generation time of the value. If unset, Yamcs will
+                                assign the generation time.
+        :type generation_time: Optional[~datetime.datetime]
+        """
+        self.value = value
+        self.generation_time = generation_time

@@ -12,6 +12,7 @@ from yamcs.core.helpers import (
     to_isostring,
     to_named_object_id,
     to_named_object_ids,
+    to_server_time,
 )
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.protobuf import yamcs_pb2
@@ -31,6 +32,7 @@ from yamcs.tmtc.model import (
     Packet,
     ParameterData,
     ParameterValue,
+    ValueUpdate,
     _parse_alarm,
 )
 
@@ -591,32 +593,54 @@ class ProcessorClient:
             pvals.append(ParameterValue(match) if match else None)
         return pvals
 
-    def set_parameter_value(self, parameter, value):
+    def set_parameter_value(self, parameter, value, generation_time=None):
         """
         Sets the value of the specified parameter.
 
         :param str parameter: Either a fully-qualified XTCE name or an alias in the
                               format ``NAMESPACE/NAME``.
         :param value: The value to set
+        :param generation_time: Generation time of the values. If unset, Yamcs will
+                                assign the generation time.
+        :type generation_time: Optional[~datetime.datetime]
         """
-        parameter = adapt_name_for_rest(parameter)
-        url = f"/processors/{self._instance}/{self._processor}/parameters{parameter}"
-        req = _build_value_proto(value)
-        self.ctx.put_proto(url, data=req.SerializeToString())
+        self.set_parameter_values({parameter: value}, generation_time)
 
-    def set_parameter_values(self, values):
+    def set_parameter_values(self, values, generation_time=None):
         """
-        Sets the value of multiple  parameters.
+        Sets the value of multiple parameters.
+
+        Values are specified with their native Python types. If you need
+        to customize individual value generation times, use :class:`.ValueUpdate`
+        instead.
+
+        The method argument ``generation_time`` can be used to specify a custom
+        generation time for all values at once. This has lower priority than
+        a value-specific generation time.
+
+        If no generation time is specified at all, Yamcs will determine one.
 
         :param dict values: Values keyed by parameter name. This name can be either
                             a fully-qualified XTCE name or an alias in the format
                             ``NAMESPACE/NAME``.
+        :param generation_time: Generation time of the values.
+        :type generation_time: Optional[~datetime.datetime]
         """
         req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
             item = req.request.add()
             item.id.MergeFrom(to_named_object_id(key))
-            item.value.MergeFrom(_build_value_proto(values[key]))
+
+            value = values[key]
+            value_time = generation_time
+            if isinstance(values[key], ValueUpdate):
+                value = values[key].value
+                if values[key].generation_time:
+                    value_time = values[key].generation_time
+
+            item.value.MergeFrom(_build_value_proto(value))
+            if value_time:
+                item.generationTime.MergeFrom(to_server_time(value_time))
         url = f"/processors/{self._instance}/{self._processor}/parameters:batchSet"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
