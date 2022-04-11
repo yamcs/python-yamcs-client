@@ -34,6 +34,7 @@ from yamcs.protobuf.web import auth_pb2, server_service_pb2
 from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.storage.client import StorageClient
 from yamcs.tco.client import TCOClient
+from yamcs.timeline.client import TimelineClient
 from yamcs.tmtc.client import ProcessorClient
 
 
@@ -256,6 +257,15 @@ class YamcsClient:
         :rtype: .StorageClient
         """
         return StorageClient(self.ctx, instance)
+
+    def get_timeline_client(self, instance):
+        """
+        Return an object for working with Yamcs timeline items
+
+        :param str instance: A Yamcs instance name.
+        :rtype: .TimelineClient
+        """
+        return TimelineClient(self.ctx, instance)
 
     def create_instance(self, name, template, args=None, labels=None):
         """

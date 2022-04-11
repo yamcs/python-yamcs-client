@@ -39,6 +39,7 @@ Get domain-specific clients:
 * :doc:`storage/index`
 * :doc:`filetransfer/index`
 * :doc:`tco/index`
+* :doc:`timeline/index`
 
 
 .. rubric:: Examples
@@ -59,4 +60,5 @@ Get domain-specific clients:
     storage/index
     filetransfer/index
     tco/index
+    timeline/index
     examples/index

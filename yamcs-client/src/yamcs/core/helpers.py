@@ -52,7 +52,7 @@ def parse_server_timestring(isostring):
     naive = datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
     utctime = naive.replace(tzinfo=timezone.utc)
 
-    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0",):
+    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0"):
         return utctime
     return utctime.astimezone(tz=None)
 
@@ -65,7 +65,7 @@ def parse_server_time(pb):
     """
     utctime = pb.ToDatetime().replace(tzinfo=timezone.utc)
 
-    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0",):
+    if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0"):
         return utctime
     return utctime.astimezone(tz=None)
 
@@ -178,3 +178,75 @@ def split_protobuf_stream(chunk_iterator, message_class):
             message = message_class()
             message.ParseFromString(msg_buf)
             yield message
+
+
+class ProtoList(list):
+    """
+    List subclass to work with a list of wrapped items while
+    maintaining the state in an underlying protobuf message.
+
+    This assumes each wrapped item has an internal `_proto`
+    field.
+    """
+
+    def __init__(self, parent_proto, items_key, item_mapper):
+        self.parent_proto = parent_proto
+        self.items_key = items_key
+        self.item_mapper = item_mapper
+
+    def __getitem__(self, index):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        proto = repeatable.__getitem__(index)
+        return self.item_mapper(proto)
+
+    def __setitem__(self, index, value):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        repeatable.__setitem__(index, value._proto)
+
+    def __delitem__(self, __i):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        return repeatable.__delitem__(__i)
+
+    def __len__(self):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        return repeatable.__len__()
+
+    def __iter__(self):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        return [self.item_mapper(proto) for proto in repeatable].__iter__()
+
+    def __add__(self, __x):
+        # Not obvious what should be the message_listener
+        # of the returned repeated composite field container.
+        raise TypeError(
+            f"{self.__class__.__name__} object does not support list addition"
+        )
+
+    def __iadd__(self, __x):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        protos = [item._proto for item in __x]
+        repeatable.extend(protos)
+        return self
+
+    def reverse(self):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        try:
+            repeatable.reverse()
+        except AttributeError:  # Only available since protobuf>=3.15
+            raise TypeError(
+                f"{self.__class__.__name__} object does not support reverse operation"
+            ) from None
+
+    def append(self, value):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        repeatable.append(value._proto)
+
+    def extend(self, __iterable):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        repeatable.extend([value._proto for value in __iterable])
+
+    def clear(self):
+        repeatable = getattr(self.parent_proto, self.items_key)
+        copy = list(repeatable)
+        for item in copy:
+            repeatable.remove(item)
