@@ -3,7 +3,8 @@ import urllib3
 from google.protobuf.message import DecodeError
 from yamcs import clientversion
 from yamcs.api import exception_pb2
-from yamcs.core.exceptions import ConnectionFailure, NotFound, Unauthorized, YamcsError
+from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
+                                   YamcsError)
 
 
 class Context:
@@ -19,6 +20,9 @@ class Context:
         on_token_update=None,
         tls_verify=True,
     ):
+        if address.endswith("/"):
+            address = address[:-1]
+
         if ":" in address:
             self.address = address
         else:
