@@ -3,8 +3,7 @@ import urllib3
 from google.protobuf.message import DecodeError
 from yamcs import clientversion
 from yamcs.api import exception_pb2
-from yamcs.core.exceptions import (ConnectionFailure, NotFound, Unauthorized,
-                                   YamcsError)
+from yamcs.core.exceptions import ConnectionFailure, NotFound, Unauthorized, YamcsError
 
 
 class Context:
@@ -42,7 +41,14 @@ class Context:
         self.session = requests.Session()
         self.session.verify = tls_verify
         if not tls_verify:
-            urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+            try:
+                # requests < 2.16.0
+                requests.packages.urllib3.disable_warnings(
+                    requests.packages.urllib3.exceptions.InsecureRequestWarning
+                )
+            except Exception:
+                # requests >= 2.16.0
+                urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         if credentials:
             self.credentials = credentials.login(
