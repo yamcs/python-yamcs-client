@@ -20,12 +20,9 @@ class Context:
         tls_verify=True,
     ):
         if address.endswith("/"):
-            address = address[:-1]
-
-        if ":" in address:
-            self.address = address
+            self.address = address[:-1]
         else:
-            self.address = address + ":8090"
+            self.address = address
 
         if tls:
             self.url = f"https://{self.address}"
