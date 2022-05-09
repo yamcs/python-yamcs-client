@@ -1,5 +1,4 @@
 import functools
-import warnings
 
 import requests
 from google.protobuf import timestamp_pb2
@@ -415,17 +414,6 @@ class YamcsClient:
         """
         url = f"/instances/{instance}:restart"
         self.ctx.post_proto(url)
-
-    def list_data_links(self, instance):
-        """
-        Deprecated. Use ``list_links(instance)``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: list_links(instance) instead of list_data_links(instance)",
-            FutureWarning,
-        )
-        return self.list_links(instance)
 
     def list_links(self, instance):
         """

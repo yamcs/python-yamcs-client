@@ -1,5 +1,3 @@
-import warnings
-
 from yamcs.protobuf.mdb import mdb_pb2
 
 
@@ -186,18 +184,6 @@ class ArrayType:
         return None
 
     @property
-    def arrayType(self):
-        """
-        Deprecated. Use ``array_type``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: array_type() instead of arrayType()",
-            FutureWarning,
-        )
-        return self.array_type
-
-    @property
     def members(self):
         """
         In case the elements of this array are of type `aggregate`, this returns
@@ -256,18 +242,6 @@ class Member:
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
-
-    @property
-    def arrayType(self):
-        """
-        Deprecated. Use ``array_type``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: array_type() instead of arrayType()",
-            FutureWarning,
-        )
-        return self.array_type
 
     @property
     def members(self):
@@ -415,18 +389,6 @@ class Parameter:
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
-
-    @property
-    def arrayType(self):
-        """
-        Deprecated. Use ``array_type``.
-        """
-        warnings.warn(
-            "Method renamed for consistency. "
-            "Use: array_type() instead of arrayType()",
-            FutureWarning,
-        )
-        return self.array_type
 
     @property
     def members(self):
