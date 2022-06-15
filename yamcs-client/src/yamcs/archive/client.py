@@ -604,7 +604,7 @@ class ArchiveClient:
         )
 
     def stream_parameter_values(
-        self, parameters, start=None, stop=None, chunk_size=32 * 1024
+        self, parameters, start=None, stop=None, tm_links=None, chunk_size=32 * 1024
     ):
         """
         Reads parameter values between the specified start and stop time.
@@ -615,10 +615,20 @@ class ArchiveClient:
 
         :param parameters: Parameter(s) to be queried.
         :type parameters: Union[str, str[]]
+
         :param ~datetime.datetime start: Minimum generation time of the returned
                                          values (inclusive)
+
         :param ~datetime.datetime stop: Maximum generation time of the returned
                                         values (exclusive)
+
+        :param tm_links: If set, include only values that were received through
+                         a specific link.
+
+                         .. versionadded:: 1.8.4
+                            Compatible with Yamcs 5.7.4 onwards
+        :type tm_links: Union[str, str[]]
+
         :return: :rtype: ~collections.abc.Iterable[:class:`.ParameterData`]
         """
         options = archive_pb2.StreamParameterValuesRequest()
@@ -627,6 +637,11 @@ class ArchiveClient:
             options.start.MergeFrom(to_server_time(start))
         if stop is not None:
             options.stop.MergeFrom(to_server_time(stop))
+        if tm_links:
+            if isinstance(tm_links, str):
+                options.tmLinks.extend([tm_links])
+            else:
+                options.tmLinks.extend(tm_links)
 
         def generate():
             path = f"/stream-archive/{self._instance}:streamParameterValues"

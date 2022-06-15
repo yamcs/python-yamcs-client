@@ -123,8 +123,8 @@ if __name__ == "__main__":
     print("\nIterate specific parameter range:")
     iterate_specific_parameter_range()
 
-    # print("\nStream specific parameter range:")
-    # stream_specific_parameter_range()
+    print("\nStream specific parameter range:")
+    stream_specific_parameter_range()
 
     print("\nLast 10 commands:")
     print_last_commands()
