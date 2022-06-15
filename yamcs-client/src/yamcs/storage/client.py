@@ -34,6 +34,7 @@ class StorageClient:
         :rtype: .Bucket
         """
         # TODO should have an actual server-side operation for this
+        # (added in Yamcs 5.6.1)
         for bucket in self.list_buckets():
             if bucket.name == name:
                 return bucket

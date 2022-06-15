@@ -1,3 +1,4 @@
+import binascii
 import threading
 from collections import OrderedDict
 from datetime import timedelta
@@ -244,8 +245,9 @@ class IssuedCommand:
     @property
     def hex(self):
         """Hexadecimal string representation of this command."""
-        if self._proto.HasField("hex"):
-            return self._proto.hex
+        if self._proto.HasField("binary"):
+            return binascii.hexlify(self._proto.binary)
+        return None
         return None
 
     @property
