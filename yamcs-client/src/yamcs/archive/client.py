@@ -629,7 +629,7 @@ class ArchiveClient:
                             Compatible with Yamcs 5.7.4 onwards
         :type tm_links: Union[str, str[]]
 
-        :return: :rtype: ~collections.abc.Iterable[:class:`.ParameterData`]
+        :rtype: ~collections.abc.Iterable[.ParameterData]
         """
         options = archive_pb2.StreamParameterValuesRequest()
         options.ids.extend(to_named_object_ids(parameters))
