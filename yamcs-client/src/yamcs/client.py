@@ -441,6 +441,7 @@ class YamcsClient:
         severity="info",
         source=None,
         sequence_number=None,
+        extra=None,
     ):
         """
         Post a new event.
@@ -467,6 +468,11 @@ class YamcsClient:
                                 automatically assign a sequential number as if
                                 every submitted event is unique.
         :type sequence_number: Optional[int]
+
+        :param dict extra: Extra event properties.
+
+                           .. versionadded:: 1.8.4
+                              Compatible with Yamcs 5.7.3 onwards
         """
         req = events_service_pb2.CreateEventRequest()
         req.message = message
@@ -479,6 +485,9 @@ class YamcsClient:
             req.source = source
         if sequence_number is not None:
             req.sequence_number = sequence_number
+        if extra:
+            for key in extra:
+                req.extra[key].MergeFrom(extra[key])
 
         url = f"/archive/{instance}/events"
         self.ctx.post_proto(url, data=req.SerializeToString())
