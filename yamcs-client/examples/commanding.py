@@ -86,6 +86,9 @@ if __name__ == "__main__":
     print("Start to listen to command history")
     listen_to_command_history()
 
+    issue_command_no_verification()
+    issue_command_modify_verification()
+
     print("Issue a command")
     issue_command()
 
