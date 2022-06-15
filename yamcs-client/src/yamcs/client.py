@@ -487,7 +487,7 @@ class YamcsClient:
             req.sequence_number = sequence_number
         if extra:
             for key in extra:
-                req.extra[key].MergeFrom(extra[key])
+                req.extra[key] = extra[key]
 
         url = f"/archive/{instance}/events"
         self.ctx.post_proto(url, data=req.SerializeToString())

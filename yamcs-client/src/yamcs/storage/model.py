@@ -12,14 +12,67 @@ class Bucket:
         return self._proto.name
 
     @property
+    def created(self):
+        """
+        When this bucket was created.
+
+        :type: :class:`~datetime.datetime`
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.6.1 onwards
+        """
+        if self._proto.HasField("created"):
+            return parse_server_time(self._proto.created)
+        return None
+
+    @property
     def object_count(self):
         """Number of objects in this bucket."""
         return self._proto.numObjects
 
     @property
+    def max_object_count(self):
+        """
+        Maximum allowed number of objects.
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.6.1 onwards
+        """
+        if self._proto.HasField("maxObjects"):
+            return self._proto.maxObjects
+        return None
+
+    @property
     def size(self):
         """Total size in bytes of this bucket (excluding metadata)."""
         return self._proto.size
+
+    @property
+    def max_size(self):
+        """
+        Maximum allowed total size of all objects.
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.6.1 onwards
+        """
+        if self._proto.HasField("maxSize"):
+            return self._proto.maxSize
+        return None
+
+    @property
+    def directory(self):
+        """
+        Bucket root directory. This field is only set when
+        the bucket is mapped to the file system. Therefore
+        it is not set for buckets that store objects in
+        RocksDB.
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.6.1 onwards
+        """
+        if self._proto.HasField("directory"):
+            return self._proto.directory
+        return None
 
     def list_objects(self, prefix=None, delimiter=None):
         """
@@ -35,7 +88,9 @@ class Bucket:
                               omitted.
         """
         return self._storage_client.list_objects(
-            bucket_name=self.name, prefix=prefix, delimiter=delimiter,
+            bucket_name=self.name,
+            prefix=prefix,
+            delimiter=delimiter,
         )
 
     def download_object(self, object_name):

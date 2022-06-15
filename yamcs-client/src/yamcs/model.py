@@ -167,6 +167,16 @@ class Event:
             return self._proto.source
         return None
 
+    @property
+    def extra(self):
+        """
+        Dict with extra event properties.
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.7.3 onwards
+        """
+        return {key: self._proto.extra[key] for key in self._proto.extra}
+
     def __str__(self):
         return f"{self.generation_time} [{self.severity}] {self.message}"
 
