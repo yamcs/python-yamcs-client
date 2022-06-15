@@ -248,6 +248,17 @@ class IssuedCommand:
         if self._proto.HasField("binary"):
             return binascii.hexlify(self._proto.binary)
         return None
+
+    @property
+    def unprocessed_binary(self):
+        """
+        Binary representation before postprocessing.
+
+        .. versionadded:: 1.8.4
+           Compatible with Yamcs 5.7.0 onwards
+        """
+        if self._proto.HasField("unprocessedBinary"):
+            return self._proto.unprocessedBinary
         return None
 
     @property
