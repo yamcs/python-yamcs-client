@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.api',
   syntax='proto3',
   serialized_options=_b('\n\022org.yamcs.protobufB\016WebSocketProtoP\001'),
-  serialized_pb=_b('\n\x19yamcs/api/websocket.proto\x12\tyamcs.api\x1a\x19google/protobuf/any.proto\x1a\x19yamcs/api/exception.proto\"x\n\rClientMessage\x12\x0c\n\x04type\x18\x01 \x01(\t\x12%\n\x07options\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\n\n\x02id\x18\x03 \x01(\x05\x12\x0c\n\x04\x63\x61ll\x18\x04 \x01(\x05\x12\x18\n\x10maxDroppedWrites\x18\x05 \x01(\x05\"\\\n\rServerMessage\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04\x63\x61ll\x18\x02 \x01(\x05\x12\x0b\n\x03seq\x18\x03 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x14.google.protobuf.Any\"\x1d\n\rCancelOptions\x12\x0c\n\x04\x63\x61ll\x18\x01 \x01(\x05\"I\n\x05Reply\x12\x10\n\x08reply_to\x18\x01 \x01(\x05\x12.\n\texception\x18\x02 \x01(\x0b\x32\x1b.yamcs.api.ExceptionMessage\"\x80\x01\n\x05State\x12(\n\x05\x63\x61lls\x18\x01 \x03(\x0b\x32\x19.yamcs.api.State.CallInfo\x1aM\n\x08\x43\x61llInfo\x12\x0c\n\x04\x63\x61ll\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\t\x12%\n\x07options\x18\x03 \x01(\x0b\x32\x14.google.protobuf.AnyB&\n\x12org.yamcs.protobufB\x0eWebSocketProtoP\x01\x62\x06proto3')
+  serialized_pb=_b('\n\x19yamcs/api/websocket.proto\x12\tyamcs.api\x1a\x19google/protobuf/any.proto\x1a\x19yamcs/api/exception.proto\"\x91\x01\n\rClientMessage\x12\x0c\n\x04type\x18\x01 \x01(\t\x12%\n\x07options\x18\x02 \x01(\x0b\x32\x14.google.protobuf.Any\x12\n\n\x02id\x18\x03 \x01(\x05\x12\x0c\n\x04\x63\x61ll\x18\x04 \x01(\x05\x12\x1c\n\x10maxDroppedWrites\x18\x05 \x01(\x05\x42\x02\x18\x01\x12\x13\n\x0blowPriority\x18\x06 \x01(\x08\"\\\n\rServerMessage\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0c\n\x04\x63\x61ll\x18\x02 \x01(\x05\x12\x0b\n\x03seq\x18\x03 \x01(\x05\x12\"\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x14.google.protobuf.Any\"\x1d\n\rCancelOptions\x12\x0c\n\x04\x63\x61ll\x18\x01 \x01(\x05\"I\n\x05Reply\x12\x10\n\x08reply_to\x18\x01 \x01(\x05\x12.\n\texception\x18\x02 \x01(\x0b\x32\x1b.yamcs.api.ExceptionMessage\"\x80\x01\n\x05State\x12(\n\x05\x63\x61lls\x18\x01 \x03(\x0b\x32\x19.yamcs.api.State.CallInfo\x1aM\n\x08\x43\x61llInfo\x12\x0c\n\x04\x63\x61ll\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\t\x12%\n\x07options\x18\x03 \x01(\x0b\x32\x14.google.protobuf.AnyB&\n\x12org.yamcs.protobufB\x0eWebSocketProtoP\x01\x62\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_any__pb2.DESCRIPTOR,yamcs_dot_api_dot_exception__pb2.DESCRIPTOR,])
 
@@ -70,6 +70,13 @@ _CLIENTMESSAGE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=_b('\030\001'), file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='lowPriority', full_name='yamcs.api.ClientMessage.lowPriority', index=5,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
@@ -83,8 +90,8 @@ _CLIENTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=94,
-  serialized_end=214,
+  serialized_start=95,
+  serialized_end=240,
 )
 
 
@@ -135,8 +142,8 @@ _SERVERMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=216,
-  serialized_end=308,
+  serialized_start=242,
+  serialized_end=334,
 )
 
 
@@ -166,8 +173,8 @@ _CANCELOPTIONS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=310,
-  serialized_end=339,
+  serialized_start=336,
+  serialized_end=365,
 )
 
 
@@ -204,8 +211,8 @@ _REPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=341,
-  serialized_end=414,
+  serialized_start=367,
+  serialized_end=440,
 )
 
 
@@ -249,8 +256,8 @@ _STATE_CALLINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=468,
-  serialized_end=545,
+  serialized_start=494,
+  serialized_end=571,
 )
 
 _STATE = _descriptor.Descriptor(
@@ -279,8 +286,8 @@ _STATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=417,
-  serialized_end=545,
+  serialized_start=443,
+  serialized_end=571,
 )
 
 _CLIENTMESSAGE.fields_by_name['options'].message_type = google_dot_protobuf_dot_any__pb2._ANY
@@ -341,4 +348,5 @@ _sym_db.RegisterMessage(State.CallInfo)
 
 
 DESCRIPTOR._options = None
+_CLIENTMESSAGE.fields_by_name['maxDroppedWrites']._options = None
 # @@protoc_insertion_point(module_scope)
