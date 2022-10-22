@@ -451,8 +451,8 @@ class YamcsClient:
         :param Optional[str] event_type: Type of event.
 
         :param severity: The severity level of the event. One of ``info``,
-                         ``watch``, ``warning``, ``critical`` or ``severe``.
-                         Defaults to ``info``.
+                         ``watch``, ``warning``, ``distress``, ``critical``
+                         or ``severe``. Defaults to ``info``.
         :type severity: Optional[str]
 
         :param time: Time of the event. If unspecified, defaults to mission time.
@@ -462,11 +462,14 @@ class YamcsClient:
                        archive. When unset this defaults to ``User``.
         :type source: Optional[str]
 
-        :param sequence_number: Sequence number of this event. This is primarily
-                                used to determine unicity of events coming from
-                                the same source. If not set Yamcs will
-                                automatically assign a sequential number as if
-                                every submitted event is unique.
+        :param event_type: Event type.
+        :type event_type: Optional[str]
+
+        :param sequence_number: Sequence number of this event. This is used to
+                                determine unicity of events at the same time and
+                                coming from the same source. If not set Yamcs
+                                will automatically assign a sequential number as
+                                if every submitted event is unique.
         :type sequence_number: Optional[int]
 
         :param dict extra: Extra event properties.
@@ -484,7 +487,7 @@ class YamcsClient:
         if source:
             req.source = source
         if sequence_number is not None:
-            req.sequence_number = sequence_number
+            req.sequenceNumber = sequence_number
         if extra:
             for key in extra:
                 req.extra[key] = extra[key]
