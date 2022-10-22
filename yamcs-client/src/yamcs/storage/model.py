@@ -86,6 +86,7 @@ class Bucket:
                               (in the prefix response parameter) the name
                               truncated after the delimiter. Duplicates are
                               omitted.
+        :rtype: .ObjectListing
         """
         return self._storage_client.list_objects(
             bucket_name=self.name,

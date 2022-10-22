@@ -53,6 +53,7 @@ class StorageClient:
                               (in the prefix response parameter) the name
                               truncated after the delimiter. Duplicates are
                               omitted.
+        :rtype: .ObjectListing
         """
         url = f"/buckets/{self._instance}/{bucket_name}/objects"
         params = {}
