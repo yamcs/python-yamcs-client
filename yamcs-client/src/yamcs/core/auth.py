@@ -1,3 +1,4 @@
+import base64
 from datetime import datetime, timedelta, timezone
 
 from requests.auth import HTTPBasicAuth
@@ -161,3 +162,26 @@ class Credentials:
 
         if self.access_token:
             session.headers.update({"Authorization": "Bearer " + self.access_token})
+
+
+class BasicAuthCredentials(Credentials):
+    """
+    Data holder for Basic Auth credentials. This includes a username and a password
+    which are passed in the HTTP Authorization header on each request.
+    """
+
+    def __init__(self, username, password):
+        super().__init__(username=username, password=password)
+
+    def is_expired(self):
+        return False
+
+    def refresh(self):
+        pass
+
+    def login(self, *args, **kwargs):
+        return self
+
+    def before_request(self, session, auth_url):
+        usernamePass = base64.b64encode((self.username + ":" + self.password).encode())
+        session.headers.update({"Authorization": "Basic " + usernamePass.decode()})

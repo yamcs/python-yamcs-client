@@ -38,6 +38,17 @@ def impersonate_with_client_credentials():
         sleep(1)
 
 
+def authenticate_with_basic_auth():
+    """Authenticate by providing username/password on each request to Yamcs."""
+    from yamcs.core.auth import BasicAuthCredentials
+
+    credentials = BasicAuthCredentials(username="admin", password="password")
+    client = YamcsClient("localhost:8090", credentials=credentials)
+
+    for link in client.list_links("simulator"):
+        print(link)
+
+
 if __name__ == "__main__":
     print("Authenticate with username/password")
     authenticate_with_username_password()

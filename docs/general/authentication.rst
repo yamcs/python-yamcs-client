@@ -10,7 +10,7 @@ The common use case is to entrust Yamcs with validating user credentials
 (either by locally verifying passwords, or by delegating to an upstream
 server such as an LDAP tree).
 
-To authenticate in such a scenario simply do:
+To authenticate in such a scenario, do:
 
 .. literalinclude:: ../../yamcs-client/examples/authenticate.py
     :pyobject: authenticate_with_username_password
