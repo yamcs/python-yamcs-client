@@ -255,9 +255,19 @@ class Link:
         """The number of outbound data events (example: command count)."""
         return self._proto.dataOutCount
 
+    @property
+    def actions(self):
+        """Custom actions."""
+        return self._proto.actions
+
+    @property
+    def extra(self):
+        """Custom info fields."""
+        return self._proto.extra
+
     def __str__(self):
         desc = f"{self.instance}/{self.name}"
-        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})"
+        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count}){' Actions: ' + ','.join(map(lambda action: action.id, self._proto.actions)) if self._proto.actions else ''}"
 
 
 class Instance:

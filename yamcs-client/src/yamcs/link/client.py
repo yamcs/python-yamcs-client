@@ -108,6 +108,37 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
+    def run_action(self, action_name, message=None):
+        """
+        Runs the given action for this link
+        :param action_name: action id
+        :param message: message
+        """
+        req = links_pb2.RunActionRequest()
+        if message:
+            for key in message:
+                assignment = req.assignment.add()
+                assignment.name = key
+                assignment.value = _to_argument_value(args[key], force_string=True)
+
+        url = f"/links/{self._instance}/{self._link}/actions/{action_name}"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
+    def _to_argument_value(value, force_string):
+        if isinstance(value, (bytes, bytearray)):
+            return binascii.hexlify(value)
+        elif isinstance(value, collections.abc.Mapping):
+            # Careful to do the JSON dump only at the end,
+            # and not at every level of a nested hierarchy
+            obj = _compose_aggregate_members(value)
+            return json.dumps(obj)
+        elif isinstance(value, datetime.datetime):
+            return to_isostring(value)
+        elif force_string:
+            return str(value)
+        else:
+            return value
+
     def get_cop1_config(self):
         """
         Gets the COP1 configuration for a data link.
