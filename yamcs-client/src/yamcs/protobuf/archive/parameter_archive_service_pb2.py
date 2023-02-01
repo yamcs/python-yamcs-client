@@ -26,7 +26,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\034ParameterArchiveServiceProtoP\001'),
-  serialized_pb=_b('\n6yamcs/protobuf/archive/parameter_archive_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"|\n\x13RebuildRangeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x80\x01\n\x17\x44\x65letePartitionsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8c\x02\n\x19GetParameterRangesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06minGap\x18\x05 \x01(\x03\x12\x0e\n\x06maxGap\x18\x06 \x01(\x03\x12\x12\n\nnorealtime\x18\x07 \x01(\x08\x12\x11\n\tprocessor\x18\x08 \x01(\t\x12\x0e\n\x06source\x18\t \x01(\t\x12\x10\n\x08minRange\x18\n \x01(\x03\x12\x11\n\tmaxValues\x18\x0b \x01(\x05\"^\n GetArchivedParametersInfoRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\x03 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x05\"\x99\x01\n#GetArchivedParameterSegmentsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pid\x18\x02 \x01(\r\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x01\n\x15\x41rchivedParameterInfo\x12\x0b\n\x03pid\x18\x01 \x01(\r\x12\x0b\n\x03\x66qn\x18\x02 \x01(\t\x12+\n\x07rawType\x18\x03 \x01(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12+\n\x07\x65ngType\x18\x04 \x01(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12\x0c\n\x04gids\x18\x05 \x03(\r\"c\n\x1e\x41rchivedParametersInfoResponse\x12\x41\n\nparameters\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo\"\x91\x01\n\x1b\x41rchiveParameterSegmentInfo\x12\x0f\n\x07groupId\x18\x01 \x01(\r\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x03\x65nd\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x04 \x01(\r\"\xb0\x01\n!ArchivedParameterSegmentsResponse\x12\x44\n\rparameterInfo\x18\x01 \x01(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo\x12\x45\n\x08segments\x18\x02 \x03(\x0b\x32\x33.yamcs.protobuf.archive.ArchiveParameterSegmentInfo\"A\n GetArchivedParameterGroupRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03gid\x18\x02 \x01(\r\"p\n\x1e\x41rchivedParameterGroupResponse\x12\x0b\n\x03gid\x18\x01 \x01(\r\x12\x41\n\nparameters\x18\x02 \x03(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo\" \n\rStringMessage\x12\x0f\n\x07message\x18\x01 \x02(\t2\xea\x0b\n\x13ParameterArchiveApi\x12\x90\x01\n\x0cRebuildRange\x12+.yamcs.protobuf.archive.RebuildRangeRequest\x1a\x16.google.protobuf.Empty\";\x8a\x92\x03\x37\x1a\x30/api/archive/{instance}/parameterArchive:rebuild:\x01*H\x01\x12\xae\x01\n\x10\x44\x65letePartitions\x12/.yamcs.protobuf.archive.DeletePartitionsRequest\x1a%.yamcs.protobuf.archive.StringMessage\"B\x8a\x92\x03>\x1a\x39/api/archive/{instance}/parameterArchive:deletePartitions:\x01*\x12\xae\x01\n\x13GetParameterSamples\x12\x32.yamcs.protobuf.archive.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"@\x8a\x92\x03<\n2/api/archive/{instance}/parameters/{name*}/samplesR\x06sample\x12\xa6\x01\n\x12GetParameterRanges\x12\x31.yamcs.protobuf.archive.GetParameterRangesRequest\x1a\x1d.yamcs.protobuf.pvalue.Ranges\">\x8a\x92\x03:\n1/api/archive/{instance}/parameters/{name*}/rangesR\x05range\x12\xb3\x01\n\x14ListParameterHistory\x12\x33.yamcs.protobuf.archive.ListParameterHistoryRequest\x1a\x34.yamcs.protobuf.archive.ListParameterHistoryResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/parameters/{name*}\x12\xcd\x01\n\x19GetArchivedParametersInfo\x12\x38.yamcs.protobuf.archive.GetArchivedParametersInfoRequest\x1a\x36.yamcs.protobuf.archive.ArchivedParametersInfoResponse\">\x8a\x92\x03:\n8/api/archive/{instance}/parameterArchive/info/parameters\x12\xdb\x01\n\x1cGetArchivedParameterSegments\x12;.yamcs.protobuf.archive.GetArchivedParameterSegmentsRequest\x1a\x39.yamcs.protobuf.archive.ArchivedParameterSegmentsResponse\"C\x8a\x92\x03?\n=/api/archive/{instance}/parameterArchive/info/segments/{pid*}\x12\xd0\x01\n\x19GetArchivedParameterGroup\x12\x38.yamcs.protobuf.archive.GetArchivedParameterGroupRequest\x1a\x36.yamcs.protobuf.archive.ArchivedParameterGroupResponse\"A\x8a\x92\x03=\n;/api/archive/{instance}/parameterArchive/info/groups/{gid*}B4\n\x12org.yamcs.protobufB\x1cParameterArchiveServiceProtoP\x01')
+  serialized_pb=_b('\n6yamcs/protobuf/archive/parameter_archive_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a$yamcs/protobuf/archive/archive.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"|\n\x13RebuildRangeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x8c\x02\n\x19GetParameterRangesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06minGap\x18\x05 \x01(\x03\x12\x0e\n\x06maxGap\x18\x06 \x01(\x03\x12\x12\n\nnorealtime\x18\x07 \x01(\x08\x12\x11\n\tprocessor\x18\x08 \x01(\t\x12\x0e\n\x06source\x18\t \x01(\t\x12\x10\n\x08minRange\x18\n \x01(\x03\x12\x11\n\tmaxValues\x18\x0b \x01(\x05\"^\n GetArchivedParametersInfoRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\x03 \x01(\t\x12\r\n\x05limit\x18\x07 \x01(\x05\"\x99\x01\n#GetArchivedParameterSegmentsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pid\x18\x02 \x01(\r\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x99\x01\n\x15\x41rchivedParameterInfo\x12\x0b\n\x03pid\x18\x01 \x01(\r\x12\x0b\n\x03\x66qn\x18\x02 \x01(\t\x12+\n\x07rawType\x18\x03 \x01(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12+\n\x07\x65ngType\x18\x04 \x01(\x0e\x32\x1a.yamcs.protobuf.Value.Type\x12\x0c\n\x04gids\x18\x05 \x03(\r\"c\n\x1e\x41rchivedParametersInfoResponse\x12\x41\n\nparameters\x18\x01 \x03(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo\"\x91\x01\n\x1b\x41rchiveParameterSegmentInfo\x12\x0f\n\x07groupId\x18\x01 \x01(\r\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x03\x65nd\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x04 \x01(\r\"\xb0\x01\n!ArchivedParameterSegmentsResponse\x12\x44\n\rparameterInfo\x18\x01 \x01(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo\x12\x45\n\x08segments\x18\x02 \x03(\x0b\x32\x33.yamcs.protobuf.archive.ArchiveParameterSegmentInfo\"A\n GetArchivedParameterGroupRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03gid\x18\x02 \x01(\r\"p\n\x1e\x41rchivedParameterGroupResponse\x12\x0b\n\x03gid\x18\x01 \x01(\r\x12\x41\n\nparameters\x18\x02 \x03(\x0b\x32-.yamcs.protobuf.archive.ArchivedParameterInfo2\xb9\n\n\x13ParameterArchiveApi\x12\x90\x01\n\x0cRebuildRange\x12+.yamcs.protobuf.archive.RebuildRangeRequest\x1a\x16.google.protobuf.Empty\";\x8a\x92\x03\x37\x1a\x30/api/archive/{instance}/parameterArchive:rebuild:\x01*H\x01\x12\xae\x01\n\x13GetParameterSamples\x12\x32.yamcs.protobuf.archive.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"@\x8a\x92\x03<\n2/api/archive/{instance}/parameters/{name*}/samplesR\x06sample\x12\xa6\x01\n\x12GetParameterRanges\x12\x31.yamcs.protobuf.archive.GetParameterRangesRequest\x1a\x1d.yamcs.protobuf.pvalue.Ranges\">\x8a\x92\x03:\n1/api/archive/{instance}/parameters/{name*}/rangesR\x05range\x12\xb3\x01\n\x14ListParameterHistory\x12\x33.yamcs.protobuf.archive.ListParameterHistoryRequest\x1a\x34.yamcs.protobuf.archive.ListParameterHistoryResponse\"0\x8a\x92\x03,\n*/api/archive/{instance}/parameters/{name*}\x12\xcd\x01\n\x19GetArchivedParametersInfo\x12\x38.yamcs.protobuf.archive.GetArchivedParametersInfoRequest\x1a\x36.yamcs.protobuf.archive.ArchivedParametersInfoResponse\">\x8a\x92\x03:\n8/api/archive/{instance}/parameterArchive/info/parameters\x12\xdb\x01\n\x1cGetArchivedParameterSegments\x12;.yamcs.protobuf.archive.GetArchivedParameterSegmentsRequest\x1a\x39.yamcs.protobuf.archive.ArchivedParameterSegmentsResponse\"C\x8a\x92\x03?\n=/api/archive/{instance}/parameterArchive/info/segments/{pid*}\x12\xd0\x01\n\x19GetArchivedParameterGroup\x12\x38.yamcs.protobuf.archive.GetArchivedParameterGroupRequest\x1a\x36.yamcs.protobuf.archive.ArchivedParameterGroupResponse\"A\x8a\x92\x03=\n;/api/archive/{instance}/parameterArchive/info/groups/{gid*}B4\n\x12org.yamcs.protobufB\x1cParameterArchiveServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_archive_dot_archive__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -75,51 +75,6 @@ _REBUILDRANGEREQUEST = _descriptor.Descriptor(
   ],
   serialized_start=275,
   serialized_end=399,
-)
-
-
-_DELETEPARTITIONSREQUEST = _descriptor.Descriptor(
-  name='DeletePartitionsRequest',
-  full_name='yamcs.protobuf.archive.DeletePartitionsRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.archive.DeletePartitionsRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.archive.DeletePartitionsRequest.start', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.archive.DeletePartitionsRequest.stop', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=402,
-  serialized_end=530,
 )
 
 
@@ -219,8 +174,8 @@ _GETPARAMETERRANGESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=533,
-  serialized_end=801,
+  serialized_start=402,
+  serialized_end=670,
 )
 
 
@@ -271,8 +226,8 @@ _GETARCHIVEDPARAMETERSINFOREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=803,
-  serialized_end=897,
+  serialized_start=672,
+  serialized_end=766,
 )
 
 
@@ -323,8 +278,8 @@ _GETARCHIVEDPARAMETERSEGMENTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=900,
-  serialized_end=1053,
+  serialized_start=769,
+  serialized_end=922,
 )
 
 
@@ -382,8 +337,8 @@ _ARCHIVEDPARAMETERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1056,
-  serialized_end=1209,
+  serialized_start=925,
+  serialized_end=1078,
 )
 
 
@@ -413,8 +368,8 @@ _ARCHIVEDPARAMETERSINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1211,
-  serialized_end=1310,
+  serialized_start=1080,
+  serialized_end=1179,
 )
 
 
@@ -465,8 +420,8 @@ _ARCHIVEPARAMETERSEGMENTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1313,
-  serialized_end=1458,
+  serialized_start=1182,
+  serialized_end=1327,
 )
 
 
@@ -503,8 +458,8 @@ _ARCHIVEDPARAMETERSEGMENTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1461,
-  serialized_end=1637,
+  serialized_start=1330,
+  serialized_end=1506,
 )
 
 
@@ -541,8 +496,8 @@ _GETARCHIVEDPARAMETERGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1639,
-  serialized_end=1704,
+  serialized_start=1508,
+  serialized_end=1573,
 )
 
 
@@ -579,45 +534,12 @@ _ARCHIVEDPARAMETERGROUPRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1706,
-  serialized_end=1818,
-)
-
-
-_STRINGMESSAGE = _descriptor.Descriptor(
-  name='StringMessage',
-  full_name='yamcs.protobuf.archive.StringMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='message', full_name='yamcs.protobuf.archive.StringMessage.message', index=0,
-      number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=1820,
-  serialized_end=1852,
+  serialized_start=1575,
+  serialized_end=1687,
 )
 
 _REBUILDRANGEREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _REBUILDRANGEREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_DELETEPARTITIONSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_DELETEPARTITIONSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETPARAMETERRANGESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETPARAMETERRANGESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETARCHIVEDPARAMETERSEGMENTSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -631,7 +553,6 @@ _ARCHIVEDPARAMETERSEGMENTSRESPONSE.fields_by_name['parameterInfo'].message_type 
 _ARCHIVEDPARAMETERSEGMENTSRESPONSE.fields_by_name['segments'].message_type = _ARCHIVEPARAMETERSEGMENTINFO
 _ARCHIVEDPARAMETERGROUPRESPONSE.fields_by_name['parameters'].message_type = _ARCHIVEDPARAMETERINFO
 DESCRIPTOR.message_types_by_name['RebuildRangeRequest'] = _REBUILDRANGEREQUEST
-DESCRIPTOR.message_types_by_name['DeletePartitionsRequest'] = _DELETEPARTITIONSREQUEST
 DESCRIPTOR.message_types_by_name['GetParameterRangesRequest'] = _GETPARAMETERRANGESREQUEST
 DESCRIPTOR.message_types_by_name['GetArchivedParametersInfoRequest'] = _GETARCHIVEDPARAMETERSINFOREQUEST
 DESCRIPTOR.message_types_by_name['GetArchivedParameterSegmentsRequest'] = _GETARCHIVEDPARAMETERSEGMENTSREQUEST
@@ -641,7 +562,6 @@ DESCRIPTOR.message_types_by_name['ArchiveParameterSegmentInfo'] = _ARCHIVEPARAME
 DESCRIPTOR.message_types_by_name['ArchivedParameterSegmentsResponse'] = _ARCHIVEDPARAMETERSEGMENTSRESPONSE
 DESCRIPTOR.message_types_by_name['GetArchivedParameterGroupRequest'] = _GETARCHIVEDPARAMETERGROUPREQUEST
 DESCRIPTOR.message_types_by_name['ArchivedParameterGroupResponse'] = _ARCHIVEDPARAMETERGROUPRESPONSE
-DESCRIPTOR.message_types_by_name['StringMessage'] = _STRINGMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RebuildRangeRequest = _reflection.GeneratedProtocolMessageType('RebuildRangeRequest', (_message.Message,), dict(
@@ -650,13 +570,6 @@ RebuildRangeRequest = _reflection.GeneratedProtocolMessageType('RebuildRangeRequ
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.RebuildRangeRequest)
   ))
 _sym_db.RegisterMessage(RebuildRangeRequest)
-
-DeletePartitionsRequest = _reflection.GeneratedProtocolMessageType('DeletePartitionsRequest', (_message.Message,), dict(
-  DESCRIPTOR = _DELETEPARTITIONSREQUEST,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.DeletePartitionsRequest)
-  ))
-_sym_db.RegisterMessage(DeletePartitionsRequest)
 
 GetParameterRangesRequest = _reflection.GeneratedProtocolMessageType('GetParameterRangesRequest', (_message.Message,), dict(
   DESCRIPTOR = _GETPARAMETERRANGESREQUEST,
@@ -721,13 +634,6 @@ ArchivedParameterGroupResponse = _reflection.GeneratedProtocolMessageType('Archi
   ))
 _sym_db.RegisterMessage(ArchivedParameterGroupResponse)
 
-StringMessage = _reflection.GeneratedProtocolMessageType('StringMessage', (_message.Message,), dict(
-  DESCRIPTOR = _STRINGMESSAGE,
-  __module__ = 'yamcs.protobuf.archive.parameter_archive_service_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.archive.StringMessage)
-  ))
-_sym_db.RegisterMessage(StringMessage)
-
 
 DESCRIPTOR._options = None
 
@@ -737,8 +643,8 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1855,
-  serialized_end=3369,
+  serialized_start=1690,
+  serialized_end=3027,
   methods=[
   _descriptor.MethodDescriptor(
     name='RebuildRange',
@@ -750,18 +656,9 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
     serialized_options=_b('\212\222\0037\0320/api/archive/{instance}/parameterArchive:rebuild:\001*H\001'),
   ),
   _descriptor.MethodDescriptor(
-    name='DeletePartitions',
-    full_name='yamcs.protobuf.archive.ParameterArchiveApi.DeletePartitions',
-    index=1,
-    containing_service=None,
-    input_type=_DELETEPARTITIONSREQUEST,
-    output_type=_STRINGMESSAGE,
-    serialized_options=_b('\212\222\003>\0329/api/archive/{instance}/parameterArchive:deletePartitions:\001*'),
-  ),
-  _descriptor.MethodDescriptor(
     name='GetParameterSamples',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.GetParameterSamples',
-    index=2,
+    index=1,
     containing_service=None,
     input_type=yamcs_dot_protobuf_dot_archive_dot_archive__pb2._GETPARAMETERSAMPLESREQUEST,
     output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._TIMESERIES,
@@ -770,7 +667,7 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetParameterRanges',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.GetParameterRanges',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_GETPARAMETERRANGESREQUEST,
     output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._RANGES,
@@ -779,7 +676,7 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ListParameterHistory',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.ListParameterHistory',
-    index=4,
+    index=3,
     containing_service=None,
     input_type=yamcs_dot_protobuf_dot_archive_dot_archive__pb2._LISTPARAMETERHISTORYREQUEST,
     output_type=yamcs_dot_protobuf_dot_archive_dot_archive__pb2._LISTPARAMETERHISTORYRESPONSE,
@@ -788,7 +685,7 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetArchivedParametersInfo',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.GetArchivedParametersInfo',
-    index=5,
+    index=4,
     containing_service=None,
     input_type=_GETARCHIVEDPARAMETERSINFOREQUEST,
     output_type=_ARCHIVEDPARAMETERSINFORESPONSE,
@@ -797,7 +694,7 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetArchivedParameterSegments',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.GetArchivedParameterSegments',
-    index=6,
+    index=5,
     containing_service=None,
     input_type=_GETARCHIVEDPARAMETERSEGMENTSREQUEST,
     output_type=_ARCHIVEDPARAMETERSEGMENTSRESPONSE,
@@ -806,7 +703,7 @@ _PARAMETERARCHIVEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='GetArchivedParameterGroup',
     full_name='yamcs.protobuf.archive.ParameterArchiveApi.GetArchivedParameterGroup',
-    index=7,
+    index=6,
     containing_service=None,
     input_type=_GETARCHIVEDPARAMETERGROUPREQUEST,
     output_type=_ARCHIVEDPARAMETERGROUPRESPONSE,

@@ -54,8 +54,8 @@ class Service:
     def download(
         self,
         bucket_name,
-        object_name,
         remote_path,
+        object_name=None,
         source_entity=None,
         destination_entity=None,
         overwrite=True,
@@ -63,11 +63,11 @@ class Service:
         reliable=False,
     ):
         """
-        Downloads a file from the destination to a bucket.
+        Downloads a file from the source to a bucket.
 
         :param str bucket_name: Name of the bucket to receive the file.
         :param str object_name: Name of the file received in the bucket.
-        :param str remote_path: Name of the file to be downloaded from the destination.
+        :param str remote_path: Name of the file to be downloaded from the source.
         :param str source_entity: Use a specific source entity.
                                   (useful in case of multiples)
         :param str destination_entity: Use a specific destination entity.
@@ -79,12 +79,46 @@ class Service:
         """
         return self._service_client.download(
             bucket_name=bucket_name,
-            object_name=object_name,
             remote_path=remote_path,
+            object_name=object_name,
             source_entity=source_entity,
             destination_entity=destination_entity,
             overwrite=overwrite,
             parents=parents,
+            reliable=reliable,
+        )
+
+    def request_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
+        """
+        Sends a request to fetch the directory listing from the remote (destination).
+
+        :param remote_path: path on the remote destination to get the file list
+        :param source_entity: source entity requesting the file list
+        :param destination_entity: destination entity from which the file list is needed
+        :param reliable: reliability of listing request
+        :return:
+        """
+        return self._service_client.request_filelist(
+            remote_path=remote_path,
+            source_entity=source_entity,
+            destination_entity=destination_entity,
+            reliable=reliable,
+        )
+
+    def get_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
+        """
+        Returns the latest directory listing for the given destination.
+
+        :param remote_path: path on the remote destination to get the file list
+        :param source_entity: source entity requesting the file list
+        :param destination_entity: destination entity from which the file list is needed
+        :param reliable: reliability of listing request
+        :return: .ListFilesResponse
+        """
+        return self._service_client.get_filelist(
+            remote_path=remote_path,
+            source_entity=source_entity,
+            destination_entity=destination_entity,
             reliable=reliable,
         )
 
@@ -120,6 +154,23 @@ class Service:
         :rtype: .TransferSubscription
         """
         return self._service_client.create_transfer_subscription(
+            on_data=on_data, timeout=timeout
+        )
+
+    def create_filelist_subscription(self, on_data=None, timeout=60):
+        """
+        Create a new filelist subscription.
+
+        :param on_data: (Optional) Function that gets called with
+                        :class:`.TransferInfo` updates.
+        :param timeout: The amount of seconds to wait for the request to
+                        complete.
+        :type timeout: float
+        :return: Future that can be used to manage the background websocket
+                 subscription
+        :rtype: .TransferSubscription
+        """
+        return self._service_client.create_filelist_subscription(
             on_data=on_data, timeout=timeout
         )
 

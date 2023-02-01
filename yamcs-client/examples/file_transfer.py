@@ -1,4 +1,5 @@
 import io
+import time
 
 from yamcs.client import YamcsClient
 
@@ -37,3 +38,38 @@ if __name__ == "__main__":
         print("Upload failure:", upload.error)
     else:
         print(f"Successfully uploaded {upload.remote_path} ({upload.size} bytes)")
+
+    # Download todownload from the remote
+    download = service.download(in_bucket.name, "todownload")
+    download.await_complete(timeout=10)
+
+    if not download.is_success():
+        print("Download failure:", download.error)
+    else:
+        print(f"Successfully downloaded {download.remote_path} ({download.size} bytes)")
+
+    # DIRECTORY LISTING
+    updated = False
+
+    def update(filelist):
+        global updated
+        updated = True
+        print(f"Filelist updated with {len(filelist.files)} files or directories")
+
+    subscription = service.create_filelist_subscription(on_data=update)
+    filelist_request = service.request_filelist("/")
+
+    start = time.time()
+    while not updated and time.time() - start < 20:
+        time.sleep(0.1)
+
+    # The saved filelist can either be retrieved from the subscription callback or via the get_filelist function
+    filelist_response = service.get_filelist("/")
+    if filelist_response:
+        print("File list received:")
+        if not filelist_response.files:
+            print("\tEmpty file list")
+        for file in filelist_response.files:
+            print(f"\t{file.name + ('/' if file.isDirectory else ''):<12}\t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified.seconds}")
+    else:
+        print("No filelist found")

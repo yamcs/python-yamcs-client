@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.pvalue',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobuf'),
-  serialized_pb=_b('\n\"yamcs/protobuf/pvalue/pvalue.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb8\x04\n\x0eParameterValue\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\'\n\x08rawValue\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\'\n\x08\x65ngValue\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x33\n\x0f\x61\x63quisitionTime\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0egenerationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x43\n\x11\x61\x63quisitionStatus\x18\x06 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x1c\n\x10processingStatus\x18\x07 \x01(\x08\x42\x02\x18\x01\x12\x41\n\x10monitoringResult\x18\x08 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\t \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x19 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x1a \x01(\x03\x12\x11\n\tnumericId\x18\x1b \x01(\r\"\xa2\x02\n\x0fParameterStatus\x12\x43\n\x11\x61\x63quisitionStatus\x18\x01 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x41\n\x10monitoringResult\x18\x02 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\x03 \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x04 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x05 \x01(\x03\"\x98\x01\n\rParameterData\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\r\n\x05group\x18\x02 \x01(\t\x12\x16\n\x0egenerationTime\x18\x03 \x01(\x03\x12\x0e\n\x06seqNum\x18\x04 \x01(\x05\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"\x90\x01\n\nTimeSeries\x12\x38\n\x06sample\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.pvalue.TimeSeries.Sample\x1aH\n\x06Sample\x12\x0c\n\x04time\x18\x01 \x01(\t\x12\x0b\n\x03\x61vg\x18\x02 \x01(\x01\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\t\n\x01n\x18\x05 \x01(\x05\"\x91\x02\n\x06Ranges\x12\x32\n\x05range\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.pvalue.Ranges.Range\x1a\xd2\x01\n\x05Range\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\ttimeStart\x18\x01 \x01(\tB\x02\x18\x01\x12\x14\n\x08timeStop\x18\x02 \x01(\tB\x02\x18\x01\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12(\n\tengValues\x18\x05 \x03(\x0b\x32\x15.yamcs.protobuf.Value\x12\x0e\n\x06\x63ounts\x18\x06 \x03(\x05*M\n\x11\x41\x63quisitionStatus\x12\x0c\n\x08\x41\x43QUIRED\x10\x00\x12\x10\n\x0cNOT_RECEIVED\x10\x01\x12\x0b\n\x07INVALID\x10\x02\x12\x0b\n\x07\x45XPIRED\x10\x03*o\n\x10MonitoringResult\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\r\n\tIN_LIMITS\x10\x01\x12\t\n\x05WATCH\x10\x07\x12\x0b\n\x07WARNING\x10\n\x12\x0c\n\x08\x44ISTRESS\x10\r\x12\x0c\n\x08\x43RITICAL\x10\x10\x12\n\n\x06SEVERE\x10\x13*#\n\x0eRangeCondition\x12\x07\n\x03LOW\x10\x00\x12\x08\n\x04HIGH\x10\x01\x42\x14\n\x12org.yamcs.protobuf')
+  serialized_pb=_b('\n\"yamcs/protobuf/pvalue/pvalue.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb8\x04\n\x0eParameterValue\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\'\n\x08rawValue\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\'\n\x08\x65ngValue\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x33\n\x0f\x61\x63quisitionTime\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0egenerationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x43\n\x11\x61\x63quisitionStatus\x18\x06 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x1c\n\x10processingStatus\x18\x07 \x01(\x08\x42\x02\x18\x01\x12\x41\n\x10monitoringResult\x18\x08 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\t \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x19 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x1a \x01(\x03\x12\x11\n\tnumericId\x18\x1b \x01(\r\"\xa2\x02\n\x0fParameterStatus\x12\x43\n\x11\x61\x63quisitionStatus\x18\x01 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x41\n\x10monitoringResult\x18\x02 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\x03 \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x04 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x05 \x01(\x03\"\x98\x01\n\rParameterData\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\r\n\x05group\x18\x02 \x01(\t\x12\x16\n\x0egenerationTime\x18\x03 \x01(\x03\x12\x0e\n\x06seqNum\x18\x04 \x01(\x05\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"\x9f\x02\n\nTimeSeries\x12\x38\n\x06sample\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.pvalue.TimeSeries.Sample\x1a\xd6\x01\n\x06Sample\x12\x16\n\ntimeString\x18\x01 \x01(\tB\x02\x18\x01\x12(\n\x04time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03\x61vg\x18\x02 \x01(\x01\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\t\n\x01n\x18\x05 \x01(\x05\x12+\n\x07minTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07maxTime\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x91\x02\n\x06Ranges\x12\x32\n\x05range\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.pvalue.Ranges.Range\x1a\xd2\x01\n\x05Range\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x15\n\ttimeStart\x18\x01 \x01(\tB\x02\x18\x01\x12\x14\n\x08timeStop\x18\x02 \x01(\tB\x02\x18\x01\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12(\n\tengValues\x18\x05 \x03(\x0b\x32\x15.yamcs.protobuf.Value\x12\x0e\n\x06\x63ounts\x18\x06 \x03(\x05*M\n\x11\x41\x63quisitionStatus\x12\x0c\n\x08\x41\x43QUIRED\x10\x00\x12\x10\n\x0cNOT_RECEIVED\x10\x01\x12\x0b\n\x07INVALID\x10\x02\x12\x0b\n\x07\x45XPIRED\x10\x03*o\n\x10MonitoringResult\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\r\n\tIN_LIMITS\x10\x01\x12\t\n\x05WATCH\x10\x07\x12\x0b\n\x07WARNING\x10\n\x12\x0c\n\x08\x44ISTRESS\x10\r\x12\x0c\n\x08\x43RITICAL\x10\x10\x12\n\n\x06SEVERE\x10\x13*#\n\x0eRangeCondition\x12\x07\n\x03LOW\x10\x00\x12\x08\n\x04HIGH\x10\x01\x42\x14\n\x12org.yamcs.protobuf')
   ,
   dependencies=[yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -53,8 +53,8 @@ _ACQUISITIONSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1594,
-  serialized_end=1671,
+  serialized_start=1737,
+  serialized_end=1814,
 )
 _sym_db.RegisterEnumDescriptor(_ACQUISITIONSTATUS)
 
@@ -96,8 +96,8 @@ _MONITORINGRESULT = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1673,
-  serialized_end=1784,
+  serialized_start=1816,
+  serialized_end=1927,
 )
 _sym_db.RegisterEnumDescriptor(_MONITORINGRESULT)
 
@@ -119,8 +119,8 @@ _RANGECONDITION = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1786,
-  serialized_end=1821,
+  serialized_start=1929,
+  serialized_end=1964,
 )
 _sym_db.RegisterEnumDescriptor(_RANGECONDITION)
 
@@ -375,37 +375,58 @@ _TIMESERIES_SAMPLE = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='time', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.time', index=0,
+      name='timeString', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.timeString', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=_b('\030\001'), file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.time', index=1,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='avg', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.avg', index=1,
+      name='avg', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.avg', index=2,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='min', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.min', index=2,
+      name='min', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.min', index=3,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='max', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.max', index=3,
+      name='max', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.max', index=4,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='n', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.n', index=4,
+      name='n', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.n', index=5,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minTime', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.minTime', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maxTime', full_name='yamcs.protobuf.pvalue.TimeSeries.Sample.maxTime', index=7,
+      number=8, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -421,8 +442,8 @@ _TIMESERIES_SAMPLE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1244,
-  serialized_end=1316,
+  serialized_start=1245,
+  serialized_end=1459,
 )
 
 _TIMESERIES = _descriptor.Descriptor(
@@ -452,7 +473,7 @@ _TIMESERIES = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1172,
-  serialized_end=1316,
+  serialized_end=1459,
 )
 
 
@@ -524,8 +545,8 @@ _RANGES_RANGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1382,
-  serialized_end=1592,
+  serialized_start=1525,
+  serialized_end=1735,
 )
 
 _RANGES = _descriptor.Descriptor(
@@ -554,8 +575,8 @@ _RANGES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1319,
-  serialized_end=1592,
+  serialized_start=1462,
+  serialized_end=1735,
 )
 
 _PARAMETERVALUE.fields_by_name['id'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
@@ -572,6 +593,9 @@ _PARAMETERSTATUS.fields_by_name['monitoringResult'].enum_type = _MONITORINGRESUL
 _PARAMETERSTATUS.fields_by_name['rangeCondition'].enum_type = _RANGECONDITION
 _PARAMETERSTATUS.fields_by_name['alarmRange'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._ALARMRANGE
 _PARAMETERDATA.fields_by_name['parameter'].message_type = _PARAMETERVALUE
+_TIMESERIES_SAMPLE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TIMESERIES_SAMPLE.fields_by_name['minTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_TIMESERIES_SAMPLE.fields_by_name['maxTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMESERIES_SAMPLE.containing_type = _TIMESERIES
 _TIMESERIES.fields_by_name['sample'].message_type = _TIMESERIES_SAMPLE
 _RANGES_RANGE.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -643,6 +667,7 @@ _sym_db.RegisterMessage(Ranges.Range)
 
 DESCRIPTOR._options = None
 _PARAMETERVALUE.fields_by_name['processingStatus']._options = None
+_TIMESERIES_SAMPLE.fields_by_name['timeString']._options = None
 _RANGES_RANGE.fields_by_name['timeStart']._options = None
 _RANGES_RANGE.fields_by_name['timeStop']._options = None
 # @@protoc_insertion_point(module_scope)

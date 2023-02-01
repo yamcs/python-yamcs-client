@@ -17,6 +17,18 @@ def _wrap_callback_parse_transfer_data(subscription, on_data, message):
     if on_data:
         on_data(transfer)
 
+def _wrap_callback_parse_filelist_data(subscription, on_data, message):
+    """
+    Wraps an (optional) user callback to parse TransferInfo
+    from a WebSocket data message
+    """
+    pb = filetransfer_pb2.ListFilesResponse()
+    message.Unpack(pb)
+    filelist = subscription._process(pb)
+    if on_data:
+        on_data(filelist)
+
+
 
 class TransferSubscription(WebSocketSubscriptionFuture):
     """
@@ -77,6 +89,27 @@ class TransferSubscription(WebSocketSubscriptionFuture):
 
         return transfer
 
+class FileListSubscription(WebSocketSubscriptionFuture):
+    """
+    Local object providing access to filelist updates.
+
+    A subscription object stores the last filelist info for
+    each remotepath and destination.
+    """
+
+    def __init__(self, manager, service_client):
+        super(FileListSubscription, self).__init__(manager)
+        self.service_client = service_client
+        self._cache = {}
+        """Filelist cache keyed by (destianation, remotePath)"""
+
+    def get_filelist(self, remote_path, destination):
+        return self._cache.get((remote_path, destination))
+
+
+    def _process(self, filelist):
+        self._cache[(filelist.destination, filelist.remotePath)] = filelist
+        return filelist
 
 class FileTransferClient:
     """
@@ -158,8 +191,8 @@ class ServiceClient:
     def download(
         self,
         bucket_name,
-        object_name,
         remote_path,
+        object_name,
         source_entity,
         destination_entity,
         overwrite,
@@ -169,20 +202,47 @@ class ServiceClient:
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
         req.bucket = bucket_name
-        req.objectName = object_name
         req.remotePath = remote_path
+        if object_name:
+            req.objectName = object_name
         if source_entity:
             req.source = source_entity
         if destination_entity:
             req.destination = destination_entity
-        req.uploadOptions.overwrite = overwrite
-        req.uploadOptions.createPath = parents
-        req.uploadOptions.reliable = reliable
+        req.downloadOptions.overwrite = overwrite
+        req.downloadOptions.createPath = parents
+        req.downloadOptions.reliable = reliable
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = filetransfer_pb2.TransferInfo()
         message.ParseFromString(response.content)
         return Transfer(message, self)
+
+    def request_filelist(self, remote_path, source_entity, destination_entity, reliable):
+        req = filetransfer_pb2.ListFilesRequest()
+        req.remotePath = remote_path
+        if source_entity:
+            req.source = source_entity
+        if destination_entity:
+            req.destination = destination_entity
+        req.reliable = reliable
+        url = f"/filetransfer/{self._instance}/{self._service}/files:sync"
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
+
+    def get_filelist(self, remote_path, source_entity, destination_entity, reliable):
+        params = {
+            "remotePath": remote_path,
+            "reliable": reliable
+        }
+        if source_entity:
+            params["source"] = source_entity
+        if destination_entity:
+            params["destination"] = destination_entity
+        url = f"/filetransfer/{self._instance}/{self._service}/files"
+        response = self.ctx.get_proto(url, params=params)
+        message = filetransfer_pb2.ListFilesResponse()
+        message.ParseFromString(response.content)
+        return message
 
     def pause_transfer(self, id):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
@@ -210,6 +270,29 @@ class ServiceClient:
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_transfer_data, subscription, on_data
+        )
+
+        manager.open(wrapped_callback)
+
+        # Wait until a reply or exception is received
+        subscription.reply(timeout=timeout)
+
+        return subscription
+
+    def create_filelist_subscription(self, on_data=None, timeout=60):
+        options = filetransfer_pb2.SubscribeTransfersRequest()
+        options.instance = self._instance
+        options.serviceName = self._service
+
+        manager = WebSocketSubscriptionManager(
+            self.ctx, topic="remote-file-list", options=options
+        )
+
+        # Represent subscription as a future
+        subscription = FileListSubscription(manager, self)
+
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_filelist_data, subscription, on_data
         )
 
         manager.open(wrapped_callback)
