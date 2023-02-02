@@ -17,6 +17,7 @@ def _wrap_callback_parse_transfer_data(subscription, on_data, message):
     if on_data:
         on_data(transfer)
 
+
 def _wrap_callback_parse_filelist_data(subscription, on_data, message):
     """
     Wraps an (optional) user callback to parse TransferInfo
@@ -27,7 +28,6 @@ def _wrap_callback_parse_filelist_data(subscription, on_data, message):
     filelist = subscription._process(pb)
     if on_data:
         on_data(filelist)
-
 
 
 class TransferSubscription(WebSocketSubscriptionFuture):
@@ -89,6 +89,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
 
         return transfer
 
+
 class FileListSubscription(WebSocketSubscriptionFuture):
     """
     Local object providing access to filelist updates.
@@ -106,10 +107,10 @@ class FileListSubscription(WebSocketSubscriptionFuture):
     def get_filelist(self, remote_path, destination):
         return self._cache.get((remote_path, destination))
 
-
     def _process(self, filelist):
         self._cache[(filelist.destination, filelist.remotePath)] = filelist
         return filelist
+
 
 class FileTransferClient:
     """
@@ -227,7 +228,7 @@ class ServiceClient:
             req.destination = destination_entity
         req.reliable = reliable
         url = f"/filetransfer/{self._instance}/{self._service}/files:sync"
-        response = self.ctx.post_proto(url, data=req.SerializeToString())
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_filelist(self, remote_path, source_entity, destination_entity, reliable):
         params = {

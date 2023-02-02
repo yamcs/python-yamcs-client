@@ -6,6 +6,7 @@ from yamcs.link.model import Cop1Config, Cop1Status
 from yamcs.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
+from yamcs.tmtc.client import _to_argument_value
 
 
 def _wrap_callback_parse_cop1_status(subscription, on_data, message):
@@ -119,25 +120,10 @@ class LinkClient:
             for key in message:
                 assignment = req.assignment.add()
                 assignment.name = key
-                assignment.value = _to_argument_value(args[key], force_string=True)
+                assignment.value = _to_argument_value(message[key], force_string=True)
 
         url = f"/links/{self._instance}/{self._link}/actions/{action_name}"
         self.ctx.post_proto(url, data=req.SerializeToString())
-
-    def _to_argument_value(value, force_string):
-        if isinstance(value, (bytes, bytearray)):
-            return binascii.hexlify(value)
-        elif isinstance(value, collections.abc.Mapping):
-            # Careful to do the JSON dump only at the end,
-            # and not at every level of a nested hierarchy
-            obj = _compose_aggregate_members(value)
-            return json.dumps(obj)
-        elif isinstance(value, datetime.datetime):
-            return to_isostring(value)
-        elif force_string:
-            return str(value)
-        else:
-            return value
 
     def get_cop1_config(self):
         """
