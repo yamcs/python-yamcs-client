@@ -24,9 +24,13 @@ class Service:
         overwrite=True,
         parents=True,
         reliable=False,
+        options=None,
     ):
         """
         Uploads a file located in a bucket to a remote destination path.
+
+        .. warning::
+        Prefer the use of options (FileTransferOption) instead of the parameters overwrite, parents and reliable (deprecated parameters)
 
         :param str bucket_name: Name of the bucket containing the source object.
         :param str object_name: Name of the source object.
@@ -35,10 +39,19 @@ class Service:
                                   (useful in case of multiples)
         :param str destination_entity: Use a specific destination entity.
                                        (useful in case of multiples)
-        :param bool overwrite: Replace a destination if it already exists.
-        :param bool parents: Create the remote path if it does not yet exist.
-        :param bool reliable: Whether to use a Class 2 CFDP transfer.
-        :rtype: .Transfer
+        :param bool overwrite:
+            Replace file if it already exists.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: overwrite)
+        :param bool parents:
+            Create the remote path if it does not yet exist.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: createPath)
+        :param bool reliable:
+            Enable reliable transfers.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: reliable)
+        :param options: file transfer options (may overwrite "overwrite", "parents" or "reliable" parameters if set in these options).:rtype: .Transfer
         """
         return self._service_client.upload(
             bucket_name=bucket_name,
@@ -49,6 +62,7 @@ class Service:
             overwrite=overwrite,
             parents=parents,
             reliable=reliable,
+            options=options,
         )
 
     def download(
@@ -61,9 +75,13 @@ class Service:
         overwrite=True,
         parents=True,
         reliable=False,
+        options=None,
     ):
         """
         Downloads a file from the source to a bucket.
+
+        .. warning::
+            Prefer the use of options (FileTransferOption) instead of the parameters overwrite, parents and reliable (deprecated parameters)
 
         :param str bucket_name: Name of the bucket to receive the file.
         :param str object_name: Name of the file received in the bucket.
@@ -72,9 +90,19 @@ class Service:
                                   (useful in case of multiples)
         :param str destination_entity: Use a specific destination entity.
                                        (useful in case of multiples)
-        :param bool overwrite: Replace file if it already exists.
-        :param bool parents: Create the remote path if it does not yet exist.
-        :param bool reliable: Enable reliable transfers.
+        :param bool overwrite:
+            Replace file if it already exists.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: overwrite)
+        :param bool parents:
+            Create the remote path if it does not yet exist.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: createPath)
+        :param bool reliable:
+            Enable reliable transfers.
+            .. deprecated:: 1.8.6
+                Use options instead (option name: reliable)
+        :param options: file transfer options (may overwrite "overwrite", "parents" or "reliable" parameters if set in these options).
         :rtype: .Transfer
         """
         return self._service_client.download(
@@ -86,6 +114,7 @@ class Service:
             overwrite=overwrite,
             parents=parents,
             reliable=reliable,
+            options=options,
         )
 
     def request_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
