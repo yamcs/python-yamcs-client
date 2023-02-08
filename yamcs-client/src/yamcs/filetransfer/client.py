@@ -283,7 +283,7 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
-    def request_filelist(self, remote_path, source_entity, destination_entity, reliable):
+    def fetch_filelist(self, remote_path, source_entity, destination_entity, reliable):
         req = filetransfer_pb2.ListFilesRequest()
         req.remotePath = remote_path
         if source_entity:

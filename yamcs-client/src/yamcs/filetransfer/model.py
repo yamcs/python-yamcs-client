@@ -117,7 +117,7 @@ class Service:
             options=options,
         )
 
-    def request_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
+    def fetch_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
         """
         Sends a request to fetch the directory listing from the remote (destination).
 
@@ -127,7 +127,7 @@ class Service:
         :param reliable: reliability of listing request
         :return:
         """
-        return self._service_client.request_filelist(
+        return self._service_client.fetch_filelist(
             remote_path=remote_path,
             source_entity=source_entity,
             destination_entity=destination_entity,

@@ -57,7 +57,7 @@ if __name__ == "__main__":
         print(f"Filelist updated with {len(filelist.files)} files or directories")
 
     subscription = service.create_filelist_subscription(on_data=update)
-    filelist_request = service.request_filelist("/")
+    filelist_request = service.fetch_filelist("/")
 
     start = time.time()
     while not updated and time.time() - start < 20:
