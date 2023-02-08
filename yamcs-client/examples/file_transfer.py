@@ -63,13 +63,15 @@ if __name__ == "__main__":
     while not updated and time.time() - start < 20:
         time.sleep(0.1)
 
-    # The saved filelist can either be retrieved from the subscription callback or via the get_filelist function
+    # The saved filelist can either be retrieved from the subscription callback or
+    # via the get_filelist function
     filelist_response = service.get_filelist("/")
     if filelist_response:
         print("File list received:")
         if not filelist_response.files:
             print("\tEmpty file list")
         for file in filelist_response.files:
-            print(f"\t{file.name + ('/' if file.isDirectory else ''):<12}\t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified.seconds}")
+            print(f"\t{file.name + ('/' if file.isDirectory else ''):<12}\
+            t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified.seconds}")
     else:
         print("No filelist found")

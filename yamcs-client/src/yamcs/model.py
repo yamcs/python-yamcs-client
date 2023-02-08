@@ -267,7 +267,11 @@ class Link:
 
     def __str__(self):
         desc = f"{self.instance}/{self.name}"
-        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count}){' Actions: ' + ','.join(map(lambda action: action.id, self._proto.actions)) if self._proto.actions else ''}"
+        actions = ' Actions: ' + \
+                  ','.join(map(lambda action: action.id, self._proto.actions)) if \
+            self._proto.actions else ''
+        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})" \
+               f"{actions}"
 
 
 class Instance:

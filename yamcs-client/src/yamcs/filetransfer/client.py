@@ -156,9 +156,11 @@ class FileTransferClient:
 
 def _get_options_for_deprecated(options):
     """
-    Get the new options that match the deprecated ones by name (if any) from the list of new options.
+    Get the new options that match the deprecated ones by name (if any) from the list
+    of new options.
     :param options: list of new FileTransferOptions.
-    :return: array of matching (or Nones) createPath option, overwrite (parents) option, and reliable option.
+    :return: array of matching (or Nones) createPath option, overwrite (parents) option,
+    and reliable option.
     """
     overwrite_option = None
     create_path_option = None
@@ -175,36 +177,56 @@ def _get_options_for_deprecated(options):
 
 def _get_old_options(overwrite, parents, reliable, deprecated_options):
     """
-    Get as old options (overwrite, createPath, reliable) the values from the new options or the parameter's if None.
+    Get as old options (overwrite, createPath, reliable) the values from the new
+    options or the parameter's if None.
     :param overwrite: overwrite value from the deprecated signature.
     :param parents: parents value from the deprecated signature.
     :param reliable: reliable value from the deprecated signature.
-    :param deprecated_options: array of new matching options (or Nones) as returned by _get_options_for_deprecated.
+    :param deprecated_options: array of new matching options (or Nones) as returned
+    by _get_options_for_deprecated.
     :return: boolean values for the old UploadOptions/DownloadOptions.
     """
     return [
-        overwrite if deprecated_options[0] is None else deprecated_options[0].booleanValue,
-        parents if deprecated_options[1] is None else deprecated_options[1].booleanValue,
-        reliable if deprecated_options[2] is None else deprecated_options[2].booleanValue
+        overwrite if deprecated_options[0] is None
+        else deprecated_options[0].booleanValue,
+        parents if deprecated_options[1] is None
+        else deprecated_options[1].booleanValue,
+        reliable if deprecated_options[2] is None
+        else deprecated_options[2].booleanValue
     ]
 
 
 def _get_new_options(overwrite, parents, reliable, deprecated_options):
     """
-    Get old options from the deprecated signature as new FileTransferOptions (not added if already present in dpeprecated_options).
+    Get old options from the deprecated signature as new FileTransferOptions (not
+    added if already present in dpeprecated_options).
     :param overwrite: overwrite value from the deprecated signature.
     :param parents: parents value from the deprecated signature.
     :param reliable: reliable value from the deprecated signature.
-    :param deprecated_options: array of new matching options (or Nones) as returned by _get_options_for_deprecated.
-    :return: list of FileTransferOptions got from the old values to add along the other new options
+    :param deprecated_options: array of new matching options (or Nones) as returned
+    by _get_options_for_deprecated.
+    :return: list of FileTransferOptions got from the old values to add along the
+    other new options
     """
     filetransfer_options = []
     if not deprecated_options[0]:
-        filetransfer_options.append(create_filetransfer_option("overwrite", filetransfer_pb2.FileTransferOptionType.BOOLEAN, overwrite))
+        filetransfer_options.append(
+            create_filetransfer_option("overwrite",
+                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
+                                       overwrite)
+        )
     if not deprecated_options[1]:
-        filetransfer_options.append(create_filetransfer_option("createPath", filetransfer_pb2.FileTransferOptionType.BOOLEAN, parents))
+        filetransfer_options.append(
+            create_filetransfer_option("createPath",
+                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
+                                       parents)
+        )
     if not deprecated_options[2]:
-        filetransfer_options.append(create_filetransfer_option("reliable", filetransfer_pb2.FileTransferOptionType.BOOLEAN, reliable))
+        filetransfer_options.append(
+            create_filetransfer_option("reliable",
+                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
+                                       reliable)
+        )
     return filetransfer_options
 
 
@@ -215,16 +237,16 @@ class ServiceClient:
         self._service = proto.name
 
     def upload(
-        self,
-        bucket_name,
-        object_name,
-        remote_path,
-        source_entity,
-        destination_entity,
-        overwrite,
-        parents,
-        reliable,
-        options,
+            self,
+            bucket_name,
+            object_name,
+            remote_path,
+            source_entity,
+            destination_entity,
+            overwrite,
+            parents,
+            reliable,
+            options,
     ):
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.UPLOAD
@@ -236,10 +258,15 @@ class ServiceClient:
         if destination_entity:
             req.destination = destination_entity
         # Old options for backwards compatibility
-        deprecated_options = _get_options_for_deprecated(options) if options else [None, None, None]
-        req.uploadOptions.overwrite, req.uploadOptions.createPath, req.uploadOptions.reliable = _get_old_options(overwrite, parents, reliable, deprecated_options)
+        deprecated_options = _get_options_for_deprecated(options) if options else [None,
+                                                                                   None,
+                                                                                   None]
+        req.uploadOptions.overwrite, req.uploadOptions.createPath, \
+            req.uploadOptions.reliable = _get_old_options(overwrite, parents,
+                                                          reliable, deprecated_options)
         # New options
-        req.options.extend(_get_new_options(overwrite, parents, reliable, deprecated_options))
+        req.options.extend(_get_new_options(overwrite, parents, reliable,
+                                            deprecated_options))
         if options:
             req.options.extend(options)
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
@@ -249,16 +276,16 @@ class ServiceClient:
         return Transfer(message, self)
 
     def download(
-        self,
-        bucket_name,
-        remote_path,
-        object_name,
-        source_entity,
-        destination_entity,
-        overwrite,
-        parents,
-        reliable,
-        options,
+            self,
+            bucket_name,
+            remote_path,
+            object_name,
+            source_entity,
+            destination_entity,
+            overwrite,
+            parents,
+            reliable,
+            options,
     ):
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
@@ -271,10 +298,16 @@ class ServiceClient:
         if destination_entity:
             req.destination = destination_entity
         # Old options for backwards compatibility
-        deprecated_options = _get_options_for_deprecated(options) if options else [None, None, None]
-        req.downloadOptions.overwrite, req.downloadOptions.createPath, req.downloadOptions.reliable = _get_old_options(overwrite, parents, reliable, deprecated_options)
+        deprecated_options = _get_options_for_deprecated(options) if options else [None,
+                                                                                   None,
+                                                                                   None]
+        req.downloadOptions.overwrite, req.downloadOptions.createPath, \
+            req.downloadOptions.reliable = _get_old_options(overwrite, parents,
+                                                            reliable,
+                                                            deprecated_options)
         # New options
-        req.options.extend(_get_new_options(overwrite, parents, reliable, deprecated_options))
+        req.options.extend(_get_new_options(overwrite, parents, reliable,
+                                            deprecated_options))
         if options:
             req.options.extend(options)
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
@@ -370,7 +403,8 @@ class ServiceClient:
 
 def create_filetransfer_option(name, option_type, value):
     """
-    Create a FileTransferOption object to put into upload/download options array parameter
+    Create a FileTransferOption object to put into upload/download options array
+    parameter
     :param name: name identifier of the option
     :param option_type: type of option
     :param value: value of the option

@@ -30,7 +30,8 @@ class Service:
         Uploads a file located in a bucket to a remote destination path.
 
         .. warning::
-        Prefer the use of options (FileTransferOption) instead of the parameters overwrite, parents and reliable (deprecated parameters)
+        Prefer the use of options (FileTransferOption) instead of the parameters
+        overwrite, parents and reliable (deprecated parameters)
 
         :param str bucket_name: Name of the bucket containing the source object.
         :param str object_name: Name of the source object.
@@ -51,7 +52,8 @@ class Service:
             Enable reliable transfers.
             .. deprecated:: 1.8.6
                 Use options instead (option name: reliable)
-        :param options: file transfer options (may overwrite "overwrite", "parents" or "reliable" parameters if set in these options).:rtype: .Transfer
+        :param options: file transfer options (may overwrite "overwrite", "parents"
+        or "reliable" parameters if set in these options).:rtype: .Transfer
         """
         return self._service_client.upload(
             bucket_name=bucket_name,
@@ -81,7 +83,8 @@ class Service:
         Downloads a file from the source to a bucket.
 
         .. warning::
-            Prefer the use of options (FileTransferOption) instead of the parameters overwrite, parents and reliable (deprecated parameters)
+            Prefer the use of options (FileTransferOption) instead of the parameters
+            overwrite, parents and reliable (deprecated parameters)
 
         :param str bucket_name: Name of the bucket to receive the file.
         :param str object_name: Name of the file received in the bucket.
@@ -102,7 +105,8 @@ class Service:
             Enable reliable transfers.
             .. deprecated:: 1.8.6
                 Use options instead (option name: reliable)
-        :param options: file transfer options (may overwrite "overwrite", "parents" or "reliable" parameters if set in these options).
+        :param options: file transfer options (may overwrite "overwrite", "parents"
+        or "reliable" parameters if set in these options).
         :rtype: .Transfer
         """
         return self._service_client.download(
@@ -117,7 +121,8 @@ class Service:
             options=options,
         )
 
-    def fetch_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
+    def fetch_filelist(self, remote_path, source_entity=None,
+                       destination_entity=None, reliable=False):
         """
         Sends a request to fetch the directory listing from the remote (destination).
 
@@ -134,7 +139,8 @@ class Service:
             reliable=reliable,
         )
 
-    def get_filelist(self, remote_path, source_entity=None, destination_entity=None, reliable=False):
+    def get_filelist(self, remote_path, source_entity=None, destination_entity=None,
+                     reliable=False):
         """
         Returns the latest directory listing for the given destination.
 
