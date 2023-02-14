@@ -6,7 +6,7 @@ from yamcs.link.model import Cop1Config, Cop1Status
 from yamcs.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
-from yamcs.tmtc.client import _to_argument_value
+from yamcs.tmtc.client import to_argument_value
 
 
 def _wrap_callback_parse_cop1_status(subscription, on_data, message):
@@ -109,10 +109,10 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def run_action(self, action_name, message=None):
+    def run_action(self, action_id, message=None):
         """
         Runs the given action for this link
-        :param action_name: action id
+        :param action_id: action id
         :param message: message
         """
         req = links_pb2.RunActionRequest()
@@ -120,9 +120,9 @@ class LinkClient:
             for key in message:
                 assignment = req.assignment.add()
                 assignment.name = key
-                assignment.value = _to_argument_value(message[key], force_string=True)
+                assignment.value = to_argument_value(message[key], force_string=True)
 
-        url = f"/links/{self._instance}/{self._link}/actions/{action_name}"
+        url = f"/links/{self._instance}/{self._link}/actions/{action_id}"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_config(self):

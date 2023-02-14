@@ -150,7 +150,7 @@ def _build_value_proto(value):
     return proto
 
 
-def _to_argument_value(value, force_string):
+def to_argument_value(value, force_string):
     if isinstance(value, (bytes, bytearray)):
         return binascii.hexlify(value)
     elif isinstance(value, collections.abc.Mapping):
@@ -685,14 +685,14 @@ class ProcessorClient:
             req.comment = comment
         if beta_args_v2:
             for key in beta_args_v2:
-                req.args[key] = _to_argument_value(
+                req.args[key] = to_argument_value(
                     beta_args_v2[key], force_string=False
                 )
         elif args:
             for key in args:
                 assignment = req.assignment.add()
                 assignment.name = key
-                assignment.value = _to_argument_value(args[key], force_string=True)
+                assignment.value = to_argument_value(args[key], force_string=True)
 
         if verification:
             if verification._disable_all:

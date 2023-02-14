@@ -8,6 +8,11 @@ def enable_link(link):
     link.enable_link()
 
 
+def run_action(link, action_id, message=None):
+    """Run an action."""
+    link.run_action(action_id, message)
+
+
 def callback(message):
     print("Link Event:", message)
 
@@ -18,6 +23,12 @@ if __name__ == "__main__":
 
     print("Enabling link")
     enable_link(link)
+
+    # Running the 'start' action
+    try:
+        run_action(link, "start")
+    except Exception as e:
+        print("Failed to run action: ", e)
 
     subscription = client.create_link_subscription("simulator", callback)
 

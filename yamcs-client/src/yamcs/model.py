@@ -219,6 +219,8 @@ class Link:
 
     def __init__(self, proto):
         self._proto = proto
+        self._actions = [LinkAction(action) for action in self._proto.actions]
+        self._extra = {key: value for key, value in proto.extra.items()}
 
     @property
     def instance(self):
@@ -258,20 +260,50 @@ class Link:
     @property
     def actions(self):
         """Custom actions."""
-        return self._proto.actions
+        return self._actions
 
     @property
     def extra(self):
         """Custom info fields."""
-        return self._proto.extra
+        return self._extra
 
     def __str__(self):
         desc = f"{self.instance}/{self.name}"
-        actions = ' Actions: ' + \
-                  ','.join(map(lambda action: action.id, self._proto.actions)) if \
-            self._proto.actions else ''
         return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})" \
-               f"{actions}"
+               f" Actions: {self._actions}"
+
+
+class LinkAction:
+    def __init__(self, proto):
+        self._proto = proto
+
+    def __str__(self):
+        return str(self._proto)
+
+    @property
+    def id(self):
+        """Action ID"""
+        return self._proto.id
+
+    @property
+    def label(self):
+        """Label for the action"""
+        return self._proto.label
+
+    @property
+    def style(self):
+        """Action style"""
+        return self._proto.style
+
+    @property
+    def enabled(self):
+        """Whether the action is currently enabled"""
+        return self._proto.enabled
+
+    @property
+    def checked(self):
+        """Whether the action is currently checked"""
+        return self._proto.checked
 
 
 class Instance:

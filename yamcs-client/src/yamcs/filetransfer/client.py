@@ -2,7 +2,8 @@ import functools
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.filetransfer.model import Service, Transfer
+from yamcs.filetransfer.model import Service, Transfer, ListFilesResponse, \
+    FileTransferOption, FileTransferOptionType
 from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 
@@ -20,7 +21,7 @@ def _wrap_callback_parse_transfer_data(subscription, on_data, message):
 
 def _wrap_callback_parse_filelist_data(subscription, on_data, message):
     """
-    Wraps an (optional) user callback to parse TransferInfo
+    Wraps an (optional) user callback to parse ListFilesResponse
     from a WebSocket data message
     """
     pb = filetransfer_pb2.ListFilesResponse()
@@ -102,13 +103,20 @@ class FileListSubscription(WebSocketSubscriptionFuture):
         super(FileListSubscription, self).__init__(manager)
         self.service_client = service_client
         self._cache = {}
-        """Filelist cache keyed by (destianation, remotePath)"""
+        """Filelist cache keyed by (destination, remotePath)"""
 
     def get_filelist(self, remote_path, destination):
+        """
+        Get the latest cached filelist for the given remote path and destination
+        :param remote_path: path on the remote destination
+        :param destination: remote entity name
+        :rtype .ListFilesResponse
+        """
         return self._cache.get((remote_path, destination))
 
     def _process(self, filelist):
-        self._cache[(filelist.destination, filelist.remotePath)] = filelist
+        filelist = ListFilesResponse(filelist)
+        self._cache[(filelist.destination, filelist.remote_path)] = filelist
         return filelist
 
 
@@ -167,11 +175,11 @@ def _get_options_for_deprecated(options):
     reliable_option = None
     for option in options:
         if option.name == 'overwrite':
-            overwrite_option = option
+            overwrite_option = option.to_proto()
         elif option.name == 'createPath':
-            create_path_option = option
+            create_path_option = option.to_proto()
         elif option.name == 'reliable' or option.name == 'reliability':
-            reliable_option = option
+            reliable_option = option.to_proto()
     return create_path_option, overwrite_option, reliable_option
 
 
@@ -211,21 +219,18 @@ def _get_new_options(overwrite, parents, reliable, deprecated_options):
     filetransfer_options = []
     if not deprecated_options[0]:
         filetransfer_options.append(
-            create_filetransfer_option("overwrite",
-                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
-                                       overwrite)
+            FileTransferOption("overwrite", FileTransferOptionType.BOOLEAN, overwrite)
+            .to_proto()
         )
     if not deprecated_options[1]:
         filetransfer_options.append(
-            create_filetransfer_option("createPath",
-                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
-                                       parents)
+            FileTransferOption("createPath", FileTransferOptionType.BOOLEAN, parents)
+            .to_proto()
         )
     if not deprecated_options[2]:
         filetransfer_options.append(
-            create_filetransfer_option("reliable",
-                                       filetransfer_pb2.FileTransferOptionType.BOOLEAN,
-                                       reliable)
+            FileTransferOption("reliable", FileTransferOptionType.BOOLEAN, reliable)
+            .to_proto()
         )
     return filetransfer_options
 
@@ -268,7 +273,7 @@ class ServiceClient:
         req.options.extend(_get_new_options(overwrite, parents, reliable,
                                             deprecated_options))
         if options:
-            req.options.extend(options)
+            req.options.extend([option.to_proto() for option in options])
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = filetransfer_pb2.TransferInfo()
@@ -309,7 +314,7 @@ class ServiceClient:
         req.options.extend(_get_new_options(overwrite, parents, reliable,
                                             deprecated_options))
         if options:
-            req.options.extend(options)
+            req.options.extend([option.to_proto() for option in options])
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = filetransfer_pb2.TransferInfo()
@@ -340,7 +345,7 @@ class ServiceClient:
         response = self.ctx.get_proto(url, params=params)
         message = filetransfer_pb2.ListFilesResponse()
         message.ParseFromString(response.content)
-        return message
+        return ListFilesResponse(message)
 
     def pause_transfer(self, id):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
@@ -399,26 +404,3 @@ class ServiceClient:
         subscription.reply(timeout=timeout)
 
         return subscription
-
-
-def create_filetransfer_option(name, option_type, value):
-    """
-    Create a FileTransferOption object to put into upload/download options array
-    parameter
-    :param name: name identifier of the option
-    :param option_type: type of option
-    :param value: value of the option
-    :return: FileTransferOption (protobuf) object with given name, type and value
-    """
-    option = filetransfer_pb2.FileTransferOption()
-    option.name = name
-    option.type = option_type
-    if option_type == filetransfer_pb2.FileTransferOptionType.BOOLEAN:
-        option.booleanValue = value
-    elif option_type == filetransfer_pb2.FileTransferOptionType.DOUBLE:
-        option.doubleValues.append(value)
-    elif option_type == filetransfer_pb2.FileTransferOptionType.STRING:
-        string_value = filetransfer_pb2.StringValue()
-        string_value.value = value
-        option.stringValues.append(string_value)
-    return option
