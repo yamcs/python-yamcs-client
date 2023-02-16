@@ -32,11 +32,8 @@ def upload_file_extra():
 
 def upload_file_options():
     """Snippet used in docs to initiate upload with extra options."""
-    from yamcs.filetransfer.model import FileTransferOption, FileTransferOptionType
     upload = service.upload(
-        out_bucket.name, "myfile", "/CF:/mytarget", options=[
-            FileTransferOption("reliable", FileTransferOptionType.BOOLEAN, True)
-        ]
+        out_bucket.name, "myfile", "/CF:/mytarget", options={"reliable": True}
     )
     upload.await_complete(timeout=10)
 

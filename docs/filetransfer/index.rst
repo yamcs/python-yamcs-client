@@ -56,7 +56,7 @@ Initiate transfer with extra transfer options:
 .. literalinclude:: ../../yamcs-client/examples/file_transfer.py
     :pyobject: upload_file_options
     :start-after: """
-    :lines: 1-6
+    :lines: 1-3
     :dedent: 4
 
 
