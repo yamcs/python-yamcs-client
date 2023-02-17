@@ -1,4 +1,5 @@
 import functools
+import json
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
@@ -244,26 +245,26 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
-    def fetch_filelist(self, remote_path, source_entity, destination_entity, reliable):
+    def fetch_filelist(self, remote_path, source_entity, destination_entity, options):
         req = filetransfer_pb2.ListFilesRequest()
         req.remotePath = remote_path
         if source_entity:
             req.source = source_entity
         if destination_entity:
             req.destination = destination_entity
-        req.reliable = reliable
+        if options:
+            req.options.update(options)
         url = f"/filetransfer/{self._instance}/{self._service}/files:sync"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def get_filelist(self, remote_path, source_entity, destination_entity, reliable):
-        params = {
-            "remotePath": remote_path,
-            "reliable": reliable
-        }
+    def get_filelist(self, remote_path, source_entity, destination_entity, options):
+        params = {"remotePath": remote_path}
         if source_entity:
             params["source"] = source_entity
         if destination_entity:
             params["destination"] = destination_entity
+        if options:
+            params["options"] = json.dumps(options)
         url = f"/filetransfer/{self._instance}/{self._service}/files"
         response = self.ctx.get_proto(url, params=params)
         message = filetransfer_pb2.ListFilesResponse()

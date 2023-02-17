@@ -35,7 +35,7 @@ def upload_file_options():
     upload = service.upload(
         out_bucket.name, "myfile", "/CF:/mytarget", options={"reliable": True}
     )
-    upload.await_complete(timeout=10)
+    upload.await_complete(timeout=60)
 
     if not upload.is_success():
         print("Upload failure:", upload.error)

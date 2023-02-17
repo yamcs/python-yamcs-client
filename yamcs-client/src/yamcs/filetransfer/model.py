@@ -160,39 +160,39 @@ class Service:
         )
 
     def fetch_filelist(self, remote_path, source_entity=None,
-                       destination_entity=None, reliable=False):
+                       destination_entity=None, options=None):
         """
         Sends a request to fetch the directory listing from the remote (destination).
 
         :param remote_path: path on the remote destination to get the file list
         :param source_entity: source entity requesting the file list
         :param destination_entity: destination entity from which the file list is needed
-        :param reliable: reliability of listing request
+        :param options: option dictionary
         :return: None
         """
         return self._service_client.fetch_filelist(
             remote_path=remote_path,
             source_entity=source_entity,
             destination_entity=destination_entity,
-            reliable=reliable,
+            options=options,
         )
 
     def get_filelist(self, remote_path, source_entity=None, destination_entity=None,
-                     reliable=False):
+                     options=None):
         """
         Returns the latest directory listing for the given destination.
 
         :param remote_path: path on the remote destination to get the file list
         :param source_entity: source entity requesting the file list
         :param destination_entity: destination entity from which the file list is needed
-        :param reliable: reliability of listing request
+        :param options: option dictionary
         :return: .ListFilesResponse
         """
         return self._service_client.get_filelist(
             remote_path=remote_path,
             source_entity=source_entity,
             destination_entity=destination_entity,
-            reliable=reliable,
+            options=options,
         )
 
     def pause_transfer(self, id):
