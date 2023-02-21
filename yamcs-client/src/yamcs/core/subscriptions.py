@@ -139,7 +139,7 @@ class WebSocketSubscriptionManager:
         #
         # This workaround can be dropped once we force websocket-client
         # to be >0.57
-        if message == None:
+        if message is None:
             message = ws
 
         try:
@@ -173,7 +173,7 @@ class WebSocketSubscriptionManager:
         #
         # This workaround can be dropped once we force websocket-client
         # to be >0.57
-        if error == None:
+        if error is None:
             error = ws
 
         # Set to False to avoid printing some errors twice

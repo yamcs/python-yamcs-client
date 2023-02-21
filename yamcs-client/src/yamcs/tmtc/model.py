@@ -103,7 +103,7 @@ class CommandHistory:
         can be completed, yet still failed.
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and (ack.status == "OK" or ack.status == "NOK")
+        return (ack is not None) and (ack.status == "OK" or ack.status == "NOK")
 
     def is_success(self):
         """
@@ -344,7 +344,7 @@ class MonitoredCommand(IssuedCommand):
         can be completed, yet still failed.
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and (ack.status == "OK" or ack.status == "NOK")
+        return (ack is not None) and (ack.status == "OK" or ack.status == "NOK")
 
     def is_success(self):
         """
