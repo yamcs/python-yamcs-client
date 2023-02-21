@@ -7,16 +7,16 @@ jobs:
     name: Examples
     runs-on: ubuntu-20.04
     strategy:
-        matrix:
-          python: ['3.6', '3.7', '3.8', '3.9', '3.10', '3.11-dev']
+      matrix:
+        python: ["3.6", "3.7", "3.8", "3.9", "3.10", "3.11"]
     services:
       yamcs:
         image: yamcs/example-simulation
         ports:
           - 8090:8090
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python }}
       - name: Set up yamcs-client
@@ -33,8 +33,8 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.7
       - name: Install dependencies
@@ -48,8 +48,8 @@ jobs:
     name: Documentation
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
         with:
           python-version: 3.7
       - name: Set up sphinx
