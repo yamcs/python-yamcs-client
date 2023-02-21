@@ -114,7 +114,7 @@ class CommandHistory:
 
     def is_failure(self):
         """
-        Returns True if the command failed.
+        Returns True if the command has completed, but failed.
         """
         ack = self._assemble_ack("CommandComplete")
         return ack and ack.status == "NOK"
@@ -342,20 +342,48 @@ class MonitoredCommand(IssuedCommand):
         """
         Returns whether this command is complete. A command
         can be completed, yet still failed.
+
+        Use :meth:`await_complete` to wait until this information
+        is available.
         """
         ack = self._assemble_ack("CommandComplete")
         return (ack is not None) and (ack.status == "OK" or ack.status == "NOK")
 
     def is_success(self):
         """
-        Returns true if this command was completed successfully.
+        Returns True if this command was completed successfully.
+
+        Use :meth:`await_complete` to wait until this information
+        is available.
         """
         ack = self._assemble_ack("CommandComplete")
         return ack and ack.status == "OK"
 
+    def is_failure(self):
+        """
+        Returns True if the command has completed, but failed.
+
+        Use :meth:`await_complete` to wait until this information
+        is available.
+
+        .. versionadded:: 1.8.6
+        """
+        ack = self._assemble_ack("CommandComplete")
+        return ack and ack.status == "NOK"
+
     def await_complete(self, timeout=None):
         """
-        Wait for the command to be completed.
+        Wait for the command to be `completed`. Afterwards use
+        :meth:`is_success` or :meth:`is_failure` to determine
+        whether the command was successful or not.
+
+        .. note::
+
+            Yamcs cannot determine completion unless the command has
+            an appropriate verifier configured in the Yamcs MDB.
+
+            When no such verifier is present, this method will never
+            return (or timeout).
 
         :param float timeout: The amount of seconds to wait.
         """
@@ -385,7 +413,12 @@ class MonitoredCommand(IssuedCommand):
 
     @property
     def error(self):
-        """Error message in case the command failed."""
+        """
+        Error message in case the command failed.
+
+        This information is only available when the command has failed
+        to complete. (:meth:`is_failure` returns `True`).
+        """
         ack = self._assemble_ack("CommandComplete")
         if ack and ack.status == "NOK":
             return ack.message
