@@ -122,10 +122,26 @@ class WebSocketSubscriptionManager:
         frame_data = message.SerializeToString()
         self._websocket.send(frame_data, websocket.ABNF.OPCODE_BINARY)
 
-    def _on_websocket_open(self, ws):
+    def _on_websocket_open(self, ws=None):
+        # WebSocketApp ``on_open`` callbacks had a temporary signature
+        # change between websocket-client 0.48.0..0.57.0, hence we make
+        # the ``ws`` argument optional.
+        # https://github.com/websocket-client/websocket-client/issues/669
+        #
+        # This workaround can be dropped once we force websocket-client
+        # to be >0.57
         self.send(self._options)
 
-    def _on_websocket_message(self, ws, message):
+    def _on_websocket_message(self, ws, message=None):
+        # WebSocketApp ``on_message`` callbacks had a temporary signature
+        # change between websocket-client 0.48.0..0.57.0.
+        # https://github.com/websocket-client/websocket-client/issues/669
+        #
+        # This workaround can be dropped once we force websocket-client
+        # to be >0.57
+        if message == None:
+            message = ws
+
         try:
             pb2_message = websocket_pb2.ServerMessage()
             pb2_message.ParseFromString(message)
@@ -150,7 +166,16 @@ class WebSocketSubscriptionManager:
             logger.exception("Problem while processing message. Closing connection")
             self._close_async(reason=e)
 
-    def _on_websocket_error(self, ws, error):
+    def _on_websocket_error(self, ws, error=None):
+        # WebSocketApp ``on_error`` callbacks had a temporary signature
+        # change between websocket-client 0.48.0..0.57.0.
+        # https://github.com/websocket-client/websocket-client/issues/669
+        #
+        # This workaround can be dropped once we force websocket-client
+        # to be >0.57
+        if error == None:
+            error = ws
+
         # Set to False to avoid printing some errors twice
         # (the ones that are generated during an initial connection)
         log_error = True
