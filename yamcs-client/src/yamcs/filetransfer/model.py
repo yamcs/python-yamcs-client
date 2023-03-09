@@ -234,9 +234,14 @@ class Transfer:
                 if self.is_complete():
                     completed.set()
 
-        self._service_client.create_transfer_subscription(on_data=callback)
+        subscription = self._service_client.create_transfer_subscription(
+            on_data=callback
+        )
 
-        if not completed.wait(timeout=timeout):
-            # Remark that a timeout does *not* mean that the underlying
-            # work is canceled.
-            raise TimeoutError("Timed out.")
+        try:
+            if not completed.wait(timeout=timeout):
+                # Remark that a timeout does *not* mean that the underlying
+                # work is canceled.
+                raise TimeoutError("Timed out.")
+        finally:
+            subscription.cancel()
