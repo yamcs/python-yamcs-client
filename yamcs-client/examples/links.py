@@ -24,12 +24,6 @@ if __name__ == "__main__":
     print("Enabling link")
     enable_link(link)
 
-    # Running the 'start' action
-    try:
-        run_action(link, "start")
-    except Exception as e:
-        print("Failed to run action: ", e)
-
     subscription = client.create_link_subscription("simulator", callback)
 
     sleep(10)
