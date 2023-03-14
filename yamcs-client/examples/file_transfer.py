@@ -75,14 +75,14 @@ def fetch_filelist():
 
 def get_filelist():
     """Snippet used in docs to get a saved filelist and display it."""
-    filelist_response = service.get_filelist("/")
+    filelist = service.get_filelist("/")
 
     # Display file list
-    if filelist_response:
+    if filelist:
         print("File list received:")
-        if not filelist_response.files:
+        if not filelist.files:
             print("\tEmpty file list")
-        for file in filelist_response.files:
+        for file in filelist.files:
             print(f"\t{file.name + ('/' if file.is_directory else ''):<12}\
             t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified}")
     else:
@@ -112,25 +112,28 @@ if __name__ == "__main__":
     for option in service.transfer_options:
         print(option)
 
-    upload_file()
+    if service.capabilities.upload:
+        upload_file()
 
-    upload_file_extra()
+        upload_file_extra()
 
-    upload_file_options()
+        upload_file_options()
 
-    download_file()
+    if service.capabilities.download:
+        download_file()
 
     # DIRECTORY LISTING
-    updated = False
+    if service.capabilities.filelist:
+        updated = False
 
-    subscribe_filelist()
+        subscribe_filelist()
 
-    fetch_filelist()
+        fetch_filelist()
 
-    start = time.time()
-    while not updated and time.time() - start < 20:
-        time.sleep(0.1)
+        start = time.time()
+        while not updated and time.time() - start < 20:
+            time.sleep(0.1)
 
-    # The saved filelist can either be retrieved from the subscription callback or
-    # via the get_filelist function
-    get_filelist()
+        # The saved filelist can either be retrieved from the subscription callback or
+        # via the get_filelist function
+        get_filelist()

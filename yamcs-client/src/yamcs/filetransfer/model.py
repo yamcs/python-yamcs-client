@@ -186,7 +186,7 @@ class Service:
         :param source_entity: source entity requesting the file list
         :param destination_entity: destination entity from which the file list is needed
         :param options: option dictionary
-        :return: .ListFilesResponse
+        :return: .RemoteFileListing
         """
         return self._service_client.get_filelist(
             remote_path=remote_path,
@@ -476,7 +476,7 @@ class Transfer:
             subscription.cancel()
 
 
-class ListFilesResponse:
+class RemoteFileListing:
     """
     Represents a list of files from a remote.
     """

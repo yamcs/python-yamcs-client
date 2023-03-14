@@ -3,7 +3,7 @@ import json
 
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.filetransfer.model import Service, Transfer, ListFilesResponse
+from yamcs.filetransfer.model import RemoteFileListing, Service, Transfer
 from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 
@@ -110,12 +110,12 @@ class FileListSubscription(WebSocketSubscriptionFuture):
         Get the latest cached filelist for the given remote path and destination
         :param remote_path: path on the remote destination
         :param destination: remote entity name
-        :rtype .ListFilesResponse
+        :rtype .RemoteFileListing
         """
         return self._cache.get((remote_path, destination))
 
     def _process(self, filelist):
-        filelist = ListFilesResponse(filelist)
+        filelist = RemoteFileListing(filelist)
         self._cache[(filelist.destination, filelist.remote_path)] = filelist
         return filelist
 
@@ -169,16 +169,16 @@ class ServiceClient:
         self._service = proto.name
 
     def upload(
-            self,
-            bucket_name,
-            object_name,
-            remote_path,
-            source_entity,
-            destination_entity,
-            overwrite,
-            parents,
-            reliable,
-            options,
+        self,
+        bucket_name,
+        object_name,
+        remote_path,
+        source_entity,
+        destination_entity,
+        overwrite,
+        parents,
+        reliable,
+        options,
     ):
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.UPLOAD
@@ -194,7 +194,7 @@ class ServiceClient:
         old_options = {
             "overwrite": overwrite,
             "createPath": parents,
-            "reliable": reliable
+            "reliable": reliable,
         }
         req.options.update(old_options)
         if options:
@@ -207,16 +207,16 @@ class ServiceClient:
         return Transfer(message, self)
 
     def download(
-            self,
-            bucket_name,
-            remote_path,
-            object_name,
-            source_entity,
-            destination_entity,
-            overwrite,
-            parents,
-            reliable,
-            options,
+        self,
+        bucket_name,
+        remote_path,
+        object_name,
+        source_entity,
+        destination_entity,
+        overwrite,
+        parents,
+        reliable,
+        options,
     ):
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
@@ -233,7 +233,7 @@ class ServiceClient:
         old_options = {
             "overwrite": overwrite,
             "createPath": parents,
-            "reliable": reliable
+            "reliable": reliable,
         }
         req.options.update(old_options)
         if options:
@@ -269,7 +269,7 @@ class ServiceClient:
         response = self.ctx.get_proto(url, params=params)
         message = filetransfer_pb2.ListFilesResponse()
         message.ParseFromString(response.content)
-        return ListFilesResponse(message)
+        return RemoteFileListing(message)
 
     def pause_transfer(self, id):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"

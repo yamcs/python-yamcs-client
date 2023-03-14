@@ -3,6 +3,7 @@ File Transfer
 
 The File Transfer API provides methods that you can use to programmatically work with file transfers such as CFDP.
 
+
 Reference
 ---------
 
@@ -43,7 +44,7 @@ Start file download:
     :lines: 1-2
     :dedent: 4
 
-Initiate transfer with non-default parameters (see `Model`):
+Initiate transfer with non-default parameters:
 
 .. literalinclude:: ../../yamcs-client/examples/file_transfer.py
     :pyobject: upload_file_extra
@@ -59,7 +60,6 @@ Initiate transfer with extra transfer options:
     :lines: 1-3
     :dedent: 4
 
-
 Subscribe to file list changes:
 
 .. literalinclude:: ../../yamcs-client/examples/file_transfer.py
@@ -68,7 +68,7 @@ Subscribe to file list changes:
     :lines: 1
     :dedent: 4
 
-Fetch file list from remote directory :
+Fetch file list from remote directory:
 
 .. literalinclude:: ../../yamcs-client/examples/file_transfer.py
     :pyobject: fetch_filelist
@@ -82,5 +82,3 @@ Get the latest saved remote file list for the given directory, and display it:
     :pyobject: get_filelist
     :start-after: """
     :dedent: 4
-
-
