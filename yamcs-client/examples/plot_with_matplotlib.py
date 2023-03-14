@@ -32,5 +32,4 @@ if __name__ == "__main__":
     plt.ylabel("Sink Rate")
     plt.grid()
 
-    plt.gcf().canvas.set_window_title("Launch & Landing Simulator")
     plt.show()

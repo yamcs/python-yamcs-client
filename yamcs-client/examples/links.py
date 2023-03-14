@@ -8,6 +8,11 @@ def enable_link(link):
     link.enable_link()
 
 
+def run_action(link, action_id, message=None):
+    """Run an action."""
+    link.run_action(action_id, message)
+
+
 def callback(message):
     print("Link Event:", message)
 

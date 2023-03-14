@@ -108,6 +108,19 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
+    def run_action(self, action, message=None):
+        """
+        Runs the given action for this link
+        :param str action: action identifier
+        :param dict message: action message
+        """
+        req = links_pb2.RunActionRequest()
+        if message:
+            req.message.update(message)
+
+        url = f"/links/{self._instance}/{self._link}/actions/{action}"
+        self.ctx.post_proto(url, data=req.message.SerializeToString())
+
     def get_cop1_config(self):
         """
         Gets the COP1 configuration for a data link.

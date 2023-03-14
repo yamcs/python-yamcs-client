@@ -33,3 +33,11 @@ Enable a link:
     :pyobject: enable_link
     :start-after: """
     :dedent: 4
+
+Run a link action:
+
+.. literalinclude:: ../../yamcs-client/examples/links.py
+    :pyobject: run_action
+    :start-after: """
+    :dedent: 4
+
