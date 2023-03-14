@@ -1,5 +1,5 @@
 from google.protobuf.internal.decoder import _DecodeVarint32
-from yamcs.core.helpers import parse_server_timestring, parse_value
+from yamcs.core.helpers import parse_server_time, parse_server_timestring, parse_value
 from yamcs.protobuf.table import table_pb2
 
 
@@ -217,7 +217,7 @@ class Sample:
 
         :type: :class:`~datetime.datetime`
         """
-        return parse_server_timestring(self._proto.time)
+        return parse_server_time(self._proto.time)
 
     @property
     def avg(self):
