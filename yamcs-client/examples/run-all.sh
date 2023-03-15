@@ -23,5 +23,6 @@ python packet_subscription.py
 python parameter_subscription.py
 python query_mdb.py
 python read_write_parameters.py
+# python reconnection.py  # runs forever
 python sql.py
 python timeline.py
