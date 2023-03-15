@@ -2,10 +2,13 @@ import logging
 import os
 from collections import OrderedDict
 from datetime import datetime, timezone
+from urllib.parse import urlparse
 
+import requests
+import urllib3
 from google.protobuf import timestamp_pb2
 from google.protobuf.internal.decoder import _DecodeVarint32
-from yamcs.core.exceptions import YamcsError
+from yamcs.core.exceptions import ConnectionFailure, YamcsError
 from yamcs.protobuf import yamcs_pb2
 
 logger = logging.getLogger("yamcs-client")
@@ -153,6 +156,53 @@ def to_named_object_ids(parameters):
     if isinstance(parameters, str):
         return [to_named_object_id(parameters)]
     return [to_named_object_id(parameter) for parameter in parameters]
+
+
+def do_get(session, path, **kwargs):
+    """
+    Performs an HTTP GET request while reraising connection-type exceptions
+    to something produced by this library.
+    """
+    return do_request(session, "get", path, **kwargs)
+
+
+def do_post(session, path, **kwargs):
+    """
+    Performs an HTTP POST request while reraising connection-type exceptions
+    to something produced by this library.
+    """
+    return do_request(session, "post", path, **kwargs)
+
+
+def do_request(session, method, path, **kwargs):
+    """
+    Performs an HTTP request while reraising connection-type exceptions
+    to something produced by this library.
+    """
+    try:
+        return session.request(method, path, **kwargs)
+    except requests.exceptions.SSLError as ssl_error:
+        url_parts = urlparse(path)
+        base_url = f"{url_parts.scheme}://{url_parts.netloc}"
+        msg = f"Connection to {base_url} failed: {ssl_error}"
+        raise ConnectionFailure(msg) from None
+    except requests.exceptions.ConnectionError as e:
+        url_parts = urlparse(path)
+        base_url = f"{url_parts.scheme}://{url_parts.netloc}"
+
+        # Requests gives us a very confusing error when a connection
+        # is refused. Confirm and unwrap.
+        if e.args and isinstance(e.args[0], urllib3.exceptions.MaxRetryError):
+            # This is a string (which is still confusing ....)
+            msg = e.args[0].args[0]
+            if "refused" in msg:
+                msg = f"Connection to {base_url} failed: connection refused"
+                raise ConnectionFailure(msg) from None
+            elif "not known" in msg:
+                msg = f"Connection to {base_url} failed: could not resolve hostname"
+                raise ConnectionFailure(msg) from None
+
+        raise ConnectionFailure(f"Connection to {base_url} failed: {e}")
 
 
 def split_protobuf_stream(chunk_iterator, message_class):

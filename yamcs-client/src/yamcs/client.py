@@ -1,11 +1,8 @@
 import functools
 
-import requests
 from google.protobuf import timestamp_pb2
-
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.context import Context
-from yamcs.core.exceptions import ConnectionFailure
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import parse_server_time, to_server_time
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
@@ -190,15 +187,10 @@ class YamcsClient:
 
         :rtype: .AuthInfo
         """
-        try:
-            response = self.ctx.session.get(
-                self.ctx.auth_root, headers={"Accept": "application/protobuf"}
-            )
-            message = auth_pb2.AuthInfo()
-            message.ParseFromString(response.content)
-            return AuthInfo(message)
-        except requests.exceptions.ConnectionError:
-            raise ConnectionFailure(f"Connection to {self.ctx.address} refused")
+        response = self.ctx.get_proto(self.ctx.auth_root)
+        message = auth_pb2.AuthInfo()
+        message.ParseFromString(response.content)
+        return AuthInfo(message)
 
     def get_user_info(self):
         """

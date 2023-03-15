@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 
 from requests.auth import HTTPBasicAuth
 from yamcs.core.exceptions import Unauthorized, YamcsError
+from yamcs.core.helpers import do_post
 
 
 def _convert_user_credentials(
@@ -19,7 +20,7 @@ def _convert_user_credentials(
     else:
         raise NotImplementedError()
 
-    response = session.post(token_url, data=data)
+    response = do_post(session, token_url, data=data)
     if response.status_code == 401:
         raise Unauthorized("401 Client Error: Unauthorized")
     elif response.status_code == 200:
@@ -42,8 +43,11 @@ def _convert_service_account_credentials(
     """
     data = {"grant_type": "client_credentials", "become": become}
 
-    response = session.post(
-        token_url, data=data, auth=HTTPBasicAuth(client_id, client_secret)
+    response = do_post(
+        session,
+        token_url,
+        data=data,
+        auth=HTTPBasicAuth(client_id, client_secret),
     )
     if response.status_code == 401:
         raise Unauthorized("401 Client Error: Unauthorized")
