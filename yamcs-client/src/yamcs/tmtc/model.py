@@ -162,9 +162,12 @@ class CommandHistory:
         return None
 
     def _update(self, proto):
+        # Copy-on-write to avoid mutation error on the exposed attributes field
+        copy = self.attributes.copy()
         for attr in proto:
             value = parse_value(attr.value)
-            self.attributes[attr.name] = value
+            copy[attr.name] = value
+        self.attributes = copy
 
     def __str__(self):
         acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
@@ -459,9 +462,12 @@ class MonitoredCommand(IssuedCommand):
         return None
 
     def _update(self, proto):
+        # Copy-on-write to avoid mutation error on the exposed attributes field
+        copy = self.attributes.copy()
         for attr in proto:
             value = parse_value(attr.value)
-            self.attributes[attr.name] = value
+            copy[attr.name] = value
+        self.attributes = copy
 
     def __str__(self):
         acks = ", ".join(ack.__repr__() for _, ack in self.acknowledgments.items())
