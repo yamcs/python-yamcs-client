@@ -4,7 +4,7 @@ from google.protobuf import timestamp_pb2
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import parse_server_time, to_server_time
+from yamcs.core.helpers import do_get, parse_server_time, to_server_time
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.filetransfer.client import FileTransferClient
 from yamcs.link.client import LinkClient
@@ -187,7 +187,11 @@ class YamcsClient:
 
         :rtype: .AuthInfo
         """
-        response = self.ctx.get_proto(self.ctx.auth_root)
+        response = do_get(
+            self.ctx.session,
+            self.ctx.auth_root,  # Full URL, so don't use get_proto
+            headers={"Accept": "application/protobuf"},
+        )
         message = auth_pb2.AuthInfo()
         message.ParseFromString(response.content)
         return AuthInfo(message)
