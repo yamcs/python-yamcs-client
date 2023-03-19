@@ -422,6 +422,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
         verification=None,
         extra=None,
         beta_args_v2=False,
+        sequence_number=None,
     ):
         """
         Issue the given command
@@ -443,12 +444,29 @@ class CommandConnection(WebSocketSubscriptionFuture):
                            Note that Yamcs will refuse command options that it
                            does now know about. Extensions should therefore
                            register available options.
+
+        :param sequence_number: Sequence number of this command. This is used to
+                                determine unicity of commands at the same time and
+                                coming from the same origin. If not set Yamcs
+                                will automatically assign a sequential number as
+                                if every submitted command is unique.
+
+                                .. versionadded:: 1.8.9
+        :type sequence_number: Optional[int]
+
         :return: An object providing access to properties of the newly issued
                  command and updated according to command history updates.
         :rtype: .MonitoredCommand
         """
         issued_command = self._tmtc_client.issue_command(
-            command, args, dry_run, comment, verification, extra, beta_args_v2
+            command,
+            args,
+            dry_run,
+            comment,
+            verification,
+            extra,
+            beta_args_v2,
+            sequence_number=sequence_number,
         )
         command = MonitoredCommand(issued_command._proto)
 
@@ -653,6 +671,7 @@ class ProcessorClient:
         verification=None,
         extra=None,
         beta_args_v2=False,
+        sequence_number=None,
     ):
         """
         Issue the given command
@@ -674,6 +693,16 @@ class ProcessorClient:
                            Note that Yamcs will refuse command options that it
                            does now know about. Extensions should therefore
                            register available options.
+
+        :param sequence_number: Sequence number of this command. This is used to
+                                determine unicity of commands at the same time and
+                                coming from the same origin. If not set Yamcs
+                                will automatically assign a sequential number as
+                                if every submitted command is unique.
+
+                                .. versionadded:: 1.8.9
+        :type sequence_number: Optional[int]
+
         :return: An object providing access to properties of the newly issued
                  command.
         :rtype: .IssuedCommand
@@ -683,6 +712,8 @@ class ProcessorClient:
         req.dryRun = dry_run
         if comment:
             req.comment = comment
+        if sequence_number is not None:
+            req.sequenceNumber = sequence_number
         if beta_args_v2:
             for key in beta_args_v2:
                 req.args[key] = _to_argument_value(
