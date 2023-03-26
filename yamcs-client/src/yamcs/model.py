@@ -269,8 +269,7 @@ class Link:
 
     def __str__(self):
         desc = f"{self.instance}/{self.name}"
-        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})" \
-               f" Actions: {self._actions}"
+        return f"{desc}: {self.status} (in: {self.in_count} out: {self.out_count})"
 
 
 class LinkAction:
@@ -400,6 +399,28 @@ class Service:
         """State of this service."""
         if self._proto.HasField("state"):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
+        return None
+
+    def failure_message(self):
+        """
+        Short failure message when state is ``FAILED``
+
+        .. versionadded:: 1.8.9
+           Compatible with Yamcs 5.8.0 onwards
+        """
+        if self._proto.HasField("failureMessage"):
+            return self._proto.failureMessage
+        return None
+
+    def failure_cause(self):
+        """
+        Java stacktrace when state is ``FAILED``
+
+        .. versionadded:: 1.8.9
+           Compatible with Yamcs 5.8.0 onwards
+        """
+        if self._proto.HasField("failureCause"):
+            return self._proto.failureCause
         return None
 
     def __str__(self):
