@@ -1,3 +1,5 @@
+import urllib.parse
+
 from yamcs.core import pagination
 from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.mdb.model import Algorithm, Command, Container, Parameter, SpaceSystem
@@ -36,14 +38,30 @@ class MDBClient:
         """
         Gets a single space system by its unique name.
 
-        :param str name: A fully-qualified XTCE name
+        :param str name: A fully-qualified XTCE name. Use ``/`` for root.
         :rtype: .SpaceSystem
         """
-        url = f"/mdb/{self._instance}/space-systems{name}"
+        encoded_name = urllib.parse.quote_plus(name)
+        url = f"/mdb/{self._instance}/space-systems/{encoded_name}"
         response = self.ctx.get_proto(url)
         message = mdb_pb2.SpaceSystemInfo()
         message.ParseFromString(response.content)
         return SpaceSystem(message)
+
+    def export_space_system(self, name):
+        """
+        Exports an XTCE description of a space system (XML format).
+
+        .. versionadded:: 1.8.9
+           Compatible with Yamcs 5.8.0 onwards
+
+        :param str name: A fully-qualified XTCE name. Use ``/`` for root.
+        :rtype: str
+        """
+        encoded_name = urllib.parse.quote_plus(name)
+        url = f"/mdb/{self._instance}/space-systems/{encoded_name}:exportXTCE"
+        response = self.ctx.get_proto(url)
+        return response.text
 
     def list_parameters(self, parameter_type=None, page_size=None):
         """Lists the parameters visible to this client.
