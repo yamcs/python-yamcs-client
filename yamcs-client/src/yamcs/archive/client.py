@@ -737,9 +737,16 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return Table(message)
 
-    def dump_table(self, table, chunk_size=32 * 1024):
+    def dump_table(self, table, query=None, chunk_size=32 * 1024):
         path = f"/archive/{self._instance}/tables/{table}:readRows"
-        response = self.ctx.post_proto(path=path, stream=True)
+        if query:
+            req = table_pb2.ReadRowsRequest()
+            req.query = query
+            response = self.ctx.post_proto(
+                path=path, stream=True, data=req.SerializeToString()
+            )
+        else:
+            response = self.ctx.post_proto(path=path, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
     def load_table(self, table, data, chunk_size=32 * 1024):
