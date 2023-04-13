@@ -421,7 +421,6 @@ class CommandConnection(WebSocketSubscriptionFuture):
         comment=None,
         verification=None,
         extra=None,
-        beta_args_v2=False,
         sequence_number=None,
     ):
         """
@@ -465,7 +464,6 @@ class CommandConnection(WebSocketSubscriptionFuture):
             comment,
             verification,
             extra,
-            beta_args_v2,
             sequence_number=sequence_number,
         )
         command = MonitoredCommand(issued_command._proto)
@@ -670,7 +668,6 @@ class ProcessorClient:
         comment=None,
         verification=None,
         extra=None,
-        beta_args_v2=False,
         sequence_number=None,
     ):
         """
@@ -714,16 +711,9 @@ class ProcessorClient:
             req.comment = comment
         if sequence_number is not None:
             req.sequenceNumber = sequence_number
-        if beta_args_v2:
-            for key in beta_args_v2:
-                req.args[key] = _to_argument_value(
-                    beta_args_v2[key], force_string=False
-                )
-        elif args:
+        if args:
             for key in args:
-                assignment = req.assignment.add()
-                assignment.name = key
-                assignment.value = _to_argument_value(args[key], force_string=True)
+                req.args[key] = _to_argument_value(args[key], force_string=True)
 
         if verification:
             if verification._disable_all:
