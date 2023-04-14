@@ -111,6 +111,7 @@ class LinkClient:
     def run_action(self, action, message=None):
         """
         Runs the given action for this link
+
         :param str action: action identifier
         :param dict message: action message
         """
