@@ -1,10 +1,10 @@
 import binascii
 import threading
 from collections import OrderedDict
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
-from yamcs.core.helpers import parse_server_time, parse_value
+from yamcs.core.helpers import parse_server_time, parse_value, to_isostring
 from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
@@ -45,7 +45,6 @@ class Acknowledgment:
 
 class CommandHistory:
     def __init__(self, proto):
-
         self.generation_time = parse_server_time(proto.generationTime)
         """
         The generation time as set by Yamcs
@@ -90,7 +89,21 @@ class CommandHistory:
     @property
     def source(self):
         """String representation of the command."""
-        return self.attributes.get("source")
+        result = self.name + "("
+        args = []
+        for assignment in self._proto.assignments:
+            if assignment.userInput:
+                value = parse_value(assignment.value)
+                if isinstance(value, str):
+                    value = '"' + value + '"'
+                elif isinstance(value, bytes) or isinstance(value, bytearray):
+                    value = '"' + binascii.hexlify(value) + '"'
+                elif isinstance(value, datetime):
+                    value = '"' + to_isostring(value) + '"'
+                args.append(assignment.name + ": " + str(value))
+        result += ", ".join(args)
+        result += ")"
+        return result
 
     @property
     def binary(self):
@@ -241,9 +254,24 @@ class IssuedCommand:
     @property
     def source(self):
         """String representation of this command."""
-        if self._proto.HasField("source"):
-            return self._proto.source
-        return None
+        result = None
+        if self.name:
+            result = self.name + "("
+            args = []
+            for assignment in self._proto.assignments:
+                if assignment.userInput:
+                    value = parse_value(assignment.value)
+                    if isinstance(value, str):
+                        value = '"' + value + '"'
+                    elif isinstance(value, bytes) or isinstance(value, bytearray):
+                        value = '"' + binascii.hexlify(value) + '"'
+                    elif isinstance(value, datetime):
+                        value = '"' + to_isostring(value) + '"'
+                    args.append(assignment.name + ": " + str(value))
+            result += ", ".join(args)
+            result += ")"
+
+        return result
 
     @property
     def hex(self):
