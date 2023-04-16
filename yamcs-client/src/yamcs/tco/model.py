@@ -1,3 +1,6 @@
+import datetime
+from typing import List, Optional
+
 from yamcs.core.helpers import parse_server_time
 
 
@@ -10,7 +13,7 @@ class TCOStatus:
         self._proto = proto
 
     @property
-    def coefficients(self):
+    def coefficients(self) -> Optional["TCOCoefficients"]:
         """
         Current coefficients. Or ``None`` if the synchronization is not
         yet established.
@@ -20,7 +23,7 @@ class TCOStatus:
         return None
 
     @property
-    def coefficients_time(self):
+    def coefficients_time(self) -> Optional[datetime.datetime]:
         """
         Time when the coefficients have been computed
         """
@@ -29,7 +32,7 @@ class TCOStatus:
         return None
 
     @property
-    def deviation(self):
+    def deviation(self) -> Optional[float]:
         """
         Last computed deviation
         """
@@ -38,7 +41,7 @@ class TCOStatus:
         return None
 
     @property
-    def samples(self):
+    def samples(self) -> List["TCOSample"]:
         """
         The last accumulated samples
         """
@@ -54,25 +57,25 @@ class TCOCoefficients:
         self._proto = proto
 
     @property
-    def utc(self):
+    def utc(self) -> datetime.datetime:
         if self._proto.HasField("utc"):
             return parse_server_time(self._proto.utc)
         return None
 
     @property
-    def obt(self):
+    def obt(self) -> int:
         if self._proto.HasField("obt"):
             return self._proto.obt
         return None
 
     @property
-    def gradient(self):
+    def gradient(self) -> float:
         if self._proto.HasField("gradient"):
             return self._proto.gradient
         return None
 
     @property
-    def offset(self):
+    def offset(self) -> float:
         if self._proto.HasField("offset"):
             return self._proto.offset
         return None
@@ -83,13 +86,13 @@ class TCOSample:
         self._proto = proto
 
     @property
-    def utc(self):
+    def utc(self) -> datetime.datetime:
         if self._proto.HasField("utc"):
             return parse_server_time(self._proto.utc)
         return None
 
     @property
-    def obt(self):
+    def obt(self) -> int:
         if self._proto.HasField("obt"):
             return self._proto.obt
         return None
@@ -105,11 +108,16 @@ class TofInterval:
     is ERT minus the provided start date.
     """
 
-    def __init__(self, start, stop, polynomial):
+    def __init__(
+        self, start: datetime.datetime, stop: datetime.datetime, polynomial: List[float]
+    ):
         """
-        :param ~datetime.datetime start: ERT start
-        :param ~datetime.datetime stop: ERT stop
-        :param float[] polynomial: Coefficients in the order ``[a, b, c, ...]``
+        :param start:
+            ERT start
+        :param stop:
+            ERT stop
+        :param polynomial:
+            Coefficients in the order ``[a, b, c, ...]``
         """
         self.start = start
         self.stop = stop

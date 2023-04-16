@@ -1,4 +1,6 @@
+import datetime
 import functools
+from typing import Any, Callable, Iterable, List, Mapping, Optional
 
 from google.protobuf import timestamp_pb2
 from yamcs.archive.client import ArchiveClient
@@ -81,12 +83,8 @@ class TimeSubscription(WebSocketSubscriptionFuture):
     def __init__(self, manager):
         super(TimeSubscription, self).__init__(manager)
 
-        self.time = None
-        """
-        The last time info.
-
-        :type: :class:`~datetime.datetime`
-        """
+        self.time: Optional[datetime.datetime] = None
+        """The last time info."""
 
     def _process(self, time):
         self.time = time
@@ -106,22 +104,20 @@ class LinkSubscription(WebSocketSubscriptionFuture):
         self._cache = {}
         """Link cache keyed by name."""
 
-    def get_link(self, name):
+    def get_link(self, name: str) -> Link:
         """
         Returns the latest link state.
 
-        :param str name: Identifying name of the data link
-        :rtype: .Link
+        :param name:
+            Identifying name of the data link
         """
         if name in self._cache:
             return self._cache[name]
         return None
 
-    def list_links(self):
+    def list_links(self) -> List[Link]:
         """
         Returns a snapshot of all instance links.
-
-        :rtype: .Link[]
         """
         return [self._cache[k] for k in self._cache]
 
@@ -138,27 +134,30 @@ class YamcsClient:
     Client for accessing core Yamcs resources.
     """
 
-    def __init__(self, address, **kwargs):
+    def __init__(self, address: str, **kwargs):
         """
-        :param str address: The address of Yamcs in the format 'hostname:port'
-        :param Optional[bool] tls: Whether TLS encryption is expected
-        :param tls_verify: Whether server certificate verification is
-                           enabled (only applicable if ``tls=True``).
-                           As an alternative to a boolean value, this option
-                           may be set to a path containing the appropriate
-                           TLS CA certificate bundle.
-        :type tls_verify: Optional[Union[bool, str]]
-        :param Optional[.Credentials] credentials: Credentials for when the server is
-                                                   secured
-        :param Optional[str] user_agent: Optionally override the default user agent
+        :param address:
+            The address of Yamcs in the format 'hostname:port'
+        :param bool tls:
+            Whether TLS encryption is expected
+        :param tls_verify:
+            Whether server certificate verification is
+            enabled (only applicable if ``tls=True``).
+            As an alternative to a boolean value, this option
+            may be set to a path containing the appropriate
+            TLS CA certificate bundle.
+        :type tls_verify:
+            Optional[Union[bool, str]]
+        :param Optional[.Credentials] credentials:
+            Credentials for when the server is secured
+        :param Optional[str] user_agent:
+            Optionally override the default user agent
         """
         self.ctx = Context(address, **kwargs)
 
-    def get_time(self, instance):
+    def get_time(self, instance) -> datetime.datetime:
         """
         Return the current mission time for the specified instance.
-
-        :rtype: ~datetime.datetime
         """
         url = f"/instances/{instance}"
         response = self.ctx.get_proto(url)
@@ -168,24 +167,20 @@ class YamcsClient:
             return parse_server_time(message.missionTime)
         return None
 
-    def get_server_info(self):
+    def get_server_info(self) -> ServerInfo:
         """
         Return general server info.
-
-        :rtype: .ServerInfo
         """
         response = self.ctx.get_proto(path="")
         message = server_service_pb2.GetServerInfoResponse()
         message.ParseFromString(response.content)
         return ServerInfo(message)
 
-    def get_auth_info(self):
+    def get_auth_info(self) -> AuthInfo:
         """
         Returns general authentication information. This operation
         does not require authenticating and is useful to test
         if a server requires authentication or not.
-
-        :rtype: .AuthInfo
         """
         response = do_get(
             self.ctx.session,
@@ -196,79 +191,86 @@ class YamcsClient:
         message.ParseFromString(response.content)
         return AuthInfo(message)
 
-    def get_user_info(self):
+    def get_user_info(self) -> UserInfo:
         """
         Get information on the authenticated user.
-
-        :rtype: .UserInfo
         """
         response = self.ctx.get_proto(path="/user")
         message = iam_pb2.UserInfo()
         message.ParseFromString(response.content)
         return UserInfo(message)
 
-    def get_mdb(self, instance):
+    def get_mdb(self, instance: str) -> MDBClient:
         """
         Return an object for working with the MDB of the specified instance.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: .MDBClient
+        :param instance:
+            A Yamcs instance name.
         """
         return MDBClient(self.ctx, instance)
 
-    def get_archive(self, instance):
+    def get_archive(self, instance: str) -> ArchiveClient:
         """
         Return an object for working with the Archive of the specified instance.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: .ArchiveClient
+        :param instance:
+            A Yamcs instance name.
         """
         return ArchiveClient(self.ctx, instance)
 
-    def get_file_transfer_client(self, instance):
+    def get_file_transfer_client(self, instance: str) -> FileTransferClient:
         """
         Return an object for working with file transfers on a specified instance.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: .FileTransferClient
+        :param instance:
+            A Yamcs instance name.
         """
         return FileTransferClient(self.ctx, instance)
 
-    def get_tco_client(self, instance, service):
+    def get_tco_client(self, instance: str, service: str) -> TCOClient:
         """
         Return an object for Time Correlation API calls on a specified service.
 
-        :param str instance: A Yamcs instance name.
-        :param str service: Target service name.
-        :rtype: .TCOClient
+        :param instance:
+            A Yamcs instance name.
+        :param service:
+            Target service name.
         """
         return TCOClient(self.ctx, instance, service)
 
-    def get_storage_client(self, instance="_global"):
+    def get_storage_client(self, instance: str = "_global") -> StorageClient:
         """
         Return an object for working with object storage
 
-        :param str instance: The storage instance.
-        :rtype: .StorageClient
+        :param instance:
+            The storage instance.
         """
         return StorageClient(self.ctx, instance)
 
-    def get_timeline_client(self, instance):
+    def get_timeline_client(self, instance: str) -> TimelineClient:
         """
         Return an object for working with Yamcs timeline items
 
-        :param str instance: A Yamcs instance name.
-        :rtype: .TimelineClient
+        :param instance:
+            A Yamcs instance name.
         """
         return TimelineClient(self.ctx, instance)
 
-    def create_instance(self, name, template, args=None, labels=None):
+    def create_instance(
+        self,
+        name: str,
+        template: str,
+        args: Optional[Mapping[str, Any]] = None,
+        labels: Optional[Mapping[str, str]] = None,
+    ):
         """
         Create a new instance based on an existing template. This method blocks
         until the instance is fully started.
 
-        :param str instance: A Yamcs instance name.
-        :param str template: The name of an existing template.
+        :param instance:
+            A Yamcs instance name.
+        :param template:
+            The name of an existing template.
         """
         req = yamcsManagement_pb2.CreateInstanceRequest()
         req.name = name
@@ -282,7 +284,7 @@ class YamcsClient:
         url = "/instances"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def list_instance_templates(self):
+    def list_instance_templates(self) -> Iterable[InstanceTemplate]:
         """
         List the available instance templates.
         """
@@ -292,12 +294,12 @@ class YamcsClient:
         templates = getattr(message, "templates")
         return iter([InstanceTemplate(template) for template in templates])
 
-    def list_services(self, instance):
+    def list_services(self, instance: str) -> Iterable[Service]:
         """
         List the services for an instance.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: ~collections.abc.Iterable[~yamcs.model.Service]
+        :param instance:
+            A Yamcs instance name.
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -308,34 +310,38 @@ class YamcsClient:
         services = getattr(message, "services")
         return iter([Service(service) for service in services])
 
-    def start_service(self, instance, service):
+    def start_service(self, instance: str, service: str):
         """
         Starts a single service.
 
-        :param str instance: A Yamcs instance name.
-        :param str service: The name of the service.
+        :param instance:
+            A Yamcs instance name.
+        :param service:
+            The name of the service.
         """
         url = f"/services/{instance}/{service}:start"
         self.ctx.post_proto(url)
 
-    def stop_service(self, instance, service):
+    def stop_service(self, instance: str, service: str):
         """
         Stops a single service.
 
-        :param str instance: A Yamcs instance name.
-        :param str service: The name of the service.
+        :param instance:
+            A Yamcs instance name.
+        :param service:
+            The name of the service.
         """
         url = f"/services/{instance}/{service}:stop"
         self.ctx.post_proto(url)
 
-    def list_processors(self, instance=None):
+    def list_processors(self, instance: Optional[str] = None) -> Iterable[Processor]:
         """
         Lists the processors.
 
         Processors are returned in lexicographical order.
 
-        :param Optional[str] instance: A Yamcs instance name.
-        :rtype: ~collections.abc.Iterable[.Processor]
+        :param instance:
+            A Yamcs instance name.
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -348,43 +354,45 @@ class YamcsClient:
         processors = getattr(message, "processors")
         return iter([Processor(processor) for processor in processors])
 
-    def get_processor(self, instance, processor):
+    def get_processor(self, instance: str, processor: str) -> ProcessorClient:
         """
         Return an object for working with a specific Yamcs processor.
 
-        :param str instance: A Yamcs instance name.
-        :param str processor: A processor name within that instance.
-        :rtype: .ProcessorClient
+        :param instance:
+            A Yamcs instance name.
+        :param processor:
+            A processor name within that instance.
         """
         return ProcessorClient(self.ctx, instance, processor)
 
-    def delete_processor(self, instance, processor):
+    def delete_processor(self, instance: str, processor: str):
         """
         Delete a processor.
 
-        :param str instance: A Yamcs instance name.
-        :param str processor: A processor name within that instance.
+        :param instance:
+            A Yamcs instance name.
+        :param processor:
+            A processor name within that instance.
         """
         url = f"/processors/{instance}/{processor}"
         self.ctx.delete_proto(url)
 
-    def get_link(self, instance, link):
+    def get_link(self, instance: str, link: str) -> LinkClient:
         """
         Return an object for working with a specific Yamcs link.
 
-        :param str instance: A Yamcs instance name.
-        :param str link: A link name within that instance.
-        :rtype: .LinkClient
+        :param instance:
+            A Yamcs instance name.
+        :param link:
+            A link name within that instance.
         """
         return LinkClient(self.ctx, instance, link)
 
-    def list_instances(self):
+    def list_instances(self) -> Iterable[Instance]:
         """
         Lists the instances.
 
         Instances are returned in lexicographical order.
-
-        :rtype: ~collections.abc.Iterable[.Instance]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -394,41 +402,44 @@ class YamcsClient:
         instances = getattr(message, "instances")
         return iter([Instance(instance) for instance in instances])
 
-    def start_instance(self, instance):
+    def start_instance(self, instance: str):
         """
         Starts a single instance.
 
-        :param str instance: A Yamcs instance name.
+        :param instance:
+            A Yamcs instance name.
         """
         url = f"/instances/{instance}:start"
         self.ctx.post_proto(url)
 
-    def stop_instance(self, instance):
+    def stop_instance(self, instance: str):
         """
         Stops a single instance.
 
-        :param str instance: A Yamcs instance name.
+        :param instance:
+            A Yamcs instance name.
         """
         url = f"/instances/{instance}:stop"
         self.ctx.post_proto(url)
 
-    def restart_instance(self, instance):
+    def restart_instance(self, instance: str):
         """
         Restarts a single instance.
 
-        :param str instance: A Yamcs instance name.
+        :param instance:
+            A Yamcs instance name.
         """
         url = f"/instances/{instance}:restart"
         self.ctx.post_proto(url)
 
-    def list_links(self, instance):
+    def list_links(self, instance: str) -> Iterable[Link]:
         """
         Lists the data links visible to this client.
 
         Data links are returned in random order.
 
-        :param str instance: A Yamcs instance name.
-        :rtype: ~collections.abc.Iterable[.Link]
+        :param instance:
+            A Yamcs instance name.
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -440,48 +451,47 @@ class YamcsClient:
 
     def send_event(
         self,
-        instance,
-        message,
-        event_type=None,
-        time=None,
-        severity="info",
-        source=None,
-        sequence_number=None,
-        extra=None,
+        instance: str,
+        message: str,
+        event_type: Optional[str] = None,
+        time: Optional[datetime.datetime] = None,
+        severity: Optional[str] = "info",
+        source: Optional[str] = None,
+        sequence_number: Optional[int] = None,
+        extra: Optional[Mapping[str, str]] = None,
     ):
         """
         Post a new event.
 
-        :param str instance: A Yamcs instance name.
-        :param str message: Event message.
-        :param Optional[str] event_type: Type of event.
+        :param instance:
+            A Yamcs instance name.
+        :param message:
+            Event message.
+        :param event_type:
+            Type of event.
 
-        :param severity: The severity level of the event. One of ``info``,
-                         ``watch``, ``warning``, ``distress``, ``critical``
-                         or ``severe``. Defaults to ``info``.
-        :type severity: Optional[str]
+        :param severity:
+            The severity level of the event. One of ``info``,
+            ``watch``, ``warning``, ``distress``, ``critical``
+            or ``severe``. Defaults to ``info``.
+        :param time:
+            Time of the event. If unspecified, defaults to mission time.
+        :param source:
+            Source of the event. Useful for grouping events in the
+            archive. When unset this defaults to ``User``.
+        :param event_type:
+            Event type.
+        :param sequence_number:
+            Sequence number of this event. This is used to
+            determine unicity of events at the same time and
+            coming from the same source. If not set Yamcs
+            will automatically assign a sequential number as
+            if every submitted event is unique.
+        :param extra:
+            Extra event properties.
 
-        :param time: Time of the event. If unspecified, defaults to mission time.
-        :type time: Optional[~datetime.datetime]
-
-        :param source: Source of the event. Useful for grouping events in the
-                       archive. When unset this defaults to ``User``.
-        :type source: Optional[str]
-
-        :param event_type: Event type.
-        :type event_type: Optional[str]
-
-        :param sequence_number: Sequence number of this event. This is used to
-                                determine unicity of events at the same time and
-                                coming from the same source. If not set Yamcs
-                                will automatically assign a sequential number as
-                                if every submitted event is unique.
-        :type sequence_number: Optional[int]
-
-        :param dict extra: Extra event properties.
-
-                           .. versionadded:: 1.8.4
-                              Compatible with Yamcs 5.7.3 onwards
+            .. versionadded:: 1.8.4
+               Compatible with Yamcs 5.7.3 onwards
         """
         req = events_service_pb2.CreateEventRequest()
         req.message = message
@@ -501,26 +511,27 @@ class YamcsClient:
         url = f"/archive/{instance}/events"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def create_link_subscription(self, instance, on_data=None, timeout=60):
+    def create_link_subscription(
+        self,
+        instance: str,
+        on_data: Optional[Callable[[LinkEvent], None]] = None,
+        timeout: float = 60,
+    ) -> LinkSubscription:
         """
         Create a new subscription for receiving data link updates of an instance.
 
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :param str instance: A Yamcs instance name.
-
-        :param on_data: Function that gets called with
-                        :class:`.LinkEvent` updates.
-        :type on_data: Optional[Callable[.LinkEvent])
-
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: Optional[float]
-
-        :return: Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .LinkSubscription
+        :param instance:
+            A Yamcs instance name.
+        :param on_data:
+            Function that gets called with :class:`.LinkEvent` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = links_pb2.SubscribeLinksRequest()
         options.instance = instance
@@ -540,7 +551,12 @@ class YamcsClient:
 
         return subscription
 
-    def create_time_subscription(self, instance, on_data=None, timeout=60):
+    def create_time_subscription(
+        self,
+        instance: str,
+        on_data: Optional[Callable[[datetime.datetime], None]] = None,
+        timeout: float = 60,
+    ) -> TimeSubscription:
         """
         Create a new subscription for receiving time updates of an instance.
         Time updates are emitted at 1Hz.
@@ -548,19 +564,16 @@ class YamcsClient:
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :param str instance: A Yamcs instance name
+        :param instance:
+            A Yamcs instance name
+        :param on_data:
+            Function that gets called with :class:`~datetime.datetime` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
 
-        :param on_data: Function that gets called with
-                        :class:`~datetime.datetime` updates.
-        :type on_data: Optional[Callable[~datetime.datetime])
-
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: Optional[float]
-
-        :return: Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .TimeSubscription
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = time_service_pb2.SubscribeTimeRequest()
         options.instance = instance
@@ -580,25 +593,24 @@ class YamcsClient:
 
         return subscription
 
-    def create_event_subscription(self, instance, on_data, timeout=60):
+    def create_event_subscription(
+        self, instance: str, on_data: Callable[[Event], None], timeout: float = 60
+    ) -> WebSocketSubscriptionFuture:
         """
         Create a new subscription for receiving events of an instance.
 
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :param str instance: A Yamcs instance name
-
-        :param on_data: Function that gets called on each :class:`.Event`.
-        :type on_data: Optional[Callable[.Event])
-
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: Optional[float]
-
-        :return: Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .WebSocketSubscriptionFuture
+        :param instance:
+            A Yamcs instance name
+        :param on_data:
+            Function that gets called on each :class:`.Event`.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = events_service_pb2.SubscribeEventsRequest()
         options.instance = instance

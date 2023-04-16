@@ -1,24 +1,26 @@
 import urllib.parse
+from typing import Iterable, Optional
 
 from yamcs.core import pagination
+from yamcs.core.context import Context
 from yamcs.core.helpers import adapt_name_for_rest
 from yamcs.mdb.model import Algorithm, Command, Container, Parameter, SpaceSystem
 from yamcs.protobuf.mdb import mdb_pb2
 
 
 class MDBClient:
-    def __init__(self, ctx, instance):
+    def __init__(self, ctx: Context, instance: str):
         super(MDBClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
 
-    def list_space_systems(self, page_size=None):
+    def list_space_systems(
+        self, page_size: Optional[int] = None
+    ) -> Iterable[SpaceSystem]:
         """
         Lists the space systems visible to this client.
 
         Space systems are returned in lexicographical order.
-
-        :rtype: :class:`.SpaceSystem` iterator
         """
         params = {}
 
@@ -34,12 +36,12 @@ class MDBClient:
             item_mapper=SpaceSystem,
         )
 
-    def get_space_system(self, name):
+    def get_space_system(self, name: str) -> SpaceSystem:
         """
         Gets a single space system by its unique name.
 
-        :param str name: A fully-qualified XTCE name. Use ``/`` for root.
-        :rtype: .SpaceSystem
+        :param name:
+            A fully-qualified XTCE name. Use ``/`` for root.
         """
         encoded_name = urllib.parse.quote_plus(name)
         url = f"/mdb/{self._instance}/space-systems/{encoded_name}"
@@ -48,28 +50,31 @@ class MDBClient:
         message.ParseFromString(response.content)
         return SpaceSystem(message)
 
-    def export_space_system(self, name):
+    def export_space_system(self, name: str) -> str:
         """
         Exports an XTCE description of a space system (XML format).
 
         .. versionadded:: 1.8.9
            Compatible with Yamcs 5.8.0 onwards
 
-        :param str name: A fully-qualified XTCE name. Use ``/`` for root.
-        :rtype: str
+        :param name:
+            A fully-qualified XTCE name. Use ``/`` for root.
         """
         encoded_name = urllib.parse.quote_plus(name)
         url = f"/mdb/{self._instance}/space-systems/{encoded_name}:exportXTCE"
         response = self.ctx.get_proto(url)
         return response.text
 
-    def list_parameters(self, parameter_type=None, page_size=None):
-        """Lists the parameters visible to this client.
+    def list_parameters(
+        self, parameter_type: Optional[str] = None, page_size: Optional[int] = None
+    ) -> Iterable[Parameter]:
+        """
+        Lists the parameters visible to this client.
 
         Parameters are returned in lexicographical order.
 
-        :param str parameter_type: The type of parameter
-        :rtype: :class:`.Parameter` iterator
+        :param parameter_type:
+            The type of parameter
         """
         params = {"details": True}
 
@@ -87,13 +92,13 @@ class MDBClient:
             item_mapper=Parameter,
         )
 
-    def get_parameter(self, name):
+    def get_parameter(self, name: str) -> Parameter:
         """
         Gets a single parameter by its name.
 
-        :param str name: Either a fully-qualified XTCE name or an alias in the
-                         format ``NAMESPACE/NAME``.
-        :rtype: .Parameter
+        :param name:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
         """
         name = adapt_name_for_rest(name)
         url = f"/mdb/{self._instance}/parameters{name}"
@@ -102,13 +107,11 @@ class MDBClient:
         message.ParseFromString(response.content)
         return Parameter(message)
 
-    def list_containers(self, page_size=None):
+    def list_containers(self, page_size: Optional[int] = None) -> Iterable[Container]:
         """
         Lists the containers visible to this client.
 
         Containers are returned in lexicographical order.
-
-        :rtype: :class:`.Container` iterator
         """
         params = {}
 
@@ -124,13 +127,13 @@ class MDBClient:
             item_mapper=Container,
         )
 
-    def get_container(self, name):
+    def get_container(self, name: str) -> Container:
         """
         Gets a single container by its unique name.
 
-        :param str name: Either a fully-qualified XTCE name or an alias in the
-                         format ``NAMESPACE/NAME``.
-        :rtype: .Container
+        :param name:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
         """
         name = adapt_name_for_rest(name)
         url = f"/mdb/{self._instance}/containers{name}"
@@ -139,13 +142,11 @@ class MDBClient:
         message.ParseFromString(response.content)
         return Container(message)
 
-    def list_commands(self, page_size=None):
+    def list_commands(self, page_size: Optional[int] = None) -> Iterable[Command]:
         """
         Lists the commands visible to this client.
 
         Commands are returned in lexicographical order.
-
-        :rtype: :class:`.Command` iterator
         """
         params = {}
 
@@ -161,13 +162,13 @@ class MDBClient:
             item_mapper=Command,
         )
 
-    def get_command(self, name):
+    def get_command(self, name: str) -> Command:
         """
         Gets a single command by its unique name.
 
-        :param str name: Either a fully-qualified XTCE name or an alias in the
-                         format ``NAMESPACE/NAME``.
-        :rtype: .Command
+        :param name:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
         """
         name = adapt_name_for_rest(name)
         url = f"/mdb/{self._instance}/commands{name}"
@@ -176,13 +177,11 @@ class MDBClient:
         message.ParseFromString(response.content)
         return Command(message)
 
-    def list_algorithms(self, page_size=None):
+    def list_algorithms(self, page_size: Optional[int] = None) -> Iterable[Algorithm]:
         """
         Lists the algorithms visible to this client.
 
         Algorithms are returned in lexicographical order.
-
-        :rtype: :class:`.Algorithm` iterator
         """
         params = {}
 
@@ -198,13 +197,13 @@ class MDBClient:
             item_mapper=Algorithm,
         )
 
-    def get_algorithm(self, name):
+    def get_algorithm(self, name: str) -> Algorithm:
         """
         Gets a single algorithm by its unique name.
 
-        :param str name: Either a fully-qualified XTCE name or an alias in the
-                         format ``NAMESPACE/NAME``.
-        :rtype: .Algorithm
+        :param name:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
         """
         name = adapt_name_for_rest(name)
         url = f"/mdb/{self._instance}/algorithms{name}"

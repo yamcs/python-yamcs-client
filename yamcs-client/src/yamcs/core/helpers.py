@@ -2,6 +2,7 @@ import logging
 import os
 from collections import OrderedDict
 from datetime import datetime, timezone
+from typing import Any, List, Union
 from urllib.parse import urlparse
 
 import requests
@@ -14,7 +15,7 @@ from yamcs.protobuf import yamcs_pb2
 logger = logging.getLogger("yamcs-client")
 
 
-def to_isostring(dt):
+def to_isostring(dt: datetime) -> str:
     """
     Converts the given datetime to an ISO String for use as URL parameter.
     """
@@ -22,7 +23,7 @@ def to_isostring(dt):
     return pb.ToJsonString()
 
 
-def to_server_time(dt):
+def to_server_time(dt: datetime) -> timestamp_pb2.Timestamp:
     """
     Converts the given ``datetime.datetime`` to a
     ``google.protobuf.timestamp_pb2.Timestamp``.
@@ -44,7 +45,7 @@ def to_server_time(dt):
     return pb
 
 
-def parse_server_timestring(isostring):
+def parse_server_timestring(isostring: str) -> datetime:
     """
     Converts an ISO string to a timezone-aware ``datetime.datetime``.
     The timezone uses the system-default. This can be overriden to UTC
@@ -60,7 +61,7 @@ def parse_server_timestring(isostring):
     return utctime.astimezone(tz=None)
 
 
-def parse_server_time(pb):
+def parse_server_time(pb: timestamp_pb2.Timestamp) -> datetime:
     """
     Converts a Protobuf timestamp message to a timezone-aware ``datetime.datetime``.
     The timezone uses the system-default. This can be overriden to UTC by setting
@@ -73,7 +74,7 @@ def parse_server_time(pb):
     return utctime.astimezone(tz=None)
 
 
-def parse_value(proto):
+def parse_value(proto: yamcs_pb2.Value) -> Any:
     """
     Converts a Protobuf `Value` from the API into a python native value
     """
@@ -114,7 +115,7 @@ def parse_value(proto):
         return None
 
 
-def adapt_name_for_rest(name):
+def adapt_name_for_rest(name: str) -> str:
     """
     Modifies a user-provided name for use in API calls.
     Basically we want an alias like 'MDB:OPS Name/SIMULATOR_BatteryVoltage2'
@@ -127,7 +128,7 @@ def adapt_name_for_rest(name):
     return "/" + name
 
 
-def to_named_object_id(parameter):
+def to_named_object_id(parameter: str) -> yamcs_pb2.NamedObjectId:
     """
     Builds a NamedObjectId. This is a bit more complex than it really
     should be. In Python (for convenience) we allow the user to simply address
@@ -151,14 +152,14 @@ def to_named_object_id(parameter):
     return named_object_id
 
 
-def to_named_object_ids(parameters):
+def to_named_object_ids(parameters: Union[str, List[str]]) -> yamcs_pb2.NamedObjectList:
     """Builds a list of NamedObjectId."""
     if isinstance(parameters, str):
         return [to_named_object_id(parameters)]
     return [to_named_object_id(parameter) for parameter in parameters]
 
 
-def do_get(session, path, **kwargs):
+def do_get(session: requests.Session, path: str, **kwargs) -> requests.Request:
     """
     Performs an HTTP GET request while reraising connection-type exceptions
     to something produced by this library.
@@ -166,7 +167,7 @@ def do_get(session, path, **kwargs):
     return do_request(session, "get", path, **kwargs)
 
 
-def do_post(session, path, **kwargs):
+def do_post(session: requests.Session, path: str, **kwargs) -> requests.Request:
     """
     Performs an HTTP POST request while reraising connection-type exceptions
     to something produced by this library.
@@ -174,12 +175,15 @@ def do_post(session, path, **kwargs):
     return do_request(session, "post", path, **kwargs)
 
 
-def do_request(session, method, path, **kwargs):
+def do_request(
+    session: requests.Session, method: str, path: str, **kwargs
+) -> requests.Request:
     """
     Performs an HTTP request while reraising connection-type exceptions
     to something produced by this library.
     """
     try:
+        session.request
         return session.request(method, path, **kwargs)
     except requests.exceptions.SSLError as ssl_error:
         url_parts = urlparse(path)

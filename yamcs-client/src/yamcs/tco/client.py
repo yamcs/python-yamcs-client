@@ -1,3 +1,7 @@
+import datetime
+from typing import List, Optional
+
+from yamcs.core.context import Context
 from yamcs.core.helpers import to_server_time
 from yamcs.protobuf.tco import tco_pb2
 from yamcs.tco.model import TCOStatus, TofInterval
@@ -8,17 +12,15 @@ class TCOClient:
     Client for interacting with a Time Correlation service managed by Yamcs.
     """
 
-    def __init__(self, ctx, instance, service):
+    def __init__(self, ctx: Context, instance: str, service: str):
         super(TCOClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
         self._service = service
 
-    def get_status(self):
+    def get_status(self) -> TCOStatus:
         """
         Retrieve the TCO status.
-
-        :rtype: .TCOStatus
         """
         response = self.ctx.get_proto(f"/tco/{self._instance}/{self._service}/status")
         message = tco_pb2.TcoStatus()
@@ -26,17 +28,24 @@ class TCOClient:
         return TCOStatus(message)
 
     def reconfigure(
-        self, accuracy=None, validity=None, ob_delay=None, default_tof=None
+        self,
+        accuracy: Optional[float] = None,
+        validity: Optional[float] = None,
+        ob_delay: Optional[float] = None,
+        default_tof: Optional[float] = None,
     ):
         """
         Updates one or more TCO options
 
-        :param Optional[float] accuracy: Accuracy in seconds.
-        :param Optional[float] validity: Validity in seconds.
-        :param Optional[float] ob_delay: Onboard delay in seconds.
-        :param Optional[float] default_tof: Default ToF in seconds. This value is used
-                                            if the ToF estimator does not find a
-                                            matching interval.
+        :param accuracy:
+            Accuracy in seconds.
+        :param validity:
+            Validity in seconds.
+        :param ob_delay:
+            Onboard delay in seconds.
+        :param default_tof:
+            Default ToF in seconds. This value is used if the ToF estimator
+            does not find a matching interval.
         """
         req = tco_pb2.TcoConfig()
         if accuracy is not None:
@@ -51,23 +60,29 @@ class TCOClient:
         url = f"/tco/{self._instance}/{self._service}/config"
         self.ctx.post_proto(url, data=req.SerializeToString())  # TODO should be patch
 
-    def add_tof_interval(self, start, stop, polynomial):
+    def add_tof_interval(
+        self, start: datetime.datetime, stop: datetime.datetime, polynomial: List[float]
+    ):
         """
         Defines a ToF interval for the ERT range ``[start, stop]``, specifying
         a polynomial function of the form: `tof = a + bx + cx^2 + ...` where `x`
         is ERT minus the provided start date.
 
-        :param ~datetime.datetime start: ERT start
-        :param ~datetime.datetime stop: ERT stop
-        :param float[] polynomial: Coefficients in the order ``[a, b, c, ...]``
+        :param start:
+            ERT start
+        :param stop:
+            ERT stop
+        :param polynomial:
+            Coefficients in the order ``[a, b, c, ...]``
         """
         self.add_tof_interval([TofInterval(start, stop, polynomial)])
 
-    def add_tof_intervals(self, intervals):
+    def add_tof_intervals(self, intervals: List[TofInterval]):
         """
         Adds multiple ToF intervals at once.
 
-        :param .TofInterval[] intervals: List of ToF intervals.
+        :param intervals:
+            List of ToF intervals.
         """
         req = tco_pb2.AddTimeOfFlightIntervalsRequest()
         for interval in intervals:
@@ -79,13 +94,15 @@ class TCOClient:
         url = f"/tco/{self._instance}/{self._service}/tof:addIntervals"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def remove_tof_intervals(self, start, stop):
+    def remove_tof_intervals(self, start: datetime.datetime, stop: datetime.datetime):
         """
         Removes previously registered ToF intervals whose start date
         falls in the specified range ``[start, stop]``.
 
-        :param ~datetime.datetime start: ERT start
-        :param ~datetime.datetime stop: ERT stop
+        :param start:
+            ERT start
+        :param stop:
+            ERT stop
         """
         req = tco_pb2.DeleteTimeOfFlightIntervalsRequest()
         req.start.MergeFrom(to_server_time(start))
@@ -102,7 +119,9 @@ class TCOClient:
         url = f"/tco/{self._instance}/{self._service}:reset"
         self.ctx.post_proto(url)
 
-    def override_coefficients(self, utc, obt, gradient=0, offset=0):
+    def override_coefficients(
+        self, utc: datetime.datetime, obt: int, gradient: float = 0, offset: float = 0
+    ):
         """
         Manually override the assocation between UTC and
         onboard time.
@@ -111,10 +130,14 @@ class TCOClient:
             If later on you want to revert to automatically computed
             coefficients, use :meth:`reset_coefficients`.
 
-        :param ~datetime.datetime utc: UTC
-        :param int obt: Onboard time
-        :param Optional[float] gradient: Gradient
-        :param Optional[float] offset: Offset
+        :param utc:
+            UTC
+        :param obt:
+            Onboard time
+        :param gradient:
+            Gradient
+        :param offset:
+            Offset
         """
         req = tco_pb2.TcoCoefficients()
         req.utc.MergeFrom(to_server_time(utc))

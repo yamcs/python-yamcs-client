@@ -34,6 +34,11 @@ Client
     :undoc-members:
     :show-inheritance:
 
+.. autoclass:: yamcs.tmtc.client.ContainerSubscription
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 .. autoclass:: yamcs.tmtc.client.ParameterSubscription
     :members:
     :undoc-members:

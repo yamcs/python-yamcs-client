@@ -1,3 +1,5 @@
+from typing import List, Optional, Tuple
+
 from yamcs.protobuf.mdb import mdb_pb2
 
 
@@ -6,29 +8,31 @@ class Algorithm:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def qualified_name(self):
+    def qualified_name(self) -> str:
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
     @property
-    def aliases(self):
+    def aliases(self) -> List[Tuple[str, str]]:
         """List of (namespace, name) pairs, as 2-tuples"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Short description."""
         if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
-    def long_description(self):
+    def long_description(self) -> Optional[str]:
         """Long description."""
         if self._proto.HasField("longDescription"):
             return self._proto.longDescription
@@ -43,42 +47,44 @@ class Command:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def qualified_name(self):
+    def qualified_name(self) -> str:
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
     @property
-    def aliases(self):
+    def aliases(self) -> List[Tuple[str, str]]:
         """List of (namespace, name) pairs, as 2-tuples"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Short description."""
         if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
-    def long_description(self):
+    def long_description(self) -> Optional[str]:
         """Long description."""
         if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
     @property
-    def base_command(self):
+    def base_command(self) -> Optional["Command"]:
         if self._proto.HasField("baseCommand"):
             return Command(self._proto.baseCommand)
         return None
 
     @property
-    def abstract(self):
+    def abstract(self) -> bool:
         """
         Whether this is an abstract command. Abstract commands are
         intended for inheritance and cannot be issued directly.
@@ -86,7 +92,7 @@ class Command:
         return self._proto.abstract
 
     @property
-    def significance(self):
+    def significance(self) -> Optional["Significance"]:
         if self._proto.HasField("significance"):
             return Significance(self._proto.significance)
         return None
@@ -100,7 +106,7 @@ class Significance:
         self._proto = proto
 
     @property
-    def consequence_level(self):
+    def consequence_level(self) -> str:
         """
         One of ``NONE``, ``WATCH``, ``WARNING``, ``DISTRESS``, ``CRITICAL``
         or ``SEVERE``.
@@ -112,7 +118,7 @@ class Significance:
         return None
 
     @property
-    def reason(self):
+    def reason(self) -> Optional[str]:
         """Message attached to this significance."""
         if self._proto.HasField("reasonForWarning"):
             return self._proto.reasonForWarning
@@ -127,29 +133,31 @@ class Container:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def qualified_name(self):
+    def qualified_name(self) -> str:
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
     @property
-    def aliases(self):
+    def aliases(self) -> List[Tuple[str, str]]:
         """List of (namespace, name) pairs, as 2-tuples"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Short description."""
         if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
-    def long_description(self):
+    def long_description(self) -> Optional[str]:
         """Long description."""
         if self._proto.HasField("longDescription"):
             return self._proto.longDescription
@@ -164,37 +172,33 @@ class ArrayType:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name of this type."""
         return self._proto.type.engType
 
     @property
-    def array_type(self):
+    def array_type(self) -> Optional["ArrayType"]:
         """
         In case the elements of an array of this type are also of type `array`, this
         returns type info of the elements' array type.
 
         .. note::
             This is an uncommon use case. Multi-dimensional arrays are more prevalent.
-
-        :type: :class:`.ArrayType`
         """
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
     @property
-    def members(self):
+    def members(self) -> List["Member"]:
         """
         In case the elements of this array are of type `aggregate`, this returns
         an ordered list of its direct sub-members.
-
-        :type: List[:class:`.Member`]
         """
         return [Member(member) for member in self._proto.type.member]
 
     @property
-    def dimensions(self):
+    def dimensions(self) -> int:
         """The number of dimensions in case of a multi-dimensional array."""
         if self._proto.HasField("dimensions"):
             return self._proto.dimensions
@@ -216,40 +220,32 @@ class Member:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def type(self):
-        """
-        Engineering type.
-
-        :type: str
-        """
+    def type(self) -> str:
+        """Engineering type."""
         if self._proto.HasField("type"):
             return self._proto.type.engType
         return None
 
     @property
-    def array_type(self):
+    def array_type(self) -> Optional[ArrayType]:
         """
         In case this member is of type `array`, this returns array-specific
         type info.
-
-        :type: :class:`.ArrayType`
         """
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
     @property
-    def members(self):
+    def members(self) -> List["Member"]:
         """
         In case this member is of type `aggregate`, this returns an ordered list
         of its direct sub-members.
-
-        :type: List[:class:`.Member`]
         """
         return [Member(member) for member in self._proto.type.member]
 
@@ -262,17 +258,17 @@ class EnumValue:
         self._proto = proto
 
     @property
-    def value(self):
+    def value(self) -> int:
         """Numeric value"""
         return self._proto.value
 
     @property
-    def label(self):
+    def label(self) -> str:
         """String value"""
         return self._proto.label
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """State description"""
         if self._proto.HasField("description"):
             return self.__proto.description
@@ -287,26 +283,26 @@ class DataEncoding:
         self._proto = proto
 
     @property
-    def type(self):
+    def type(self) -> str:
         """Raw type"""
         if self._proto.HasField("type"):
             return mdb_pb2.DataEncodingInfo.Type.Name(self._proto.type)
         return None
 
     @property
-    def little_endian(self):
+    def little_endian(self) -> bool:
         """True if little-endian"""
         return self._proto.littleEndian
 
     @property
-    def bitlength(self):
+    def bitlength(self) -> int:
         """The size in bits"""
         if self._proto.HasField("sizeInBits"):
             return self._proto.sizeInBits
         return None
 
     @property
-    def encoding(self):
+    def encoding(self) -> Optional[str]:
         """Encoding detail"""
         if self._proto.HasField("encoding"):
             return self._proto.encoding
@@ -328,103 +324,91 @@ class Parameter:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def qualified_name(self):
+    def qualified_name(self) -> str:
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
     @property
-    def aliases(self):
+    def aliases(self) -> List[Tuple[str, str]]:
         """List of (namespace, name) pairs, as 2-tuples"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Short description."""
         if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
-    def long_description(self):
+    def long_description(self) -> Optional[str]:
         """Long description."""
         if self._proto.HasField("longDescription"):
             return self._proto.longDescription
         return None
 
     @property
-    def data_source(self):
+    def data_source(self) -> str:
         """
         Specifies how this parameter originated (example: ``TELEMETERED``)
-
-        :type: str
         """
         if self._proto.HasField("dataSource"):
             return mdb_pb2.DataSourceType.Name(self._proto.dataSource)
         return None
 
     @property
-    def type(self):
+    def type(self) -> str:
         """
         Engineering type.
-
-        :type: str
         """
         if self._proto.type.HasField("engType"):
             return self._proto.type.engType
         return None
 
     @property
-    def array_type(self):
+    def array_type(self) -> Optional[ArrayType]:
         """
         In case this parameter is of type `array`, this returns array-specific
         type info.
-
-        :type: :class:`.ArrayType`
         """
         if self._proto.type.HasField("arrayInfo"):
             return ArrayType(self._proto.type.arrayInfo)
         return None
 
     @property
-    def members(self):
+    def members(self) -> List[Member]:
         """
         In case this parameter is of type `aggregate`, this returns an ordered list
         of its direct members.
-
-        :type: List[:class:`.Member`]
         """
         return [Member(member) for member in self._proto.type.member]
 
     @property
-    def units(self):
+    def units(self) -> List[str]:
         """
         Engineering unit(s)
-
-        :type: List[str]
         """
         return [info.unit for info in self._proto.type.unitSet]
 
     @property
-    def enum_values(self):
+    def enum_values(self) -> List[EnumValue]:
         """
         In case this parameter is of type `enumeration`, this returns an ordered list
         of possible values.
-
-        :type: List[:class:`.EnumValue`]
         """
         return [EnumValue(enumValue) for enumValue in self._proto.type.enumValue]
 
     @property
-    def data_encoding(self):
+    def data_encoding(self) -> Optional[DataEncoding]:
         """
         Information on the raw encoding of this parameter, if applicable.
-
-        :type: :class:`.DataEncoding`
         """
         if self._proto.type.HasField("dataEncoding"):
             return DataEncoding(self._proto.type.dataEncoding)
@@ -449,29 +433,31 @@ class SpaceSystem:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Short name"""
         return self._proto.name
 
     @property
-    def qualified_name(self):
+    def qualified_name(self) -> str:
         """Full name (incl. space system)"""
         return self._proto.qualifiedName
 
     @property
-    def aliases(self):
+    def aliases(self) -> List[Tuple[str, str]]:
         """List of (namespace, name) pairs, as 2-tuples"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
 
     @property
-    def description(self):
+    def description(self) -> Optional[str]:
         """Short description."""
         if self._proto.HasField("shortDescription"):
             return self._proto.shortDescription
         return None
 
     @property
-    def long_description(self):
+    def long_description(self) -> Optional[str]:
         """Long description."""
         if self._proto.HasField("longDescription"):
             return self._proto.longDescription

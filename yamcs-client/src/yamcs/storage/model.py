@@ -1,3 +1,6 @@
+import datetime
+from typing import IO, List, Optional
+
 from yamcs.core.helpers import parse_server_time
 
 
@@ -7,16 +10,14 @@ class Bucket:
         self._storage_client = storage_client
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this bucket."""
         return self._proto.name
 
     @property
-    def created(self):
+    def created(self) -> datetime.datetime:
         """
         When this bucket was created.
-
-        :type: :class:`~datetime.datetime`
 
         .. versionadded:: 1.8.4
            Compatible with Yamcs 5.6.1 onwards
@@ -26,12 +27,12 @@ class Bucket:
         return None
 
     @property
-    def object_count(self):
+    def object_count(self) -> int:
         """Number of objects in this bucket."""
         return self._proto.numObjects
 
     @property
-    def max_object_count(self):
+    def max_object_count(self) -> int:
         """
         Maximum allowed number of objects.
 
@@ -43,12 +44,12 @@ class Bucket:
         return None
 
     @property
-    def size(self):
+    def size(self) -> int:
         """Total size in bytes of this bucket (excluding metadata)."""
         return self._proto.size
 
     @property
-    def max_size(self):
+    def max_size(self) -> int:
         """
         Maximum allowed total size of all objects.
 
@@ -60,7 +61,7 @@ class Bucket:
         return None
 
     @property
-    def directory(self):
+    def directory(self) -> str:
         """
         Bucket root directory. This field is only set when
         the bucket is mapped to the file system. Therefore
@@ -74,19 +75,21 @@ class Bucket:
             return self._proto.directory
         return None
 
-    def list_objects(self, prefix=None, delimiter=None):
+    def list_objects(
+        self, prefix: Optional[str] = None, delimiter: Optional[str] = None
+    ):
         """
         List the objects for this bucket.
 
-        :param str prefix: If specified, only objects that start with this
-                           prefix are listed.
-        :param str delimiter: If specified, return only objects whose name
-                              do not contain the delimiter after the prefix.
-                              For the other objects, the response contains
-                              (in the prefix response parameter) the name
-                              truncated after the delimiter. Duplicates are
-                              omitted.
-        :rtype: .ObjectListing
+        :param prefix:
+            If specified, only objects that start with this prefix are listed.
+        :param delimiter:
+            If specified, return only objects whose name
+            do not contain the delimiter after the prefix.
+            For the other objects, the response contains
+            (in the prefix response parameter) the name
+            truncated after the delimiter. Duplicates are
+            omitted.
         """
         return self._storage_client.list_objects(
             bucket_name=self.name,
@@ -94,35 +97,42 @@ class Bucket:
             delimiter=delimiter,
         )
 
-    def download_object(self, object_name):
+    def download_object(self, object_name: str):
         """
         Download an object.
 
-        :param str object_name: The object to fetch.
+        :param object_name:
+            The object to fetch.
         """
         return self._storage_client.download_object(self.name, object_name)
 
-    def upload_object(self, object_name, file_obj, content_type=None):
+    def upload_object(
+        self, object_name: str, file_obj: IO, content_type: Optional[str] = None
+    ):
         """
         Upload an object to this bucket.
 
-        :param str object_name: The target name of the object.
-        :param file file_obj: The file (or file-like object) to upload.
-        :param str content_type: The content type associated to this object.
-                                 This is mainly useful when accessing an object
-                                 directly via a web browser. If unspecified, a
-                                 content type *may* be automatically derived
-                                 from the specified ``file_obj``.
+        :param object_name:
+            The target name of the object.
+        :param file_obj:
+            The file (or file-like object) to upload.
+        :param content_type:
+            The content type associated to this object.
+            This is mainly useful when accessing an object
+            directly via a web browser. If unspecified, a
+            content type *may* be automatically derived
+            from the specified ``file_obj``.
         """
         return self._storage_client.upload_object(
             self.name, object_name, file_obj, content_type=content_type
         )
 
-    def delete_object(self, object_name):
+    def delete_object(self, object_name: str):
         """
         Remove an object from this bucket.
 
-        :param str object_name: The object to remove.
+        :param object_name:
+            The object to remove.
         """
         self._storage_client.remove_object(self.name, object_name)
 
@@ -136,34 +146,6 @@ class Bucket:
         return self.name
 
 
-class ObjectListing:
-    def __init__(self, proto, bucket, storage_client):
-        self._proto = proto
-        self._bucket = bucket
-        self._storage_client = storage_client
-
-    @property
-    def prefixes(self):
-        """
-        The prefixes in this listing.
-
-        :type: str[]
-        """
-        return [p for p in self._proto.prefixes]
-
-    @property
-    def objects(self):
-        """
-        The objects in this listing.
-
-        :type: List[:class:`.ObjectInfo`]
-        """
-        return [
-            ObjectInfo(o, self._bucket, self._storage_client)
-            for o in self._proto.objects
-        ]
-
-
 class ObjectInfo:
     def __init__(self, proto, bucket, storage_client):
         self._proto = proto
@@ -171,41 +153,72 @@ class ObjectInfo:
         self._storage_client = storage_client
 
     @property
-    def name(self):
-        """The name of this object."""
+    def name(self) -> str:
+        """
+        The name of this object.
+        """
         return self._proto.name
 
     @property
-    def size(self):
-        """Size in bytes of this object (excluding metadata)."""
+    def size(self) -> int:
+        """
+        Size in bytes of this object (excluding metadata).
+        """
         return self._proto.size
 
     @property
-    def created(self):
+    def created(self) -> datetime.datetime:
         """
         Return when this object was created (or re-created).
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("created"):
             return parse_server_time(self._proto.created)
         return None
 
     def delete(self):
-        """Remove this object."""
+        """
+        Remove this object.
+        """
         self._storage_client.remove_object(self._bucket, self.name)
 
     def download(self):
-        """Download this object."""
+        """
+        Download this object.
+        """
         return self._storage_client.download_object(self._bucket, self.name)
 
-    def upload(self, file_obj):
+    def upload(self, file_obj: IO):
         """
         Replace the content of this object.
 
-        :param file file_obj: The file (or file-like object) to upload.
+        :param file_obj:
+            The file (or file-like object) to upload.
         """
         return self._storage_client.upload_object(self._bucket, self.name, file_obj)
 
     def __str__(self):
         return f"{self.name} ({self.size} bytes, created {self.created})"
+
+
+class ObjectListing:
+    def __init__(self, proto, bucket, storage_client):
+        self._proto = proto
+        self._bucket = bucket
+        self._storage_client = storage_client
+
+    @property
+    def prefixes(self) -> List[str]:
+        """
+        The prefixes in this listing.
+        """
+        return [p for p in self._proto.prefixes]
+
+    @property
+    def objects(self) -> List[ObjectInfo]:
+        """
+        The objects in this listing.
+        """
+        return [
+            ObjectInfo(o, self._bucket, self._storage_client)
+            for o in self._proto.objects
+        ]

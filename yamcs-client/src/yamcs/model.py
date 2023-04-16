@@ -1,3 +1,6 @@
+import datetime
+from typing import Any, Dict, List, Optional
+
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.events import events_pb2
 from yamcs.protobuf.links import links_pb2
@@ -13,7 +16,7 @@ class AuthInfo:
         self._proto = proto
 
     @property
-    def require_authentication(self):
+    def require_authentication(self) -> bool:
         return self._proto.requireAuthentication
 
 
@@ -26,17 +29,17 @@ class ServerInfo:
         self._proto = proto
 
     @property
-    def id(self):
+    def id(self) -> str:
         """The Server ID."""
         return self._proto.serverId
 
     @property
-    def version(self):
+    def version(self) -> str:
         """The version of Yamcs Server."""
         return self._proto.yamcsVersion
 
     @property
-    def default_yamcs_instance(self):
+    def default_yamcs_instance(self) -> Optional[str]:
         """Returns the default Yamcs instance."""
         if self._proto.HasField("defaultYamcsInstance"):
             return self._proto.defaultYamcsInstance
@@ -55,19 +58,19 @@ class UserInfo:
         self._proto = proto
 
     @property
-    def username(self):
+    def username(self) -> str:
         return self._proto.name
 
     @property
-    def superuser(self):
+    def superuser(self) -> bool:
         return self._proto.superuser
 
     @property
-    def system_privileges(self):
+    def system_privileges(self) -> List[str]:
         return [p for p in self._proto.systemPrivilege]
 
     @property
-    def object_privileges(self):
+    def object_privileges(self) -> List["ObjectPrivilege"]:
         return [ObjectPrivilege(p) for p in self._proto.objectPrivilege]
 
     def __str__(self):
@@ -79,11 +82,11 @@ class ObjectPrivilege:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._proto.type
 
     @property
-    def objects(self):
+    def objects(self) -> List[str]:
         return [o for o in self._proto.object]
 
     def __str__(self):
@@ -100,29 +103,25 @@ class Event:
         self._proto = proto
 
     @property
-    def generation_time(self):
+    def generation_time(self) -> datetime.datetime:
         """
         The time when the event was generated.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
             return parse_server_time(self._proto.generationTime)
         return None
 
     @property
-    def reception_time(self):
+    def reception_time(self) -> datetime.datetime:
         """
         The time when the event was received by Yamcs.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
             return parse_server_time(self._proto.receptionTime)
         return None
 
     @property
-    def severity(self):
+    def severity(self) -> Optional[str]:
         """
         Severity level of the event. One of ``INFO``, ``WATCH``,
         ``WARNING``, ``DISTRESS``, ``CRITICAL`` or ``SEVERE``.
@@ -132,7 +131,7 @@ class Event:
         return None
 
     @property
-    def message(self):
+    def message(self) -> Optional[str]:
         """
         Event message.
         """
@@ -141,7 +140,7 @@ class Event:
         return None
 
     @property
-    def sequence_number(self):
+    def sequence_number(self) -> int:
         """
         Sequence number. Usually this is assigned by the source of the event.
         """
@@ -150,7 +149,7 @@ class Event:
         return None
 
     @property
-    def event_type(self):
+    def event_type(self) -> Optional[str]:
         """
         The event type. This is mission-specific and can be any string.
         """
@@ -159,7 +158,7 @@ class Event:
         return None
 
     @property
-    def source(self):
+    def source(self) -> Optional[str]:
         """
         The event source. Can be any string.
         """
@@ -168,7 +167,7 @@ class Event:
         return None
 
     @property
-    def extra(self):
+    def extra(self) -> Dict[str, str]:
         """
         Dict with extra event properties.
 
@@ -190,7 +189,7 @@ class LinkEvent:
         self._proto = proto
 
     @property
-    def event_type(self):
+    def event_type(self) -> str:
         """
         The type of the event. One of ``REGISTERED``, ``UNREGISTERED``,
         or ``UPDATED``.
@@ -198,11 +197,9 @@ class LinkEvent:
         return links_pb2.LinkEvent.Type.Name(self._proto.type)
 
     @property
-    def link(self):
+    def link(self) -> "Link":
         """
         Link state at the time of this event.
-
-        :type: :class:`.Link`
         """
         return Link(self._proto.linkInfo)
 
@@ -223,47 +220,47 @@ class Link:
         self._extra = {key: value for key, value in proto.extra.items()}
 
     @property
-    def instance(self):
+    def instance(self) -> str:
         """Name of the instance where this link is defined."""
         return self._proto.instance
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this link (unique per instance)."""
         return self._proto.name
 
     @property
-    def class_name(self):
+    def class_name(self) -> str:
         """Name of this link's class."""
         return self._proto.type
 
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         """If ``True``, this link accepts or outputs data."""
         return not self._proto.disabled
 
     @property
-    def status(self):
+    def status(self) -> str:
         """Short status."""
         return self._proto.status
 
     @property
-    def in_count(self):
+    def in_count(self) -> int:
         """The number of inbound data events (example: packet count)."""
         return self._proto.dataInCount
 
     @property
-    def out_count(self):
+    def out_count(self) -> int:
         """The number of outbound data events (example: command count)."""
         return self._proto.dataOutCount
 
     @property
-    def actions(self):
+    def actions(self) -> List["LinkAction"]:
         """Custom actions."""
         return self._actions
 
     @property
-    def extra(self):
+    def extra(self) -> Dict[str, Any]:
         """Custom info fields."""
         return self._extra
 
@@ -280,27 +277,27 @@ class LinkAction:
         return str(self._proto)
 
     @property
-    def id(self):
+    def id(self) -> str:
         """Action ID"""
         return self._proto.id
 
     @property
-    def label(self):
+    def label(self) -> str:
         """Label for the action"""
         return self._proto.label
 
     @property
-    def style(self):
+    def style(self) -> str:
         """Action style"""
         return self._proto.style
 
     @property
-    def enabled(self):
+    def enabled(self) -> bool:
         """Whether the action is currently enabled"""
         return self._proto.enabled
 
     @property
-    def checked(self):
+    def checked(self) -> bool:
         """Whether the action is currently checked"""
         return self._proto.checked
 
@@ -310,12 +307,12 @@ class Instance:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this instance."""
         return self._proto.name
 
     @property
-    def state(self):
+    def state(self) -> str:
         """
         State of this instance. One of ``OFFLINE``, ``INITIALIZING``,
         ``INITIALIZED``, ``STARTING``, ``RUNNING``, ``STOPPING`` or
@@ -328,18 +325,16 @@ class Instance:
         return None
 
     @property
-    def failure_cause(self):
+    def failure_cause(self) -> Optional[str]:
         """Failure message when ``state == 'FAILED'``"""
         if self._proto.HasField("failureCause"):
             return self._proto.failureCause
         return None
 
     @property
-    def mission_time(self):
+    def mission_time(self) -> datetime.datetime:
         """
         Mission time of this instance's time service.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("missionTime"):
             return parse_server_time(self._proto.missionTime)
@@ -356,7 +351,7 @@ class InstanceTemplate:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this template."""
         return self._proto.name
 
@@ -371,37 +366,37 @@ class Service:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this service."""
         return self._proto.name
 
     @property
-    def instance(self):
+    def instance(self) -> str:
         """Name of the instance where this service is defined."""
         if self._proto.HasField("instance"):
             return self._proto.instance
         return None
 
     @property
-    def processor(self):
+    def processor(self) -> str:
         """Name of the processor where this service is defined."""
         if self._proto.HasField("processor"):
             return self._proto.processor
         return None
 
     @property
-    def class_name(self):
+    def class_name(self) -> str:
         """Name of this service's class."""
         return self._proto.className
 
     @property
-    def state(self):
+    def state(self) -> str:
         """State of this service."""
         if self._proto.HasField("state"):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
         return None
 
-    def failure_message(self):
+    def failure_message(self) -> Optional[str]:
         """
         Short failure message when state is ``FAILED``
 
@@ -412,7 +407,7 @@ class Service:
             return self._proto.failureMessage
         return None
 
-    def failure_cause(self):
+    def failure_cause(self) -> Optional[str]:
         """
         Java stacktrace when state is ``FAILED``
 
@@ -432,48 +427,46 @@ class Processor:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this processor."""
         return self._proto.name
 
     @property
-    def instance(self):
+    def instance(self) -> str:
         """Name of the instance where this processor is defined."""
         return self._proto.instance
 
     @property
-    def state(self):
+    def state(self) -> str:
         """State of this processor."""
         if self._proto.HasField("state"):
             return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
         return None
 
     @property
-    def type(self):
+    def type(self) -> str:
         """Type of this processor."""
         return self._proto.type
 
     @property
-    def owner(self):
+    def owner(self) -> str:
         """User that owns this processor."""
         return self._proto.creator
 
     @property
-    def persistent(self):
+    def persistent(self) -> bool:
         """If ``True``, this processor does not close if no clients are connected."""
         return self._proto.persistent
 
     @property
-    def protected(self):
+    def protected(self) -> bool:
         """If ``True``, this processor can not be deleted."""
         return self._proto.protected
 
     @property
-    def mission_time(self):
+    def mission_time(self) -> datetime.datetime:
         """
         Mission time of this processor.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("time"):
             return parse_server_time(self._proto.time)

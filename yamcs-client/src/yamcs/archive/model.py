@@ -1,3 +1,6 @@
+import datetime
+from typing import Any, List, Optional
+
 from google.protobuf.internal.decoder import _DecodeVarint32
 from yamcs.core.helpers import parse_server_time, parse_server_timestring, parse_value
 from yamcs.protobuf.table import table_pb2
@@ -8,7 +11,7 @@ class Table:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Table name."""
         return self._proto.name
 
@@ -21,7 +24,7 @@ class Stream:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Stream name."""
         return self._proto.name
 
@@ -34,12 +37,12 @@ class StreamData:
         self._proto = proto
 
     @property
-    def stream(self):
+    def stream(self) -> str:
         """Stream name."""
         return self._proto.stream
 
     @property
-    def columns(self):
+    def columns(self) -> List['ColumnData']:
         """Tuple columns."""
         return [ColumnData(c) for c in self._proto.column]
 
@@ -52,12 +55,12 @@ class ColumnData:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Column name."""
         return self._proto.name
 
     @property
-    def value(self):
+    def value(self) -> Any:
         """Value for this column."""
         return parse_value(self._proto.value)
 
@@ -104,23 +107,19 @@ class ResultSet:
                     yield values
 
     @property
-    def columns(self):
+    def columns(self) -> Optional[List[str]]:
         """
         Column names. This returns ``None`` as long as no row has
         been consumed yet.
-
-        :type: str[]
         """
         if self._columns_proto is not None:
             return [c.name for c in self._columns_proto]
         return None
 
     @property
-    def column_types(self):
+    def column_types(self) -> Optional[List[str]]:
         """
         Column types.
-
-        :type: str[]
         """
         if self._columns_proto is not None:
             return [c.type for c in self._columns_proto]
@@ -137,7 +136,7 @@ class IndexGroup:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         Name associated with this group. The meaning is defined
         by the objects represented by this index. For example:
@@ -150,11 +149,9 @@ class IndexGroup:
         return None
 
     @property
-    def records(self):
+    def records(self) -> List['IndexRecord']:
         """
         Index records within this group
-
-        :type: List[:class:`.IndexRecord`]
         """
         return [IndexRecord(rec) for rec in self._proto.entry]
 
@@ -173,25 +170,21 @@ class IndexRecord:
         self._proto = proto
 
     @property
-    def start(self):
+    def start(self) -> datetime.datetime:
         """
         Start time of the record
-
-        :type: :class:`~datetime.datetime`
         """
         return parse_server_timestring(self._proto.start)
 
     @property
-    def stop(self):
+    def stop(self) -> datetime.datetime:
         """
         Stop time of the record
-
-        :type: :class:`~datetime.datetime`
         """
         return parse_server_timestring(self._proto.stop)
 
     @property
-    def count(self):
+    def count(self) -> int:
         """
         Number of underlying objects this index record represents
         """
@@ -211,37 +204,35 @@ class Sample:
         self._proto = proto
 
     @property
-    def time(self):
+    def time(self) -> datetime.datetime:
         """
         Sample time.
-
-        :type: :class:`~datetime.datetime`
         """
         return parse_server_time(self._proto.time)
 
     @property
-    def avg(self):
+    def avg(self) -> Optional[float]:
         """Average value."""
         if self._proto.HasField("avg"):
             return self._proto.avg
         return None
 
     @property
-    def min(self):
+    def min(self) -> Optional[float]:
         """Minimum value."""
         if self._proto.HasField("min"):
             return self._proto.min
         return None
 
     @property
-    def max(self):
+    def max(self) -> Optional[float]:
         """Maximum value."""
         if self._proto.HasField("max"):
             return self._proto.max
         return None
 
     @property
-    def parameter_count(self):
+    def parameter_count(self) -> int:
         """The number of parameter values this sample represents."""
         return self._proto.n
 
@@ -259,12 +250,12 @@ class ParameterRangeEntry:
         self._proto = proto
 
     @property
-    def eng_value(self):
+    def eng_value(self) -> Any:
         """The engineering (calibrated) value."""
         return parse_value(self._proto.engValue)
 
     @property
-    def parameter_count(self):
+    def parameter_count(self) -> int:
         """The number of received parameter values during this range."""
         return self._proto.count
 
@@ -282,25 +273,21 @@ class ParameterRange:
         self._proto = proto
 
     @property
-    def start(self):
+    def start(self) -> datetime.datetime:
         """
         Start time of this range (inclusive).
-
-        :type: :class:`~datetime.datetime`
         """
         return parse_server_timestring(self._proto.timeStart)
 
     @property
-    def stop(self):
+    def stop(self) -> datetime.datetime:
         """
         Stop time of this range (exclusive).
-
-        :type: :class:`~datetime.datetime`
         """
         return parse_server_timestring(self._proto.timeStop)
 
     @property
-    def eng_value(self):
+    def eng_value(self) -> Optional[Any]:
         """
         The engineering (calibrated) value within this range.
 
@@ -322,21 +309,19 @@ class ParameterRange:
             return None
 
     @property
-    def parameter_count(self):
+    def parameter_count(self) -> int:
         """
         The total number of parameter values within this range.
         """
         return self._proto.count
 
     @property
-    def entries(self):
+    def entries(self) -> List[ParameterRangeEntry]:
         """
         Value distribution within this range.
 
         Unless the request was made using ``min_range`` option,
         there should be only one entry only.
-
-        :type: List[:class:`ParameterRangeEntry`]
         """
         return [ParameterRangeEntry(proto) for proto in self._proto.engValues]
 

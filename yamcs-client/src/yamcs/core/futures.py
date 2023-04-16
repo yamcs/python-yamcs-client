@@ -2,6 +2,7 @@ import threading
 from concurrent.futures import Future
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
+from yamcs.core.subscriptions import WebSocketSubscriptionManager
 
 
 class WebSocketSubscriptionFuture(Future):
@@ -9,7 +10,7 @@ class WebSocketSubscriptionFuture(Future):
     Future for capturing the asynchronous execution of a WebSocket subscription.
     """
 
-    def __init__(self, manager):
+    def __init__(self, manager: WebSocketSubscriptionManager):
         super(WebSocketSubscriptionFuture, self).__init__()
         self.ctx = manager.ctx
         self._manager = manager

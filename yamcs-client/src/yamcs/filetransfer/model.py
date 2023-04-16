@@ -1,5 +1,7 @@
+import datetime
 import threading
 from enum import Enum
+from typing import Any, Callable, List, Mapping, Optional
 
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.filetransfer import filetransfer_pb2
@@ -12,83 +14,87 @@ class Service:
         self._local_entities = [EntityInfo(entity) for entity in proto.localEntities]
         self._remote_entities = [EntityInfo(entity) for entity in proto.remoteEntities]
         self._capabilities = FileTransferCapabilities(proto.capabilities)
-        self._transfer_options = [FileTransferOption(option) for option in
-                                  proto.transferOptions]
+        self._transfer_options = [
+            FileTransferOption(option) for option in proto.transferOptions
+        ]
 
     @property
-    def instance(self):
+    def instance(self) -> str:
         """Instance of the service"""
         return self._proto.instance
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this service."""
         return self._proto.name
 
     @property
-    def local_entities(self):
+    def local_entities(self) -> List["EntityInfo"]:
         """List of local entities"""
         return self._local_entities
 
     @property
-    def remote_entities(self):
+    def remote_entities(self) -> List["EntityInfo"]:
         """List of remote entities"""
         return self._remote_entities
 
     @property
-    def capabilities(self):
+    def capabilities(self) -> "FileTransferCapabilities":
         """Transfer capabilities"""
         return self._capabilities
 
     @property
-    def transfer_options(self):
+    def transfer_options(self) -> List["FileTransferOption"]:
         """List of possible transfer options"""
         return self._transfer_options
 
     def upload(
         self,
-        bucket_name,
-        object_name,
-        remote_path,
-        source_entity=None,
-        destination_entity=None,
-        overwrite=True,
-        parents=True,
-        reliable=False,
-        options=None,
-    ):
+        bucket_name: str,
+        object_name: str,
+        remote_path: str,
+        source_entity: Optional[str] = None,
+        destination_entity: Optional[str] = None,
+        overwrite: bool = True,
+        parents: bool = True,
+        reliable: bool = False,
+        options: Optional[Mapping[str, Any]] = None,
+    ) -> "Transfer":
         """
         Uploads a file located in a bucket to a remote destination path.
 
         .. warning::
-            Prefer the use of 'options' instead of the parameters
-            overwrite, parents and reliable (deprecated parameters)
+            Prefer the use of ``options`` instead of the deprecated params
+            ``overwrite``, ``parents`` and ``reliable``.
 
-        :param str bucket_name: Name of the bucket containing the source object.
-        :param str object_name: Name of the source object.
-        :param str remote_path: Remote destination.
-        :param str source_entity: Use a specific source entity.
-                                  (useful in case of multiples)
-        :param str destination_entity: Use a specific destination entity.
-                                       (useful in case of multiples)
-        :param bool overwrite:
+        :param bucket_name:
+            Name of the bucket containing the source object.
+        :param object_name:
+            Name of the source object.
+        :param remote_path:
+            Remote destination.
+        :param source_entity:
+            Use a specific source entity. (useful in case of multiples)
+        :param destination_entity:
+            Use a specific destination entity. (useful in case of multiples)
+        :param overwrite:
             Replace file if it already exists.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: overwrite)
-        :param bool parents:
+                Use ``options`` instead (option name: ``overwrite``)
+        :param parents:
             Create the remote path if it does not yet exist.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: createPath)
-        :param bool reliable:
+                Use ``options`` instead (option name: ``createPath``)
+        :param reliable:
             Enable reliable transfers.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: reliable)
-        :param options: file transfer options dict (may overwrite "overwrite", "parents"
-                        or "reliable" parameters if set in these options).
-        :rtype: .Transfer
+                Use ``options`` instead (option name: ``reliable``)
+        :param options:
+            file transfer options dict (may overwrite "overwrite", "parents"
+            or "reliable" parameters if set in these options).
         """
         return self._service_client.upload(
             bucket_name=bucket_name,
@@ -104,48 +110,51 @@ class Service:
 
     def download(
         self,
-        bucket_name,
-        remote_path,
-        object_name=None,
-        source_entity=None,
-        destination_entity=None,
-        overwrite=True,
-        parents=True,
-        reliable=False,
-        options=None,
-    ):
+        bucket_name: str,
+        remote_path: str,
+        object_name: Optional[str] = None,
+        source_entity: Optional[str] = None,
+        destination_entity: Optional[str] = None,
+        overwrite: bool = True,
+        parents: bool = True,
+        reliable: bool = False,
+        options: Optional[Mapping[str, Any]] = None,
+    ) -> "Transfer":
         """
         Downloads a file from the source to a bucket.
 
         .. warning::
-            Prefer the use of 'options' instead of the parameters
-            overwrite, parents and reliable (deprecated parameters)
+            Prefer the use of ``options`` instead of the deprecated
+            params ``overwrite``, ``parents`` and ``reliable``.
 
-        :param str bucket_name: Name of the bucket to receive the file.
-        :param str object_name: Name of the file received in the bucket.
-        :param str remote_path: Name of the file to be downloaded from the source.
-        :param str source_entity: Use a specific source entity.
-                                  (useful in case of multiples)
-        :param str destination_entity: Use a specific destination entity.
-                                       (useful in case of multiples)
-        :param bool overwrite:
+        :param bucket_name:
+            Name of the bucket to receive the file.
+        :param object_name:
+            Name of the file received in the bucket.
+        :param remote_path:
+            Name of the file to be downloaded from the source.
+        :param source_entity:
+            Use a specific source entity. (useful in case of multiples)
+        :param destination_entity:
+            Use a specific destination entity. (useful in case of multiples)
+        :param overwrite:
             Replace file if it already exists.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: overwrite)
-        :param bool parents:
+                Use ``options`` instead (option name: ``overwrite``)
+        :param parents:
             Create the remote path if it does not yet exist.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: createPath)
-        :param bool reliable:
+                Use ``options`` instead (option name: ``createPath``)
+        :param reliable:
             Enable reliable transfers.
 
             .. deprecated:: 1.8.6
-                Use options instead (option name: reliable)
-        :param options: file transfer options dict (may overwrite "overwrite", "parents"
-                        or "reliable" parameters if set in these options).
-        :rtype: .Transfer
+                Use ``options`` instead (option name: ``reliable``)
+        :param options:
+            File transfer options dict (may overwrite ``overwrite``, ``parents``
+            or ``reliable`` parameters if set in these options).
         """
         return self._service_client.download(
             bucket_name=bucket_name,
@@ -159,34 +168,50 @@ class Service:
             options=options,
         )
 
-    def fetch_filelist(self, remote_path, source_entity=None,
-                       destination_entity=None, options=None):
+    def fetch_filelist(
+        self,
+        remote_path: str,
+        source_entity: Optional[str] = None,
+        destination_entity: Optional[str] = None,
+        options: Optional[Mapping[str, Any]] = None,
+    ):
         """
         Sends a request to fetch the directory listing from the remote (destination).
 
-        :param remote_path: path on the remote destination to get the file list
-        :param source_entity: source entity requesting the file list
-        :param destination_entity: destination entity from which the file list is needed
-        :param options: option dictionary
-        :return: None
+        :param remote_path:
+            path on the remote destination to get the file list
+        :param source_entity:
+            source entity requesting the file list
+        :param destination_entity:
+            destination entity from which the file list is needed
+        :param options:
+            option dictionary
         """
-        return self._service_client.fetch_filelist(
+        self._service_client.fetch_filelist(
             remote_path=remote_path,
             source_entity=source_entity,
             destination_entity=destination_entity,
             options=options,
         )
 
-    def get_filelist(self, remote_path, source_entity=None, destination_entity=None,
-                     options=None):
+    def get_filelist(
+        self,
+        remote_path: str,
+        source_entity: Optional[str] = None,
+        destination_entity: Optional[str] = None,
+        options: Optional[Mapping[str, Any]] = None,
+    ) -> "RemoteFileListing":
         """
         Returns the latest directory listing for the given destination.
 
-        :param remote_path: path on the remote destination to get the file list
-        :param source_entity: source entity requesting the file list
-        :param destination_entity: destination entity from which the file list is needed
-        :param options: option dictionary
-        :return: .RemoteFileListing
+        :param remote_path:
+            path on the remote destination to get the file list
+        :param source_entity:
+            source entity requesting the file list
+        :param destination_entity:
+            destination entity from which the file list is needed
+        :param options:
+            option dictionary
         """
         return self._service_client.get_filelist(
             remote_path=remote_path,
@@ -195,53 +220,61 @@ class Service:
             options=options,
         )
 
-    def pause_transfer(self, id):
+    def pause_transfer(self, id: str):
         """
         Pauses a transfer
         """
         self._service_client.pause_transfer(id)
 
-    def resume_transfer(self, id):
+    def resume_transfer(self, id: str):
         """
         Resume a transfer
         """
         self._service_client.resume_transfer(id)
 
-    def cancel_transfer(self, id):
+    def cancel_transfer(self, id: str):
         """
         Cancel a transfer
         """
         self._service_client.cancel_transfer(id)
 
-    def create_transfer_subscription(self, on_data=None, timeout=60):
+    def create_transfer_subscription(
+        self,
+        on_data: Optional[Callable[["Transfer"], None]] = None,
+        timeout: float = 60,
+    ):
         """
         Create a new transfer subscription.
 
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.TransferInfo` updates.
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: float
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .TransferSubscription
+        :param on_data:
+            Function that gets called with :class:`.Transfer` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription
+        :rtype: yamcs.filetransfer.client.TransferSubscription
         """
         return self._service_client.create_transfer_subscription(
             on_data=on_data, timeout=timeout
         )
 
-    def create_filelist_subscription(self, on_data=None, timeout=60):
+    def create_filelist_subscription(
+        self,
+        on_data: Optional[Callable[["RemoteFileListing"], None]] = None,
+        timeout: float = 60,
+    ):
         """
         Create a new filelist subscription.
 
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.TransferInfo` updates.
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: float
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .FileListSubscription
+        :param on_data:
+            Function that gets called with :class:`.Transfer` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription
+        :rtype: yamcs.filetransfer.client.FileListSubscription
         """
         return self._service_client.create_filelist_subscription(
             on_data=on_data, timeout=timeout
@@ -256,12 +289,12 @@ class EntityInfo:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of the entity"""
         return self._proto.name
 
     @property
-    def id(self):
+    def id(self) -> str:
         """Entity ID"""
         return self._proto.id
 
@@ -274,33 +307,32 @@ class FileTransferCapabilities:
         return str(self._proto)
 
     @property
-    def upload(self):
+    def upload(self) -> bool:
         return self._proto.upload
 
     @property
-    def download(self):
+    def download(self) -> bool:
         return self._proto.download
 
     @property
-    def reliability(self):
+    def reliability(self) -> bool:
         """Deprecated, use FileTransferOption"""
         return self._proto.reliability
 
     @property
-    def remote_path(self):
+    def remote_path(self) -> bool:
         return self._proto.remotePath
 
     @property
-    def filelist(self):
+    def filelist(self) -> bool:
         return self._proto.fileList
 
     @property
-    def has_transfer_type(self):
+    def has_transfer_type(self) -> bool:
         return self._proto.has_transfer_type
 
 
 class FileTransferOption:
-
     class Type(Enum):
         BOOLEAN = 0
         DOUBLE = 1
@@ -314,31 +346,33 @@ class FileTransferOption:
             self._type = FileTransferOption.Type.DOUBLE
         else:
             self._type = FileTransferOption.Type.STRING
-        self._values = [{"value": item.value, "verbose_name": item.verboseName} for
-                        item in proto.values]
+        self._values = [
+            {"value": item.value, "verbose_name": item.verboseName}
+            for item in proto.values
+        ]
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of the option"""
         return self._proto.name
 
     @property
-    def type(self):
+    def type(self) -> str:
         """Type of the option"""
         return self._type
 
     @property
-    def description(self):
+    def description(self) -> str:
         """Description for the option"""
         return self._proto.description
 
     @property
-    def associated_text(self):
+    def associated_text(self) -> str:
         """Text associated with the option"""
         return self._proto.associatedText
 
     @property
-    def default(self):
+    def default(self) -> Any:
         """Default value for the option"""
         return self._proto.default
 
@@ -348,7 +382,7 @@ class FileTransferOption:
         return self._values
 
     @property
-    def allow_custom_option(self):
+    def allow_custom_option(self) -> bool:
         """Whether using different values from the pre-set ones is allowed"""
         return self._proto.allowCustomOption
 
@@ -366,67 +400,69 @@ class Transfer:
         self._service_client = service_client
 
     @property
-    def id(self):
+    def id(self) -> str:
         """Yamcs-local transfer identifier."""
         return self._proto.id
 
     @property
-    def bucket(self):
+    def bucket(self) -> str:
         return self._proto.bucket
 
     @property
-    def object_name(self):
+    def object_name(self) -> str:
         return self._proto.objectName
 
     @property
-    def remote_path(self):
+    def remote_path(self) -> str:
         return self._proto.remotePath
 
     @property
-    def time(self):
+    def time(self) -> Optional[datetime.datetime]:
         """Time when the transfer was started."""
         if self._proto.HasField("startTime"):
             return parse_server_time(self._proto.startTime)
         return None
 
     @property
-    def reliable(self):
+    def reliable(self) -> bool:
         """True if this is a Class 2 CFDP transfer."""
         return self._proto.reliable
 
     @property
-    def state(self):
+    def state(self) -> Optional[str]:
         """Current transfer state."""
         if self._proto.HasField("state"):
             return filetransfer_pb2.TransferState.Name(self._proto.state)
         return None
 
     @property
-    def size(self):
+    def size(self) -> int:
         """Total bytes to transfer."""
         return self._proto.totalSize
 
     @property
-    def transferred_size(self):
+    def transferred_size(self) -> int:
         """Total bytes already transferred."""
         return self._proto.sizeTransferred
 
-    def is_complete(self):
+    def is_complete(self) -> bool:
         """
         Returns whether this transfer is complete. A transfer
         can be completed, yet still failed.
         """
         return self.state == "FAILED" or self.state == "COMPLETED"
 
-    def is_success(self):
+    def is_success(self) -> bool:
         """
         Returns true if this transfer was completed successfully.
         """
         return self.state == "COMPLETED"
 
     @property
-    def error(self):
-        """Error message in case the transfer failed."""
+    def error(self) -> Optional[str]:
+        """
+        Error message in case the transfer failed.
+        """
         if self.state == "FAILED" and self._proto.HasField("failureReason"):
             return self._proto.failureReason
         return None
@@ -449,11 +485,12 @@ class Transfer:
         """
         self._service_client.cancel_transfer(self.id)
 
-    def await_complete(self, timeout=None):
+    def await_complete(self, timeout: Optional[float] = None):
         """
         Wait for the transfer to be completed.
 
-        :param float timeout: The amount of seconds to wait.
+        :param timeout:
+            The amount of seconds to wait.
         """
         completed = threading.Event()
 
@@ -480,27 +517,28 @@ class RemoteFileListing:
     """
     Represents a list of files from a remote.
     """
+
     def __init__(self, proto):
         self._proto = proto
         self._files = [RemoteFile(file) for file in proto.files]
 
     @property
-    def files(self):
+    def files(self) -> List["RemoteFile"]:
         """List of files"""
         return self._files
 
     @property
-    def destination(self):
+    def destination(self) -> str:
         """Remote destination of the file list"""
         return self._proto.destination
 
     @property
-    def remote_path(self):
+    def remote_path(self) -> str:
         """Remote directory of the file list"""
         return self._proto.remotePath
 
     @property
-    def list_time(self):
+    def list_time(self) -> datetime.datetime:
         """Time the file list was made"""
         return parse_server_time(self._proto.listTime)
 
@@ -509,25 +547,26 @@ class RemoteFile:
     """
     Represents a file on a remote entity.
     """
+
     def __init__(self, proto):
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of the file"""
         return self._proto.name
 
     @property
-    def is_directory(self):
+    def is_directory(self) -> bool:
         """Whether the file is a directory"""
         return self._proto.isDirectory
 
     @property
-    def size(self):
+    def size(self) -> int:
         """File size in bytes"""
         return self._proto.size
 
     @property
-    def modified(self):
+    def modified(self) -> datetime.datetime:
         """Latest modification time of the file"""
         return parse_server_time(self._proto.modified)

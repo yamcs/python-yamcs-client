@@ -1,5 +1,7 @@
 import functools
+from typing import Callable, Mapping, Optional
 
+from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.link.model import Cop1Config, Cop1Status
@@ -30,40 +32,38 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         super(Cop1Subscription, self).__init__(manager)
         self._status = None
 
-    def get_status(self):
+    def get_status(self) -> Cop1Status:
         """
         Returns the latest known COP1 status.
-
-        :rtype: .Cop1Status
         """
         return self._status
 
     @property
-    def cop1_active(self):
+    def cop1_active(self) -> bool:
         if self._status:
             return self._status.cop1_active
         return None
 
     @property
-    def state(self):
+    def state(self) -> str:
         if self._status:
             return self._status.state
         return None
 
     @property
-    def bypass_all(self):
+    def bypass_all(self) -> bool:
         if self._status:
             return self._status.bypass_all
         return None
 
     @property
-    def v_s(self):
+    def v_s(self) -> int:
         if self._status:
             return self._status.v_s
         return None
 
     @property
-    def nn_r(self):
+    def nn_r(self) -> int:
         if self._status:
             return self._status.nn_r
         return None
@@ -75,17 +75,15 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
 class LinkClient:
     """Client object that groups operations for a specific link."""
 
-    def __init__(self, ctx, instance, link):
+    def __init__(self, ctx: Context, instance: str, link: str):
         super(LinkClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
         self._link = link
 
-    def get_info(self):
+    def get_info(self) -> Link:
         """
         Get info on this link.
-
-        :rtype: .Link
         """
         response = self.ctx.get_proto(f"/links/{self._instance}/{self._link}")
         message = links_pb2.LinkInfo()
@@ -108,12 +106,14 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def run_action(self, action, message=None):
+    def run_action(self, action: str, message: Optional[Mapping] = None):
         """
         Runs the given action for this link
 
-        :param str action: action identifier
-        :param dict message: action message
+        :param action:
+            action identifier
+        :param message:
+            action message
         """
         req = links_pb2.RunActionRequest()
         if message:
@@ -122,11 +122,9 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}/actions/{action}"
         self.ctx.post_proto(url, data=req.message.SerializeToString())
 
-    def get_cop1_config(self):
+    def get_cop1_config(self) -> Cop1Config:
         """
         Gets the COP1 configuration for a data link.
-
-        :rtype: .Cop1Config
         """
         response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/config")
         message = cop1_pb2.Cop1Config()
@@ -135,15 +133,13 @@ class LinkClient:
 
     def update_cop1_config(
         self,
-        window_width=None,
-        timeout_type=None,
-        tx_limit=None,
-        t1=None,
-    ):
+        window_width: Optional[int] = None,
+        timeout_type: Optional[str] = None,
+        tx_limit: Optional[int] = None,
+        t1: Optional[float] = None,
+    ) -> Cop1Config:
         """
         Sets the COP1 configuration for a data link.
-
-        :rtype: .Cop1Config
         """
         req = cop1_pb2.Cop1Config()
         if window_width is not None:
@@ -162,27 +158,35 @@ class LinkClient:
         message.ParseFromString(response.content)
         return Cop1Config(message)
 
-    def disable_cop1(self, bypass_all=True):
+    def disable_cop1(self, bypass_all: bool = True):
         """
         Disable COP1 for a data link.
 
-        :param bool bypass_all: All frames have bypass activated
-                                (i.e. they will be BD frames)
+        :param bypass_all:
+            All frames have bypass activated (i.e. they will be BD frames)
         """
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = bypass_all
         url = f"/cop1/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def initialize_cop1(self, type, clcw_wait_timeout=None, v_r=None):
+    def initialize_cop1(
+        self,
+        type: str,
+        clcw_wait_timeout: Optional[int] = None,
+        v_r: Optional[int] = None,
+    ):
         """
         Initialize COP1.
 
-        :param str type: One of ``WITH_CLCW_CHECK``, ``WITHOUT_CLCW_CHECK``,
-                         ``UNLOCK`` or ``SET_VR``
-        :param int clcw_wait_timeout: timeout in seconds used for the reception of
-                                      CLCW. Required if type is ``WITH_CLCW_CHECK``
-        :param int v_r: value of v(R) if type is set to ``SET_VR``
+        :param type:
+            One of ``WITH_CLCW_CHECK``, ``WITHOUT_CLCW_CHECK``,
+            ``UNLOCK`` or ``SET_VR``
+        :param clcw_wait_timeout:
+            timeout in seconds used for the reception of
+            CLCW. Required if type is ``WITH_CLCW_CHECK``
+        :param v_r:
+            value of v(R) if type is set to ``SET_VR``
         """
         req = cop1_pb2.InitializeRequest()
         req.type = cop1_pb2.InitializationType.Value(type)
@@ -203,32 +207,31 @@ class LinkClient:
         url = f"/cop1/{self._instance}/{self._link}:resume"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def get_cop1_status(self):
+    def get_cop1_status(self) -> Cop1Status:
         """
         Retrieve the COP1 status.
-
-        :rtype: .Cop1Status
         """
         response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/status")
         message = cop1_pb2.Cop1Status()
         message.ParseFromString(response.content)
         return Cop1Status(message)
 
-    def create_cop1_subscription(self, on_data, timeout=60):
+    def create_cop1_subscription(
+        self, on_data: Callable[[Cop1Status], None], timeout: float = 60
+    ) -> Cop1Subscription:
         """
         Create a new subscription for receiving status of the COP1 link.
 
         This method returns a future, then returns immediately. Stop the
         subscription by canceling the future.
 
-        :param on_data: Function that gets called on each :class:`.Cop1Status`.
-        :type on_data: Optional[Callable[.Cop1Status])
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: Optional[float]
-        :return: Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .Cop1Subscription
+        :param on_data:
+            Function that gets called on each :class:`.Cop1Status`.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = cop1_pb2.SubscribeStatusRequest()
         options.instance = self._instance

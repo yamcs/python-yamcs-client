@@ -4,7 +4,9 @@ import datetime
 import functools
 import json
 import threading
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Tuple, Union
 
+from yamcs.core.context import Context
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import (
@@ -23,6 +25,7 @@ from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.processing import mdb_override_service_pb2, processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.tmtc.model import (
+    Alarm,
     AlarmUpdate,
     Calibrator,
     CommandHistory,
@@ -32,7 +35,9 @@ from yamcs.tmtc.model import (
     Packet,
     ParameterData,
     ParameterValue,
+    RangeSet,
     ValueUpdate,
+    VerificationConfig,
     _parse_alarm,
 )
 
@@ -247,9 +252,9 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         information may be incomplete.
     """
 
-    def __init__(self, manager):
+    def __init__(self, manager: WebSocketSubscriptionManager):
         super(CommandHistorySubscription, self).__init__(manager)
-        self._cache = {}
+        self._cache: Dict[str, CommandHistory] = {}
 
     def clear_cache(self):
         """
@@ -257,19 +262,18 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         """
         self._cache = {}
 
-    def get_command_history(self, issued_command):
+    def get_command_history(self, issued_command: IssuedCommand) -> CommandHistory:
         """
         Gets locally cached CommandHistory for the specified command.
 
-        :param .IssuedCommand issued_command: object representing a
-                                              previously issued command.
-        :rtype: .CommandHistory
+        :param issued_command:
+            object representing a previously issued command.
         """
         if issued_command.id in self._cache:
             return self._cache[issued_command.id]
         return None
 
-    def _process(self, entry):
+    def _process(self, entry) -> CommandHistory:
         if entry.id in self._cache:
             cmdhist = self._cache[entry.id]
             cmdhist._update(entry.attr)
@@ -285,29 +289,27 @@ class ContainerSubscription(WebSocketSubscriptionFuture):
     Local object providing access to container updates
     """
 
-    def __init__(self, manager):
+    def __init__(self, manager: WebSocketSubscriptionManager):
         super(ContainerSubscription, self).__init__(manager)
-        self._cache = {}
+        self._cache: Dict[str, ContainerData] = {}
         """Container cache keyed by container name."""
 
-    def get_container(self, name):
+    def get_container(self, name: str) -> ContainerData:
         """
         Returns the latest container of a specific name.
 
-        :param str name: Container name
-        :rtype: .ContainerData
+        :param name:
+            Container name
         """
         return self._cache[name]
 
-    def list_containers(self):
+    def list_containers(self) -> List[ContainerData]:
         """
         Returns the latest container for each name.
-
-        :rtype: .ContainerData[]
         """
         return [self._cache[k] for k in self._cache]
 
-    def _process(self, proto):
+    def _process(self, proto) -> ContainerData:
         container = ContainerData(proto)
         self._cache[container.name] = container
         return container
@@ -321,31 +323,35 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
     subscribed parameter.
     """
 
-    def __init__(self, manager):
+    def __init__(self, manager: WebSocketSubscriptionManager):
         super(ParameterSubscription, self).__init__(manager)
         self._mapping = {}
         """Mapping from server-assigned identifier, to requested parameter"""
 
-        self.value_cache = {}
+        self.value_cache: Dict[str, ParameterValue] = {}
         """Value cache keyed by parameter name."""
 
-        self.delivery_count = 0
+        self.delivery_count: int = 0
         """The number of parameter deliveries."""
 
-    def add(self, parameters, abort_on_invalid=True, send_from_cache=True):
+    def add(
+        self,
+        parameters: Union[str, List[str]],
+        abort_on_invalid: bool = True,
+        send_from_cache: bool = True,
+    ):
         """
         Add one or more parameters to this subscription.
 
-        :param parameters: Parameter(s) to be added
-        :type parameters: Union[str, str[]]
-        :param bool abort_on_invalid: If ``True`` one invalid parameter
-                                      means any other parameter in the
-                                      request will also not be added
-                                      to the subscription.
-        :param bool send_from_cache: If ``True`` the last processed parameter
-                                     value is sent from parameter cache.
-                                     When ``False`` only newly processed
-                                     parameters are received.
+        :param parameters:
+            Parameter(s) to be added
+        :param abort_on_invalid:
+            If ``True`` one invalid parameter means any other parameter in the
+            request will also not be added to the subscription.
+        :param send_from_cache:
+            If ``True`` the last processed parameter value is sent from
+            parameter cache. When ``False`` only newly processed parameters
+            are received.
         """
         if not parameters:
             return
@@ -358,12 +364,12 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
 
         self._manager.send(options)
 
-    def remove(self, parameters):
+    def remove(self, parameters: Union[str, List[str]]):
         """
         Remove one or more parameters from this subscription.
 
-        :param parameters: Parameter(s) to be removed
-        :type parameters: Union[str, str[]]
+        :param parameters:
+            Parameter(s) to be removed
         """
         if not parameters:
             return
@@ -374,12 +380,12 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
 
         self._manager.send(options)
 
-    def get_value(self, parameter):
+    def get_value(self, parameter: str):
         """
         Returns the last value of a specific parameter from local cache.
 
-        :param string parameter: Parameter name.
-        :rtype: .ParameterValue
+        :param parameter:
+            Parameter name.
         """
         return self.value_cache[parameter]
 
@@ -415,47 +421,46 @@ class CommandConnection(WebSocketSubscriptionFuture):
 
     def issue(
         self,
-        command,
-        args=None,
-        dry_run=False,
-        comment=None,
-        verification=None,
-        extra=None,
-        sequence_number=None,
-    ):
+        command: str,
+        args: Optional[Mapping[str, Any]] = None,
+        dry_run: bool = False,
+        comment: Optional[str] = None,
+        verification: Optional[VerificationConfig] = None,
+        extra: Optional[Mapping[str, Any]] = None,
+        sequence_number: Optional[int] = None,
+    ) -> MonitoredCommand:
         """
         Issue the given command
 
-        :param str command: Either a fully-qualified XTCE name or an alias in the
-                            format ``NAMESPACE/NAME``.
-        :param dict args: Named arguments (if the command requires these)
-        :param bool dry_run: If ``True`` the command is not actually issued. This
-                             can be used to test if the server would generate
-                             errors when preparing the command (for example
-                             because an argument is missing).
-        :param str comment: Comment attached to the command.
-        :param .VerificationConfig verification: Overrides to the default
-                                                 verification handling of this
-                                                 command.
-        :param dict extra: Extra command options for interpretation by non-core
-                           extensions (custom preprocessor, datalinks, command
-                           listeners).
-                           Note that Yamcs will refuse command options that it
-                           does now know about. Extensions should therefore
-                           register available options.
+        :param command:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param args:
+            Named arguments (if the command requires these).
+        :param dry_run:
+            If ``True`` the command is not actually issued. This can be used
+            to test if the server would generate errors when preparing the
+            command (for example because an argument is missing).
+        :param comment:
+            Comment attached to the command.
+        :param verification:
+            Overrides to the default verification handling of this command.
+        :param extra:
+            Extra command options for interpretation by non-core extensions
+            (custom preprocessor, datalinks, command listeners). Note that
+            Yamcs will refuse command options that it does now know about.
+            Extensions should therefore register available options.
+        :param sequence_number:
+            Sequence number of this command. This is used to determine unicity
+            of commands at the same time and coming from the same origin. If
+            not set Yamcs will automatically assign a sequential number as if
+            every submitted command is unique.
 
-        :param sequence_number: Sequence number of this command. This is used to
-                                determine unicity of commands at the same time and
-                                coming from the same origin. If not set Yamcs
-                                will automatically assign a sequential number as
-                                if every submitted command is unique.
+            .. versionadded:: 1.8.9
 
-                                .. versionadded:: 1.8.9
-        :type sequence_number: Optional[int]
-
-        :return: An object providing access to properties of the newly issued
-                 command and updated according to command history updates.
-        :rtype: .MonitoredCommand
+        :return:
+            An object providing access to properties of the newly issued
+            command and updated according to command history updates.
         """
         issued_command = self._tmtc_client.issue_command(
             command,
@@ -507,21 +512,19 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
         self._cache = {}
         """Value cache keyed by alarm name."""
 
-    def get_alarm(self, name):
+    def get_alarm(self, name: str) -> Alarm:
         """
         Returns the alarm state associated with a specific named
         alarm from local cache.
 
-        :param str name: Fully-qualified name
-        :rtype: .Alarm
+        :param name:
+            Fully-qualified name
         """
         return self._cache[name]
 
-    def list_alarms(self):
+    def list_alarms(self) -> List[Alarm]:
         """
         Returns a snapshot of all active alarms.
-
-        :rtype: .Alarm[]
         """
         return [self._cache[k] for k in self._cache]
 
@@ -536,25 +539,29 @@ class AlarmSubscription(WebSocketSubscriptionFuture):
 class ProcessorClient:
     """Client object that groups operations linked to a specific processor."""
 
-    def __init__(self, ctx, instance, processor):
+    def __init__(self, ctx: Context, instance: str, processor: str):
         super(ProcessorClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
         self._processor = processor
 
-    def get_parameter_value(self, parameter, from_cache=True, timeout=10):
+    def get_parameter_value(
+        self, parameter: str, from_cache: bool = True, timeout: float = 10
+    ) -> Optional[ParameterValue]:
         """
         Retrieve the current value of the specified parameter.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias in the
-                              format ``NAMESPACE/NAME``.
-        :param bool from_cache: If ``False`` this call will block until a
-                                fresh value is received on the processor.
-                                If ``True`` the server returns the latest
-                                value instead (which may be ``None``).
-        :param float timeout: The amount of seconds to wait for a fresh value.
-                              (ignored if ``from_cache=True``).
-        :rtype: .ParameterValue
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param from_cache:
+            If ``False`` this call will block until a
+            fresh value is received on the processor.
+            If ``True`` the server returns the latest
+            value instead (which may be ``None``).
+        :param timeout:
+            The amount of seconds to wait for a fresh value.
+            (ignored if ``from_cache=True``).
         """
         params = {
             "fromCache": from_cache,
@@ -572,23 +579,28 @@ class ProcessorClient:
             return ParameterValue(proto)
         return None
 
-    def get_parameter_values(self, parameters, from_cache=True, timeout=10):
+    def get_parameter_values(
+        self, parameters: List[str], from_cache: bool = True, timeout: float = 10
+    ) -> List[Optional[ParameterValue]]:
         """
         Retrieve the current value of the specified parameter.
 
-        :param str[] parameters: List of parameter names. These may be
-                                 fully-qualified XTCE name or an alias
-                                 in the format ``NAMESPACE/NAME``.
-        :param bool from_cache: If ``False`` this call will block until
-                                fresh values are received on the processor.
-                                If ``True`` the server returns the latest
-                                value instead (which may be ``None``).
-        :param float timeout: The amount of seconds to wait for a fresh
-                              values (ignored if ``from_cache=True``).
-        :return: A list that matches the length and order of the requested
-                 list of parameters. Each entry contains either the
-                 returned parameter value, or ``None``.
-        :rtype: .ParameterValue[]
+        :param parameters:
+            List of parameter names. These may be
+            fully-qualified XTCE name or an alias
+            in the format ``NAMESPACE/NAME``.
+        :param from_cache:
+            If ``False`` this call will block until
+            fresh values are received on the processor.
+            If ``True`` the server returns the latest
+            value instead (which may be ``None``).
+        :param timeout:
+            The amount of seconds to wait for a fresh
+            values (ignored if ``from_cache=True``).
+        :return:
+            A list that matches the length and order of the requested
+            list of parameters. Each entry contains either the
+            returned parameter value, or ``None``.
         """
         req = processing_pb2.BatchGetParameterValuesRequest()
         req.id.extend(to_named_object_ids(parameters))
@@ -609,26 +621,37 @@ class ProcessorClient:
             pvals.append(ParameterValue(match) if match else None)
         return pvals
 
-    def set_parameter_value(self, parameter, value, generation_time=None):
+    def set_parameter_value(
+        self,
+        parameter: str,
+        value: Any,
+        generation_time: Optional[datetime.datetime] = None,
+    ):
         """
         Sets the value of the specified parameter.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias in the
-                              format ``NAMESPACE/NAME``.
-        :param value: The value to set
-        :param generation_time: Generation time of the values. If unset, Yamcs will
-                                assign the generation time.
-        :type generation_time: Optional[~datetime.datetime]
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param value:
+            The value to set.
+        :param generation_time:
+            Generation time of the value. If unset, Yamcs will assign the
+            generation time.
         """
         self.set_parameter_values({parameter: value}, generation_time)
 
-    def set_parameter_values(self, values, generation_time=None):
+    def set_parameter_values(
+        self,
+        values: Mapping[str, Any],
+        generation_time: Optional[datetime.datetime] = None,
+    ):
         """
         Sets the value of multiple parameters.
 
         Values are specified with their native Python types. If you need
-        to customize individual value generation times, use :class:`.ValueUpdate`
-        instead.
+        to customize individual value generation times, use
+        :class:`.ValueUpdate` instead.
 
         The method argument ``generation_time`` can be used to specify a custom
         generation time for all values at once. This has lower priority than
@@ -636,11 +659,12 @@ class ProcessorClient:
 
         If no generation time is specified at all, Yamcs will determine one.
 
-        :param dict values: Values keyed by parameter name. This name can be either
-                            a fully-qualified XTCE name or an alias in the format
-                            ``NAMESPACE/NAME``.
-        :param generation_time: Generation time of the values.
-        :type generation_time: Optional[~datetime.datetime]
+        :param values:
+            Values keyed by parameter name. This name can be either a
+            fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param generation_time:
+            Generation time of the values.
         """
         req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
@@ -662,47 +686,46 @@ class ProcessorClient:
 
     def issue_command(
         self,
-        command,
-        args=None,
-        dry_run=False,
-        comment=None,
-        verification=None,
-        extra=None,
-        sequence_number=None,
-    ):
+        command: str,
+        args: Optional[Mapping[str, Any]] = None,
+        dry_run: bool = False,
+        comment: Optional[str] = None,
+        verification: Optional[VerificationConfig] = None,
+        extra: Optional[Mapping[str, Any]] = None,
+        sequence_number: Optional[int] = None,
+    ) -> IssuedCommand:
         """
         Issue the given command
 
-        :param str command: Either a fully-qualified XTCE name or an alias in the
-                            format ``NAMESPACE/NAME``.
-        :param dict args: named arguments (if the command requires these)
-        :param bool dry_run: If ``True`` the command is not actually issued. This
-                             can be used to test if the server would generate
-                             errors when preparing the command (for example
-                             because an argument is missing).
-        :param str comment: Comment attached to the command.
-        :param .VerificationConfig verification: Overrides to the default
-                                                 verification handling of this
-                                                 command.
-        :param dict extra: Extra command options for interpretation by non-core
-                           extensions (custom preprocessor, datalinks, command
-                           listeners).
-                           Note that Yamcs will refuse command options that it
-                           does now know about. Extensions should therefore
-                           register available options.
+        :param command:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param args:
+            Named arguments (if the command requires any).
+        :param dry_run:
+            If ``True`` the command is not actually issued. This can be used
+            to test if the server would generate errors when preparing the
+            command (for example because an argument is missing).
+        :param comment:
+            Comment attached to the command.
+        :param verification:
+            Overrides to the default verification handling of this command.
+        :param extra:
+            Extra command options for interpretation by non-core
+            extensions (custom preprocessor, datalinks, command listeners).
+            Note that Yamcs will refuse command options that it does now know
+            about. Extensions should therefore register available options.
+        :param sequence_number:
+            Sequence number of this command. This is used
+            to determine unicity of commands at the same time and coming from
+            the same origin. If not set Yamcs will automatically assign a
+            sequential number as if every submitted command is unique.
 
-        :param sequence_number: Sequence number of this command. This is used to
-                                determine unicity of commands at the same time and
-                                coming from the same origin. If not set Yamcs
-                                will automatically assign a sequential number as
-                                if every submitted command is unique.
+            .. versionadded:: 1.8.9
 
-                                .. versionadded:: 1.8.9
-        :type sequence_number: Optional[int]
-
-        :return: An object providing access to properties of the newly issued
-                 command.
-        :rtype: .IssuedCommand
+        :return:
+            An object providing access to properties of the newly issued
+            command.
         """
         req = commands_service_pb2.IssueCommandRequest()
         req.sequenceNumber = SequenceGenerator.next()
@@ -745,18 +768,21 @@ class ProcessorClient:
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
 
-    def list_alarms(self, start=None, stop=None):
+    def list_alarms(
+        self,
+        start: Optional[datetime.datetime] = None,
+        stop: Optional[datetime.datetime] = None,
+    ) -> Iterable[Alarm]:
         """
         Lists the active alarms.
 
         Remark that this does not query the archive. Only active alarms on the
         current processor are returned.
 
-        :param ~datetime.datetime start: Minimum trigger time of the returned alarms
-                                         (inclusive)
-        :param ~datetime.datetime stop: Maximum trigger time of the returned alarms
-                                        (exclusive)
-        :rtype: ~collections.abc.Iterable[.Alarm]
+        :param start:
+            Minimum trigger time of the returned alarms (inclusive)
+        :param stop:
+            Maximum trigger time of the returned alarms (exclusive)
         """
         # TODO implement continuation token on server
         params = {"order": "asc"}
@@ -773,7 +799,7 @@ class ProcessorClient:
         alarms = getattr(message, "alarms")
         return iter([_parse_alarm(alarm) for alarm in alarms])
 
-    def set_default_calibrator(self, parameter, type, data):
+    def set_default_calibrator(self, parameter: str, type: str, data):
         """
         Apply a calibrator while processing raw values of the specified
         parameter. If there is already a default calibrator associated
@@ -796,10 +822,13 @@ class ProcessorClient:
 
           The `data` argument must be an array of ``[x, y]`` points.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
-        :param str type: One of ``polynomial`` or ``spline``.
-        :param data: Calibration definition for the selected type.
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param type:
+            One of ``polynomial`` or ``spline``.
+        :param data:
+            Calibration definition for the selected type.
         """
         req = mdb_override_service_pb2.UpdateParameterRequest()
         req.action = (
@@ -812,7 +841,7 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def set_calibrators(self, parameter, calibrators):
+    def set_calibrators(self, parameter: str, calibrators: List[Calibrator]):
         """
         Apply an ordered set of calibrators for the specified parameter.
         This replaces existing calibrators (if any).
@@ -825,10 +854,11 @@ class ProcessorClient:
         There can be only one such calibrator, and is always applied at
         the end when no other contextual calibrator was applicable.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
-        :param .Calibrator[] calibrators: List of calibrators (either contextual or
-                                          not)
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param calibrators:
+            List of calibrators (either contextual or not)
         """
         req = mdb_override_service_pb2.UpdateParameterRequest()
         req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_CALIBRATORS
@@ -846,14 +876,14 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def clear_calibrators(self, parameter):
+    def clear_calibrators(self, parameter: str):
         """
         Removes all calibrators for the specified parameter.
         """
         self.set_default_calibrator(parameter, None, None)
         self.set_calibrators(parameter, [])
 
-    def reset_calibrators(self, parameter):
+    def reset_calibrators(self, parameter: str):
         """
         Reset all calibrators for the specified parameter to their original MDB value.
         """
@@ -866,13 +896,13 @@ class ProcessorClient:
 
     def set_default_alarm_ranges(
         self,
-        parameter,
-        watch=None,
-        warning=None,
-        distress=None,
-        critical=None,
-        severe=None,
-        min_violations=1,
+        parameter: str,
+        watch: Optional[Tuple[float, float]] = None,
+        warning: Optional[Tuple[float, float]] = None,
+        distress: Optional[Tuple[float, float]] = None,
+        critical: Optional[Tuple[float, float]] = None,
+        severe: Optional[Tuple[float, float]] = None,
+        min_violations: int = 1,
     ):
         """
         Generate out-of-limit alarms for a parameter using the specified
@@ -886,20 +916,26 @@ class ProcessorClient:
             ranges. See :meth:`set_alarm_range_sets` for setting contextual
             range sets.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
-        :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
-                                    where lo and hi are assumed exclusive.
-        :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
-                                      where lo and hi are assumed exclusive.
-        :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
-                                       where lo and hi are assumed exclusive.
-        :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
-                                       where lo and hi are assumed exclusive.
-        :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
-                                     where lo and hi are assumed exclusive.
-        :param int min_violations: Minimum violations before an alarm is
-                                   generated.
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param watch:
+            Range expressed as a tuple ``(lo, hi)`` where lo and hi are
+            assumed exclusive.
+        :param warning:
+            Range expressed as a tuple ``(lo, hi)`` where lo and hi are
+            assumed exclusive.
+        :param distress:
+            Range expressed as a tuple ``(lo, hi)`` where lo and hi are
+            assumed exclusive.
+        :param critical:
+            Range expressed as a tuple ``(lo, hi)`` where lo and hi are
+            assumed exclusive.
+        :param severe:
+            Range expressed as a tuple ``(lo, hi)`` where lo and hi are
+            assumed exclusive.
+        :param min_violations:
+            Minimum violations before an alarm is generated.
         """
         req = mdb_override_service_pb2.UpdateParameterRequest()
         req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_DEFAULT_ALARMS
@@ -918,7 +954,7 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def set_alarm_range_sets(self, parameter, sets):
+    def set_alarm_range_sets(self, parameter: str, sets: List[RangeSet]):
         """
         Apply an ordered list of alarm range sets for the specified parameter.
         This replaces existing alarm sets (if any).
@@ -932,9 +968,11 @@ class ProcessorClient:
         applied at the end when no other set of contextual ranges is
         applicable.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
-        :param .RangeSet[] sets: List of range sets (either contextual or not)
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
+        :param sets:
+            List of range sets (either contextual or not)
         """
         req = mdb_override_service_pb2.UpdateParameterRequest()
         req.action = mdb_override_service_pb2.UpdateParameterRequest.SET_ALARMS
@@ -960,16 +998,17 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def clear_alarm_ranges(self, parameter):
+    def clear_alarm_ranges(self, parameter: str):
         """
         Removes all alarm limits for the specified parameter.
         """
         self.set_default_alarm_ranges(parameter)
         self.set_alarm_range_sets(parameter, [])
 
-    def reset_alarm_ranges(self, parameter):
+    def reset_alarm_ranges(self, parameter: str):
         """
-        Reset all alarm limits for the specified parameter to their original MDB value.
+        Reset all alarm limits for the specified parameter to their original
+        MDB value.
         """
         req = mdb_override_service_pb2.UpdateParameterRequest()
         req.action = mdb_override_service_pb2.UpdateParameterRequest.RESET_ALARMS
@@ -978,14 +1017,18 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def acknowledge_alarm(self, alarm, sequence_number, comment=None):
+    def acknowledge_alarm(
+        self, alarm: str, sequence_number: int, comment: Optional[str] = None
+    ):
         """
         Acknowledges a specific alarm.
 
-        :param str alarm: Alarm name
-        :param int sequence_number: Sequence number
-        :param str comment: Optional comment to associate with the state
-                            change.
+        :param alarm:
+            Alarm name
+        :param sequence_number:
+            Sequence number
+        :param comment:
+            Optional comment to associate with the state change.
         """
         name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
@@ -995,14 +1038,18 @@ class ProcessorClient:
             req.comment = comment
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def unshelve_alarm(self, alarm, sequence_number, comment=None):
+    def unshelve_alarm(
+        self, alarm: str, sequence_number: int, comment: Optional[str] = None
+    ):
         """
         Unshelve an alarm.
 
-        :param str alarm: Alarm name
-        :param int sequence_number: Sequence number
-        :param str comment: Optional comment to associate with the state
-                            change.
+        :param alarm:
+            Alarm name
+        :param sequence_number:
+            Sequence number
+        :param comment:
+            Optional comment to associate with the state change.
         """
         name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
@@ -1010,14 +1057,18 @@ class ProcessorClient:
         req = alarms_service_pb2.UnshelveAlarmRequest()
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def shelve_alarm(self, alarm, sequence_number, comment=None):
+    def shelve_alarm(
+        self, alarm: str, sequence_number: int, comment: Optional[str] = None
+    ):
         """
         Shelve an alarm.
 
-        :param str alarm: Alarm name
-        :param int sequence_number: Sequence number
-        :param str comment: Optional comment to associate with the state
-                            change.
+        :param alarm:
+            Alarm name
+        :param sequence_number:
+            Sequence number
+        :param comment:
+            Optional comment to associate with the state change.
         """
         name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
@@ -1027,7 +1078,9 @@ class ProcessorClient:
             req.comment = comment
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def clear_alarm(self, alarm, sequence_number, comment=None):
+    def clear_alarm(
+        self, alarm: str, sequence_number: int, comment: Optional[str] = None
+    ):
         """
         Clear an alarm.
 
@@ -1035,10 +1088,12 @@ class ProcessorClient:
             If the reason that caused the alarm is still present, a new
             alarm instance will be generated.
 
-        :param str alarm: Alarm name
-        :param int sequence_number: Sequence number
-        :param str comment: Optional comment to associate with the state
-                            change.
+        :param alarm:
+            Alarm name
+        :param sequence_number:
+            Sequence number
+        :param comment:
+            Optional comment to associate with the state change.
         """
         name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
@@ -1048,7 +1103,11 @@ class ProcessorClient:
             req.comment = comment
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def create_command_connection(self, on_data=None, timeout=60):
+    def create_command_connection(
+        self,
+        on_data: Optional[Callable[[CommandHistory], None]] = None,
+        timeout: float = 60,
+    ) -> CommandConnection:
         """
         Creates a connection for issuing multiple commands and
         following up on their acknowledgment progress.
@@ -1058,15 +1117,16 @@ class ProcessorClient:
             of :meth:`create_command_history_subscription` with those of
             :meth:`issue_command`.
 
-        :param on_data: Function that gets called with  :class:`.CommandHistory`
-                        updates. Only commands issued from this connection are
-                        reported.
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: float
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .CommandConnection
+        :param on_data:
+            Function that gets called with  :class:`.CommandHistory`
+            updates. Only commands issued from this connection are
+            reported.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+
+        :return:
+            Future that can be used to manage the background websocket
+            subscription
         """
         options = commands_service_pb2.SubscribeCommandsRequest()
         options.instance = self._instance
@@ -1091,18 +1151,21 @@ class ProcessorClient:
 
         return subscription
 
-    def create_command_history_subscription(self, on_data=None, timeout=60):
+    def create_command_history_subscription(
+        self,
+        on_data: Optional[Callable[[CommandHistory], None]] = None,
+        timeout: float = 60,
+    ) -> CommandHistorySubscription:
         """
         Create a new command history subscription.
 
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.CommandHistory` updates.
-        :param timeout: The amount of seconds to wait for the request to
-                        complete.
-        :type timeout: float
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .CommandHistorySubscription
+        :param on_data:
+            Function that gets called with :class:`.CommandHistory` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = commands_service_pb2.SubscribeCommandsRequest()
         options.instance = self._instance
@@ -1127,23 +1190,26 @@ class ProcessorClient:
 
         return subscription
 
-    def create_packet_subscription(self, on_data, stream="tm_realtime", timeout=60):
+    def create_packet_subscription(
+        self,
+        on_data: Callable[[Packet], None],
+        stream="tm_realtime",
+        timeout: float = 60,
+    ) -> WebSocketSubscriptionFuture:
         """
         Create a new packet subscription.
 
         .. versionadded:: 1.6.6
 
-        :param on_data: Function that gets called with :class:`.Packet`
-                        updates.
-        :type on_data: Optional[Callable[.Packet]]
-        :param stream: Stream to subscribe to.
-        :type stream: str
-        :param timeout: The amount of seconds to wait for the request
-                        to complete.
-        :type timeout: Optional[float]
-        :return: A Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .WebSocketSubscriptionFuture
+        :param on_data:
+            Function that gets called with :class:`.Packet` updates.
+        :param stream:
+            Stream to subscribe to.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            A Future that can be used to manage the background websocket
+            subscription.
         """
         options = packets_service_pb2.SubscribePacketsRequest()
         options.instance = self._instance
@@ -1171,24 +1237,27 @@ class ProcessorClient:
 
         return subscription
 
-    def create_container_subscription(self, containers, on_data=None, timeout=60):
+    def create_container_subscription(
+        self,
+        containers: Union[str, List[str]],
+        on_data: Optional[Callable[[ContainerData], None]] = None,
+        timeout: float = 60,
+    ) -> ContainerSubscription:
         """
         Create a new container subscription.
 
         .. versionadded:: 1.7.0
            Compatible with Yamcs 5.5.0 onwards
 
-        :param containers: Container names.
-        :type containers: Union[str, str[]]
-        :param on_data: Function that gets called with :class:`.ContainerData`
-                        updates.
-        :type on_data: Optional[Callable[.ContainerData]]
-        :param timeout: The amount of seconds to wait for the request
-                        to complete.
-        :type timeout: Optional[float]
-        :return: A Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .ContainerSubscription
+        :param containers:
+            Container names.
+        :param on_data:
+            Function that gets called with :class:`.ContainerData` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
+        :return:
+            A Future that can be used to manage the background websocket
+            subscription.
         """
         options = packets_service_pb2.SubscribeContainersRequest()
         options.instance = self._instance
@@ -1218,37 +1287,37 @@ class ProcessorClient:
 
     def create_parameter_subscription(
         self,
-        parameters,
-        on_data=None,
-        abort_on_invalid=True,
-        update_on_expiration=False,
-        send_from_cache=True,
-        timeout=60,
-    ):
+        parameters: Union[str, List[str]],
+        on_data: Optional[Callable[[ParameterData], None]] = None,
+        abort_on_invalid: bool = True,
+        update_on_expiration: bool = False,
+        send_from_cache: bool = True,
+        timeout: float = 60,
+    ) -> ParameterSubscription:
         """
         Create a new parameter subscription.
 
-        :param str[] parameters: Parameter names (or aliases).
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.ParameterData` updates.
-        :param bool abort_on_invalid: If ``True`` an error is generated when
-                                      invalid parameters are specified.
-        :param bool update_on_expiration: If ``True`` an update is received
-                                          when a parameter value has become
-                                          expired. This update holds the
-                                          same value as the last known valid
-                                          value, but with status set to
-                                          ``EXPIRED``.
-        :param bool send_from_cache: If ``True`` the last processed parameter
-                                     value is sent from parameter cache.
-                                     When ``False`` only newly processed
-                                     parameters are received.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        :param parameters:
+            Parameter names (or aliases).
+        :param on_data:
+            Function that gets called with :class:`.ParameterData` updates.
+        :param abort_on_invalid:
+            If ``True`` an error is generated when invalid parameters are
+            specified.
+        :param update_on_expiration:
+            If ``True`` an update is received when a parameter value has
+            become expired. This update holds the same value as the last
+            known valid value, but with status set to ``EXPIRED``.
+        :param send_from_cache:
+            If ``True`` the last processed parameter value is sent from
+            parameter cache. When ``False`` only newly processed parameters
+            are received.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
 
-        :return: A Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .ParameterSubscription
+        :return:
+            A Future that can be used to manage the background websocket
+            subscription.
         """
         options = processing_pb2.SubscribeParametersRequest()
         options.instance = self._instance
@@ -1276,18 +1345,22 @@ class ProcessorClient:
 
         return subscription
 
-    def create_alarm_subscription(self, on_data=None, timeout=60):
+    def create_alarm_subscription(
+        self,
+        on_data: Optional[Callable[[AlarmUpdate], None]] = None,
+        timeout: float = 60,
+    ) -> AlarmSubscription:
         """
         Create a new alarm subscription.
 
-        :param on_data: (Optional) Function that gets called with
-                        :class:`.AlarmUpdate` updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
+        :param on_data:
+            Function that gets called with :class:`.AlarmUpdate` updates.
+        :param timeout:
+            The amount of seconds to wait for the request to complete.
 
-        :return: A Future that can be used to manage the background websocket
-                 subscription.
-        :rtype: .AlarmSubscription
+        :return:
+            A Future that can be used to manage the background websocket
+            subscription.
         """
         options = alarms_service_pb2.SubscribeAlarmsRequest()
         options.instance = self._instance
@@ -1310,14 +1383,16 @@ class ProcessorClient:
 
         return subscription
 
-    def set_algorithm(self, parameter, text):
+    def set_algorithm(self, parameter: str, text: str):
         """
         Change an algorithm text. Can only be peformed on JavaScript or Python
         algorithms.
 
-        :param string text: new algorithm text (as it would appear in excel or XTCE)
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
+        :param text:
+            New algorithm text (as it would appear in excel or XTCE)
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
         """
         req = mdb_override_service_pb2.UpdateAlgorithmRequest()
         req.action = mdb_override_service_pb2.UpdateAlgorithmRequest.SET
@@ -1327,12 +1402,13 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def reset_algorithm(self, parameter):
+    def reset_algorithm(self, parameter: str):
         """
         Reset the algorithm text to its original definition from MDB
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias
-                              in the format ``NAMESPACE/NAME``.
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the format
+            ``NAMESPACE/NAME``.
         """
         req = mdb_override_service_pb2.UpdateAlgorithmRequest()
         req.action = mdb_override_service_pb2.UpdateAlgorithmRequest.RESET

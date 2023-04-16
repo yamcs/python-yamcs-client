@@ -4,13 +4,14 @@ import threading
 
 import websocket
 from yamcs.api import websocket_pb2
+from yamcs.core.context import Context
 from yamcs.core.exceptions import ConnectionFailure
 
 logger = logging.getLogger("yamcs-client")
 
 
 class WebSocketSubscriptionManager:
-    def __init__(self, ctx, topic, options=None):
+    def __init__(self, ctx: Context, topic: str, options=None):
         self.ctx = ctx
         self._topic = topic
         self._options = options

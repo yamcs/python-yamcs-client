@@ -3,6 +3,7 @@ import threading
 from abc import ABC
 from collections import OrderedDict
 from datetime import datetime, timedelta
+from typing import Any, List, Optional, Tuple
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
 from yamcs.core.helpers import parse_server_time, parse_value, to_isostring
@@ -46,41 +47,36 @@ class Acknowledgment:
 
 class CommandHistory:
     def __init__(self, proto):
-        self.generation_time = parse_server_time(proto.generationTime)
-        """
-        The generation time as set by Yamcs
-
-        :type: :class:`~datetime.datetime`
-        """
+        self.generation_time: datetime = parse_server_time(proto.generationTime)
+        """The generation time as set by Yamcs"""
 
         self._proto = proto
         self.attributes = OrderedDict()
         self._update(proto.attr)
 
     @property
-    def id(self):
+    def id(self) -> str:
         """
         A unique identifier for this command.
         """
         return self._proto.id
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of the command."""
         return self._proto.commandName
 
     @property
-    def origin(self):
+    def origin(self) -> str:
         """
-        The origin of this command. This is often empty, but may
-        also be a hostname.
+        The origin of this command. Usually the IP address of the issuer.
         """
         if self._proto.HasField("origin"):
             return self._proto.origin
         return None
 
     @property
-    def sequence_number(self):
+    def sequence_number(self) -> int:
         """
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
@@ -90,12 +86,12 @@ class CommandHistory:
         return None
 
     @property
-    def username(self):
+    def username(self) -> str:
         """Username of the issuer."""
         return self.attributes.get("username")
 
     @property
-    def source(self):
+    def source(self) -> str:
         """String representation of the command."""
         result = self.name + "("
         args = []
@@ -118,7 +114,7 @@ class CommandHistory:
         """Binary representation of the command."""
         return self.attributes.get("binary")
 
-    def is_complete(self):
+    def is_complete(self) -> bool:
         """
         Returns whether this command is complete. A command
         can be completed, yet still failed.
@@ -126,14 +122,14 @@ class CommandHistory:
         ack = self._assemble_ack("CommandComplete")
         return (ack is not None) and (ack.status == "OK" or ack.status == "NOK")
 
-    def is_success(self):
+    def is_success(self) -> bool:
         """
         Returns True if the command has completed successfully.
         """
         ack = self._assemble_ack("CommandComplete")
         return ack and ack.status == "OK"
 
-    def is_failure(self):
+    def is_failure(self) -> bool:
         """
         Returns True if the command has completed, but failed.
         """
@@ -141,7 +137,7 @@ class CommandHistory:
         return ack and ack.status == "NOK"
 
     @property
-    def error(self):
+    def error(self) -> Optional[str]:
         """Error message in case the command failed."""
         ack = self._assemble_ack("CommandComplete")
         if ack and ack.status == "NOK":
@@ -149,17 +145,17 @@ class CommandHistory:
         return None
 
     @property
-    def comment(self):
+    def comment(self) -> Optional[str]:
         """Optional user comment attached when issuing the command."""
         return self.attributes.get("comment")
 
     @property
-    def acknowledgments(self):
+    def acknowledgments(self) -> OrderedDict:
         """
         All acknowledgments by name.
 
-        :return: Acknowledgments keyed by name.
-        :rtype: ~collections.OrderedDict
+        :return:
+            Acknowledgments keyed by name.
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
@@ -174,7 +170,7 @@ class CommandHistory:
 
         return acks
 
-    def _assemble_ack(self, name):
+    def _assemble_ack(self, name: str) -> Optional[Acknowledgment]:
         time = self.attributes.get(name + "_Time")
         status = self.attributes.get(name + "_Status")
         message = self.attributes.get(name + "_Message")
@@ -200,14 +196,14 @@ class IssuedCommand:
         self._proto = proto
 
     @property
-    def id(self):
+    def id(self) -> str:
         """
         A unique identifier for this command.
         """
         return self._proto.id
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The fully-qualified name of this command.
         """
@@ -216,32 +212,30 @@ class IssuedCommand:
         return None
 
     @property
-    def generation_time(self):
+    def generation_time(self) -> datetime:
         """
         The generation time as set by Yamcs.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
             return parse_server_time(self._proto.generationTime)
         return None
 
     @property
-    def username(self):
+    def username(self) -> str:
         """The username of the issuer."""
         if self._proto.HasField("username"):
             return self._proto.username
         return None
 
     @property
-    def queue(self):
+    def queue(self) -> str:
         """The name of the queue that this command was assigned to."""
         if self._proto.HasField("queue"):
             return self._proto.queue
         return None
 
     @property
-    def origin(self):
+    def origin(self) -> str:
         """
         The origin of this command. Usually the IP address of the issuer.
         """
@@ -321,19 +315,22 @@ class VerificationConfig:
         self._disable_all = False
         self._check_windows = {}
 
-    def disable(self, verifier=None):
+    def disable(self, verifier: Optional[str] = None):
         """
         Disable verification.
 
-        :param str verifier: Name of a specific verifier to disable. If unspecified
-                             all verifiers are disabled.
+        :param verifier:
+            Name of a specific verifier to disable. If unspecified
+            all verifiers are disabled.
         """
         if verifier:
             self._disabled.append(verifier)
         else:
             self._disable_all = True
 
-    def modify_check_window(self, verifier, start=None, stop=None):
+    def modify_check_window(
+        self, verifier: str, start: Optional[float] = None, stop: Optional[float] = None
+    ):
         """
         Set or override the check window.
 
@@ -341,9 +338,12 @@ class VerificationConfig:
         the time may be relative to either the command release
         or a preceding verifier.
 
-        :param str verifier: Name of the verifier
-        :param float start: Window start time (relative, in seconds)
-        :param float stop: Window stop time (relative, in seconds)
+        :param verifier:
+            Name of the verifier
+        :param start:
+            Window start time (relative, in seconds)
+        :param stop:
+            Window stop time (relative, in seconds)
         """
         self._check_windows[verifier] = {"start": start, "stop": stop}
 
@@ -372,12 +372,12 @@ class MonitoredCommand(IssuedCommand):
                 event.set()
 
     @property
-    def attributes(self):
+    def attributes(self) -> OrderedDict:
         if self._cmdhist:
             return self._cmdhist.attributes
         return OrderedDict()
 
-    def is_complete(self):
+    def is_complete(self) -> bool:
         """
         Returns whether this command is complete. A command
         can be completed, yet still failed.
@@ -388,7 +388,7 @@ class MonitoredCommand(IssuedCommand):
         ack = self._assemble_ack("CommandComplete")
         return (ack is not None) and (ack.status == "OK" or ack.status == "NOK")
 
-    def is_success(self):
+    def is_success(self) -> bool:
         """
         Returns True if this command was completed successfully.
 
@@ -398,7 +398,7 @@ class MonitoredCommand(IssuedCommand):
         ack = self._assemble_ack("CommandComplete")
         return ack and ack.status == "OK"
 
-    def is_failure(self):
+    def is_failure(self) -> bool:
         """
         Returns True if the command has completed, but failed.
 
@@ -410,7 +410,7 @@ class MonitoredCommand(IssuedCommand):
         ack = self._assemble_ack("CommandComplete")
         return ack and ack.status == "NOK"
 
-    def await_complete(self, timeout=None):
+    def await_complete(self, timeout: Optional[float] = None):
         """
         Wait for the command to be `completed`. Afterwards use
         :meth:`is_success` or :meth:`is_failure` to determine
@@ -424,34 +424,37 @@ class MonitoredCommand(IssuedCommand):
             When no such verifier is present, this method will never
             return (or timeout).
 
-        :param float timeout: The amount of seconds to wait.
+        :param timeout:
+            The amount of seconds to wait.
         """
         self._wait_on_signal(self._completed, timeout)
 
-    def await_acknowledgment(self, name, timeout=None):
+    def await_acknowledgment(
+        self, name: str, timeout: Optional[float] = None
+    ) -> Acknowledgment:
         """
         Waits for the result of a specific acknowledgment.
 
-        :param str name: The name of the acknowledgment. Standard names are
-                         ``Acknowledge_Queued``, ``Acknowledge_Released``
-                         and ``Acknowledge_Sent``. Others depend on
-                         specific link types.
-        :param float timeout: The amount of seconds to wait.
-
-        :rtype: .Acknowledgment
+        :param name:
+            The name of the acknowledgment. Standard names are
+            ``Acknowledge_Queued``, ``Acknowledge_Released``
+            and ``Acknowledge_Sent``. Others depend on
+            specific link types.
+        :param timeout:
+            The amount of seconds to wait.
         """
         event = self._ack_events.setdefault(name, threading.Event())
         self._wait_on_signal(event, timeout)
         return self.acknowledgments.get(name)
 
-    def _wait_on_signal(self, event, timeout=None):
+    def _wait_on_signal(self, event: threading.Event, timeout: Optional[float] = None):
         if not event.wait(timeout=timeout):
             # Remark that a timeout does *not* mean that the underlying
             # work is canceled.
             raise TimeoutError("Timed out.")
 
     @property
-    def error(self):
+    def error(self) -> Optional[str]:
         """
         Error message in case the command failed.
 
@@ -464,17 +467,17 @@ class MonitoredCommand(IssuedCommand):
         return None
 
     @property
-    def comment(self):
+    def comment(self) -> Optional[str]:
         """Optional user comment attached when issuing the command."""
         return self.attributes.get("comment")
 
     @property
-    def acknowledgments(self):
+    def acknowledgments(self) -> OrderedDict:
         """
         All acknowledgments by name.
 
-        :return: Acknowledgments keyed by name.
-        :rtype: ~collections.OrderedDict
+        :return:
+            Acknowledgments keyed by name.
         """
         acks = OrderedDict()
         for name, _ in self.attributes.items():
@@ -489,7 +492,7 @@ class MonitoredCommand(IssuedCommand):
 
         return acks
 
-    def _assemble_ack(self, name):
+    def _assemble_ack(self, name: str) -> Optional[Acknowledgment]:
         time = self.attributes.get(name + "_Time")
         status = self.attributes.get(name + "_Status")
         message = self.attributes.get(name + "_Message")
@@ -519,16 +522,14 @@ class AlarmUpdate:
         self._proto = proto
 
     @property
-    def update_type(self):
+    def update_type(self) -> str:
         """Type of update."""
         return alarms_pb2.AlarmNotificationType.Name(self._proto.type)
 
     @property
-    def alarm(self):
+    def alarm(self) -> "Alarm":
         """
         Latest alarm state.
-
-        :type: :class:`.Alarm`
         """
         return _parse_alarm(self._proto)
 
@@ -541,42 +542,38 @@ class Alarm(ABC):
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Fully-qualified name of the source of this alarm."""
         if self._proto.id.HasField("namespace"):
             return self._proto.id.namespace + "/" + self._proto.id.name
         return self._proto.id.name
 
     @property
-    def trigger_time(self):
+    def trigger_time(self) -> datetime:
         """
         Processor time when the alarm was triggered.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("triggerTime"):
             return parse_server_time(self._proto.triggerTime)
         return None
 
     @property
-    def update_time(self):
+    def update_time(self) -> datetime:
         """
         Processor time when the alarm was last updated.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("updateTime"):
             return parse_server_time(self._proto.updateTime)
         return None
 
     @property
-    def severity(self):
+    def severity(self) -> str:
         if self._proto.HasField("severity"):
             return alarms_pb2.AlarmSeverity.Name(self._proto.severity)
         return None
 
     @property
-    def sequence_number(self):
+    def sequence_number(self) -> int:
         """
         Sequence number for this specific alarm instance. This allows ensuring
         that operations (such as acknowledgment) are done on the expected alarm
@@ -587,7 +584,7 @@ class Alarm(ABC):
         return None
 
     @property
-    def is_ok(self):
+    def is_ok(self) -> bool:
         """
         True if this alarm is currently 'inactive'.
 
@@ -598,7 +595,7 @@ class Alarm(ABC):
         return not self._proto.triggered
 
     @property
-    def is_process_ok(self):
+    def is_process_ok(self) -> bool:
         """
         True if the process that caused this alarm is OK. For example:
         parameter back within limits.
@@ -608,7 +605,7 @@ class Alarm(ABC):
         return self._proto.processOK
 
     @property
-    def is_latching(self):
+    def is_latching(self) -> bool:
         """
         True if this is a latching alarm. A latching alarm returns to
         normal only when the operator resets it
@@ -616,19 +613,19 @@ class Alarm(ABC):
         return self._proto.HasField("latching") and self._proto.latching
 
     @property
-    def is_latched(self):
+    def is_latched(self) -> bool:
         """
         True if this alarm is currently latched.
         """
         return self.is_latching and self.is_process_ok and not self.is_ok
 
     @property
-    def is_acknowledged(self):
+    def is_acknowledged(self) -> bool:
         """True if this alarm has been acknowledged."""
         return self._proto.acknowledged
 
     @property
-    def acknowledged_by(self):
+    def acknowledged_by(self) -> Optional[str]:
         """Username of the acknowledger."""
         if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
             "acknowledgedBy"
@@ -637,7 +634,7 @@ class Alarm(ABC):
         return None
 
     @property
-    def acknowledge_message(self):
+    def acknowledge_message(self) -> Optional[str]:
         """Comment provided when acknowledging the alarm."""
         if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
             "acknowledgeMessage"
@@ -646,11 +643,9 @@ class Alarm(ABC):
         return None
 
     @property
-    def acknowledge_time(self):
+    def acknowledge_time(self) -> Optional[datetime]:
         """
         Processor time when the alarm was acknowledged.
-
-        :type: :class:`~datetime.datetime`
         """
         if self.is_acknowledged and self._proto.acknowledgeInfo.HasField(
             "acknowledgeTime"
@@ -659,12 +654,12 @@ class Alarm(ABC):
         return None
 
     @property
-    def is_shelved(self):
+    def is_shelved(self) -> bool:
         """True if this alarm has been shelved."""
         return self._proto.HasField("shelveInfo")
 
     @property
-    def violation_count(self):
+    def violation_count(self) -> int:
         """
         Number of violating samples while this alarm is active.
         """
@@ -673,7 +668,7 @@ class Alarm(ABC):
         return None
 
     @property
-    def count(self):
+    def count(self) -> int:
         """
         Total number of samples while this alarm is active.
         """
@@ -691,34 +686,28 @@ class ParameterAlarm(Alarm):
     """
 
     @property
-    def trigger_value(self):
+    def trigger_value(self) -> "ParameterValue":
         """
         Parameter value that originally triggered the alarm
-
-        :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField("triggerValue"):
             return ParameterValue(self._proto.parameterDetail.triggerValue)
         return None
 
     @property
-    def most_severe_value(self):
+    def most_severe_value(self) -> "ParameterValue":
         """
         First parameter value that invoked the highest severity
         level of this alarm.
-
-        :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField("mostSevereValue"):
             return ParameterValue(self._proto.parameterDetail.mostSevereValue)
         return None
 
     @property
-    def current_value(self):
+    def current_value(self) -> "ParameterValue":
         """
         Latest parameter value for this alarm.
-
-        :type: :class:`.ParameterValue`
         """
         if self._proto.parameterDetail.HasField("currentValue"):
             return ParameterValue(self._proto.parameterDetail.currentValue)
@@ -731,34 +720,28 @@ class EventAlarm(Alarm):
     """
 
     @property
-    def trigger_event(self):
+    def trigger_event(self) -> Event:
         """
         Event that originally triggered the alarm
-
-        :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField("triggerEvent"):
             return Event(self._proto.eventDetail.triggerEvent)
         return None
 
     @property
-    def most_severe_event(self):
+    def most_severe_event(self) -> Event:
         """
         First event that invoked the highest severity level
         of this alarm
-
-        :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField("mostSevereEvent"):
             return Event(self._proto.eventDetail.mostSevereEvent)
         return None
 
     @property
-    def current_event(self):
+    def current_event(self) -> Event:
         """
         Latest event for this alarm
-
-        :type: :class:`.Event`
         """
         if self._proto.eventDetail.HasField("currentEvent"):
             return Event(self._proto.eventDetail.currentEvent)
@@ -771,7 +754,7 @@ class ParameterValue:
         self._id = id or proto.id
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         An identifying name for the parameter value. Typically this is the
         fully-qualified XTCE name, but it may also be an alias depending
@@ -782,37 +765,31 @@ class ParameterValue:
         return self._id.name
 
     @property
-    def generation_time(self):
+    def generation_time(self) -> datetime:
         """
         The time when the parameter was generated. If the parameter
         was extracted from a packet, this usually returns the packet time.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
             return parse_server_time(self._proto.generationTime)
         return None
 
     @property
-    def reception_time(self):
+    def reception_time(self) -> Optional[datetime]:
         """
         The time when the parameter value was received by Yamcs.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("acquisitionTime"):
             return parse_server_time(self._proto.acquisitionTime)
         return None
 
     @property
-    def validity_duration(self):
+    def validity_duration(self) -> Optional[timedelta]:
         """
         How long this parameter value is valid.
 
         .. note: There is also an option when subscribing to get updated when
                  the parameter values expire.
-
-        :type: :class:`~datetime.timedelta`
         """
         if self._proto.HasField("expireMillis"):
             return timedelta(milliseconds=self._proto.expireMillis)
@@ -837,13 +814,13 @@ class ParameterValue:
         return None
 
     @property
-    def monitoring_result(self):
+    def monitoring_result(self) -> str:
         if self._proto.HasField("monitoringResult"):
             return pvalue_pb2.MonitoringResult.Name(self._proto.monitoringResult)
         return None
 
     @property
-    def range_condition(self):
+    def range_condition(self) -> Optional[str]:
         """
         If the value is out of limits, this indicates ``LOW`` or ``HIGH``.
         """
@@ -852,13 +829,13 @@ class ParameterValue:
         return None
 
     @property
-    def validity_status(self):
+    def validity_status(self) -> str:
         if self._proto.HasField("acquisitionStatus"):
             return pvalue_pb2.AcquisitionStatus.Name(self._proto.acquisitionStatus)
         return None
 
     @property
-    def processing_status(self):
+    def processing_status(self) -> bool:
         return self._proto.processingStatus
 
     def __str__(self):
@@ -888,22 +865,19 @@ class ParameterData:
         for pval in self._pvals.values():
             yield pval
 
-    def get_value(self, parameter):
+    def get_value(self, parameter: str) -> ParameterValue:
         """
         Returns the value of a specific parameter.
         Or ``None`` if the parameter is not included in
         this update.
 
-        :param string parameter: Parameter name.
-        :rtype: .ParameterValue
+        :param parameter:
+            Parameter name.
         """
         return self._pvals.get(parameter)
 
     @property
-    def parameters(self):
-        """
-        :type: List[:class:`.ParameterValue`]
-        """
+    def parameters(self) -> List[ParameterValue]:
         return list(self._pvals.values())
 
     def __str__(self):
@@ -930,14 +904,17 @@ class Calibrator:
     POLYNOMIAL = "polynomial"
     SPLINE = "spline"
 
-    def __init__(self, context, type, data):
+    def __init__(self, context: str, type: str, data):
         """
-        :param str context: Condition under which this calibrator may be
-                            applied. The value ``None`` indicates the
-                            default calibrator which is only applied if
-                            no contextual calibrators match.
-        :param str type: One of ``polynomial`` or ``spline``.
-        :param data: Calibration definition for the selected type.
+        :param context:
+            Condition under which this calibrator may be
+            applied. The value ``None`` indicates the
+            default calibrator which is only applied if
+            no contextual calibrators match.
+        :param type:
+            One of ``polynomial`` or ``spline``.
+        :param data:
+            Calibration definition for the selected type.
         """
         self.context = context
         self.type = type
@@ -949,7 +926,7 @@ class ContainerData:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The name of the container.
         """
@@ -958,22 +935,18 @@ class ContainerData:
         return None
 
     @property
-    def generation_time(self):
+    def generation_time(self) -> datetime:
         """
         The time when this container's packet was generated (packet time).
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
             return parse_server_time(self._proto.generationTime)
         return None
 
     @property
-    def reception_time(self):
+    def reception_time(self) -> datetime:
         """
         The time when this container's packet was received by Yamcs.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
             return parse_server_time(self._proto.receptionTime)
@@ -997,7 +970,7 @@ class Packet:
         self._proto = proto
 
     @property
-    def name(self):
+    def name(self) -> str:
         """
         The name of the packet. When using XTCE extraction this is the
         fully-qualified name of the first container in the hierarchy that
@@ -1008,29 +981,25 @@ class Packet:
         return None
 
     @property
-    def generation_time(self):
+    def generation_time(self) -> datetime:
         """
         The time when the packet was generated (packet time).
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("generationTime"):
             return parse_server_time(self._proto.generationTime)
         return None
 
     @property
-    def reception_time(self):
+    def reception_time(self) -> datetime:
         """
         The time when the packet was received by Yamcs.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("receptionTime"):
             return parse_server_time(self._proto.receptionTime)
         return None
 
     @property
-    def sequence_number(self):
+    def sequence_number(self) -> int:
         """
         The sequence number of the packet. This is usually decoded from
         the packet.
@@ -1059,31 +1028,38 @@ class RangeSet:
 
     def __init__(
         self,
-        context,
-        watch=None,
-        warning=None,
-        distress=None,
-        critical=None,
-        severe=None,
-        min_violations=1,
+        context: str,
+        watch: Optional[Tuple[float, float]] = None,
+        warning: Optional[Tuple[float, float]] = None,
+        distress: Optional[Tuple[float, float]] = None,
+        critical: Optional[Tuple[float, float]] = None,
+        severe: Optional[Tuple[float, float]] = None,
+        min_violations: int = 1,
     ):
         """
-        :param str context: Condition under which this range set is
-                            applicable. The value ``None`` indicates the
-                            default range set which is only applicable if
-                            no contextual sets match.
-        :param (float,float) watch: Range expressed as a tuple ``(lo, hi)``
-                                where lo and hi are assumed exclusive.
-        :param (float,float) warning: Range expressed as a tuple ``(lo, hi)``
-                                  where lo and hi are assumed exclusive.
-        :param (float,float) distress: Range expressed as a tuple ``(lo, hi)``
-                                   where lo and hi are assumed exclusive.
-        :param (float,float) critical: Range expressed as a tuple ``(lo, hi)``
-                                   where lo and hi are assumed exclusive.
-        :param (float,float) severe: Range expressed as a tuple ``(lo, hi)``
-                                 where lo and hi are assumed exclusive.
-        :param int min_violations: Minimum violations before an alarm is
-                                   generated.
+        :param context:
+            Condition under which this range set is
+            applicable. The value ``None`` indicates the
+            default range set which is only applicable if
+            no contextual sets match.
+        :param watch:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param warning:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param distress:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param critical:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param severe:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param min_violations:
+            Minimum violations before an alarm is
+            generated.
         """
         self.context = context
         self.watch = watch
@@ -1100,12 +1076,13 @@ class ValueUpdate:
     updating a software parameter.
     """
 
-    def __init__(self, value, generation_time=None):
+    def __init__(self, value: Any, generation_time: Optional[datetime] = None):
         """
-        :param value: The value to set
-        :param generation_time: Generation time of the value. If unset, Yamcs will
-                                assign the generation time.
-        :type generation_time: Optional[~datetime.datetime]
+        :param value:
+            The value to set
+        :param generation_time:
+            Generation time of the value. If unset, Yamcs will
+            assign the generation time.
         """
         self.value = value
         self.generation_time = generation_time

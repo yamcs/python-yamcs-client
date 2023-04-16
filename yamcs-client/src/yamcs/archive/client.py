@@ -1,5 +1,6 @@
 import functools
 from datetime import datetime, timedelta, timezone
+from typing import Callable, Iterable, List, Optional, Union
 
 from yamcs.archive.model import (
     IndexGroup,
@@ -11,6 +12,7 @@ from yamcs.archive.model import (
     Table,
 )
 from yamcs.core import pagination
+from yamcs.core.context import Context
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import (
@@ -33,6 +35,7 @@ from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import (
+    Alarm,
     CommandHistory,
     EventAlarm,
     Packet,
@@ -53,16 +56,14 @@ def _wrap_callback_parse_stream_data(subscription, on_data, message):
 
 
 class ArchiveClient:
-    def __init__(self, ctx, instance):
+    def __init__(self, ctx: Context, instance: str):
         super(ArchiveClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
 
-    def list_packet_names(self):
+    def list_packet_names(self) -> Iterable[str]:
         """
         Returns the existing packet names.
-
-        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -73,16 +74,22 @@ class ArchiveClient:
         names = getattr(message, "name")
         return iter(names)
 
-    def list_packet_histogram(self, name=None, start=None, stop=None, merge_time=2):
+    def list_packet_histogram(
+        self,
+        name: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        merge_time: float = 2,
+    ) -> Iterable[IndexGroup]:
         """
         Reads packet-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index
-                                 records are merged together.
-        :rtype: ~collections.abc.Iterable[.IndexGroup]
+        :param merge_time:
+            Maximum gap in seconds before two consecutive index
+            records are merged together.
         """
         params = {}
         if name is not None:
@@ -103,11 +110,9 @@ class ArchiveClient:
             item_mapper=IndexGroup,
         )
 
-    def list_processed_parameter_groups(self):
+    def list_processed_parameter_groups(self) -> Iterable[str]:
         """
         Returns the existing parameter groups.
-
-        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -119,17 +124,21 @@ class ArchiveClient:
         return iter(groups)
 
     def list_processed_parameter_group_histogram(
-        self, group=None, start=None, stop=None, merge_time=20
-    ):
+        self,
+        group: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        merge_time: float = 20,
+    ) -> Iterable[IndexGroup]:
         """
         Reads index records related to processed parameter groups between the
         specified start and stop time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index
-                                 records are merged together.
-        :rtype: ~collections.abc.Iterable[.IndexGroup]
+        :param merge_time:
+            Maximum gap in seconds before two consecutive index
+            records are merged together.
         """
         params = {}
         if group is not None:
@@ -150,11 +159,9 @@ class ArchiveClient:
             item_mapper=IndexGroup,
         )
 
-    def list_event_sources(self):
+    def list_event_sources(self) -> Iterable[str]:
         """
         Returns the existing event sources.
-
-        :rtype: ~collections.abc.Iterable[str]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -165,16 +172,22 @@ class ArchiveClient:
         sources = getattr(message, "source")
         return iter(sources)
 
-    def list_event_histogram(self, source=None, start=None, stop=None, merge_time=2):
+    def list_event_histogram(
+        self,
+        source: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        merge_time: float = 2,
+    ) -> Iterable[IndexGroup]:
         """
         Reads event-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index
-                                 records are merged together.
-        :rtype: ~collections.abc.Iterable[.IndexGroup]
+        :param merge_time:
+            Maximum gap in seconds before two consecutive index
+            records are merged together.
         """
         params = {}
         if source is not None:
@@ -195,16 +208,22 @@ class ArchiveClient:
             item_mapper=IndexGroup,
         )
 
-    def list_command_histogram(self, name=None, start=None, stop=None, merge_time=2):
+    def list_command_histogram(
+        self,
+        name: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        merge_time: float = 2,
+    ) -> Iterable[IndexGroup]:
         """
         Reads command-related index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
 
-        :param float merge_time: Maximum gap in seconds before two consecutive index
-                                 records are merged together.
-        :rtype: ~collections.abc.Iterable[.IndexGroup]
+        :param merge_time:
+            Maximum gap in seconds before two consecutive index
+            records are merged together.
         """
         params = {}
         if name is not None:
@@ -225,14 +244,14 @@ class ArchiveClient:
             item_mapper=IndexGroup,
         )
 
-    def list_completeness_index(self, start=None, stop=None):
+    def list_completeness_index(
+        self, start: Optional[datetime] = None, stop: Optional[datetime] = None
+    ) -> Iterable[IndexGroup]:
         """
         Reads completeness index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
-
-        :rtype: ~collections.abc.Iterable[.IndexGroup]
         """
         params = {}
         if start is not None:
@@ -250,22 +269,31 @@ class ArchiveClient:
         )
 
     def list_alarms(
-        self, name=None, start=None, stop=None, page_size=500, descending=False
-    ):
+        self,
+        name: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        page_size: int = 500,
+        descending: bool = False,
+    ) -> Iterable[Alarm]:
         """
         Reads alarm information between the specified start and stop time.
 
         Alarms are sorted by trigger time, name and sequence number.
 
-        :param str name: Filter by alarm name
-        :param ~datetime.datetime start: Minimum trigger time (inclusive)
-        :param ~datetime.datetime stop: Maximum trigger time (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :param bool descending: If set to ``True`` alarms are fetched in reverse
-                                order (most recent first).
-        :rtype: ~collections.abc.Iterable[.Alarm]
+        :param name:
+            Filter by alarm name
+        :param start:
+            Minimum trigger time (inclusive)
+        :param stop:
+            Maximum trigger time (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply
+            less overhead, but risk hitting the maximum message size
+            limit.
+        :param descending:
+            If set to ``True`` alarms are fetched in reverse
+            order (most recent first).
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -298,25 +326,32 @@ class ArchiveClient:
         return iter(alarms)
 
     def list_packets(
-        self, name=None, start=None, stop=None, page_size=500, descending=False
-    ):
+        self,
+        name: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        page_size: int = 500,
+        descending: bool = False,
+    ) -> Iterable[Packet]:
         """
         Reads packet information between the specified start and stop
         time.
 
         Packets are sorted by generation time and sequence number.
 
-        :param str name: Archived name of the packet
-        :param ~datetime.datetime start: Minimum generation time of the returned
-                                         packets (inclusive)
-        :param ~datetime.datetime stop: Maximum generation time of the returned
-                                        packets (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :param bool descending: If set to ``True`` packets are fetched in reverse
-                                order (most recent first).
-        :rtype: ~collections.abc.Iterable[.Packet]
+        :param name:
+            Archived name of the packet
+        :param start:
+            Minimum generation time of the returned packets (inclusive)
+        :param stop:
+            Maximum generation time of the returned packets (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply
+            less overhead, but risk hitting the maximum message size
+            limit.
+        :param descending:
+            If set to ``True`` packets are fetched in reverse
+            order (most recent first).
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -339,14 +374,14 @@ class ArchiveClient:
             item_mapper=Packet,
         )
 
-    def get_packet(self, generation_time, sequence_number):
+    def get_packet(self, generation_time: datetime, sequence_number: int) -> Packet:
         """
         Gets a single packet by its identifying key (gentime, seqNum).
 
-        :param ~datetime.datetime generation_time: When the packet was generated
-                                                   (packet time)
-        :param int sequence_number: Sequence number of the packet
-        :rtype: .Packet
+        :param generation_time:
+            When the packet was generated (packet time)
+        :param sequence_number:
+            Sequence number of the packet
         """
         url = f"/archive/{self._instance}/packets/"
         url += f"{to_isostring(generation_time)}/{sequence_number}"
@@ -355,18 +390,26 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return Packet(message)
 
-    def export_packets(self, name=None, start=None, stop=None, chunk_size=1024):
+    def export_packets(
+        self,
+        name: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        chunk_size: int = 1024,
+    ) -> Iterable:
         """
         Export raw packets.
 
         Packets are sorted by generation time and sequence number.
 
-        :param str name: Archived name of the packet
-        :param ~datetime.datetime start: Minimum generation time of the returned
-                                         packets (inclusive)
-        :param ~datetime.datetime stop: Maximum generation time of the returned
-                                        packets (exclusive)
-        :rtype: An iterator over received chunks
+        :param name:
+            Archived name of the packet
+        :param start:
+            Minimum generation time of the returned packets (inclusive)
+        :param stop:
+            Maximum generation time of the returned packets (exclusive)
+        :return:
+            An iterator over received chunks
         """
         params = {}
         if name is not None:
@@ -382,34 +425,38 @@ class ArchiveClient:
 
     def list_events(
         self,
-        source=None,
-        severity=None,
-        text_filter=None,
-        start=None,
-        stop=None,
-        page_size=500,
-        descending=False,
-    ):
+        source: Optional[str] = None,
+        severity: Optional[str] = None,
+        text_filter: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        page_size: int = 500,
+        descending: bool = False,
+    ) -> Iterable[Event]:
         """
         Reads events between the specified start and stop time.
 
         Events are sorted by generation time, source, then sequence number.
 
-        :param str source: The source of the returned events.
-        :param str severity: The minimum severity level of the returned events.
-                             One of ``INFO``, ``WATCH``, ``WARNING``, ``DISTRESS``,
-                             ``CRITICAL`` or ``SEVERE``.
-        :param str text_filter: Filter the text message of the returned events
-        :param ~datetime.datetime start: Minimum start date of the returned events
-                                         (inclusive)
-        :param ~datetime.datetime stop: Maximum start date of the returned events
-                                        (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :param bool descending: If set to ``True`` events are fetched in reverse
-                                order (most recent first).
-        :rtype: ~collections.abc.Iterable[.Event]
+        :param source:
+            The source of the returned events.
+        :param severity:
+            The minimum severity level of the returned events.
+            One of ``INFO``, ``WATCH``, ``WARNING``, ``DISTRESS``,
+            ``CRITICAL`` or ``SEVERE``.
+        :param text_filter:
+            Filter the text message of the returned events
+        :param start:
+            Minimum start date of the returned events (inclusive)
+        :param stop:
+            Maximum start date of the returned events (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply
+            less overhead, but risk hitting the maximum message size
+            limit.
+        :param descending:
+            If set to ``True`` events are fetched in reverse
+            order (most recent first).
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -438,13 +485,13 @@ class ArchiveClient:
 
     def sample_parameter_values(
         self,
-        parameter,
-        start=None,
-        stop=None,
-        sample_count=500,
-        parameter_cache="realtime",
-        source="ParameterArchive",
-    ):
+        parameter: str,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        sample_count: int = 500,
+        parameter_cache: str = "realtime",
+        source: str = "ParameterArchive",
+    ) -> List[Sample]:
         """
         Returns parameter samples.
 
@@ -459,27 +506,32 @@ class ArchiveClient:
         series. You should always be explicit about the ``start`` and ``stop``
         times when relying on this property.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias in the
-                              format ``NAMESPACE/NAME``.
-        :param ~datetime.datetime start: Minimum generation time of the sampled
-                                         parameter values (inclusive). If not set
-                                         this defaults to one hour ago.
-        :param ~datetime.datetime stop: Maximum generation time of the sampled
-                                        parameter values (exclusive). If not set
-                                        this defaults to the current time.
-        :param int sample_count: The number of returned samples.
-        :param str parameter_cache: Specify the name of the processor who's
-                                    parameter cache is merged with already
-                                    archived values. To disable results from
-                                    the parameter cache, set this to ``None``.
-        :param str source: Specify how to retrieve parameter values. By
-                           default this uses the ``ParameterArchive`` which
-                           is optimized for retrieval. For Yamcs instances
-                           that do not enable the ``ParameterArchive``, you can
-                           still get results by specifying ``replay`` as the
-                           source. Replay requests take longer to return because
-                           the data needs to be reprocessed.
-        :rtype: .Sample[]
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param start:
+            Minimum generation time of the sampled
+            parameter values (inclusive). If not set
+            this defaults to one hour ago.
+        :param stop:
+            Maximum generation time of the sampled
+            parameter values (exclusive). If not set
+            this defaults to the current time.
+        :param sample_count:
+            The number of returned samples.
+        :param parameter_cache:
+            Specify the name of the processor who's
+            parameter cache is merged with already
+            archived values. To disable results from
+            the parameter cache, set this to ``None``.
+        :param source:
+            Specify how to retrieve parameter values. By
+            default this uses the ``ParameterArchive`` which
+            is optimized for retrieval. For Yamcs instances
+            that do not enable the ``ParameterArchive``, you can
+            still get results by specifying ``replay`` as the
+            source. Replay requests take longer to return because
+            the data needs to be reprocessed.
         """
         path = f"/archive/{self._instance}/parameters{parameter}/samples"
         now = datetime.now(tz=timezone.utc)
@@ -507,15 +559,15 @@ class ArchiveClient:
 
     def list_parameter_ranges(
         self,
-        parameter,
-        start=None,
-        stop=None,
-        min_gap=None,
-        max_gap=None,
-        min_range=None,
-        max_values=100,
-        parameter_cache="realtime",
-    ):
+        parameter: str,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        min_gap: Optional[float] = None,
+        max_gap: Optional[float] = None,
+        min_range: Optional[float] = None,
+        max_values: int = 100,
+        parameter_cache: str = "realtime",
+    ) -> List[ParameterRange]:
         """
         Returns parameter ranges between the specified start and stop time.
 
@@ -530,39 +582,40 @@ class ArchiveClient:
 
         The maximum number of returned ranges is limited to 500.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias in the
-                              format ``NAMESPACE/NAME``.
-        :param start: Minimum generation time of the considered values (inclusive)
-        :type start: Optional[~datetime.datetime]
-        :param stop: Maximum generation time of the considered values (exclusive)
-        :type stop: Optional[~datetime.datetime]
-        :param min_gap: Time in seconds. Any gap (detected based on parameter
-                        expiration) smaller than this will be ignored.
-                        However if the parameter changes value, the ranges
-                        will still be split.
-        :type max_gap: Optional[float]
-        :param max_gap: Time in seconds. If the distance between two
-                        subsequent parameter values is bigger than
-                        this value (but smaller than the parameter
-                        expiration), then an artificial gap is
-                        created. This also applies if there is no
-                        expiration defined for the parameter.
-        :type max_gap: Optional[float]
-        :param min_range: Time in seconds. Minimum duration of returned
-                          ranges. If multiple values occur within the
-                          range, the most frequent can be accessed using
-                          the ``entries`` property.
-        :type min_range: Optional[float]
-        :param max_values: Maximum number of unique values, tallied across the
-                           full requested range. Use this in combination with
-                           ``min_range`` to further optimize for transfer size.
-                           This value is limited to 100 at most.
-        :param str parameter_cache: Specify the name of the processor who's
-                                    parameter cache is merged with already
-                                    archived values. To disable results from
-                                    the parameter cache, set this to ``None``.
-        :type parameter_cache: Optional[str]
-        :rtype: .ParameterRange[]
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param start:
+            Minimum generation time of the considered values (inclusive)
+        :param stop:
+            Maximum generation time of the considered values (exclusive)
+        :param min_gap:
+            Time in seconds. Any gap (detected based on parameter
+            expiration) smaller than this will be ignored.
+            However if the parameter changes value, the ranges
+            will still be split.
+        :param max_gap:
+            Time in seconds. If the distance between two
+            subsequent parameter values is bigger than
+            this value (but smaller than the parameter
+            expiration), then an artificial gap is
+            created. This also applies if there is no
+            expiration defined for the parameter.
+        :param min_range:
+            Time in seconds. Minimum duration of returned
+            ranges. If multiple values occur within the
+            range, the most frequent can be accessed using
+            the ``entries`` property.
+        :param max_values:
+            Maximum number of unique values, tallied across the
+            full requested range. Use this in combination with
+            ``min_range`` to further optimize for transfer size.
+            This value is limited to 100 at most.
+        :param parameter_cache:
+            Specify the name of the processor who's
+            parameter cache is merged with already
+            archived values. To disable results from
+            the parameter cache, set this to ``None``.
         """
         path = f"/archive/{self._instance}/parameters{parameter}/ranges"
         params = {}
@@ -592,14 +645,14 @@ class ArchiveClient:
 
     def list_parameter_values(
         self,
-        parameter,
-        start=None,
-        stop=None,
-        page_size=500,
-        descending=False,
-        parameter_cache="realtime",
-        source="ParameterArchive",
-    ):
+        parameter: str,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        page_size: int = 500,
+        descending: bool = False,
+        parameter_cache: str = "realtime",
+        source: str = "ParameterArchive",
+    ) -> Iterable[ParameterValue]:
         """
         Reads parameter values between the specified start and stop time.
 
@@ -611,29 +664,33 @@ class ArchiveClient:
             based on a single request, and supports downloading the values of
             multiple parameter at the same time.
 
-        :param str parameter: Either a fully-qualified XTCE name or an alias in the
-                              format ``NAMESPACE/NAME``.
-        :param ~datetime.datetime start: Minimum generation time of the returned
-                                         values (inclusive)
-        :param ~datetime.datetime stop: Maximum generation time of the returned
-                                        values (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :param bool descending: If set to ``True`` values are fetched in reverse
-                                order (most recent first).
-        :param str parameter_cache: Specify the name of the processor who's
-                                    parameter cache is merged with already
-                                    archived values. To disable results from
-                                    the parameter cache, set this to ``None``.
-        :param str source: Specify how to retrieve parameter values. By
-                           default this uses the ``ParameterArchive`` which
-                           is optimized for retrieval. For Yamcs instances
-                           that do not enable the ``ParameterArchive``, you can
-                           still get results by specifying ``replay`` as the
-                           source. Replay requests take longer to return because
-                           the data needs to be reprocessed.
-        :rtype: ~collections.abc.Iterable[.ParameterValue]
+        :param parameter:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param start:
+            Minimum generation time of the returned values (inclusive)
+        :param stop:
+            Maximum generation time of the returned values (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply
+            less overhead, but risk hitting the maximum message size
+            limit.
+        :param descending:
+            If set to ``True`` values are fetched in reverse
+            order (most recent first).
+        :param parameter_cache:
+            Specify the name of the processor who's
+            parameter cache is merged with already
+            archived values. To disable results from
+            the parameter cache, set this to ``None``.
+        :param source:
+            Specify how to retrieve parameter values. By
+            default this uses the ``ParameterArchive`` which
+            is optimized for retrieval. For Yamcs instances
+            that do not enable the ``ParameterArchive``, you can
+            still get results by specifying ``replay`` as the
+            source. Replay requests take longer to return because
+            the data needs to be reprocessed.
         """
         params = {
             "source": source,
@@ -661,8 +718,13 @@ class ArchiveClient:
         )
 
     def stream_parameter_values(
-        self, parameters, start=None, stop=None, tm_links=None, chunk_size=32 * 1024
-    ):
+        self,
+        parameters: Union[str, List[str]],
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        tm_links: Optional[Union[str, List[str]]] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable[ParameterData]:
         """
         Reads parameter values between the specified start and stop time.
 
@@ -670,23 +732,18 @@ class ArchiveClient:
         the queried range. If one of the parameters does not have a value
         for a specific generation time, it is not included in the update.
 
-        :param parameters: Parameter(s) to be queried.
-        :type parameters: Union[str, str[]]
+        :param parameters:
+            Parameter(s) to be queried.
+        :param start:
+            Minimum generation time of the returned values (inclusive)
+        :param stop:
+            Maximum generation time of the returned values (exclusive)
+        :param tm_links:
+            If set, include only values that were received through
+            a specific link.
 
-        :param ~datetime.datetime start: Minimum generation time of the returned
-                                         values (inclusive)
-
-        :param ~datetime.datetime stop: Maximum generation time of the returned
-                                        values (exclusive)
-
-        :param tm_links: If set, include only values that were received through
-                         a specific link.
-
-                         .. versionadded:: 1.8.4
-                            Compatible with Yamcs 5.7.4 onwards
-        :type tm_links: Union[str, str[]]
-
-        :rtype: ~collections.abc.Iterable[.ParameterData]
+            .. versionadded:: 1.8.4
+               Compatible with Yamcs 5.7.4 onwards
         """
         options = archive_pb2.StreamParameterValuesRequest()
         options.ids.extend(to_named_object_ids(parameters))
@@ -714,29 +771,34 @@ class ArchiveClient:
 
     def list_command_history(
         self,
-        command=None,
-        queue=None,
-        start=None,
-        stop=None,
-        page_size=500,
-        descending=False,
-    ):
+        command: Optional[str] = None,
+        queue: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        page_size: int = 500,
+        descending: bool = False,
+    ) -> Iterable[CommandHistory]:
         """
         Reads command history entries between the specified start and stop time.
 
-        :param str command: Either a fully-qualified XTCE name or an alias in the
-                            format ``NAMESPACE/NAME``.
-        :param str queue: Name of the queue that the command was assigned to.
-        :param ~datetime.datetime start: Minimum generation time of the returned
-                                         command history entries (inclusive)
-        :param ~datetime.datetime stop: Maximum generation time of the returned
-                                        command history entries (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :param bool descending: If set to ``True`` results are fetched in reverse
-                                order (most recent first).
-        :rtype: ~collections.abc.Iterable[.CommandHistory]
+        :param command:
+            Either a fully-qualified XTCE name or an alias in the
+            format ``NAMESPACE/NAME``.
+        :param queue:
+            Name of the queue that the command was assigned to.
+        :param start:
+            Minimum generation time of the returned
+            command history entries (inclusive)
+        :param stop:
+            Maximum generation time of the returned
+            command history entries (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply
+            less overhead, but risk hitting the maximum message size
+            limit.
+        :param descending:
+            If set to ``True`` results are fetched in reverse
+            order (most recent first).
         """
         params = {
             "order": "desc" if descending else "asc",
@@ -764,13 +826,11 @@ class ArchiveClient:
             item_mapper=CommandHistory,
         )
 
-    def list_tables(self):
+    def list_tables(self) -> Iterable[Table]:
         """
         Returns the existing tables.
 
         Tables are returned in lexicographical order.
-
-        :rtype: ~collections.abc.Iterable[.Table]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -781,12 +841,12 @@ class ArchiveClient:
         tables = getattr(message, "tables")
         return iter([Table(table) for table in tables])
 
-    def get_table(self, table):
+    def get_table(self, table: str) -> Table:
         """
         Gets a single table.
 
-        :param str table: The name of the table.
-        :rtype: .Table
+        :param table:
+            The name of the table.
         """
         path = f"/archive/{self._instance}/tables/{table}"
         response = self.ctx.get_proto(path=path)
@@ -794,7 +854,9 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return Table(message)
 
-    def dump_table(self, table, query=None, chunk_size=32 * 1024):
+    def dump_table(
+        self, table: str, query: Optional[str] = None, chunk_size: int = 32 * 1024
+    ):
         path = f"/archive/{self._instance}/tables/{table}:readRows"
         if query:
             req = table_pb2.ReadRowsRequest()
@@ -806,7 +868,7 @@ class ArchiveClient:
             response = self.ctx.post_proto(path=path, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
-    def load_table(self, table, data, chunk_size=32 * 1024):
+    def load_table(self, table: str, data, chunk_size: int = 32 * 1024) -> int:
         def read_in_chunks(file_object, chunk_size):
             chunk = file_object.read(chunk_size)
             while chunk:
@@ -823,7 +885,12 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return message.count
 
-    def rebuild_histogram(self, table, start=None, stop=None):
+    def rebuild_histogram(
+        self,
+        table: str,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+    ):
         """
         Rebuilds the histogram for a table. This may be necessary
         for example after bulk loading data.
@@ -837,11 +904,12 @@ class ArchiveClient:
             Histogram rebuilds run synchronously: this
             method will await the outcome.
 
-        :param str table: The name of the table
-        :param start: Start time
-        :type start: Optional[~datetime.datetime]
-        :param stop: Stop time
-        :type stop: Optional[~datetime.datetime]
+        :param table:
+            The name of the table
+        :param start:
+            Start time
+        :param stop:
+            Stop time
         """
         req = table_pb2.RebuildHistogramRequest()
         if start:
@@ -851,7 +919,7 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/tables/{table}:rebuildHistogram"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def rebuild_parameter_archive(self, start, stop):
+    def rebuild_parameter_archive(self, start: datetime, stop: datetime):
         """
         Rebuilds the Parameter Archive.
 
@@ -865,10 +933,10 @@ class ArchiveClient:
             Rebuilds run as an asynchronous operation: this
             method will not await the outcome.
 
-        :param start: Start time
-        :type start: ~datetime.datetime
-        :param stop: Stop time
-        :type stop: ~datetime.datetime
+        :param start:
+            Start time
+        :param stop:
+            Stop time
         """
         req = parameter_archive_service_pb2.RebuildRangeRequest()
         req.start.MergeFrom(to_server_time(start))
@@ -876,13 +944,11 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/parameterArchive:rebuild"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def list_streams(self):
+    def list_streams(self) -> Iterable[Stream]:
         """
         Returns the existing streams.
 
         Streams are returned in lexicographical order.
-
-        :rtype: ~collections.abc.Iterable[.Stream]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -893,12 +959,12 @@ class ArchiveClient:
         streams = getattr(message, "streams")
         return iter([Stream(stream) for stream in streams])
 
-    def get_stream(self, stream):
+    def get_stream(self, stream: str) -> Stream:
         """
         Gets a single stream.
 
-        :param str stream: The name of the stream.
-        :rtype: .Stream
+        :param stream:
+            The name of the stream.
         """
         path = f"/archive/{self._instance}/streams/{stream}"
         response = self.ctx.get_proto(path=path)
@@ -906,18 +972,23 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return Stream(message)
 
-    def create_stream_subscription(self, stream, on_data, timeout=60):
+    def create_stream_subscription(
+        self, stream: str, on_data: Callable[[StreamData], None], timeout: float = 60
+    ) -> WebSocketSubscriptionFuture:
         """
         Create a new stream subscription.
 
-        :param str stream: The name of the stream.
-        :param on_data: Function that gets called with  :class:`.StreamData`
-                        updates.
-        :param float timeout: The amount of seconds to wait for the request
-                              to complete.
-        :return: Future that can be used to manage the background websocket
-                 subscription
-        :rtype: .WebSocketSubscriptionFuture
+        :param stream:
+            The name of the stream.
+        :param on_data:
+            Function that gets called with  :class:`.StreamData`
+            updates.
+        :param timeout:
+            The amount of seconds to wait for the request
+            to complete.
+        :return:
+            Future that can be used to manage the background websocket
+            subscription.
         """
         options = table_pb2.SubscribeStreamRequest()
         options.instance = self._instance
@@ -941,13 +1012,14 @@ class ArchiveClient:
 
         return subscription
 
-    def execute_sql(self, statement):
+    def execute_sql(self, statement: str) -> ResultSet:
         """
         Executes a single SQL statement.
 
-        :param statement: SQL string
-        :return: A result set for consuming rows
-        :rtype: .ResultSet
+        :param statement:
+            SQL string
+        :return:
+            A result set for consuming rows
         """
         path = f"/archive/{self._instance}:executeStreamingSql"
         req = table_pb2.ExecuteSqlRequest()

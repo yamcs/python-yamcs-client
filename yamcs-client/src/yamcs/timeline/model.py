@@ -1,60 +1,9 @@
 import abc
-from xmlrpc.client import boolean
+import datetime
+from typing import List
 
 from yamcs.core.helpers import ProtoList, parse_server_time, to_server_time
 from yamcs.protobuf.timeline import timeline_pb2
-
-
-class View:
-    def __init__(self, proto=None):
-        merged = timeline_pb2.TimelineView()
-        if proto:
-            merged.MergeFrom(proto)
-        self._proto = merged
-
-        self._bands = ProtoList(self._proto, "bands", lambda x: Band._as_subclass(x))
-
-    @property
-    def id(self):
-        """View identifier."""
-        if self._proto.HasField("id"):
-            return self._proto.id
-        return None
-
-    @property
-    def name(self):
-        """Name of this view."""
-        return self._proto.name
-
-    @name.setter
-    def name(self, value):
-        self._proto.name = value
-
-    @property
-    def description(self):
-        """Description of this view."""
-        return self._proto.description
-
-    @description.setter
-    def description(self, value):
-        self._proto.name = value
-
-    @property
-    def bands(self):
-        """
-        Bands included in this view.
-
-        :type: List[:class:`.Band`]
-        """
-        return self._bands
-
-    @bands.setter
-    def bands(self, value):
-        self._bands.clear()
-        self._bands.extend(value)
-
-    def __str__(self):
-        return self.name
 
 
 class Item:
@@ -66,67 +15,61 @@ class Item:
         self._proto = merged
 
     @property
-    def id(self):
+    def id(self) -> str:
         """Item identifier."""
         if self._proto.HasField("id"):
             return self._proto.id
         return None
 
     @property
-    def item_type(self):
+    def item_type(self) -> str:
         """Type of item."""
         return timeline_pb2.TimelineItemType.Name(self._proto.type)
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this item."""
         return self._proto.name
 
     @name.setter
-    def name(self, value):
+    def name(self, value: str):
         self._proto.name = value
 
     @property
-    def tags(self):
+    def tags(self) -> List[str]:
         """
         Item tags. Used by bands to filter what is visible.
-
-        :type: str[]
         """
         return self._proto.tags
 
     @tags.setter
-    def tags(self, value):
+    def tags(self, value: List[str]):
         self._proto.tags[:] = value
 
     @property
-    def start(self):
+    def start(self) -> datetime.datetime:
         """
         Item start time.
-
-        :type: :class:`~datetime.datetime`
         """
         if self._proto.HasField("start"):
             return parse_server_time(self._proto.start)
         return None
 
     @start.setter
-    def start(self, value):
+    def start(self, value: datetime.datetime):
         self._proto.start.MergeFrom(to_server_time(value))
 
     @property
-    def duration(self):
+    def duration(self) -> datetime.timedelta:
         """
         Item duration.
-
-        :type: :class:`~datetime.timedelta`
         """
         if self._proto.HasField("duration"):
             return self._proto.duration.ToTimedelta()
         return None
 
     @duration.setter
-    def duration(self, value):
+    def duration(self, value: datetime.timedelta):
         self._proto.duration.FromTimedelta(value)
 
     def __str__(self):
@@ -147,49 +90,49 @@ class Band(abc.ABC):
         self._proto = proto
 
     @property
-    def id(self):
+    def id(self) -> str:
         """Band identifier."""
         if self._proto.HasField("id"):
             return self._proto.id
         return None
 
     @property
-    def band_type(self):
+    def band_type(self) -> str:
         """Type of band."""
         return timeline_pb2.TimelineBandType.Name(self._proto.type)
 
     @property
-    def name(self):
+    def name(self) -> str:
         """Name of this band."""
         return self._proto.name
 
     @name.setter
-    def name(self, value):
+    def name(self, value) -> str:
         self._proto.name = value
 
     @property
-    def description(self):
+    def description(self) -> str:
         """Description of this band."""
         return self._proto.description
 
     @description.setter
-    def description(self, value):
+    def description(self, value: str):
         self._proto.description = value
 
-    def _set_integer_property(self, key, value):
+    def _set_integer_property(self, key: str, value: int):
         if not isinstance(value, int):
             raise ValueError("Provided value is not integer")
         self._proto.properties[key] = str(value)
 
-    def _get_integer_property(self, key):
+    def _get_integer_property(self, key: str):
         return int(self._proto.properties[key])
 
-    def _set_boolean_property(self, key, value):
-        if not isinstance(value, boolean):
+    def _set_boolean_property(self, key: str, value: bool):
+        if not isinstance(value, bool):
             raise ValueError("Provided value is not boolean")
         self._proto.properties[key] = "true" if value else "false"
 
-    def _get_boolean_property(self, key):
+    def _get_boolean_property(self, key: str):
         return self._proto.properties[key] == "true"
 
     @staticmethod
@@ -223,7 +166,7 @@ class TimeRuler(Band):
         super(TimeRuler, self).__init__(merged)
 
     @property
-    def timezone(self):
+    def timezone(self) -> str:
         """
         IANA timezone name.
 
@@ -235,7 +178,7 @@ class TimeRuler(Band):
         return self._proto.properties["timezone"]
 
     @timezone.setter
-    def timezone(self, value):
+    def timezone(self, value: str):
         self._proto.properties["timezone"] = value
 
 
@@ -253,12 +196,12 @@ class Spacer(Band):
         super(Spacer, self).__init__(merged)
 
     @property
-    def height(self):
+    def height(self) -> int:
         """Spacer height"""
         return self._get_integer_property("height")
 
     @height.setter
-    def height(self, value):
+    def height(self, value: int):
         self._set_integer_property("height", value)
 
 
@@ -303,7 +246,7 @@ class ItemBand(Band):
         super(ItemBand, self).__init__(merged)
 
     @property
-    def frozen(self):
+    def frozen(self) -> bool:
         """
         Fix this line to the top of the view. Frozen bands are always
         rendered above other bands.
@@ -311,127 +254,125 @@ class ItemBand(Band):
         return self._get_boolean_property("frozen")
 
     @frozen.setter
-    def frozen(self, value):
+    def frozen(self, value: bool):
         self._set_boolean_property("frozen", value)
 
     @property
-    def tags(self):
+    def tags(self) -> List[str]:
         """
         Item tags that this band filters on.
-
-        :type: str[]
         """
         return self._proto.tags
 
     @tags.setter
-    def tags(self, value):
+    def tags(self, value: List[str]):
         self._proto.tags[:] = value
 
     @property
-    def item_background_color(self):
+    def item_background_color(self) -> str:
         """CSS color string."""
         return self._proto.properties["itemBackgroundColor"]
 
     @item_background_color.setter
-    def item_background_color(self, value):
+    def item_background_color(self, value: str):
         self._proto.properties["itemBackgroundColor"] = value
 
     @property
-    def item_border_color(self):
+    def item_border_color(self) -> str:
         """CSS color string."""
         return self._proto.properties["itemBorderColor"]
 
     @item_border_color.setter
-    def item_border_color(self, value):
+    def item_border_color(self, value: str):
         self._proto.properties["itemBorderColor"] = value
 
     @property
-    def item_border_width(self):
+    def item_border_width(self) -> int:
         return self._get_integer_property("itemBorderWidth")
 
     @item_border_width.setter
-    def item_border_width(self, value):
+    def item_border_width(self, value: int):
         self._set_integer_property("itemBorderWidth", value)
 
     @property
-    def item_corner_radius(self):
+    def item_corner_radius(self) -> int:
         return self._get_integer_property("itemCornerRadius")
 
     @item_corner_radius.setter
-    def item_corner_radius(self, value):
+    def item_corner_radius(self, value: int):
         self._set_integer_property("itemCornerRadius", value)
 
     @property
-    def item_height(self):
+    def item_height(self) -> int:
         return self._get_integer_property("itemHeight")
 
     @item_height.setter
-    def item_height(self, value):
+    def item_height(self, value: int):
         self._set_integer_property("itemHeight", value)
 
     @property
-    def item_margin_left(self):
+    def item_margin_left(self) -> int:
         return self._get_integer_property("itemMarginLeft")
 
     @item_margin_left.setter
-    def item_margin_left(self, value):
+    def item_margin_left(self, value: int):
         self._set_integer_property("itemMarginLeft", value)
 
     @property
-    def item_text_color(self):
+    def item_text_color(self) -> str:
         """CSS color string."""
         return self._proto.properties["itemTextColor"]
 
     @item_text_color.setter
-    def item_text_color(self, value):
+    def item_text_color(self, value: str):
         self._proto.properties["itemTextColor"] = value
 
     @property
-    def item_text_overflow(self):
+    def item_text_overflow(self) -> str:
         """One of ``show``, ``clip``, or ``hide``."""
         return self._proto.properties["itemTextOverflow"]
 
     @item_text_overflow.setter
-    def item_text_overflow(self, value):
+    def item_text_overflow(self, value: str):
         self._proto.properties["itemTextOverflow"] = value
 
     @property
-    def item_text_size(self):
+    def item_text_size(self) -> int:
         return self._get_integer_property("itemTextSize")
 
     @item_text_size.setter
-    def item_text_size(self, value):
+    def item_text_size(self, value: int):
         self._set_integer_property("itemTextSize", value)
 
     @property
-    def margin_bottom(self):
+    def margin_bottom(self) -> int:
         return self._get_integer_property("marginBottom")
 
     @margin_bottom.setter
-    def margin_bottom(self, value):
+    def margin_bottom(self, value: int):
         self._set_integer_property("marginBottom", value)
 
     @property
-    def margin_top(self):
+    def margin_top(self) -> int:
         return self._get_integer_property("marginTop")
 
     @margin_top.setter
-    def margin_top(self, value):
+    def margin_top(self, value: int):
         self._set_integer_property("marginTop", value)
 
     @property
-    def multiline(self):
+    def multiline(self) -> bool:
         """
         Draw items on multiple lines if otherwise there would be collisions.
         """
         return self._get_boolean_property("multiline")
 
     @multiline.setter
-    def multiline(self, value):
+    def multiline(self, value: bool):
         self._set_boolean_property("multiline", value)
 
     @property
-    def space_between_items(self):
+    def space_between_items(self) -> int:
         """
         In case of multilining, this indicates the minimum horizontal space
         between items. If an item does not meet this treshold, it gets
@@ -440,11 +381,11 @@ class ItemBand(Band):
         return self._get_integer_property("spaceBetweenItems")
 
     @space_between_items.setter
-    def space_between_items(self, value):
+    def space_between_items(self, value: int):
         self._set_integer_property("spaceBetweenItems", value)
 
     @property
-    def space_between_lines(self):
+    def space_between_lines(self) -> int:
         """
         In case of multilining, this indicates the vertical space between
         lines.
@@ -452,5 +393,55 @@ class ItemBand(Band):
         return self._get_integer_property("spaceBetweenLines")
 
     @space_between_lines.setter
-    def space_between_lines(self, value):
+    def space_between_lines(self, value: int):
         self._set_integer_property("spaceBetweenLines", value)
+
+
+class View:
+    def __init__(self, proto=None):
+        merged = timeline_pb2.TimelineView()
+        if proto:
+            merged.MergeFrom(proto)
+        self._proto = merged
+
+        self._bands = ProtoList(self._proto, "bands", lambda x: Band._as_subclass(x))
+
+    @property
+    def id(self) -> str:
+        """View identifier."""
+        if self._proto.HasField("id"):
+            return self._proto.id
+        return None
+
+    @property
+    def name(self) -> str:
+        """Name of this view."""
+        return self._proto.name
+
+    @name.setter
+    def name(self, value: str):
+        self._proto.name = value
+
+    @property
+    def description(self) -> str:
+        """Description of this view."""
+        return self._proto.description
+
+    @description.setter
+    def description(self, value: str):
+        self._proto.name = value
+
+    @property
+    def bands(self) -> List[Band]:
+        """
+        Bands included in this view.
+        """
+        return self._bands
+
+    @bands.setter
+    def bands(self, value: List[Band]):
+        self._bands.clear()
+        self._bands.extend(value)
+
+    def __str__(self):
+        return self.name

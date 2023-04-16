@@ -1,14 +1,20 @@
 import base64
 from datetime import datetime, timedelta, timezone
+from typing import Callable, Optional
 
+import requests
 from requests.auth import HTTPBasicAuth
 from yamcs.core.exceptions import Unauthorized, YamcsError
 from yamcs.core.helpers import do_post
 
 
 def _convert_user_credentials(
-    session, token_url, username=None, password=None, refresh_token=None
-):
+    session: requests.Session,
+    token_url: str,
+    username: Optional[str] = None,
+    password: Optional[str] = None,
+    refresh_token: Optional[str] = None,
+) -> "Credentials":
     """
     Converts username/password credentials to token credentials by
     using Yamcs as the authentication server.
@@ -36,8 +42,12 @@ def _convert_user_credentials(
 
 
 def _convert_service_account_credentials(
-    session, token_url, client_id, client_secret, become
-):
+    session: requests.Session,
+    token_url: str,
+    client_id: str,
+    client_secret: str,
+    become: str,
+) -> "Credentials":
     """
     Converts service account credentials to impersonated token credentials.
     """
@@ -75,14 +85,14 @@ class Credentials:
 
     def __init__(
         self,
-        username=None,
-        password=None,
-        access_token=None,
-        refresh_token=None,
-        expiry=None,
-        client_id=None,
-        client_secret=None,
-        become=None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+        access_token: Optional[str] = None,
+        refresh_token: Optional[str] = None,
+        expiry: Optional[datetime] = None,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        become: Optional[str] = None,
     ):
         self.username = username
         """Username (only needed when using username/password credentials)."""
@@ -113,7 +123,12 @@ class Credentials:
 
         self._on_token_update = None
 
-    def login(self, session, auth_url, on_token_update):
+    def login(
+        self,
+        session: requests.Session,
+        auth_url: str,
+        on_token_update: Optional[Callable[["Credentials"], None]],
+    ) -> "Credentials":
         self._on_token_update = on_token_update
         token_url = auth_url + "/token"
         if self.username:  # Convert u/p to bearer
@@ -135,10 +150,10 @@ class Credentials:
             on_token_update(creds)
         return creds
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
         return self.expiry and datetime.now(tz=timezone.utc) >= self.expiry
 
-    def refresh(self, session, auth_url):
+    def refresh(self, session: requests.Session, auth_url: str):
         if self.become:
             new_creds = _convert_service_account_credentials(
                 session,
@@ -160,7 +175,7 @@ class Credentials:
         if self._on_token_update:
             self._on_token_update(self)
 
-    def before_request(self, session, auth_url):
+    def before_request(self, session: requests.Session, auth_url: str):
         if self.is_expired():
             self.refresh(session, auth_url)
 
@@ -174,10 +189,10 @@ class BasicAuthCredentials(Credentials):
     which are passed in the HTTP Authorization header on each request.
     """
 
-    def __init__(self, username, password):
+    def __init__(self, username: str, password: str):
         super().__init__(username=username, password=password)
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
         return False
 
     def refresh(self):
@@ -186,6 +201,6 @@ class BasicAuthCredentials(Credentials):
     def login(self, *args, **kwargs):
         return self
 
-    def before_request(self, session, auth_url):
+    def before_request(self, session: requests.Session, auth_url: str):
         usernamePass = base64.b64encode((self.username + ":" + self.password).encode())
         session.headers.update({"Authorization": "Basic " + usernamePass.decode()})

@@ -1,4 +1,8 @@
+import datetime
+from typing import Iterable, Optional
+
 from yamcs.core import pagination
+from yamcs.core.context import Context
 from yamcs.core.helpers import to_isostring
 from yamcs.protobuf.timeline import timeline_pb2
 from yamcs.timeline.model import Band, Item, View
@@ -9,30 +13,28 @@ class TimelineClient:
     Client for working with Yamcs timeline.
     """
 
-    def __init__(self, ctx, instance):
+    def __init__(self, ctx: Context, instance: str):
         super(TimelineClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
 
-    def list_views(self):
+    def list_views(self) -> Iterable[View]:
         """
         List the views.
-
-        :rtype: ~collections.abc.Iterable[.View]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.ctx.get_proto(f"/timeline/{self._instance}/views")
         message = timeline_pb2.ListViewsResponse()
         message.ParseFromString(response.content)
-        return [View(proto) for proto in getattr(message, "views")]
+        return iter([View(proto) for proto in getattr(message, "views")])
 
-    def get_view(self, id):
+    def get_view(self, id: str) -> View:
         """
         Fetch a view by its identifier.
 
-        :param str id: View identifier
-        :rtype: .View
+        :param id:
+            View identifier
         """
         url = f"/timeline/{self._instance}/views/{id}"
         response = self.ctx.get_proto(url)
@@ -40,11 +42,12 @@ class TimelineClient:
         message.ParseFromString(response.content)
         return View(message)
 
-    def save_view(self, view):
+    def save_view(self, view: View):
         """
         Save or update a view.
 
-        :param .View view: View object
+        :param view:
+            View object
         """
         if view.id:
             url = f"/timeline/{self._instance}/views/{view.id}"
@@ -66,34 +69,33 @@ class TimelineClient:
         message.ParseFromString(response.content)
         view._proto = message
 
-    def delete_view(self, view):
+    def delete_view(self, view: str):
         """
         Delete a view.
 
-        :param string view: View identifier.
+        :param view:
+            View identifier.
         """
         url = f"/timeline/{self._instance}/views/{view}"
         self.ctx.delete_proto(url)
 
-    def list_bands(self):
+    def list_bands(self) -> Iterable[Band]:
         """
         List the bands.
-
-        :rtype: ~collections.abc.Iterable[.Band]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.ctx.get_proto(f"/timeline/{self._instance}/bands")
         message = timeline_pb2.ListBandsResponse()
         message.ParseFromString(response.content)
-        return [Band._as_subclass(proto) for proto in getattr(message, "bands")]
+        return iter([Band._as_subclass(proto) for proto in getattr(message, "bands")])
 
-    def get_band(self, id):
+    def get_band(self, id: str) -> Band:
         """
         Fetch a band by its identifier.
 
-        :param str id: Band identifier
-        :rtype: .Band
+        :param id:
+            Band identifier
         """
         url = f"/timeline/{self._instance}/bands/{id}"
         response = self.ctx.get_proto(url)
@@ -101,11 +103,12 @@ class TimelineClient:
         message.ParseFromString(response.content)
         return Band._as_subclass(message)
 
-    def save_band(self, band):
+    def save_band(self, band: Band):
         """
         Save or update a band.
 
-        :param .Band band: Band object
+        :param band:
+            Band object
         """
         if band.id:
             url = f"/timeline/{self._instance}/bands/{band.id}"
@@ -133,28 +136,35 @@ class TimelineClient:
         message.ParseFromString(response.content)
         band._proto = message
 
-    def delete_band(self, band):
+    def delete_band(self, band: str):
         """
         Delete a band.
 
-        :param string band: Band identifier.
+        :param band:
+            Band identifier.
         """
         url = f"/timeline/{self._instance}/bands/{band}"
         self.ctx.delete_proto(url)
 
-    def list_items(self, band=None, start=None, stop=None, page_size=500):
+    def list_items(
+        self,
+        band: Optional[str] = None,
+        start: Optional[datetime.datetime] = None,
+        stop: Optional[datetime.datetime] = None,
+        page_size: int = 500,
+    ) -> Iterable[Item]:
         """
         List the items.
 
-        :param str band: Return only items matching the specified band
-        :param ~datetime.datetime start: Minimum stop time of the returned
-                                         items (exclusive)
-        :param ~datetime.datetime stop: Maximum start time of the returned
-                                        items (exclusive)
-        :param int page_size: Page size of underlying requests. Higher values imply
-                              less overhead, but risk hitting the maximum message size
-                              limit.
-        :rtype: ~collections.abc.Iterable[.Item]
+        :param band:
+            Return only items matching the specified band
+        :param start:
+            Minimum stop time of the returned items (exclusive)
+        :param stop:
+            Maximum start time of the returned items (exclusive)
+        :param page_size:
+            Page size of underlying requests. Higher values imply less
+            overhead, but risk hitting the maximum message size limit.
         """
         params = {}
         if band is not None:
@@ -175,12 +185,12 @@ class TimelineClient:
             item_mapper=Item,
         )
 
-    def get_item(self, id):
+    def get_item(self, id: str) -> Item:
         """
         Fetch an item by its identifier.
 
-        :param str id: Item identifier
-        :rtype: .Item
+        :param id:
+            Item identifier
         """
         url = f"/timeline/{self._instance}/items/{id}"
         response = self.ctx.get_proto(url)
@@ -188,11 +198,12 @@ class TimelineClient:
         message.ParseFromString(response.content)
         return Item(message)
 
-    def save_item(self, item):
+    def save_item(self, item: Item):
         """
         Save or update an item.
 
-        :param .Item item: Item object
+        :param item:
+            Item object
         """
         if item.id:
             url = f"/timeline/{self._instance}/items/{item.id}"
@@ -216,11 +227,12 @@ class TimelineClient:
         message.ParseFromString(response.content)
         item._proto = message
 
-    def delete_item(self, item):
+    def delete_item(self, item: str):
         """
         Delete an item.
 
-        :param string item: Item identifier.
+        :param item:
+            Item identifier.
         """
         url = f"/timeline/{self._instance}/items/{item}"
         self.ctx.delete_proto(url)

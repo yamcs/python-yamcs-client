@@ -10,29 +10,29 @@ class Cop1Status:
         self._proto = proto
 
     @property
-    def cop1_active(self):
+    def cop1_active(self) -> bool:
         return self._proto.cop1Active
 
     @property
-    def state(self):
+    def state(self) -> str:
         if self._proto.HasField("state"):
             return cop1_pb2.Cop1State.Name(self._proto.state)
         return None
 
     @property
-    def bypass_all(self):
+    def bypass_all(self) -> bool:
         if self._proto.HasField("setBypassAll"):
             return self._proto.setBypassAll
         return None
 
     @property
-    def v_s(self):
+    def v_s(self) -> int:
         if self._proto.HasField("vS"):
             return self._proto.vS
         return None
 
     @property
-    def nn_r(self):
+    def nn_r(self) -> int:
         if self._proto.HasField("nnR"):
             return self._proto.nnR
         return None
@@ -54,26 +54,26 @@ class Cop1Config:
         self._proto = proto
 
     @property
-    def vc_id(self):
+    def vc_id(self) -> int:
         """
         Virtual Channel ID.
         """
         return self._proto.vcId
 
     @property
-    def window_width(self):
+    def window_width(self) -> int:
         return self._proto.windowWidth
 
     @property
-    def timeout_type(self):
+    def timeout_type(self) -> str:
         return cop1_pb2.TimeoutType.Name(self._proto.timeoutType)
 
     @property
-    def tx_limit(self):
+    def tx_limit(self) -> int:
         return self._proto.txLimit
 
     @property
-    def t1(self):
+    def t1(self) -> float:
         return self._proto.t1 / 1000.0
 
     def __str__(self):

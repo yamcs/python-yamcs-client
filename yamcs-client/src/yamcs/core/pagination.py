@@ -1,6 +1,15 @@
+from yamcs.core.context import Context
+
+
 class Iterator:
     def __init__(
-        self, ctx, path, params, response_class, items_key="items", item_mapper=None
+        self,
+        ctx: Context,
+        path: str,
+        params,
+        response_class,
+        items_key="items",
+        item_mapper=None,
     ):
         self.ctx = ctx
         self.path = path

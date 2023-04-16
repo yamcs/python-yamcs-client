@@ -1,6 +1,8 @@
 import functools
 import json
+from typing import Any, Callable, Iterable, List, Mapping, Optional
 
+from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.filetransfer.model import RemoteFileListing, Service, Transfer
@@ -39,48 +41,42 @@ class TransferSubscription(WebSocketSubscriptionFuture):
     each transfer.
     """
 
-    def __init__(self, manager, service_client):
+    def __init__(self, manager, service_client: "FileTransferClient"):
         super(TransferSubscription, self).__init__(manager)
         self.service_client = service_client
         self._cache = {}
         """Transfer cache keyed by id."""
 
-    def get_transfer(self, id):
+    def get_transfer(self, id: str) -> Optional[Transfer]:
         """
         Returns the latest transfer state.
 
-        :param str id: Transfer identifier
-        :rtype: .Transfer
+        :param id:
+            Transfer identifier
         """
         if id in self._cache:
             return self._cache[id]
         return None
 
-    def list_transfers(self):
+    def list_transfers(self) -> List[Transfer]:
         """
         Returns a snapshot of all transfer info.
-
-        :rtype: .Transfer[]
         """
         return [self._cache[k] for k in self._cache]
 
-    def list_ongoing(self):
+    def list_ongoing(self) -> List[Transfer]:
         """
         Returns all ongoing transfers.
-
-        :rtype: .Transfer[]
         """
         return [t for t in self.list_transfers() if not t.is_complete()]
 
-    def list_completed(self):
+    def list_completed(self) -> List[Transfer]:
         """
         Returns all completed transfers (successful or not).
-
-        :rtype: .Transfer[]
         """
         return [t for t in self.list_transfers() if t.is_complete()]
 
-    def _process(self, proto):
+    def _process(self, proto) -> Transfer:
         if proto.id in self._cache:
             transfer = self._cache[proto.id]
             transfer._proto = proto
@@ -99,23 +95,27 @@ class FileListSubscription(WebSocketSubscriptionFuture):
     each remotepath and destination.
     """
 
-    def __init__(self, manager, service_client):
+    def __init__(self, manager, service_client: "FileTransferClient"):
         super(FileListSubscription, self).__init__(manager)
         self.service_client = service_client
         self._cache = {}
         """Filelist cache keyed by (destination, remotePath)"""
 
-    def get_filelist(self, remote_path, destination):
+    def get_filelist(
+        self, remote_path: str, destination: str
+    ) -> Optional[RemoteFileListing]:
         """
         Get the latest cached filelist for the given remote path and destination
-        :param remote_path: path on the remote destination
-        :param destination: remote entity name
-        :rtype .RemoteFileListing
+
+        :param remote_path:
+            path on the remote destination
+        :param destination:
+            remote entity name
         """
         return self._cache.get((remote_path, destination))
 
-    def _process(self, filelist):
-        filelist = RemoteFileListing(filelist)
+    def _process(self, proto) -> RemoteFileListing:
+        filelist = RemoteFileListing(proto)
         self._cache[(filelist.destination, filelist.remote_path)] = filelist
         return filelist
 
@@ -125,17 +125,15 @@ class FileTransferClient:
     Client for working with file transfers (e.g. CFDP) managed by Yamcs.
     """
 
-    def __init__(self, ctx, instance):
+    def __init__(self, ctx: Context, instance: str):
         super(FileTransferClient, self).__init__()
         self.ctx = ctx
         self._instance = instance
         self._default_service = None
 
-    def list_services(self):
+    def list_services(self) -> Iterable[Service]:
         """
         List the services.
-
-        :rtype: ~collections.abc.Iterable[~yamcs.filetransfer.model.Service]
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
@@ -149,12 +147,12 @@ class FileTransferClient:
             result.append(Service(proto, service_client))
         return iter(result)
 
-    def get_service(self, name):
+    def get_service(self, name: str) -> Service:
         """
         Get a specific File Transfer service.
 
-        :param str name: The service name.
-        :rtype: ~yamcs.filetransfer.model.Service
+        :param name:
+            The service name.
         """
         # TODO should have an actual server-side operation for this
         for service in self.list_services():
@@ -163,23 +161,23 @@ class FileTransferClient:
 
 
 class ServiceClient:
-    def __init__(self, ctx, proto):
+    def __init__(self, ctx: Context, proto):
         self.ctx = ctx
         self._instance = proto.instance
         self._service = proto.name
 
     def upload(
         self,
-        bucket_name,
-        object_name,
-        remote_path,
-        source_entity,
-        destination_entity,
-        overwrite,
-        parents,
-        reliable,
-        options,
-    ):
+        bucket_name: str,
+        object_name: str,
+        remote_path: str,
+        source_entity: str,
+        destination_entity: str,
+        overwrite: bool,
+        parents: bool,
+        reliable: bool,
+        options: Mapping[str, Any],
+    ) -> Transfer:
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.UPLOAD
         req.bucket = bucket_name
@@ -208,16 +206,16 @@ class ServiceClient:
 
     def download(
         self,
-        bucket_name,
-        remote_path,
-        object_name,
-        source_entity,
-        destination_entity,
-        overwrite,
-        parents,
-        reliable,
-        options,
-    ):
+        bucket_name: str,
+        remote_path: str,
+        object_name: str,
+        source_entity: str,
+        destination_entity: str,
+        overwrite: bool,
+        parents: bool,
+        reliable: bool,
+        options: Mapping[str, Any],
+    ) -> Transfer:
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
         req.bucket = bucket_name
@@ -245,7 +243,13 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return Transfer(message, self)
 
-    def fetch_filelist(self, remote_path, source_entity, destination_entity, options):
+    def fetch_filelist(
+        self,
+        remote_path: str,
+        source_entity: str,
+        destination_entity: str,
+        options: Mapping[str, Any],
+    ):
         req = filetransfer_pb2.ListFilesRequest()
         req.remotePath = remote_path
         if source_entity:
@@ -257,7 +261,13 @@ class ServiceClient:
         url = f"/filetransfer/{self._instance}/{self._service}/files:sync"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def get_filelist(self, remote_path, source_entity, destination_entity, options):
+    def get_filelist(
+        self,
+        remote_path: str,
+        source_entity: str,
+        destination_entity: str,
+        options: Mapping[str, Any],
+    ) -> RemoteFileListing:
         params = {"remotePath": remote_path}
         if source_entity:
             params["source"] = source_entity
@@ -271,19 +281,21 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return RemoteFileListing(message)
 
-    def pause_transfer(self, id):
+    def pause_transfer(self, id: str):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
         self.ctx.post_proto(url)
 
-    def resume_transfer(self, id):
+    def resume_transfer(self, id: str):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:resume"
         self.ctx.post_proto(url)
 
-    def cancel_transfer(self, id):
+    def cancel_transfer(self, id: str):
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:cancel"
         self.ctx.post_proto(url)
 
-    def create_transfer_subscription(self, on_data=None, timeout=60):
+    def create_transfer_subscription(
+        self, on_data: Optional[Callable[[Transfer], None]] = None, timeout: float = 60
+    ) -> TransferSubscription:
         options = filetransfer_pb2.SubscribeTransfersRequest()
         options.instance = self._instance
         options.serviceName = self._service
@@ -306,7 +318,11 @@ class ServiceClient:
 
         return subscription
 
-    def create_filelist_subscription(self, on_data=None, timeout=60):
+    def create_filelist_subscription(
+        self,
+        on_data: Optional[Callable[[RemoteFileListing], None]] = None,
+        timeout: float = 60,
+    ) -> FileListSubscription:
         options = filetransfer_pb2.SubscribeTransfersRequest()
         options.instance = self._instance
         options.serviceName = self._service
