@@ -1,5 +1,6 @@
 import binascii
 import threading
+from abc import ABC
 from collections import OrderedDict
 from datetime import datetime, timedelta
 
@@ -16,7 +17,7 @@ def _parse_alarm(proto):
         return ParameterAlarm(proto)
     if proto.type == alarms_pb2.EVENT:
         return EventAlarm(proto)
-    raise YamcsError("Unexpected type " + proto.type)
+    raise YamcsError("Unexpected type " + str(proto.type))
 
 
 class Acknowledgment:
@@ -535,7 +536,7 @@ class AlarmUpdate:
         return f"[{self.update_type}] {self.alarm}"
 
 
-class Alarm:
+class Alarm(ABC):
     def __init__(self, proto):
         self._proto = proto
 

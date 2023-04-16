@@ -11,6 +11,7 @@ from yamcs.archive.model import (
     Table,
 )
 from yamcs.core import pagination
+from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import (
     split_protobuf_stream,
@@ -20,6 +21,7 @@ from yamcs.core.helpers import (
 )
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.model import Event
+from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
 from yamcs.protobuf.archive import (
     archive_pb2,
     index_service_pb2,
@@ -30,7 +32,15 @@ from yamcs.protobuf.events import events_service_pb2
 from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
-from yamcs.tmtc.model import CommandHistory, Packet, ParameterData, ParameterValue
+from yamcs.tmtc.model import (
+    Alarm,
+    CommandHistory,
+    EventAlarm,
+    Packet,
+    ParameterAlarm,
+    ParameterData,
+    ParameterValue,
+)
 
 
 def _wrap_callback_parse_stream_data(subscription, on_data, message):
@@ -239,6 +249,54 @@ class ArchiveClient:
             items_key="group",
             item_mapper=IndexGroup,
         )
+
+    def list_alarms(
+        self, name=None, start=None, stop=None, page_size=500, descending=False
+    ):
+        """
+        Reads alarm information between the specified start and stop time.
+
+        Alarms are sorted by trigger time, name and sequence number.
+
+        :param str name: Filter by alarm name
+        :param ~datetime.datetime start: Minimum trigger time (inclusive)
+        :param ~datetime.datetime stop: Maximum trigger time (exclusive)
+        :param int page_size: Page size of underlying requests. Higher values imply
+                              less overhead, but risk hitting the maximum message size
+                              limit.
+        :param bool descending: If set to ``True`` alarms are fetched in reverse
+                                order (most recent first).
+        :rtype: ~collections.abc.Iterable[.Alarm]
+        """
+        params = {
+            "order": "desc" if descending else "asc",
+        }
+        if name is not None:
+            params["name"] = name
+        if page_size is not None:
+            params["limit"] = page_size
+        if start is not None:
+            params["start"] = to_isostring(start)
+        if stop is not None:
+            params["stop"] = to_isostring(stop)
+
+        # TODO change to pagination iterator in time. continuationToken support only
+        # added recently.
+        path = f"/archive/{self._instance}/alarms"
+        response = self.ctx.get_proto(path=path, params=params)
+        message = alarms_service_pb2.ListAlarmsResponse()
+        message.ParseFromString(response.content)
+
+        alarms = []
+        for proto in getattr(message, "alarms"):
+            if proto.type == alarms_pb2.PARAMETER:
+                alarms.append(ParameterAlarm(proto))
+            elif proto.type == alarms_pb2.EVENT:
+                alarms.append(EventAlarm(proto))
+            else:
+                raise YamcsError("Unexpected type " + str(proto.type))
+
+        return iter(alarms)
 
     def list_packets(
         self, name=None, start=None, stop=None, page_size=500, descending=False
