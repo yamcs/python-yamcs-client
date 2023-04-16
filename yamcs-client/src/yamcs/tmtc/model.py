@@ -57,6 +57,13 @@ class CommandHistory:
         self._update(proto.attr)
 
     @property
+    def id(self):
+        """
+        A unique identifier for this command.
+        """
+        return self._proto.id
+
+    @property
     def name(self):
         """Name of the command."""
         return self._proto.commandName
