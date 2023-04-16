@@ -978,56 +978,56 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def acknowledge_alarm(self, alarm, comment=None):
+    def acknowledge_alarm(self, alarm, sequence_number, comment=None):
         """
         Acknowledges a specific alarm.
 
-        :param alarm: Alarm instance
-        :type alarm: :class:`.Alarm`
+        :param str alarm: Alarm name
+        :param int sequence_number: Sequence number
         :param str comment: Optional comment to associate with the state
                             change.
         """
-        name = adapt_name_for_rest(alarm.name)
+        name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}:acknowledge"
+        url += f"/alarms{name}/{sequence_number}:acknowledge"
         req = alarms_service_pb2.AcknowledgeAlarmRequest()
         if comment is not None:
             req.comment = comment
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def unshelve_alarm(self, alarm, comment=None):
+    def unshelve_alarm(self, alarm, sequence_number, comment=None):
         """
         Unshelve an alarm.
 
-        :param alarm: Alarm instance
-        :type alarm: :class:`.Alarm`
+        :param str alarm: Alarm name
+        :param int sequence_number: Sequence number
         :param str comment: Optional comment to associate with the state
                             change.
         """
-        name = adapt_name_for_rest(alarm.name)
+        name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}:unshelve"
+        url += f"/alarms{name}/{sequence_number}:unshelve"
         req = alarms_service_pb2.UnshelveAlarmRequest()
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def shelve_alarm(self, alarm, comment=None):
+    def shelve_alarm(self, alarm, sequence_number, comment=None):
         """
         Shelve an alarm.
 
-        :param alarm: Alarm instance
-        :type alarm: :class:`.Alarm`
+        :param str alarm: Alarm name
+        :param int sequence_number: Sequence number
         :param str comment: Optional comment to associate with the state
                             change.
         """
-        name = adapt_name_for_rest(alarm.name)
+        name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}:shelve"
+        url += f"/alarms{name}/{sequence_number}:shelve"
         req = alarms_service_pb2.ShelveAlarmRequest()
         if comment is not None:
             req.comment = comment
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def clear_alarm(self, alarm, comment=None):
+    def clear_alarm(self, alarm, sequence_number, comment=None):
         """
         Clear an alarm.
 
@@ -1035,14 +1035,14 @@ class ProcessorClient:
             If the reason that caused the alarm is still present, a new
             alarm instance will be generated.
 
-        :param alarm: Alarm instance
-        :type alarm: :class:`.Alarm`
+        :param str alarm: Alarm name
+        :param int sequence_number: Sequence number
         :param str comment: Optional comment to associate with the state
                             change.
         """
-        name = adapt_name_for_rest(alarm.name)
+        name = adapt_name_for_rest(alarm)
         url = f"/processors/{self._instance}/{self._processor}"
-        url += f"/alarms{name}/{alarm.sequence_number}:clear"
+        url += f"/alarms{name}/{sequence_number}:clear"
         req = alarms_service_pb2.ClearAlarmRequest()
         if comment is not None:
             req.comment = comment

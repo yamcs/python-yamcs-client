@@ -33,7 +33,6 @@ from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
 from yamcs.tmtc.model import (
-    Alarm,
     CommandHistory,
     EventAlarm,
     Packet,
