@@ -461,7 +461,12 @@ class Processor:
     @property
     def persistent(self):
         """If ``True``, this processor does not close if no clients are connected."""
-        return not self._proto.persistent
+        return self._proto.persistent
+
+    @property
+    def protected(self):
+        """If ``True``, this processor can not be deleted."""
+        return self._proto.protected
 
     @property
     def mission_time(self):

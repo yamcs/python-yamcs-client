@@ -358,6 +358,16 @@ class YamcsClient:
         """
         return ProcessorClient(self.ctx, instance, processor)
 
+    def delete_processor(self, instance, processor):
+        """
+        Delete a processor.
+
+        :param str instance: A Yamcs instance name.
+        :param str processor: A processor name within that instance.
+        """
+        url = f"/processors/{instance}/{processor}"
+        self.ctx.delete_proto(url)
+
     def get_link(self, instance, link):
         """
         Return an object for working with a specific Yamcs link.
