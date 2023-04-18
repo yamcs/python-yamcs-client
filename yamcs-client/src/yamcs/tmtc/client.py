@@ -1193,7 +1193,7 @@ class ProcessorClient:
     def create_packet_subscription(
         self,
         on_data: Callable[[Packet], None],
-        stream="tm_realtime",
+        stream: Optional[str] = None,
         timeout: float = 60,
     ) -> WebSocketSubscriptionFuture:
         """
@@ -1214,12 +1214,10 @@ class ProcessorClient:
         options = packets_service_pb2.SubscribePacketsRequest()
         options.instance = self._instance
 
-        # TODO remove stream default to tm_realtime within a few releases.
-        # (processor option only added as of Yamcs 5.5.x)
-        # if stream:
-        options.stream = stream
-        # else:
-        #    options.processor = self._processor
+        if stream:
+            options.stream = stream
+        else:
+            options.processor = self._processor
 
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="packets", options=options
