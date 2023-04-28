@@ -198,6 +198,12 @@ class ServiceClient:
         if options:
             req.options.update(options)
 
+        # Keep these for a while, for interacting with Yamcs
+        # versions that do not support the new 'options' field.
+        req.uploadOptions.overwrite = req.options["overwrite"]
+        req.uploadOptions.createPath = req.options["createPath"]
+        req.uploadOptions.reliable = req.options["reliable"]
+
         url = f"/filetransfer/{self._instance}/{self._service}/transfers"
         response = self.ctx.post_proto(url, data=req.SerializeToString())
         message = filetransfer_pb2.TransferInfo()
