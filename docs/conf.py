@@ -65,6 +65,10 @@ latex_documents = [
     ),
 ]
 
+# Too many URLs (for each datatype), so hide them
+latex_show_urls = "no"
+latex_show_pagerefs = False
+
 autoclass_content = "both"
 
 intersphinx_mapping = {
