@@ -400,7 +400,7 @@ class Service:
         """
         Short failure message when state is ``FAILED``
 
-        .. versionadded:: 1.8.9
+        .. versionadded:: 1.9.0
            Compatible with Yamcs 5.8.0 onwards
         """
         if self._proto.HasField("failureMessage"):
@@ -411,7 +411,7 @@ class Service:
         """
         Java stacktrace when state is ``FAILED``
 
-        .. versionadded:: 1.8.9
+        .. versionadded:: 1.9.0
            Compatible with Yamcs 5.8.0 onwards
         """
         if self._proto.HasField("failureCause"):

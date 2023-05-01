@@ -456,7 +456,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
             not set Yamcs will automatically assign a sequential number as if
             every submitted command is unique.
 
-            .. versionadded:: 1.8.9
+            .. versionadded:: 1.9.0
 
         :return:
             An object providing access to properties of the newly issued
@@ -721,7 +721,7 @@ class ProcessorClient:
             the same origin. If not set Yamcs will automatically assign a
             sequential number as if every submitted command is unique.
 
-            .. versionadded:: 1.8.9
+            .. versionadded:: 1.9.0
 
         :return:
             An object providing access to properties of the newly issued
