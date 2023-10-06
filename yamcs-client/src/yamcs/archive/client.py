@@ -307,23 +307,22 @@ class ArchiveClient:
         if stop is not None:
             params["stop"] = to_isostring(stop)
 
-        # TODO change to pagination iterator in time. continuationToken support only
-        # added recently.
-        path = f"/archive/{self._instance}/alarms"
-        response = self.ctx.get_proto(path=path, params=params)
-        message = alarms_service_pb2.ListAlarmsResponse()
-        message.ParseFromString(response.content)
-
-        alarms = []
-        for proto in getattr(message, "alarms"):
+        def to_alarm(proto):
             if proto.type == alarms_pb2.PARAMETER:
-                alarms.append(ParameterAlarm(proto))
+                return ParameterAlarm(proto)
             elif proto.type == alarms_pb2.EVENT:
-                alarms.append(EventAlarm(proto))
+                return EventAlarm(proto)
             else:
                 raise YamcsError("Unexpected type " + str(proto.type))
 
-        return iter(alarms)
+        return pagination.Iterator(
+            ctx=self.ctx,
+            path=f"/archive/{self._instance}/alarms",
+            params=params,
+            response_class=alarms_service_pb2.ListAlarmsResponse,
+            items_key="alarms",
+            item_mapper=to_alarm,
+        )
 
     def list_packets(
         self,

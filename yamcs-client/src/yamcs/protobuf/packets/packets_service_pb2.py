@@ -16,6 +16,8 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.api import httpbody_pb2 as yamcs_dot_api_dot_httpbody__pb2
+from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
+from yamcs.protobuf.mdb import mdb_pb2 as yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2
 from yamcs.protobuf.packets import packets_pb2 as yamcs_dot_protobuf_dot_packets_dot_packets__pb2
 
 
@@ -24,9 +26,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.packets',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\023PacketsServiceProtoP\001'),
-  serialized_pb=_b('\n,yamcs/protobuf/packets/packets_service.proto\x12\x16yamcs.protobuf.packets\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a$yamcs/protobuf/packets/packets.proto\"*\n\x16ListPacketNamesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\'\n\x17ListPacketNamesResponse\x12\x0c\n\x04name\x18\x01 \x03(\t\"\xc2\x01\n\x12ListPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"f\n\x13ListPacketsResponse\x12\x34\n\x06packet\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.packets.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"a\n\x10GetPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14StreamPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"d\n\x13\x45xportPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14\x45xportPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"N\n\x17SubscribePacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t\"P\n\x1aSubscribeContainersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05names\x18\x03 \x03(\t\"\xa6\x01\n\rContainerData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x32\n\x0egenerationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rreceptionTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\x12\x10\n\x08seqCount\x18\x05 \x01(\r2\x8f\t\n\nPacketsApi\x12\x9e\x01\n\x0fListPacketNames\x12..yamcs.protobuf.packets.ListPacketNamesRequest\x1a/.yamcs.protobuf.packets.ListPacketNamesResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-names\x12\x8d\x01\n\x0bListPackets\x12*.yamcs.protobuf.packets.ListPacketsRequest\x1a+.yamcs.protobuf.packets.ListPacketsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/packets\x12\x95\x01\n\tGetPacket\x12(.yamcs.protobuf.packets.GetPacketRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"8\x8a\x92\x03\x34\n2/api/archive/{instance}/packets/{gentime}/{seqnum}\x12\x9c\x01\n\rStreamPackets\x12,.yamcs.protobuf.packets.StreamPacketsRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"5\x8a\x92\x03\x31\x1a,/api/stream-archive/{instance}:streamPackets:\x01*0\x01\x12\x91\x01\n\x0c\x45xportPacket\x12+.yamcs.protobuf.packets.ExportPacketRequest\x1a\x13.yamcs.api.HttpBody\"?\x8a\x92\x03;\n9/api/archive/{instance}/packets/{gentime}/{seqnum}:export\x12\x81\x01\n\rExportPackets\x12,.yamcs.protobuf.packets.ExportPacketsRequest\x1a\x13.yamcs.api.HttpBody\"+\x8a\x92\x03\'\n%/api/archive/{instance}:exportPackets0\x01\x12z\n\x10SubscribePackets\x12/.yamcs.protobuf.packets.SubscribePacketsRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"\r\xda\x92\x03\t\n\x07packets0\x01\x12\x84\x01\n\x13SubscribeContainers\x12\x32.yamcs.protobuf.packets.SubscribeContainersRequest\x1a%.yamcs.protobuf.packets.ContainerData\"\x10\xda\x92\x03\x0c\n\ncontainers0\x01\x42+\n\x12org.yamcs.protobufB\x13PacketsServiceProtoP\x01')
+  serialized_pb=_b('\n,yamcs/protobuf/packets/packets_service.proto\x12\x16yamcs.protobuf.packets\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a$yamcs/protobuf/packets/packets.proto\"*\n\x16ListPacketNamesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"K\n\x17ListPacketNamesResponse\x12\x10\n\x04name\x18\x01 \x03(\tB\x02\x18\x01\x12\x0f\n\x07packets\x18\x02 \x03(\t\x12\r\n\x05links\x18\x03 \x03(\t\"\xd0\x01\n\x12ListPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\x12\x0c\n\x04name\x18\x05 \x03(\t\x12\x0c\n\x04link\x18\t \x01(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"f\n\x13ListPacketsResponse\x12\x34\n\x06packet\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.packets.TmPacketData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"a\n\x10GetPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14StreamPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"e\n\x14\x45xtractPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x87\x01\n\x15\x45xtractPacketResponse\x12\x12\n\npacketName\x18\x01 \x01(\t\x12H\n\x0fparameterValues\x18\x02 \x03(\x0b\x32/.yamcs.protobuf.packets.ExtractedParameterValue\x12\x10\n\x08messages\x18\x03 \x03(\t\"\xfc\x01\n\x17\x45xtractedParameterValue\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x39\n\x0e\x65ntryContainer\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x10\n\x08location\x18\x03 \x01(\x05\x12\x0c\n\x04size\x18\x04 \x01(\x05\x12\'\n\x08rawValue\x18\x05 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\'\n\x08\x65ngValue\x18\x06 \x01(\x0b\x32\x15.yamcs.protobuf.Value\"d\n\x13\x45xportPacketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12+\n\x07gentime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06seqnum\x18\x03 \x01(\x05\"\x8b\x01\n\x14\x45xportPacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04name\x18\x04 \x03(\t\"N\n\x17SubscribePacketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\x12\x11\n\tprocessor\x18\x03 \x01(\t\"P\n\x1aSubscribeContainersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05names\x18\x03 \x03(\t\"\xa6\x01\n\rContainerData\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x32\n\x0egenerationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rreceptionTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06\x62inary\x18\x04 \x01(\x0c\x12\x10\n\x08seqCount\x18\x05 \x01(\r2\xc0\n\n\nPacketsApi\x12\x9e\x01\n\x0fListPacketNames\x12..yamcs.protobuf.packets.ListPacketNamesRequest\x1a/.yamcs.protobuf.packets.ListPacketNamesResponse\"*\x8a\x92\x03&\n$/api/archive/{instance}/packet-names\x12\x8d\x01\n\x0bListPackets\x12*.yamcs.protobuf.packets.ListPacketsRequest\x1a+.yamcs.protobuf.packets.ListPacketsResponse\"%\x8a\x92\x03!\n\x1f/api/archive/{instance}/packets\x12\x95\x01\n\tGetPacket\x12(.yamcs.protobuf.packets.GetPacketRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"8\x8a\x92\x03\x34\n2/api/archive/{instance}/packets/{gentime}/{seqnum}\x12\xae\x01\n\rExtractPacket\x12,.yamcs.protobuf.packets.ExtractPacketRequest\x1a-.yamcs.protobuf.packets.ExtractPacketResponse\"@\x8a\x92\x03<\n:/api/archive/{instance}/packets/{gentime}/{seqnum}:extract\x12\x9c\x01\n\rStreamPackets\x12,.yamcs.protobuf.packets.StreamPacketsRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"5\x8a\x92\x03\x31\x1a,/api/stream-archive/{instance}:streamPackets:\x01*0\x01\x12\x91\x01\n\x0c\x45xportPacket\x12+.yamcs.protobuf.packets.ExportPacketRequest\x1a\x13.yamcs.api.HttpBody\"?\x8a\x92\x03;\n9/api/archive/{instance}/packets/{gentime}/{seqnum}:export\x12\x81\x01\n\rExportPackets\x12,.yamcs.protobuf.packets.ExportPacketsRequest\x1a\x13.yamcs.api.HttpBody\"+\x8a\x92\x03\'\n%/api/archive/{instance}:exportPackets0\x01\x12z\n\x10SubscribePackets\x12/.yamcs.protobuf.packets.SubscribePacketsRequest\x1a$.yamcs.protobuf.packets.TmPacketData\"\r\xda\x92\x03\t\n\x07packets0\x01\x12\x84\x01\n\x13SubscribeContainers\x12\x32.yamcs.protobuf.packets.SubscribeContainersRequest\x1a%.yamcs.protobuf.packets.ContainerData\"\x10\xda\x92\x03\x0c\n\ncontainers0\x01\x42+\n\x12org.yamcs.protobufB\x13PacketsServiceProtoP\x01')
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_packets_dot_packets__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_packets_dot_packets__pb2.DESCRIPTOR,])
 
 
 
@@ -57,8 +59,8 @@ _LISTPACKETNAMESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=198,
-  serialized_end=240,
+  serialized_start=256,
+  serialized_end=298,
 )
 
 
@@ -75,6 +77,20 @@ _LISTPACKETNAMESRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
+      serialized_options=_b('\030\001'), file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='packets', full_name='yamcs.protobuf.packets.ListPacketNamesResponse.packets', index=1,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='links', full_name='yamcs.protobuf.packets.ListPacketNamesResponse.links', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
@@ -88,8 +104,8 @@ _LISTPACKETNAMESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=242,
-  serialized_end=281,
+  serialized_start=300,
+  serialized_end=375,
 )
 
 
@@ -136,21 +152,28 @@ _LISTPACKETSREQUEST = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='next', full_name='yamcs.protobuf.packets.ListPacketsRequest.next', index=5,
+      name='link', full_name='yamcs.protobuf.packets.ListPacketsRequest.link', index=5,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.packets.ListPacketsRequest.next', index=6,
       number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.packets.ListPacketsRequest.start', index=6,
+      name='start', full_name='yamcs.protobuf.packets.ListPacketsRequest.start', index=7,
       number=7, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.packets.ListPacketsRequest.stop', index=7,
+      name='stop', full_name='yamcs.protobuf.packets.ListPacketsRequest.stop', index=8,
       number=8, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -168,8 +191,8 @@ _LISTPACKETSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=284,
-  serialized_end=478,
+  serialized_start=378,
+  serialized_end=586,
 )
 
 
@@ -206,8 +229,8 @@ _LISTPACKETSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=480,
-  serialized_end=582,
+  serialized_start=588,
+  serialized_end=690,
 )
 
 
@@ -251,8 +274,8 @@ _GETPACKETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=584,
-  serialized_end=681,
+  serialized_start=692,
+  serialized_end=789,
 )
 
 
@@ -303,8 +326,164 @@ _STREAMPACKETSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=684,
-  serialized_end=823,
+  serialized_start=792,
+  serialized_end=931,
+)
+
+
+_EXTRACTPACKETREQUEST = _descriptor.Descriptor(
+  name='ExtractPacketRequest',
+  full_name='yamcs.protobuf.packets.ExtractPacketRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.packets.ExtractPacketRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gentime', full_name='yamcs.protobuf.packets.ExtractPacketRequest.gentime', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='seqnum', full_name='yamcs.protobuf.packets.ExtractPacketRequest.seqnum', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=933,
+  serialized_end=1034,
+)
+
+
+_EXTRACTPACKETRESPONSE = _descriptor.Descriptor(
+  name='ExtractPacketResponse',
+  full_name='yamcs.protobuf.packets.ExtractPacketResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='packetName', full_name='yamcs.protobuf.packets.ExtractPacketResponse.packetName', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='parameterValues', full_name='yamcs.protobuf.packets.ExtractPacketResponse.parameterValues', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='messages', full_name='yamcs.protobuf.packets.ExtractPacketResponse.messages', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1037,
+  serialized_end=1172,
+)
+
+
+_EXTRACTEDPARAMETERVALUE = _descriptor.Descriptor(
+  name='ExtractedParameterValue',
+  full_name='yamcs.protobuf.packets.ExtractedParameterValue',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='parameter', full_name='yamcs.protobuf.packets.ExtractedParameterValue.parameter', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='entryContainer', full_name='yamcs.protobuf.packets.ExtractedParameterValue.entryContainer', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='location', full_name='yamcs.protobuf.packets.ExtractedParameterValue.location', index=2,
+      number=3, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='size', full_name='yamcs.protobuf.packets.ExtractedParameterValue.size', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='rawValue', full_name='yamcs.protobuf.packets.ExtractedParameterValue.rawValue', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='engValue', full_name='yamcs.protobuf.packets.ExtractedParameterValue.engValue', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1175,
+  serialized_end=1427,
 )
 
 
@@ -348,8 +527,8 @@ _EXPORTPACKETREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=825,
-  serialized_end=925,
+  serialized_start=1429,
+  serialized_end=1529,
 )
 
 
@@ -400,8 +579,8 @@ _EXPORTPACKETSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=928,
-  serialized_end=1067,
+  serialized_start=1532,
+  serialized_end=1671,
 )
 
 
@@ -445,8 +624,8 @@ _SUBSCRIBEPACKETSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1069,
-  serialized_end=1147,
+  serialized_start=1673,
+  serialized_end=1751,
 )
 
 
@@ -490,8 +669,8 @@ _SUBSCRIBECONTAINERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1149,
-  serialized_end=1229,
+  serialized_start=1753,
+  serialized_end=1833,
 )
 
 
@@ -549,8 +728,8 @@ _CONTAINERDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1232,
-  serialized_end=1398,
+  serialized_start=1836,
+  serialized_end=2002,
 )
 
 _LISTPACKETSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -559,6 +738,12 @@ _LISTPACKETSRESPONSE.fields_by_name['packet'].message_type = yamcs_dot_protobuf_
 _GETPACKETREQUEST.fields_by_name['gentime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _STREAMPACKETSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _STREAMPACKETSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_EXTRACTPACKETREQUEST.fields_by_name['gentime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_EXTRACTPACKETRESPONSE.fields_by_name['parameterValues'].message_type = _EXTRACTEDPARAMETERVALUE
+_EXTRACTEDPARAMETERVALUE.fields_by_name['parameter'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._PARAMETERINFO
+_EXTRACTEDPARAMETERVALUE.fields_by_name['entryContainer'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._CONTAINERINFO
+_EXTRACTEDPARAMETERVALUE.fields_by_name['rawValue'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
+_EXTRACTEDPARAMETERVALUE.fields_by_name['engValue'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
 _EXPORTPACKETREQUEST.fields_by_name['gentime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _EXPORTPACKETSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _EXPORTPACKETSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -570,6 +755,9 @@ DESCRIPTOR.message_types_by_name['ListPacketsRequest'] = _LISTPACKETSREQUEST
 DESCRIPTOR.message_types_by_name['ListPacketsResponse'] = _LISTPACKETSRESPONSE
 DESCRIPTOR.message_types_by_name['GetPacketRequest'] = _GETPACKETREQUEST
 DESCRIPTOR.message_types_by_name['StreamPacketsRequest'] = _STREAMPACKETSREQUEST
+DESCRIPTOR.message_types_by_name['ExtractPacketRequest'] = _EXTRACTPACKETREQUEST
+DESCRIPTOR.message_types_by_name['ExtractPacketResponse'] = _EXTRACTPACKETRESPONSE
+DESCRIPTOR.message_types_by_name['ExtractedParameterValue'] = _EXTRACTEDPARAMETERVALUE
 DESCRIPTOR.message_types_by_name['ExportPacketRequest'] = _EXPORTPACKETREQUEST
 DESCRIPTOR.message_types_by_name['ExportPacketsRequest'] = _EXPORTPACKETSREQUEST
 DESCRIPTOR.message_types_by_name['SubscribePacketsRequest'] = _SUBSCRIBEPACKETSREQUEST
@@ -619,6 +807,27 @@ StreamPacketsRequest = _reflection.GeneratedProtocolMessageType('StreamPacketsRe
   ))
 _sym_db.RegisterMessage(StreamPacketsRequest)
 
+ExtractPacketRequest = _reflection.GeneratedProtocolMessageType('ExtractPacketRequest', (_message.Message,), dict(
+  DESCRIPTOR = _EXTRACTPACKETREQUEST,
+  __module__ = 'yamcs.protobuf.packets.packets_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.packets.ExtractPacketRequest)
+  ))
+_sym_db.RegisterMessage(ExtractPacketRequest)
+
+ExtractPacketResponse = _reflection.GeneratedProtocolMessageType('ExtractPacketResponse', (_message.Message,), dict(
+  DESCRIPTOR = _EXTRACTPACKETRESPONSE,
+  __module__ = 'yamcs.protobuf.packets.packets_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.packets.ExtractPacketResponse)
+  ))
+_sym_db.RegisterMessage(ExtractPacketResponse)
+
+ExtractedParameterValue = _reflection.GeneratedProtocolMessageType('ExtractedParameterValue', (_message.Message,), dict(
+  DESCRIPTOR = _EXTRACTEDPARAMETERVALUE,
+  __module__ = 'yamcs.protobuf.packets.packets_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.packets.ExtractedParameterValue)
+  ))
+_sym_db.RegisterMessage(ExtractedParameterValue)
+
 ExportPacketRequest = _reflection.GeneratedProtocolMessageType('ExportPacketRequest', (_message.Message,), dict(
   DESCRIPTOR = _EXPORTPACKETREQUEST,
   __module__ = 'yamcs.protobuf.packets.packets_service_pb2'
@@ -656,6 +865,7 @@ _sym_db.RegisterMessage(ContainerData)
 
 
 DESCRIPTOR._options = None
+_LISTPACKETNAMESRESPONSE.fields_by_name['name']._options = None
 
 _PACKETSAPI = _descriptor.ServiceDescriptor(
   name='PacketsApi',
@@ -663,8 +873,8 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1401,
-  serialized_end=2568,
+  serialized_start=2005,
+  serialized_end=3349,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListPacketNames',
@@ -694,9 +904,18 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
     serialized_options=_b('\212\222\0034\n2/api/archive/{instance}/packets/{gentime}/{seqnum}'),
   ),
   _descriptor.MethodDescriptor(
+    name='ExtractPacket',
+    full_name='yamcs.protobuf.packets.PacketsApi.ExtractPacket',
+    index=3,
+    containing_service=None,
+    input_type=_EXTRACTPACKETREQUEST,
+    output_type=_EXTRACTPACKETRESPONSE,
+    serialized_options=_b('\212\222\003<\n:/api/archive/{instance}/packets/{gentime}/{seqnum}:extract'),
+  ),
+  _descriptor.MethodDescriptor(
     name='StreamPackets',
     full_name='yamcs.protobuf.packets.PacketsApi.StreamPackets',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_STREAMPACKETSREQUEST,
     output_type=yamcs_dot_protobuf_dot_packets_dot_packets__pb2._TMPACKETDATA,
@@ -705,7 +924,7 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ExportPacket',
     full_name='yamcs.protobuf.packets.PacketsApi.ExportPacket',
-    index=4,
+    index=5,
     containing_service=None,
     input_type=_EXPORTPACKETREQUEST,
     output_type=yamcs_dot_api_dot_httpbody__pb2._HTTPBODY,
@@ -714,7 +933,7 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ExportPackets',
     full_name='yamcs.protobuf.packets.PacketsApi.ExportPackets',
-    index=5,
+    index=6,
     containing_service=None,
     input_type=_EXPORTPACKETSREQUEST,
     output_type=yamcs_dot_api_dot_httpbody__pb2._HTTPBODY,
@@ -723,7 +942,7 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubscribePackets',
     full_name='yamcs.protobuf.packets.PacketsApi.SubscribePackets',
-    index=6,
+    index=7,
     containing_service=None,
     input_type=_SUBSCRIBEPACKETSREQUEST,
     output_type=yamcs_dot_protobuf_dot_packets_dot_packets__pb2._TMPACKETDATA,
@@ -732,7 +951,7 @@ _PACKETSAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubscribeContainers',
     full_name='yamcs.protobuf.packets.PacketsApi.SubscribeContainers',
-    index=7,
+    index=8,
     containing_service=None,
     input_type=_SUBSCRIBECONTAINERSREQUEST,
     output_type=_CONTAINERDATA,

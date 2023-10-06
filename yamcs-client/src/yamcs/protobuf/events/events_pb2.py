@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.events',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\013EventsProtoP\001'),
-  serialized_pb=_b('\n\"yamcs/protobuf/events/events.proto\x12\x15yamcs.protobuf.events\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd3\x03\n\x05\x45vent\x12\x0e\n\x06source\x18\x01 \x02(\t\x12\x32\n\x0egenerationTime\x18\x02 \x02(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rreceptionTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tseqNumber\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x02(\t\x12\x42\n\x08severity\x18\x07 \x01(\x0e\x32*.yamcs.protobuf.events.Event.EventSeverity:\x04INFO\x12\x11\n\tcreatedBy\x18\n \x01(\t\x12\x36\n\x05\x65xtra\x18\x0b \x03(\x0b\x32\'.yamcs.protobuf.events.Event.ExtraEntry\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\rEventSeverity\x12\x08\n\x04INFO\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\t\n\x05WATCH\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x05\x12\x0c\n\x08\x43RITICAL\x10\x06\x12\n\n\x06SEVERE\x10\x07\x42#\n\x12org.yamcs.protobufB\x0b\x45ventsProtoP\x01')
+  serialized_pb=_b('\n\"yamcs/protobuf/events/events.proto\x12\x15yamcs.protobuf.events\x1a\x1fgoogle/protobuf/timestamp.proto\"\xd3\x03\n\x05\x45vent\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x32\n\x0egenerationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rreceptionTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tseqNumber\x18\x04 \x01(\x05\x12\x0c\n\x04type\x18\x05 \x01(\t\x12\x0f\n\x07message\x18\x06 \x01(\t\x12\x42\n\x08severity\x18\x07 \x01(\x0e\x32*.yamcs.protobuf.events.Event.EventSeverity:\x04INFO\x12\x11\n\tcreatedBy\x18\n \x01(\t\x12\x36\n\x05\x65xtra\x18\x0b \x03(\x0b\x32\'.yamcs.protobuf.events.Event.ExtraEntry\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"d\n\rEventSeverity\x12\x08\n\x04INFO\x10\x00\x12\x0b\n\x07WARNING\x10\x01\x12\t\n\x05\x45RROR\x10\x02\x12\t\n\x05WATCH\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x05\x12\x0c\n\x08\x43RITICAL\x10\x06\x12\n\n\x06SEVERE\x10\x07\x42#\n\x12org.yamcs.protobufB\x0b\x45ventsProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -116,14 +116,14 @@ _EVENT = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='source', full_name='yamcs.protobuf.events.Event.source', index=0,
-      number=1, type=9, cpp_type=9, label=2,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='generationTime', full_name='yamcs.protobuf.events.Event.generationTime', index=1,
-      number=2, type=11, cpp_type=10, label=2,
+      number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -151,7 +151,7 @@ _EVENT = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='message', full_name='yamcs.protobuf.events.Event.message', index=5,
-      number=6, type=9, cpp_type=9, label=2,
+      number=6, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,

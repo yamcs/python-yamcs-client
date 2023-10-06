@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.buckets',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\014BucketsProtoP\001'),
-  serialized_pb=_b('\n$yamcs/protobuf/buckets/buckets.proto\x12\x16yamcs.protobuf.buckets\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"5\n\x13\x43reateBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\";\n\x13\x44\x65leteBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\"L\n\x10GetObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"O\n\x13\x44\x65leteObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"r\n\x13UploadObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\x12!\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x13.yamcs.api.HttpBody\"\xa1\x01\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\x12\x0f\n\x07maxSize\x18\x04 \x01(\x04\x12\x12\n\nmaxObjects\x18\x05 \x01(\r\x12+\n\x07\x63reated\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tdirectory\x18\x07 \x01(\t\"\xca\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12\x42\n\x08metadata\x18\x04 \x03(\x0b\x32\x30.yamcs.protobuf.buckets.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"&\n\x12ListBucketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"8\n\x10GetBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\"J\n\x13ListBucketsResponse\x12\x33\n\x07\x62uckets\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.buckets.BucketInfo\"]\n\x12ListObjectsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x11\n\tdelimiter\x18\x03 \x01(\t\x12\x0e\n\x06prefix\x18\x04 \x01(\t\"\\\n\x13ListObjectsResponse\x12\x10\n\x08prefixes\x18\x01 \x03(\t\x12\x33\n\x07objects\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.buckets.ObjectInfo2\x85\t\n\nBucketsApi\x12\x85\x01\n\x0bListBuckets\x12*.yamcs.protobuf.buckets.ListBucketsRequest\x1a+.yamcs.protobuf.buckets.ListBucketsResponse\"\x1d\x8a\x92\x03\x19\n\x17/api/buckets/{instance}\x12\x85\x01\n\tGetBucket\x12(.yamcs.protobuf.buckets.GetBucketRequest\x1a\".yamcs.protobuf.buckets.BucketInfo\"*\x8a\x92\x03&\n$/api/buckets/{instance}/{bucketName}\x12u\n\x0c\x43reateBucket\x12+.yamcs.protobuf.buckets.CreateBucketRequest\x1a\x16.google.protobuf.Empty\" \x8a\x92\x03\x1c\x1a\x17/api/buckets/{instance}:\x01*\x12\x7f\n\x0c\x44\x65leteBucket\x12+.yamcs.protobuf.buckets.DeleteBucketRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&\"$/api/buckets/{instance}/{bucketName}\x12\x8c\x01\n\tGetObject\x12(.yamcs.protobuf.buckets.GetObjectRequest\x1a\x13.yamcs.api.HttpBody\"@\x8a\x92\x03<\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}\x12\xa1\x01\n\x0cUploadObject\x12+.yamcs.protobuf.buckets.UploadObjectRequest\x1a\x16.google.protobuf.Empty\"L\x8a\x92\x03H\x1a;/api/buckets/{instance}/{bucketName}/objects/{objectName**}:\x04\x64\x61ta@\x80\x80\xc0\x02\x12\xa3\x01\n\x0bListObjects\x12*.yamcs.protobuf.buckets.ListObjectsRequest\x1a+.yamcs.protobuf.buckets.ListObjectsResponse\";\x8a\x92\x03\x37\n,/api/buckets/{instance}/{bucketName}/objectsR\x07objects\x12\x95\x01\n\x0c\x44\x65leteObject\x12+.yamcs.protobuf.buckets.DeleteObjectRequest\x1a\x16.google.protobuf.Empty\"@\x8a\x92\x03<\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}B$\n\x12org.yamcs.protobufB\x0c\x42ucketsProtoP\x01')
+  serialized_pb=_b('\n$yamcs/protobuf/buckets/buckets.proto\x12\x16yamcs.protobuf.buckets\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"5\n\x13\x43reateBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\";\n\x13\x44\x65leteBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\"L\n\x10GetObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"O\n\x13\x44\x65leteObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\"r\n\x13UploadObjectRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x12\n\nobjectName\x18\x03 \x01(\t\x12!\n\x04\x64\x61ta\x18\x04 \x01(\x0b\x32\x13.yamcs.api.HttpBody\"\xa1\x01\n\nBucketInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04size\x18\x02 \x01(\x04\x12\x12\n\nnumObjects\x18\x03 \x01(\r\x12\x0f\n\x07maxSize\x18\x04 \x01(\x04\x12\x12\n\nmaxObjects\x18\x05 \x01(\r\x12+\n\x07\x63reated\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tdirectory\x18\x07 \x01(\t\"\xca\x01\n\nObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12+\n\x07\x63reated\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04size\x18\x03 \x01(\x04\x12\x42\n\x08metadata\x18\x04 \x03(\x0b\x32\x30.yamcs.protobuf.buckets.ObjectInfo.MetadataEntry\x1a/\n\rMetadataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"&\n\x12ListBucketsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"8\n\x10GetBucketRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\"J\n\x13ListBucketsResponse\x12\x33\n\x07\x62uckets\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.buckets.BucketInfo\"]\n\x12ListObjectsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x12\n\nbucketName\x18\x02 \x01(\t\x12\x11\n\tdelimiter\x18\x03 \x01(\t\x12\x0e\n\x06prefix\x18\x04 \x01(\t\"\\\n\x13ListObjectsResponse\x12\x10\n\x08prefixes\x18\x01 \x03(\t\x12\x33\n\x07objects\x18\x02 \x03(\x0b\x32\".yamcs.protobuf.buckets.ObjectInfo2\xf9\x0b\n\nBucketsApi\x12\x9d\x01\n\x0bListBuckets\x12*.yamcs.protobuf.buckets.ListBucketsRequest\x1a+.yamcs.protobuf.buckets.ListBucketsResponse\"5\x8a\x92\x03\x31\n\x17/api/buckets/{instance}Z\x16\n\x14/api/storage/buckets\x12\xaa\x01\n\tGetBucket\x12(.yamcs.protobuf.buckets.GetBucketRequest\x1a\".yamcs.protobuf.buckets.BucketInfo\"O\x8a\x92\x03K\n$/api/buckets/{instance}/{bucketName}Z#\n!/api/storage/buckets/{bucketName}\x12\x90\x01\n\x0c\x43reateBucket\x12+.yamcs.protobuf.buckets.CreateBucketRequest\x1a\x16.google.protobuf.Empty\";\x8a\x92\x03\x37\x1a\x17/api/buckets/{instance}:\x01*Z\x19\x1a\x14/api/storage/buckets:\x01*\x12\xa4\x01\n\x0c\x44\x65leteBucket\x12+.yamcs.protobuf.buckets.DeleteBucketRequest\x1a\x16.google.protobuf.Empty\"O\x8a\x92\x03K\"$/api/buckets/{instance}/{bucketName}Z#\"!/api/storage/buckets/{bucketName}\x12\xc7\x01\n\tGetObject\x12(.yamcs.protobuf.buckets.GetObjectRequest\x1a\x13.yamcs.api.HttpBody\"{\x8a\x92\x03w\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}Z9\n7/api/storage/buckets/{bucketName}/objects/{objectName*}\x12\xea\x01\n\x0cUploadObject\x12+.yamcs.protobuf.buckets.UploadObjectRequest\x1a\x16.google.protobuf.Empty\"\x94\x01\x8a\x92\x03\x8f\x01\x1a;/api/buckets/{instance}/{bucketName}/objects/{objectName**}:\x04\x64\x61ta@\x80\x80\xc0\x02ZE\x1a\x38/api/storage/buckets/{bucketName}/objects/{objectName**}:\x04\x64\x61ta@\x80\x80\xc0\x02\x12\xd9\x01\n\x0bListObjects\x12*.yamcs.protobuf.buckets.ListObjectsRequest\x1a+.yamcs.protobuf.buckets.ListObjectsResponse\"q\x8a\x92\x03m\n,/api/buckets/{instance}/{bucketName}/objectsR\x07objectsZ4\n)/api/storage/buckets/{bucketName}/objectsR\x07objects\x12\xd0\x01\n\x0c\x44\x65leteObject\x12+.yamcs.protobuf.buckets.DeleteObjectRequest\x1a\x16.google.protobuf.Empty\"{\x8a\x92\x03w\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}Z9\"7/api/storage/buckets/{bucketName}/objects/{objectName*}B$\n\x12org.yamcs.protobufB\x0c\x42ucketsProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,])
 
@@ -724,7 +724,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=1305,
-  serialized_end=2462,
+  serialized_end=2834,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListBuckets',
@@ -733,7 +733,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LISTBUCKETSREQUEST,
     output_type=_LISTBUCKETSRESPONSE,
-    serialized_options=_b('\212\222\003\031\n\027/api/buckets/{instance}'),
+    serialized_options=_b('\212\222\0031\n\027/api/buckets/{instance}Z\026\n\024/api/storage/buckets'),
   ),
   _descriptor.MethodDescriptor(
     name='GetBucket',
@@ -742,7 +742,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETBUCKETREQUEST,
     output_type=_BUCKETINFO,
-    serialized_options=_b('\212\222\003&\n$/api/buckets/{instance}/{bucketName}'),
+    serialized_options=_b('\212\222\003K\n$/api/buckets/{instance}/{bucketName}Z#\n!/api/storage/buckets/{bucketName}'),
   ),
   _descriptor.MethodDescriptor(
     name='CreateBucket',
@@ -751,7 +751,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_CREATEBUCKETREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003\034\032\027/api/buckets/{instance}:\001*'),
+    serialized_options=_b('\212\222\0037\032\027/api/buckets/{instance}:\001*Z\031\032\024/api/storage/buckets:\001*'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteBucket',
@@ -760,7 +760,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_DELETEBUCKETREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003&\"$/api/buckets/{instance}/{bucketName}'),
+    serialized_options=_b('\212\222\003K\"$/api/buckets/{instance}/{bucketName}Z#\"!/api/storage/buckets/{bucketName}'),
   ),
   _descriptor.MethodDescriptor(
     name='GetObject',
@@ -769,7 +769,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_GETOBJECTREQUEST,
     output_type=yamcs_dot_api_dot_httpbody__pb2._HTTPBODY,
-    serialized_options=_b('\212\222\003<\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}'),
+    serialized_options=_b('\212\222\003w\n:/api/buckets/{instance}/{bucketName}/objects/{objectName*}Z9\n7/api/storage/buckets/{bucketName}/objects/{objectName*}'),
   ),
   _descriptor.MethodDescriptor(
     name='UploadObject',
@@ -778,7 +778,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_UPLOADOBJECTREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003H\032;/api/buckets/{instance}/{bucketName}/objects/{objectName**}:\004data@\200\200\300\002'),
+    serialized_options=_b('\212\222\003\217\001\032;/api/buckets/{instance}/{bucketName}/objects/{objectName**}:\004data@\200\200\300\002ZE\0328/api/storage/buckets/{bucketName}/objects/{objectName**}:\004data@\200\200\300\002'),
   ),
   _descriptor.MethodDescriptor(
     name='ListObjects',
@@ -787,7 +787,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_LISTOBJECTSREQUEST,
     output_type=_LISTOBJECTSRESPONSE,
-    serialized_options=_b('\212\222\0037\n,/api/buckets/{instance}/{bucketName}/objectsR\007objects'),
+    serialized_options=_b('\212\222\003m\n,/api/buckets/{instance}/{bucketName}/objectsR\007objectsZ4\n)/api/storage/buckets/{bucketName}/objectsR\007objects'),
   ),
   _descriptor.MethodDescriptor(
     name='DeleteObject',
@@ -796,7 +796,7 @@ _BUCKETSAPI = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_DELETEOBJECTREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=_b('\212\222\003<\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}'),
+    serialized_options=_b('\212\222\003w\":/api/buckets/{instance}/{bucketName}/objects/{objectName*}Z9\"7/api/storage/buckets/{bucketName}/objects/{objectName*}'),
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_BUCKETSAPI)

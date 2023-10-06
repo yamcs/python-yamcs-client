@@ -3,6 +3,7 @@ import functools
 from typing import Any, Callable, Iterable, List, Mapping, Optional
 
 from google.protobuf import timestamp_pb2
+
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
@@ -23,13 +24,15 @@ from yamcs.model import (
     Service,
     UserInfo,
 )
+from yamcs.protobuf.auth import auth_pb2
 from yamcs.protobuf.events import events_pb2, events_service_pb2
 from yamcs.protobuf.iam import iam_pb2
+from yamcs.protobuf.instances import instances_pb2, instances_service_pb2
 from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.processing import processing_pb2
+from yamcs.protobuf.server import server_service_pb2
+from yamcs.protobuf.services import services_service_pb2
 from yamcs.protobuf.time import time_service_pb2
-from yamcs.protobuf.web import auth_pb2, server_service_pb2
-from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
 from yamcs.storage.client import StorageClient
 from yamcs.tco.client import TCOClient
 from yamcs.timeline.client import TimelineClient
@@ -161,7 +164,7 @@ class YamcsClient:
         """
         url = f"/instances/{instance}"
         response = self.ctx.get_proto(url)
-        message = yamcsManagement_pb2.YamcsInstance()
+        message = instances_pb2.YamcsInstance()
         message.ParseFromString(response.content)
         if message.HasField("missionTime"):
             return parse_server_time(message.missionTime)
@@ -272,7 +275,7 @@ class YamcsClient:
         :param template:
             The name of an existing template.
         """
-        req = yamcsManagement_pb2.CreateInstanceRequest()
+        req = instances_service_pb2.CreateInstanceRequest()
         req.name = name
         req.template = template
         if args:
@@ -289,7 +292,7 @@ class YamcsClient:
         List the available instance templates.
         """
         response = self.ctx.get_proto(path="/instance-templates")
-        message = yamcsManagement_pb2.ListInstanceTemplatesResponse()
+        message = instances_service_pb2.ListInstanceTemplatesResponse()
         message.ParseFromString(response.content)
         templates = getattr(message, "templates")
         return iter([InstanceTemplate(template) for template in templates])
@@ -305,7 +308,7 @@ class YamcsClient:
         # Return an iterator anyway for similarity with other API methods
         url = f"/services/{instance}"
         response = self.ctx.get_proto(path=url)
-        message = yamcsManagement_pb2.ListServicesResponse()
+        message = services_service_pb2.ListServicesResponse()
         message.ParseFromString(response.content)
         services = getattr(message, "services")
         return iter([Service(service) for service in services])
@@ -397,7 +400,7 @@ class YamcsClient:
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         response = self.ctx.get_proto(path="/instances")
-        message = yamcsManagement_pb2.ListInstancesResponse()
+        message = instances_service_pb2.ListInstancesResponse()
         message.ParseFromString(response.content)
         instances = getattr(message, "instances")
         return iter([Instance(instance) for instance in instances])

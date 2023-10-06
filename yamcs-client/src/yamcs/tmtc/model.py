@@ -990,6 +990,17 @@ class Packet:
         return None
 
     @property
+    def earth_reception_time(self) -> datetime:
+        """
+        When the signal was received on the ground.
+
+        .. versionadded:: 1.9.1
+        """
+        if self._proto.HasField("earthReceptionTime"):
+            return parse_server_time(self._proto.earthReceptionTime)
+        return None
+
+    @property
     def reception_time(self) -> datetime:
         """
         The time when the packet was received by Yamcs.
@@ -1006,6 +1017,17 @@ class Packet:
         """
         if self._proto.HasField("sequenceNumber"):
             return self._proto.sequenceNumber
+        return None
+
+    @property
+    def link(self) -> str:
+        """
+        Name of the Yamcs link where this packet was received from.
+
+        .. versionadded:: 1.9.1
+        """
+        if self._proto.HasField("link"):
+            return self._proto.link
         return None
 
     @property

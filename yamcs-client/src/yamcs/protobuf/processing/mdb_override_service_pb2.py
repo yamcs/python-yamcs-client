@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.processing',
   syntax='proto2',
   serialized_options=_b('\n\022org.yamcs.protobufB\027MdbOverrideServiceProtoP\001'),
-  serialized_pb=_b('\n4yamcs/protobuf/processing/mdb_override_service.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\">\n\x17ListMdbOverridesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Y\n\x18ListMdbOverridesResponse\x12=\n\toverrides\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.processing.MdbOverrideInfo\"Q\n\x1cGetAlgorithmOverridesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"g\n\x1dGetAlgorithmOverridesResponse\x12\x46\n\x0ctextOverride\x18\x01 \x01(\x0b\x32\x30.yamcs.protobuf.processing.AlgorithmTextOverride\"\xcd\x01\n\x0fMdbOverrideInfo\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32\x37.yamcs.protobuf.processing.MdbOverrideInfo.OverrideType\x12O\n\x15\x61lgorithmTextOverride\x18\x02 \x01(\x0b\x32\x30.yamcs.protobuf.processing.AlgorithmTextOverride\"\"\n\x0cOverrideType\x12\x12\n\x0e\x41LGORITHM_TEXT\x10\x00\"8\n\x15\x41lgorithmTextOverride\x12\x11\n\talgorithm\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\"\xab\x04\n\x16UpdateParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12L\n\x06\x61\x63tion\x18\x04 \x01(\x0e\x32<.yamcs.protobuf.processing.UpdateParameterRequest.ActionType\x12=\n\x11\x64\x65\x66\x61ultCalibrator\x18\x05 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12\x44\n\x11\x63ontextCalibrator\x18\x06 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfo\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\x07 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12:\n\x0c\x63ontextAlarm\x18\x08 \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\"\x99\x01\n\nActionType\x12\t\n\x05RESET\x10\x00\x12\x15\n\x11RESET_CALIBRATORS\x10\x01\x12\x1a\n\x16SET_DEFAULT_CALIBRATOR\x10\x02\x12\x13\n\x0fSET_CALIBRATORS\x10\x03\x12\x10\n\x0cRESET_ALARMS\x10\x04\x12\x16\n\x12SET_DEFAULT_ALARMS\x10\x05\x12\x0e\n\nSET_ALARMS\x10\x06\"\xf1\x01\n\x16UpdateAlgorithmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12L\n\x06\x61\x63tion\x18\x04 \x01(\x0e\x32<.yamcs.protobuf.processing.UpdateAlgorithmRequest.ActionType\x12\x34\n\talgorithm\x18\x06 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\" \n\nActionType\x12\t\n\x05RESET\x10\x00\x12\x07\n\x03SET\x10\x01\x32\xef\x06\n\x0eMdbOverrideApi\x12\xac\x01\n\x10ListMdbOverrides\x12\x32.yamcs.protobuf.processing.ListMdbOverridesRequest\x1a\x33.yamcs.protobuf.processing.ListMdbOverridesResponse\"/\x8a\x92\x03+\n)/api/mdb-overrides/{instance}/{processor}\x12\xce\x01\n\x15GetAlgorithmOverrides\x12\x37.yamcs.protobuf.processing.GetAlgorithmOverridesRequest\x1a\x38.yamcs.protobuf.processing.GetAlgorithmOverridesResponse\"B\x8a\x92\x03>\n</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}\x12\xeb\x01\n\x0fUpdateParameter\x12\x31.yamcs.protobuf.processing.UpdateParameterRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\"~\x8a\x92\x03z*</api/mdb-overrides/{instance}/{processor}/parameters/{name*}:\x01*Z7*2/api/mdb/{instance}/{processor}/parameters/{name*}:\x01*\x12\xdc\x01\n\x0fUpdateAlgorithm\x12\x31.yamcs.protobuf.processing.UpdateAlgorithmRequest\x1a\x16.google.protobuf.Empty\"~\x8a\x92\x03z*</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}:\x01*Z7*2/api/mdb/{instance}/{processor}/algorithms/{name*}:\x01*\x1a\x10\x82\x80\x01\x0cMDB OverrideB/\n\x12org.yamcs.protobufB\x17MdbOverrideServiceProtoP\x01')
+  serialized_pb=_b('\n4yamcs/protobuf/processing/mdb_override_service.proto\x12\x19yamcs.protobuf.processing\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\"A\n\x1aSubscribeMdbChangesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\">\n\x17ListMdbOverridesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"Y\n\x18ListMdbOverridesResponse\x12=\n\toverrides\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.processing.MdbOverrideInfo\"Q\n\x1cGetAlgorithmOverridesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"g\n\x1dGetAlgorithmOverridesResponse\x12\x46\n\x0ctextOverride\x18\x01 \x01(\x0b\x32\x30.yamcs.protobuf.processing.AlgorithmTextOverride\"P\n\x1bGetParameterOverrideRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\"\x9e\x02\n\x11ParameterOverride\x12\x11\n\tparameter\x18\x01 \x01(\t\x12=\n\x11\x64\x65\x66\x61ultCalibrator\x18\x05 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12\x45\n\x12\x63ontextCalibrators\x18\x06 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfo\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\x07 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12;\n\rcontextAlarms\x18\x08 \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\"\xa5\x02\n\x0fMdbOverrideInfo\x12\x45\n\x04type\x18\x01 \x01(\x0e\x32\x37.yamcs.protobuf.processing.MdbOverrideInfo.OverrideType\x12O\n\x15\x61lgorithmTextOverride\x18\x02 \x01(\x0b\x32\x30.yamcs.protobuf.processing.AlgorithmTextOverride\x12G\n\x11parameterOverride\x18\x03 \x01(\x0b\x32,.yamcs.protobuf.processing.ParameterOverride\"1\n\x0cOverrideType\x12\x12\n\x0e\x41LGORITHM_TEXT\x10\x00\x12\r\n\tPARAMETER\x10\x01\"8\n\x15\x41lgorithmTextOverride\x12\x11\n\talgorithm\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\"\xab\x04\n\x16UpdateParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12L\n\x06\x61\x63tion\x18\x04 \x01(\x0e\x32<.yamcs.protobuf.processing.UpdateParameterRequest.ActionType\x12=\n\x11\x64\x65\x66\x61ultCalibrator\x18\x05 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12\x44\n\x11\x63ontextCalibrator\x18\x06 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfo\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\x07 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12:\n\x0c\x63ontextAlarm\x18\x08 \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\"\x99\x01\n\nActionType\x12\t\n\x05RESET\x10\x00\x12\x15\n\x11RESET_CALIBRATORS\x10\x01\x12\x1a\n\x16SET_DEFAULT_CALIBRATOR\x10\x02\x12\x13\n\x0fSET_CALIBRATORS\x10\x03\x12\x10\n\x0cRESET_ALARMS\x10\x04\x12\x16\n\x12SET_DEFAULT_ALARMS\x10\x05\x12\x0e\n\nSET_ALARMS\x10\x06\"\xf1\x01\n\x16UpdateAlgorithmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12L\n\x06\x61\x63tion\x18\x04 \x01(\x0e\x32<.yamcs.protobuf.processing.UpdateAlgorithmRequest.ActionType\x12\x34\n\talgorithm\x18\x06 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\" \n\nActionType\x12\t\n\x05RESET\x10\x00\x12\x07\n\x03SET\x10\x01\x32\xc2\t\n\x0eMdbOverrideApi\x12\xac\x01\n\x10ListMdbOverrides\x12\x32.yamcs.protobuf.processing.ListMdbOverridesRequest\x1a\x33.yamcs.protobuf.processing.ListMdbOverridesResponse\"/\x8a\x92\x03+\n)/api/mdb-overrides/{instance}/{processor}\x12\xce\x01\n\x15GetAlgorithmOverrides\x12\x37.yamcs.protobuf.processing.GetAlgorithmOverridesRequest\x1a\x38.yamcs.protobuf.processing.GetAlgorithmOverridesResponse\"B\x8a\x92\x03>\n</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}\x12\xc0\x01\n\x14GetParameterOverride\x12\x36.yamcs.protobuf.processing.GetParameterOverrideRequest\x1a,.yamcs.protobuf.processing.ParameterOverride\"B\x8a\x92\x03>\n</api/mdb-overrides/{instance}/{processor}/parameters/{name*}\x12\xeb\x01\n\x0fUpdateParameter\x12\x31.yamcs.protobuf.processing.UpdateParameterRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\"~\x8a\x92\x03z*</api/mdb-overrides/{instance}/{processor}/parameters/{name*}:\x01*Z7*2/api/mdb/{instance}/{processor}/parameters/{name*}:\x01*\x12\xdc\x01\n\x0fUpdateAlgorithm\x12\x31.yamcs.protobuf.processing.UpdateAlgorithmRequest\x1a\x16.google.protobuf.Empty\"~\x8a\x92\x03z*</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}:\x01*Z7*2/api/mdb/{instance}/{processor}/algorithms/{name*}:\x01*\x12\x8d\x01\n\x13SubscribeMdbChanges\x12\x35.yamcs.protobuf.processing.SubscribeMdbChangesRequest\x1a*.yamcs.protobuf.processing.MdbOverrideInfo\"\x11\xda\x92\x03\r\n\x0bmdb-changes0\x01\x1a\x10\x82\x80\x01\x0cMDB OverrideB/\n\x12org.yamcs.protobufB\x17MdbOverrideServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,])
 
@@ -39,11 +39,15 @@ _MDBOVERRIDEINFO_OVERRIDETYPE = _descriptor.EnumDescriptor(
       name='ALGORITHM_TEXT', index=0, number=0,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PARAMETER', index=1, number=1,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=686,
-  serialized_end=720,
+  serialized_start=1197,
+  serialized_end=1246,
 )
 _sym_db.RegisterEnumDescriptor(_MDBOVERRIDEINFO_OVERRIDETYPE)
 
@@ -84,8 +88,8 @@ _UPDATEPARAMETERREQUEST_ACTIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1183,
-  serialized_end=1336,
+  serialized_start=1709,
+  serialized_end=1862,
 )
 _sym_db.RegisterEnumDescriptor(_UPDATEPARAMETERREQUEST_ACTIONTYPE)
 
@@ -106,10 +110,48 @@ _UPDATEALGORITHMREQUEST_ACTIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1548,
-  serialized_end=1580,
+  serialized_start=2074,
+  serialized_end=2106,
 )
 _sym_db.RegisterEnumDescriptor(_UPDATEALGORITHMREQUEST_ACTIONTYPE)
+
+
+_SUBSCRIBEMDBCHANGESREQUEST = _descriptor.Descriptor(
+  name='SubscribeMdbChangesRequest',
+  full_name='yamcs.protobuf.processing.SubscribeMdbChangesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.SubscribeMdbChangesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.SubscribeMdbChangesRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=171,
+  serialized_end=236,
+)
 
 
 _LISTMDBOVERRIDESREQUEST = _descriptor.Descriptor(
@@ -145,8 +187,8 @@ _LISTMDBOVERRIDESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=171,
-  serialized_end=233,
+  serialized_start=238,
+  serialized_end=300,
 )
 
 
@@ -176,8 +218,8 @@ _LISTMDBOVERRIDESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=235,
-  serialized_end=324,
+  serialized_start=302,
+  serialized_end=391,
 )
 
 
@@ -221,8 +263,8 @@ _GETALGORITHMOVERRIDESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=326,
-  serialized_end=407,
+  serialized_start=393,
+  serialized_end=474,
 )
 
 
@@ -252,8 +294,112 @@ _GETALGORITHMOVERRIDESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=409,
-  serialized_end=512,
+  serialized_start=476,
+  serialized_end=579,
+)
+
+
+_GETPARAMETEROVERRIDEREQUEST = _descriptor.Descriptor(
+  name='GetParameterOverrideRequest',
+  full_name='yamcs.protobuf.processing.GetParameterOverrideRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.processing.GetParameterOverrideRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.processing.GetParameterOverrideRequest.processor', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.processing.GetParameterOverrideRequest.name', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=581,
+  serialized_end=661,
+)
+
+
+_PARAMETEROVERRIDE = _descriptor.Descriptor(
+  name='ParameterOverride',
+  full_name='yamcs.protobuf.processing.ParameterOverride',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='parameter', full_name='yamcs.protobuf.processing.ParameterOverride.parameter', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='defaultCalibrator', full_name='yamcs.protobuf.processing.ParameterOverride.defaultCalibrator', index=1,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextCalibrators', full_name='yamcs.protobuf.processing.ParameterOverride.contextCalibrators', index=2,
+      number=6, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='defaultAlarm', full_name='yamcs.protobuf.processing.ParameterOverride.defaultAlarm', index=3,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='contextAlarms', full_name='yamcs.protobuf.processing.ParameterOverride.contextAlarms', index=4,
+      number=8, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=664,
+  serialized_end=950,
 )
 
 
@@ -278,6 +424,13 @@ _MDBOVERRIDEINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='parameterOverride', full_name='yamcs.protobuf.processing.MdbOverrideInfo.parameterOverride', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -291,8 +444,8 @@ _MDBOVERRIDEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=515,
-  serialized_end=720,
+  serialized_start=953,
+  serialized_end=1246,
 )
 
 
@@ -329,8 +482,8 @@ _ALGORITHMTEXTOVERRIDE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=722,
-  serialized_end=778,
+  serialized_start=1248,
+  serialized_end=1304,
 )
 
 
@@ -410,8 +563,8 @@ _UPDATEPARAMETERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=781,
-  serialized_end=1336,
+  serialized_start=1307,
+  serialized_end=1862,
 )
 
 
@@ -470,14 +623,19 @@ _UPDATEALGORITHMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1339,
-  serialized_end=1580,
+  serialized_start=1865,
+  serialized_end=2106,
 )
 
 _LISTMDBOVERRIDESRESPONSE.fields_by_name['overrides'].message_type = _MDBOVERRIDEINFO
 _GETALGORITHMOVERRIDESRESPONSE.fields_by_name['textOverride'].message_type = _ALGORITHMTEXTOVERRIDE
+_PARAMETEROVERRIDE.fields_by_name['defaultCalibrator'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._CALIBRATORINFO
+_PARAMETEROVERRIDE.fields_by_name['contextCalibrators'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._CONTEXTCALIBRATORINFO
+_PARAMETEROVERRIDE.fields_by_name['defaultAlarm'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._ALARMINFO
+_PARAMETEROVERRIDE.fields_by_name['contextAlarms'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._CONTEXTALARMINFO
 _MDBOVERRIDEINFO.fields_by_name['type'].enum_type = _MDBOVERRIDEINFO_OVERRIDETYPE
 _MDBOVERRIDEINFO.fields_by_name['algorithmTextOverride'].message_type = _ALGORITHMTEXTOVERRIDE
+_MDBOVERRIDEINFO.fields_by_name['parameterOverride'].message_type = _PARAMETEROVERRIDE
 _MDBOVERRIDEINFO_OVERRIDETYPE.containing_type = _MDBOVERRIDEINFO
 _UPDATEPARAMETERREQUEST.fields_by_name['action'].enum_type = _UPDATEPARAMETERREQUEST_ACTIONTYPE
 _UPDATEPARAMETERREQUEST.fields_by_name['defaultCalibrator'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._CALIBRATORINFO
@@ -488,15 +646,25 @@ _UPDATEPARAMETERREQUEST_ACTIONTYPE.containing_type = _UPDATEPARAMETERREQUEST
 _UPDATEALGORITHMREQUEST.fields_by_name['action'].enum_type = _UPDATEALGORITHMREQUEST_ACTIONTYPE
 _UPDATEALGORITHMREQUEST.fields_by_name['algorithm'].message_type = yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._ALGORITHMINFO
 _UPDATEALGORITHMREQUEST_ACTIONTYPE.containing_type = _UPDATEALGORITHMREQUEST
+DESCRIPTOR.message_types_by_name['SubscribeMdbChangesRequest'] = _SUBSCRIBEMDBCHANGESREQUEST
 DESCRIPTOR.message_types_by_name['ListMdbOverridesRequest'] = _LISTMDBOVERRIDESREQUEST
 DESCRIPTOR.message_types_by_name['ListMdbOverridesResponse'] = _LISTMDBOVERRIDESRESPONSE
 DESCRIPTOR.message_types_by_name['GetAlgorithmOverridesRequest'] = _GETALGORITHMOVERRIDESREQUEST
 DESCRIPTOR.message_types_by_name['GetAlgorithmOverridesResponse'] = _GETALGORITHMOVERRIDESRESPONSE
+DESCRIPTOR.message_types_by_name['GetParameterOverrideRequest'] = _GETPARAMETEROVERRIDEREQUEST
+DESCRIPTOR.message_types_by_name['ParameterOverride'] = _PARAMETEROVERRIDE
 DESCRIPTOR.message_types_by_name['MdbOverrideInfo'] = _MDBOVERRIDEINFO
 DESCRIPTOR.message_types_by_name['AlgorithmTextOverride'] = _ALGORITHMTEXTOVERRIDE
 DESCRIPTOR.message_types_by_name['UpdateParameterRequest'] = _UPDATEPARAMETERREQUEST
 DESCRIPTOR.message_types_by_name['UpdateAlgorithmRequest'] = _UPDATEALGORITHMREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+SubscribeMdbChangesRequest = _reflection.GeneratedProtocolMessageType('SubscribeMdbChangesRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SUBSCRIBEMDBCHANGESREQUEST,
+  __module__ = 'yamcs.protobuf.processing.mdb_override_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.SubscribeMdbChangesRequest)
+  ))
+_sym_db.RegisterMessage(SubscribeMdbChangesRequest)
 
 ListMdbOverridesRequest = _reflection.GeneratedProtocolMessageType('ListMdbOverridesRequest', (_message.Message,), dict(
   DESCRIPTOR = _LISTMDBOVERRIDESREQUEST,
@@ -525,6 +693,20 @@ GetAlgorithmOverridesResponse = _reflection.GeneratedProtocolMessageType('GetAlg
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.GetAlgorithmOverridesResponse)
   ))
 _sym_db.RegisterMessage(GetAlgorithmOverridesResponse)
+
+GetParameterOverrideRequest = _reflection.GeneratedProtocolMessageType('GetParameterOverrideRequest', (_message.Message,), dict(
+  DESCRIPTOR = _GETPARAMETEROVERRIDEREQUEST,
+  __module__ = 'yamcs.protobuf.processing.mdb_override_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.GetParameterOverrideRequest)
+  ))
+_sym_db.RegisterMessage(GetParameterOverrideRequest)
+
+ParameterOverride = _reflection.GeneratedProtocolMessageType('ParameterOverride', (_message.Message,), dict(
+  DESCRIPTOR = _PARAMETEROVERRIDE,
+  __module__ = 'yamcs.protobuf.processing.mdb_override_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.processing.ParameterOverride)
+  ))
+_sym_db.RegisterMessage(ParameterOverride)
 
 MdbOverrideInfo = _reflection.GeneratedProtocolMessageType('MdbOverrideInfo', (_message.Message,), dict(
   DESCRIPTOR = _MDBOVERRIDEINFO,
@@ -563,8 +745,8 @@ _MDBOVERRIDEAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=_b('\202\200\001\014MDB Override'),
-  serialized_start=1583,
-  serialized_end=2462,
+  serialized_start=2109,
+  serialized_end=3327,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListMdbOverrides',
@@ -585,9 +767,18 @@ _MDBOVERRIDEAPI = _descriptor.ServiceDescriptor(
     serialized_options=_b('\212\222\003>\n</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}'),
   ),
   _descriptor.MethodDescriptor(
+    name='GetParameterOverride',
+    full_name='yamcs.protobuf.processing.MdbOverrideApi.GetParameterOverride',
+    index=2,
+    containing_service=None,
+    input_type=_GETPARAMETEROVERRIDEREQUEST,
+    output_type=_PARAMETEROVERRIDE,
+    serialized_options=_b('\212\222\003>\n</api/mdb-overrides/{instance}/{processor}/parameters/{name*}'),
+  ),
+  _descriptor.MethodDescriptor(
     name='UpdateParameter',
     full_name='yamcs.protobuf.processing.MdbOverrideApi.UpdateParameter',
-    index=2,
+    index=3,
     containing_service=None,
     input_type=_UPDATEPARAMETERREQUEST,
     output_type=yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2._PARAMETERTYPEINFO,
@@ -596,11 +787,20 @@ _MDBOVERRIDEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='UpdateAlgorithm',
     full_name='yamcs.protobuf.processing.MdbOverrideApi.UpdateAlgorithm',
-    index=3,
+    index=4,
     containing_service=None,
     input_type=_UPDATEALGORITHMREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=_b('\212\222\003z*</api/mdb-overrides/{instance}/{processor}/algorithms/{name*}:\001*Z7*2/api/mdb/{instance}/{processor}/algorithms/{name*}:\001*'),
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeMdbChanges',
+    full_name='yamcs.protobuf.processing.MdbOverrideApi.SubscribeMdbChanges',
+    index=5,
+    containing_service=None,
+    input_type=_SUBSCRIBEMDBCHANGESREQUEST,
+    output_type=_MDBOVERRIDEINFO,
+    serialized_options=_b('\332\222\003\r\n\013mdb-changes'),
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_MDBOVERRIDEAPI)

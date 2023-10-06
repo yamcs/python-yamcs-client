@@ -3,8 +3,9 @@ from typing import Any, Dict, List, Optional
 
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.events import events_pb2
+from yamcs.protobuf.instances import instances_pb2
 from yamcs.protobuf.links import links_pb2
-from yamcs.protobuf.yamcsManagement import yamcsManagement_pb2
+from yamcs.protobuf.services import services_pb2
 
 
 class AuthInfo:
@@ -319,9 +320,7 @@ class Instance:
         ``FAILED``.
         """
         if self._proto.HasField("state"):
-            return yamcsManagement_pb2.YamcsInstance.InstanceState.Name(
-                self._proto.state
-            )
+            return instances_pb2.YamcsInstance.InstanceState.Name(self._proto.state)
         return None
 
     @property
@@ -393,7 +392,7 @@ class Service:
     def state(self) -> str:
         """State of this service."""
         if self._proto.HasField("state"):
-            return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
+            return services_pb2.ServiceState.Name(self._proto.state)
         return None
 
     def failure_message(self) -> Optional[str]:
@@ -440,7 +439,7 @@ class Processor:
     def state(self) -> str:
         """State of this processor."""
         if self._proto.HasField("state"):
-            return yamcsManagement_pb2.ServiceState.Name(self._proto.state)
+            return services_pb2.ServiceState.Name(self._proto.state)
         return None
 
     @property

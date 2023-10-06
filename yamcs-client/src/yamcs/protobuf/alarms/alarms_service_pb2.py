@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.alarms',
   syntax='proto2',
   serialized_options=_b('\n\031org.yamcs.protobuf.alarmsB\022AlarmsServiceProtoP\001'),
-  serialized_pb=_b('\n*yamcs/protobuf/alarms/alarms_service.proto\x12\x15yamcs.protobuf.alarms\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\"\xb3\x01\n\x11ListAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x01(\t\"F\n\x12ListAlarmsResponse\x12\x30\n\x06\x61larms\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"A\n\x1aListProcessorAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"O\n\x1bListProcessorAlarmsResponse\x12\x30\n\x06\x61larms\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"=\n\x16SubscribeAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\x8d\x01\n\x10\x45\x64itAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\r\n\x05state\x18\x05 \x01(\t\x12\x0f\n\x07\x63omment\x18\x06 \x01(\t\x12\x16\n\x0eshelveDuration\x18\x07 \x01(\x04\"n\n\x17\x41\x63knowledgeAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\"\x81\x01\n\x12ShelveAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x12\x16\n\x0eshelveDuration\x18\x06 \x01(\x04\"Z\n\x14UnshelveAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\"h\n\x11\x43learAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\"C\n\x1cSubscribeGlobalStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\xb2\x01\n\x11GlobalAlarmStatus\x12\x1b\n\x13unacknowledgedCount\x18\x01 \x01(\x05\x12\x1c\n\x14unacknowledgedActive\x18\x02 \x01(\x08\x12\x19\n\x11\x61\x63knowledgedCount\x18\x03 \x01(\x05\x12\x1a\n\x12\x61\x63knowledgedActive\x18\x04 \x01(\x08\x12\x14\n\x0cshelvedCount\x18\x05 \x01(\x05\x12\x15\n\rshelvedActive\x18\x06 \x01(\x08\x32\x95\x0b\n\tAlarmsApi\x12\x90\x01\n\nListAlarms\x12(.yamcs.protobuf.alarms.ListAlarmsRequest\x1a).yamcs.protobuf.alarms.ListAlarmsResponse\"-\x8a\x92\x03)\n\'/api/archive/{instance}/alarms/{name**}\x12\xb1\x01\n\x13ListProcessorAlarms\x12\x31.yamcs.protobuf.alarms.ListProcessorAlarmsRequest\x1a\x32.yamcs.protobuf.alarms.ListProcessorAlarmsResponse\"3\x8a\x92\x03/\n-/api/processors/{instance}/{processor}/alarms\x12\x97\x01\n\tEditAlarm\x12\'.yamcs.protobuf.alarms.EditAlarmRequest\x1a\x16.google.protobuf.Empty\"I\x8a\x92\x03\x45*>/api/processors/{instance}/{processor}/alarms/{name*}/{seqnum}0\x01:\x01*\x12\xb0\x01\n\x10\x41\x63knowledgeAlarm\x12..yamcs.protobuf.alarms.AcknowledgeAlarmRequest\x1a\x16.google.protobuf.Empty\"T\x8a\x92\x03P\x1aK/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:acknowledge:\x01*\x12\xa1\x01\n\x0bShelveAlarm\x12).yamcs.protobuf.alarms.ShelveAlarmRequest\x1a\x16.google.protobuf.Empty\"O\x8a\x92\x03K\x1a\x46/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:shelve:\x01*\x12\xa4\x01\n\rUnshelveAlarm\x12+.yamcs.protobuf.alarms.UnshelveAlarmRequest\x1a\x16.google.protobuf.Empty\"N\x8a\x92\x03J\x1aH/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:unshelve\x12\x9e\x01\n\nClearAlarm\x12(.yamcs.protobuf.alarms.ClearAlarmRequest\x1a\x16.google.protobuf.Empty\"N\x8a\x92\x03J\x1a\x45/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:clear:\x01*\x12\x93\x01\n\x15SubscribeGlobalStatus\x12\x33.yamcs.protobuf.alarms.SubscribeGlobalStatusRequest\x1a(.yamcs.protobuf.alarms.GlobalAlarmStatus\"\x19\xda\x92\x03\x15\n\x13global-alarm-status0\x01\x12r\n\x0fSubscribeAlarms\x12-.yamcs.protobuf.alarms.SubscribeAlarmsRequest\x1a .yamcs.protobuf.alarms.AlarmData\"\x0c\xda\x92\x03\x08\n\x06\x61larms0\x01\x42\x31\n\x19org.yamcs.protobuf.alarmsB\x12\x41larmsServiceProtoP\x01')
+  serialized_pb=_b('\n*yamcs/protobuf/alarms/alarms_service.proto\x12\x15yamcs.protobuf.alarms\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/alarms/alarms.proto\"\xc1\x01\n\x11ListAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0b\n\x03pos\x18\x02 \x01(\x03\x12\r\n\x05limit\x18\x03 \x01(\x05\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x06 \x01(\t\x12\x0c\n\x04name\x18\x07 \x01(\t\x12\x0c\n\x04next\x18\x08 \x01(\t\"a\n\x12ListAlarmsResponse\x12\x30\n\x06\x61larms\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"A\n\x1aListProcessorAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"O\n\x1bListProcessorAlarmsResponse\x12\x30\n\x06\x61larms\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.alarms.AlarmData\"=\n\x16SubscribeAlarmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\x8d\x01\n\x10\x45\x64itAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\r\n\x05state\x18\x05 \x01(\t\x12\x0f\n\x07\x63omment\x18\x06 \x01(\t\x12\x16\n\x0eshelveDuration\x18\x07 \x01(\x04\"n\n\x17\x41\x63knowledgeAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\"\x81\x01\n\x12ShelveAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\x12\x16\n\x0eshelveDuration\x18\x06 \x01(\x04\"Z\n\x14UnshelveAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\"h\n\x11\x43learAlarmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\x12\r\n\x05\x61larm\x18\x03 \x01(\t\x12\x0e\n\x06seqnum\x18\x04 \x01(\r\x12\x0f\n\x07\x63omment\x18\x05 \x01(\t\"C\n\x1cSubscribeGlobalStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x11\n\tprocessor\x18\x02 \x01(\t\"\xb2\x01\n\x11GlobalAlarmStatus\x12\x1b\n\x13unacknowledgedCount\x18\x01 \x01(\x05\x12\x1c\n\x14unacknowledgedActive\x18\x02 \x01(\x08\x12\x19\n\x11\x61\x63knowledgedCount\x18\x03 \x01(\x05\x12\x1a\n\x12\x61\x63knowledgedActive\x18\x04 \x01(\x08\x12\x14\n\x0cshelvedCount\x18\x05 \x01(\x05\x12\x15\n\rshelvedActive\x18\x06 \x01(\x08\x32\x95\x0b\n\tAlarmsApi\x12\x90\x01\n\nListAlarms\x12(.yamcs.protobuf.alarms.ListAlarmsRequest\x1a).yamcs.protobuf.alarms.ListAlarmsResponse\"-\x8a\x92\x03)\n\'/api/archive/{instance}/alarms/{name**}\x12\xb1\x01\n\x13ListProcessorAlarms\x12\x31.yamcs.protobuf.alarms.ListProcessorAlarmsRequest\x1a\x32.yamcs.protobuf.alarms.ListProcessorAlarmsResponse\"3\x8a\x92\x03/\n-/api/processors/{instance}/{processor}/alarms\x12\x97\x01\n\tEditAlarm\x12\'.yamcs.protobuf.alarms.EditAlarmRequest\x1a\x16.google.protobuf.Empty\"I\x8a\x92\x03\x45*>/api/processors/{instance}/{processor}/alarms/{name*}/{seqnum}0\x01:\x01*\x12\xb0\x01\n\x10\x41\x63knowledgeAlarm\x12..yamcs.protobuf.alarms.AcknowledgeAlarmRequest\x1a\x16.google.protobuf.Empty\"T\x8a\x92\x03P\x1aK/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:acknowledge:\x01*\x12\xa1\x01\n\x0bShelveAlarm\x12).yamcs.protobuf.alarms.ShelveAlarmRequest\x1a\x16.google.protobuf.Empty\"O\x8a\x92\x03K\x1a\x46/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:shelve:\x01*\x12\xa4\x01\n\rUnshelveAlarm\x12+.yamcs.protobuf.alarms.UnshelveAlarmRequest\x1a\x16.google.protobuf.Empty\"N\x8a\x92\x03J\x1aH/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:unshelve\x12\x9e\x01\n\nClearAlarm\x12(.yamcs.protobuf.alarms.ClearAlarmRequest\x1a\x16.google.protobuf.Empty\"N\x8a\x92\x03J\x1a\x45/api/processors/{instance}/{processor}/alarms/{alarm*}/{seqnum}:clear:\x01*\x12\x93\x01\n\x15SubscribeGlobalStatus\x12\x33.yamcs.protobuf.alarms.SubscribeGlobalStatusRequest\x1a(.yamcs.protobuf.alarms.GlobalAlarmStatus\"\x19\xda\x92\x03\x15\n\x13global-alarm-status0\x01\x12r\n\x0fSubscribeAlarms\x12-.yamcs.protobuf.alarms.SubscribeAlarmsRequest\x1a .yamcs.protobuf.alarms.AlarmData\"\x0c\xda\x92\x03\x08\n\x06\x61larms0\x01\x42\x31\n\x19org.yamcs.protobuf.alarmsB\x12\x41larmsServiceProtoP\x01')
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_alarms_dot_alarms__pb2.DESCRIPTOR,])
 
@@ -87,6 +87,13 @@ _LISTALARMSREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.alarms.ListAlarmsRequest.next', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -100,7 +107,7 @@ _LISTALARMSREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=197,
-  serialized_end=376,
+  serialized_end=390,
 )
 
 
@@ -118,6 +125,13 @@ _LISTALARMSRESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='continuationToken', full_name='yamcs.protobuf.alarms.ListAlarmsResponse.continuationToken', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -130,8 +144,8 @@ _LISTALARMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=378,
-  serialized_end=448,
+  serialized_start=392,
+  serialized_end=489,
 )
 
 
@@ -168,8 +182,8 @@ _LISTPROCESSORALARMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=450,
-  serialized_end=515,
+  serialized_start=491,
+  serialized_end=556,
 )
 
 
@@ -199,8 +213,8 @@ _LISTPROCESSORALARMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=517,
-  serialized_end=596,
+  serialized_start=558,
+  serialized_end=637,
 )
 
 
@@ -237,8 +251,8 @@ _SUBSCRIBEALARMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=598,
-  serialized_end=659,
+  serialized_start=639,
+  serialized_end=700,
 )
 
 
@@ -310,8 +324,8 @@ _EDITALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=662,
-  serialized_end=803,
+  serialized_start=703,
+  serialized_end=844,
 )
 
 
@@ -369,8 +383,8 @@ _ACKNOWLEDGEALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=805,
-  serialized_end=915,
+  serialized_start=846,
+  serialized_end=956,
 )
 
 
@@ -435,8 +449,8 @@ _SHELVEALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=918,
-  serialized_end=1047,
+  serialized_start=959,
+  serialized_end=1088,
 )
 
 
@@ -487,8 +501,8 @@ _UNSHELVEALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1049,
-  serialized_end=1139,
+  serialized_start=1090,
+  serialized_end=1180,
 )
 
 
@@ -546,8 +560,8 @@ _CLEARALARMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1141,
-  serialized_end=1245,
+  serialized_start=1182,
+  serialized_end=1286,
 )
 
 
@@ -584,8 +598,8 @@ _SUBSCRIBEGLOBALSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1247,
-  serialized_end=1314,
+  serialized_start=1288,
+  serialized_end=1355,
 )
 
 
@@ -650,8 +664,8 @@ _GLOBALALARMSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1317,
-  serialized_end=1495,
+  serialized_start=1358,
+  serialized_end=1536,
 )
 
 _LISTALARMSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -765,8 +779,8 @@ _ALARMSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1498,
-  serialized_end=2927,
+  serialized_start=1539,
+  serialized_end=2968,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListAlarms',

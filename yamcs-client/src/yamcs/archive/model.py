@@ -2,6 +2,7 @@ import datetime
 from typing import Any, List, Optional
 
 from google.protobuf.internal.decoder import _DecodeVarint32
+
 from yamcs.core.helpers import parse_server_time, parse_server_timestring, parse_value
 from yamcs.protobuf.table import table_pb2
 
@@ -42,7 +43,7 @@ class StreamData:
         return self._proto.stream
 
     @property
-    def columns(self) -> List['ColumnData']:
+    def columns(self) -> List["ColumnData"]:
         """Tuple columns."""
         return [ColumnData(c) for c in self._proto.column]
 
@@ -149,7 +150,7 @@ class IndexGroup:
         return None
 
     @property
-    def records(self) -> List['IndexRecord']:
+    def records(self) -> List["IndexRecord"]:
         """
         Index records within this group
         """
