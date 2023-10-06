@@ -29,8 +29,8 @@ from yamcs.protobuf.archive import (
     index_service_pb2,
     parameter_archive_service_pb2,
 )
-from yamcs.protobuf.commanding import commands_service_pb2
-from yamcs.protobuf.events import events_service_pb2
+from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
+from yamcs.protobuf.events import events_pb2, events_service_pb2
 from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.protobuf.table import table_pb2
@@ -339,6 +339,13 @@ class ArchiveClient:
 
         Packets are sorted by generation time and sequence number.
 
+        .. note::
+
+            This method will send out multiple requests when more than
+            ``page_size`` packets are queried. For large queries, consider
+            using :meth:`stream_packets` instead, it uses server-streaming
+            based on a single request.
+
         :param name:
             Archived name of the packet
         :param start:
@@ -374,6 +381,48 @@ class ArchiveClient:
             item_mapper=Packet,
         )
 
+    def stream_packets(
+        self,
+        name: Optional[Union[str, List[str]]] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable[Packet]:
+        """
+        Reads packet information between the specified start and stop time.
+
+        .. versionadded:: 1.9.1
+
+        :param name:
+            If specified, return only packets with this archived name.
+        :param start:
+            Minimum generation time of the returned packets (inclusive)
+        :param stop:
+            Maximum generation time of the returned packets (exclusive)
+        """
+        options = packets_service_pb2.StreamPacketsRequest()
+        if name is not None:
+            if isinstance(name, str):
+                options.name.extend([name])
+            else:
+                options.name.extend(name)
+        if start is not None:
+            options.start.MergeFrom(to_server_time(start))
+        if stop is not None:
+            options.stop.MergeFrom(to_server_time(stop))
+
+        def generate():
+            path = f"/stream-archive/{self._instance}:streamPackets"
+            response = self.ctx.post_proto(
+                path=path, data=options.SerializeToString(), stream=True
+            )
+            for message in split_protobuf_stream(
+                response.iter_content(chunk_size=chunk_size), packets_pb2.TmPacketData
+            ):
+                yield Packet(message)
+
+        return generate()
+
     def get_packet(self, generation_time: datetime, sequence_number: int) -> Packet:
         """
         Gets a single packet by its identifying key (gentime, seqNum).
@@ -395,7 +444,7 @@ class ArchiveClient:
         name: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
-        chunk_size: int = 1024,
+        chunk_size: int = 32 * 1024,
     ) -> Iterable:
         """
         Export raw packets.
@@ -437,6 +486,13 @@ class ArchiveClient:
         Reads events between the specified start and stop time.
 
         Events are sorted by generation time, source, then sequence number.
+
+        .. note::
+
+            This method will send out multiple requests when more than
+            ``page_size`` events are queried. For large queries, consider
+            using :meth:`stream_events` instead, it uses server-streaming
+            based on a single request.
 
         :param source:
             The source of the returned events.
@@ -482,6 +538,60 @@ class ArchiveClient:
             items_key="event",
             item_mapper=Event,
         )
+
+    def stream_events(
+        self,
+        source: Optional[Union[str, List[str]]] = None,
+        severity: Optional[str] = None,
+        text_filter: Optional[str] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable[Event]:
+        """
+        Reads events between the specified start and stop time.
+
+        .. versionadded:: 1.9.1
+
+        :param source:
+            If specified, return only events with this source.
+        :param severity:
+            The minimum severity level of the returned events.
+            One of ``INFO``, ``WATCH``, ``WARNING``, ``DISTRESS``,
+            ``CRITICAL`` or ``SEVERE``.
+        :param text_filter:
+            Filter the text message of the returned events
+        :param start:
+            Minimum generation time of the returned events (inclusive)
+        :param stop:
+            Maximum generation time of the returned events (exclusive)
+        """
+        options = events_service_pb2.StreamEventsRequest()
+        if source is not None:
+            if isinstance(source, str):
+                options.source.extend([source])
+            else:
+                options.source.extend(source)
+        if severity is not None:
+            options.severity = severity
+        if start is not None:
+            options.start.MergeFrom(to_server_time(start))
+        if stop is not None:
+            options.stop.MergeFrom(to_server_time(stop))
+        if text_filter is not None:
+            options.q = text_filter
+
+        def generate():
+            path = f"/stream-archive/{self._instance}:streamEvents"
+            response = self.ctx.post_proto(
+                path=path, data=options.SerializeToString(), stream=True
+            )
+            for message in split_protobuf_stream(
+                response.iter_content(chunk_size=chunk_size), events_pb2.Event
+            ):
+                yield Event(message)
+
+        return generate()
 
     def sample_parameter_values(
         self,
@@ -781,6 +891,13 @@ class ArchiveClient:
         """
         Reads command history entries between the specified start and stop time.
 
+        .. note::
+
+            This method will send out multiple requests when more than
+            ``page_size`` commands are queried. For large queries, consider
+            using :meth:`stream_command_history` instead, it uses server-streaming
+            based on a single request.
+
         :param command:
             Either a fully-qualified XTCE name or an alias in the
             format ``NAMESPACE/NAME``.
@@ -825,6 +942,49 @@ class ArchiveClient:
             items_key="entry",
             item_mapper=CommandHistory,
         )
+
+    def stream_command_history(
+        self,
+        name: Optional[Union[str, List[str]]] = None,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable[CommandHistory]:
+        """
+        Reads command history between the specified start and stop time.
+
+        .. versionadded:: 1.9.1
+
+        :param name:
+            If specified, return only commands with this name.
+        :param start:
+            Minimum generation time of the returned commands (inclusive)
+        :param stop:
+            Maximum generation time of the returned commands (exclusive)
+        """
+        options = commands_service_pb2.StreamCommandsRequest()
+        if name is not None:
+            if isinstance(name, str):
+                options.name.extend([name])
+            else:
+                options.name.extend(name)
+        if start is not None:
+            options.start.MergeFrom(to_server_time(start))
+        if stop is not None:
+            options.stop.MergeFrom(to_server_time(stop))
+
+        def generate():
+            path = f"/stream-archive/{self._instance}:streamCommands"
+            response = self.ctx.post_proto(
+                path=path, data=options.SerializeToString(), stream=True
+            )
+            for message in split_protobuf_stream(
+                response.iter_content(chunk_size=chunk_size),
+                commanding_pb2.CommandHistoryEntry,
+            ):
+                yield CommandHistory(message)
+
+        return generate()
 
     def list_tables(self) -> Iterable[Table]:
         """
