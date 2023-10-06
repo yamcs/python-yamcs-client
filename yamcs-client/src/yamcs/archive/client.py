@@ -438,6 +438,50 @@ class ArchiveClient:
         message.ParseFromString(response.content)
         return Packet(message)
 
+    def export_parameter_values(
+        self,
+        parameters: List[str],
+        namespace: Optional[str],
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        interval: Optional[float] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable:
+        """
+        Export parameter values in CSV format.
+
+        .. versionadded:: 1.9.1
+
+        :param parameters:
+            List of parameter names. These may be
+            fully-qualified XTCE name or an alias
+            in the format ``NAMESPACE/NAME``.
+        :param namespace:
+            Preferred namespace of the names in the returned CSV header
+        :param start:
+            Minimum generation time of the returned values (inclusive)
+        :param stop:
+            Maximum generation time of the returned values (exclusive)
+        :param interval:
+            If specified, only one value for each interval is returned. The interval is
+            expressed in seconds.
+        :return:
+            An iterator over received chunks
+        """
+        params = {"parameters": parameters}
+        if namespace is not None:
+            params["namespace"] = namespace
+        if start is not None:
+            params["start"] = to_isostring(start)
+        if stop is not None:
+            params["stop"] = to_isostring(stop)
+        if interval is not None:
+            params["interval"] = int(interval * 1000)
+
+        path = f"/archive/{self._instance}:exportParameterValues"
+        response = self.ctx.get_proto(path=path, params=params, stream=True)
+        return response.iter_content(chunk_size=chunk_size)
+
     def export_packets(
         self,
         name: Optional[str] = None,
