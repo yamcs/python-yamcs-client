@@ -40,7 +40,9 @@ setuptools.setup(
     ],
     platforms="Posix; MacOS X; Windows",
     install_requires=[
-        "protobuf>=3.8,<4",
+        # Protobuf 4 is very different: https://protobuf.dev/news/2022-05-06/
+        # We should only run with it, once generating with protoc 3.19
+        "protobuf>=3.11,<4",
         "requests",
         "setuptools",
         "websocket-client",
