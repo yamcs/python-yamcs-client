@@ -418,6 +418,96 @@ class Parameter:
         return self.qualified_name
 
 
+class ParameterType:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self) -> str:
+        """Short name"""
+        return self._proto.name
+
+    @property
+    def qualified_name(self) -> str:
+        """Full name (incl. space system)"""
+        return self._proto.qualifiedName
+
+    @property
+    def aliases(self) -> List[Tuple[str, str]]:
+        """List of (namespace, name) pairs, as 2-tuples"""
+        return list(
+            {alias.namespace: alias.name for alias in self._proto.alias}.items()
+        )
+
+    @property
+    def description(self) -> Optional[str]:
+        """Short description."""
+        if self._proto.HasField("shortDescription"):
+            return self._proto.shortDescription
+        return None
+
+    @property
+    def long_description(self) -> Optional[str]:
+        """Long description."""
+        if self._proto.HasField("longDescription"):
+            return self._proto.longDescription
+        return None
+
+    @property
+    def type(self) -> str:
+        """
+        Engineering type.
+        """
+        if self._proto.HasField("engType"):
+            return self._proto.engType
+        return None
+
+    @property
+    def array_type(self) -> Optional[ArrayType]:
+        """
+        In case this parameter type is of type `array`, this returns array-specific
+        type info.
+        """
+        if self._proto.HasField("arrayInfo"):
+            return ArrayType(self._proto.arrayInfo)
+        return None
+
+    @property
+    def members(self) -> List[Member]:
+        """
+        In case this parameter type is of type `aggregate`, this returns an ordered list
+        of its direct members.
+        """
+        return [Member(member) for member in self._proto.member]
+
+    @property
+    def units(self) -> List[str]:
+        """
+        Engineering unit(s)
+        """
+        return [info.unit for info in self._proto.unitSet]
+
+    @property
+    def enum_values(self) -> List[EnumValue]:
+        """
+        In case this parameter type is of type `enumeration`, this returns an ordered
+        list of possible values.
+        """
+        return [EnumValue(enumValue) for enumValue in self._proto.enumValue]
+
+    @property
+    def data_encoding(self) -> Optional[DataEncoding]:
+        """
+        Information on the raw encoding of this parameter type, if applicable.
+        """
+        if self._proto.HasField("dataEncoding"):
+            return DataEncoding(self._proto.dataEncoding)
+        return None
+
+    def __str__(self):
+        return self.qualified_name
+
+
 class SpaceSystem:
     """
     From XTCE:
@@ -465,3 +555,49 @@ class SpaceSystem:
 
     def __str__(self):
         return self.qualified_name
+
+
+class RangeSet:
+    """
+    A set of alarm range that apply in a specific context.
+    """
+
+    # This is the same as yamcs.tmtc.model.RangeSet, but
+    # with the 'context' removed. Eventually, we probably
+    # want to change the tmtc one to use this class too.
+
+    def __init__(
+        self,
+        watch: Optional[Tuple[float, float]] = None,
+        warning: Optional[Tuple[float, float]] = None,
+        distress: Optional[Tuple[float, float]] = None,
+        critical: Optional[Tuple[float, float]] = None,
+        severe: Optional[Tuple[float, float]] = None,
+        min_violations: int = 1,
+    ):
+        """
+        :param watch:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param warning:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param distress:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param critical:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param severe:
+            Range expressed as a tuple ``(lo, hi)``
+            where lo and hi are assumed exclusive.
+        :param min_violations:
+            Minimum violations before an alarm is
+            generated.
+        """
+        self.watch = watch
+        self.warning = warning
+        self.distress = distress
+        self.critical = critical
+        self.severe = severe
+        self.min_violations = min_violations
