@@ -1098,13 +1098,24 @@ class ValueUpdate:
     updating a software parameter.
     """
 
-    def __init__(self, value: Any, generation_time: Optional[datetime] = None):
+    def __init__(
+        self,
+        value: Any,
+        generation_time: Optional[datetime] = None,
+        expires_in: Optional[float] = None,
+    ):
         """
         :param value:
             The value to set
         :param generation_time:
             Generation time of the value. If unset, Yamcs will
             assign the generation time.
+        :param expires_in:
+            How long before this value expires (in fractional seconds).
+            If unset, the value does not expire.
+
+            .. versionadded:: 1.9.1
         """
         self.value = value
         self.generation_time = generation_time
+        self.expires_in = expires_in

@@ -626,6 +626,7 @@ class ProcessorClient:
         parameter: str,
         value: Any,
         generation_time: Optional[datetime.datetime] = None,
+        expires_in: Optional[float] = None,
     ):
         """
         Sets the value of the specified parameter.
@@ -638,24 +639,32 @@ class ProcessorClient:
         :param generation_time:
             Generation time of the value. If unset, Yamcs will assign the
             generation time.
+        :param expires_in:
+            How long before this value expires (in fractional seconds).
+            If unset, the value does not expire.
+
+            .. versionadded:: 1.9.1
         """
-        self.set_parameter_values({parameter: value}, generation_time)
+        self.set_parameter_values(
+            {parameter: value}, generation_time=generation_time, expires_in=expires_in
+        )
 
     def set_parameter_values(
         self,
         values: Mapping[str, Any],
         generation_time: Optional[datetime.datetime] = None,
+        expires_in: Optional[float] = None,
     ):
         """
         Sets the value of multiple parameters.
 
         Values are specified with their native Python types. If you need
-        to customize individual value generation times, use
+        to customize individual value properties, use
         :class:`.ValueUpdate` instead.
 
-        The method argument ``generation_time`` can be used to specify a custom
-        generation time for all values at once. This has lower priority than
-        a value-specific generation time.
+        The method arguments ``generation_time`` and ``expires_in`` can be used
+        to specify a custom generation time for all values at once. This has
+        lower priority than value-specific properties.
 
         If no generation time is specified at all, Yamcs will determine one.
 
@@ -665,6 +674,10 @@ class ProcessorClient:
             ``NAMESPACE/NAME``.
         :param generation_time:
             Generation time of the values.
+        :param expires_in:
+            How long before this value expires (in fractional seconds).
+
+            .. versionadded:: 1.9.1
         """
         req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
@@ -673,14 +686,19 @@ class ProcessorClient:
 
             value = values[key]
             value_time = generation_time
+            value_expires_in = expires_in
             if isinstance(values[key], ValueUpdate):
                 value = values[key].value
                 if values[key].generation_time:
                     value_time = values[key].generation_time
+                if values[key].expires_in is not None:
+                    value_expires_in = values[key].expires_in
 
             item.value.MergeFrom(_build_value_proto(value))
             if value_time:
                 item.generationTime.MergeFrom(to_server_time(value_time))
+            if value_expires_in is not None:
+                item.expiresIn = int(value_expires_in * 1000)
         url = f"/processors/{self._instance}/{self._processor}/parameters:batchSet"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
@@ -1199,8 +1217,6 @@ class ProcessorClient:
         """
         Create a new packet subscription.
 
-        .. versionadded:: 1.6.6
-
         :param on_data:
             Function that gets called with :class:`.Packet` updates.
         :param stream:
@@ -1243,9 +1259,6 @@ class ProcessorClient:
     ) -> ContainerSubscription:
         """
         Create a new container subscription.
-
-        .. versionadded:: 1.7.0
-           Compatible with Yamcs 5.5.0 onwards
 
         :param containers:
             Container names.

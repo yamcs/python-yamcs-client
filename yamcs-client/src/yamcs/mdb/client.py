@@ -164,6 +164,8 @@ class MDBClient:
         """
         Create a parameter.
 
+        .. versionadded:: 1.9.1
+
         :param name:
             Short name of the parameter.
         :param space_system:
@@ -211,6 +213,8 @@ class MDBClient:
         Lists the parameter types visible to this client.
 
         Parameter types are returned in lexicographical order.
+
+        .. versionadded:: 1.9.1
         """
         params = {}
 
@@ -229,6 +233,8 @@ class MDBClient:
     def get_parameter_type(self, name: str) -> ParameterType:
         """
         Gets a single parameter type by its name.
+
+        .. versionadded:: 1.9.1
 
         :param name:
             Either a fully-qualified XTCE name or an alias in the
@@ -259,6 +265,8 @@ class MDBClient:
     ) -> ParameterType:
         """
         Create a parameter type.
+
+        .. versionadded:: 1.9.1
 
         :param name:
             Short name of the parameter type.
