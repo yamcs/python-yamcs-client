@@ -2,13 +2,14 @@ import logging
 import os
 from collections import OrderedDict
 from datetime import datetime, timezone
-from typing import Any, List, Union
+from typing import Any, Generator, Iterator, List, Union
 from urllib.parse import urlparse
 
 import requests
 import urllib3
 from google.protobuf import timestamp_pb2
 from google.protobuf.internal.decoder import _DecodeVarint32
+from google.protobuf.internal.encoder import _VarintBytes
 from yamcs.core.exceptions import ConnectionFailure, YamcsError
 from yamcs.protobuf import yamcs_pb2
 
@@ -207,6 +208,23 @@ def do_request(
                 raise ConnectionFailure(msg) from None
 
         raise ConnectionFailure(f"Connection to {base_url} failed: {e}")
+
+
+def delimit_protobuf(message_generator: Iterator[Any], chunk_size: int = 32 * 1024):
+    buf = None
+    for message in message_generator:
+        msg_buf = _VarintBytes(message.ByteSize()) + message.SerializeToString()
+        if buf is None:
+            buf = msg_buf
+        else:
+            buf += msg_buf
+        # Not exact, use the chunk size as a treshold
+        if len(buf) >= chunk_size:
+            yield buf
+            buf = None
+
+    if buf:
+        yield buf
 
 
 def split_protobuf_stream(chunk_iterator, message_class):

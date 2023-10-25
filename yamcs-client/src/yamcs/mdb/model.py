@@ -357,7 +357,7 @@ class Parameter:
     @property
     def data_source(self) -> str:
         """
-        Specifies how this parameter originated (example: ``TELEMETERED``)
+        Specifies the source of this parameter (example: ``TELEMETERED``)
         """
         if self._proto.HasField("dataSource"):
             return mdb_pb2.DataSourceType.Name(self._proto.dataSource)

@@ -1,13 +1,17 @@
 import datetime
 import functools
-from typing import Any, Callable, Iterable, List, Mapping, Optional
+from typing import Any, Callable, Generator, Iterable, Iterator, List, Mapping, Optional
 
 from google.protobuf import timestamp_pb2
-
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import do_get, parse_server_time, to_server_time
+from yamcs.core.helpers import (
+    delimit_protobuf,
+    do_get,
+    parse_server_time,
+    to_server_time,
+)
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.filetransfer.client import FileTransferClient
 from yamcs.link.client import LinkClient
@@ -19,6 +23,7 @@ from yamcs.model import (
     InstanceTemplate,
     Link,
     LinkEvent,
+    LoadParameterValuesResult,
     Processor,
     ServerInfo,
     Service,
@@ -30,13 +35,15 @@ from yamcs.protobuf.iam import iam_pb2
 from yamcs.protobuf.instances import instances_pb2, instances_service_pb2
 from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.processing import processing_pb2
+from yamcs.protobuf.pvalue import pvalue_service_pb2
 from yamcs.protobuf.server import server_service_pb2
 from yamcs.protobuf.services import services_service_pb2
 from yamcs.protobuf.time import time_service_pb2
 from yamcs.storage.client import StorageClient
 from yamcs.tco.client import TCOClient
 from yamcs.timeline.client import TimelineClient
-from yamcs.tmtc.client import ProcessorClient
+from yamcs.tmtc.client import ProcessorClient, _build_value_proto
+from yamcs.tmtc.model import ValueUpdate
 
 
 def _wrap_callback_parse_time_info(subscription, on_data, message):
@@ -513,6 +520,55 @@ class YamcsClient:
 
         url = f"/archive/{instance}/events"
         self.ctx.post_proto(url, data=req.SerializeToString())
+
+    def load_parameter_values(
+        self,
+        instance: str,
+        data: Iterator[Mapping[str, ValueUpdate]],
+        stream: str = "pp_dump",
+        chunk_size: int = 32 * 1024,
+    ) -> LoadParameterValuesResult:
+        """
+        Load an indefinite amount of parameter values into Yamcs.
+
+        .. versionadded:: 1.9.1
+
+        :param instance:
+            Yamcs instance name
+        :param data:
+            Generator that yields batches of parameter values,
+            keyed by parameter name.
+        :param stream:
+            Stream where to send the parameters to.
+        :param chunk_size:
+            HTTP chunk size. Multiple updates are grouped in chunks
+            of about this size.
+        """
+
+        def to_proto(generator: Iterator[Mapping[str, ValueUpdate]]):
+            for values in generator:
+                proto = pvalue_service_pb2.LoadParameterValuesRequest()
+                for key in values:
+                    value_update = values[key]
+                    item = proto.values.add()
+                    item.parameter = key
+                    item.value.MergeFrom(_build_value_proto(value_update.value))
+                    if value_update.generation_time:
+                        item.generationTime.MergeFrom(
+                            to_server_time(value_update.generation_time)
+                        )
+                    if value_update.expires_in is not None:
+                        item.expiresIn = int(value_update.expires_in * 1000)
+
+                yield proto
+
+        generator = delimit_protobuf(to_proto(data), chunk_size=chunk_size)
+
+        url = f"/parameter-values/{instance}/streams/{stream}:load"
+        response = self.ctx.post_proto(url, data=generator)
+        message = pvalue_service_pb2.LoadParameterValuesResponse()
+        message.ParseFromString(response.content)
+        return LoadParameterValuesResult(message)
 
     def create_link_subscription(
         self,

@@ -473,3 +473,40 @@ class Processor:
 
     def __str__(self):
         return f"{self.name} [{self.state}]"
+
+
+class LoadParameterValuesResult:
+    """
+    Statistics returned when loading a stream of
+    parameter values.
+    """
+
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def value_count(self) -> str:
+        """Number of loaded parameter values."""
+        return self._proto.valueCount
+
+    @property
+    def min_generation_time(self) -> datetime.datetime:
+        """Minimum geneneration time of all loaded parameter values"""
+        if self._proto.HasField("minGenerationTime"):
+            return parse_server_time(self._proto.minGenerationTime)
+        return None
+
+    @property
+    def max_generation_time(self) -> datetime.datetime:
+        """Maximum geneneration time of all loaded parameter values"""
+        if self._proto.HasField("maxGenerationTime"):
+            return parse_server_time(self._proto.maxGenerationTime)
+        return None
+
+    def __str__(self) -> str:
+        result = f"{self.value_count} values"
+        if self.max_generation_time:
+            result += (
+                f" in range [{self.min_generation_time} - {self.max_generation_time}]"
+            )
+        return result

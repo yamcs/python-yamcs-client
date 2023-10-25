@@ -175,7 +175,9 @@ class MDBClient:
             If this space system does not yet exist, it will
             be added automatically.
         :param data_source:
-            Where this parameter originated.
+            Where this parameter originated. One of ``TELEMETERED``,
+            ``GROUND``, ``DERIVED``, ``CONSTANT``, ``LOCAL``, ``SYSTEM``,
+            ``COMMAND``, ``COMMAND_HISTORY``.
         :param short_description:
             Short description (one line)
         :param long_description:
