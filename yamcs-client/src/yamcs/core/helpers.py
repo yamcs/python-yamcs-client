@@ -2,7 +2,7 @@ import logging
 import os
 from collections import OrderedDict
 from datetime import datetime, timezone
-from typing import Any, Generator, Iterator, List, Union
+from typing import Any, Iterator, List, Union
 from urllib.parse import urlparse
 
 import requests
