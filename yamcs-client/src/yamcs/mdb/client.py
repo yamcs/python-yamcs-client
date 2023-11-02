@@ -154,7 +154,6 @@ class MDBClient:
     def create_parameter(
         self,
         name: str,
-        space_system: str,
         data_source: str,
         short_description: Optional[str] = None,
         long_description: Optional[str] = None,
