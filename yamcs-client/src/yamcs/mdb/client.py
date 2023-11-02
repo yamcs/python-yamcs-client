@@ -167,13 +167,10 @@ class MDBClient:
         .. versionadded:: 1.9.1
 
         :param name:
-            Short name of the parameter.
-        :param space_system:
-            Fully qualified name of the space system that this
-            parameter should be added to.
+            Fully qualified name of the parameter.
 
-            If this space system does not yet exist, it will
-            be added automatically.
+            Space systems that do not yet exist, will be added
+            automatically.
         :param data_source:
             Where this parameter originated. One of ``TELEMETERED``,
             ``GROUND``, ``DERIVED``, ``CONSTANT``, ``LOCAL``, ``SYSTEM``,
@@ -190,7 +187,6 @@ class MDBClient:
         """
         req = mdb_pb2.CreateParameterRequest()
         req.name = name
-        req.spaceSystem = space_system
         req.dataSource = mdb_pb2.DataSourceType.Value(data_source)
         if short_description:
             req.shortDescription = short_description
@@ -252,7 +248,6 @@ class MDBClient:
     def create_parameter_type(
         self,
         name: str,
-        space_system: str,
         eng_type: str,
         short_description: Optional[str] = None,
         long_description: Optional[str] = None,
@@ -271,13 +266,10 @@ class MDBClient:
         .. versionadded:: 1.9.1
 
         :param name:
-            Short name of the parameter type.
-        :param space_system:
-            Fully qualified name of the space system that this
-            parameter type should be added to.
+            Fully qualified name of the parameter type.
 
-            If this space system does not yet exist, it will
-            be added automatically.
+            Space systems that do not yet exist, will be added
+            automatically.
         :param eng_type:
             Engineering type. One of ``float``, ``integer``, ``boolean``,
             ``binary``, ``string`` or ``enumeration``.
@@ -308,7 +300,6 @@ class MDBClient:
         """
         req = mdb_pb2.CreateParameterTypeRequest()
         req.name = name
-        req.spaceSystem = space_system
         req.engType = eng_type
         if short_description:
             req.shortDescription = short_description

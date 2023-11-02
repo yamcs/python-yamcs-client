@@ -1,6 +1,6 @@
 import datetime
 import functools
-from typing import Any, Callable, Generator, Iterable, Iterator, List, Mapping, Optional
+from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional
 
 from google.protobuf import timestamp_pb2
 from yamcs.archive.client import ArchiveClient
