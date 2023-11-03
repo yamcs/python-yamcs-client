@@ -1,2 +1,2 @@
-requests-gssapi
+requests-kerberos
 yamcs-client

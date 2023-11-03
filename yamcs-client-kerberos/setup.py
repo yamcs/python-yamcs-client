@@ -33,7 +33,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     platforms="Posix; MacOS X; Windows",
-    install_requires=["requests-gssapi", "yamcs-client>=1.7.0"],
+    install_requires=["requests-kerberos", "yamcs-client>=1.7.0"],
     include_package_data=True,
     zip_safe=False,
 )

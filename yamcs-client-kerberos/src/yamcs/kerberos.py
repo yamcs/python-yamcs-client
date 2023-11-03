@@ -1,6 +1,11 @@
 from datetime import datetime, timedelta, timezone
 
-from requests_gssapi import HTTPSPNEGOAuth
+try:
+    from requests_kerberos import DISABLED, HTTPKerberosAuth
+except ImportError:
+    # To be removed eventually
+    from requests_gssapi import HTTPSPNEGOAuth
+
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import Unauthorized, YamcsError
 from yamcs.core.helpers import do_get, do_post
@@ -30,7 +35,13 @@ class KerberosCredentials(Credentials):
             self._on_token_update(self)
 
     def fetch_authorization_code(self, session, auth_url):
-        auth = HTTPSPNEGOAuth(opportunistic_auth=True)
+        try:
+            auth = HTTPKerberosAuth(
+                mutual_authentication=DISABLED, force_preemptive=True
+            )
+        except NameError:
+            auth = HTTPSPNEGOAuth(opportunistic_auth=True)
+
         response = do_get(session, auth_url + "/spnego", auth=auth)
         if response.status_code == 401:
             raise Unauthorized("401 Client Error: Unauthorized")
