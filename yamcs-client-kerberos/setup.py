@@ -7,7 +7,7 @@ with io.open("README.md", encoding="utf-8") as f:
 
 setuptools.setup(
     name="yamcs-client-kerberos",
-    version="1.2.1",
+    version="1.2.2",
     description="Kerberos integration for Yamcs API client library",
     long_description=readme,
     long_description_content_type="text/markdown",
