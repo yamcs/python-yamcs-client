@@ -1,6 +1,5 @@
 import logging
 import os
-from collections import OrderedDict
 from datetime import datetime, timezone
 from typing import Any, Iterator, List, Union
 from urllib.parse import urlparse
@@ -108,7 +107,7 @@ def parse_value(proto: yamcs_pb2.Value) -> Any:
         return [parse_value(v) for v in proto.arrayValue]
     elif proto.type == yamcs_pb2.Value.AGGREGATE:
         tuples = zip(proto.aggregateValue.name, proto.aggregateValue.value)
-        return OrderedDict(map(lambda x: (x[0], parse_value(x[1])), tuples))
+        return dict(map(lambda x: (x[0], parse_value(x[1])), tuples))
     elif proto.type == yamcs_pb2.Value.NONE:
         return None
     else:

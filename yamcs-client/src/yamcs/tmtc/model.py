@@ -1,9 +1,8 @@
 import binascii
 import threading
 from abc import ABC
-from collections import OrderedDict
 from datetime import datetime, timedelta
-from typing import Any, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from yamcs.core.exceptions import TimeoutError, YamcsError
 from yamcs.core.helpers import parse_server_time, parse_value, to_isostring
@@ -51,7 +50,7 @@ class CommandHistory:
         """The generation time as set by Yamcs"""
 
         self._proto = proto
-        self.attributes = OrderedDict()
+        self.attributes = {}
         self._update(proto.attr)
 
     @property
@@ -150,14 +149,14 @@ class CommandHistory:
         return self.attributes.get("comment")
 
     @property
-    def acknowledgments(self) -> OrderedDict:
+    def acknowledgments(self) -> Dict[str, Acknowledgment]:
         """
         All acknowledgments by name.
 
         :return:
             Acknowledgments keyed by name.
         """
-        acks = OrderedDict()
+        acks = {}
         for name, _ in self.attributes.items():
             if name.startswith("CommandComplete"):
                 continue
@@ -372,10 +371,10 @@ class MonitoredCommand(IssuedCommand):
                 event.set()
 
     @property
-    def attributes(self) -> OrderedDict:
+    def attributes(self) -> Dict[str, Acknowledgment]:
         if self._cmdhist:
             return self._cmdhist.attributes
-        return OrderedDict()
+        return {}
 
     def is_complete(self) -> bool:
         """
@@ -472,14 +471,14 @@ class MonitoredCommand(IssuedCommand):
         return self.attributes.get("comment")
 
     @property
-    def acknowledgments(self) -> OrderedDict:
+    def acknowledgments(self) -> Dict[str, Acknowledgment]:
         """
         All acknowledgments by name.
 
         :return:
             Acknowledgments keyed by name.
         """
-        acks = OrderedDict()
+        acks = {}
         for name, _ in self.attributes.items():
             if name.startswith("CommandComplete"):
                 continue
