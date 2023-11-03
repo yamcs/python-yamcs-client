@@ -164,6 +164,7 @@ class MDBClient:
         Create a parameter.
 
         .. versionadded:: 1.9.1
+           Compatible with Yamcs 5.8.8 onwards
 
         :param name:
             Fully qualified name of the parameter.
@@ -212,6 +213,7 @@ class MDBClient:
         Parameter types are returned in lexicographical order.
 
         .. versionadded:: 1.9.1
+           Compatible with Yamcs 5.8.8 onwards
         """
         params = {}
 
@@ -232,6 +234,7 @@ class MDBClient:
         Gets a single parameter type by its name.
 
         .. versionadded:: 1.9.1
+           Compatible with Yamcs 5.8.8 onwards
 
         :param name:
             Either a fully-qualified XTCE name or an alias in the
@@ -263,6 +266,7 @@ class MDBClient:
         Create a parameter type.
 
         .. versionadded:: 1.9.1
+           Compatible with Yamcs 5.8.8 onwards
 
         :param name:
             Fully qualified name of the parameter type.

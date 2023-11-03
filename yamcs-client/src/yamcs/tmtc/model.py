@@ -1114,6 +1114,7 @@ class ValueUpdate:
             If unset, the value does not expire.
 
             .. versionadded:: 1.9.1
+               Compatible with Yamcs 5.8.8 onwards
         """
         self.value = value
         self.generation_time = generation_time

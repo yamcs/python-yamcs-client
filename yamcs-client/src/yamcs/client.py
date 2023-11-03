@@ -532,6 +532,7 @@ class YamcsClient:
         Load an indefinite amount of parameter values into Yamcs.
 
         .. versionadded:: 1.9.1
+           Compatible with Yamcs 5.8.8 onwards
 
         :param instance:
             Yamcs instance name

@@ -644,6 +644,7 @@ class ProcessorClient:
             If unset, the value does not expire.
 
             .. versionadded:: 1.9.1
+               Compatible with Yamcs 5.8.8 onwards
         """
         self.set_parameter_values(
             {parameter: value}, generation_time=generation_time, expires_in=expires_in
@@ -678,6 +679,7 @@ class ProcessorClient:
             How long before this value expires (in fractional seconds).
 
             .. versionadded:: 1.9.1
+               Compatible with Yamcs 5.8.8 onwards
         """
         req = processing_pb2.BatchSetParameterValuesRequest()
         for key in values:
