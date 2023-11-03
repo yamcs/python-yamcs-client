@@ -3,7 +3,7 @@ Python Yamcs Client
 
 .. rubric:: Getting Started
 
-Install Python 3.6 or higher.
+Install Python 3.7 or higher.
 
 Install ``yamcs-client`` from PyPI::
 
