@@ -66,6 +66,16 @@ class CommandHistory:
         return self._proto.commandName
 
     @property
+    def aliases(self) -> Dict[str, str]:
+        """
+        Aliases, keyed by namespace
+
+        .. versionadded:: 1.9.2
+           Compatible with Yamcs 5.8.4 onwards
+        """
+        return {key: self._proto.aliases[key] for key in self._proto.aliases}
+
+    @property
     def origin(self) -> str:
         """
         The origin of this command. Usually the IP address of the issuer.
@@ -90,6 +100,35 @@ class CommandHistory:
         return self.attributes.get("username")
 
     @property
+    def assignments(self) -> Dict[str, Any]:
+        """
+        Argument assignments by name.
+
+        This returns only explicit assignments set by the command
+        issuer. To return all assignments, including ones that
+        use their default values, use :attr:`all_assignments` instead.
+
+        .. versionadded:: 1.9.2
+        """
+        args = {}
+        for assignment in self._proto.assignments:
+            if assignment.userInput:
+                args[assignment.name] = parse_value(assignment.value)
+        return args
+
+    @property
+    def all_assignments(self) -> Dict[str, Any]:
+        """
+        Argument assignments by name.
+
+        .. versionadded:: 1.9.2
+        """
+        args = {}
+        for assignment in self._proto.assignments:
+            args[assignment.name] = parse_value(assignment.value)
+        return args
+
+    @property
     def source(self) -> str:
         """String representation of the command."""
         result = self.name + "("
@@ -107,6 +146,17 @@ class CommandHistory:
         result += ", ".join(args)
         result += ")"
         return result
+
+    @property
+    def unprocessed_binary(self):
+        """
+        Binary representation before postprocessing.
+
+        .. versionadded:: 1.9.2
+        """
+        if self._proto.HasField("unprocessedBinary"):
+            return self._proto.unprocessedBinary
+        return None
 
     @property
     def binary(self):
@@ -211,6 +261,16 @@ class IssuedCommand:
         return None
 
     @property
+    def aliases(self) -> Dict[str, str]:
+        """
+        Aliases, keyed by namespace
+
+        .. versionadded:: 1.9.2
+           Compatible with Yamcs 5.8.4 onwards
+        """
+        return {key: self._proto.aliases[key] for key in self._proto.aliases}
+
+    @property
     def generation_time(self) -> datetime:
         """
         The generation time as set by Yamcs.
@@ -225,6 +285,35 @@ class IssuedCommand:
         if self._proto.HasField("username"):
             return self._proto.username
         return None
+
+    @property
+    def assignments(self) -> Dict[str, Any]:
+        """
+        Argument assignments by name.
+
+        This returns only explicit assignments set by the command
+        issuer. To return all assignments, including ones that
+        use their default values, use :attr:`all_assignments` instead.
+
+        .. versionadded:: 1.9.2
+        """
+        args = {}
+        for assignment in self._proto.assignments:
+            if assignment.userInput:
+                args[assignment.name] = parse_value(assignment.value)
+        return args
+
+    @property
+    def all_assignments(self) -> Dict[str, Any]:
+        """
+        Argument assignments by name.
+
+        .. versionadded:: 1.9.2
+        """
+        args = {}
+        for assignment in self._proto.assignments:
+            args[assignment.name] = parse_value(assignment.value)
+        return args
 
     @property
     def queue(self) -> str:
