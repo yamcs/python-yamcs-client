@@ -338,7 +338,6 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         self,
         parameters: Union[str, List[str]],
         abort_on_invalid: bool = True,
-        update_on_expiration: bool = False,
         send_from_cache: bool = True,
     ):
         """
@@ -349,14 +348,8 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         :param abort_on_invalid:
             If ``True`` one invalid parameter means any other parameter in the
             request will also not be added to the subscription.
-        :param update_on_expiration:
-            If ``True`` an update is received when a parameter value has
-            become expired. This update holds the same value as the last
-            known valid value, but with status set to ``EXPIRED``.
-
-            .. versionadded:: 1.9.2
         :param send_from_cache:
-            If ``True`` the last processed parameter value is received from
+            If ``True`` the last processed parameter value is sent from
             parameter cache. When ``False`` only newly processed parameters
             are received.
         """
@@ -366,7 +359,6 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         options = processing_pb2.SubscribeParametersRequest()
         options.action = processing_pb2.SubscribeParametersRequest.ADD
         options.abortOnInvalid = abort_on_invalid
-        options.updateOnExpiration = update_on_expiration
         options.sendFromCache = send_from_cache
         options.id.extend(to_named_object_ids(parameters))
 
@@ -1330,7 +1322,7 @@ class ProcessorClient:
             become expired. This update holds the same value as the last
             known valid value, but with status set to ``EXPIRED``.
         :param send_from_cache:
-            If ``True`` the last processed parameter value is received from
+            If ``True`` the last processed parameter value is sent from
             parameter cache. When ``False`` only newly processed parameters
             are received.
         :param timeout:
