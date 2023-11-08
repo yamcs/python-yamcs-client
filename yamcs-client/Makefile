@@ -6,8 +6,11 @@ clean:
 lint:
 	flake8 src --exclude '*pb2.py' --count --show-source --statistics
 
-build: lint
+build_legacy: lint
 	python setup.py sdist bdist_wheel
+
+build: lint
+	python -m build
 
 deploy: clean build
 	twine upload -r pypi dist/*
