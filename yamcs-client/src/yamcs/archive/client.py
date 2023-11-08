@@ -1,4 +1,5 @@
 import functools
+import urllib.parse
 from datetime import datetime, timedelta, timezone
 from typing import Callable, Iterable, List, Optional, Union
 
@@ -861,9 +862,10 @@ class ArchiveClient:
         else:
             params["norealtime"] = True
 
+        encoded_name = urllib.parse.quote_plus(parameter)
         return pagination.Iterator(
             ctx=self.ctx,
-            path=f"/archive/{self._instance}/parameters{parameter}",
+            path=f"/archive/{self._instance}/parameters/{encoded_name}",
             params=params,
             response_class=archive_pb2.ListParameterHistoryResponse,
             items_key="parameter",
