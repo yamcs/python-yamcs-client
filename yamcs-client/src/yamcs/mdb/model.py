@@ -1,9 +1,22 @@
-from typing import List, Optional, Tuple
+import abc
+import warnings
+from typing import Dict, List, Optional, Tuple
 
 from yamcs.protobuf.mdb import mdb_pb2
 
 
-class Algorithm:
+class MissionDatabaseItem(abc.ABC):
+    """
+    Superclass for MDB items. Implementations:
+
+    * :class:`.Algorithm`
+    * :class:`.Command`
+    * :class:`.Container`
+    * :class:`.Parameter`
+    * :class:`.ParameterType`
+    * :class:`.SpaceSystem`
+    """
+
     def __init__(self, proto):
         self._proto = proto
 
@@ -19,10 +32,31 @@ class Algorithm:
 
     @property
     def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
+        """
+        List of (namespace, name) pairs, as 2-tuples
+
+        .. deprecated:: 1.9.2
+            Use :attr:`aliases_dict` instead, which returns a dictionary instead of
+            a list of 2-tuples.
+
+            In a future release, the ``aliases`` property will be changed to match the
+            return type of :attr:`aliases_dict`.
+        """
+        warnings.warn(
+            "Use 'aliases_dict' instead of 'aliases'. This returns "
+            "a dictionary instead of a list of 2-tuples. In a future release, "
+            "the 'aliases' property will be changed to match the return type "
+            "of 'aliases_dict'.",
+            category=FutureWarning,
+        )
         return list(
             {alias.namespace: alias.name for alias in self._proto.alias}.items()
         )
+
+    @property
+    def aliases_dict(self) -> Dict[str, str]:
+        """Aliases, keyed by namespace"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}
 
     @property
     def description(self) -> Optional[str]:
@@ -42,40 +76,14 @@ class Algorithm:
         return self.qualified_name
 
 
-class Command:
+class Algorithm(MissionDatabaseItem):
     def __init__(self, proto):
-        self._proto = proto
+        super().__init__(proto)
 
-    @property
-    def name(self) -> str:
-        """Short name"""
-        return self._proto.name
 
-    @property
-    def qualified_name(self) -> str:
-        """Full name (incl. space system)"""
-        return self._proto.qualifiedName
-
-    @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
-
-    @property
-    def description(self) -> Optional[str]:
-        """Short description."""
-        if self._proto.HasField("shortDescription"):
-            return self._proto.shortDescription
-        return None
-
-    @property
-    def long_description(self) -> Optional[str]:
-        """Long description."""
-        if self._proto.HasField("longDescription"):
-            return self._proto.longDescription
-        return None
+class Command(MissionDatabaseItem):
+    def __init__(self, proto):
+        super().__init__(proto)
 
     @property
     def base_command(self) -> Optional["Command"]:
@@ -97,8 +105,10 @@ class Command:
             return Significance(self._proto.significance)
         return None
 
-    def __str__(self):
-        return self.qualified_name
+
+class Container(MissionDatabaseItem):
+    def __init__(self, proto):
+        super().__init__(proto)
 
 
 class Significance:
@@ -126,45 +136,6 @@ class Significance:
 
     def __str__(self):
         return f"[{self.consequence_level}] {self.reason}"
-
-
-class Container:
-    def __init__(self, proto):
-        self._proto = proto
-
-    @property
-    def name(self) -> str:
-        """Short name"""
-        return self._proto.name
-
-    @property
-    def qualified_name(self) -> str:
-        """Full name (incl. space system)"""
-        return self._proto.qualifiedName
-
-    @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
-
-    @property
-    def description(self) -> Optional[str]:
-        """Short description."""
-        if self._proto.HasField("shortDescription"):
-            return self._proto.shortDescription
-        return None
-
-    @property
-    def long_description(self) -> Optional[str]:
-        """Long description."""
-        if self._proto.HasField("longDescription"):
-            return self._proto.longDescription
-        return None
-
-    def __str__(self):
-        return self.qualified_name
 
 
 class ArrayType:
@@ -312,47 +283,14 @@ class DataEncoding:
         return self.type
 
 
-class Parameter:
+class Parameter(MissionDatabaseItem):
     """
-    From XTCE:
-
-        A Parameter is a description of something that can have
-        a value. It is not the value itself.
+    A Parameter is a description of something that can have
+    a value. It is not the value itself.
     """
 
     def __init__(self, proto):
-        self._proto = proto
-
-    @property
-    def name(self) -> str:
-        """Short name"""
-        return self._proto.name
-
-    @property
-    def qualified_name(self) -> str:
-        """Full name (incl. space system)"""
-        return self._proto.qualifiedName
-
-    @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
-
-    @property
-    def description(self) -> Optional[str]:
-        """Short description."""
-        if self._proto.HasField("shortDescription"):
-            return self._proto.shortDescription
-        return None
-
-    @property
-    def long_description(self) -> Optional[str]:
-        """Long description."""
-        if self._proto.HasField("longDescription"):
-            return self._proto.longDescription
-        return None
+        super().__init__(proto)
 
     @property
     def data_source(self) -> str:
@@ -414,44 +352,10 @@ class Parameter:
             return DataEncoding(self._proto.type.dataEncoding)
         return None
 
-    def __str__(self):
-        return self.qualified_name
 
-
-class ParameterType:
+class ParameterType(MissionDatabaseItem):
     def __init__(self, proto):
-        self._proto = proto
-
-    @property
-    def name(self) -> str:
-        """Short name"""
-        return self._proto.name
-
-    @property
-    def qualified_name(self) -> str:
-        """Full name (incl. space system)"""
-        return self._proto.qualifiedName
-
-    @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
-
-    @property
-    def description(self) -> Optional[str]:
-        """Short description."""
-        if self._proto.HasField("shortDescription"):
-            return self._proto.shortDescription
-        return None
-
-    @property
-    def long_description(self) -> Optional[str]:
-        """Long description."""
-        if self._proto.HasField("longDescription"):
-            return self._proto.longDescription
-        return None
+        super().__init__(proto)
 
     @property
     def type(self) -> str:
@@ -504,11 +408,8 @@ class ParameterType:
             return DataEncoding(self._proto.dataEncoding)
         return None
 
-    def __str__(self):
-        return self.qualified_name
 
-
-class SpaceSystem:
+class SpaceSystem(MissionDatabaseItem):
     """
     From XTCE:
 
@@ -520,41 +421,7 @@ class SpaceSystem:
     """
 
     def __init__(self, proto):
-        self._proto = proto
-
-    @property
-    def name(self) -> str:
-        """Short name"""
-        return self._proto.name
-
-    @property
-    def qualified_name(self) -> str:
-        """Full name (incl. space system)"""
-        return self._proto.qualifiedName
-
-    @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """List of (namespace, name) pairs, as 2-tuples"""
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
-
-    @property
-    def description(self) -> Optional[str]:
-        """Short description."""
-        if self._proto.HasField("shortDescription"):
-            return self._proto.shortDescription
-        return None
-
-    @property
-    def long_description(self) -> Optional[str]:
-        """Long description."""
-        if self._proto.HasField("longDescription"):
-            return self._proto.longDescription
-        return None
-
-    def __str__(self):
-        return self.qualified_name
+        super().__init__(proto)
 
 
 class RangeSet:
