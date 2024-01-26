@@ -4,6 +4,7 @@ from typing import Callable, Optional
 
 import requests
 from requests.auth import HTTPBasicAuth
+
 from yamcs.core.exceptions import Unauthorized, YamcsError
 from yamcs.core.helpers import do_post
 
@@ -139,8 +140,8 @@ class Credentials:
             creds = _convert_service_account_credentials(
                 session,
                 token_url,
-                client_id=self.client_id,
-                client_secret=self.client_secret,
+                client_id=str(self.client_id),
+                client_secret=str(self.client_secret),
                 become=self.become,
             )
         else:
@@ -151,15 +152,18 @@ class Credentials:
         return creds
 
     def is_expired(self) -> bool:
-        return self.expiry and datetime.now(tz=timezone.utc) >= self.expiry
+        if self.expiry is not None:
+            return self.expiry and datetime.now(tz=timezone.utc) >= self.expiry
+        else:
+            return False
 
     def refresh(self, session: requests.Session, auth_url: str):
         if self.become:
             new_creds = _convert_service_account_credentials(
                 session,
                 auth_url + "/token",
-                client_id=self.client_id,
-                client_secret=self.client_secret,
+                client_id=str(self.client_id),
+                client_secret=str(self.client_secret),
                 become=self.become,
             )
         elif self.refresh_token:
@@ -202,5 +206,23 @@ class BasicAuthCredentials(Credentials):
         return self
 
     def before_request(self, session: requests.Session, auth_url: str):
-        usernamePass = base64.b64encode((self.username + ":" + self.password).encode())
-        session.headers.update({"Authorization": "Basic " + usernamePass.decode()})
+        buf = str.encode(f"{self.username}:{self.password}")
+        usernamePass = base64.b64encode(buf).decode()
+        session.headers.update({"Authorization": "Basic " + usernamePass})
+
+
+class APIKeyCredentials(Credentials):
+    def __init__(self, key: str):
+        super().__init__(password=key)
+
+    def is_expired(self) -> bool:
+        return False
+
+    def refresh(self):
+        pass
+
+    def login(self, *args, **kwargs):
+        return self
+
+    def before_request(self, session: requests.Session, auth_url: str):
+        session.headers.update({"x-api-key": str(self.password)})

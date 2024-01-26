@@ -159,7 +159,7 @@ def to_named_object_ids(parameters: Union[str, List[str]]) -> yamcs_pb2.NamedObj
     return [to_named_object_id(parameter) for parameter in parameters]
 
 
-def do_get(session: requests.Session, path: str, **kwargs) -> requests.Request:
+def do_get(session: requests.Session, path: str, **kwargs) -> requests.Response:
     """
     Performs an HTTP GET request while reraising connection-type exceptions
     to something produced by this library.
@@ -167,7 +167,7 @@ def do_get(session: requests.Session, path: str, **kwargs) -> requests.Request:
     return do_request(session, "get", path, **kwargs)
 
 
-def do_post(session: requests.Session, path: str, **kwargs) -> requests.Request:
+def do_post(session: requests.Session, path: str, **kwargs) -> requests.Response:
     """
     Performs an HTTP POST request while reraising connection-type exceptions
     to something produced by this library.
@@ -177,7 +177,7 @@ def do_post(session: requests.Session, path: str, **kwargs) -> requests.Request:
 
 def do_request(
     session: requests.Session, method: str, path: str, **kwargs
-) -> requests.Request:
+) -> requests.Response:
     """
     Performs an HTTP request while reraising connection-type exceptions
     to something produced by this library.
