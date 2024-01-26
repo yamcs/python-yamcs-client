@@ -157,7 +157,7 @@ def _build_value_proto(value):
 
 def _to_argument_value(value, force_string):
     if isinstance(value, (bytes, bytearray)):
-        return binascii.hexlify(value)
+        return binascii.hexlify(value).decode("ascii")
     elif isinstance(value, collections.abc.Mapping):
         # Careful to do the JSON dump only at the end,
         # and not at every level of a nested hierarchy
@@ -180,7 +180,7 @@ def _compose_aggregate_members(value):
     argument, the JSON type needs to be numeric too).
     """
     if isinstance(value, (bytes, bytearray)):
-        return binascii.hexlify(value)
+        return binascii.hexlify(value).decode("ascii")
     elif isinstance(value, collections.abc.Mapping):
         return {k: _compose_aggregate_members(v) for k, v in value.items()}
     elif isinstance(value, datetime.datetime):

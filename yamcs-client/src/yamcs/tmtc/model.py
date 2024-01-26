@@ -139,7 +139,7 @@ class CommandHistory:
                 if isinstance(value, str):
                     value = '"' + value + '"'
                 elif isinstance(value, bytes) or isinstance(value, bytearray):
-                    value = '"' + binascii.hexlify(value) + '"'
+                    value = '"' + binascii.hexlify(value).decode("ascii") + '"'
                 elif isinstance(value, datetime):
                     value = '"' + to_isostring(value) + '"'
                 args.append(assignment.name + ": " + str(value))
@@ -354,7 +354,7 @@ class IssuedCommand:
                     if isinstance(value, str):
                         value = '"' + value + '"'
                     elif isinstance(value, bytes) or isinstance(value, bytearray):
-                        value = '"' + binascii.hexlify(value) + '"'
+                        value = '"' + binascii.hexlify(value).decode("ascii") + '"'
                     elif isinstance(value, datetime):
                         value = '"' + to_isostring(value) + '"'
                     args.append(assignment.name + ": " + str(value))
@@ -367,7 +367,7 @@ class IssuedCommand:
     def hex(self):
         """Hexadecimal string representation of this command."""
         if self._proto.HasField("binary"):
-            return binascii.hexlify(self._proto.binary)
+            return binascii.hexlify(self._proto.binary).decode("ascii")
         return None
 
     @property
