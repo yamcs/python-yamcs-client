@@ -32,38 +32,38 @@ class Cop1Subscription(WebSocketSubscriptionFuture):
         super(Cop1Subscription, self).__init__(manager)
         self._status = None
 
-    def get_status(self) -> Cop1Status:
+    def get_status(self) -> Optional[Cop1Status]:
         """
         Returns the latest known COP1 status.
         """
         return self._status
 
     @property
-    def cop1_active(self) -> bool:
+    def cop1_active(self) -> Optional[bool]:
         if self._status:
             return self._status.cop1_active
         return None
 
     @property
-    def state(self) -> str:
+    def state(self) -> Optional[str]:
         if self._status:
             return self._status.state
         return None
 
     @property
-    def bypass_all(self) -> bool:
+    def bypass_all(self) -> Optional[bool]:
         if self._status:
             return self._status.bypass_all
         return None
 
     @property
-    def v_s(self) -> int:
+    def v_s(self) -> Optional[int]:
         if self._status:
             return self._status.v_s
         return None
 
     @property
-    def nn_r(self) -> int:
+    def nn_r(self) -> Optional[int]:
         if self._status:
             return self._status.nn_r
         return None

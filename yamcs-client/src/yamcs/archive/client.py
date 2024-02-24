@@ -1,7 +1,7 @@
 import functools
 import urllib.parse
 from datetime import datetime, timedelta, timezone
-from typing import Callable, Iterable, List, Optional, Union
+from typing import Any, Callable, Dict, Iterable, List, Optional, Union
 
 from yamcs.archive.model import (
     IndexGroup,
@@ -296,7 +296,7 @@ class ArchiveClient:
             If set to ``True`` alarms are fetched in reverse
             order (most recent first).
         """
-        params = {
+        params: Dict[str, Any] = {
             "order": "desc" if descending else "asc",
         }
         if name is not None:
@@ -360,7 +360,7 @@ class ArchiveClient:
             If set to ``True`` packets are fetched in reverse
             order (most recent first).
         """
-        params = {
+        params: Dict[str, Any] = {
             "order": "desc" if descending else "asc",
         }
         if name is not None:
@@ -423,7 +423,12 @@ class ArchiveClient:
 
         return generate()
 
-    def get_packet(self, generation_time: datetime, sequence_number: int, partition: Optional[str] = None) -> Packet:
+    def get_packet(
+        self,
+        generation_time: datetime,
+        sequence_number: int,
+        partition: Optional[str] = None,
+    ) -> Packet:
         """
         Gets a single packet by its identifying key (partition, gentime, seqNum).
 
@@ -432,8 +437,9 @@ class ArchiveClient:
         :param sequence_number:
             Sequence number of the packet
         :param partition:
-            Packet partition name. This property works only against recent versions of Yamcs, and will become
-            required in the future (it was erroneously omitted).
+            Packet partition name. This property works only against recent versions
+            of Yamcs,and will become required in the future (it was erroneously
+            omitted).
         """
         url = f"/archive/{self._instance}/packets/"
 
@@ -478,7 +484,7 @@ class ArchiveClient:
         :return:
             An iterator over received chunks
         """
-        params = {"parameters": parameters}
+        params: Dict[str, Any] = {"parameters": parameters}
         if namespace is not None:
             params["namespace"] = namespace
         if start is not None:
@@ -567,7 +573,7 @@ class ArchiveClient:
             If set to ``True`` events are fetched in reverse
             order (most recent first).
         """
-        params = {
+        params: Dict[str, Any] = {
             "order": "desc" if descending else "asc",
         }
         if source is not None:
@@ -855,7 +861,7 @@ class ArchiveClient:
             source. Replay requests take longer to return because
             the data needs to be reprocessed.
         """
-        params = {
+        params: Dict[str, Any] = {
             "source": source,
             "order": "desc" if descending else "asc",
         }
@@ -971,7 +977,7 @@ class ArchiveClient:
             If set to ``True`` results are fetched in reverse
             order (most recent first).
         """
-        params = {
+        params: Dict[str, Any] = {
             "order": "desc" if descending else "asc",
         }
         if queue:

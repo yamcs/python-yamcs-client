@@ -76,7 +76,7 @@ class CommandHistory:
         return {key: self._proto.aliases[key] for key in self._proto.aliases}
 
     @property
-    def origin(self) -> str:
+    def origin(self) -> Optional[str]:
         """
         The origin of this command. Usually the IP address of the issuer.
         """
@@ -90,12 +90,10 @@ class CommandHistory:
         The sequence number of this command. This is the sequence
         number assigned by the issuing client.
         """
-        if self._proto.HasField("sequenceNumber"):
-            return self._proto.sequenceNumber
-        return None
+        return self._proto.sequenceNumber
 
     @property
-    def username(self) -> str:
+    def username(self) -> Optional[str]:
         """Username of the issuer."""
         return self.attributes.get("username")
 
@@ -176,14 +174,14 @@ class CommandHistory:
         Returns True if the command has completed successfully.
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and ack.status == "OK"
+        return (ack is not None) and ack.status == "OK"
 
     def is_failure(self) -> bool:
         """
         Returns True if the command has completed, but failed.
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and ack.status == "NOK"
+        return (ack is not None) and ack.status == "NOK"
 
     @property
     def error(self) -> Optional[str]:
@@ -256,9 +254,7 @@ class IssuedCommand:
         """
         The fully-qualified name of this command.
         """
-        if self._proto.HasField("commandName"):
-            return self._proto.commandName
-        return None
+        return self._proto.commandName
 
     @property
     def aliases(self) -> Dict[str, str]:
@@ -275,16 +271,12 @@ class IssuedCommand:
         """
         The generation time as set by Yamcs.
         """
-        if self._proto.HasField("generationTime"):
-            return parse_server_time(self._proto.generationTime)
-        return None
+        return parse_server_time(self._proto.generationTime)
 
     @property
     def username(self) -> str:
         """The username of the issuer."""
-        if self._proto.HasField("username"):
-            return self._proto.username
-        return None
+        return self._proto.username
 
     @property
     def assignments(self) -> Dict[str, Any]:
@@ -316,14 +308,14 @@ class IssuedCommand:
         return args
 
     @property
-    def queue(self) -> str:
+    def queue(self) -> Optional[str]:
         """The name of the queue that this command was assigned to."""
         if self._proto.HasField("queue"):
             return self._proto.queue
         return None
 
     @property
-    def origin(self) -> str:
+    def origin(self) -> Optional[str]:
         """
         The origin of this command. Usually the IP address of the issuer.
         """
@@ -484,7 +476,7 @@ class MonitoredCommand(IssuedCommand):
         is available.
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and ack.status == "OK"
+        return (ack is not None) and ack.status == "OK"
 
     def is_failure(self) -> bool:
         """
@@ -496,7 +488,7 @@ class MonitoredCommand(IssuedCommand):
         .. versionadded:: 1.8.6
         """
         ack = self._assemble_ack("CommandComplete")
-        return ack and ack.status == "NOK"
+        return (ack is not None) and ack.status == "NOK"
 
     def await_complete(self, timeout: Optional[float] = None):
         """

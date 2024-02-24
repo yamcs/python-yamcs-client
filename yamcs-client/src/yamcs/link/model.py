@@ -1,3 +1,5 @@
+from typing import Optional
+
 from yamcs.protobuf.cop1 import cop1_pb2
 
 
@@ -14,25 +16,25 @@ class Cop1Status:
         return self._proto.cop1Active
 
     @property
-    def state(self) -> str:
+    def state(self) -> Optional[str]:
         if self._proto.HasField("state"):
             return cop1_pb2.Cop1State.Name(self._proto.state)
         return None
 
     @property
-    def bypass_all(self) -> bool:
+    def bypass_all(self) -> Optional[bool]:
         if self._proto.HasField("setBypassAll"):
             return self._proto.setBypassAll
         return None
 
     @property
-    def v_s(self) -> int:
+    def v_s(self) -> Optional[int]:
         if self._proto.HasField("vS"):
             return self._proto.vS
         return None
 
     @property
-    def nn_r(self) -> int:
+    def nn_r(self) -> Optional[int]:
         if self._proto.HasField("nnR"):
             return self._proto.nnR
         return None

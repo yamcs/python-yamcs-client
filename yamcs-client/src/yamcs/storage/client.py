@@ -34,12 +34,11 @@ class StorageClient:
         :param name:
             The bucket name.
         """
-        # TODO should have an actual server-side operation for this
-        # (added in Yamcs 5.6.1)
-        for bucket in self.list_buckets():
-            if bucket.name == name:
-                return bucket
-        return None
+        url = "/buckets/" + self._instance + "/" + name
+        response = self.ctx.get_proto(path=url)
+        message = buckets_pb2.BucketInfo()
+        message.ParseFromString(response.content)
+        return Bucket(message, self)
 
     def list_objects(
         self,

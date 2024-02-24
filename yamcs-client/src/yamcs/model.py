@@ -108,18 +108,14 @@ class Event:
         """
         The time when the event was generated.
         """
-        if self._proto.HasField("generationTime"):
-            return parse_server_time(self._proto.generationTime)
-        return None
+        return parse_server_time(self._proto.generationTime)
 
     @property
     def reception_time(self) -> datetime.datetime:
         """
         The time when the event was received by Yamcs.
         """
-        if self._proto.HasField("receptionTime"):
-            return parse_server_time(self._proto.receptionTime)
-        return None
+        return parse_server_time(self._proto.receptionTime)
 
     @property
     def severity(self) -> Optional[str]:
@@ -145,9 +141,7 @@ class Event:
         """
         Sequence number. Usually this is assigned by the source of the event.
         """
-        if self._proto.HasField("seqNumber"):
-            return self._proto.seqNumber
-        return None
+        return self._proto.seqNumber
 
     @property
     def event_type(self) -> Optional[str]:
@@ -319,9 +313,7 @@ class Instance:
         ``INITIALIZED``, ``STARTING``, ``RUNNING``, ``STOPPING`` or
         ``FAILED``.
         """
-        if self._proto.HasField("state"):
-            return instances_pb2.YamcsInstance.InstanceState.Name(self._proto.state)
-        return None
+        return instances_pb2.YamcsInstance.InstanceState.Name(self._proto.state)
 
     @property
     def failure_cause(self) -> Optional[str]:
@@ -331,7 +323,7 @@ class Instance:
         return None
 
     @property
-    def mission_time(self) -> datetime.datetime:
+    def mission_time(self) -> Optional[datetime.datetime]:
         """
         Mission time of this instance's time service.
         """
@@ -370,14 +362,14 @@ class Service:
         return self._proto.name
 
     @property
-    def instance(self) -> str:
+    def instance(self) -> Optional[str]:
         """Name of the instance where this service is defined."""
         if self._proto.HasField("instance"):
             return self._proto.instance
         return None
 
     @property
-    def processor(self) -> str:
+    def processor(self) -> Optional[str]:
         """Name of the processor where this service is defined."""
         if self._proto.HasField("processor"):
             return self._proto.processor
@@ -391,9 +383,7 @@ class Service:
     @property
     def state(self) -> str:
         """State of this service."""
-        if self._proto.HasField("state"):
-            return services_pb2.ServiceState.Name(self._proto.state)
-        return None
+        return services_pb2.ServiceState.Name(self._proto.state)
 
     def failure_message(self) -> Optional[str]:
         """
@@ -438,9 +428,7 @@ class Processor:
     @property
     def state(self) -> str:
         """State of this processor."""
-        if self._proto.HasField("state"):
-            return services_pb2.ServiceState.Name(self._proto.state)
-        return None
+        return services_pb2.ServiceState.Name(self._proto.state)
 
     @property
     def type(self) -> str:
@@ -463,7 +451,7 @@ class Processor:
         return self._proto.protected
 
     @property
-    def mission_time(self) -> datetime.datetime:
+    def mission_time(self) -> Optional[datetime.datetime]:
         """
         Mission time of this processor.
         """
@@ -490,14 +478,14 @@ class LoadParameterValuesResult:
         return self._proto.valueCount
 
     @property
-    def min_generation_time(self) -> datetime.datetime:
+    def min_generation_time(self) -> Optional[datetime.datetime]:
         """Minimum geneneration time of all loaded parameter values"""
         if self._proto.HasField("minGenerationTime"):
             return parse_server_time(self._proto.minGenerationTime)
         return None
 
     @property
-    def max_generation_time(self) -> datetime.datetime:
+    def max_generation_time(self) -> Optional[datetime.datetime]:
         """Maximum geneneration time of all loaded parameter values"""
         if self._proto.HasField("maxGenerationTime"):
             return parse_server_time(self._proto.maxGenerationTime)

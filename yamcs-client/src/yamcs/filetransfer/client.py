@@ -95,9 +95,8 @@ class FileListSubscription(WebSocketSubscriptionFuture):
     each remotepath and destination.
     """
 
-    def __init__(self, manager, service_client: "FileTransferClient"):
+    def __init__(self, manager):
         super(FileListSubscription, self).__init__(manager)
-        self.service_client = service_client
         self._cache = {}
         """Filelist cache keyed by (destination, remotePath)"""
 
@@ -147,7 +146,7 @@ class FileTransferClient:
             result.append(Service(proto, service_client))
         return iter(result)
 
-    def get_service(self, name: str) -> Service:
+    def get_service(self, name: str) -> Optional[Service]:
         """
         Get a specific File Transfer service.
 
@@ -332,7 +331,7 @@ class ServiceClient:
         )
 
         # Represent subscription as a future
-        subscription = FileListSubscription(manager, self)
+        subscription = FileListSubscription(manager)
 
         wrapped_callback = functools.partial(
             _wrap_callback_parse_filelist_data, subscription, on_data

@@ -121,11 +121,9 @@ class Significance:
         One of ``NONE``, ``WATCH``, ``WARNING``, ``DISTRESS``, ``CRITICAL``
         or ``SEVERE``.
         """
-        if self._proto.HasField("consequenceLevel"):
-            return mdb_pb2.SignificanceInfo.SignificanceLevelType.Name(
-                self._proto.consequenceLevel
-            )
-        return None
+        return mdb_pb2.SignificanceInfo.SignificanceLevelType.Name(
+            self._proto.consequenceLevel
+        )
 
     @property
     def reason(self) -> Optional[str]:
@@ -169,10 +167,11 @@ class ArrayType:
         return [Member(member) for member in self._proto.type.member]
 
     @property
-    def dimensions(self) -> int:
+    def dimensions(self) -> Optional[int]:
         """The number of dimensions in case of a multi-dimensional array."""
         if self._proto.HasField("dimensions"):
             return self._proto.dimensions
+        return None
 
     def __str__(self):
         return self.name
@@ -198,9 +197,7 @@ class Member:
     @property
     def type(self) -> str:
         """Engineering type."""
-        if self._proto.HasField("type"):
-            return self._proto.type.engType
-        return None
+        return self._proto.type.engType
 
     @property
     def array_type(self) -> Optional[ArrayType]:
@@ -256,9 +253,7 @@ class DataEncoding:
     @property
     def type(self) -> str:
         """Raw type"""
-        if self._proto.HasField("type"):
-            return mdb_pb2.DataEncodingInfo.Type.Name(self._proto.type)
-        return None
+        return mdb_pb2.DataEncodingInfo.Type.Name(self._proto.type)
 
     @property
     def little_endian(self) -> bool:
@@ -266,7 +261,7 @@ class DataEncoding:
         return self._proto.littleEndian
 
     @property
-    def bitlength(self) -> int:
+    def bitlength(self) -> Optional[int]:
         """The size in bits"""
         if self._proto.HasField("sizeInBits"):
             return self._proto.sizeInBits
@@ -293,7 +288,7 @@ class Parameter(MissionDatabaseItem):
         super().__init__(proto)
 
     @property
-    def data_source(self) -> str:
+    def data_source(self) -> Optional[str]:
         """
         Specifies the source of this parameter (example: ``TELEMETERED``)
         """
@@ -302,7 +297,7 @@ class Parameter(MissionDatabaseItem):
         return None
 
     @property
-    def type(self) -> str:
+    def type(self) -> Optional[str]:
         """
         Engineering type.
         """
@@ -362,9 +357,7 @@ class ParameterType(MissionDatabaseItem):
         """
         Engineering type.
         """
-        if self._proto.HasField("engType"):
-            return self._proto.engType
-        return None
+        return self._proto.engType
 
     @property
     def array_type(self) -> Optional[ArrayType]:

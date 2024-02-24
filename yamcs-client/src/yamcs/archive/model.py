@@ -2,7 +2,6 @@ import datetime
 from typing import Any, List, Optional
 
 from google.protobuf.internal.decoder import _DecodeVarint32
-
 from yamcs.core.helpers import parse_server_time, parse_server_timestring, parse_value
 from yamcs.protobuf.table import table_pb2
 
@@ -145,9 +144,7 @@ class IndexGroup:
         * In an index of events, index records are grouped by ``source``.
         * In an index of packets, index records are grouped by ``packet name``.
         """
-        if self._proto.HasField("id"):
-            return self._proto.id.name
-        return None
+        return self._proto.id.name
 
     @property
     def records(self) -> List["IndexRecord"]:

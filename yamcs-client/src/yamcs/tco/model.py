@@ -57,25 +57,25 @@ class TCOCoefficients:
         self._proto = proto
 
     @property
-    def utc(self) -> datetime.datetime:
+    def utc(self) -> Optional[datetime.datetime]:
         if self._proto.HasField("utc"):
             return parse_server_time(self._proto.utc)
         return None
 
     @property
-    def obt(self) -> int:
+    def obt(self) -> Optional[int]:
         if self._proto.HasField("obt"):
             return self._proto.obt
         return None
 
     @property
-    def gradient(self) -> float:
+    def gradient(self) -> Optional[float]:
         if self._proto.HasField("gradient"):
             return self._proto.gradient
         return None
 
     @property
-    def offset(self) -> float:
+    def offset(self) -> Optional[float]:
         if self._proto.HasField("offset"):
             return self._proto.offset
         return None
@@ -86,13 +86,13 @@ class TCOSample:
         self._proto = proto
 
     @property
-    def utc(self) -> datetime.datetime:
+    def utc(self) -> Optional[datetime.datetime]:
         if self._proto.HasField("utc"):
             return parse_server_time(self._proto.utc)
         return None
 
     @property
-    def obt(self) -> int:
+    def obt(self) -> Optional[int]:
         if self._proto.HasField("obt"):
             return self._proto.obt
         return None

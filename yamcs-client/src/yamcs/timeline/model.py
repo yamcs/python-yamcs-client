@@ -17,9 +17,7 @@ class Item:
     @property
     def id(self) -> str:
         """Item identifier."""
-        if self._proto.HasField("id"):
-            return self._proto.id
-        return None
+        return self._proto.id
 
     @property
     def item_type(self) -> str:
@@ -51,9 +49,7 @@ class Item:
         """
         Item start time.
         """
-        if self._proto.HasField("start"):
-            return parse_server_time(self._proto.start)
-        return None
+        return parse_server_time(self._proto.start)
 
     @start.setter
     def start(self, value: datetime.datetime):
@@ -64,9 +60,7 @@ class Item:
         """
         Item duration.
         """
-        if self._proto.HasField("duration"):
-            return self._proto.duration.ToTimedelta()
-        return None
+        return self._proto.duration.ToTimedelta()
 
     @duration.setter
     def duration(self, value: datetime.timedelta):
@@ -92,9 +86,7 @@ class Band(abc.ABC):
     @property
     def id(self) -> str:
         """Band identifier."""
-        if self._proto.HasField("id"):
-            return self._proto.id
-        return None
+        return self._proto.id
 
     @property
     def band_type(self) -> str:
@@ -107,7 +99,7 @@ class Band(abc.ABC):
         return self._proto.name
 
     @name.setter
-    def name(self, value) -> str:
+    def name(self, value: str):
         self._proto.name = value
 
     @property
@@ -409,9 +401,7 @@ class View:
     @property
     def id(self) -> str:
         """View identifier."""
-        if self._proto.HasField("id"):
-            return self._proto.id
-        return None
+        return self._proto.id
 
     @property
     def name(self) -> str:

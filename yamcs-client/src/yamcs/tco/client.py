@@ -75,7 +75,7 @@ class TCOClient:
         :param polynomial:
             Coefficients in the order ``[a, b, c, ...]``
         """
-        self.add_tof_interval([TofInterval(start, stop, polynomial)])
+        self.add_tof_intervals([TofInterval(start, stop, polynomial)])
 
     def add_tof_intervals(self, intervals: List[TofInterval]):
         """

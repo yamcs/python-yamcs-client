@@ -328,23 +328,9 @@ class FileTransferCapabilities:
 
 
 class FileTransferOption:
-    class Type(Enum):
-        BOOLEAN = 0
-        DOUBLE = 1
-        STRING = 2
 
     def __init__(self, proto):
         self._proto = proto
-        if proto == filetransfer_pb2.FileTransferOption.Type.BOOLEAN:
-            self._type = FileTransferOption.Type.BOOLEAN
-        elif proto == filetransfer_pb2.FileTransferOption.Type.DOUBLE:
-            self._type = FileTransferOption.Type.DOUBLE
-        else:
-            self._type = FileTransferOption.Type.STRING
-        self._values = [
-            {"value": item.value, "verbose_name": item.verboseName}
-            for item in proto.values
-        ]
 
     @property
     def name(self) -> str:
@@ -354,7 +340,7 @@ class FileTransferOption:
     @property
     def type(self) -> str:
         """Type of the option"""
-        return self._type
+        return filetransfer_pb2.FileTransferOption.Type.Name(self._proto.type)
 
     @property
     def description(self) -> str:
@@ -374,7 +360,10 @@ class FileTransferOption:
     @property
     def values(self):
         """List of possible values for the option"""
-        return self._values
+        return [
+            {"value": item.value, "verbose_name": item.verboseName}
+            for item in self._proto.values
+        ]
 
     @property
     def allow_custom_option(self) -> bool:

@@ -114,7 +114,7 @@ class LinkSubscription(WebSocketSubscriptionFuture):
         self._cache = {}
         """Link cache keyed by name."""
 
-    def get_link(self, name: str) -> Link:
+    def get_link(self, name: str) -> Optional[Link]:
         """
         Returns the latest link state.
 
@@ -165,7 +165,7 @@ class YamcsClient:
         """
         self.ctx = Context(address, **kwargs)
 
-    def get_time(self, instance) -> datetime.datetime:
+    def get_time(self, instance) -> Optional[datetime.datetime]:
         """
         Return the current mission time for the specified instance.
         """

@@ -83,8 +83,10 @@ def get_filelist():
         if not filelist.files:
             print("\tEmpty file list")
         for file in filelist.files:
-            print(f"\t{file.name + ('/' if file.is_directory else ''):<12}\
-            t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified}")
+            print(
+                f"\t{file.name + ('/' if file.is_directory else ''):<12}\
+            t{str(file.size) + ' bytes':>12}\tLast Modified: {file.modified}"
+            )
     else:
         print("No filelist found")
 
@@ -103,7 +105,7 @@ if __name__ == "__main__":
     out_bucket.upload_object("myfile", file_like)
 
     # Assume only one CFDP service
-    service = next(cfdp.list_services())
+    service = next(iter(cfdp.list_services()))
 
     # Show transfer service capabilities
     print(service.capabilities)

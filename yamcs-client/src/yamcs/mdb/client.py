@@ -1,5 +1,5 @@
 import urllib.parse
-from typing import Iterable, Mapping, Optional, Tuple
+from typing import Any, Dict, Iterable, Mapping, Optional, Tuple
 
 from yamcs.core import pagination
 from yamcs.core.context import Context
@@ -120,7 +120,7 @@ class MDBClient:
         :param parameter_type:
             The type of parameter
         """
-        params = {"details": True}
+        params: Dict[str, Any] = {"details": True}
 
         if parameter_type is not None:
             params["type"] = parameter_type

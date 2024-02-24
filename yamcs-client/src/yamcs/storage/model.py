@@ -15,12 +15,9 @@ class Bucket:
         return self._proto.name
 
     @property
-    def created(self) -> datetime.datetime:
+    def created(self) -> Optional[datetime.datetime]:
         """
         When this bucket was created.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.6.1 onwards
         """
         if self._proto.HasField("created"):
             return parse_server_time(self._proto.created)
@@ -32,13 +29,8 @@ class Bucket:
         return self._proto.numObjects
 
     @property
-    def max_object_count(self) -> int:
-        """
-        Maximum allowed number of objects.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.6.1 onwards
-        """
+    def max_object_count(self) -> Optional[int]:
+        """Maximum allowed number of objects."""
         if self._proto.HasField("maxObjects"):
             return self._proto.maxObjects
         return None
@@ -49,27 +41,19 @@ class Bucket:
         return self._proto.size
 
     @property
-    def max_size(self) -> int:
-        """
-        Maximum allowed total size of all objects.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.6.1 onwards
-        """
+    def max_size(self) -> Optional[int]:
+        """Maximum allowed total size of all objects."""
         if self._proto.HasField("maxSize"):
             return self._proto.maxSize
         return None
 
     @property
-    def directory(self) -> str:
+    def directory(self) -> Optional[str]:
         """
         Bucket root directory. This field is only set when
         the bucket is mapped to the file system. Therefore
         it is not set for buckets that store objects in
         RocksDB.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.6.1 onwards
         """
         if self._proto.HasField("directory"):
             return self._proto.directory
@@ -167,7 +151,7 @@ class ObjectInfo:
         return self._proto.size
 
     @property
-    def created(self) -> datetime.datetime:
+    def created(self) -> Optional[datetime.datetime]:
         """
         Return when this object was created (or re-created).
         """
