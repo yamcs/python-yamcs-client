@@ -423,16 +423,25 @@ class ArchiveClient:
 
         return generate()
 
-    def get_packet(self, generation_time: datetime, sequence_number: int) -> Packet:
+    def get_packet(self, generation_time: datetime, sequence_number: int, partition: Optional[str] = None) -> Packet:
         """
-        Gets a single packet by its identifying key (gentime, seqNum).
+        Gets a single packet by its identifying key (partition, gentime, seqNum).
 
         :param generation_time:
             When the packet was generated (packet time)
         :param sequence_number:
             Sequence number of the packet
+        :param partition:
+            Packet partition name. This property works only against recent versions of Yamcs, and will become
+            required in the future (it was erroneously omitted).
         """
         url = f"/archive/{self._instance}/packets/"
+
+        # Currently we allow the partition to be unspecified, but this should
+        # become deprecated within a few more Yamcs versions.
+        # (this endpoint variation was only recently introduced)
+        if partition:
+            url += urllib.parse.quote_plus(partition) + "/"
         url += f"{to_isostring(generation_time)}/{sequence_number}"
         response = self.ctx.get_proto(url)
         message = packets_pb2.TmPacketData()

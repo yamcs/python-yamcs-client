@@ -303,9 +303,6 @@ class FileTransferCapabilities:
     def __init__(self, proto):
         self._proto = proto
 
-    def __str__(self):
-        return str(self._proto)
-
     @property
     def upload(self) -> bool:
         return self._proto.upload
@@ -313,11 +310,6 @@ class FileTransferCapabilities:
     @property
     def download(self) -> bool:
         return self._proto.download
-
-    @property
-    def reliability(self) -> bool:
-        """Deprecated, use FileTransferOption"""
-        return self._proto.reliability
 
     @property
     def remote_path(self) -> bool:
@@ -330,6 +322,9 @@ class FileTransferCapabilities:
     @property
     def has_transfer_type(self) -> bool:
         return self._proto.has_transfer_type
+
+    def __str__(self):
+        return str(self._proto)
 
 
 class FileTransferOption:
@@ -553,8 +548,17 @@ class RemoteFile:
 
     @property
     def name(self) -> str:
-        """Name of the file"""
+        """Identifying name of the file"""
         return self._proto.name
+
+    @property
+    def display_name(self) -> Optional[str]:
+        """
+        Optionally, a preferred displayed name of the file.
+        """
+        if self._proto.HasField("displayName"):
+            return self._proto.displayName
+        return None
 
     @property
     def is_directory(self) -> bool:
@@ -567,6 +571,8 @@ class RemoteFile:
         return self._proto.size
 
     @property
-    def modified(self) -> datetime.datetime:
+    def modified(self) -> Optional[datetime.datetime]:
         """Latest modification time of the file"""
-        return parse_server_time(self._proto.modified)
+        if self._proto.HasField("modified"):
+            return parse_server_time(self._proto.modified)
+        return None
