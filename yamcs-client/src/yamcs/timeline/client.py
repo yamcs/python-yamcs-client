@@ -213,10 +213,24 @@ class TimelineClient:
             req = timeline_pb2.CreateItemRequest()
             req.type = item._proto.type
 
-        req.name = item._proto.name
-        req.tags.MergeFrom(item._proto.tags)
+        if item._proto.HasField("name"):
+            req.name = item._proto.name
+
+        if item._proto.tags:
+            req.tags.MergeFrom(item._proto.tags)
+        elif item.id:
+            req.clearTags = True
+
+        if item._proto.properties:
+            req.properties.MergeFrom(item._proto.properties)
+        elif item.id:
+            req.clearProperties = True
+
         req.start.MergeFrom(item._proto.start)
-        req.duration.MergeFrom(item._proto.duration)
+        if item._proto.HasField("duration"):
+            req.duration.MergeFrom(item._proto.duration)
+        if item._proto.HasField("activityDefinition"):
+            req.activityDefinition.MergeFrom(item._proto.activityDefinition)
 
         if item.id:
             response = self.ctx.put_proto(url, data=req.SerializeToString())

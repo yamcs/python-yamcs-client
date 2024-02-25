@@ -1,6 +1,6 @@
 import abc
 import datetime
-from typing import List
+from typing import List, Optional, Union
 
 from yamcs.core.helpers import ProtoList, parse_server_time, to_server_time
 from yamcs.protobuf.timeline import timeline_pb2
@@ -66,8 +66,132 @@ class Item:
     def duration(self, value: datetime.timedelta):
         self._proto.duration.FromTimedelta(value)
 
+    @property
+    def background_color(self) -> Optional[str]:
+        """CSS color string."""
+        return self._proto.properties["backgroundColor"] or None
+
+    @background_color.setter
+    def background_color(self, value: Union[str, None]):
+        if value is None:
+            del self._proto.properties["backgroundColor"]
+        else:
+            self._proto.properties["backgroundColor"] = value
+
+    @property
+    def border_color(self) -> Optional[str]:
+        """CSS color string."""
+        return self._proto.properties["borderColor"] or None
+
+    @border_color.setter
+    def border_color(self, value: Union[str, None]):
+        if value is None:
+            del self._proto.properties["borderColor"]
+        else:
+            self._proto.properties["borderColor"] = value
+
+    @property
+    def border_width(self) -> Optional[int]:
+        if "borderWidth" in self._proto.properties:
+            return int(self._proto.properties["borderWidth"])
+        return None
+
+    @border_width.setter
+    def border_width(self, value: Union[int, None]):
+        if value is None:
+            del self._proto.properties["borderWidth"]
+        else:
+            self._proto.properties["borderWidth"] = str(value)
+
+    @property
+    def corner_radius(self) -> Optional[int]:
+        if "cornerRadius" in self._proto.properties:
+            return int(self._proto.properties["cornerRadius"])
+        return None
+
+    @corner_radius.setter
+    def corner_radius(self, value: Union[int, None]):
+        if value is None:
+            del self._proto.properties["cornerRadius"]
+        else:
+            self._proto.properties["cornerRadius"] = str(value)
+
+    @property
+    def margin_left(self) -> Optional[int]:
+        if "marginLeft" in self._proto.properties:
+            return int(self._proto.properties["marginLeft"])
+        return None
+
+    @margin_left.setter
+    def margin_left(self, value: Union[int, None]):
+        if value is None:
+            del self._proto.properties["marginLeft"]
+        else:
+            self._proto.properties["marginLeft"] = str(value)
+
+    @property
+    def text_color(self) -> Optional[str]:
+        """CSS color string."""
+        return self._proto.properties["textColor"] or None
+
+    @text_color.setter
+    def text_color(self, value: Union[str, None]):
+        if value is None:
+            del self._proto.properties["textColor"]
+        else:
+            self._proto.properties["textColor"] = value
+
+    @property
+    def text_size(self) -> Optional[int]:
+        if "textSize" in self._proto.properties:
+            return int(self._proto.properties["textSize"])
+        return None
+
+    @text_size.setter
+    def text_size(self, value: Union[int, None]):
+        if value is None:
+            del self._proto.properties["textSize"]
+        else:
+            self._proto.properties["textSize"] = str(value)
+
     def __str__(self):
         return self.name
+
+
+class Activity(Item):
+    def __init__(self, proto=None):
+        merged = timeline_pb2.TimelineItem()
+        merged.type = timeline_pb2.TimelineItemType.AUTO_ACTIVITY
+        if proto:
+            merged.MergeFrom(proto)
+        self._proto = merged
+
+
+class ScriptActivity(Activity):
+    def __init__(self, proto=None):
+        super().__init__(proto)
+
+    @property
+    def script(self) -> str:
+        """Script identifier"""
+        print("hum", self._proto)
+        return self._proto.activityDefinition.args["script"]
+
+    @script.setter
+    def script(self, value: str):
+        self._proto.activityDefinition.type = "SCRIPT"
+        self._proto.activityDefinition.args["script"] = value
+
+    @property
+    def args(self) -> Optional[str]:
+        """Script arguments"""
+        if "args" in self._proto.activityDefinition.args:
+            return self._proto.activityDefinition.args["args"]
+        return None
+
+    @args.setter
+    def args(self, value: str):
+        self._proto.activityDefinition.args["args"] = value
 
 
 class Band(abc.ABC):
