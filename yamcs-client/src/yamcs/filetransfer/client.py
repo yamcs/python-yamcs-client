@@ -3,6 +3,7 @@ import json
 from typing import Any, Callable, Iterable, List, Mapping, Optional
 
 from yamcs.core.context import Context
+from yamcs.core.exceptions import NotFound
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.filetransfer.model import RemoteFileListing, Service, Transfer
@@ -41,7 +42,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
     each transfer.
     """
 
-    def __init__(self, manager, service_client: "FileTransferClient"):
+    def __init__(self, manager, service_client: "ServiceClient"):
         super(TransferSubscription, self).__init__(manager)
         self.service_client = service_client
         self._cache = {}
@@ -146,7 +147,7 @@ class FileTransferClient:
             result.append(Service(proto, service_client))
         return iter(result)
 
-    def get_service(self, name: str) -> Optional[Service]:
+    def get_service(self, name: str) -> Service:
         """
         Get a specific File Transfer service.
 
@@ -157,6 +158,7 @@ class FileTransferClient:
         for service in self.list_services():
             if service.name == name:
                 return service
+        raise NotFound()
 
 
 class ServiceClient:

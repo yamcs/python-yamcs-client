@@ -106,7 +106,7 @@ class StorageClient:
         url = f"/buckets/{self._instance}/{bucket_name}"
         self.ctx.delete_proto(url)
 
-    def download_object(self, bucket_name: str, object_name: str):
+    def download_object(self, bucket_name: str, object_name: str) -> bytes:
         """
         Download an object.
 
@@ -123,7 +123,7 @@ class StorageClient:
         self,
         bucket_name: str,
         object_name: str,
-        file_obj: IO,
+        file_obj: str | IO,
         content_type: Optional[str] = None,
     ):
         """

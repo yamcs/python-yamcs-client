@@ -81,7 +81,7 @@ class Bucket:
             delimiter=delimiter,
         )
 
-    def download_object(self, object_name: str):
+    def download_object(self, object_name: str) -> bytes:
         """
         Download an object.
 
@@ -91,7 +91,7 @@ class Bucket:
         return self._storage_client.download_object(self.name, object_name)
 
     def upload_object(
-        self, object_name: str, file_obj: IO, content_type: Optional[str] = None
+        self, object_name: str, file_obj: str | IO, content_type: Optional[str] = None
     ):
         """
         Upload an object to this bucket.
@@ -171,7 +171,7 @@ class ObjectInfo:
         """
         return self._storage_client.download_object(self._bucket, self.name)
 
-    def upload(self, file_obj: IO):
+    def upload(self, file_obj: str | IO):
         """
         Replace the content of this object.
 

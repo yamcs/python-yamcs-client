@@ -59,40 +59,40 @@ class Context:
             user_agent = "python-yamcs-client v" + clientversion.__version__
         self.session.headers.update({"User-Agent": user_agent})
 
-    def get_proto(self, path: str, **kwargs) -> requests.Request:
+    def get_proto(self, path: str, **kwargs) -> requests.Response:
         headers = kwargs.pop("headers", {})
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("get", path, **kwargs)
 
-    def put_proto(self, path: str, **kwargs) -> requests.Request:
+    def put_proto(self, path: str, **kwargs) -> requests.Response:
         headers = kwargs.pop("headers", {})
         headers["Content-Type"] = "application/protobuf"
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("put", path, **kwargs)
 
-    def patch_proto(self, path: str, **kwargs) -> requests.Request:
+    def patch_proto(self, path: str, **kwargs) -> requests.Response:
         headers = kwargs.pop("headers", {})
         headers["Content-Type"] = "application/protobuf"
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("patch", path, **kwargs)
 
-    def post_proto(self, path: str, **kwargs) -> requests.Request:
+    def post_proto(self, path: str, **kwargs) -> requests.Response:
         headers = kwargs.pop("headers", {})
         headers["Content-Type"] = "application/protobuf"
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("post", path, **kwargs)
 
-    def delete_proto(self, path: str, **kwargs) -> requests.Request:
+    def delete_proto(self, path: str, **kwargs) -> requests.Response:
         headers = kwargs.pop("headers", {})
         headers["Accept"] = "application/protobuf"
         kwargs.update({"headers": headers})
         return self.request("delete", path, **kwargs)
 
-    def request(self, method: str, path: str, **kwargs) -> requests.Request:
+    def request(self, method: str, path: str, **kwargs) -> requests.Response:
         path = f"{self.api_root}{path}"
 
         if self.credentials:
