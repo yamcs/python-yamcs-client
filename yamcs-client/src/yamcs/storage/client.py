@@ -1,4 +1,4 @@
-from typing import IO, Iterable, Optional
+from typing import IO, Any, Iterable, Mapping, Optional
 
 from yamcs.core.context import Context
 from yamcs.core.exceptions import NotFound
@@ -125,6 +125,7 @@ class StorageClient:
         object_name: str,
         file_obj: str | IO,
         content_type: Optional[str] = None,
+        metadata: Optional[Mapping[str, str]] = None,
     ):
         """
         Upload an object to a bucket.
@@ -141,12 +142,17 @@ class StorageClient:
             directly via a web browser. If unspecified, a
             content type *may* be automatically derived
             from the specified ``file_obj``.
+        :param metadata:
+            Optional metadata associated to this object.
         """
         url = f"/buckets/{self._instance}/{bucket_name}/objects/{object_name}"
         if content_type:
-            files = {object_name: (object_name, file_obj, content_type)}
+            files: Any = {object_name: (object_name, file_obj, content_type)}
         else:
-            files = {object_name: (object_name, file_obj)}
+            files: Any = {object_name: (object_name, file_obj)}
+        if metadata:
+            for k, v in metadata.items():
+                files[k] = (None, v)
         self.ctx.request(path=url, method="post", files=files)
 
     def remove_object(self, bucket_name: str, object_name: str):

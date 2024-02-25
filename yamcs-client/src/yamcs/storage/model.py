@@ -1,5 +1,5 @@
 import datetime
-from typing import IO, List, Optional
+from typing import IO, List, Mapping, Optional
 
 from yamcs.core.helpers import parse_server_time
 
@@ -91,7 +91,11 @@ class Bucket:
         return self._storage_client.download_object(self.name, object_name)
 
     def upload_object(
-        self, object_name: str, file_obj: str | IO, content_type: Optional[str] = None
+        self,
+        object_name: str,
+        file_obj: str | IO,
+        content_type: Optional[str] = None,
+        metadata: Optional[Mapping[str, str]] = None,
     ):
         """
         Upload an object to this bucket.
@@ -106,9 +110,15 @@ class Bucket:
             directly via a web browser. If unspecified, a
             content type *may* be automatically derived
             from the specified ``file_obj``.
+        :param metadata:
+            Optional metadata associated to this object.
         """
         return self._storage_client.upload_object(
-            self.name, object_name, file_obj, content_type=content_type
+            bucket_name=self.name,
+            object_name=object_name,
+            file_obj=file_obj,
+            content_type=content_type,
+            metadata=metadata,
         )
 
     def delete_object(self, object_name: str):
@@ -171,14 +181,21 @@ class ObjectInfo:
         """
         return self._storage_client.download_object(self._bucket, self.name)
 
-    def upload(self, file_obj: str | IO):
+    def upload(self, file_obj: str | IO, metadata: Optional[Mapping[str, str]] = None):
         """
         Replace the content of this object.
 
         :param file_obj:
             The file (or file-like object) to upload.
+        :param metadata:
+            Optional metadata associated to this object.
         """
-        return self._storage_client.upload_object(self._bucket, self.name, file_obj)
+        return self._storage_client.upload_object(
+            bucket_name=self._bucket,
+            object_name=self.name,
+            file_obj=file_obj,
+            metadata=metadata,
+        )
 
     def __str__(self):
         return f"{self.name} ({self.size} bytes, created {self.created})"
