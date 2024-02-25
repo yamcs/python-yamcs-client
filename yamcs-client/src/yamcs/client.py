@@ -248,14 +248,11 @@ class YamcsClient:
         """
         return TCOClient(self.ctx, instance, service)
 
-    def get_storage_client(self, instance: str = "_global") -> StorageClient:
+    def get_storage_client(self) -> StorageClient:
         """
         Return an object for working with object storage
-
-        :param instance:
-            The storage instance.
         """
-        return StorageClient(self.ctx, instance)
+        return StorageClient(self.ctx)
 
     def get_timeline_client(self, instance: str) -> TimelineClient:
         """
