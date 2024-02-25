@@ -1,6 +1,5 @@
 import datetime
 import threading
-from enum import Enum
 from typing import Any, Callable, List, Mapping, Optional
 
 from yamcs.core.helpers import parse_server_time
