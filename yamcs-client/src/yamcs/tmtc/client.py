@@ -262,7 +262,9 @@ class CommandHistorySubscription(WebSocketSubscriptionFuture):
         """
         self._cache = {}
 
-    def get_command_history(self, issued_command: IssuedCommand) -> CommandHistory:
+    def get_command_history(
+        self, issued_command: IssuedCommand
+    ) -> Optional[CommandHistory]:
         """
         Gets locally cached CommandHistory for the specified command.
 
@@ -334,6 +336,8 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         self.delivery_count: int = 0
         """The number of parameter deliveries."""
 
+        self._delivery_received = threading.Event()
+
     def add(
         self,
         parameters: Union[str, List[str]],
@@ -389,6 +393,16 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
         """
         return self.value_cache[parameter]
 
+    def await_first_delivery(self, timeout: Optional[float] = None):
+        """
+        Wait for the first update of parameter values.
+
+        :param timeout:
+            The amount of seconds to wait.
+        """
+        if not self._delivery_received.wait(timeout=timeout):
+            raise TimeoutError("Timed out.")
+
     def _process(self, pb):
         # Mapping is only set on the first reply, or whenever
         # the subscription is modifed. Store it in an internal
@@ -399,6 +413,7 @@ class ParameterSubscription(WebSocketSubscriptionFuture):
 
         if pb.values:
             self.delivery_count += 1
+            self._delivery_received.set()
             parameter_data = ParameterData(pb, self._mapping)
             for pval in parameter_data.parameters:
                 self.value_cache[pval.name] = pval
@@ -471,17 +486,17 @@ class CommandConnection(WebSocketSubscriptionFuture):
             extra,
             sequence_number=sequence_number,
         )
-        command = MonitoredCommand(issued_command._proto)
+        cmd = MonitoredCommand(issued_command._proto)
 
-        self._command_cache[command.id] = command
+        self._command_cache[cmd.id] = cmd
 
         # It may be that we already received some cmdhist updates
         # before the http response returned.
-        if command.id in self._cmdhist_cache:
-            cmdhist = self._cmdhist_cache[command.id]
-            command._process_cmdhist(cmdhist)
+        if cmd.id in self._cmdhist_cache:
+            cmdhist = self._cmdhist_cache[cmd.id]
+            cmd._process_cmdhist(cmdhist)
 
-        return command
+        return cmd
 
     def _process(self, entry):
         if entry.id in self._cmdhist_cache:
@@ -768,14 +783,14 @@ class ProcessorClient:
                     window = verification._check_windows[verifier]
                     if window["start"]:
                         start = int(window["start"] * 1000)
-                        req.verifierConfig[
-                            verifier
-                        ].checkWindow.timeToStartChecking = start
+                        req.verifierConfig[verifier].checkWindow.timeToStartChecking = (
+                            start
+                        )
                     if window["stop"]:
                         stop = int(window["stop"] * 1000)
-                        req.verifierConfig[
-                            verifier
-                        ].checkWindow.timeToStopChecking = stop
+                        req.verifierConfig[verifier].checkWindow.timeToStopChecking = (
+                            stop
+                        )
 
         if extra:
             for key in extra:
