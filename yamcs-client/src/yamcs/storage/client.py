@@ -1,6 +1,7 @@
 from typing import IO, Iterable, Optional
 
 from yamcs.core.context import Context
+from yamcs.core.exceptions import NotFound
 from yamcs.protobuf.buckets import buckets_pb2
 from yamcs.storage.model import Bucket, ObjectListing
 
@@ -27,15 +28,25 @@ class StorageClient:
         buckets = getattr(message, "buckets")
         return iter([Bucket(bucket, self) for bucket in buckets])
 
-    def get_bucket(self, name: str) -> Bucket:
+    def get_bucket(self, name: str, create=False) -> Bucket:
         """
         Get a specific bucket.
 
         :param name:
             The bucket name.
+        :param create:
+            If specified, create the bucket if it does not yet exist.
         """
         url = "/buckets/" + self._instance + "/" + name
-        response = self.ctx.get_proto(path=url)
+
+        if create:
+            try:
+                response = self.ctx.get_proto(path=url)
+            except NotFound:
+                self.create_bucket(name)
+                response = self.ctx.get_proto(path=url)
+        else:
+            response = self.ctx.get_proto(path=url)
         message = buckets_pb2.BucketInfo()
         message.ParseFromString(response.content)
         return Bucket(message, self)
