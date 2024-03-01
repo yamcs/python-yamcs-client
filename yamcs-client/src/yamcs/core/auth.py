@@ -4,7 +4,6 @@ from typing import Callable, Optional
 
 import requests
 from requests.auth import HTTPBasicAuth
-
 from yamcs.core.exceptions import Unauthorized, YamcsError
 from yamcs.core.helpers import do_post
 

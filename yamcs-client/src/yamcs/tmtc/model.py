@@ -1056,21 +1056,17 @@ class Packet:
         fully-qualified name of the first container in the hierarchy that
         this packet maps to.
         """
-        if self._proto.HasField("id"):
-            return self._proto.id.name
-        return None
+        return self._proto.id.name
 
     @property
     def generation_time(self) -> datetime:
         """
         The time when the packet was generated (packet time).
         """
-        if self._proto.HasField("generationTime"):
-            return parse_server_time(self._proto.generationTime)
-        return None
+        return parse_server_time(self._proto.generationTime)
 
     @property
-    def earth_reception_time(self) -> datetime:
+    def earth_reception_time(self) -> Optional[datetime]:
         """
         When the signal was received on the ground.
 
@@ -1095,9 +1091,7 @@ class Packet:
         The sequence number of the packet. This is usually decoded from
         the packet.
         """
-        if self._proto.HasField("sequenceNumber"):
-            return self._proto.sequenceNumber
-        return None
+        return self._proto.sequenceNumber
 
     @property
     def link(self) -> str:

@@ -26,11 +26,11 @@ def _set_range(ar, range: Tuple[float, float], level: mdb_pb2.AlarmLevelType):
 
 def _add_alarms(
     alarm_info: mdb_pb2.AlarmInfo,
-    watch: Tuple[float, float],
-    warning: Tuple[float, float],
-    distress: Tuple[float, float],
-    critical: Tuple[float, float],
-    severe: Tuple[float, float],
+    watch: Optional[Tuple[float, float]],
+    warning: Optional[Tuple[float, float]],
+    distress: Optional[Tuple[float, float]],
+    critical: Optional[Tuple[float, float]],
+    severe: Optional[Tuple[float, float]],
     min_violations: int,
 ):
     alarm_info.minViolations = min_violations

@@ -1,9 +1,12 @@
 import datetime
 import functools
-from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional
+import os
+from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional, Union
+from urllib.parse import urlparse
 
 from google.protobuf import timestamp_pb2
 from yamcs.archive.client import ArchiveClient
+from yamcs.core.auth import APIKeyCredentials, Credentials
 from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import (
@@ -144,11 +147,20 @@ class YamcsClient:
     Client for accessing core Yamcs resources.
     """
 
-    def __init__(self, address: str, **kwargs):
+    def __init__(
+        self,
+        address: str,
+        *,
+        tls: bool = False,
+        tls_verify: Union[bool, str] = True,
+        credentials: Optional[Credentials] = None,
+        user_agent: Optional[str] = None,
+        on_token_update: Optional[Callable[[Credentials], None]] = None,
+    ):
         """
         :param address:
             The address of Yamcs in the format 'hostname:port'
-        :param bool tls:
+        :param tls:
             Whether TLS encryption is expected
         :param tls_verify:
             Whether server certificate verification is
@@ -156,14 +168,51 @@ class YamcsClient:
             As an alternative to a boolean value, this option
             may be set to a path containing the appropriate
             TLS CA certificate bundle.
-        :type tls_verify:
-            Optional[Union[bool, str]]
-        :param Optional[.Credentials] credentials:
+        :param credentials:
             Credentials for when the server is secured
-        :param Optional[str] user_agent:
+        :param user_agent:
             Optionally override the default user agent
         """
-        self.ctx = Context(address, **kwargs)
+
+        # Allow server URLs.
+        # Currently undocumented, but this is expected to become the
+        # default, later on.
+        if address.startswith("http://") or address.startswith("https://"):
+            components = urlparse(address)
+            tls = components.scheme == "https"
+            address = components.netloc
+            address += components.path
+
+        self.ctx = Context(
+            address=address,
+            tls=tls,
+            credentials=credentials,
+            user_agent=user_agent,
+            on_token_update=on_token_update,
+            tls_verify=tls_verify,
+        )
+
+    @staticmethod
+    def from_environment():
+        """
+        Create a :class:`.YamcsClient`, initialized from environment variables.
+
+        This recognizes the following environment variables:
+
+        ``YAMCS_URL``
+            Yamcs server URL
+
+        ``YAMCS_API_KEY``
+            Yamcs API key (currently only assigned to script activities)
+        """
+        url = os.environ["YAMCS_URL"]
+
+        credentials = None
+        api_key = os.environ.get("YAMCS_API_KEY")
+        if api_key:
+            credentials = APIKeyCredentials(api_key)
+
+        return YamcsClient(url, credentials=credentials)
 
     def get_time(self, instance) -> Optional[datetime.datetime]:
         """
