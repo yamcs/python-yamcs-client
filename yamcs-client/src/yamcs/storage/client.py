@@ -1,4 +1,4 @@
-from typing import IO, Any, Iterable, Mapping, Optional
+from typing import IO, Any, Iterable, Mapping, Optional, Union
 
 from yamcs.core.context import Context
 from yamcs.core.exceptions import NotFound
@@ -123,7 +123,7 @@ class StorageClient:
         self,
         bucket_name: str,
         object_name: str,
-        file_obj: str | IO,
+        file_obj: Union[str, IO],
         content_type: Optional[str] = None,
         metadata: Optional[Mapping[str, str]] = None,
     ):

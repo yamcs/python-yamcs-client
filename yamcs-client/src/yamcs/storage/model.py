@@ -1,5 +1,5 @@
 import datetime
-from typing import IO, List, Mapping, Optional
+from typing import IO, List, Mapping, Optional, Union
 
 from yamcs.core.helpers import parse_server_time
 
@@ -93,7 +93,7 @@ class Bucket:
     def upload_object(
         self,
         object_name: str,
-        file_obj: str | IO,
+        file_obj: Union[str, IO],
         content_type: Optional[str] = None,
         metadata: Optional[Mapping[str, str]] = None,
     ):
@@ -181,7 +181,11 @@ class ObjectInfo:
         """
         return self._storage_client.download_object(self._bucket, self.name)
 
-    def upload(self, file_obj: str | IO, metadata: Optional[Mapping[str, str]] = None):
+    def upload(
+        self,
+        file_obj: Union[str, IO],
+        metadata: Optional[Mapping[str, str]] = None,
+    ):
         """
         Replace the content of this object.
 
