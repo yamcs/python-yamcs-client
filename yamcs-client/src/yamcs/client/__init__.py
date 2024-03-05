@@ -1,6 +1,7 @@
 from yamcs import clientversion  # noqa
 from yamcs.archive.client import *  # noqa
 from yamcs.archive.model import *  # noqa
+from yamcs.client.activities import *  # noqa
 from yamcs.client.core import *  # noqa
 from yamcs.core import GLOBAL_INSTANCE  # noqa
 from yamcs.core.auth import *  # noqa

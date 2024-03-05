@@ -2,6 +2,7 @@ import abc
 import datetime
 from typing import List, Optional, Union
 
+from yamcs.client.activities import Activity, ManualActivity
 from yamcs.core.helpers import ProtoList, parse_server_time, to_server_time
 from yamcs.protobuf.timeline import timeline_pb2
 
@@ -65,6 +66,27 @@ class Item:
     @duration.setter
     def duration(self, value: datetime.timedelta):
         self._proto.duration.FromTimedelta(value)
+
+    @property
+    def activity(self) -> Optional[Activity]:
+        """Activity definition."""
+        if self._proto.HasField("activityDefinition"):
+            return Activity._as_subclass(self._proto.activityDefinition)
+        elif self._proto.type == timeline_pb2.TimelineItemType.ACTIVITY:
+            return ManualActivity()
+        return None
+
+    @activity.setter
+    def activity(self, value: Union[Activity, None]):
+        if value is None:
+            self._proto.type = timeline_pb2.TimelineItemType.EVENT
+            self._proto.ClearField("activityDefinition")
+        else:
+            self._proto.type = timeline_pb2.TimelineItemType.ACTIVITY
+            if isinstance(value, ManualActivity):
+                self._proto.ClearField("activityDefinition")
+            else:
+                self._proto.activityDefinition.MergeFrom(value._to_proto())
 
     @property
     def background_color(self) -> Optional[str]:
@@ -156,42 +178,6 @@ class Item:
 
     def __str__(self):
         return self.name
-
-
-class Activity(Item):
-    def __init__(self, proto=None):
-        merged = timeline_pb2.TimelineItem()
-        merged.type = timeline_pb2.TimelineItemType.AUTO_ACTIVITY
-        if proto:
-            merged.MergeFrom(proto)
-        self._proto = merged
-
-
-class ScriptActivity(Activity):
-    def __init__(self, proto=None):
-        super().__init__(proto)
-
-    @property
-    def script(self) -> str:
-        """Script identifier"""
-        print("hum", self._proto)
-        return self._proto.activityDefinition.args["script"]
-
-    @script.setter
-    def script(self, value: str):
-        self._proto.activityDefinition.type = "SCRIPT"
-        self._proto.activityDefinition.args["script"] = value
-
-    @property
-    def args(self) -> Optional[str]:
-        """Script arguments"""
-        if "args" in self._proto.activityDefinition.args:
-            return self._proto.activityDefinition.args["args"]
-        return None
-
-    @args.setter
-    def args(self, value: str):
-        self._proto.activityDefinition.args["args"] = value
 
 
 class Band(abc.ABC):
