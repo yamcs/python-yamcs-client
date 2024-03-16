@@ -1164,6 +1164,32 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/parameterArchive:rebuild"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
+    def rebuild_ccsds_index(
+        self,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+    ):
+        """
+        Rebuilds the CCSDS index. This is only applicable to projects that use a
+        CcsdsTmIndex service to calculate packet completeness.
+
+        .. note::
+            Index rebuilds run synchronously: this
+            method will await the outcome.
+
+        :param start:
+            Start time
+        :param stop:
+            Stop time
+        """
+        req = index_service_pb2.RebuildCcsdsIndexRequest()
+        if start:
+            req.start.MergeFrom(to_server_time(start))
+        if stop:
+            req.stop.MergeFrom(to_server_time(stop))
+        url = f"/archive/{self._instance}:rebuildCcsdsIndex"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
     def list_streams(self) -> Iterable[Stream]:
         """
         Returns the existing streams.

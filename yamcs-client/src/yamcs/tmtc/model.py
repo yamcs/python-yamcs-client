@@ -1105,13 +1105,13 @@ class Packet:
         return None
 
     @property
-    def binary(self):
+    def binary(self) -> bytes:
         """
         Raw binary of this packet
         """
         if self._proto.HasField("packet"):
             return self._proto.packet
-        return None
+        return b''
 
     def __str__(self):
         return f"{self.generation_time} #{self.sequence_number} ({self.name})"
