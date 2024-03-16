@@ -93,6 +93,9 @@ class WebSocketSubscriptionManager:
             if self._closed:
                 return
 
+            assert self._websocket is not None
+            assert self._consumer is not None
+
             self._websocket.close()
 
             self._consumer.join()
@@ -121,6 +124,8 @@ class WebSocketSubscriptionManager:
             getattr(message, "options").Pack(options)
 
         frame_data = message.SerializeToString()
+
+        assert self._websocket is not None
         self._websocket.send(frame_data, websocket.ABNF.OPCODE_BINARY)
 
     def _on_websocket_open(self, ws=None):
@@ -162,6 +167,8 @@ class WebSocketSubscriptionManager:
                         cb(self)
             else:
                 data = getattr(pb2_message, "data")
+
+                assert self._callback is not None
                 self._callback(data)
         except Exception as e:
             logger.exception("Problem while processing message. Closing connection")

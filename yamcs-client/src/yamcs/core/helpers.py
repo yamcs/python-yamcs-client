@@ -152,7 +152,9 @@ def to_named_object_id(parameter: str) -> yamcs_pb2.NamedObjectId:
     return named_object_id
 
 
-def to_named_object_ids(parameters: Union[str, List[str]]) -> yamcs_pb2.NamedObjectList:
+def to_named_object_ids(
+    parameters: Union[str, List[str]]
+) -> List[yamcs_pb2.NamedObjectId]:
     """Builds a list of NamedObjectId."""
     if isinstance(parameters, str):
         return [to_named_object_id(parameters)]
