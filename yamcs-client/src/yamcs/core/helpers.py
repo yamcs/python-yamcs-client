@@ -172,7 +172,7 @@ def to_argument_value(value, force_string):
         # and not at every level of a nested hierarchy
         obj = _compose_aggregate_members(value)
         return json.dumps(obj)
-    elif isinstance(value, datetime.datetime):
+    elif isinstance(value, datetime):
         return to_isostring(value)
     elif force_string:
         return str(value)
@@ -192,7 +192,7 @@ def _compose_aggregate_members(value):
         return binascii.hexlify(value).decode("ascii")
     elif isinstance(value, collections.abc.Mapping):
         return {k: _compose_aggregate_members(v) for k, v in value.items()}
-    elif isinstance(value, datetime.datetime):
+    elif isinstance(value, datetime):
         return to_isostring(value)
     else:
         # No string conversion here, use whatever the user is giving
