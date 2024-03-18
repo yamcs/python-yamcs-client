@@ -145,3 +145,48 @@ Acknowledge all active alarms:
     :pyobject: acknowledge_all
     :start-after: """
     :dedent: 4
+
+
+Run a Script
+^^^^^^^^^^^^
+
+Run a custom script. The script has to be known by Yamcs. By default, this is done by placing an executable file in the :file:`etc/scripts/` directory of Yamcs.
+
+Scripts have access to special environment variables ``YAMCS_URL``, ``YAMCS_API_KEY``,
+``YAMCS_INSTANCE`` and ``YAMCS_PROCESSOR``, which is used by :func:`YamcsClient.from_environment() <yamcs.client.YamcsClient.from_environment>`
+
+
+.. literalinclude:: ../../yamcs-client/examples/scripting.py
+    :pyobject: run_script
+    :start-after: """
+    :dedent: 4
+
+.. code-block:: python
+    :caption: :file:`etc/scripts/simulate_los.sh`
+
+    #!/usr/bin/env -S python3 -u
+
+    import argparse
+    import os
+    import time
+
+    from yamcs.client import YamcsClient
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--duration", type=float, default=60)
+    args = parser.parse_args()
+
+    client = YamcsClient.from_environment()
+    processor = client.get_processor(
+        instance=os.environ["YAMCS_INSTANCE"],
+        processor=os.environ["YAMCS_PROCESSOR"],
+    )
+
+    print("Starting LOS")
+    processor.issue_command("/TSE/simulator/start_los")
+    time.sleep(args.duration)
+
+    print("Stopping LOS")
+    processor.issue_command("/TSE/simulator/stop_los")
+
+Notice the use of ``-u`` in the shebang. This disables Python output buffering, so that print statements are immediately seen.

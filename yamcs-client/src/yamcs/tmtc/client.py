@@ -1,16 +1,16 @@
-import binascii
 import collections.abc
 import datetime
 import functools
-import json
 import threading
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Tuple, Union
 
+from yamcs.client.activities import ScriptActivity
 from yamcs.core.context import Context
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.helpers import (
     adapt_name_for_rest,
+    to_argument_value,
     to_isostring,
     to_named_object_id,
     to_named_object_ids,
@@ -153,41 +153,6 @@ def _build_value_proto(value):
     else:
         raise YamcsError("Unrecognized type")
     return proto
-
-
-def _to_argument_value(value, force_string):
-    if isinstance(value, (bytes, bytearray)):
-        return binascii.hexlify(value).decode("ascii")
-    elif isinstance(value, collections.abc.Mapping):
-        # Careful to do the JSON dump only at the end,
-        # and not at every level of a nested hierarchy
-        obj = _compose_aggregate_members(value)
-        return json.dumps(obj)
-    elif isinstance(value, datetime.datetime):
-        return to_isostring(value)
-    elif force_string:
-        return str(value)
-    else:
-        return value
-
-
-def _compose_aggregate_members(value):
-    """
-    Recursively creates an object that can eventually be serialized to a valid
-    aggregate value in JSON. This is a bit different than non-aggregate values,
-    because Yamcs is more strict in the values that it accepts (for example:
-    unlike regular arguments you cannot assign a numeric string to an integer
-    argument, the JSON type needs to be numeric too).
-    """
-    if isinstance(value, (bytes, bytearray)):
-        return binascii.hexlify(value).decode("ascii")
-    elif isinstance(value, collections.abc.Mapping):
-        return {k: _compose_aggregate_members(v) for k, v in value.items()}
-    elif isinstance(value, datetime.datetime):
-        return to_isostring(value)
-    else:
-        # No string conversion here, use whatever the user is giving
-        return value
 
 
 def _set_range(ar, range, level):
@@ -771,7 +736,7 @@ class ProcessorClient:
             req.sequenceNumber = sequence_number
         if args:
             for key in args:
-                req.args[key] = _to_argument_value(args[key], force_string=True)
+                req.args[key] = to_argument_value(args[key], force_string=True)
 
         if verification:
             if verification._disable_all:
@@ -802,6 +767,27 @@ class ProcessorClient:
         proto = commands_service_pb2.IssueCommandResponse()
         proto.ParseFromString(response.content)
         return IssuedCommand(proto)
+
+    def run_script(self, script: str, args: Optional[Union[str, List[str]]] = None):
+        """
+        Run a script.
+
+        The script has access to the environment variables ``YAMCS_URL``,
+        ``YAMCS_API_KEY``, ``YAMCS_INSTANCE`` and ``YAMCS_PROCESSOR``.
+
+        :param script:
+            This should be the relative path to an an executable file in one of
+            the search locations. When unconfigured, the default search
+            location is :file:`etc/scripts/` relative to the Yamcs working
+            directory.
+
+        :param args:
+            Optional script arguments, passed verbatim in the command line.
+        """
+        url = f"/activities/{self._instance}/activities"
+        activity = ScriptActivity(script=script, args=args, processor=self._processor)
+        req = activity._to_proto()
+        self.ctx.post_proto(url, data=req.SerializeToString())
 
     def list_alarms(
         self,
@@ -932,11 +918,11 @@ class ProcessorClient:
     def set_default_alarm_ranges(
         self,
         parameter: str,
-        watch: Optional[Tuple[float, float]] = None,
-        warning: Optional[Tuple[float, float]] = None,
-        distress: Optional[Tuple[float, float]] = None,
-        critical: Optional[Tuple[float, float]] = None,
-        severe: Optional[Tuple[float, float]] = None,
+        watch: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        warning: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        distress: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        critical: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        severe: Optional[Tuple[Optional[float], Optional[float]]] = None,
         min_violations: int = 1,
     ):
         """

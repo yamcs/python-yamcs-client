@@ -1,3 +1,6 @@
+import binascii
+import collections
+import json
 import logging
 import os
 from datetime import datetime, timezone
@@ -159,6 +162,41 @@ def to_named_object_ids(
     if isinstance(parameters, str):
         return [to_named_object_id(parameters)]
     return [to_named_object_id(parameter) for parameter in parameters]
+
+
+def to_argument_value(value, force_string):
+    if isinstance(value, (bytes, bytearray)):
+        return binascii.hexlify(value).decode("ascii")
+    elif isinstance(value, collections.abc.Mapping):
+        # Careful to do the JSON dump only at the end,
+        # and not at every level of a nested hierarchy
+        obj = _compose_aggregate_members(value)
+        return json.dumps(obj)
+    elif isinstance(value, datetime.datetime):
+        return to_isostring(value)
+    elif force_string:
+        return str(value)
+    else:
+        return value
+
+
+def _compose_aggregate_members(value):
+    """
+    Recursively creates an object that can eventually be serialized to a valid
+    aggregate value in JSON. This is a bit different than non-aggregate values,
+    because Yamcs is more strict in the values that it accepts (for example:
+    unlike regular arguments you cannot assign a numeric string to an integer
+    argument, the JSON type needs to be numeric too).
+    """
+    if isinstance(value, (bytes, bytearray)):
+        return binascii.hexlify(value).decode("ascii")
+    elif isinstance(value, collections.abc.Mapping):
+        return {k: _compose_aggregate_members(v) for k, v in value.items()}
+    elif isinstance(value, datetime.datetime):
+        return to_isostring(value)
+    else:
+        # No string conversion here, use whatever the user is giving
+        return value
 
 
 def do_get(session: requests.Session, path: str, **kwargs) -> requests.Response:

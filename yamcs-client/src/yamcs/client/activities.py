@@ -1,8 +1,8 @@
 from dataclasses import dataclass, field
-from typing import Any, Mapping, Optional
+from typing import Any, List, Mapping, Optional, Union
 
+from yamcs.core.helpers import to_argument_value
 from yamcs.protobuf.activities import activities_pb2
-from yamcs.tmtc.client import _to_argument_value
 
 
 @dataclass
@@ -54,7 +54,7 @@ class ScriptActivity(Activity):
     directory.
     """
 
-    args: Mapping[str, Any] = field(default_factory=dict)
+    args: Optional[Union[str, List[str]]] = None
     """
     Optional script arguments, passed verbatim in the command line.
     """
@@ -139,11 +139,11 @@ class CommandActivity(Activity):
 
         proto.args["args"] = {}
         for k, v in self.args.items():
-            proto.args["args"][k] = _to_argument_value(v, force_string=True)
+            proto.args["args"][k] = to_argument_value(v, force_string=True)
 
         proto.args["extra"] = {}
         for k, v in self.extra.items():
-            proto.args["extra"][k] = _to_argument_value(v, force_string=False)
+            proto.args["extra"][k] = to_argument_value(v, force_string=False)
 
         return proto
 

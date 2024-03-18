@@ -452,7 +452,7 @@ class MonitoredCommand(IssuedCommand):
                 event.set()
 
     @property
-    def attributes(self) -> Dict[str, Acknowledgment]:
+    def attributes(self) -> Dict[str, Any]:
         if self._cmdhist:
             return self._cmdhist.attributes
         return {}
@@ -525,7 +525,9 @@ class MonitoredCommand(IssuedCommand):
         """
         event = self._ack_events.setdefault(name, threading.Event())
         self._wait_on_signal(event, timeout)
-        return self.acknowledgments.get(name)
+        ack = self.acknowledgments.get(name)
+        assert ack is not None
+        return ack
 
     def _wait_on_signal(self, event: threading.Event, timeout: Optional[float] = None):
         if not event.wait(timeout=timeout):
@@ -633,9 +635,7 @@ class Alarm(ABC):
         """
         Processor time when the alarm was triggered.
         """
-        if self._proto.HasField("triggerTime"):
-            return parse_server_time(self._proto.triggerTime)
-        return None
+        return parse_server_time(self._proto.triggerTime)
 
     @property
     def update_time(self) -> datetime:
@@ -648,9 +648,7 @@ class Alarm(ABC):
 
     @property
     def severity(self) -> str:
-        if self._proto.HasField("severity"):
-            return alarms_pb2.AlarmSeverity.Name(self._proto.severity)
-        return None
+        return alarms_pb2.AlarmSeverity.Name(self._proto.severity)
 
     @property
     def sequence_number(self) -> int:
@@ -659,9 +657,7 @@ class Alarm(ABC):
         that operations (such as acknowledgment) are done on the expected alarm
         instance.
         """
-        if self._proto.HasField("seqNum"):
-            return self._proto.seqNum
-        return None
+        return self._proto.seqNum
 
     @property
     def is_ok(self) -> bool:
@@ -743,18 +739,14 @@ class Alarm(ABC):
         """
         Number of violating samples while this alarm is active.
         """
-        if self._proto.HasField("violations"):
-            return self._proto.violations
-        return None
+        return self._proto.violations
 
     @property
     def count(self) -> int:
         """
         Total number of samples while this alarm is active.
         """
-        if self._proto.HasField("count"):
-            return self._proto.count
-        return None
+        return self._proto.count
 
     def __str__(self):
         return f"{self.name} ({self.violation_count} violations)"
@@ -770,9 +762,7 @@ class ParameterAlarm(Alarm):
         """
         Parameter value that originally triggered the alarm
         """
-        if self._proto.parameterDetail.HasField("triggerValue"):
-            return ParameterValue(self._proto.parameterDetail.triggerValue)
-        return None
+        return ParameterValue(self._proto.parameterDetail.triggerValue)
 
     @property
     def most_severe_value(self) -> "ParameterValue":
@@ -780,18 +770,14 @@ class ParameterAlarm(Alarm):
         First parameter value that invoked the highest severity
         level of this alarm.
         """
-        if self._proto.parameterDetail.HasField("mostSevereValue"):
-            return ParameterValue(self._proto.parameterDetail.mostSevereValue)
-        return None
+        return ParameterValue(self._proto.parameterDetail.mostSevereValue)
 
     @property
     def current_value(self) -> "ParameterValue":
         """
         Latest parameter value for this alarm.
         """
-        if self._proto.parameterDetail.HasField("currentValue"):
-            return ParameterValue(self._proto.parameterDetail.currentValue)
-        return None
+        return ParameterValue(self._proto.parameterDetail.currentValue)
 
 
 class EventAlarm(Alarm):
@@ -804,9 +790,7 @@ class EventAlarm(Alarm):
         """
         Event that originally triggered the alarm
         """
-        if self._proto.eventDetail.HasField("triggerEvent"):
-            return Event(self._proto.eventDetail.triggerEvent)
-        return None
+        return Event(self._proto.eventDetail.triggerEvent)
 
     @property
     def most_severe_event(self) -> Event:
@@ -814,18 +798,14 @@ class EventAlarm(Alarm):
         First event that invoked the highest severity level
         of this alarm
         """
-        if self._proto.eventDetail.HasField("mostSevereEvent"):
-            return Event(self._proto.eventDetail.mostSevereEvent)
-        return None
+        return Event(self._proto.eventDetail.mostSevereEvent)
 
     @property
     def current_event(self) -> Event:
         """
         Latest event for this alarm
         """
-        if self._proto.eventDetail.HasField("currentEvent"):
-            return Event(self._proto.eventDetail.currentEvent)
-        return None
+        return Event(self._proto.eventDetail.currentEvent)
 
 
 class ParameterValue:
@@ -850,9 +830,7 @@ class ParameterValue:
         The time when the parameter was generated. If the parameter
         was extracted from a packet, this usually returns the packet time.
         """
-        if self._proto.HasField("generationTime"):
-            return parse_server_time(self._proto.generationTime)
-        return None
+        return parse_server_time(self._proto.generationTime)
 
     @property
     def reception_time(self) -> Optional[datetime]:
@@ -945,7 +923,7 @@ class ParameterData:
         for pval in self._pvals.values():
             yield pval
 
-    def get_value(self, parameter: str) -> ParameterValue:
+    def get_value(self, parameter: str) -> Optional[ParameterValue]:
         """
         Returns the value of a specific parameter.
         Or ``None`` if the parameter is not included in
@@ -1010,27 +988,21 @@ class ContainerData:
         """
         The name of the container.
         """
-        if self._proto.HasField("name"):
-            return self._proto.name
-        return None
+        return self._proto.name
 
     @property
     def generation_time(self) -> datetime:
         """
         The time when this container's packet was generated (packet time).
         """
-        if self._proto.HasField("generationTime"):
-            return parse_server_time(self._proto.generationTime)
-        return None
+        return parse_server_time(self._proto.generationTime)
 
     @property
     def reception_time(self) -> datetime:
         """
         The time when this container's packet was received by Yamcs.
         """
-        if self._proto.HasField("receptionTime"):
-            return parse_server_time(self._proto.receptionTime)
-        return None
+        return parse_server_time(self._proto.receptionTime)
 
     @property
     def binary(self):
@@ -1081,9 +1053,7 @@ class Packet:
         """
         The time when the packet was received by Yamcs.
         """
-        if self._proto.HasField("receptionTime"):
-            return parse_server_time(self._proto.receptionTime)
-        return None
+        return parse_server_time(self._proto.receptionTime)
 
     @property
     def sequence_number(self) -> int:
@@ -1111,7 +1081,7 @@ class Packet:
         """
         if self._proto.HasField("packet"):
             return self._proto.packet
-        return b''
+        return b""
 
     def __str__(self):
         return f"{self.generation_time} #{self.sequence_number} ({self.name})"
@@ -1125,11 +1095,11 @@ class RangeSet:
     def __init__(
         self,
         context: str,
-        watch: Optional[Tuple[float, float]] = None,
-        warning: Optional[Tuple[float, float]] = None,
-        distress: Optional[Tuple[float, float]] = None,
-        critical: Optional[Tuple[float, float]] = None,
-        severe: Optional[Tuple[float, float]] = None,
+        watch: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        warning: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        distress: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        critical: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        severe: Optional[Tuple[Optional[float], Optional[float]]] = None,
         min_violations: int = 1,
     ):
         """
