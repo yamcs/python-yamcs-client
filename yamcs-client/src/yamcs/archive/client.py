@@ -1164,6 +1164,17 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/parameterArchive:rebuild"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
+    def purge_parameter_archive(self):
+        """
+        Removes all Parameter Archive data and related metadata.
+
+        The rebuild operation has to be used after the purge to rebuild the parameter archive.
+
+        """
+        req = parameter_archive_service_pb2.PurgeRequest()
+        url = f"/archive/{self._instance}/parameterArchive:purge"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
     def rebuild_ccsds_index(
         self,
         start: Optional[datetime] = None,
