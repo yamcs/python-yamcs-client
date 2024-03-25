@@ -246,19 +246,28 @@ class ArchiveClient:
         )
 
     def list_completeness_index(
-        self, start: Optional[datetime] = None, stop: Optional[datetime] = None
+        self,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        merge_time: float = 2,
     ) -> Iterable[IndexGroup]:
         """
         Reads completeness index records between the specified start and stop
         time.
 
         Each iteration returns a chunk of chronologically-sorted records.
+
+        :param merge_time:
+            Maximum gap in seconds before two consecutive index
+            records are merged together.
         """
         params = {}
         if start is not None:
             params["start"] = to_isostring(start)
         if stop is not None:
             params["stop"] = to_isostring(stop)
+        if merge_time is not None:
+            params["mergeTime"] = int(merge_time * 1000)
 
         return pagination.Iterator(
             ctx=self.ctx,
@@ -1168,8 +1177,8 @@ class ArchiveClient:
         """
         Removes all Parameter Archive data and related metadata.
 
-        The rebuild operation has to be used after the purge to rebuild the parameter archive.
-
+        Afterwards, use :meth:`rebuild_parameter_archive` to rebuild the Parameter
+        Archive.
         """
         req = parameter_archive_service_pb2.PurgeRequest()
         url = f"/archive/{self._instance}/parameterArchive:purge"

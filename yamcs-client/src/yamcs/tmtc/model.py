@@ -1083,6 +1083,15 @@ class Packet:
             return self._proto.packet
         return b""
 
+    @property
+    def size(self) -> int:
+        """
+        Size in bytes of this packet
+        """
+        if self._proto.HasField("size"):
+            return self._proto.size
+        return len(self.binary)
+
     def __str__(self):
         return f"{self.generation_time} #{self.sequence_number} ({self.name})"
 

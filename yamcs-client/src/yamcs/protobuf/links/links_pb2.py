@@ -12,6 +12,7 @@ _sym_db = _symbol_database.Default()
 
 
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
+from yamcs.protobuf.config import config_pb2 as yamcs_dot_protobuf_dot_config_dot_config__pb2
 from google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
 
 
@@ -20,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.links',
   syntax='proto2',
   serialized_options=b'\n\030org.yamcs.protobuf.linksB\021LinksServiceProtoP\001',
-  serialized_pb=b'\n yamcs/protobuf/links/links.proto\x12\x14yamcs.protobuf.links\x1a\x1byamcs/api/annotations.proto\x1a\x1cgoogle/protobuf/struct.proto\"$\n\x10ListLinksRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"B\n\x11ListLinksResponse\x12-\n\x05links\x18\x01 \x03(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfo\"0\n\x0eGetLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"3\n\x11\x45nableLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"4\n\x12\x44isableLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\":\n\x18ResetLinkCountersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"W\n\x0f\x45\x64itLinkRequest\x12\x10\n\x08instance\x18\x03 \x01(\t\x12\x0c\n\x04link\x18\x04 \x01(\t\x12\r\n\x05state\x18\x01 \x01(\t\x12\x15\n\rresetCounters\x18\x02 \x01(\x08\"l\n\x10RunActionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\x12(\n\x07message\x18\x04 \x01(\x0b\x32\x17.google.protobuf.Struct\"\xef\x01\n\tLinkEvent\x12\x36\n\x04type\x18\x01 \x01(\x0e\x32$.yamcs.protobuf.links.LinkEvent.TypeB\x02\x18\x01\x12\x34\n\x08linkInfo\x18\x02 \x01(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfoB\x02\x18\x01\x12-\n\x05links\x18\x03 \x03(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfo\"E\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\x12\x0e\n\nUPDATE_ALL\x10\x04\")\n\x15SubscribeLinksRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xbe\x02\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x61taInCount\x18\n \x01(\x03\x12\x14\n\x0c\x64\x61taOutCount\x18\x0b \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\x12\x12\n\nparentName\x18\x0c \x01(\t\x12\x35\n\x07\x61\x63tions\x18\r \x03(\x0b\x32$.yamcs.protobuf.links.LinkActionInfo\x12&\n\x05\x65xtra\x18\x0e \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x12\n\nparameters\x18\x0f \x03(\tJ\x04\x08\x05\x10\x06J\x04\x08\x08\x10\t\"\\\n\x0eLinkActionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05label\x18\x02 \x01(\t\x12\r\n\x05style\x18\x03 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x04 \x01(\x08\x12\x0f\n\x07\x63hecked\x18\x05 \x01(\x08\x32\x8b\t\n\x08LinksApi\x12z\n\tListLinks\x12&.yamcs.protobuf.links.ListLinksRequest\x1a\'.yamcs.protobuf.links.ListLinksResponse\"\x1c\x8a\x92\x03\x18\n\x16/api/links/{instance?}\x12s\n\x07GetLink\x12$.yamcs.protobuf.links.GetLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"\"\x8a\x92\x03\x1e\n\x1c/api/links/{instance}/{link}\x12\x93\x01\n\nUpdateLink\x12%.yamcs.protobuf.links.EditLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\">\x8a\x92\x03:*\x1c/api/links/{instance}/{link}0\x01:\x01*b\x15Link \'{link}\' updated\x12\x97\x01\n\nEnableLink\x12\'.yamcs.protobuf.links.EnableLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"@\x8a\x92\x03<\x1a#/api/links/{instance}/{link}:enableb\x15Link \'{link}\' enabled\x12\x9b\x01\n\x0b\x44isableLink\x12(.yamcs.protobuf.links.DisableLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"B\x8a\x92\x03>\x1a$/api/links/{instance}/{link}:disableb\x16Link \'{link}\' disabled\x12\x95\x01\n\x11ResetLinkCounters\x12..yamcs.protobuf.links.ResetLinkCountersRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"0\x8a\x92\x03,\x1a*/api/links/{instance}/{link}:resetCounters\x12m\n\x0eSubscribeLinks\x12+.yamcs.protobuf.links.SubscribeLinksRequest\x1a\x1f.yamcs.protobuf.links.LinkEvent\"\x0b\xda\x92\x03\x07\n\x05links0\x01\x12\xb8\x01\n\tRunAction\x12&.yamcs.protobuf.links.RunActionRequest\x1a\x17.google.protobuf.Struct\"j\x8a\x92\x03\x66\x1a-/api/links/{instance}/{link}/actions/{action}:\x07messageb,Action \'{action}\' performed on link \'{link}\'B/\n\x18org.yamcs.protobuf.linksB\x11LinksServiceProtoP\x01'
+  serialized_pb=b'\n yamcs/protobuf/links/links.proto\x12\x14yamcs.protobuf.links\x1a\x1byamcs/api/annotations.proto\x1a\"yamcs/protobuf/config/config.proto\x1a\x1cgoogle/protobuf/struct.proto\"$\n\x10ListLinksRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"B\n\x11ListLinksResponse\x12-\n\x05links\x18\x01 \x03(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfo\"0\n\x0eGetLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"3\n\x11\x45nableLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"4\n\x12\x44isableLinkRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\":\n\x18ResetLinkCountersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\"W\n\x0f\x45\x64itLinkRequest\x12\x10\n\x08instance\x18\x03 \x01(\t\x12\x0c\n\x04link\x18\x04 \x01(\t\x12\r\n\x05state\x18\x01 \x01(\t\x12\x15\n\rresetCounters\x18\x02 \x01(\x08\"l\n\x10RunActionRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04link\x18\x02 \x01(\t\x12\x0e\n\x06\x61\x63tion\x18\x03 \x01(\t\x12(\n\x07message\x18\x04 \x01(\x0b\x32\x17.google.protobuf.Struct\"\xef\x01\n\tLinkEvent\x12\x36\n\x04type\x18\x01 \x01(\x0e\x32$.yamcs.protobuf.links.LinkEvent.TypeB\x02\x18\x01\x12\x34\n\x08linkInfo\x18\x02 \x01(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfoB\x02\x18\x01\x12-\n\x05links\x18\x03 \x03(\x0b\x32\x1e.yamcs.protobuf.links.LinkInfo\"E\n\x04Type\x12\x0e\n\nREGISTERED\x10\x01\x12\x10\n\x0cUNREGISTERED\x10\x02\x12\x0b\n\x07UPDATED\x10\x03\x12\x0e\n\nUPDATE_ALL\x10\x04\")\n\x15SubscribeLinksRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xbe\x02\n\x08LinkInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04spec\x18\x04 \x01(\t\x12\x10\n\x08\x64isabled\x18\x06 \x01(\x08\x12\x0e\n\x06status\x18\x07 \x01(\t\x12\x13\n\x0b\x64\x61taInCount\x18\n \x01(\x03\x12\x14\n\x0c\x64\x61taOutCount\x18\x0b \x01(\x03\x12\x16\n\x0e\x64\x65tailedStatus\x18\t \x01(\t\x12\x12\n\nparentName\x18\x0c \x01(\t\x12\x35\n\x07\x61\x63tions\x18\r \x03(\x0b\x32$.yamcs.protobuf.links.LinkActionInfo\x12&\n\x05\x65xtra\x18\x0e \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x12\n\nparameters\x18\x0f \x03(\tJ\x04\x08\x05\x10\x06J\x04\x08\x08\x10\t\"\x8b\x01\n\x0eLinkActionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05label\x18\x02 \x01(\t\x12\r\n\x05style\x18\x03 \x01(\t\x12\x0f\n\x07\x65nabled\x18\x04 \x01(\x08\x12\x0f\n\x07\x63hecked\x18\x05 \x01(\x08\x12-\n\x04spec\x18\x06 \x01(\x0b\x32\x1f.yamcs.protobuf.config.SpecInfo2\x8b\t\n\x08LinksApi\x12z\n\tListLinks\x12&.yamcs.protobuf.links.ListLinksRequest\x1a\'.yamcs.protobuf.links.ListLinksResponse\"\x1c\x8a\x92\x03\x18\n\x16/api/links/{instance?}\x12s\n\x07GetLink\x12$.yamcs.protobuf.links.GetLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"\"\x8a\x92\x03\x1e\n\x1c/api/links/{instance}/{link}\x12\x93\x01\n\nUpdateLink\x12%.yamcs.protobuf.links.EditLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\">\x8a\x92\x03:*\x1c/api/links/{instance}/{link}0\x01:\x01*b\x15Link \'{link}\' updated\x12\x97\x01\n\nEnableLink\x12\'.yamcs.protobuf.links.EnableLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"@\x8a\x92\x03<\x1a#/api/links/{instance}/{link}:enableb\x15Link \'{link}\' enabled\x12\x9b\x01\n\x0b\x44isableLink\x12(.yamcs.protobuf.links.DisableLinkRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"B\x8a\x92\x03>\x1a$/api/links/{instance}/{link}:disableb\x16Link \'{link}\' disabled\x12\x95\x01\n\x11ResetLinkCounters\x12..yamcs.protobuf.links.ResetLinkCountersRequest\x1a\x1e.yamcs.protobuf.links.LinkInfo\"0\x8a\x92\x03,\x1a*/api/links/{instance}/{link}:resetCounters\x12m\n\x0eSubscribeLinks\x12+.yamcs.protobuf.links.SubscribeLinksRequest\x1a\x1f.yamcs.protobuf.links.LinkEvent\"\x0b\xda\x92\x03\x07\n\x05links0\x01\x12\xb8\x01\n\tRunAction\x12&.yamcs.protobuf.links.RunActionRequest\x1a\x17.google.protobuf.Struct\"j\x8a\x92\x03\x66\x1a-/api/links/{instance}/{link}/actions/{action}:\x07messageb,Action \'{action}\' performed on link \'{link}\'B/\n\x18org.yamcs.protobuf.linksB\x11LinksServiceProtoP\x01'
   ,
-  dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,])
+  dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_config_dot_config__pb2.DESCRIPTOR,google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,])
 
 
 
@@ -51,8 +52,8 @@ _LINKEVENT_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=810,
-  serialized_end=879,
+  serialized_start=846,
+  serialized_end=915,
 )
 _sym_db.RegisterEnumDescriptor(_LINKEVENT_TYPE)
 
@@ -83,8 +84,8 @@ _LISTLINKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=117,
-  serialized_end=153,
+  serialized_start=153,
+  serialized_end=189,
 )
 
 
@@ -114,8 +115,8 @@ _LISTLINKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=155,
-  serialized_end=221,
+  serialized_start=191,
+  serialized_end=257,
 )
 
 
@@ -152,8 +153,8 @@ _GETLINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=223,
-  serialized_end=271,
+  serialized_start=259,
+  serialized_end=307,
 )
 
 
@@ -190,8 +191,8 @@ _ENABLELINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=273,
-  serialized_end=324,
+  serialized_start=309,
+  serialized_end=360,
 )
 
 
@@ -228,8 +229,8 @@ _DISABLELINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=326,
-  serialized_end=378,
+  serialized_start=362,
+  serialized_end=414,
 )
 
 
@@ -266,8 +267,8 @@ _RESETLINKCOUNTERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=380,
-  serialized_end=438,
+  serialized_start=416,
+  serialized_end=474,
 )
 
 
@@ -318,8 +319,8 @@ _EDITLINKREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=440,
-  serialized_end=527,
+  serialized_start=476,
+  serialized_end=563,
 )
 
 
@@ -370,8 +371,8 @@ _RUNACTIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=529,
-  serialized_end=637,
+  serialized_start=565,
+  serialized_end=673,
 )
 
 
@@ -416,8 +417,8 @@ _LINKEVENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=640,
-  serialized_end=879,
+  serialized_start=676,
+  serialized_end=915,
 )
 
 
@@ -447,8 +448,8 @@ _SUBSCRIBELINKSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=881,
-  serialized_end=922,
+  serialized_start=917,
+  serialized_end=958,
 )
 
 
@@ -562,8 +563,8 @@ _LINKINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=925,
-  serialized_end=1243,
+  serialized_start=961,
+  serialized_end=1279,
 )
 
 
@@ -609,6 +610,13 @@ _LINKACTIONINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='spec', full_name='yamcs.protobuf.links.LinkActionInfo.spec', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -621,8 +629,8 @@ _LINKACTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1245,
-  serialized_end=1337,
+  serialized_start=1282,
+  serialized_end=1421,
 )
 
 _LISTLINKSRESPONSE.fields_by_name['links'].message_type = _LINKINFO
@@ -633,6 +641,7 @@ _LINKEVENT.fields_by_name['links'].message_type = _LINKINFO
 _LINKEVENT_TYPE.containing_type = _LINKEVENT
 _LINKINFO.fields_by_name['actions'].message_type = _LINKACTIONINFO
 _LINKINFO.fields_by_name['extra'].message_type = google_dot_protobuf_dot_struct__pb2._STRUCT
+_LINKACTIONINFO.fields_by_name['spec'].message_type = yamcs_dot_protobuf_dot_config_dot_config__pb2._SPECINFO
 DESCRIPTOR.message_types_by_name['ListLinksRequest'] = _LISTLINKSREQUEST
 DESCRIPTOR.message_types_by_name['ListLinksResponse'] = _LISTLINKSRESPONSE
 DESCRIPTOR.message_types_by_name['GetLinkRequest'] = _GETLINKREQUEST
@@ -742,8 +751,8 @@ _LINKSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=1340,
-  serialized_end=2503,
+  serialized_start=1424,
+  serialized_end=2587,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListLinks',
