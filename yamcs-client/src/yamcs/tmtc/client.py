@@ -393,7 +393,7 @@ class CommandConnection(WebSocketSubscriptionFuture):
     Only commands issued from this object are monitored.
     """
 
-    def __init__(self, manager, tmtc_client):
+    def __init__(self, manager, tmtc_client: "ProcessorClient"):
         super(CommandConnection, self).__init__(manager)
         self._cmdhist_cache = {}
         self._command_cache = {}
@@ -403,9 +403,11 @@ class CommandConnection(WebSocketSubscriptionFuture):
         self,
         command: str,
         args: Optional[Mapping[str, Any]] = None,
+        *,
         dry_run: bool = False,
         comment: Optional[str] = None,
         verification: Optional[VerificationConfig] = None,
+        stream: Optional[str] = None,
         extra: Optional[Mapping[str, Any]] = None,
         sequence_number: Optional[int] = None,
     ) -> MonitoredCommand:
@@ -425,6 +427,10 @@ class CommandConnection(WebSocketSubscriptionFuture):
             Comment attached to the command.
         :param verification:
             Overrides to the default verification handling of this command.
+        :param stream:
+            Override the stream on which the command should be sent out.
+
+            .. versionadded:: 1.9.6
         :param extra:
             Extra command options for interpretation by non-core extensions
             (custom preprocessor, datalinks, command listeners). Note that
@@ -443,12 +449,13 @@ class CommandConnection(WebSocketSubscriptionFuture):
             command and updated according to command history updates.
         """
         issued_command = self._tmtc_client.issue_command(
-            command,
-            args,
-            dry_run,
-            comment,
-            verification,
-            extra,
+            command=command,
+            args=args,
+            dry_run=dry_run,
+            comment=comment,
+            verification=verification,
+            stream=stream,
+            extra=extra,
             sequence_number=sequence_number,
         )
         cmd = MonitoredCommand(issued_command._proto)
@@ -688,9 +695,11 @@ class ProcessorClient:
         self,
         command: str,
         args: Optional[Mapping[str, Any]] = None,
+        *,
         dry_run: bool = False,
         comment: Optional[str] = None,
         verification: Optional[VerificationConfig] = None,
+        stream: Optional[str] = None,
         extra: Optional[Mapping[str, Any]] = None,
         sequence_number: Optional[int] = None,
     ) -> IssuedCommand:
@@ -710,6 +719,10 @@ class ProcessorClient:
             Comment attached to the command.
         :param verification:
             Overrides to the default verification handling of this command.
+        :param stream:
+            Override the stream on which the command should be sent out.
+
+            .. versionadded:: 1.9.6
         :param extra:
             Extra command options for interpretation by non-core
             extensions (custom preprocessor, datalinks, command listeners).
@@ -737,6 +750,8 @@ class ProcessorClient:
         if args:
             for key in args:
                 req.args[key] = to_argument_value(args[key], force_string=True)
+        if stream:
+            req.stream = stream
 
         if verification:
             if verification._disable_all:
