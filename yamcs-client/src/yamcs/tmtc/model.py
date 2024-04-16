@@ -1070,9 +1070,7 @@ class Packet:
 
         .. versionadded:: 1.9.1
         """
-        if self._proto.HasField("link"):
-            return self._proto.link
-        return None
+        return self._proto.link
 
     @property
     def binary(self) -> bytes:

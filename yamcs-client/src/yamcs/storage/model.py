@@ -1,11 +1,14 @@
 import datetime
-from typing import IO, List, Mapping, Optional, Union
+from typing import IO, TYPE_CHECKING, List, Mapping, Optional, Union
 
 from yamcs.core.helpers import parse_server_time
 
+if TYPE_CHECKING:
+    from yamcs.storage.client import StorageClient
+
 
 class Bucket:
-    def __init__(self, proto, storage_client):
+    def __init__(self, proto, storage_client: "StorageClient"):
         self._proto = proto
         self._storage_client = storage_client
 
@@ -15,13 +18,11 @@ class Bucket:
         return self._proto.name
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
+    def created(self) -> datetime.datetime:
         """
         When this bucket was created.
         """
-        if self._proto.HasField("created"):
-            return parse_server_time(self._proto.created)
-        return None
+        return parse_server_time(self._proto.created)
 
     @property
     def object_count(self) -> int:
@@ -161,13 +162,11 @@ class ObjectInfo:
         return self._proto.size
 
     @property
-    def created(self) -> Optional[datetime.datetime]:
+    def created(self) -> datetime.datetime:
         """
         Return when this object was created (or re-created).
         """
-        if self._proto.HasField("created"):
-            return parse_server_time(self._proto.created)
-        return None
+        return parse_server_time(self._proto.created)
 
     def delete(self):
         """
