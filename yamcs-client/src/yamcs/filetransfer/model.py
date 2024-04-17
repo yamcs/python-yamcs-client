@@ -1,13 +1,16 @@
 import datetime
 import threading
-from typing import Any, Callable, List, Mapping, Optional
+from typing import TYPE_CHECKING, Any, Callable, List, Mapping, Optional
 
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.filetransfer import filetransfer_pb2
 
+if TYPE_CHECKING:
+    from yamcs.filetransfer.client import ServiceClient
+
 
 class Service:
-    def __init__(self, proto, service_client):
+    def __init__(self, proto, service_client: "ServiceClient"):
         self._proto = proto
         self._service_client = service_client
         self._local_entities = [EntityInfo(entity) for entity in proto.localEntities]
@@ -54,17 +57,10 @@ class Service:
         remote_path: str,
         source_entity: Optional[str] = None,
         destination_entity: Optional[str] = None,
-        overwrite: bool = True,
-        parents: bool = True,
-        reliable: bool = False,
         options: Optional[Mapping[str, Any]] = None,
     ) -> "Transfer":
         """
         Uploads a file located in a bucket to a remote destination path.
-
-        .. warning::
-            Prefer the use of ``options`` instead of the deprecated params
-            ``overwrite``, ``parents`` and ``reliable``.
 
         :param bucket_name:
             Name of the bucket containing the source object.
@@ -76,24 +72,8 @@ class Service:
             Use a specific source entity. (useful in case of multiples)
         :param destination_entity:
             Use a specific destination entity. (useful in case of multiples)
-        :param overwrite:
-            Replace file if it already exists.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``overwrite``)
-        :param parents:
-            Create the remote path if it does not yet exist.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``createPath``)
-        :param reliable:
-            Enable reliable transfers.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``reliable``)
         :param options:
-            file transfer options dict (may overwrite "overwrite", "parents"
-            or "reliable" parameters if set in these options).
+            file transfer options
         """
         return self._service_client.upload(
             bucket_name=bucket_name,
@@ -101,9 +81,6 @@ class Service:
             remote_path=remote_path,
             source_entity=source_entity,
             destination_entity=destination_entity,
-            overwrite=overwrite,
-            parents=parents,
-            reliable=reliable,
             options=options,
         )
 
@@ -114,17 +91,10 @@ class Service:
         object_name: Optional[str] = None,
         source_entity: Optional[str] = None,
         destination_entity: Optional[str] = None,
-        overwrite: bool = True,
-        parents: bool = True,
-        reliable: bool = False,
         options: Optional[Mapping[str, Any]] = None,
     ) -> "Transfer":
         """
         Downloads a file from the source to a bucket.
-
-        .. warning::
-            Prefer the use of ``options`` instead of the deprecated
-            params ``overwrite``, ``parents`` and ``reliable``.
 
         :param bucket_name:
             Name of the bucket to receive the file.
@@ -136,24 +106,8 @@ class Service:
             Use a specific source entity. (useful in case of multiples)
         :param destination_entity:
             Use a specific destination entity. (useful in case of multiples)
-        :param overwrite:
-            Replace file if it already exists.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``overwrite``)
-        :param parents:
-            Create the remote path if it does not yet exist.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``createPath``)
-        :param reliable:
-            Enable reliable transfers.
-
-            .. deprecated:: 1.8.6
-                Use ``options`` instead (option name: ``reliable``)
         :param options:
-            File transfer options dict (may overwrite ``overwrite``, ``parents``
-            or ``reliable`` parameters if set in these options).
+            File transfer options.
         """
         return self._service_client.download(
             bucket_name=bucket_name,
@@ -161,9 +115,6 @@ class Service:
             object_name=object_name,
             source_entity=source_entity,
             destination_entity=destination_entity,
-            overwrite=overwrite,
-            parents=parents,
-            reliable=reliable,
             options=options,
         )
 

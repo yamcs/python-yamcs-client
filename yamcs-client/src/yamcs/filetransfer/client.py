@@ -172,12 +172,9 @@ class ServiceClient:
         bucket_name: str,
         object_name: str,
         remote_path: str,
-        source_entity: str,
-        destination_entity: str,
-        overwrite: bool,
-        parents: bool,
-        reliable: bool,
-        options: Mapping[str, Any],
+        source_entity: Optional[str],
+        destination_entity: Optional[str],
+        options: Optional[Mapping[str, Any]],
     ) -> Transfer:
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.UPLOAD
@@ -188,14 +185,6 @@ class ServiceClient:
             req.source = source_entity
         if destination_entity:
             req.destination = destination_entity
-
-        # Old options for backwards compatibility
-        old_options = {
-            "overwrite": overwrite,
-            "createPath": parents,
-            "reliable": reliable,
-        }
-        req.options.update(old_options)
         if options:
             req.options.update(options)
 
@@ -209,13 +198,10 @@ class ServiceClient:
         self,
         bucket_name: str,
         remote_path: str,
-        object_name: str,
-        source_entity: str,
-        destination_entity: str,
-        overwrite: bool,
-        parents: bool,
-        reliable: bool,
-        options: Mapping[str, Any],
+        object_name: Optional[str],
+        source_entity: Optional[str],
+        destination_entity: Optional[str],
+        options: Optional[Mapping[str, Any]],
     ) -> Transfer:
         req = filetransfer_pb2.CreateTransferRequest()
         req.direction = filetransfer_pb2.TransferDirection.DOWNLOAD
@@ -227,14 +213,6 @@ class ServiceClient:
             req.source = source_entity
         if destination_entity:
             req.destination = destination_entity
-
-        # Old options for backwards compatibility
-        old_options = {
-            "overwrite": overwrite,
-            "createPath": parents,
-            "reliable": reliable,
-        }
-        req.options.update(old_options)
         if options:
             req.options.update(options)
 
@@ -247,9 +225,9 @@ class ServiceClient:
     def fetch_filelist(
         self,
         remote_path: str,
-        source_entity: str,
-        destination_entity: str,
-        options: Mapping[str, Any],
+        source_entity: Optional[str],
+        destination_entity: Optional[str],
+        options: Optional[Mapping[str, Any]],
     ):
         req = filetransfer_pb2.ListFilesRequest()
         req.remotePath = remote_path
@@ -265,9 +243,9 @@ class ServiceClient:
     def get_filelist(
         self,
         remote_path: str,
-        source_entity: str,
-        destination_entity: str,
-        options: Mapping[str, Any],
+        source_entity: Optional[str],
+        destination_entity: Optional[str],
+        options: Optional[Mapping[str, Any]],
     ) -> RemoteFileListing:
         params = {"remotePath": remote_path}
         if source_entity:
