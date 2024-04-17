@@ -1,7 +1,6 @@
 from time import sleep
 
-from yamcs.client import YamcsClient
-from yamcs.core.auth import Credentials
+from yamcs.client import Credentials, YamcsClient
 
 # For this example to work, enable security in Yamcs by
 # configuring appropriate authentication modules.

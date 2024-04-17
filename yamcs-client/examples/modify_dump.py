@@ -1,12 +1,12 @@
 import struct
 
 from google.protobuf.internal.encoder import _VarintBytes
-from yamcs.core.helpers import split_protobuf_stream
+from yamcs.client import split_protobuf_stream
 from yamcs.protobuf.table import table_pb2
 
 """
-This file gives some clues as to how one might modify a raw
-table dump, for example to manually apply data migrations
+This script provides some hints as to how one might modify a
+raw table dump, for example to manually apply data migrations
 between a dump and restore.
 
 This is a rare use case. The decode/encode logic is not easy

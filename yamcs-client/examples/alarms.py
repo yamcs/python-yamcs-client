@@ -16,7 +16,11 @@ def acknowledge_all():
     """Acknowledges all active alarms."""
     for alarm in processor.list_alarms():
         if not alarm.is_acknowledged:
-            processor.acknowledge_alarm(alarm, comment="false alarm")
+            processor.acknowledge_alarm(
+                alarm.name,
+                alarm.sequence_number,
+                comment="false alarm",
+            )
 
 
 if __name__ == "__main__":

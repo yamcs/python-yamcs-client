@@ -1,7 +1,6 @@
 from time import sleep
 
-from yamcs.client import YamcsClient
-from yamcs.tmtc.model import VerificationConfig
+from yamcs.client import VerificationConfig, YamcsClient
 
 
 def issue_command():

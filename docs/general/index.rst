@@ -28,8 +28,7 @@ Provide credentials if Yamcs is secured:
 
 .. code-block:: python
 
-    from yamcs.client import YamcsClient
-    from yamcs.core.auth import Credentials
+    from yamcs.client import Credentials, YamcsClient
 
     credentials = Credentials(username='admin', password='password')
     client = YamcsClient('localhost:8090', credentials=credentials)

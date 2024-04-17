@@ -1,4 +1,4 @@
-from yamcs.client.core import YamcsClient
+from yamcs.client import YamcsClient
 
 
 def run_script():

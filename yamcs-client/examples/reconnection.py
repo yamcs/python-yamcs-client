@@ -1,7 +1,6 @@
 from time import sleep
 
-from yamcs.client import YamcsClient
-from yamcs.core.exceptions import ConnectionFailure
+from yamcs.client import ConnectionFailure, YamcsClient
 
 """
 Subscription types are modeled as Python futures which cover
