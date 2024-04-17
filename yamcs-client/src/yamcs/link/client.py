@@ -1,6 +1,7 @@
 import functools
-from typing import Callable, Mapping, Optional
+from typing import Any, Callable, Dict, Mapping, Optional
 
+from google.protobuf import json_format, struct_pb2
 from yamcs.core.context import Context
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
@@ -106,7 +107,11 @@ class LinkClient:
         url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def run_action(self, action: str, message: Optional[Mapping] = None):
+    def run_action(
+        self,
+        action: str,
+        message: Optional[Mapping[str, Any]] = None,
+    ) -> Dict[str, Any]:
         """
         Runs the given action for this link
 
@@ -114,13 +119,18 @@ class LinkClient:
             action identifier
         :param message:
             action message
+        :return:
+            Action result (if the action returns anything)
         """
         req = links_pb2.RunActionRequest()
         if message:
             req.message.update(message)
 
         url = f"/links/{self._instance}/{self._link}/actions/{action}"
-        self.ctx.post_proto(url, data=req.message.SerializeToString())
+        response = self.ctx.post_proto(url, data=req.message.SerializeToString())
+        response_message = struct_pb2.Struct()
+        response_message.ParseFromString(response.content)
+        return json_format.MessageToDict(response_message)
 
     def get_cop1_config(self) -> Cop1Config:
         """

@@ -1,7 +1,8 @@
 import functools
 import json
-from typing import Any, Callable, Iterable, List, Mapping, Optional
+from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional
 
+from google.protobuf import json_format, struct_pb2
 from yamcs.core.context import Context
 from yamcs.core.exceptions import NotFound
 from yamcs.core.futures import WebSocketSubscriptionFuture
@@ -260,20 +261,40 @@ class ServiceClient:
         message.ParseFromString(response.content)
         return RemoteFileListing(message)
 
-    def pause_transfer(self, id: str):
+    def pause_transfer(self, id: str) -> None:
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:pause"
         self.ctx.post_proto(url)
 
-    def resume_transfer(self, id: str):
+    def resume_transfer(self, id: str) -> None:
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:resume"
         self.ctx.post_proto(url)
 
-    def cancel_transfer(self, id: str):
+    def cancel_transfer(self, id: str) -> None:
         url = f"/filetransfer/{self._instance}/{self._service}/transfers/{id}:cancel"
         self.ctx.post_proto(url)
 
+    def run_file_action(
+        self,
+        file: str,
+        action: str,
+        message: Optional[Mapping[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        req = filetransfer_pb2.RunFileActionRequest()
+        req.file = file
+        req.action = action
+        if message:
+            req.message.update(message)
+
+        url = f"/filetransfer/{self._instance}/{self._service}/files:runFileAction"
+        response = self.ctx.post_proto(url, data=req.SerializeToString())
+        response_message = struct_pb2.Struct()
+        response_message.ParseFromString(response.content)
+        return json_format.MessageToDict(response_message)
+
     def create_transfer_subscription(
-        self, on_data: Optional[Callable[[Transfer], None]] = None, timeout: float = 60
+        self,
+        on_data: Optional[Callable[[Transfer], None]] = None,
+        timeout: float = 60,
     ) -> TransferSubscription:
         options = filetransfer_pb2.SubscribeTransfersRequest()
         options.instance = self._instance

@@ -835,7 +835,7 @@ class ProcessorClient:
         alarms = getattr(message, "alarms")
         return iter([_parse_alarm(alarm) for alarm in alarms])
 
-    def set_default_calibrator(self, parameter: str, type: str, data):
+    def set_default_calibrator(self, parameter: str, type: Optional[str], data):
         """
         Apply a calibrator while processing raw values of the specified
         parameter. If there is already a default calibrator associated

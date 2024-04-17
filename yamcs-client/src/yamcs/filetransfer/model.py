@@ -1,12 +1,16 @@
 import datetime
 import threading
-from typing import TYPE_CHECKING, Any, Callable, List, Mapping, Optional
+from typing import TYPE_CHECKING, Any, Callable, Dict, List, Mapping, Optional
 
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 if TYPE_CHECKING:
-    from yamcs.filetransfer.client import ServiceClient
+    from yamcs.filetransfer.client import (
+        FileListSubscription,
+        ServiceClient,
+        TransferSubscription,
+    )
 
 
 class Service:
@@ -170,29 +174,54 @@ class Service:
             options=options,
         )
 
-    def pause_transfer(self, id: str):
+    def pause_transfer(self, id: str) -> None:
         """
         Pauses a transfer
         """
         self._service_client.pause_transfer(id)
 
-    def resume_transfer(self, id: str):
+    def resume_transfer(self, id: str) -> None:
         """
         Resume a transfer
         """
         self._service_client.resume_transfer(id)
 
-    def cancel_transfer(self, id: str):
+    def cancel_transfer(self, id: str) -> None:
         """
         Cancel a transfer
         """
         self._service_client.cancel_transfer(id)
 
+    def run_file_action(
+        self,
+        file: str,
+        action: str,
+        message: Optional[Mapping[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        """
+        Run an action on a remote file.
+
+        Available actions depend on the specific file transfer implementation that
+        is in use use.
+
+        .. versionadded:: 1.9.6
+
+        :param file:
+            Remote file identifier
+        :param action:
+            Action identifier
+        :param message:
+            Action message
+        :return:
+            Action result (if the action returns anything)
+        """
+        return self._service_client.run_file_action(file, action, message)
+
     def create_transfer_subscription(
         self,
         on_data: Optional[Callable[["Transfer"], None]] = None,
         timeout: float = 60,
-    ):
+    ) -> "TransferSubscription":
         """
         Create a new transfer subscription.
 
@@ -213,7 +242,7 @@ class Service:
         self,
         on_data: Optional[Callable[["RemoteFileListing"], None]] = None,
         timeout: float = 60,
-    ):
+    ) -> "FileListSubscription":
         """
         Create a new filelist subscription.
 
