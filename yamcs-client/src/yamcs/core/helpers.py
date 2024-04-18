@@ -54,8 +54,6 @@ def parse_server_timestring(isostring: str) -> datetime:
     The timezone uses the system-default. This can be overriden to UTC
     by setting the environment variable ``PYTHON_YAMCS_CLIENT_UTC``.
     """
-    if not isostring:
-        return None
     naive = datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
     utctime = naive.replace(tzinfo=timezone.utc)
 

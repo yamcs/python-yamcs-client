@@ -275,14 +275,14 @@ class ParameterRange:
         """
         Start time of this range (inclusive).
         """
-        return parse_server_timestring(self._proto.timeStart)
+        return parse_server_time(self._proto.start)
 
     @property
     def stop(self) -> datetime.datetime:
         """
         Stop time of this range (exclusive).
         """
-        return parse_server_timestring(self._proto.timeStop)
+        return parse_server_time(self._proto.stop)
 
     @property
     def eng_value(self) -> Optional[Any]:
