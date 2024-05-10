@@ -118,3 +118,7 @@ class Context:
             raise YamcsError(f"{response.status_code} Client Error: {msg}")
         msg = getattr(exception_message, "msg")
         raise YamcsError(f"{response.status_code} Server Error: {msg}")
+
+    def close(self):
+        """Close this context"""
+        self.session.close()

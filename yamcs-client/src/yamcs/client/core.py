@@ -214,6 +214,12 @@ class YamcsClient:
 
         return YamcsClient(url, credentials=credentials)
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.close()
+
     def get_time(self, instance) -> Optional[datetime.datetime]:
         """
         Return the current mission time for the specified instance.
@@ -735,3 +741,7 @@ class YamcsClient:
         subscription.reply(timeout=timeout)
 
         return subscription
+
+    def close(self):
+        """Close this client session"""
+        self.ctx.close()
