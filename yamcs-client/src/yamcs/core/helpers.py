@@ -4,7 +4,8 @@ import json
 import logging
 import os
 from datetime import datetime, timezone
-from typing import Any, Iterator, List, Union
+from threading import Timer
+from typing import Any, Callable, Iterator, List, Union
 from urllib.parse import urlparse
 
 import requests
@@ -359,3 +360,34 @@ class ProtoList(list):
         copy = list(repeatable)
         for item in copy:
             repeatable.remove(item)
+
+
+class FixedDelay:
+    """
+    Helper class to run a periodic action, with a fixed delay between
+    the termination of one execution, and the commencement of the next.
+    """
+
+    def __init__(self, action: Callable[[], None], period: float):
+        self._timer = None
+        self.action = action
+        self.period = period
+        self.is_running = False
+        self.start()
+
+    def start(self):
+        if not self.is_running:
+            self._timer = Timer(self.period, self._run)
+            self._timer.daemon = True
+            self._timer.start()
+            self.is_running = True
+
+    def stop(self):
+        if self._timer:
+            self._timer.cancel()
+        self.is_running = False
+
+    def _run(self):
+        self.is_running = False
+        self.start()
+        self.action()

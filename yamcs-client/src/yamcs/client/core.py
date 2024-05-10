@@ -155,6 +155,7 @@ class YamcsClient:
         tls_verify: Union[bool, str] = True,
         credentials: Optional[Credentials] = None,
         user_agent: Optional[str] = None,
+        keep_alive: bool = True,
         on_token_update: Optional[Callable[[Credentials], None]] = None,
     ):
         """
@@ -172,6 +173,13 @@ class YamcsClient:
             Credentials for when the server is secured
         :param user_agent:
             Optionally override the default user agent
+        :param keep_alive:
+            Automatically renew the client session. If disabled,
+            the session will terminate after about 30 minutes of
+            inactivity.
+
+            This property is only considered when accessing a
+            server that requires authentication.
         """
 
         # Allow server URLs.
@@ -190,6 +198,7 @@ class YamcsClient:
             user_agent=user_agent,
             on_token_update=on_token_update,
             tls_verify=tls_verify,
+            keep_alive=keep_alive,
         )
 
     @staticmethod

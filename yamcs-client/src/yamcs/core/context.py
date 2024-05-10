@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from typing import Callable, Optional, Union
 
 import requests
@@ -7,11 +8,11 @@ from yamcs import clientversion
 from yamcs.api import exception_pb2
 from yamcs.core.auth import Credentials
 from yamcs.core.exceptions import NotFound, Unauthorized, YamcsError
-from yamcs.core.helpers import do_request
+from yamcs.core.helpers import FixedDelay, do_request
 
 
 class Context:
-    credentials = None
+    credentials: Optional[Credentials] = None
 
     def __init__(
         self,
@@ -21,6 +22,7 @@ class Context:
         user_agent: Optional[str] = None,
         on_token_update: Optional[Callable[[Credentials], None]] = None,
         tls_verify: Union[bool, str] = True,
+        keep_alive: bool = True,
     ):
         if address.endswith("/"):
             self.address = address[:-1]
@@ -51,9 +53,23 @@ class Context:
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
         if credentials:
-            self.credentials = credentials.login(
+            converted_creds = credentials.login(
                 self.session, self.auth_root, on_token_update
             )
+            self.credentials = converted_creds
+
+            # An assigned refresh token lives only for about 30 minutes. We actively
+            # extend it, so that the session survives when idle.
+            if converted_creds.expiry and keep_alive:
+
+                def renew_session():
+                    expiry = converted_creds.expiry
+                    if expiry:
+                        remaining = expiry - datetime.now(tz=timezone.utc)
+                        if 0 < remaining.total_seconds() < 60:
+                            converted_creds.refresh(self.session, self.auth_root)
+
+                self._session_renewer = FixedDelay(renew_session, 10)
 
         if not user_agent:
             user_agent = "python-yamcs-client v" + clientversion.__version__
@@ -121,4 +137,8 @@ class Context:
 
     def close(self):
         """Close this context"""
+
+        if self._session_renewer:
+            self._session_renewer.stop()
+
         self.session.close()
