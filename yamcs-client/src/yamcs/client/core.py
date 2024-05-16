@@ -5,6 +5,7 @@ from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional, U
 from urllib.parse import urlparse
 
 from google.protobuf import timestamp_pb2
+from yamcs.activities.client import ActivitiesClient
 from yamcs.archive.client import ArchiveClient
 from yamcs.core.auth import APIKeyCredentials, Credentials
 from yamcs.core.context import Context
@@ -326,6 +327,15 @@ class YamcsClient:
             A Yamcs instance name.
         """
         return TimelineClient(self.ctx, instance)
+
+    def get_activities_client(self, instance: str) -> ActivitiesClient:
+        """
+        Return and object for working with activities
+
+        :param instance:
+            A Yamcs instance name.
+        """
+        return ActivitiesClient(self.ctx, instance)
 
     def create_instance(
         self,
