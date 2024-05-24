@@ -297,6 +297,21 @@ class LinkAction:
         return self._proto.checked
 
 
+class RdbTablespace:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self) -> str:
+        """Tablespace name"""
+        return self._proto.name
+
+    @property
+    def data_dir(self) -> str:
+        """Data directory"""
+        return self._proto.dataDir
+
+
 class Instance:
     def __init__(self, proto):
         self._proto = proto

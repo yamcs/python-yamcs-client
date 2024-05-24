@@ -1,6 +1,7 @@
 import datetime
 import functools
 import os
+import urllib.parse
 from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional, Union
 from urllib.parse import urlparse
 
@@ -28,10 +29,12 @@ from yamcs.model import (
     LinkEvent,
     LoadParameterValuesResult,
     Processor,
+    RdbTablespace,
     ServerInfo,
     Service,
     UserInfo,
 )
+from yamcs.protobuf.archive import rocksdb_service_pb2
 from yamcs.protobuf.auth import auth_pb2
 from yamcs.protobuf.events import events_pb2, events_service_pb2
 from yamcs.protobuf.iam import iam_pb2
@@ -520,6 +523,38 @@ class YamcsClient:
         links = getattr(message, "links")
         return iter([Link(link) for link in links])
 
+    def list_rdb_tablespaces(self) -> Iterable[RdbTablespace]:
+        """
+        Lists RocksDB tablespaces.
+        """
+        response = self.ctx.get_proto(path="/archive/rocksdb/tablespaces")
+        message = rocksdb_service_pb2.ListRocksDbTablespacesResponse()
+        message.ParseFromString(response.content)
+        tablespaces = getattr(message, "tablespaces")
+        return iter([RdbTablespace(tablespace) for tablespace in tablespaces])
+
+    def compact_rdb_column_family(
+        self,
+        tablespace: str,
+        cf: str,
+        dbpath: Optional[str] = None,
+    ):
+        """
+        Compact a RocksDB column family.
+
+        :param tablespace:
+            RocksDB tablespace name
+        :cf:
+            Column family name
+        :param dbpath:
+            Optional path under the tablespace root.
+        """
+        req = rocksdb_service_pb2.CompactDatabaseRequest()
+        req.cfname = cf
+        encoded_name = urllib.parse.quote_plus(dbpath or "")
+        url = f"/archive/rocksdb/{tablespace}/{encoded_name}:compact"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
     def send_event(
         self,
         instance: str,
@@ -540,7 +575,6 @@ class YamcsClient:
             Event message.
         :param event_type:
             Type of event.
-
         :param severity:
             The severity level of the event. One of ``info``,
             ``watch``, ``warning``, ``distress``, ``critical``
