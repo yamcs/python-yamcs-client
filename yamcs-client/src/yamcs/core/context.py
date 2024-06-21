@@ -12,7 +12,6 @@ from yamcs.core.helpers import FixedDelay, do_request
 
 
 class Context:
-    credentials: Optional[Credentials] = None
 
     def __init__(
         self,
@@ -51,6 +50,9 @@ class Context:
             except Exception:
                 # requests >= 2.16.0
                 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+        self.credentials: Optional[Credentials] = None
+        self._session_renewer = None
 
         if credentials:
             converted_creds = credentials.login(
