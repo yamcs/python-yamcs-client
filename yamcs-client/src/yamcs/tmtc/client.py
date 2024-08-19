@@ -4,7 +4,6 @@ import functools
 import threading
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional, Tuple, Union
 
-from yamcs.client.activities import ScriptActivity
 from yamcs.core.context import Context
 from yamcs.core.exceptions import YamcsError
 from yamcs.core.futures import WebSocketSubscriptionFuture
@@ -799,6 +798,11 @@ class ProcessorClient:
         :param args:
             Optional script arguments, passed verbatim in the command line.
         """
+
+        # Local import to avoid circularity while the yamcs.client
+        # package migration is going on.
+        from yamcs.client.activities import ScriptActivity
+
         url = f"/activities/{self._instance}/activities"
         activity = ScriptActivity(script=script, args=args, processor=self._processor)
         req = activity._to_proto()
