@@ -121,7 +121,7 @@ class ArchiveClient:
         response = self.ctx.get_proto(path=path)
         message = archive_pb2.ParameterGroupInfo()
         message.ParseFromString(response.content)
-        groups = getattr(message, "group")
+        groups = getattr(message, "groups")
         return iter(groups)
 
     def list_processed_parameter_group_histogram(

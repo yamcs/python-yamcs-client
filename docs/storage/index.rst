@@ -16,7 +16,7 @@ Reference
 Snippets
 --------
 
-Create a :class:`.StorageClient` for a specific instance:
+Create a :class:`.StorageClient`:
 
 .. code-block:: python
 

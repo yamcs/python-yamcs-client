@@ -247,7 +247,7 @@ class Service:
         Create a new filelist subscription.
 
         :param on_data:
-            Function that gets called with :class:`.Transfer` updates.
+            Function that gets called with :class:`.RemoteFileListing` updates.
         :param timeout:
             The amount of seconds to wait for the request to complete.
         :return:
@@ -301,6 +301,10 @@ class FileTransferCapabilities:
     @property
     def has_transfer_type(self) -> bool:
         return self._proto.has_transfer_type
+
+    @property
+    def pause_resume(self) -> bool:
+        return self._proto.pauseResume
 
     def __str__(self):
         return str(self._proto)

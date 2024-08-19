@@ -11,10 +11,9 @@ class StorageClient:
     Client for working with buckets and objects managed by Yamcs.
     """
 
-    def __init__(self, ctx: Context, instance: str = "_global"):
+    def __init__(self, ctx: Context):
         super(StorageClient, self).__init__()
         self.ctx = ctx
-        self._instance = instance
 
     def list_buckets(self) -> Iterable[Bucket]:
         """
@@ -22,7 +21,7 @@ class StorageClient:
         """
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
-        response = self.ctx.get_proto(path="/buckets/" + self._instance)
+        response = self.ctx.get_proto(path="/storage/buckets")
         message = buckets_pb2.ListBucketsResponse()
         message.ParseFromString(response.content)
         buckets = getattr(message, "buckets")
@@ -37,7 +36,7 @@ class StorageClient:
         :param create:
             If specified, create the bucket if it does not yet exist.
         """
-        url = "/buckets/" + self._instance + "/" + name
+        url = "/storage/buckets/" + name
 
         if create:
             try:
@@ -73,7 +72,7 @@ class StorageClient:
             truncated after the delimiter. Duplicates are
             omitted.
         """
-        url = f"/buckets/{self._instance}/{bucket_name}/objects"
+        url = f"/storage/buckets/{bucket_name}/objects"
         params = {}
         if prefix is not None:
             params["prefix"] = prefix
@@ -93,7 +92,7 @@ class StorageClient:
         """
         req = buckets_pb2.CreateBucketRequest()
         req.name = bucket_name
-        url = f"/buckets/{self._instance}"
+        url = f"/storage/buckets"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def remove_bucket(self, bucket_name: str):
@@ -103,7 +102,7 @@ class StorageClient:
         :param bucket_name:
             The name of the bucket.
         """
-        url = f"/buckets/{self._instance}/{bucket_name}"
+        url = f"/storage/buckets/{bucket_name}"
         self.ctx.delete_proto(url)
 
     def download_object(self, bucket_name: str, object_name: str) -> bytes:
@@ -115,7 +114,7 @@ class StorageClient:
         :param object_name:
             The object to fetch.
         """
-        url = f"/buckets/{self._instance}/{bucket_name}/objects/{object_name}"
+        url = f"/storage/buckets/{bucket_name}/objects/{object_name}"
         response = self.ctx.get_proto(path=url)
         return response.content
 
@@ -145,7 +144,7 @@ class StorageClient:
         :param metadata:
             Optional metadata associated to this object.
         """
-        url = f"/buckets/{self._instance}/{bucket_name}/objects/{object_name}"
+        url = f"/storage/buckets/{bucket_name}/objects/{object_name}"
         if content_type:
             files: Any = {object_name: (object_name, file_obj, content_type)}
         else:
@@ -164,5 +163,5 @@ class StorageClient:
         :param object_name:
             The object to remove.
         """
-        url = f"/buckets/{self._instance}/{bucket_name}/objects/{object_name}"
+        url = f"/storage/buckets/{bucket_name}/objects/{object_name}"
         self.ctx.delete_proto(url)

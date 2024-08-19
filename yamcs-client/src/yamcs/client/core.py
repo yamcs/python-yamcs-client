@@ -26,7 +26,6 @@ from yamcs.model import (
     Instance,
     InstanceTemplate,
     Link,
-    LinkEvent,
     LoadParameterValuesResult,
     Processor,
     RdbTablespace,
@@ -78,15 +77,15 @@ def _wrap_callback_parse_event(on_data, message):
 
 def _wrap_callback_parse_link_event(subscription, on_data, message):
     """
-    Wraps a user callback to parse LinkEvents
+    Wraps a user callback to parse Link[] updates
     from a WebSocket data message
     """
     pb = links_pb2.LinkEvent()
     message.Unpack(pb)
-    link_event = LinkEvent(pb)
-    subscription._process(link_event)
+    links = [Link(link_pb) for link_pb in pb.links]
+    subscription._process(links)
     if on_data:
-        on_data(link_event)
+        on_data(links)
 
 
 class TimeSubscription(WebSocketSubscriptionFuture):
@@ -133,15 +132,12 @@ class LinkSubscription(WebSocketSubscriptionFuture):
 
     def list_links(self) -> List[Link]:
         """
-        Returns a snapshot of all instance links.
+        Returns a snapshot of all links.
         """
         return [self._cache[k] for k in self._cache]
 
-    def _process(self, link_event):
-        link = link_event.link
-        if link_event.event_type == "UNREGISTERED":
-            del self._cache[link.name]
-        else:
+    def _process(self, links: List[Link]):
+        for link in links:
             self._cache[link.name] = link
 
 
@@ -544,7 +540,7 @@ class YamcsClient:
 
         :param tablespace:
             RocksDB tablespace name
-        :cf:
+        :param cf:
             Column family name
         :param dbpath:
             Optional path under the tablespace root.
@@ -669,7 +665,7 @@ class YamcsClient:
     def create_link_subscription(
         self,
         instance: str,
-        on_data: Optional[Callable[[LinkEvent], None]] = None,
+        on_data: Optional[Callable[[List[Link]], None]] = None,
         timeout: float = 60,
     ) -> LinkSubscription:
         """
@@ -681,7 +677,8 @@ class YamcsClient:
         :param instance:
             A Yamcs instance name.
         :param on_data:
-            Function that gets called with :class:`.LinkEvent` updates.
+            Function that gets called with :class:`.Link` updates. Each update
+            contains state of all links.
         :param timeout:
             The amount of seconds to wait for the request to complete.
         :return:

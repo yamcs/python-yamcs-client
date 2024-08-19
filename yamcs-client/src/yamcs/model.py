@@ -68,11 +68,11 @@ class UserInfo:
 
     @property
     def system_privileges(self) -> List[str]:
-        return [p for p in self._proto.systemPrivilege]
+        return [p for p in self._proto.systemPrivileges]
 
     @property
     def object_privileges(self) -> List["ObjectPrivilege"]:
-        return [ObjectPrivilege(p) for p in self._proto.objectPrivilege]
+        return [ObjectPrivilege(p) for p in self._proto.objectPrivileges]
 
     def __str__(self):
         return self.username
@@ -88,7 +88,7 @@ class ObjectPrivilege:
 
     @property
     def objects(self) -> List[str]:
-        return [o for o in self._proto.object]
+        return [o for o in self._proto.objects]
 
     def __str__(self):
         return self.name
@@ -173,33 +173,6 @@ class Event:
 
     def __str__(self):
         return f"{self.generation_time} [{self.severity}] {self.message}"
-
-
-class LinkEvent:
-    """
-    Data holder used in link subscriptions.
-    """
-
-    def __init__(self, proto):
-        self._proto = proto
-
-    @property
-    def event_type(self) -> str:
-        """
-        The type of the event. One of ``REGISTERED``, ``UNREGISTERED``,
-        or ``UPDATED``.
-        """
-        return links_pb2.LinkEvent.Type.Name(self._proto.type)
-
-    @property
-    def link(self) -> "Link":
-        """
-        Link state at the time of this event.
-        """
-        return Link(self._proto.linkInfo)
-
-    def __str__(self):
-        return f"[{self.event_type}] {self.link}"
 
 
 class Link:

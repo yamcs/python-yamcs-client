@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.server',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\022ServerServiceProtoP\001',
-  serialized_pb=b'\n*yamcs/protobuf/server/server_service.proto\x12\x15yamcs.protobuf.server\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"\x1e\n\x10GetThreadRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"I\n\x13ListThreadsResponse\x12\x32\n\x07threads\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.server.ThreadInfo\"F\n\x12ListRoutesResponse\x12\x30\n\x06routes\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.server.RouteInfo\"F\n\x12ListTopicsResponse\x12\x30\n\x06topics\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.server.TopicInfo\"\xa9\x01\n\x0bHttpTraffic\x12\x11\n\treadBytes\x18\x01 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x02 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x03 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\x04 \x01(\x04\x12@\n\x0b\x63onnections\x18\x05 \x03(\x0b\x32+.yamcs.protobuf.server.ClientConnectionInfo\"\xda\x01\n\tRouteInfo\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\nhttpMethod\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x11\n\tinputType\x18\x06 \x01(\t\x12\x12\n\noutputType\x18\x07 \x01(\t\x12\x12\n\ndeprecated\x18\x08 \x01(\x08\x12\x14\n\x0crequestCount\x18\t \x01(\x03\x12\x12\n\nerrorCount\x18\n \x01(\x03\x12\x11\n\tlogFormat\x18\x0b \x01(\t\"\x8b\x01\n\tTopicInfo\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x0f\n\x07service\x18\x02 \x01(\t\x12\x0e\n\x06method\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x11\n\tinputType\x18\x05 \x01(\t\x12\x12\n\noutputType\x18\x06 \x01(\t\x12\x12\n\ndeprecated\x18\x07 \x01(\x08\"_\n\x10TraceElementInfo\x12\x11\n\tclassName\x18\x01 \x01(\t\x12\x10\n\x08\x66ileName\x18\x02 \x01(\t\x12\x12\n\nmethodName\x18\x03 \x01(\t\x12\x12\n\nlineNumber\x18\x04 \x01(\x05\"#\n\x12ListThreadsRequest\x12\r\n\x05\x64\x65pth\x18\x01 \x01(\x05\"g\n\x0fThreadGroupInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x61\x65mon\x18\x02 \x01(\x08\x12\x36\n\x06parent\x18\x03 \x01(\x0b\x32&.yamcs.protobuf.server.ThreadGroupInfo\"\xc7\x01\n\nThreadInfo\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\t\x12\x0e\n\x06native\x18\x04 \x01(\x08\x12\x11\n\tsuspended\x18\x05 \x01(\x08\x12\x35\n\x05group\x18\x06 \x01(\x0b\x32&.yamcs.protobuf.server.ThreadGroupInfo\x12\x36\n\x05trace\x18\x07 \x03(\x0b\x32\'.yamcs.protobuf.server.TraceElementInfo\"\xb5\x03\n\x15GetServerInfoResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x06 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12H\n\x07plugins\x18\x05 \x03(\x0b\x32\x37.yamcs.protobuf.server.GetServerInfoResponse.PluginInfo\x12V\n\x0e\x63ommandOptions\x18\x07 \x03(\x0b\x32>.yamcs.protobuf.server.GetServerInfoResponse.CommandOptionInfo\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\x1aP\n\x11\x43ommandOptionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0bverboseName\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04help\x18\x04 \x01(\t\"\x8f\x03\n\x14\x43lientConnectionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04open\x18\x02 \x01(\x08\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x10\n\x08writable\x18\x04 \x01(\x08\x12\x15\n\rremoteAddress\x18\x05 \x01(\t\x12\x11\n\treadBytes\x18\x06 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x07 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x08 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\t \x01(\x04\x12P\n\x0bhttpRequest\x18\n \x01(\x0b\x32;.yamcs.protobuf.server.ClientConnectionInfo.HttpRequestInfo\x12\x10\n\x08username\x18\x0b \x01(\t\x1a\x66\n\x0fHttpRequestInfo\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x0b\n\x03uri\x18\x03 \x01(\t\x12\x11\n\tkeepAlive\x18\x04 \x01(\x08\x12\x11\n\tuserAgent\x18\x05 \x01(\t\"\xac\x04\n\nSystemInfo\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x02 \x01(\t\x12\x10\n\x08serverId\x18\x03 \x01(\t\x12\x0e\n\x06uptime\x18\x05 \x01(\x03\x12\x0b\n\x03jvm\x18\x06 \x01(\t\x12\x18\n\x10workingDirectory\x18\x07 \x01(\t\x12\x17\n\x0f\x63onfigDirectory\x18\x08 \x01(\t\x12\x15\n\rdataDirectory\x18\t \x01(\t\x12\x16\n\x0e\x63\x61\x63heDirectory\x18\n \x01(\t\x12\n\n\x02os\x18\x0b \x01(\t\x12\x0c\n\x04\x61rch\x18\x0c \x01(\t\x12\x1b\n\x13\x61vailableProcessors\x18\r \x01(\x05\x12\x13\n\x0bloadAverage\x18\x0e \x01(\x01\x12\x12\n\nheapMemory\x18\x0f \x01(\x03\x12\x16\n\x0eusedHeapMemory\x18\x10 \x01(\x03\x12\x15\n\rmaxHeapMemory\x18\x11 \x01(\x03\x12\x15\n\rnonHeapMemory\x18\x12 \x01(\x03\x12\x19\n\x11usedNonHeapMemory\x18\x13 \x01(\x03\x12\x18\n\x10maxNonHeapMemory\x18\x14 \x01(\x03\x12\x16\n\x0ejvmThreadCount\x18\x15 \x01(\x03\x12=\n\x0frootDirectories\x18\x16 \x03(\x0b\x32$.yamcs.protobuf.server.RootDirectory\x12\x33\n\x07process\x18\x17 \x01(\x0b\x32\".yamcs.protobuf.server.ProcessInfo\"s\n\rRootDirectory\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ntotalSpace\x18\x03 \x01(\x03\x12\x18\n\x10unallocatedSpace\x18\x04 \x01(\x03\x12\x13\n\x0busableSpace\x18\x05 \x01(\x03\"\xe6\x01\n\x0bProcessInfo\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0f\n\x07\x63ommand\x18\x03 \x01(\t\x12\x11\n\targuments\x18\x04 \x03(\t\x12-\n\tstartTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x10totalCpuDuration\x18\x06 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x34\n\x08\x63hildren\x18\x07 \x03(\x0b\x32\".yamcs.protobuf.server.ProcessInfo2\xa1\x07\n\tServerApi\x12\x61\n\rGetServerInfo\x12\x16.google.protobuf.Empty\x1a,.yamcs.protobuf.server.GetServerInfoResponse\"\n\x8a\x92\x03\x06\n\x04/api\x12^\n\rGetSystemInfo\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.server.SystemInfo\"\x12\x8a\x92\x03\x0e\n\x0c/api/sysinfo\x12\x61\n\x13SubscribeSystemInfo\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.server.SystemInfo\"\r\xda\x92\x03\t\n\x07sysinfo0\x01\x12\x62\n\nListRoutes\x12\x16.google.protobuf.Empty\x1a).yamcs.protobuf.server.ListRoutesResponse\"\x11\x8a\x92\x03\r\n\x0b/api/routes\x12\x62\n\nListTopics\x12\x16.google.protobuf.Empty\x1a).yamcs.protobuf.server.ListTopicsResponse\"\x11\x8a\x92\x03\r\n\x0b/api/topics\x12x\n\x0bListThreads\x12).yamcs.protobuf.server.ListThreadsRequest\x1a*.yamcs.protobuf.server.ListThreadsResponse\"\x12\x8a\x92\x03\x0e\n\x0c/api/threads\x12p\n\tGetThread\x12\'.yamcs.protobuf.server.GetThreadRequest\x1a!.yamcs.protobuf.server.ThreadInfo\"\x17\x8a\x92\x03\x13\n\x11/api/threads/{id}\x12S\n\x0b\x44umpThreads\x12\x16.google.protobuf.Empty\x1a\x13.yamcs.api.HttpBody\"\x17\x8a\x92\x03\x13\n\x11/api/threads:dump\x12\x65\n\x0eGetHttpTraffic\x12\x16.google.protobuf.Empty\x1a\".yamcs.protobuf.server.HttpTraffic\"\x17\x8a\x92\x03\x13\n\x11/api/http-trafficB*\n\x12org.yamcs.protobufB\x12ServerServiceProtoP\x01'
+  serialized_pb=b'\n*yamcs/protobuf/server/server_service.proto\x12\x15yamcs.protobuf.server\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"\x1e\n\x10GetThreadRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"I\n\x13ListThreadsResponse\x12\x32\n\x07threads\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.server.ThreadInfo\"F\n\x12ListRoutesResponse\x12\x30\n\x06routes\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.server.RouteInfo\"F\n\x12ListTopicsResponse\x12\x30\n\x06topics\x18\x01 \x03(\x0b\x32 .yamcs.protobuf.server.TopicInfo\"\xa9\x01\n\x0bHttpTraffic\x12\x11\n\treadBytes\x18\x01 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x02 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x03 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\x04 \x01(\x04\x12@\n\x0b\x63onnections\x18\x05 \x03(\x0b\x32+.yamcs.protobuf.server.ClientConnectionInfo\"\xda\x01\n\tRouteInfo\x12\x0f\n\x07service\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x12\n\nhttpMethod\x18\x04 \x01(\t\x12\x0b\n\x03url\x18\x05 \x01(\t\x12\x11\n\tinputType\x18\x06 \x01(\t\x12\x12\n\noutputType\x18\x07 \x01(\t\x12\x12\n\ndeprecated\x18\x08 \x01(\x08\x12\x14\n\x0crequestCount\x18\t \x01(\x03\x12\x12\n\nerrorCount\x18\n \x01(\x03\x12\x11\n\tlogFormat\x18\x0b \x01(\t\"\x8b\x01\n\tTopicInfo\x12\r\n\x05topic\x18\x01 \x01(\t\x12\x0f\n\x07service\x18\x02 \x01(\t\x12\x0e\n\x06method\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x11\n\tinputType\x18\x05 \x01(\t\x12\x12\n\noutputType\x18\x06 \x01(\t\x12\x12\n\ndeprecated\x18\x07 \x01(\x08\"_\n\x10TraceElementInfo\x12\x11\n\tclassName\x18\x01 \x01(\t\x12\x10\n\x08\x66ileName\x18\x02 \x01(\t\x12\x12\n\nmethodName\x18\x03 \x01(\t\x12\x12\n\nlineNumber\x18\x04 \x01(\x05\"#\n\x12ListThreadsRequest\x12\r\n\x05\x64\x65pth\x18\x01 \x01(\x05\"W\n\x0fThreadGroupInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x36\n\x06parent\x18\x03 \x01(\x0b\x32&.yamcs.protobuf.server.ThreadGroupInfo\"\xc7\x01\n\nThreadInfo\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05state\x18\x03 \x01(\t\x12\x0e\n\x06native\x18\x04 \x01(\x08\x12\x11\n\tsuspended\x18\x05 \x01(\x08\x12\x35\n\x05group\x18\x06 \x01(\x0b\x32&.yamcs.protobuf.server.ThreadGroupInfo\x12\x36\n\x05trace\x18\x07 \x03(\x0b\x32\'.yamcs.protobuf.server.TraceElementInfo\"\xb5\x03\n\x15GetServerInfoResponse\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x06 \x01(\t\x12\x10\n\x08serverId\x18\x02 \x01(\t\x12\x1c\n\x14\x64\x65\x66\x61ultYamcsInstance\x18\x03 \x01(\t\x12H\n\x07plugins\x18\x05 \x03(\x0b\x32\x37.yamcs.protobuf.server.GetServerInfoResponse.PluginInfo\x12V\n\x0e\x63ommandOptions\x18\x07 \x03(\x0b\x32>.yamcs.protobuf.server.GetServerInfoResponse.CommandOptionInfo\x1aP\n\nPluginInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12\x0e\n\x06vendor\x18\x04 \x01(\t\x1aP\n\x11\x43ommandOptionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x13\n\x0bverboseName\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0c\n\x04help\x18\x04 \x01(\t\"\x8f\x03\n\x14\x43lientConnectionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04open\x18\x02 \x01(\x08\x12\x0e\n\x06\x61\x63tive\x18\x03 \x01(\x08\x12\x10\n\x08writable\x18\x04 \x01(\x08\x12\x15\n\rremoteAddress\x18\x05 \x01(\t\x12\x11\n\treadBytes\x18\x06 \x01(\x04\x12\x14\n\x0cwrittenBytes\x18\x07 \x01(\x04\x12\x16\n\x0ereadThroughput\x18\x08 \x01(\x04\x12\x17\n\x0fwriteThroughput\x18\t \x01(\x04\x12P\n\x0bhttpRequest\x18\n \x01(\x0b\x32;.yamcs.protobuf.server.ClientConnectionInfo.HttpRequestInfo\x12\x10\n\x08username\x18\x0b \x01(\t\x1a\x66\n\x0fHttpRequestInfo\x12\x10\n\x08protocol\x18\x01 \x01(\t\x12\x0e\n\x06method\x18\x02 \x01(\t\x12\x0b\n\x03uri\x18\x03 \x01(\t\x12\x11\n\tkeepAlive\x18\x04 \x01(\x08\x12\x11\n\tuserAgent\x18\x05 \x01(\t\"\xac\x04\n\nSystemInfo\x12\x14\n\x0cyamcsVersion\x18\x01 \x01(\t\x12\x10\n\x08revision\x18\x02 \x01(\t\x12\x10\n\x08serverId\x18\x03 \x01(\t\x12\x0e\n\x06uptime\x18\x05 \x01(\x03\x12\x0b\n\x03jvm\x18\x06 \x01(\t\x12\x18\n\x10workingDirectory\x18\x07 \x01(\t\x12\x17\n\x0f\x63onfigDirectory\x18\x08 \x01(\t\x12\x15\n\rdataDirectory\x18\t \x01(\t\x12\x16\n\x0e\x63\x61\x63heDirectory\x18\n \x01(\t\x12\n\n\x02os\x18\x0b \x01(\t\x12\x0c\n\x04\x61rch\x18\x0c \x01(\t\x12\x1b\n\x13\x61vailableProcessors\x18\r \x01(\x05\x12\x13\n\x0bloadAverage\x18\x0e \x01(\x01\x12\x12\n\nheapMemory\x18\x0f \x01(\x03\x12\x16\n\x0eusedHeapMemory\x18\x10 \x01(\x03\x12\x15\n\rmaxHeapMemory\x18\x11 \x01(\x03\x12\x15\n\rnonHeapMemory\x18\x12 \x01(\x03\x12\x19\n\x11usedNonHeapMemory\x18\x13 \x01(\x03\x12\x18\n\x10maxNonHeapMemory\x18\x14 \x01(\x03\x12\x16\n\x0ejvmThreadCount\x18\x15 \x01(\x03\x12=\n\x0frootDirectories\x18\x16 \x03(\x0b\x32$.yamcs.protobuf.server.RootDirectory\x12\x33\n\x07process\x18\x17 \x01(\x0b\x32\".yamcs.protobuf.server.ProcessInfo\"s\n\rRootDirectory\x12\x11\n\tdirectory\x18\x01 \x01(\t\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x12\n\ntotalSpace\x18\x03 \x01(\x03\x12\x18\n\x10unallocatedSpace\x18\x04 \x01(\x03\x12\x13\n\x0busableSpace\x18\x05 \x01(\x03\"\xe6\x01\n\x0bProcessInfo\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0f\n\x07\x63ommand\x18\x03 \x01(\t\x12\x11\n\targuments\x18\x04 \x03(\t\x12-\n\tstartTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x33\n\x10totalCpuDuration\x18\x06 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x34\n\x08\x63hildren\x18\x07 \x03(\x0b\x32\".yamcs.protobuf.server.ProcessInfo2\x8b\x08\n\tServerApi\x12\x61\n\rGetServerInfo\x12\x16.google.protobuf.Empty\x1a,.yamcs.protobuf.server.GetServerInfoResponse\"\n\x8a\x92\x03\x06\n\x04/api\x12^\n\rGetSystemInfo\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.server.SystemInfo\"\x12\x8a\x92\x03\x0e\n\x0c/api/sysinfo\x12\x61\n\x13SubscribeSystemInfo\x12\x16.google.protobuf.Empty\x1a!.yamcs.protobuf.server.SystemInfo\"\r\xda\x92\x03\t\n\x07sysinfo0\x01\x12\x62\n\nListRoutes\x12\x16.google.protobuf.Empty\x1a).yamcs.protobuf.server.ListRoutesResponse\"\x11\x8a\x92\x03\r\n\x0b/api/routes\x12\x62\n\nListTopics\x12\x16.google.protobuf.Empty\x1a).yamcs.protobuf.server.ListTopicsResponse\"\x11\x8a\x92\x03\r\n\x0b/api/topics\x12x\n\x0bListThreads\x12).yamcs.protobuf.server.ListThreadsRequest\x1a*.yamcs.protobuf.server.ListThreadsResponse\"\x12\x8a\x92\x03\x0e\n\x0c/api/threads\x12p\n\tGetThread\x12\'.yamcs.protobuf.server.GetThreadRequest\x1a!.yamcs.protobuf.server.ThreadInfo\"\x17\x8a\x92\x03\x13\n\x11/api/threads/{id}\x12S\n\x0b\x44umpThreads\x12\x16.google.protobuf.Empty\x1a\x13.yamcs.api.HttpBody\"\x17\x8a\x92\x03\x13\n\x11/api/threads:dump\x12\x65\n\x0eGetHttpTraffic\x12\x16.google.protobuf.Empty\x1a\".yamcs.protobuf.server.HttpTraffic\"\x17\x8a\x92\x03\x13\n\x11/api/http-traffic\x12h\n\x14SubscribeHttpTraffic\x12\x16.google.protobuf.Empty\x1a\".yamcs.protobuf.server.HttpTraffic\"\x12\xda\x92\x03\x0e\n\x0chttp-traffic0\x01\x42*\n\x12org.yamcs.protobufB\x12ServerServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,])
 
@@ -485,14 +485,7 @@ _THREADGROUPINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='daemon', full_name='yamcs.protobuf.server.ThreadGroupInfo.daemon', index=1,
-      number=2, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='parent', full_name='yamcs.protobuf.server.ThreadGroupInfo.parent', index=2,
+      name='parent', full_name='yamcs.protobuf.server.ThreadGroupInfo.parent', index=1,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -511,7 +504,7 @@ _THREADGROUPINFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=1138,
-  serialized_end=1241,
+  serialized_end=1225,
 )
 
 
@@ -583,8 +576,8 @@ _THREADINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1244,
-  serialized_end=1443,
+  serialized_start=1228,
+  serialized_end=1427,
 )
 
 
@@ -635,8 +628,8 @@ _GETSERVERINFORESPONSE_PLUGININFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1721,
-  serialized_end=1801,
+  serialized_start=1705,
+  serialized_end=1785,
 )
 
 _GETSERVERINFORESPONSE_COMMANDOPTIONINFO = _descriptor.Descriptor(
@@ -686,8 +679,8 @@ _GETSERVERINFORESPONSE_COMMANDOPTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1803,
-  serialized_end=1883,
+  serialized_start=1787,
+  serialized_end=1867,
 )
 
 _GETSERVERINFORESPONSE = _descriptor.Descriptor(
@@ -751,8 +744,8 @@ _GETSERVERINFORESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1446,
-  serialized_end=1883,
+  serialized_start=1430,
+  serialized_end=1867,
 )
 
 
@@ -810,8 +803,8 @@ _CLIENTCONNECTIONINFO_HTTPREQUESTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2183,
-  serialized_end=2285,
+  serialized_start=2167,
+  serialized_end=2269,
 )
 
 _CLIENTCONNECTIONINFO = _descriptor.Descriptor(
@@ -910,8 +903,8 @@ _CLIENTCONNECTIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1886,
-  serialized_end=2285,
+  serialized_start=1870,
+  serialized_end=2269,
 )
 
 
@@ -1088,8 +1081,8 @@ _SYSTEMINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2288,
-  serialized_end=2844,
+  serialized_start=2272,
+  serialized_end=2828,
 )
 
 
@@ -1147,8 +1140,8 @@ _ROOTDIRECTORY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2846,
-  serialized_end=2961,
+  serialized_start=2830,
+  serialized_end=2945,
 )
 
 
@@ -1220,8 +1213,8 @@ _PROCESSINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2964,
-  serialized_end=3194,
+  serialized_start=2948,
+  serialized_end=3178,
 )
 
 _LISTTHREADSRESPONSE.fields_by_name['threads'].message_type = _THREADINFO
@@ -1405,8 +1398,8 @@ _SERVERAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=3197,
-  serialized_end=4126,
+  serialized_start=3181,
+  serialized_end=4216,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetServerInfo',
@@ -1488,6 +1481,15 @@ _SERVERAPI = _descriptor.ServiceDescriptor(
     input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     output_type=_HTTPTRAFFIC,
     serialized_options=b'\212\222\003\023\n\021/api/http-traffic',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeHttpTraffic',
+    full_name='yamcs.protobuf.server.ServerApi.SubscribeHttpTraffic',
+    index=9,
+    containing_service=None,
+    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    output_type=_HTTPTRAFFIC,
+    serialized_options=b'\332\222\003\016\n\014http-traffic',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_SERVERAPI)
