@@ -105,6 +105,60 @@ class Command(MissionDatabaseItem):
             return Significance(self._proto.significance)
         return None
 
+    @property
+    def arguments(self) -> List["Argument"]:
+        return [Argument(pb) for pb in self._proto.argument]
+
+
+class Argument:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self) -> str:
+        """Argument name"""
+        return self._proto.name
+
+    @property
+    def description(self) -> Optional[str]:
+        """Short description"""
+        if self._proto.HasField("description"):
+            return self._proto.description
+        return None
+
+    @property
+    def initial_value(self) -> Optional[str]:
+        """Initial value"""
+        if self._proto.HasField("initialValue"):
+            return self._proto.initialValue
+        return None
+
+    @property
+    def type(self) -> "ArgumentType":
+        """Argument type information"""
+        return ArgumentType(self._proto.type)
+
+    def __str__(self):
+        return self.name
+
+
+class ArgumentType:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def name(self) -> str:
+        """Type name"""
+        return self._proto.name
+
+    @property
+    def eng_type(self) -> str:
+        """Engineering type"""
+        return self._proto.engType
+
+    def __str__(self):
+        return self.name
+
 
 class Container(MissionDatabaseItem):
     def __init__(self, proto):
