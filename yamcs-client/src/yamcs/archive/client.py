@@ -507,6 +507,34 @@ class ArchiveClient:
         response = self.ctx.get_proto(path=path, params=params, stream=True)
         return response.iter_content(chunk_size=chunk_size)
 
+    def export_commands(
+        self,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        chunk_size: int = 32 * 1024,
+    ) -> Iterable:
+        """
+        Export command history.
+
+        Commands are sorted by generation time, origin and sequence number.
+
+        :param start:
+            Minimum generation time of the returned commands (inclusive)
+        :param stop:
+            Maximum generation time of the returned commands (exclusive)
+        :return:
+            An iterator over received chunks
+        """
+        params = {}
+        if start is not None:
+            params["start"] = to_isostring(start)
+        if stop is not None:
+            params["stop"] = to_isostring(stop)
+
+        path = f"/archive/{self._instance}:exportCommands"
+        response = self.ctx.get_proto(path=path, params=params, stream=True)
+        return response.iter_content(chunk_size=chunk_size)
+
     def export_packets(
         self,
         name: Optional[str] = None,
