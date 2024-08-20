@@ -92,7 +92,7 @@ class StorageClient:
         """
         req = buckets_pb2.CreateBucketRequest()
         req.name = bucket_name
-        url = f"/storage/buckets"
+        url = "/storage/buckets"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def remove_bucket(self, bucket_name: str):

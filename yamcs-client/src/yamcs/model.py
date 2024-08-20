@@ -4,7 +4,6 @@ from typing import Any, Dict, List, Optional
 from yamcs.core.helpers import parse_server_time
 from yamcs.protobuf.events import events_pb2
 from yamcs.protobuf.instances import instances_pb2
-from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.services import services_pb2
 
 

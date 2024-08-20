@@ -1,5 +1,4 @@
 import abc
-import warnings
 from typing import Dict, List, Optional, Tuple
 
 from yamcs.protobuf.mdb import mdb_pb2
@@ -31,32 +30,19 @@ class MissionDatabaseItem(abc.ABC):
         return self._proto.qualifiedName
 
     @property
-    def aliases(self) -> List[Tuple[str, str]]:
-        """
-        List of (namespace, name) pairs, as 2-tuples
-
-        .. deprecated:: 1.9.2
-            Use :attr:`aliases_dict` instead, which returns a dictionary instead of
-            a list of 2-tuples.
-
-            In a future release, the ``aliases`` property will be changed to match the
-            return type of :attr:`aliases_dict`.
-        """
-        warnings.warn(
-            "Use 'aliases_dict' instead of 'aliases'. This returns "
-            "a dictionary instead of a list of 2-tuples. In a future release, "
-            "the 'aliases' property will be changed to match the return type "
-            "of 'aliases_dict'.",
-            category=FutureWarning,
-        )
-        return list(
-            {alias.namespace: alias.name for alias in self._proto.alias}.items()
-        )
+    def aliases(self) -> Dict[str, str]:
+        """Aliases, keyed by namespace"""
+        return {alias.namespace: alias.name for alias in self._proto.alias}
 
     @property
     def aliases_dict(self) -> Dict[str, str]:
-        """Aliases, keyed by namespace"""
-        return {alias.namespace: alias.name for alias in self._proto.alias}
+        """
+        Aliases, keyed by namespace
+
+        This method shall be deprecated in a future release. Use
+        :attr:`aliases` instead.
+        """
+        return self.aliases
 
     @property
     def description(self) -> Optional[str]:
