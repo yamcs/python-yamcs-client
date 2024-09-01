@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field
+from dataclasses import KW_ONLY, dataclass, field
 from typing import Any, List, Mapping, Optional, Union
 
 from yamcs.core.helpers import to_argument_value
@@ -15,6 +15,23 @@ class Activity:
     * :class:`.ManualActivity`
     * :class:`.ScriptActivity`
     """
+
+    _: KW_ONLY
+    comment: Optional[str] = None
+
+    def _from_proto(self, proto: activities_pb2.ActivityDefinitionInfo):
+        if proto.HasField("comment"):
+            self.comment = proto.comment
+
+        return self
+
+    def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
+        proto = activities_pb2.ActivityDefinitionInfo()
+
+        if self.comment:
+            proto.comment = self.comment
+
+        return proto
 
     @staticmethod
     def _as_subclass(proto):
@@ -36,6 +53,23 @@ class ManualActivity(Activity):
     """
     An activity whose execution status is managed outside of Yamcs
     """
+
+    name: str
+    """
+    Name of the manual activity
+    """
+
+    @staticmethod
+    def _from_proto(proto: activities_pb2.ActivityDefinitionInfo):
+        activity = ManualActivity(name=proto.args["name"])
+
+        return super(ManualActivity, activity)._from_proto(proto)
+
+    def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
+        proto = super(ManualActivity, self)._to_proto()
+        proto.type = "MANUAL"
+        proto.args["name"] = self.name
+        return proto
 
 
 @dataclass
@@ -75,10 +109,10 @@ class ScriptActivity(Activity):
         if "processor" in proto.args:
             activity.processor = proto.args["processor"]
 
-        return activity
+        return super(ScriptActivity, activity)._from_proto(proto)
 
     def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
-        proto = activities_pb2.ActivityDefinitionInfo()
+        proto = super(ScriptActivity, self)._to_proto()
         proto.type = "SCRIPT"
         proto.args["script"] = self.script
 
@@ -127,10 +161,10 @@ class CommandActivity(Activity):
         if "processor" in proto.args:
             activity.processor = proto.args["processor"]
 
-        return activity
+        return super(CommandActivity, activity)._from_proto(proto)
 
     def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
-        proto = activities_pb2.ActivityDefinitionInfo()
+        proto = super(CommandActivity, self)._to_proto()
         proto.type = "COMMAND"
         proto.args["command"] = self.command
 
@@ -176,10 +210,10 @@ class CommandStackActivity(Activity):
         if "processor" in proto.args:
             activity.processor = proto.args["processor"]
 
-        return activity
+        return super(CommandStackActivity, activity)._from_proto(proto)
 
     def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
-        proto = activities_pb2.ActivityDefinitionInfo()
+        proto = super(CommandStackActivity, self)._to_proto()
         proto.type = "COMMAND_STACK"
         proto.args["bucket"] = self.bucket
         proto.args["stack"] = self.stack

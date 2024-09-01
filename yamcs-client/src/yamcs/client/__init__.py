@@ -1,4 +1,6 @@
 from yamcs import clientversion  # noqa
+from yamcs.activities.client import * # noqa
+from yamcs.activities.model import * # noqa
 from yamcs.archive.client import *  # noqa
 from yamcs.archive.model import *  # noqa
 from yamcs.client.activities import *  # noqa
