@@ -71,7 +71,7 @@ class Context:
                         if 0 < remaining.total_seconds() < 60:
                             converted_creds.refresh(self.session, self.auth_root)
 
-                self._session_renewer = FixedDelay(renew_session, 10)
+                self._session_renewer = FixedDelay(renew_session, 10, 10)
 
         if not user_agent:
             user_agent = "python-yamcs-client v" + clientversion.__version__

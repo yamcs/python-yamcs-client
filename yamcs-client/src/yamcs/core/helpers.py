@@ -368,16 +368,21 @@ class FixedDelay:
     the termination of one execution, and the commencement of the next.
     """
 
-    def __init__(self, action: Callable[[], None], period: float):
+    def __init__(
+        self,
+        action: Callable[[], None],
+        initial_delay: float,
+        period: float,
+    ):
         self._timer = None
         self.action = action
         self.period = period
         self.is_running = False
-        self.start()
+        self.start(initial_delay)
 
-    def start(self):
+    def start(self, period):
         if not self.is_running:
-            self._timer = Timer(self.period, self._run)
+            self._timer = Timer(period, self._run)
             self._timer.daemon = True
             self._timer.start()
             self.is_running = True
@@ -389,5 +394,5 @@ class FixedDelay:
 
     def _run(self):
         self.is_running = False
-        self.start()
+        self.start(self.period)
         self.action()
