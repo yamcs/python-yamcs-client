@@ -55,7 +55,12 @@ def parse_server_timestring(isostring: str) -> datetime:
     The timezone uses the system-default. This can be overriden to UTC
     by setting the environment variable ``PYTHON_YAMCS_CLIENT_UTC``.
     """
-    naive = datetime.strptime(isostring.replace("Z", "GMT"), "%Y-%m-%dT%H:%M:%S.%f%Z")
+    isostring = isostring.replace("Z", "GMT")
+    try:
+        naive = datetime.strptime(isostring, "%Y-%m-%dT%H:%M:%S.%f%Z")
+    except ValueError:
+        # Protobuf's ToJsonString does not emit fractional digits if 0
+        naive = datetime.strptime(isostring, "%Y-%m-%dT%H:%M:%S%Z")
     utctime = naive.replace(tzinfo=timezone.utc)
 
     if os.environ.get("PYTHON_YAMCS_CLIENT_UTC") not in (None, "0"):
