@@ -7,8 +7,15 @@ from yamcs.core.context import Context
 from yamcs.core.exceptions import NotFound
 from yamcs.core.futures import WebSocketSubscriptionFuture
 from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.filetransfer.model import RemoteFileListing, Service, Transfer
+from yamcs.filetransfer.model import FileTransferService, RemoteFileListing, Transfer
 from yamcs.protobuf.filetransfer import filetransfer_pb2
+
+__all__ = [
+    "FileListSubscription",
+    "FileTransferClient",
+    "FileTransferServiceClient",
+    "TransferSubscription",
+]
 
 
 def _wrap_callback_parse_transfer_data(subscription, on_data, message):
@@ -43,7 +50,7 @@ class TransferSubscription(WebSocketSubscriptionFuture):
     each transfer.
     """
 
-    def __init__(self, manager, service_client: "ServiceClient"):
+    def __init__(self, manager, service_client: "FileTransferServiceClient"):
         super(TransferSubscription, self).__init__(manager)
         self.service_client = service_client
         self._cache = {}
@@ -132,7 +139,7 @@ class FileTransferClient:
         self._instance = instance
         self._default_service = None
 
-    def list_services(self) -> Iterable[Service]:
+    def list_services(self) -> Iterable[FileTransferService]:
         """
         List the services.
         """
@@ -144,11 +151,11 @@ class FileTransferClient:
         services = getattr(message, "services")
         result = []
         for proto in services:
-            service_client = ServiceClient(self.ctx, proto)
-            result.append(Service(proto, service_client))
+            service_client = FileTransferServiceClient(self.ctx, proto)
+            result.append(FileTransferService(proto, service_client))
         return iter(result)
 
-    def get_service(self, name: str) -> Service:
+    def get_service(self, name: str) -> FileTransferService:
         """
         Get a specific File Transfer service.
 
@@ -162,7 +169,7 @@ class FileTransferClient:
         raise NotFound()
 
 
-class ServiceClient:
+class FileTransferServiceClient:
     def __init__(self, ctx: Context, proto):
         self.ctx = ctx
         self._instance = proto.instance
@@ -344,3 +351,10 @@ class ServiceClient:
         subscription.reply(timeout=timeout)
 
         return subscription
+
+
+ServiceClient = FileTransferServiceClient
+"""
+Temporary backwards compatibility.
+Prefer to use the class 'FileTransferServiceService'.
+"""

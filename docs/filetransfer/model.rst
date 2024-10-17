@@ -27,7 +27,7 @@ Model
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.client.Service
+.. autoclass:: yamcs.client.FileTransferService
     :members:
     :undoc-members:
     :show-inheritance:

@@ -11,6 +11,11 @@ Model
     :undoc-members:
     :show-inheritance:
 
+.. autoclass:: yamcs.client.AlarmRangeSet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 .. autoclass:: yamcs.client.AlarmUpdate
     :members:
     :undoc-members:
@@ -62,11 +67,6 @@ Model
     :show-inheritance:
 
 .. autoclass:: yamcs.client.ParameterValue
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. autoclass:: yamcs.client.RangeSet
     :members:
     :undoc-members:
     :show-inheritance:

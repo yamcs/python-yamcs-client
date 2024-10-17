@@ -10,6 +10,25 @@ from yamcs.model import Event
 from yamcs.protobuf.alarms import alarms_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 
+__all__ = [
+    "Acknowledgment",
+    "Alarm",
+    "AlarmRangeSet",
+    "AlarmUpdate",
+    "Calibrator",
+    "CommandHistory",
+    "ContainerData",
+    "EventAlarm",
+    "IssuedCommand",
+    "MonitoredCommand",
+    "Packet",
+    "ParameterAlarm",
+    "ParameterData",
+    "ParameterValue",
+    "ValueUpdate",
+    "VerificationConfig",
+]
+
 
 def _parse_alarm(proto):
     """Converts a protobuf alarm to a specific Alarm implementation."""
@@ -1094,9 +1113,9 @@ class Packet:
         return f"{self.generation_time} #{self.sequence_number} ({self.name})"
 
 
-class RangeSet:
+class AlarmRangeSet:
     """
-    A set of alarm range that apply in a specific context.
+    A set of alarm ranges that apply in a specific context.
     """
 
     def __init__(
@@ -1141,6 +1160,13 @@ class RangeSet:
         self.critical = critical
         self.severe = severe
         self.min_violations = min_violations
+
+
+RangeSet = AlarmRangeSet
+"""
+Temporary backwards compatibility.
+Prefer to use the class 'AlarmRangeSet'.
+"""
 
 
 class ValueUpdate:

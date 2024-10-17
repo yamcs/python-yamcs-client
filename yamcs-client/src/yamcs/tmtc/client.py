@@ -25,6 +25,7 @@ from yamcs.protobuf.processing import mdb_override_service_pb2, processing_pb2
 from yamcs.protobuf.pvalue import pvalue_pb2
 from yamcs.tmtc.model import (
     Alarm,
+    AlarmRangeSet,
     AlarmUpdate,
     Calibrator,
     CommandHistory,
@@ -34,11 +35,19 @@ from yamcs.tmtc.model import (
     Packet,
     ParameterData,
     ParameterValue,
-    RangeSet,
     ValueUpdate,
     VerificationConfig,
     _parse_alarm,
 )
+
+__all__ = [
+    "AlarmSubscription",
+    "CommandConnection",
+    "CommandHistorySubscription",
+    "ContainerSubscription",
+    "ParameterSubscription",
+    "ProcessorClient",
+]
 
 
 class SequenceGenerator:
@@ -994,19 +1003,19 @@ class ProcessorClient:
         url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
-    def set_alarm_range_sets(self, parameter: str, sets: List[RangeSet]):
+    def set_alarm_range_sets(self, parameter: str, sets: List[AlarmRangeSet]):
         """
-        Apply an ordered list of alarm range sets for the specified parameter.
-        This replaces existing alarm sets (if any).
+        Apply an ordered list of alarm range sets for the specified
+        parameter. This replaces existing alarm sets (if any).
 
-        Each RangeSet may have a context, which indicates when
+        Each AlarmRangeSet may have a context, which indicates when
         its effects may be applied. Only the first matching set is
         applied.
 
-        A RangeSet with context ``None`` represents the *default* set of
-        alarm ranges.  There can be only one such set, and it is always
-        applied at the end when no other set of contextual ranges is
-        applicable.
+        An AlarmRangeSet with context ``None`` represents the *default*
+        set of alarm ranges.  There can be only one such set, and it is
+        always applied at the end when no other set of contextual ranges
+        is applicable.
 
         :param parameter:
             Either a fully-qualified XTCE name or an alias in the format

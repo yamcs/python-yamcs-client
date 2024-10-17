@@ -30,11 +30,12 @@ from yamcs.tmtc.model import *  # noqa
 """
 Migration in process:
 
-All files should eventually be available from within yamcs.client package,
+All files should eventually move into yamcs.client package,
 following a lengthy deprecation process.
 
 (excluding protobuf classes, which we could move elsewhere).
 
-As a first step, we make everything directly available from yamcs.client.
-(next step will be to update the examples)
+As of Today, all classes can be directly imported from
+yamcs.client. (next step will be to start moving some
+files -- while preserving old names)
 """

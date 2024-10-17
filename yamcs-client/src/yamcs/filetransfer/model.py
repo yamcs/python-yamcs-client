@@ -8,13 +8,23 @@ from yamcs.protobuf.filetransfer import filetransfer_pb2
 if TYPE_CHECKING:
     from yamcs.filetransfer.client import (
         FileListSubscription,
-        ServiceClient,
+        FileTransferServiceClient,
         TransferSubscription,
     )
 
+__all__ = [
+    "EntityInfo",
+    "FileTransferCapabilities",
+    "FileTransferOption",
+    "FileTransferService",
+    "RemoteFile",
+    "RemoteFileListing",
+    "Transfer",
+]
 
-class Service:
-    def __init__(self, proto, service_client: "ServiceClient"):
+
+class FileTransferService:
+    def __init__(self, proto, service_client: "FileTransferServiceClient"):
         self._proto = proto
         self._service_client = service_client
         self._local_entities = [EntityInfo(entity) for entity in proto.localEntities]
@@ -261,6 +271,13 @@ class Service:
 
     def __str__(self):
         return self.name
+
+
+Service = FileTransferService
+"""
+Temporary backwards compatibility.
+Prefer to use the class 'FileTransferService'.
+"""
 
 
 class EntityInfo:

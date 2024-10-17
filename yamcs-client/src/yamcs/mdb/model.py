@@ -459,20 +459,20 @@ class SpaceSystem(MissionDatabaseItem):
 
 class RangeSet:
     """
-    A set of alarm range that apply in a specific context.
+    A set of alarm ranges that apply in a specific context.
     """
 
-    # This is the same as yamcs.tmtc.model.RangeSet, but
+    # This is the same as yamcs.tmtc.model.AlarmRangeSet, but
     # with the 'context' removed. Eventually, we probably
     # want to change the tmtc one to use this class too.
 
     def __init__(
         self,
-        watch: Optional[Tuple[float, float]] = None,
-        warning: Optional[Tuple[float, float]] = None,
-        distress: Optional[Tuple[float, float]] = None,
-        critical: Optional[Tuple[float, float]] = None,
-        severe: Optional[Tuple[float, float]] = None,
+        watch: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        warning: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        distress: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        critical: Optional[Tuple[Optional[float], Optional[float]]] = None,
+        severe: Optional[Tuple[Optional[float], Optional[float]]] = None,
         min_violations: int = 1,
     ):
         """

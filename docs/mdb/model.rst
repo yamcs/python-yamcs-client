@@ -61,7 +61,7 @@ Model
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.mdb.model.RangeSet
+.. autoclass:: yamcs.client.RangeSet
     :members:
     :undoc-members:
     :show-inheritance:
