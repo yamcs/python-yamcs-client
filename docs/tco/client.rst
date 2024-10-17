@@ -1,6 +1,6 @@
 Client
 ------
 
-.. autoclass:: yamcs.tco.client.TCOClient
+.. autoclass:: yamcs.client.TCOClient
     :members:
     :undoc-members:

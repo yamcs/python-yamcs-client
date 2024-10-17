@@ -1,6 +1,6 @@
 Client
 ------
 
-.. autoclass:: yamcs.timeline.TimelineClient
+.. autoclass:: yamcs.client.TimelineClient
     :members:
     :undoc-members:

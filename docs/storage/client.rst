@@ -1,6 +1,6 @@
 Client
 ------
 
-.. autoclass:: yamcs.storage.StorageClient
+.. autoclass:: yamcs.client.StorageClient
     :members:
     :undoc-members:

@@ -14,11 +14,11 @@ Client
         link = client.get_link(instance='simulator', link='udp-in')
         # ...
 
-.. autoclass:: yamcs.link.client.LinkClient
+.. autoclass:: yamcs.client.LinkClient
     :members:
     :undoc-members:
 
-.. autoclass:: yamcs.link.client.Cop1Subscription
+.. autoclass:: yamcs.client.Cop1Subscription
     :members:
     :undoc-members:
     :show-inheritance:

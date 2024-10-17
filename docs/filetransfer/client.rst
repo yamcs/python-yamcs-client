@@ -1,6 +1,6 @@
 Client
 ------
 
-.. autoclass:: yamcs.filetransfer.FileTransferClient
+.. autoclass:: yamcs.client.FileTransferClient
     :members:
     :undoc-members:

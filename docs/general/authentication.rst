@@ -36,7 +36,17 @@ accounts will be available in future releases.
 Types
 -----
 
-.. automodule:: yamcs.core.auth
+.. autoclass:: yamcs.client.APIKeyCredentials
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: yamcs.client.BasicAuthCredentials
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: yamcs.client.Credentials
     :members:
     :undoc-members:
     :show-inheritance:

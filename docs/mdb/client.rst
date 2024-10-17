@@ -13,6 +13,6 @@ Client
         mdb = client.get_mdb(instance='simulator')
         # ...
 
-.. autoclass:: yamcs.mdb.client.MDBClient
+.. autoclass:: yamcs.client.MDBClient
     :members:
     :undoc-members:

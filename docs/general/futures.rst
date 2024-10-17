@@ -1,7 +1,7 @@
 Futures
 =======
 
-.. automodule:: yamcs.core.futures
+.. autoclass:: yamcs.client.WebSocketSubscriptionFuture
     :members:
     :undoc-members:
     :show-inheritance:

@@ -15,31 +15,31 @@ Client
                                          processor='realtime')
         # ...
 
-.. autoclass:: yamcs.tmtc.client.ProcessorClient
+.. autoclass:: yamcs.client.ProcessorClient
     :members:
     :undoc-members:
 
-.. autoclass:: yamcs.tmtc.client.CommandConnection
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. autoclass:: yamcs.tmtc.client.AlarmSubscription
+.. autoclass:: yamcs.client.CommandConnection
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.tmtc.client.CommandHistorySubscription
+.. autoclass:: yamcs.client.AlarmSubscription
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.tmtc.client.ContainerSubscription
+.. autoclass:: yamcs.client.CommandHistorySubscription
     :members:
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.tmtc.client.ParameterSubscription
+.. autoclass:: yamcs.client.ContainerSubscription
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: yamcs.client.ParameterSubscription
     :members:
     :undoc-members:
     :show-inheritance:

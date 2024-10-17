@@ -14,6 +14,6 @@ Client
         archive = client.get_archive(instance='simulator')
         # ...
 
-.. autoclass:: yamcs.archive.client.ArchiveClient
+.. autoclass:: yamcs.client.ArchiveClient
     :members:
     :undoc-members:
