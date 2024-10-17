@@ -123,7 +123,13 @@ class Event:
         ``WARNING``, ``DISTRESS``, ``CRITICAL`` or ``SEVERE``.
         """
         if self._proto.HasField("severity"):
-            return events_pb2.Event.EventSeverity.Name(self._proto.severity)
+            name = events_pb2.Event.EventSeverity.Name(self._proto.severity)
+            if name == "WARNING_NEW" or name == "WARNING_OLD":
+                # Protobuf serialization format for event severities
+                # is going through a migration.
+                return "WARNING"
+            else:
+                return name
         return None
 
     @property
