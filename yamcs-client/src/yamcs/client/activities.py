@@ -1,8 +1,16 @@
 from dataclasses import dataclass, field
 from typing import Any, List, Mapping, Optional, Union
 
-from yamcs.core.helpers import to_argument_value
+from yamcs.client.core.helpers import to_argument_value
 from yamcs.protobuf.activities import activities_pb2
+
+__all__ = [
+    "Activity",
+    "CommandActivity",
+    "CommandStackActivity",
+    "ManualActivity",
+    "ScriptActivity",
+]
 
 
 @dataclass

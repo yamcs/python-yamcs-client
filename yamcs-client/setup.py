@@ -6,7 +6,7 @@ with io.open("README.md", encoding="utf-8") as f:
     readme = f.read()
 
 version = {}
-with io.open("src/yamcs/clientversion.py", encoding="utf-8") as f:
+with io.open("src/yamcs/client/clientversion.py", encoding="utf-8") as f:
     exec(f.read(), version)
 version = version["__version__"]
 

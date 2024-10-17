@@ -1,26 +1,34 @@
+from __future__ import annotations
+
 import datetime
 import functools
 import os
 import urllib.parse
-from typing import Any, Callable, Iterable, Iterator, List, Mapping, Optional, Union
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Callable,
+    Iterable,
+    Iterator,
+    List,
+    Mapping,
+    Optional,
+    Union,
+)
 from urllib.parse import urlparse
 
 from google.protobuf import timestamp_pb2
-from yamcs.archive.client import ArchiveClient
-from yamcs.core.auth import APIKeyCredentials, Credentials
-from yamcs.core.context import Context
-from yamcs.core.futures import WebSocketSubscriptionFuture
-from yamcs.core.helpers import (
+from yamcs.client.core.auth import APIKeyCredentials, Credentials
+from yamcs.client.core.context import Context
+from yamcs.client.core.futures import WebSocketSubscriptionFuture
+from yamcs.client.core.helpers import (
     delimit_protobuf,
     do_get,
     parse_server_time,
     to_server_time,
 )
-from yamcs.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.filetransfer.client import FileTransferClient
-from yamcs.link.client import LinkClient
-from yamcs.mdb.client import MDBClient
-from yamcs.model import (
+from yamcs.client.core.subscriptions import WebSocketSubscriptionManager
+from yamcs.client.model import (
     AuthInfo,
     Event,
     Instance,
@@ -33,6 +41,7 @@ from yamcs.model import (
     Service,
     UserInfo,
 )
+from yamcs.client.tmtc.client import _build_value_proto
 from yamcs.protobuf.archive import rocksdb_service_pb2
 from yamcs.protobuf.auth import auth_pb2
 from yamcs.protobuf.events import events_pb2, events_service_pb2
@@ -44,11 +53,26 @@ from yamcs.protobuf.pvalue import pvalue_service_pb2
 from yamcs.protobuf.server import server_service_pb2
 from yamcs.protobuf.services import services_service_pb2
 from yamcs.protobuf.time import time_service_pb2
-from yamcs.storage.client import StorageClient
-from yamcs.tco.client import TCOClient
-from yamcs.timeline.client import TimelineClient
-from yamcs.tmtc.client import ProcessorClient, _build_value_proto
-from yamcs.tmtc.model import ValueUpdate
+
+if TYPE_CHECKING:
+    from yamcs.client.archive.client import ArchiveClient
+    from yamcs.client.filetransfer.client import FileTransferClient
+    from yamcs.client.link.client import LinkClient
+    from yamcs.client.mdb.client import MDBClient
+    from yamcs.client.storage.client import StorageClient
+    from yamcs.client.tco.client import TCOClient
+    from yamcs.client.timeline.client import TimelineClient
+    from yamcs.client.tmtc.client import ProcessorClient
+    from yamcs.client.tmtc.model import ValueUpdate
+
+__all__ = [
+    "GLOBAL_INSTANCE",
+    "LinkSubscription",
+    "TimeSubscription",
+    "YamcsClient",
+]
+
+GLOBAL_INSTANCE = "_global"
 
 
 def _wrap_callback_parse_time_info(subscription, on_data, message):
@@ -273,34 +297,40 @@ class YamcsClient:
         message.ParseFromString(response.content)
         return UserInfo(message)
 
-    def get_mdb(self, instance: str) -> MDBClient:
+    def get_mdb(self, instance: str) -> "MDBClient":
         """
         Return an object for working with the MDB of the specified instance.
 
         :param instance:
             A Yamcs instance name.
         """
+        from yamcs.client.mdb.client import MDBClient
+
         return MDBClient(self.ctx, instance)
 
-    def get_archive(self, instance: str) -> ArchiveClient:
+    def get_archive(self, instance: str) -> "ArchiveClient":
         """
         Return an object for working with the Archive of the specified instance.
 
         :param instance:
             A Yamcs instance name.
         """
+        from yamcs.client.archive.client import ArchiveClient
+
         return ArchiveClient(self.ctx, instance)
 
-    def get_file_transfer_client(self, instance: str) -> FileTransferClient:
+    def get_file_transfer_client(self, instance: str) -> "FileTransferClient":
         """
         Return an object for working with file transfers on a specified instance.
 
         :param instance:
             A Yamcs instance name.
         """
+        from yamcs.client.filetransfer.client import FileTransferClient
+
         return FileTransferClient(self.ctx, instance)
 
-    def get_tco_client(self, instance: str, service: str) -> TCOClient:
+    def get_tco_client(self, instance: str, service: str) -> "TCOClient":
         """
         Return an object for Time Correlation API calls on a specified service.
 
@@ -309,21 +339,27 @@ class YamcsClient:
         :param service:
             Target service name.
         """
+        from yamcs.client.tco.client import TCOClient
+
         return TCOClient(self.ctx, instance, service)
 
-    def get_storage_client(self) -> StorageClient:
+    def get_storage_client(self) -> "StorageClient":
         """
         Return an object for working with object storage
         """
+        from yamcs.client.storage.client import StorageClient
+
         return StorageClient(self.ctx)
 
-    def get_timeline_client(self, instance: str) -> TimelineClient:
+    def get_timeline_client(self, instance: str) -> "TimelineClient":
         """
         Return an object for working with Yamcs timeline items
 
         :param instance:
             A Yamcs instance name.
         """
+        from yamcs.client.timeline.client import TimelineClient
+
         return TimelineClient(self.ctx, instance)
 
     def create_instance(
@@ -424,7 +460,7 @@ class YamcsClient:
         processors = getattr(message, "processors")
         return iter([Processor(processor) for processor in processors])
 
-    def get_processor(self, instance: str, processor: str) -> ProcessorClient:
+    def get_processor(self, instance: str, processor: str) -> "ProcessorClient":
         """
         Return an object for working with a specific Yamcs processor.
 
@@ -433,6 +469,8 @@ class YamcsClient:
         :param processor:
             A processor name within that instance.
         """
+        from yamcs.client.tmtc.client import ProcessorClient
+
         return ProcessorClient(self.ctx, instance, processor)
 
     def delete_processor(self, instance: str, processor: str):
@@ -447,7 +485,7 @@ class YamcsClient:
         url = f"/processors/{instance}/{processor}"
         self.ctx.delete_proto(url)
 
-    def get_link(self, instance: str, link: str) -> LinkClient:
+    def get_link(self, instance: str, link: str) -> "LinkClient":
         """
         Return an object for working with a specific Yamcs link.
 
@@ -456,6 +494,8 @@ class YamcsClient:
         :param link:
             A link name within that instance.
         """
+        from yamcs.client.link.client import LinkClient
+
         return LinkClient(self.ctx, instance, link)
 
     def list_instances(self) -> Iterable[Instance]:
@@ -615,7 +655,7 @@ class YamcsClient:
     def load_parameter_values(
         self,
         instance: str,
-        data: Iterator[Mapping[str, ValueUpdate]],
+        data: Iterator[Mapping[str, "ValueUpdate"]],
         stream: str = "pp_dump",
         chunk_size: int = 32 * 1024,
     ) -> LoadParameterValuesResult:
@@ -637,7 +677,7 @@ class YamcsClient:
             of about this size.
         """
 
-        def to_proto(generator: Iterator[Mapping[str, ValueUpdate]]):
+        def to_proto(generator: Iterator[Mapping[str, "ValueUpdate"]]):
             for values in generator:
                 proto = pvalue_service_pb2.LoadParameterValuesRequest()
                 for key in values:

@@ -4,7 +4,7 @@ from yamcs.client import YamcsClient
 def create_bands():
     """Snippet used in docs to create a few bands."""
     global utc_time, local_time, group_a, group_b
-    from yamcs.timeline.model import ItemBand, TimeRuler
+    from yamcs.client import ItemBand, TimeRuler
 
     utc_time = TimeRuler()
     utc_time.name = "UTC"
@@ -32,7 +32,7 @@ def create_items():
     """Snippet used in docs to create a few items."""
     from datetime import datetime, timedelta, timezone
 
-    from yamcs.timeline.model import Item
+    from yamcs.client import Item
 
     now = datetime.now(tz=timezone.utc)
 
@@ -54,7 +54,7 @@ def create_items():
 
 def create_view():
     """Snippet used in docs to create a view."""
-    from yamcs.timeline.model import View
+    from yamcs.client import View
 
     view = View()
     view.name = "Two groups"

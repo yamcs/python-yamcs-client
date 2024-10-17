@@ -6,9 +6,7 @@ except ImportError:
     # To be removed eventually
     from requests_gssapi import HTTPSPNEGOAuth
 
-from yamcs.core.auth import Credentials
-from yamcs.core.exceptions import Unauthorized, YamcsError
-from yamcs.core.helpers import do_get, do_post
+from yamcs.client import Credentials, Unauthorized, YamcsError, do_get, do_post
 
 
 class KerberosCredentials(Credentials):

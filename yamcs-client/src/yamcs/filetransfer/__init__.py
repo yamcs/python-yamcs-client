@@ -1,1 +1,6 @@
-from yamcs.filetransfer.client import FileTransferClient  # noqa
+"""
+Old-style. For backwards compatibility.
+Avoid use.
+"""
+
+from yamcs.client.filetransfer.client import FileTransferClient  # noqa
