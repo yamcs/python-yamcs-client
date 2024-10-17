@@ -16,7 +16,7 @@ release = dist.version
 
 extensions = [
     # We don't use napolean style, but keep this because it suppresses
-    # erros coming from docstring when Future is inherited.
+    # errors coming from docstring when Future is inherited.
     "sphinx.ext.napoleon",
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
@@ -39,8 +39,6 @@ html_sidebars = {
         "navigation.html",
         "relations.html",
         "searchbox.html",
-        # located at _templates/
-        "projectlinks.html",
     ]
 }
 
