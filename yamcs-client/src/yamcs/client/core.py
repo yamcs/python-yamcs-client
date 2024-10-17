@@ -746,7 +746,11 @@ class YamcsClient:
         return subscription
 
     def create_event_subscription(
-        self, instance: str, on_data: Callable[[Event], None], timeout: float = 60
+        self,
+        instance: str,
+        on_data: Callable[[Event], None],
+        filter: Optional[str] = None,
+        timeout: float = 60,
     ) -> WebSocketSubscriptionFuture:
         """
         Create a new subscription for receiving events of an instance.
@@ -758,6 +762,12 @@ class YamcsClient:
             A Yamcs instance name
         :param on_data:
             Function that gets called on each :class:`.Event`.
+        :param filter:
+            Filter query applied to returned events. Allows for both text
+            and field search.
+
+            .. versionadded:: 1.10.1
+               Compatible with Yamcs v5.10.2 onwards
         :param timeout:
             The amount of seconds to wait for the request to complete.
         :return:
@@ -766,6 +776,9 @@ class YamcsClient:
         """
         options = events_service_pb2.SubscribeEventsRequest()
         options.instance = instance
+        if filter is not None:
+            options.filter = filter
+
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="events", options=options
         )

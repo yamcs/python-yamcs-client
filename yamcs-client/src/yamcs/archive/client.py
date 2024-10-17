@@ -573,6 +573,7 @@ class ArchiveClient:
         source: Optional[str] = None,
         severity: Optional[str] = None,
         text_filter: Optional[str] = None,
+        filter: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
         page_size: int = 500,
@@ -598,6 +599,11 @@ class ArchiveClient:
             ``CRITICAL`` or ``SEVERE``.
         :param text_filter:
             Filter the text message of the returned events
+        :param filter:
+            Filter query, allows for both text and field search.
+
+            .. versionadded:: 1.10.1
+               Compatible with Yamcs v5.10.2 onwards
         :param start:
             Minimum start date of the returned events (inclusive)
         :param stop:
@@ -625,6 +631,8 @@ class ArchiveClient:
             params["stop"] = to_isostring(stop)
         if text_filter is not None:
             params["q"] = text_filter
+        if filter is not None:
+            params["filter"] = filter
 
         return pagination.Iterator(
             ctx=self.ctx,
@@ -640,6 +648,7 @@ class ArchiveClient:
         source: Optional[Union[str, List[str]]] = None,
         severity: Optional[str] = None,
         text_filter: Optional[str] = None,
+        filter: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
         chunk_size: int = 32 * 1024,
@@ -657,6 +666,12 @@ class ArchiveClient:
             ``CRITICAL`` or ``SEVERE``.
         :param text_filter:
             Filter the text message of the returned events
+        :param filter:
+            Filter query applied to returned events. Allows for both text
+            and field search.
+
+            .. versionadded:: 1.10.1
+               Compatible with Yamcs v5.10.2 onwards
         :param start:
             Minimum generation time of the returned events (inclusive)
         :param stop:
@@ -676,6 +691,8 @@ class ArchiveClient:
             options.stop.MergeFrom(to_server_time(stop))
         if text_filter is not None:
             options.q = text_filter
+        if filter is not None:
+            options.filter = filter
 
         def generate():
             path = f"/stream-archive/{self._instance}:streamEvents"
