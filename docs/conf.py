@@ -21,7 +21,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
-    "sphinxcontrib.fulltoc",
+    "sphinxcontrib.yamcs",
 ]
 
 html_theme = "alabaster"
