@@ -887,7 +887,7 @@ class ProcessorClient:
             _add_calib(req.defaultCalibrator, type, data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_calibrators(self, parameter: str, calibrators: List[Calibrator]):
@@ -922,7 +922,7 @@ class ProcessorClient:
             _add_calib(calib_info, c.type, c.data)
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_calibrators(self, parameter: str):
@@ -940,7 +940,7 @@ class ProcessorClient:
         req.action = mdb_override_service_pb2.UpdateParameterRequest.RESET_CALIBRATORS
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_default_alarm_ranges(
@@ -1000,7 +1000,7 @@ class ProcessorClient:
             )
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def set_alarm_range_sets(self, parameter: str, sets: List[AlarmRangeSet]):
@@ -1044,7 +1044,7 @@ class ProcessorClient:
             )
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def clear_alarm_ranges(self, parameter: str):
@@ -1063,7 +1063,7 @@ class ProcessorClient:
         req.action = mdb_override_service_pb2.UpdateParameterRequest.RESET_ALARMS
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/parameters{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/parameters{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def acknowledge_alarm(
@@ -1441,7 +1441,7 @@ class ProcessorClient:
         req.algorithm.text = text
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/algorithms{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
 
     def reset_algorithm(self, parameter: str):
@@ -1456,5 +1456,5 @@ class ProcessorClient:
         req.action = mdb_override_service_pb2.UpdateAlgorithmRequest.RESET
 
         parameter = adapt_name_for_rest(parameter)
-        url = f"/mdb/{self._instance}/{self._processor}/algorithms{parameter}"
+        url = f"/mdb-overrides/{self._instance}/{self._processor}/algorithms{parameter}"
         self.ctx.patch_proto(url, data=req.SerializeToString())
