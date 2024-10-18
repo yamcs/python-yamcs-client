@@ -12,8 +12,8 @@ from yamcs.client.core.pagination import *  # noqa
 from yamcs.client.core.subscriptions import *  # noqa
 from yamcs.client.filetransfer.client import *  # noqa
 from yamcs.client.filetransfer.model import *  # noqa
-from yamcs.client.link.client import *  # noqa
-from yamcs.client.link.model import *  # noqa
+from yamcs.client.links.client import *  # noqa
+from yamcs.client.links.model import *  # noqa
 from yamcs.client.mdb.client import *  # noqa
 from yamcs.client.mdb.model import *  # noqa
 from yamcs.client.model import *  # noqa

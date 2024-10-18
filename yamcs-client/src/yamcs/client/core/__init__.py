@@ -57,7 +57,7 @@ from yamcs.protobuf.time import time_service_pb2
 if TYPE_CHECKING:
     from yamcs.client.archive.client import ArchiveClient
     from yamcs.client.filetransfer.client import FileTransferClient
-    from yamcs.client.link.client import LinkClient
+    from yamcs.client.links.client import LinkClient
     from yamcs.client.mdb.client import MDBClient
     from yamcs.client.storage.client import StorageClient
     from yamcs.client.tco.client import TCOClient
@@ -494,7 +494,7 @@ class YamcsClient:
         :param link:
             A link name within that instance.
         """
-        from yamcs.client.link.client import LinkClient
+        from yamcs.client.links.client import LinkClient
 
         return LinkClient(self.ctx, instance, link)
 
