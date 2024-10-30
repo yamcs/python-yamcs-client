@@ -911,10 +911,6 @@ class ParameterValue:
             return pvalue_pb2.AcquisitionStatus.Name(self._proto.acquisitionStatus)
         return None
 
-    @property
-    def processing_status(self) -> bool:
-        return self._proto.processingStatus
-
     def __str__(self):
         line = f"{self.generation_time} {self.name} {self.raw_value} {self.eng_value}"
         if self.monitoring_result:
