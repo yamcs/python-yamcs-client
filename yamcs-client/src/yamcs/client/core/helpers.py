@@ -195,6 +195,11 @@ def to_argument_value(value, force_string):
         # and not at every level of a nested hierarchy
         obj = _compose_aggregate_members(value)
         return json.dumps(obj)
+    elif isinstance(value, collections.abc.Sequence):
+        # Yamcs expects a JSON encoded array, where elements are
+        # themselves JSON-encoded (to be improved in a future version).
+        obj = [to_argument_value(x, force_string=True) for x in value]
+        return json.dumps(obj)
     elif isinstance(value, datetime):
         return to_isostring(value)
     elif force_string:
