@@ -7,7 +7,7 @@ with io.open("README.md", encoding="utf-8") as f:
 
 setuptools.setup(
     name="yamcs-client-kerberos",
-    version="1.2.2",
+    version="1.3.0",
     description="Kerberos integration for Yamcs API client library",
     long_description=readme,
     long_description_content_type="text/markdown",
@@ -29,10 +29,11 @@ setuptools.setup(
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
         "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "Operating System :: OS Independent",
     ],
     platforms="Posix; MacOS X; Windows",
-    install_requires=["requests-kerberos", "yamcs-client>=1.7.0"],
+    install_requires=["requests-kerberos", "yamcs-client>=1.11.0"],
     include_package_data=True,
     zip_safe=False,
 )
