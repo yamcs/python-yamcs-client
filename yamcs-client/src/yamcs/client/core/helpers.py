@@ -190,6 +190,8 @@ def to_named_object_ids(
 def to_argument_value(value, force_string):
     if isinstance(value, (bytes, bytearray)):
         return binascii.hexlify(value).decode("ascii")
+    elif isinstance(value, str):
+        return value
     elif isinstance(value, collections.abc.Mapping):
         # Careful to do the JSON dump only at the end,
         # and not at every level of a nested hierarchy
