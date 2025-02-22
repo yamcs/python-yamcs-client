@@ -821,6 +821,7 @@ class ProcessorClient:
         self,
         start: Optional[datetime.datetime] = None,
         stop: Optional[datetime.datetime] = None,
+        include_pending=False,
     ) -> Iterable[Alarm]:
         """
         Lists the active alarms.
@@ -832,13 +833,21 @@ class ProcessorClient:
             Minimum trigger time of the returned alarms (inclusive)
         :param stop:
             Maximum trigger time of the returned alarms (exclusive)
+        :param include_pending:
+            Whether to include alarms that are currently pending, because
+            they have not reached the minimum violation count.
+
+            .. versionadded:: 1.11.2
+               Compatible with Yamcs 5.11.0 onwards
         """
         # TODO implement continuation token on server
-        params = {"order": "asc"}
+        params: Dict[str, Any] = {"order": "asc"}
         if start is not None:
             params["start"] = to_isostring(start)
         if stop is not None:
             params["stop"] = to_isostring(stop)
+        if include_pending:
+            params["includePending"] = True
         # Server does not do pagination on listings of this resource.
         # Return an iterator anyway for similarity with other API methods
         url = f"/processors/{self._instance}/{self._processor}/alarms"
@@ -1390,6 +1399,7 @@ class ProcessorClient:
     def create_alarm_subscription(
         self,
         on_data: Optional[Callable[[AlarmUpdate], None]] = None,
+        include_pending: bool = False,
         timeout: float = 60,
     ) -> AlarmSubscription:
         """
@@ -1399,6 +1409,12 @@ class ProcessorClient:
             Function that gets called with :class:`.AlarmUpdate` updates.
         :param timeout:
             The amount of seconds to wait for the request to complete.
+        :param include_pending:
+            Whether to include alarms that are currently pending, because
+            they have not reached the minimum violation count.
+
+            .. versionadded:: 1.11.2
+               Compatible with Yamcs 5.11.0 onwards
 
         :return:
             A Future that can be used to manage the background websocket
@@ -1407,6 +1423,7 @@ class ProcessorClient:
         options = alarms_service_pb2.SubscribeAlarmsRequest()
         options.instance = self._instance
         options.processor = self._processor
+        options.includePending = include_pending
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="alarms", options=options
         )

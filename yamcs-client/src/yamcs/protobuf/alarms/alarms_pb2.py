@@ -24,7 +24,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.alarms',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\013AlarmsProtoP\001',
-  serialized_pb=b'\n\"yamcs/protobuf/alarms/alarms.proto\x12\x15yamcs.protobuf.alarms\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/events/events.proto\"z\n\x0f\x41\x63knowledgeInfo\x12\x16\n\x0e\x61\x63knowledgedBy\x18\x01 \x01(\t\x12\x1a\n\x12\x61\x63knowledgeMessage\x18\x02 \x01(\t\x12\x33\n\x0f\x61\x63knowledgeTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9c\x01\n\nShelveInfo\x12\x11\n\tshelvedBy\x18\x01 \x01(\t\x12\x15\n\rshelveMessage\x18\x02 \x01(\t\x12.\n\nshelveTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10shelveExpiration\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"c\n\tClearInfo\x12\x11\n\tclearedBy\x18\x01 \x01(\t\x12-\n\tclearTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0c\x63learMessage\x18\x03 \x01(\t\"\xf5\x05\n\tAlarmData\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .yamcs.protobuf.alarms.AlarmType\x12/\n\x0btriggerTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\x02id\x18\x03 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0e\n\x06seqNum\x18\x04 \x01(\r\x12\x36\n\x08severity\x18\x05 \x01(\x0e\x32$.yamcs.protobuf.alarms.AlarmSeverity\x12\x12\n\nviolations\x18\x06 \x01(\r\x12\r\n\x05\x63ount\x18\x07 \x01(\r\x12?\n\x0f\x61\x63knowledgeInfo\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.alarms.AcknowledgeInfo\x12\x46\n\x10notificationType\x18\t \x01(\x0e\x32,.yamcs.protobuf.alarms.AlarmNotificationType\x12\x42\n\x0fparameterDetail\x18\n \x01(\x0b\x32).yamcs.protobuf.alarms.ParameterAlarmData\x12:\n\x0b\x65ventDetail\x18\x0b \x01(\x0b\x32%.yamcs.protobuf.alarms.EventAlarmData\x12\x10\n\x08latching\x18\x0c \x01(\x08\x12\x11\n\tprocessOK\x18\r \x01(\x08\x12\x11\n\ttriggered\x18\x0e \x01(\x08\x12\x14\n\x0c\x61\x63knowledged\x18\x0f \x01(\x08\x12\x35\n\nshelveInfo\x18\x10 \x01(\x0b\x32!.yamcs.protobuf.alarms.ShelveInfo\x12\x33\n\tclearInfo\x18\x11 \x01(\x0b\x32 .yamcs.protobuf.alarms.ClearInfo\x12.\n\nupdateTime\x18\x12 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x84\x02\n\x12ParameterAlarmData\x12;\n\x0ctriggerValue\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12>\n\x0fmostSevereValue\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12;\n\x0c\x63urrentValue\x18\x03 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\xaf\x01\n\x0e\x45ventAlarmData\x12\x32\n\x0ctriggerEvent\x18\x01 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event\x12\x35\n\x0fmostSevereEvent\x18\x02 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event\x12\x32\n\x0c\x63urrentEvent\x18\x03 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event*\xac\x01\n\x15\x41larmNotificationType\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\r\n\tTRIGGERED\x10\x02\x12\x16\n\x12SEVERITY_INCREASED\x10\x03\x12\x11\n\rVALUE_UPDATED\x10\x04\x12\x10\n\x0c\x41\x43KNOWLEDGED\x10\x05\x12\x0b\n\x07\x43LEARED\x10\x06\x12\x07\n\x03RTN\x10\x07\x12\x0b\n\x07SHELVED\x10\x08\x12\r\n\tUNSHELVED\x10\t\x12\t\n\x05RESET\x10\n*%\n\tAlarmType\x12\r\n\tPARAMETER\x10\x01\x12\t\n\x05\x45VENT\x10\x02*O\n\rAlarmSeverity\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x42#\n\x12org.yamcs.protobufB\x0b\x41larmsProtoP\x01'
+  serialized_pb=b'\n\"yamcs/protobuf/alarms/alarms.proto\x12\x15yamcs.protobuf.alarms\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\"yamcs/protobuf/events/events.proto\"z\n\x0f\x41\x63knowledgeInfo\x12\x16\n\x0e\x61\x63knowledgedBy\x18\x01 \x01(\t\x12\x1a\n\x12\x61\x63knowledgeMessage\x18\x02 \x01(\t\x12\x33\n\x0f\x61\x63knowledgeTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x9c\x01\n\nShelveInfo\x12\x11\n\tshelvedBy\x18\x01 \x01(\t\x12\x15\n\rshelveMessage\x18\x02 \x01(\t\x12.\n\nshelveTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x34\n\x10shelveExpiration\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"c\n\tClearInfo\x12\x11\n\tclearedBy\x18\x01 \x01(\t\x12-\n\tclearTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x14\n\x0c\x63learMessage\x18\x03 \x01(\t\"\x98\x06\n\tAlarmData\x12.\n\x04type\x18\x01 \x01(\x0e\x32 .yamcs.protobuf.alarms.AlarmType\x12/\n\x0btriggerTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12)\n\x02id\x18\x03 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0e\n\x06seqNum\x18\x04 \x01(\r\x12\x36\n\x08severity\x18\x05 \x01(\x0e\x32$.yamcs.protobuf.alarms.AlarmSeverity\x12\x12\n\nviolations\x18\x06 \x01(\r\x12\r\n\x05\x63ount\x18\x07 \x01(\r\x12?\n\x0f\x61\x63knowledgeInfo\x18\x08 \x01(\x0b\x32&.yamcs.protobuf.alarms.AcknowledgeInfo\x12\x46\n\x10notificationType\x18\t \x01(\x0e\x32,.yamcs.protobuf.alarms.AlarmNotificationType\x12\x42\n\x0fparameterDetail\x18\n \x01(\x0b\x32).yamcs.protobuf.alarms.ParameterAlarmData\x12:\n\x0b\x65ventDetail\x18\x0b \x01(\x0b\x32%.yamcs.protobuf.alarms.EventAlarmData\x12\x10\n\x08latching\x18\x0c \x01(\x08\x12\x11\n\tprocessOK\x18\r \x01(\x08\x12\x11\n\ttriggered\x18\x0e \x01(\x08\x12\x14\n\x0c\x61\x63knowledged\x18\x0f \x01(\x08\x12\x35\n\nshelveInfo\x18\x10 \x01(\x0b\x32!.yamcs.protobuf.alarms.ShelveInfo\x12\x33\n\tclearInfo\x18\x11 \x01(\x0b\x32 .yamcs.protobuf.alarms.ClearInfo\x12.\n\nupdateTime\x18\x12 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x10\n\x08readonly\x18\x13 \x01(\x08\x12\x0f\n\x07pending\x18\x14 \x01(\x08\"\x84\x02\n\x12ParameterAlarmData\x12;\n\x0ctriggerValue\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12>\n\x0fmostSevereValue\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12;\n\x0c\x63urrentValue\x18\x03 \x01(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\xaf\x01\n\x0e\x45ventAlarmData\x12\x32\n\x0ctriggerEvent\x18\x01 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event\x12\x35\n\x0fmostSevereEvent\x18\x02 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event\x12\x32\n\x0c\x63urrentEvent\x18\x03 \x01(\x0b\x32\x1c.yamcs.protobuf.events.Event*\xc3\x01\n\x15\x41larmNotificationType\x12\n\n\x06\x41\x43TIVE\x10\x01\x12\r\n\tTRIGGERED\x10\x02\x12\x16\n\x12SEVERITY_INCREASED\x10\x03\x12\x11\n\rVALUE_UPDATED\x10\x04\x12\x10\n\x0c\x41\x43KNOWLEDGED\x10\x05\x12\x0b\n\x07\x43LEARED\x10\x06\x12\x07\n\x03RTN\x10\x07\x12\x0b\n\x07SHELVED\x10\x08\x12\r\n\tUNSHELVED\x10\t\x12\t\n\x05RESET\x10\n\x12\x15\n\x11TRIGGERED_PENDING\x10\x0b*%\n\tAlarmType\x12\r\n\tPARAMETER\x10\x01\x12\t\n\x05\x45VENT\x10\x02*O\n\rAlarmSeverity\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x42#\n\x12org.yamcs.protobufB\x0b\x41larmsProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_events_dot_events__pb2.DESCRIPTOR,])
 
@@ -74,11 +74,15 @@ _ALARMNOTIFICATIONTYPE = _descriptor.EnumDescriptor(
       name='RESET', index=9, number=10,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='TRIGGERED_PENDING', index=10, number=11,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1810,
-  serialized_end=1982,
+  serialized_start=1845,
+  serialized_end=2040,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMNOTIFICATIONTYPE)
 
@@ -100,8 +104,8 @@ _ALARMTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1984,
-  serialized_end=2021,
+  serialized_start=2042,
+  serialized_end=2079,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMTYPE)
 
@@ -135,8 +139,8 @@ _ALARMSEVERITY = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=2023,
-  serialized_end=2102,
+  serialized_start=2081,
+  serialized_end=2160,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMSEVERITY)
 
@@ -151,6 +155,7 @@ RTN = 7
 SHELVED = 8
 UNSHELVED = 9
 RESET = 10
+TRIGGERED_PENDING = 11
 PARAMETER = 1
 EVENT = 2
 WATCH = 1
@@ -436,6 +441,20 @@ _ALARMDATA = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='readonly', full_name='yamcs.protobuf.alarms.AlarmData.readonly', index=18,
+      number=19, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pending', full_name='yamcs.protobuf.alarms.AlarmData.pending', index=19,
+      number=20, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -449,7 +468,7 @@ _ALARMDATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=609,
-  serialized_end=1366,
+  serialized_end=1401,
 )
 
 
@@ -500,8 +519,8 @@ _PARAMETERALARMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1369,
-  serialized_end=1629,
+  serialized_start=1404,
+  serialized_end=1664,
 )
 
 
@@ -545,8 +564,8 @@ _EVENTALARMDATA = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1632,
-  serialized_end=1807,
+  serialized_start=1667,
+  serialized_end=1842,
 )
 
 _ACKNOWLEDGEINFO.fields_by_name['acknowledgeTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP

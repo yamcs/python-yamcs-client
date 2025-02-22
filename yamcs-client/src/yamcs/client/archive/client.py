@@ -1239,7 +1239,7 @@ class ArchiveClient:
 
         If the backfilling is already enabled, this operation has no effect.
         """
-        req = parameter_archive_service_pb2.PurgeRequest()
+        req = parameter_archive_service_pb2.EnableBackfillingRequest()
         url = f"/archive/{self._instance}/parameterArchive:enableBackfilling"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
@@ -1249,7 +1249,7 @@ class ArchiveClient:
 
         If the backfilling is already disabled, this operation has no effect.
         """
-        req = parameter_archive_service_pb2.PurgeRequest()
+        req = parameter_archive_service_pb2.DisableBackfillingRequest()
         url = f"/archive/{self._instance}/parameterArchive:disableBackfilling"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
