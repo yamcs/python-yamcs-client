@@ -58,3 +58,10 @@ To update a :class:`.Band`, :class:`.Item` or :class:`.View` use the same save m
     :pyobject: edit_fetched_items
     :start-after: """
     :dedent: 4
+
+Create a view with :class:`.ParameterStateBand` and :class:`.ParameterPlot` bands:
+
+.. literalinclude:: ../../yamcs-client/examples/timeline.py
+    :pyobject: create_parameter_bands
+    :start-after: """
+    :dedent: 4

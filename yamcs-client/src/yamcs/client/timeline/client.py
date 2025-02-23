@@ -128,7 +128,7 @@ class TimelineClient:
         req.description = band._proto.description
         for k in band._proto.tags:
             req.tags.append(k)
-        for k, v in band._proto.properties.items():
+        for k, v in band._as_properties().items():
             req.properties[k] = v
 
         if band.id:

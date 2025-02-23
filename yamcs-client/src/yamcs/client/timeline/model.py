@@ -1,6 +1,7 @@
 import abc
 import datetime
-from typing import List, Optional, Union
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Union
 
 from yamcs.client.activities import Activity, ManualActivity
 from yamcs.client.core.helpers import ProtoList, parse_server_time, to_server_time
@@ -11,8 +12,13 @@ __all__ = [
     "CommandBand",
     "Item",
     "ItemBand",
+    "ParameterPlot",
+    "ParameterStateBand",
+    "RangeMapping",
     "Spacer",
     "TimeRuler",
+    "Trace",
+    "ValueMapping",
     "View",
 ]
 
@@ -196,6 +202,8 @@ class Band(abc.ABC):
 
     * :class:`.TimeRuler`
     * :class:`.ItemBand`
+    * :class:`.ParameterPlot`
+    * :class:`.ParameterStateBand`
     * :class:`.Spacer`
     * :class:`.CommandBand`
     """
@@ -239,6 +247,29 @@ class Band(abc.ABC):
     def _get_integer_property(self, key: str):
         return int(self._proto.properties[key])
 
+    def _set_optional_float_property(self, key: str, value: Optional[float]):
+        if value is None:
+            del self._proto.properties[key]
+        else:
+            if not isinstance(value, (int, float)):
+                raise ValueError("Provided value is not float")
+            self._proto.properties[key] = str(value)
+
+    def _get_optional_float_property(self, key: Optional[str]) -> Optional[float]:
+        return (
+            float(self._proto.properties[key])
+            if key in self._proto.properties
+            else None
+        )
+
+    def _set_float_property(self, key: str, value: float):
+        if not isinstance(value, (int, float)):
+            raise ValueError("Provided value is not float")
+        self._proto.properties[key] = str(value)
+
+    def _get_float_property(self, key: str):
+        return float(self._proto.properties[key])
+
     def _set_boolean_property(self, key: str, value: bool):
         if not isinstance(value, bool):
             raise ValueError("Provided value is not boolean")
@@ -246,6 +277,12 @@ class Band(abc.ABC):
 
     def _get_boolean_property(self, key: str):
         return self._proto.properties[key] == "true"
+
+    def _as_properties(self) -> Dict[str, Any]:
+        properties: Dict[str, Any] = {}
+        for k, v in self._proto.properties.items():
+            properties[k] = v
+        return properties
 
     @staticmethod
     def _as_subclass(proto):
@@ -257,6 +294,10 @@ class Band(abc.ABC):
             return Spacer(proto)
         elif proto.type == timeline_pb2.TimelineBandType.COMMAND_BAND:
             return CommandBand(proto)
+        elif proto.type == timeline_pb2.TimelineBandType.PARAMETER_PLOT:
+            return ParameterPlot(proto)
+        elif proto.type == timeline_pb2.TimelineBandType.PARAMETER_STATES:
+            return ParameterStateBand(proto)
         else:
             raise ValueError("Unexpected band type")
 
@@ -328,6 +369,306 @@ class CommandBand(Band):
         if proto:
             merged.MergeFrom(proto)
         super(CommandBand, self).__init__(merged)
+
+
+@dataclass
+class Trace:
+    """
+    A trace on a :class:`.ParameterPlot`.
+    """
+
+    parameter: str
+    line_color: str
+    visible: bool = True
+    line_width: int = 1
+    fill: bool = False
+    fill_color: str = "#dddddd"
+    min_max: bool = False
+    min_max_opacity: float = 0.17
+
+
+class ParameterPlot(Band):
+    """
+    Plot the values of a numeric parameter.
+    """
+
+    def __init__(self, proto=None):
+        merged = timeline_pb2.TimelineBand()
+        merged.type = timeline_pb2.TimelineBandType.PARAMETER_PLOT
+        merged.properties["frozen"] = "false"
+        merged.properties["height"] = "30"
+        merged.properties["zeroLineWidth"] = "0"
+        merged.properties["zeroLineColor"] = "#ff0000"
+        merged.properties["minimumFractionDigits"] = "0"
+        merged.properties["maximumFractionDigits"] = "2"
+
+        self.traces: List[Trace] = []
+        """
+        Plot lines.
+        """
+
+        if proto:
+            merged.MergeFrom(proto)
+
+            idx = 1
+            while True:
+                if f"trace_{idx}_type" in merged.properties:
+                    prefix = f"trace_{idx}_"
+                    trace = Trace(
+                        parameter=merged.properties.get(f"{prefix}parameter"),
+                        line_color=merged.properties.get(f"{prefix}lineColor"),
+                        visible=bool(merged.properties.get(f"{prefix}visible")),
+                        line_width=int(merged.properties.get(f"{prefix}lineWidth")),
+                        fill=bool(merged.properties.get(f"{prefix}fill")),
+                        fill_color=merged.properties.get(f"{prefix}fillColor"),
+                        min_max=bool(merged.properties.get(f"{prefix}minMax")),
+                        min_max_opacity=float(
+                            merged.properties.get(f"{prefix}minMaxOpacity")
+                        ),
+                    )
+                    self.traces.append(trace)
+                    idx += 1
+                else:
+                    break
+
+        super(ParameterPlot, self).__init__(merged)
+
+    @property
+    def frozen(self) -> bool:
+        """
+        Fix this line to the top of the view. Frozen bands are always
+        rendered above other bands.
+        """
+        return self._get_boolean_property("frozen")
+
+    @frozen.setter
+    def frozen(self, value: bool):
+        self._set_boolean_property("frozen", value)
+
+    @property
+    def height(self) -> int:
+        """Band height"""
+        return self._get_integer_property("height")
+
+    @height.setter
+    def height(self, value: int):
+        self._set_integer_property("height", value)
+
+    @property
+    def minimum(self) -> Optional[float]:
+        """Minimum value to show on Y-axis. Set to ``None`` for fitting actual data"""
+        return self._get_optional_float_property("minimum")
+
+    @minimum.setter
+    def minimum(self, value: Optional[float]):
+        self._set_optional_float_property("minimum", value)
+
+    @property
+    def maximum(self) -> Optional[float]:
+        """Maximum value to show on Y-axis. Set to ``None`` for fitting actual data"""
+        return self._get_optional_float_property("maximum")
+
+    @maximum.setter
+    def maximum(self, value: Optional[float]):
+        self._set_optional_float_property("maximum", value)
+
+    @property
+    def zero_line_width(self) -> int:
+        """Thickness of the zero line. 0 is invisible"""
+        return self._get_integer_property("zeroLineWidth")
+
+    @zero_line_width.setter
+    def zero_line_width(self, value: int):
+        self._set_integer_property("zeroLineWidth", value)
+
+    @property
+    def zero_line_color(self) -> str:
+        """Color of the zero line"""
+        return self._proto.properties["zeroLineColor"]
+
+    @zero_line_color.setter
+    def zero_line_color(self, value: str):
+        self._proto.properties["zeroLineColor"] = value
+
+    @property
+    def minimum_fraction_digits(self) -> int:
+        """Minimum fraction digits"""
+        return self._get_integer_property("minimumFractionDigits")
+
+    @minimum_fraction_digits.setter
+    def minimum_fraction_digits(self, value: int):
+        self._set_integer_property("minimumFractionDigits", value)
+
+    @property
+    def maximum_fraction_digits(self) -> int:
+        """Maximum fraction digits"""
+        return self._get_integer_property("maximumFractionDigits")
+
+    @maximum_fraction_digits.setter
+    def maximum_fraction_digits(self, value: int):
+        self._set_integer_property("maximumFractionDigits", value)
+
+    def _as_properties(self) -> Dict[str, Any]:
+        props = super(ParameterPlot, self)._as_properties()
+        for index, trace in enumerate(self.traces):
+            props[f"trace_{index + 1}_parameter"] = trace.parameter
+            props[f"trace_{index + 1}_lineColor"] = trace.line_color
+            props[f"trace_{index + 1}_visible"] = "true" if trace.visible else "false"
+            props[f"trace_{index + 1}_lineWidth"] = str(trace.line_width)
+            props[f"trace_{index + 1}_fill"] = "true" if trace.fill else "false"
+            props[f"trace_{index + 1}_fillColor"] = trace.fill_color
+            props[f"trace_{index + 1}_minMax"] = "true" if trace.min_max else "false"
+            props[f"trace_{index + 1}_minMaxOpacity"] = str(trace.min_max_opacity)
+        return props
+
+
+@dataclass
+class ValueMapping:
+    """
+    Maps a value to a label and/or color
+    """
+
+    value: Any
+    """
+    Engineering value to match
+    """
+
+    label: Optional[str] = None
+    """
+    If specified, map the provided value to this label
+    """
+
+    color: Optional[str] = None
+    """
+    If specified, show states of this value (or mapped label) in this color
+    """
+
+
+@dataclass
+class RangeMapping:
+    """
+    Maps a value to a label and/or color.
+    """
+
+    start: float
+    """
+    Match engineering value greater or equal than the provided start value
+    """
+
+    end: float
+    """
+    Match engineering value lesser or equal than the provided end value
+    """
+
+    label: Optional[str] = None
+    """
+    If specified, map the provided value to this label
+    """
+
+    color: Optional[str] = None
+    """
+    If specified, show states of this value (or mapped label) in this color
+    """
+
+
+class ParameterStateBand(Band):
+    """
+    Show state transitions of a parameter
+    """
+
+    def __init__(self, proto=None):
+        merged = timeline_pb2.TimelineBand()
+        merged.type = timeline_pb2.TimelineBandType.PARAMETER_STATES
+        merged.properties["frozen"] = "false"
+        merged.properties["height"] = "30"
+        merged.properties["parameter"] = ""
+
+        self.mappings: List[Union[ValueMapping, RangeMapping]] = []
+        """
+        Map engineering values to a label and/or color. Mappings are applied
+        in order.
+        """
+
+        if proto:
+            merged.MergeFrom(proto)
+
+            idx = 0
+            while True:
+                if f"value_mapping_{idx}_type" in merged.properties:
+                    prefix = f"value_mapping_{idx}_"
+                    type_ = merged.properties[f"{prefix}type"]
+                    if type_ == "value":
+                        mapping = ValueMapping(
+                            value=merged.properties.get(f"{prefix}value"),
+                            label=merged.properties.get(f"{prefix}label"),
+                            color=merged.properties.get(f"{prefix}color"),
+                        )
+                        self.mappings.append(mapping)
+                    elif type_ == "range":
+                        mapping = RangeMapping(
+                            start=float(merged.properties.get(f"{prefix}start")),
+                            end=float(merged.properties.get(f"{prefix}end")),
+                            label=merged.properties.get(f"{prefix}label"),
+                            color=merged.properties.get(f"{prefix}color"),
+                        )
+                        self.mappings.append(mapping)
+                    else:
+                        raise ValueError(f"Unexpected mapping type '{type_}'")
+                    idx += 1
+                else:
+                    break
+
+        super(ParameterStateBand, self).__init__(merged)
+
+    @property
+    def frozen(self) -> bool:
+        """
+        Fix this line to the top of the view. Frozen bands are always
+        rendered above other bands.
+        """
+        return self._get_boolean_property("frozen")
+
+    @frozen.setter
+    def frozen(self, value: bool):
+        self._set_boolean_property("frozen", value)
+
+    @property
+    def height(self) -> int:
+        """Band height"""
+        return self._get_integer_property("height")
+
+    @height.setter
+    def height(self, value: int):
+        self._set_integer_property("height", value)
+
+    @property
+    def parameter(self) -> str:
+        """Qualified parameter name"""
+        return self._proto.properties["parameter"]
+
+    @parameter.setter
+    def parameter(self, value: str):
+        self._proto.properties["parameter"] = value
+
+    def _as_properties(self) -> Dict[str, Any]:
+        props = super(ParameterStateBand, self)._as_properties()
+        for index, mapping in enumerate(self.mappings):
+            if isinstance(mapping, ValueMapping):
+                props[f"value_mapping_{index}_type"] = "value"
+                props[f"value_mapping_{index}_value"] = str(mapping.value)
+                if mapping.label is not None:
+                    props[f"value_mapping_{index}_label"] = str(mapping.label)
+                if mapping.color is not None:
+                    props[f"value_mapping_{index}_color"] = str(mapping.color)
+            elif isinstance(mapping, RangeMapping):
+                props[f"value_mapping_{index}_type"] = "range"
+                props[f"value_mapping_{index}_start"] = str(mapping.start)
+                props[f"value_mapping_{index}_end"] = str(mapping.end)
+                if mapping.label is not None:
+                    props[f"value_mapping_{index}_label"] = str(mapping.label)
+                if mapping.color is not None:
+                    props[f"value_mapping_{index}_color"] = str(mapping.color)
+        return props
 
 
 class ItemBand(Band):

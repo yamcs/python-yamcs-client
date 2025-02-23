@@ -76,6 +76,42 @@ def edit_fetched_items():
         timeline.save_item(item)
 
 
+def create_parameter_bands():
+    """Snippet used in docs to create parameter-based bands."""
+    from yamcs.client import (
+        ParameterPlot,
+        ParameterStateBand,
+        RangeMapping,
+        Trace,
+        ValueMapping,
+        View,
+    )
+
+    states = ParameterStateBand()
+    states.name = "State example"
+    states.parameter = "/YSS/SIMULATOR/BatteryVoltage2"
+    states.mappings.append(RangeMapping(40, 56, label="LOW", color="#ff0000"))
+    states.mappings.append(ValueMapping(57, label="OK", color="#00ff00"))
+    states.mappings.append(RangeMapping(58, 70, label="HIGH", color="#ff0000"))
+    timeline.save_band(states)
+
+    plot = ParameterPlot()
+    plot.name = "Plot example"
+    plot.maximum = 65
+    trace = Trace(
+        parameter="/YSS/SIMULATOR/BatteryVoltage2",
+        line_color="#ffff00",
+        fill=True,
+    )
+    plot.traces.append(trace)
+    timeline.save_band(plot)
+
+    view = View()
+    view.name = "Parameter examples"
+    view.bands = [states, plot]
+    timeline.save_view(view)
+
+
 if __name__ == "__main__":
     client = YamcsClient("localhost:8090")
     timeline = client.get_timeline_client("simulator")
@@ -93,3 +129,4 @@ if __name__ == "__main__":
     create_view()
     edit_band()
     edit_fetched_items()
+    create_parameter_bands()
