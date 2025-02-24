@@ -390,6 +390,9 @@ class Trace:
 class ParameterPlot(Band):
     """
     Plot the values of a numeric parameter.
+
+    .. versionadded:: 1.11.2
+       Compatible with Yamcs 5.11.2 onwards
     """
 
     def __init__(self, proto=None):
@@ -574,6 +577,9 @@ class RangeMapping:
 class ParameterStateBand(Band):
     """
     Show state transitions of a parameter
+
+    .. versionadded:: 1.11.2
+       Compatible with Yamcs 5.11.2 onwards
     """
 
     def __init__(self, proto=None):
