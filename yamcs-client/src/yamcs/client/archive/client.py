@@ -1233,6 +1233,26 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/parameterArchive:purge"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
+    def enable_parameter_archive_backfilling(self):
+        """
+        Enables the automatic backfilling (rebuilding) of the parameter archive.
+
+        If the backfilling is already enabled, this operation has no effect.
+        """
+        req = parameter_archive_service_pb2.PurgeRequest()
+        url = f"/archive/{self._instance}/parameterArchive:enableBackfilling"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
+    def disable_parameter_archive_backfilling(self):
+        """
+        Disables the automatic backfilling (rebuilding) of the parameter archive.
+
+        If the backfilling is already disabled, this operation has no effect.
+        """
+        req = parameter_archive_service_pb2.PurgeRequest()
+        url = f"/archive/{self._instance}/parameterArchive:disableBackfilling"
+        self.ctx.post_proto(url, data=req.SerializeToString())
+
     def rebuild_ccsds_index(
         self,
         start: Optional[datetime] = None,
