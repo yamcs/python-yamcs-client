@@ -1197,12 +1197,16 @@ class ArchiveClient:
         url = f"/archive/{self._instance}/tables/{table}:rebuildHistogram"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
-    def rebuild_parameter_archive(self, start: datetime, stop: datetime):
+    def rebuild_parameter_archive(
+        self,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+    ):
         """
         Rebuilds the Parameter Archive.
 
-        The rebuild must be constrained by using the
-        ``start`` and ``stop`` parameters. This values
+        The rebuild may be constrained by using the
+        ``start`` and ``stop`` parameters. These values
         are only hints to the Parameter Archive, which
         will extend the requested range based on archive
         segmentation.
@@ -1212,13 +1216,15 @@ class ArchiveClient:
             method will not await the outcome.
 
         :param start:
-            Start time
+            Start time. This argument is optional since Yamcs v5.11.4
         :param stop:
-            Stop time
+            Stop time. This argument is optional since Yamcs v5.11.4
         """
         req = parameter_archive_service_pb2.RebuildRangeRequest()
-        req.start.MergeFrom(to_server_time(start))
-        req.stop.MergeFrom(to_server_time(stop))
+        if start:
+            req.start.MergeFrom(to_server_time(start))
+        if stop:
+            req.stop.MergeFrom(to_server_time(stop))
         url = f"/archive/{self._instance}/parameterArchive:rebuild"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
