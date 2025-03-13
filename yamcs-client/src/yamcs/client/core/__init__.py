@@ -37,6 +37,7 @@ from yamcs.client.model import (
     LoadParameterValuesResult,
     Processor,
     RdbTablespace,
+    SdlsStats,
     ServerInfo,
     Service,
     UserInfo,
@@ -50,6 +51,7 @@ from yamcs.protobuf.instances import instances_pb2, instances_service_pb2
 from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.processing import processing_pb2
 from yamcs.protobuf.pvalue import pvalue_service_pb2
+from yamcs.protobuf.sdls import sdls_pb2
 from yamcs.protobuf.server import server_service_pb2
 from yamcs.protobuf.services import services_service_pb2
 from yamcs.protobuf.time import time_service_pb2
@@ -834,6 +836,25 @@ class YamcsClient:
         subscription.reply(timeout=timeout)
 
         return subscription
+
+    def sdls_get_ctr(self, instance: str, link: str, spi: int) -> int:
+        response = self.ctx.get_proto(f'/sdls/{instance}/{link}/{spi}/seq')
+        message = sdls_pb2.GetSeqCtrResponse()
+        message.ParseFromString(response.content)
+        return message.seq
+
+    def sdls_reset_ctr(self, instance: str, link: str, spi: int):
+        self.ctx.delete_proto(f'/sdls/{instance}/{link}/{spi}/seq')
+
+    def sdls_get_stats(self, instance: str) -> Iterable[SdlsStats]:
+        response = self.ctx.get_proto(f'/sdls/{instance}/stats')
+        message = sdls_pb2.GetStatsResponse()
+        message.ParseFromString(response.content)
+        stats = getattr(message, 'stats')
+        return iter([SdlsStats(stat) for stat in stats])
+
+    def sdls_set_key(self, instance: str, link: str, spi: int, key: bytes):
+        self.ctx.put_proto(f'/sdls/{instance}/{link}/{spi}/key', data=key)
 
     def close(self):
         """Close this client session"""

@@ -507,3 +507,32 @@ class LoadParameterValuesResult:
                 f" in range [{self.min_generation_time} - {self.max_generation_time}]"
             )
         return result
+
+
+class SdlsStats:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def instance(self) -> Optional[str]:
+        if self._proto.HasField("instance"):
+            return self._proto.instance
+        return None
+
+    @property
+    def link_name(self) -> Optional[str]:
+        if self._proto.HasField("linkName"):
+            return self._proto.linkName
+        return None
+
+    @property
+    def spi(self) -> Optional[int]:
+        if self._proto.HasField("spi"):
+            return self._proto.spi
+        return None
+
+    @property
+    def seq(self) -> Optional[int]:
+        if self._proto.HasField("seqCtr"):
+            return self._proto.seqCtr
+        return None
