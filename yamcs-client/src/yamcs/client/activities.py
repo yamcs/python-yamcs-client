@@ -1,6 +1,8 @@
+import abc
 from dataclasses import dataclass, field
 from typing import Any, List, Mapping, Optional, Union
 
+import pkg_resources
 from yamcs.client.core.helpers import to_argument_value
 from yamcs.protobuf.activities import activities_pb2
 
@@ -16,13 +18,22 @@ __all__ = [
 @dataclass
 class Activity:
     """
-    Superclass for activities. Implementations:
+    Superclass for activities. Core implementations:
 
     * :class:`.CommandActivity`
     * :class:`.CommandStackActivity`
     * :class:`.ManualActivity`
     * :class:`.ScriptActivity`
     """
+
+    @staticmethod
+    @abc.abstractmethod
+    def _from_proto(proto: activities_pb2.ActivityDefinitionInfo) -> "Activity":
+        pass
+
+    @abc.abstractmethod
+    def _to_proto(self) -> activities_pb2.ActivityDefinitionInfo:
+        pass
 
     @staticmethod
     def _as_subclass(proto):
@@ -36,7 +47,14 @@ class Activity:
         elif proto.type == "SCRIPT":
             return ScriptActivity._from_proto(proto)
         else:
-            raise ValueError("Unexpected activity type")
+            for entry in pkg_resources.iter_entry_points(
+                group="yamcs.client.activities"
+            ):
+                if proto.type == entry.name:
+                    activity_cls = entry.load()
+                    return activity_cls._from_proto(proto)
+
+            raise ValueError(f"Unexpected activity type: {proto.type}")
 
 
 @dataclass

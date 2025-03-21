@@ -2,5 +2,6 @@
     "ignore": [
         "**/*_pb2.py"
     ],
-    "reportAttributeAccessIssue": false
+    "reportAttributeAccessIssue": false,
+    "reportInvalidTypeForm": "none"
 }
