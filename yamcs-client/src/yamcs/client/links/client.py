@@ -1,14 +1,15 @@
 import functools
-from typing import Any, Callable, Dict, Mapping, Optional
+from typing import Any, Callable, Dict, Iterable, Mapping, Optional
 
 from google.protobuf import json_format, struct_pb2
 from yamcs.client.core.context import Context
 from yamcs.client.core.futures import WebSocketSubscriptionFuture
 from yamcs.client.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.client.links.model import Cop1Config, Cop1Status
+from yamcs.client.links.model import Cop1Config, Cop1Status, SdlsStats
 from yamcs.client.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
+from yamcs.protobuf.sdls import sdls_pb2
 
 __all__ = [
     "Cop1Subscription",
@@ -267,3 +268,41 @@ class LinkClient:
         subscription.reply(timeout=timeout)
 
         return subscription
+
+    def sdls_get_ctr(self, spi: int) -> int:
+        """
+        Get the sequence counter associated with a given `spi` (Security Parameter Index) on this link.
+        """
+        response = self.ctx.get_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq")
+        message = sdls_pb2.GetSeqCtrResponse()
+        message.ParseFromString(response.content)
+        return message.seq
+
+    def sdls_reset_ctr(self, spi: int):
+        """
+        Reset the sequence counter associated with a given `spi` (Security Parameter Index) on this link.
+        """
+        self.ctx.delete_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq")
+
+    def sdls_get_stats(self) -> Iterable[SdlsStats]:
+        """
+        Get statistics for all `spi`s (Security Parameter Indices) on this link.
+        """
+        response = self.ctx.get_proto(f"/sdls/{self._instance}/stats")
+        message = sdls_pb2.GetStatsResponse()
+        message.ParseFromString(response.content)
+        stats = getattr(message, "stats")
+        link_stats = []
+
+        for stat in stats:
+            parsed_stat = SdlsStats(stat)
+            if parsed_stat.link_name == self._link:
+                link_stats.append(parsed_stat)
+
+        return iter(link_stats)
+
+    def sdls_set_key(self, spi: int, key: bytes):
+        """
+        Update the `key` associated with a given `spi` (Security Parameter Index) on this link.
+        """
+        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{spi}/key", data=key)
