@@ -87,3 +87,24 @@ class Cop1Config:
         res = f"VC_ID: {self.vc_id}, win: {self.window_width}"
         res += f", timeout_type: {self.timeout_type}"
         return res + f", tx_limit: {self.tx_limit}, t1: {self.t1}"
+
+
+class SdlsStats:
+    def __init__(self, proto):
+        self._proto = proto
+
+    @property
+    def instance(self) -> str:
+        return self._proto.instance
+
+    @property
+    def link_name(self) -> str:
+        return self._proto.linkName
+
+    @property
+    def spi(self) -> int:
+        return self._proto.spi
+
+    @property
+    def seq(self) -> int:
+        return self._proto.seqCtr
