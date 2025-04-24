@@ -1,11 +1,11 @@
 import functools
-from typing import Any, Callable, Dict, Iterable, Mapping, Optional
+from typing import Any, Callable, Dict, Mapping, Optional
 
 from google.protobuf import json_format, struct_pb2
 from yamcs.client.core.context import Context
 from yamcs.client.core.futures import WebSocketSubscriptionFuture
 from yamcs.client.core.subscriptions import WebSocketSubscriptionManager
-from yamcs.client.links.model import Cop1Config, Cop1Status, SdlsStats
+from yamcs.client.links.model import Cop1Config, Cop1Status
 from yamcs.client.model import Link
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
@@ -232,9 +232,7 @@ class LinkClient:
         message.ParseFromString(response.content)
         return Cop1Status(message)
 
-    def create_cop1_subscription(
-        self, on_data: Callable[[Cop1Status], None], timeout: float = 60
-    ) -> Cop1Subscription:
+    def create_cop1_subscription(self, on_data: Callable[[Cop1Status], None], timeout: float = 60) -> Cop1Subscription:
         """
         Create a new subscription for receiving status of the COP1 link.
 
@@ -258,9 +256,7 @@ class LinkClient:
         # Represent subscription as a future
         subscription = Cop1Subscription(manager)
 
-        wrapped_callback = functools.partial(
-            _wrap_callback_parse_cop1_status, subscription, on_data
-        )
+        wrapped_callback = functools.partial(_wrap_callback_parse_cop1_status, subscription, on_data)
 
         manager.open(wrapped_callback)
 
@@ -283,23 +279,6 @@ class LinkClient:
         Reset the sequence counter associated with a given `spi` (Security Parameter Index) on this link.
         """
         self.ctx.delete_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq")
-
-    def sdls_get_stats(self) -> Iterable[SdlsStats]:
-        """
-        Get statistics for all `spi`s (Security Parameter Indices) on this link.
-        """
-        response = self.ctx.get_proto(f"/sdls/{self._instance}/stats")
-        message = sdls_pb2.GetStatsResponse()
-        message.ParseFromString(response.content)
-        stats = getattr(message, "stats")
-        link_stats = []
-
-        for stat in stats:
-            parsed_stat = SdlsStats(stat)
-            if parsed_stat.link_name == self._link:
-                link_stats.append(parsed_stat)
-
-        return iter(link_stats)
 
     def sdls_set_key(self, spi: int, key: bytes):
         """

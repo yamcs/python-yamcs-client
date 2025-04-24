@@ -12,7 +12,6 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.api import httpbody_pb2 as yamcs_dot_api_dot_httpbody__pb2
 
@@ -22,9 +21,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.sdls',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\tSdlsProtoP\001',
-  serialized_pb=b'\n\x1eyamcs/protobuf/sdls/sdls.proto\x12\x13yamcs.protobuf.sdls\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"C\n\x10GetSeqCtrRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\" \n\x11GetSeqCtrResponse\x12\x0b\n\x03seq\x18\x01 \x02(\x04\"E\n\x12ResetSeqCtrRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\"c\n\rSetKeyRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\x12!\n\x04\x64\x61ta\x18\x04 \x02(\x0b\x32\x13.yamcs.api.HttpBody\"#\n\x0fGetStatsRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\"A\n\x10GetStatsResponse\x12-\n\x05stats\x18\x01 \x03(\x0b\x32\x1e.yamcs.protobuf.sdls.SdlsStats\"L\n\tSdlsStats\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\x12\x0e\n\x06seqCtr\x18\x04 \x02(\x04\x32\x90\x04\n\x07SdlsApi\x12\x8b\x01\n\tGetSeqCtr\x12%.yamcs.protobuf.sdls.GetSeqCtrRequest\x1a&.yamcs.protobuf.sdls.GetSeqCtrResponse\"/\x8a\x92\x03+\n)/api/sdls/{instance}/{linkName}/{spi}/seq\x12\x7f\n\x0bResetSeqCtr\x12\'.yamcs.protobuf.sdls.ResetSeqCtrRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+\")/api/sdls/{instance}/{linkName}/{spi}/seq\x12{\n\x06SetKey\x12\".yamcs.protobuf.sdls.SetKeyRequest\x1a\x16.google.protobuf.Empty\"5\x8a\x92\x03\x31\x12)/api/sdls/{instance}/{linkName}/{spi}/key:\x04\x64\x61ta\x12y\n\x08GetStats\x12$.yamcs.protobuf.sdls.GetStatsRequest\x1a%.yamcs.protobuf.sdls.GetStatsResponse\" \x8a\x92\x03\x1c\n\x1a/api/sdls/{instance}/statsB!\n\x12org.yamcs.protobufB\tSdlsProtoP\x01'
+  serialized_pb=b'\n\x1eyamcs/protobuf/sdls/sdls.proto\x12\x13yamcs.protobuf.sdls\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\"C\n\x10GetSeqCtrRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\" \n\x11GetSeqCtrResponse\x12\x0b\n\x03seq\x18\x01 \x02(\x04\"E\n\x12ResetSeqCtrRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\"c\n\rSetKeyRequest\x12\x10\n\x08instance\x18\x01 \x02(\t\x12\x10\n\x08linkName\x18\x02 \x02(\t\x12\x0b\n\x03spi\x18\x03 \x02(\r\x12!\n\x04\x64\x61ta\x18\x04 \x02(\x0b\x32\x13.yamcs.api.HttpBody2\x95\x03\n\x07SdlsApi\x12\x8b\x01\n\tGetSeqCtr\x12%.yamcs.protobuf.sdls.GetSeqCtrRequest\x1a&.yamcs.protobuf.sdls.GetSeqCtrResponse\"/\x8a\x92\x03+\n)/api/sdls/{instance}/{linkName}/{spi}/seq\x12\x7f\n\x0bResetSeqCtr\x12\'.yamcs.protobuf.sdls.ResetSeqCtrRequest\x1a\x16.google.protobuf.Empty\"/\x8a\x92\x03+\")/api/sdls/{instance}/{linkName}/{spi}/seq\x12{\n\x06SetKey\x12\".yamcs.protobuf.sdls.SetKeyRequest\x1a\x16.google.protobuf.Empty\"5\x8a\x92\x03\x31\x12)/api/sdls/{instance}/{linkName}/{spi}/key:\x04\x64\x61taB!\n\x12org.yamcs.protobufB\tSdlsProtoP\x01'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,])
 
 
 
@@ -69,8 +68,8 @@ _GETSEQCTRREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=172,
-  serialized_end=239,
+  serialized_start=139,
+  serialized_end=206,
 )
 
 
@@ -100,8 +99,8 @@ _GETSEQCTRRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=241,
-  serialized_end=273,
+  serialized_start=208,
+  serialized_end=240,
 )
 
 
@@ -145,8 +144,8 @@ _RESETSEQCTRREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=275,
-  serialized_end=344,
+  serialized_start=242,
+  serialized_end=311,
 )
 
 
@@ -197,133 +196,15 @@ _SETKEYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=346,
-  serialized_end=445,
-)
-
-
-_GETSTATSREQUEST = _descriptor.Descriptor(
-  name='GetStatsRequest',
-  full_name='yamcs.protobuf.sdls.GetStatsRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.sdls.GetStatsRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=447,
-  serialized_end=482,
-)
-
-
-_GETSTATSRESPONSE = _descriptor.Descriptor(
-  name='GetStatsResponse',
-  full_name='yamcs.protobuf.sdls.GetStatsResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='stats', full_name='yamcs.protobuf.sdls.GetStatsResponse.stats', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=484,
-  serialized_end=549,
-)
-
-
-_SDLSSTATS = _descriptor.Descriptor(
-  name='SdlsStats',
-  full_name='yamcs.protobuf.sdls.SdlsStats',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.sdls.SdlsStats.instance', index=0,
-      number=1, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='linkName', full_name='yamcs.protobuf.sdls.SdlsStats.linkName', index=1,
-      number=2, type=9, cpp_type=9, label=2,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='spi', full_name='yamcs.protobuf.sdls.SdlsStats.spi', index=2,
-      number=3, type=13, cpp_type=3, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='seqCtr', full_name='yamcs.protobuf.sdls.SdlsStats.seqCtr', index=3,
-      number=4, type=4, cpp_type=4, label=2,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=551,
-  serialized_end=627,
+  serialized_start=313,
+  serialized_end=412,
 )
 
 _SETKEYREQUEST.fields_by_name['data'].message_type = yamcs_dot_api_dot_httpbody__pb2._HTTPBODY
-_GETSTATSRESPONSE.fields_by_name['stats'].message_type = _SDLSSTATS
 DESCRIPTOR.message_types_by_name['GetSeqCtrRequest'] = _GETSEQCTRREQUEST
 DESCRIPTOR.message_types_by_name['GetSeqCtrResponse'] = _GETSEQCTRRESPONSE
 DESCRIPTOR.message_types_by_name['ResetSeqCtrRequest'] = _RESETSEQCTRREQUEST
 DESCRIPTOR.message_types_by_name['SetKeyRequest'] = _SETKEYREQUEST
-DESCRIPTOR.message_types_by_name['GetStatsRequest'] = _GETSTATSREQUEST
-DESCRIPTOR.message_types_by_name['GetStatsResponse'] = _GETSTATSRESPONSE
-DESCRIPTOR.message_types_by_name['SdlsStats'] = _SDLSSTATS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 GetSeqCtrRequest = _reflection.GeneratedProtocolMessageType('GetSeqCtrRequest', (_message.Message,), {
@@ -354,27 +235,6 @@ SetKeyRequest = _reflection.GeneratedProtocolMessageType('SetKeyRequest', (_mess
   })
 _sym_db.RegisterMessage(SetKeyRequest)
 
-GetStatsRequest = _reflection.GeneratedProtocolMessageType('GetStatsRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETSTATSREQUEST,
-  '__module__' : 'yamcs.protobuf.sdls.sdls_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.sdls.GetStatsRequest)
-  })
-_sym_db.RegisterMessage(GetStatsRequest)
-
-GetStatsResponse = _reflection.GeneratedProtocolMessageType('GetStatsResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETSTATSRESPONSE,
-  '__module__' : 'yamcs.protobuf.sdls.sdls_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.sdls.GetStatsResponse)
-  })
-_sym_db.RegisterMessage(GetStatsResponse)
-
-SdlsStats = _reflection.GeneratedProtocolMessageType('SdlsStats', (_message.Message,), {
-  'DESCRIPTOR' : _SDLSSTATS,
-  '__module__' : 'yamcs.protobuf.sdls.sdls_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.sdls.SdlsStats)
-  })
-_sym_db.RegisterMessage(SdlsStats)
-
 
 DESCRIPTOR._options = None
 
@@ -384,8 +244,8 @@ _SDLSAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=630,
-  serialized_end=1158,
+  serialized_start=415,
+  serialized_end=820,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetSeqCtr',
@@ -413,15 +273,6 @@ _SDLSAPI = _descriptor.ServiceDescriptor(
     input_type=_SETKEYREQUEST,
     output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=b'\212\222\0031\022)/api/sdls/{instance}/{linkName}/{spi}/key:\004data',
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetStats',
-    full_name='yamcs.protobuf.sdls.SdlsApi.GetStats',
-    index=3,
-    containing_service=None,
-    input_type=_GETSTATSREQUEST,
-    output_type=_GETSTATSRESPONSE,
-    serialized_options=b'\212\222\003\034\n\032/api/sdls/{instance}/stats',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_SDLSAPI)
