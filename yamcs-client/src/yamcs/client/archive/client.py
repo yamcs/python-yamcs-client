@@ -470,7 +470,7 @@ class ArchiveClient:
     def export_parameter_values(
         self,
         parameters: List[str],
-        namespace: Optional[str],
+        namespace: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
         interval: Optional[float] = None,
