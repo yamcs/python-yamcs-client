@@ -12,8 +12,8 @@ from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.sdls import sdls_pb2
 
 __all__ = [
-    'Cop1Subscription',
-    'LinkClient',
+    "Cop1Subscription",
+    "LinkClient",
 ]
 
 
@@ -92,7 +92,7 @@ class LinkClient:
         """
         Get info on this link.
         """
-        response = self.ctx.get_proto(f'/links/{self._instance}/{self._link}')
+        response = self.ctx.get_proto(f"/links/{self._instance}/{self._link}")
         message = links_pb2.LinkInfo()
         message.ParseFromString(response.content)
         return Link(message)
@@ -102,7 +102,7 @@ class LinkClient:
         Enables this link.
         """
         req = links_pb2.EnableLinkRequest()
-        url = f'/links/{self._instance}/{self._link}:enable'
+        url = f"/links/{self._instance}/{self._link}:enable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def disable_link(self):
@@ -110,7 +110,7 @@ class LinkClient:
         Disables this link.
         """
         req = links_pb2.DisableLinkRequest()
-        url = f'/links/{self._instance}/{self._link}:disable'
+        url = f"/links/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def run_action(
@@ -132,7 +132,7 @@ class LinkClient:
         if message:
             req.message.update(message)
 
-        url = f'/links/{self._instance}/{self._link}/actions/{action}'
+        url = f"/links/{self._instance}/{self._link}/actions/{action}"
         response = self.ctx.post_proto(url, data=req.message.SerializeToString())
         response_message = struct_pb2.Struct()
         response_message.ParseFromString(response.content)
@@ -142,7 +142,7 @@ class LinkClient:
         """
         Gets the COP1 configuration for a data link.
         """
-        response = self.ctx.get_proto(f'/cop1/{self._instance}/{self._link}/config')
+        response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/config")
         message = cop1_pb2.Cop1Config()
         message.ParseFromString(response.content)
         return Cop1Config(message)
@@ -167,7 +167,7 @@ class LinkClient:
         if t1 is not None:
             req.t1 = int(round(1000 * t1))
 
-        url = f'/cop1/{self._instance}/{self._link}/config'
+        url = f"/cop1/{self._instance}/{self._link}/config"
         response = self.ctx.patch_proto(url, data=req.SerializeToString())
 
         message = cop1_pb2.Cop1Config()
@@ -183,7 +183,7 @@ class LinkClient:
         """
         req = cop1_pb2.DisableRequest()
         req.setBypassAll = bypass_all
-        url = f'/cop1/{self._instance}/{self._link}:disable'
+        url = f"/cop1/{self._instance}/{self._link}:disable"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def initialize_cop1(
@@ -212,7 +212,7 @@ class LinkClient:
         if v_r is not None:
             req.vR = v_r
 
-        url = f'/cop1/{self._instance}/{self._link}:initialize'
+        url = f"/cop1/{self._instance}/{self._link}:initialize"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def resume_cop1(self):
@@ -220,14 +220,14 @@ class LinkClient:
         Resume COP1.
         """
         req = cop1_pb2.ResumeRequest()
-        url = f'/cop1/{self._instance}/{self._link}:resume'
+        url = f"/cop1/{self._instance}/{self._link}:resume"
         self.ctx.post_proto(url, data=req.SerializeToString())
 
     def get_cop1_status(self) -> Cop1Status:
         """
         Retrieve the COP1 status.
         """
-        response = self.ctx.get_proto(f'/cop1/{self._instance}/{self._link}/status')
+        response = self.ctx.get_proto(f"/cop1/{self._instance}/{self._link}/status")
         message = cop1_pb2.Cop1Status()
         message.ParseFromString(response.content)
         return Cop1Status(message)
@@ -251,7 +251,7 @@ class LinkClient:
         options.instance = self._instance
         options.link = self._link
 
-        manager = WebSocketSubscriptionManager(self.ctx, topic='cop1', options=options)
+        manager = WebSocketSubscriptionManager(self.ctx, topic="cop1", options=options)
 
         # Represent subscription as a future
         subscription = Cop1Subscription(manager)
@@ -269,24 +269,25 @@ class LinkClient:
         """
         Get the sequence counter associated with a given `spi` (Security Parameter Index) on this link.
         """
-        response = self.ctx.get_proto(f'/sdls/{self._instance}/{self._link}/{spi}/seq')
+        response = self.ctx.get_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq")
         message = sdls_pb2.GetSeqCtrResponse()
         message.ParseFromString(response.content)
-        return int.from_bytes(message.seq, byteorder='big')
+        return int.from_bytes(message.seq, byteorder="big")
 
     def sdls_set_ctr(self, spi: int, new_seq: int):
         """
         Set the sequence counter associated with a given `spi` (Security Parameter Index) on this link to `new_seq`.
         """
+        body = sdls_pb2.SetSeqCtrRequestBody()
         byte_length = (new_seq.bit_length() + 7) // 8
-        seq_bytes = new_seq.to_bytes(byte_length, byteorder='big')
-        self.ctx.put_proto(f'/sdls/{self._instance}/{self._link}/{spi}/seq', data=seq_bytes)
+        body.seq = new_seq.to_bytes(byte_length, byteorder="big")
+        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq", data=body.SerializeToString())
 
     def sdls_set_key(self, spi: int, key: bytes):
         """
         Update the `key` associated with a given `spi` (Security Parameter Index) on this link.
         """
-        self.ctx.put_proto(f'/sdls/{self._instance}/{self._link}/{spi}/key', data=key)
+        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{spi}/key", data=key)
 
     def sdls_set_spi(self, vc_id: int, spi: int):
         """
@@ -294,7 +295,7 @@ class LinkClient:
         """
         body = sdls_pb2.SetSpiRequestBody()
         body.spi = spi
-        self.ctx.put_proto(f'/sdls/{self._instance}/{self._link}/{vc_id}/spi', data=body.SerializeToString())
+        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{vc_id}/spi", data=body.SerializeToString())
 
     def sdls_set_spis(self, vc_id: int, spis: list[int]):
         """
@@ -303,4 +304,4 @@ class LinkClient:
         """
         body = sdls_pb2.SetSpisRequestBody()
         body.spis[:] = spis
-        self.ctx.put_proto(f'/sdls/{self._instance}/{self._link}/{vc_id}/spis', data=body.SerializeToString())
+        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{vc_id}/spis", data=body.SerializeToString())
