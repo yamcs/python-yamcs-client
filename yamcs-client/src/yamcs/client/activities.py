@@ -1,4 +1,5 @@
 import abc
+import warnings
 from dataclasses import dataclass, field
 from importlib.metadata import entry_points
 from typing import Any, List, Mapping, Optional, Union
@@ -12,6 +13,7 @@ __all__ = [
     "CommandStackActivity",
     "ManualActivity",
     "ScriptActivity",
+    "StackActivity",
 ]
 
 
@@ -21,9 +23,9 @@ class Activity:
     Superclass for activities. Core implementations:
 
     * :class:`.CommandActivity`
-    * :class:`.CommandStackActivity`
     * :class:`.ManualActivity`
     * :class:`.ScriptActivity`
+    * :class:`.StackActivity`
     """
 
     @staticmethod
@@ -43,7 +45,7 @@ class Activity:
         if proto.type == "COMMAND":
             return CommandActivity._from_proto(proto)
         elif proto.type == "COMMAND_STACK":
-            return CommandStackActivity._from_proto(proto)
+            return StackActivity._from_proto(proto)
         elif proto.type == "SCRIPT":
             return ScriptActivity._from_proto(proto)
         else:
@@ -173,9 +175,9 @@ class CommandActivity(Activity):
 
 
 @dataclass
-class CommandStackActivity(Activity):
+class StackActivity(Activity):
     """
-    An activity that executes a command stack
+    An activity for executing a stack
     """
 
     bucket: str
@@ -192,7 +194,7 @@ class CommandStackActivity(Activity):
 
     @staticmethod
     def _from_proto(proto: activities_pb2.ActivityDefinitionInfo):
-        activity = CommandStackActivity(
+        activity = StackActivity(
             bucket=proto.args["bucket"],
             stack=proto.args["stack"],
         )
@@ -210,3 +212,16 @@ class CommandStackActivity(Activity):
         if self.processor:
             proto.args["processor"] = self.processor
         return proto
+
+
+class CommandStackActivity(StackActivity):
+    """Deprecated. Use StackActivity instead."""
+
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            "CommandStackActivity is deprecated and will be removed in a "
+            "future release. Use StackActivity instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
