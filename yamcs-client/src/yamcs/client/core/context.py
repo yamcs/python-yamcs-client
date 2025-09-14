@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 from typing import Callable, Optional, Union
+from urllib.parse import urlparse
 
 import requests
 import urllib3
@@ -27,6 +28,15 @@ class Context:
         tls_verify: Union[bool, str] = True,
         keep_alive: bool = True,
     ):
+        # Allow server URLs.
+        # Currently undocumented, but this is expected to become the
+        # default, later on.
+        if address.startswith("http://") or address.startswith("https://"):
+            components = urlparse(address)
+            tls = components.scheme == "https"
+            address = components.netloc
+            address += components.path
+
         if address.endswith("/"):
             self.address = address[:-1]
         else:

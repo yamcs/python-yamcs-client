@@ -15,7 +15,6 @@ from typing import (
     Optional,
     Union,
 )
-from urllib.parse import urlparse
 
 from google.protobuf import timestamp_pb2
 from yamcs.client.core.auth import APIKeyCredentials, Credentials
@@ -204,16 +203,6 @@ class YamcsClient:
             This property is only considered when accessing a
             server that requires authentication.
         """
-
-        # Allow server URLs.
-        # Currently undocumented, but this is expected to become the
-        # default, later on.
-        if address.startswith("http://") or address.startswith("https://"):
-            components = urlparse(address)
-            tls = components.scheme == "https"
-            address = components.netloc
-            address += components.path
-
         self.ctx = Context(
             address=address,
             tls=tls,
