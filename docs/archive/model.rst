@@ -16,6 +16,11 @@ Model
     :undoc-members:
     :show-inheritance:
 
+.. autoclass:: yamcs.client.MeanSample
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 .. autoclass:: yamcs.client.ParameterRange
     :members:
     :undoc-members:
@@ -27,11 +32,6 @@ Model
     :show-inheritance:
 
 .. autoclass:: yamcs.client.ResultSet
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-.. autoclass:: yamcs.client.Sample
     :members:
     :undoc-members:
     :show-inheritance:

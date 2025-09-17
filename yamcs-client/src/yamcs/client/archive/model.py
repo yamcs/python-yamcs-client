@@ -13,6 +13,7 @@ __all__ = [
     "ColumnData",
     "IndexGroup",
     "IndexRecord",
+    "MeanSample",
     "ParameterRange",
     "ParameterRangeEntry",
     "ResultSet",
@@ -209,10 +210,13 @@ class IndexRecord:
         return f"{self.start} - {self.stop} (n={self.count})"
 
 
-class Sample:
+class MeanSample:
     """
     Provides aggregation properties over a range of a parameter's
     values.
+
+    .. versionadded:: 1.12.0
+       In earlier versions this class was called ``Sample``.
     """
 
     def __init__(self, proto):
@@ -227,7 +231,7 @@ class Sample:
 
     @property
     def avg(self) -> Optional[float]:
-        """Average value."""
+        """Average (mean) value."""
         if self._proto.HasField("avg"):
             return self._proto.avg
         return None
@@ -253,6 +257,13 @@ class Sample:
 
     def __str__(self):
         return f"{self.time} {self.avg}"
+
+
+Sample = MeanSample
+"""
+Deprecated. Use MeanSample instead of Sample. 'Sample' is a temporary
+reference to 'MeanSample' for backwards compatibility only.
+"""
 
 
 class ParameterRangeEntry:

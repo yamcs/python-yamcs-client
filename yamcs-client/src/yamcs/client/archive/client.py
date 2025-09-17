@@ -1,13 +1,14 @@
 import functools
 import urllib.parse
+import warnings
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable, Dict, Iterable, List, Optional, Union
 
 from yamcs.client.archive.model import (
     IndexGroup,
+    MeanSample,
     ParameterRange,
     ResultSet,
-    Sample,
     Stream,
     StreamData,
     Table,
@@ -726,13 +727,44 @@ class ArchiveClient:
         sample_count: int = 500,
         parameter_cache: str = "realtime",
         source: str = "ParameterArchive",
-    ) -> List[Sample]:
+    ) -> List[MeanSample]:
         """
-        Returns parameter samples.
+        .. warning::
+            Deprecated. Since yamcs-client 1.12.0 this method was
+            renamed to :meth:`downsample_mean`.
+        """
+        warnings.warn(
+            "The method 'sample_parameter_values' is deprecated. "
+            "Use 'downsample_mean' instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.downsample_mean(
+            parameter,
+            start=start,
+            stop=stop,
+            sample_count=sample_count,
+            parameter_cache=parameter_cache,
+            source=source,
+        )
+
+    def downsample_mean(
+        self,
+        parameter: str,
+        start: Optional[datetime] = None,
+        stop: Optional[datetime] = None,
+        *,
+        sample_count: int = 500,
+        parameter_cache: str = "realtime",
+        source: str = "ParameterArchive",
+    ) -> List[MeanSample]:
+        """
+        Downsample parameter values in the requested range using
+        averaging (mean).
 
         The query range is split in sample intervals of equal length. For
-        each interval a :class:`.Sample` is returned which describes the
-        min, max, count and avg during that interval.
+        each interval a :class:`.MeanSample` is returned which describes
+        the min, max, count and avg during that interval.
 
         Note that sample times are determined without considering the
         actual parameter values. Two separate queries with equal start/stop
@@ -790,7 +822,7 @@ class ArchiveClient:
         message = pvalue_pb2.TimeSeries()
         message.ParseFromString(response.content)
         samples = getattr(message, "sample")
-        return [Sample(s) for s in samples]
+        return [MeanSample(s) for s in samples]
 
     def list_parameter_ranges(
         self,
