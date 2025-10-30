@@ -1,5 +1,5 @@
 import functools
-from typing import Any, Callable, Dict, Mapping, Optional
+from typing import Any, Callable, Dict, List, Mapping, Optional
 
 from google.protobuf import json_format, struct_pb2
 from yamcs.client.core.context import Context
@@ -232,7 +232,9 @@ class LinkClient:
         message.ParseFromString(response.content)
         return Cop1Status(message)
 
-    def create_cop1_subscription(self, on_data: Callable[[Cop1Status], None], timeout: float = 60) -> Cop1Subscription:
+    def create_cop1_subscription(
+        self, on_data: Callable[[Cop1Status], None], timeout: float = 60
+    ) -> Cop1Subscription:
         """
         Create a new subscription for receiving status of the COP1 link.
 
@@ -256,7 +258,9 @@ class LinkClient:
         # Represent subscription as a future
         subscription = Cop1Subscription(manager)
 
-        wrapped_callback = functools.partial(_wrap_callback_parse_cop1_status, subscription, on_data)
+        wrapped_callback = functools.partial(
+            _wrap_callback_parse_cop1_status, subscription, on_data
+        )
 
         manager.open(wrapped_callback)
 
@@ -267,7 +271,8 @@ class LinkClient:
 
     def sdls_get_ctr(self, spi: int) -> int:
         """
-        Get the sequence counter associated with a given `spi` (Security Parameter Index) on this link.
+        Get the sequence counter associated with a given `spi`
+        (Security Parameter Index) on this link.
         """
         response = self.ctx.get_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq")
         message = sdls_pb2.GetSeqCtrResponse()
@@ -276,16 +281,21 @@ class LinkClient:
 
     def sdls_set_ctr(self, spi: int, new_seq: int):
         """
-        Set the sequence counter associated with a given `spi` (Security Parameter Index) on this link to `new_seq`.
+        Set the sequence counter associated with a given `spi`
+        (Security Parameter Index) on this link to `new_seq`.
         """
         body = sdls_pb2.SetSeqCtrRequestBody()
         byte_length = (new_seq.bit_length() + 7) // 8
         body.seq = new_seq.to_bytes(byte_length, byteorder="big")
-        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{spi}/seq", data=body.SerializeToString())
+        self.ctx.put_proto(
+            f"/sdls/{self._instance}/{self._link}/{spi}/seq",
+            data=body.SerializeToString(),
+        )
 
     def sdls_set_key(self, spi: int, key: bytes):
         """
-        Update the `key` associated with a given `spi` (Security Parameter Index) on this link.
+        Update the `key` associated with a given `spi`
+        (Security Parameter Index) on this link.
         """
         self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{spi}/key", data=key)
 
@@ -295,13 +305,19 @@ class LinkClient:
         """
         body = sdls_pb2.SetSpiRequestBody()
         body.spi = spi
-        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{vc_id}/spi", data=body.SerializeToString())
+        self.ctx.put_proto(
+            f"/sdls/{self._instance}/{self._link}/{vc_id}/spi",
+            data=body.SerializeToString(),
+        )
 
-    def sdls_set_spis(self, vc_id: int, spis: list[int]):
+    def sdls_set_spis(self, vc_id: int, spis: List[int]):
         """
         Update the `spis` used for SDLS on the VC `vc_id` on this link.
         Only valid for incoming links (i.e., downlink).
         """
         body = sdls_pb2.SetSpisRequestBody()
         body.spis[:] = spis
-        self.ctx.put_proto(f"/sdls/{self._instance}/{self._link}/{vc_id}/spis", data=body.SerializeToString())
+        self.ctx.put_proto(
+            f"/sdls/{self._instance}/{self._link}/{vc_id}/spis",
+            data=body.SerializeToString(),
+        )
