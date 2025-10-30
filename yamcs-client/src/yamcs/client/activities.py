@@ -1,8 +1,8 @@
 import abc
 from dataclasses import dataclass, field
+from importlib.metadata import entry_points
 from typing import Any, List, Mapping, Optional, Union
 
-import pkg_resources
 from yamcs.client.core.helpers import to_argument_value
 from yamcs.protobuf.activities import activities_pb2
 
@@ -47,9 +47,7 @@ class Activity:
         elif proto.type == "SCRIPT":
             return ScriptActivity._from_proto(proto)
         else:
-            for entry in pkg_resources.iter_entry_points(
-                group="yamcs.client.activities"
-            ):
+            for entry in entry_points(group="yamcs.client.activities"):
                 if proto.type == entry.name:
                     activity_cls = entry.load()
                     return activity_cls._from_proto(proto)

@@ -1,4 +1,4 @@
-import pkg_resources
+from importlib.metadata import version as get_pkg_version
 
 project = "yamcs-client"
 copyright = "2020, Space Applications Services"
@@ -11,8 +11,7 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 pygments_style = "sphinx"
 templates_path = ["_templates"]
 
-dist = pkg_resources.get_distribution("yamcs-client")
-release = dist.version
+release = get_pkg_version("yamcs-client")
 
 extensions = [
     # We don't use napolean style, but keep this because it suppresses
