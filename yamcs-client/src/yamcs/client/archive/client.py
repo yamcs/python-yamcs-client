@@ -341,6 +341,7 @@ class ArchiveClient:
     def list_packets(
         self,
         name: Optional[str] = None,
+        filter: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
         page_size: int = 500,
@@ -361,6 +362,11 @@ class ArchiveClient:
 
         :param name:
             Archived name of the packet
+        :param filter:
+            Filter query, allows for both text and field search.
+
+            .. versionadded:: 1.12.0
+               Compatible with Yamcs v5.12.0 onwards
         :param start:
             Minimum generation time of the returned packets (inclusive)
         :param stop:
@@ -384,6 +390,8 @@ class ArchiveClient:
             params["start"] = to_isostring(start)
         if stop is not None:
             params["stop"] = to_isostring(stop)
+        if filter is not None:
+            params["filter"] = filter
 
         return pagination.Iterator(
             ctx=self.ctx,
