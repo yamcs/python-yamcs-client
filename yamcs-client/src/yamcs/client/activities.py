@@ -49,7 +49,11 @@ class Activity:
         elif proto.type == "SCRIPT":
             return ScriptActivity._from_proto(proto)
         else:
-            for entry in entry_points(group="yamcs.client.activities"):
+            try:
+                eps = entry_points(group="yamcs.client.activities")
+            except TypeError:  # < Python 3.10
+                eps = entry_points().get("yamcs.client.activities", [])
+            for entry in eps:
                 if proto.type == entry.name:
                     activity_cls = entry.load()
                     return activity_cls._from_proto(proto)
