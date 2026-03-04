@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.replication',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\020ReplicationProtoP\001',
-  serialized_pb=b'\n,yamcs/protobuf/replication/replication.proto\x12\x1ayamcs.protobuf.replication\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"\x97\x01\n\x0fReplicationInfo\x12\x42\n\x07masters\x18\x01 \x03(\x0b\x32\x31.yamcs.protobuf.replication.ReplicationMasterInfo\x12@\n\x06slaves\x18\x02 \x03(\x0b\x32\x30.yamcs.protobuf.replication.ReplicationSlaveInfo\"\xa6\x01\n\x15ReplicationMasterInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07streams\x18\x02 \x03(\t\x12\x14\n\x0clocalAddress\x18\x03 \x01(\t\x12\x15\n\rremoteAddress\x18\x04 \x01(\t\x12\x0c\n\x04push\x18\x05 \x01(\x08\x12\x0e\n\x06pushTo\x18\x06 \x01(\t\x12\x0f\n\x07localTx\x18\x07 \x01(\x03\x12\x0e\n\x06nextTx\x18\x08 \x01(\x03\"\x92\x01\n\x14ReplicationSlaveInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07streams\x18\x02 \x03(\t\x12\x14\n\x0clocalAddress\x18\x03 \x01(\t\x12\x15\n\rremoteAddress\x18\x04 \x01(\t\x12\x0c\n\x04push\x18\x05 \x01(\x08\x12\x10\n\x08pullFrom\x18\x06 \x01(\t\x12\n\n\x02tx\x18\x07 \x01(\x03\x32\xfe\x01\n\x0eReplicationApi\x12q\n\x12GetReplicationInfo\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.replication.ReplicationInfo\"\x16\x8a\x92\x03\x12\n\x10/api/replication\x12y\n\x18SubscribeReplicationInfo\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.replication.ReplicationInfo\"\x16\xda\x92\x03\x12\n\x10replication-info0\x01\x42(\n\x12org.yamcs.protobufB\x10ReplicationProtoP\x01'
+  serialized_pb=b'\n,yamcs/protobuf/replication/replication.proto\x12\x1ayamcs.protobuf.replication\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"\x97\x01\n\x0fReplicationInfo\x12\x42\n\x07masters\x18\x01 \x03(\x0b\x32\x31.yamcs.protobuf.replication.ReplicationMasterInfo\x12@\n\x06slaves\x18\x02 \x03(\x0b\x32\x30.yamcs.protobuf.replication.ReplicationSlaveInfo\"\xa6\x01\n\x15ReplicationMasterInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07streams\x18\x02 \x03(\t\x12\x14\n\x0clocalAddress\x18\x03 \x01(\t\x12\x15\n\rremoteAddress\x18\x04 \x01(\t\x12\x0c\n\x04push\x18\x05 \x01(\x08\x12\x0e\n\x06pushTo\x18\x06 \x01(\t\x12\x0f\n\x07localTx\x18\x07 \x01(\x03\x12\x0e\n\x06nextTx\x18\x08 \x01(\x03\"\x92\x01\n\x14ReplicationSlaveInfo\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0f\n\x07streams\x18\x02 \x03(\t\x12\x14\n\x0clocalAddress\x18\x03 \x01(\t\x12\x15\n\rremoteAddress\x18\x04 \x01(\t\x12\x0c\n\x04push\x18\x05 \x01(\x08\x12\x10\n\x08pullFrom\x18\x06 \x01(\t\x12\n\n\x02tx\x18\x07 \x01(\x03\x32\x84\x02\n\x0eReplicationApi\x12q\n\x12GetReplicationInfo\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.replication.ReplicationInfo\"\x16\x8a\x92\x03\x12\n\x10/api/replication\x12y\n\x18SubscribeReplicationInfo\x12\x16.google.protobuf.Empty\x1a+.yamcs.protobuf.replication.ReplicationInfo\"\x16\xda\x92\x03\x12\n\x10replication-info0\x01\x1a\x04\xd0\x80\x01\x01\x42(\n\x12org.yamcs.protobufB\x10ReplicationProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -253,9 +253,9 @@ _REPLICATIONAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.replication.ReplicationApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
+  serialized_options=b'\320\200\001\001',
   serialized_start=607,
-  serialized_end=861,
+  serialized_end=867,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetReplicationInfo',

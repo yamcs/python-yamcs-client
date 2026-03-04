@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.audit',
   syntax='proto2',
   serialized_options=b'\n\030org.yamcs.protobuf.auditB\021AuditServiceProtoP\001',
-  serialized_pb=b'\n yamcs/protobuf/audit/audit.proto\x12\x14yamcs.protobuf.audit\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\"\xb9\x01\n\x17ListAuditRecordsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0c\n\x04next\x18\x03 \x01(\t\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\t\n\x01q\x18\x06 \x01(\t\x12\x0f\n\x07service\x18\x07 \x01(\t\"i\n\x18ListAuditRecordsResponse\x12\x32\n\x07records\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.audit.AuditRecord\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xa1\x01\n\x0b\x41uditRecord\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07service\x18\x02 \x01(\t\x12\x0e\n\x06method\x18\x03 \x01(\t\x12\x0c\n\x04user\x18\x04 \x01(\t\x12\x0f\n\x07summary\x18\x05 \x01(\t\x12(\n\x07request\x18\x06 \x01(\x0b\x32\x17.google.protobuf.Struct2\xa3\x01\n\x08\x41uditApi\x12\x96\x01\n\x10ListAuditRecords\x12-.yamcs.protobuf.audit.ListAuditRecordsRequest\x1a..yamcs.protobuf.audit.ListAuditRecordsResponse\"#\x8a\x92\x03\x1f\n\x1d/api/audit/records/{instance}B/\n\x18org.yamcs.protobuf.auditB\x11\x41uditServiceProtoP\x01'
+  serialized_pb=b'\n yamcs/protobuf/audit/audit.proto\x12\x14yamcs.protobuf.audit\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\"\xb9\x01\n\x17ListAuditRecordsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0c\n\x04next\x18\x03 \x01(\t\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\t\n\x01q\x18\x06 \x01(\t\x12\x0f\n\x07service\x18\x07 \x01(\t\"i\n\x18ListAuditRecordsResponse\x12\x32\n\x07records\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.audit.AuditRecord\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xa1\x01\n\x0b\x41uditRecord\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07service\x18\x02 \x01(\t\x12\x0e\n\x06method\x18\x03 \x01(\t\x12\x0c\n\x04user\x18\x04 \x01(\t\x12\x0f\n\x07summary\x18\x05 \x01(\t\x12(\n\x07request\x18\x06 \x01(\x0b\x32\x17.google.protobuf.Struct2\xa9\x01\n\x08\x41uditApi\x12\x96\x01\n\x10ListAuditRecords\x12-.yamcs.protobuf.audit.ListAuditRecordsRequest\x1a..yamcs.protobuf.audit.ListAuditRecordsResponse\"#\x8a\x92\x03\x1f\n\x1d/api/audit/records/{instance}\x1a\x04\xd0\x80\x01\x01\x42/\n\x18org.yamcs.protobuf.auditB\x11\x41uditServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -243,9 +243,9 @@ _AUDITAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.audit.AuditApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
+  serialized_options=b'\320\200\001\001',
   serialized_start=610,
-  serialized_end=773,
+  serialized_end=779,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListAuditRecords',

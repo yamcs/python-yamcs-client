@@ -13,6 +13,8 @@ _sym_db = _symbol_database.Default()
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
+from yamcs.api import httpbody_pb2 as yamcs_dot_api_dot_httpbody__pb2
+from yamcs.protobuf.pvalue import pvalue_pb2 as yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2
 from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
 
 
@@ -21,11 +23,366 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.pvalue',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\033ParameterValuesServiceProtoP\001',
-  serialized_pb=b'\n*yamcs/protobuf/pvalue/pvalue_service.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"{\n\x1aLoadParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\x12;\n\x06values\x18\x03 \x03(\x0b\x32+.yamcs.protobuf.pvalue.ParameterValueUpdate\"\x9f\x01\n\x1bLoadParameterValuesResponse\x12\x12\n\nvalueCount\x18\x01 \x01(\r\x12\x35\n\x11minGenerationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x35\n\x11maxGenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x96\x01\n\x14ParameterValueUpdate\x12\x11\n\tparameter\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\texpiresIn\x18\x04 \x01(\x04\x32\xd6\x01\n\x12ParameterValuesApi\x12\xbf\x01\n\x13LoadParameterValues\x12\x31.yamcs.protobuf.pvalue.LoadParameterValuesRequest\x1a\x32.yamcs.protobuf.pvalue.LoadParameterValuesResponse\"?\x8a\x92\x03;\x1a\x36/api/parameter-values/{instance}/streams/{stream}:load:\x01*(\x01\x42\x33\n\x12org.yamcs.protobufB\x1bParameterValuesServiceProtoP\x01'
+  serialized_pb=b'\n*yamcs/protobuf/pvalue/pvalue_service.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\"yamcs/protobuf/pvalue/pvalue.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xb8\x02\n\x1bListParameterHistoryRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0b\n\x03pos\x18\x03 \x01(\x03\x12\r\n\x05limit\x18\x04 \x01(\x05\x12\x10\n\x08norepeat\x18\x05 \x01(\x08\x12)\n\x05start\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05order\x18\x08 \x01(\t\x12\x12\n\nnorealtime\x18\t \x01(\x08\x12\x11\n\tprocessor\x18\n \x01(\t\x12\x0e\n\x06source\x18\x0b \x01(\t\x12\x10\n\x08noreplay\x18\x0e \x01(\x08\x12\x10\n\x08maxBytes\x18\r \x01(\x05\x12\x0c\n\x04next\x18\x0c \x01(\t\"s\n\x1cListParameterHistoryResponse\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"\xe6\x02\n\x1c\x45xportParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x12\n\nparameters\x18\x04 \x03(\t\x12\x0c\n\x04list\x18\x0e \x01(\t\x12\x11\n\tnamespace\x18\x05 \x01(\t\x12\r\n\x05\x65xtra\x18\x06 \x03(\t\x12\x11\n\tdelimiter\x18\x07 \x01(\t\x12\x10\n\x08interval\x18\x08 \x01(\x05\x12\x19\n\x11preserveLastValue\x18\t \x01(\x08\x12\x0b\n\x03pos\x18\n \x01(\x03\x12\r\n\x05limit\x18\x0b \x01(\x05\x12\r\n\x05order\x18\x0c \x01(\t\x12\x10\n\x08\x66ilename\x18\r \x01(\t\x12\x0e\n\x06header\x18\x0f \x01(\t\x12\x0e\n\x06source\x18\x10 \x01(\t\"\xc2\x01\n\x1cStreamParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12*\n\x03ids\x18\x04 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0f\n\x07tmLinks\x18\x05 \x03(\t\"{\n\x1aLoadParameterValuesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06stream\x18\x02 \x01(\t\x12;\n\x06values\x18\x03 \x03(\x0b\x32+.yamcs.protobuf.pvalue.ParameterValueUpdate\"\x9f\x01\n\x1bLoadParameterValuesResponse\x12\x12\n\nvalueCount\x18\x01 \x01(\r\x12\x35\n\x11minGenerationTime\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x35\n\x11maxGenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x96\x01\n\x14ParameterValueUpdate\x12\x11\n\tparameter\x18\x01 \x01(\t\x12$\n\x05value\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x32\n\x0egenerationTime\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\texpiresIn\x18\x04 \x01(\x04\"\xfd\x01\n\x1aGetParameterSamplesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x05 \x01(\x05\x12\x12\n\nnorealtime\x18\x06 \x01(\x08\x12\x13\n\x0buseRawValue\x18\t \x01(\x08\x12\x0f\n\x07gapTime\x18\n \x01(\x04\x12\x11\n\tprocessor\x18\x07 \x01(\t\x12\x0e\n\x06source\x18\x08 \x01(\t\"\x8c\x02\n\x19GetParameterRangesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12)\n\x05start\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06minGap\x18\x05 \x01(\x03\x12\x0e\n\x06maxGap\x18\x06 \x01(\x03\x12\x12\n\nnorealtime\x18\x07 \x01(\x08\x12\x11\n\tprocessor\x18\x08 \x01(\t\x12\x0e\n\x06source\x18\t \x01(\t\x12\x10\n\x08minRange\x18\n \x01(\x03\x12\x11\n\tmaxValues\x18\x0b \x01(\x05\".\n\x1aListParameterGroupsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"-\n\x1bListParameterGroupsResponse\x12\x0e\n\x06groups\x18\x02 \x03(\t2\xd2\x0b\n\x12ParameterValuesApi\x12\xe8\x01\n\x14ListParameterHistory\x12\x32.yamcs.protobuf.pvalue.ListParameterHistoryRequest\x1a\x33.yamcs.protobuf.pvalue.ListParameterHistoryResponse\"g\x8a\x92\x03\x63\n*/api/archive/{instance}/parameters/{name*}Z5\n1/api/stream-archive/{instance}/parameters/{name*}0\x01\x12\xcc\x01\n\x15\x45xportParameterValues\x12\x33.yamcs.protobuf.pvalue.ExportParameterValuesRequest\x1a\x13.yamcs.api.HttpBody\"g\x8a\x92\x03\x63\n-/api/archive/{instance}:exportParameterValuesZ2\x1a-/api/archive/{instance}:exportParameterValues:\x01*0\x01\x12\xe9\x01\n\x15StreamParameterValues\x12\x33.yamcs.protobuf.pvalue.StreamParameterValuesRequest\x1a$.yamcs.protobuf.pvalue.ParameterData\"s\x8a\x92\x03o\x1a-/api/archive/{instance}:streamParameterValues:\x01*Z;\x1a\x34/api/stream-archive/{instance}:streamParameterValues0\x01:\x01*0\x01\x12\xbf\x01\n\x13LoadParameterValues\x12\x31.yamcs.protobuf.pvalue.LoadParameterValuesRequest\x1a\x32.yamcs.protobuf.pvalue.LoadParameterValuesResponse\"?\x8a\x92\x03;\x1a\x36/api/parameter-values/{instance}/streams/{stream}:load:\x01*(\x01\x12\xf6\x01\n\x13GetParameterSamples\x12\x31.yamcs.protobuf.pvalue.GetParameterSamplesRequest\x1a!.yamcs.protobuf.pvalue.TimeSeries\"\x88\x01\x8a\x92\x03\x83\x01\n2/api/archive/{instance}/parameters/{name*}/samplesR\x06sampleZE\n9/api/stream-archive/{instance}/parameters/{name*}/samples0\x01R\x06sample\x12\xa5\x01\n\x12GetParameterRanges\x12\x30.yamcs.protobuf.pvalue.GetParameterRangesRequest\x1a\x1d.yamcs.protobuf.pvalue.Ranges\">\x8a\x92\x03:\n1/api/archive/{instance}/parameters/{name*}/rangesR\x05range\x12\xac\x01\n\x13ListParameterGroups\x12\x31.yamcs.protobuf.pvalue.ListParameterGroupsRequest\x1a\x32.yamcs.protobuf.pvalue.ListParameterGroupsResponse\".\x8a\x92\x03*\n(/api/archive/{instance}/parameter-groups\x1a\x04\xd0\x80\x01\x01\x42\x33\n\x12org.yamcs.protobufB\x1bParameterValuesServiceProtoP\x01'
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
 
+
+
+_LISTPARAMETERHISTORYREQUEST = _descriptor.Descriptor(
+  name='ListParameterHistoryRequest',
+  full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.pos', index=2,
+      number=3, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.limit', index=3,
+      number=4, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norepeat', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.norepeat', index=4,
+      number=5, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.start', index=5,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.stop', index=6,
+      number=7, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.order', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norealtime', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.norealtime', index=8,
+      number=9, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.processor', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.source', index=10,
+      number=11, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='noreplay', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.noreplay', index=11,
+      number=14, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maxBytes', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.maxBytes', index=12,
+      number=13, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='next', full_name='yamcs.protobuf.pvalue.ListParameterHistoryRequest.next', index=13,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=222,
+  serialized_end=534,
+)
+
+
+_LISTPARAMETERHISTORYRESPONSE = _descriptor.Descriptor(
+  name='ListParameterHistoryResponse',
+  full_name='yamcs.protobuf.pvalue.ListParameterHistoryResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='parameter', full_name='yamcs.protobuf.pvalue.ListParameterHistoryResponse.parameter', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='continuationToken', full_name='yamcs.protobuf.pvalue.ListParameterHistoryResponse.continuationToken', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=536,
+  serialized_end=651,
+)
+
+
+_EXPORTPARAMETERVALUESREQUEST = _descriptor.Descriptor(
+  name='ExportParameterValuesRequest',
+  full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.start', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.stop', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='parameters', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.parameters', index=3,
+      number=4, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='list', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.list', index=4,
+      number=14, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='namespace', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.namespace', index=5,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extra', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.extra', index=6,
+      number=6, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='delimiter', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.delimiter', index=7,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='interval', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.interval', index=8,
+      number=8, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='preserveLastValue', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.preserveLastValue', index=9,
+      number=9, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='pos', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.pos', index=10,
+      number=10, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='limit', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.limit', index=11,
+      number=11, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='order', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.order', index=12,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='filename', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.filename', index=13,
+      number=13, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='header', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.header', index=14,
+      number=15, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.pvalue.ExportParameterValuesRequest.source', index=15,
+      number=16, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=654,
+  serialized_end=1012,
+)
+
+
+_STREAMPARAMETERVALUESREQUEST = _descriptor.Descriptor(
+  name='StreamParameterValuesRequest',
+  full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest.start', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest.stop', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='ids', full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest.ids', index=3,
+      number=4, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tmLinks', full_name='yamcs.protobuf.pvalue.StreamParameterValuesRequest.tmLinks', index=4,
+      number=5, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1015,
+  serialized_end=1209,
+)
 
 
 _LOADPARAMETERVALUESREQUEST = _descriptor.Descriptor(
@@ -68,8 +425,8 @@ _LOADPARAMETERVALUESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=159,
-  serialized_end=282,
+  serialized_start=1211,
+  serialized_end=1334,
 )
 
 
@@ -113,8 +470,8 @@ _LOADPARAMETERVALUESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=285,
-  serialized_end=444,
+  serialized_start=1337,
+  serialized_end=1496,
 )
 
 
@@ -165,19 +522,324 @@ _PARAMETERVALUEUPDATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=447,
-  serialized_end=597,
+  serialized_start=1499,
+  serialized_end=1649,
 )
 
+
+_GETPARAMETERSAMPLESREQUEST = _descriptor.Descriptor(
+  name='GetParameterSamplesRequest',
+  full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.start', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.stop', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.count', index=4,
+      number=5, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norealtime', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.norealtime', index=5,
+      number=6, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='useRawValue', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.useRawValue', index=6,
+      number=9, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='gapTime', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.gapTime', index=7,
+      number=10, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.processor', index=8,
+      number=7, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.pvalue.GetParameterSamplesRequest.source', index=9,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1652,
+  serialized_end=1905,
+)
+
+
+_GETPARAMETERRANGESREQUEST = _descriptor.Descriptor(
+  name='GetParameterRangesRequest',
+  full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.start', index=2,
+      number=3, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.stop', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minGap', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.minGap', index=4,
+      number=5, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maxGap', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.maxGap', index=5,
+      number=6, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='norealtime', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.norealtime', index=6,
+      number=7, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='processor', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.processor', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.source', index=8,
+      number=9, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minRange', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.minRange', index=9,
+      number=10, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maxValues', full_name='yamcs.protobuf.pvalue.GetParameterRangesRequest.maxValues', index=10,
+      number=11, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1908,
+  serialized_end=2176,
+)
+
+
+_LISTPARAMETERGROUPSREQUEST = _descriptor.Descriptor(
+  name='ListParameterGroupsRequest',
+  full_name='yamcs.protobuf.pvalue.ListParameterGroupsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.pvalue.ListParameterGroupsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2178,
+  serialized_end=2224,
+)
+
+
+_LISTPARAMETERGROUPSRESPONSE = _descriptor.Descriptor(
+  name='ListParameterGroupsResponse',
+  full_name='yamcs.protobuf.pvalue.ListParameterGroupsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='groups', full_name='yamcs.protobuf.pvalue.ListParameterGroupsResponse.groups', index=0,
+      number=2, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2226,
+  serialized_end=2271,
+)
+
+_LISTPARAMETERHISTORYREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERHISTORYREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_LISTPARAMETERHISTORYRESPONSE.fields_by_name['parameter'].message_type = yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERVALUE
+_EXPORTPARAMETERVALUESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_EXPORTPARAMETERVALUESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_STREAMPARAMETERVALUESREQUEST.fields_by_name['ids'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _LOADPARAMETERVALUESREQUEST.fields_by_name['values'].message_type = _PARAMETERVALUEUPDATE
 _LOADPARAMETERVALUESRESPONSE.fields_by_name['minGenerationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LOADPARAMETERVALUESRESPONSE.fields_by_name['maxGenerationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _PARAMETERVALUEUPDATE.fields_by_name['value'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._VALUE
 _PARAMETERVALUEUPDATE.fields_by_name['generationTime'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETPARAMETERSAMPLESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETPARAMETERSAMPLESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETPARAMETERRANGESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETPARAMETERRANGESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+DESCRIPTOR.message_types_by_name['ListParameterHistoryRequest'] = _LISTPARAMETERHISTORYREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterHistoryResponse'] = _LISTPARAMETERHISTORYRESPONSE
+DESCRIPTOR.message_types_by_name['ExportParameterValuesRequest'] = _EXPORTPARAMETERVALUESREQUEST
+DESCRIPTOR.message_types_by_name['StreamParameterValuesRequest'] = _STREAMPARAMETERVALUESREQUEST
 DESCRIPTOR.message_types_by_name['LoadParameterValuesRequest'] = _LOADPARAMETERVALUESREQUEST
 DESCRIPTOR.message_types_by_name['LoadParameterValuesResponse'] = _LOADPARAMETERVALUESRESPONSE
 DESCRIPTOR.message_types_by_name['ParameterValueUpdate'] = _PARAMETERVALUEUPDATE
+DESCRIPTOR.message_types_by_name['GetParameterSamplesRequest'] = _GETPARAMETERSAMPLESREQUEST
+DESCRIPTOR.message_types_by_name['GetParameterRangesRequest'] = _GETPARAMETERRANGESREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterGroupsRequest'] = _LISTPARAMETERGROUPSREQUEST
+DESCRIPTOR.message_types_by_name['ListParameterGroupsResponse'] = _LISTPARAMETERGROUPSRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+ListParameterHistoryRequest = _reflection.GeneratedProtocolMessageType('ListParameterHistoryRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERHISTORYREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ListParameterHistoryRequest)
+  })
+_sym_db.RegisterMessage(ListParameterHistoryRequest)
+
+ListParameterHistoryResponse = _reflection.GeneratedProtocolMessageType('ListParameterHistoryResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERHISTORYRESPONSE,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ListParameterHistoryResponse)
+  })
+_sym_db.RegisterMessage(ListParameterHistoryResponse)
+
+ExportParameterValuesRequest = _reflection.GeneratedProtocolMessageType('ExportParameterValuesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _EXPORTPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ExportParameterValuesRequest)
+  })
+_sym_db.RegisterMessage(ExportParameterValuesRequest)
+
+StreamParameterValuesRequest = _reflection.GeneratedProtocolMessageType('StreamParameterValuesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STREAMPARAMETERVALUESREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.StreamParameterValuesRequest)
+  })
+_sym_db.RegisterMessage(StreamParameterValuesRequest)
 
 LoadParameterValuesRequest = _reflection.GeneratedProtocolMessageType('LoadParameterValuesRequest', (_message.Message,), {
   'DESCRIPTOR' : _LOADPARAMETERVALUESREQUEST,
@@ -200,6 +862,34 @@ ParameterValueUpdate = _reflection.GeneratedProtocolMessageType('ParameterValueU
   })
 _sym_db.RegisterMessage(ParameterValueUpdate)
 
+GetParameterSamplesRequest = _reflection.GeneratedProtocolMessageType('GetParameterSamplesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAMETERSAMPLESREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.GetParameterSamplesRequest)
+  })
+_sym_db.RegisterMessage(GetParameterSamplesRequest)
+
+GetParameterRangesRequest = _reflection.GeneratedProtocolMessageType('GetParameterRangesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETPARAMETERRANGESREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.GetParameterRangesRequest)
+  })
+_sym_db.RegisterMessage(GetParameterRangesRequest)
+
+ListParameterGroupsRequest = _reflection.GeneratedProtocolMessageType('ListParameterGroupsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERGROUPSREQUEST,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ListParameterGroupsRequest)
+  })
+_sym_db.RegisterMessage(ListParameterGroupsRequest)
+
+ListParameterGroupsResponse = _reflection.GeneratedProtocolMessageType('ListParameterGroupsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTPARAMETERGROUPSRESPONSE,
+  '__module__' : 'yamcs.protobuf.pvalue.pvalue_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.pvalue.ListParameterGroupsResponse)
+  })
+_sym_db.RegisterMessage(ListParameterGroupsResponse)
+
 
 DESCRIPTOR._options = None
 
@@ -208,18 +898,72 @@ _PARAMETERVALUESAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.pvalue.ParameterValuesApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
-  serialized_start=600,
-  serialized_end=814,
+  serialized_options=b'\320\200\001\001',
+  serialized_start=2274,
+  serialized_end=3764,
   methods=[
+  _descriptor.MethodDescriptor(
+    name='ListParameterHistory',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.ListParameterHistory',
+    index=0,
+    containing_service=None,
+    input_type=_LISTPARAMETERHISTORYREQUEST,
+    output_type=_LISTPARAMETERHISTORYRESPONSE,
+    serialized_options=b'\212\222\003c\n*/api/archive/{instance}/parameters/{name*}Z5\n1/api/stream-archive/{instance}/parameters/{name*}0\001',
+  ),
+  _descriptor.MethodDescriptor(
+    name='ExportParameterValues',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.ExportParameterValues',
+    index=1,
+    containing_service=None,
+    input_type=_EXPORTPARAMETERVALUESREQUEST,
+    output_type=yamcs_dot_api_dot_httpbody__pb2._HTTPBODY,
+    serialized_options=b'\212\222\003c\n-/api/archive/{instance}:exportParameterValuesZ2\032-/api/archive/{instance}:exportParameterValues:\001*',
+  ),
+  _descriptor.MethodDescriptor(
+    name='StreamParameterValues',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.StreamParameterValues',
+    index=2,
+    containing_service=None,
+    input_type=_STREAMPARAMETERVALUESREQUEST,
+    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._PARAMETERDATA,
+    serialized_options=b'\212\222\003o\032-/api/archive/{instance}:streamParameterValues:\001*Z;\0324/api/stream-archive/{instance}:streamParameterValues0\001:\001*',
+  ),
   _descriptor.MethodDescriptor(
     name='LoadParameterValues',
     full_name='yamcs.protobuf.pvalue.ParameterValuesApi.LoadParameterValues',
-    index=0,
+    index=3,
     containing_service=None,
     input_type=_LOADPARAMETERVALUESREQUEST,
     output_type=_LOADPARAMETERVALUESRESPONSE,
     serialized_options=b'\212\222\003;\0326/api/parameter-values/{instance}/streams/{stream}:load:\001*',
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetParameterSamples',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.GetParameterSamples',
+    index=4,
+    containing_service=None,
+    input_type=_GETPARAMETERSAMPLESREQUEST,
+    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._TIMESERIES,
+    serialized_options=b'\212\222\003\203\001\n2/api/archive/{instance}/parameters/{name*}/samplesR\006sampleZE\n9/api/stream-archive/{instance}/parameters/{name*}/samples0\001R\006sample',
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetParameterRanges',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.GetParameterRanges',
+    index=5,
+    containing_service=None,
+    input_type=_GETPARAMETERRANGESREQUEST,
+    output_type=yamcs_dot_protobuf_dot_pvalue_dot_pvalue__pb2._RANGES,
+    serialized_options=b'\212\222\003:\n1/api/archive/{instance}/parameters/{name*}/rangesR\005range',
+  ),
+  _descriptor.MethodDescriptor(
+    name='ListParameterGroups',
+    full_name='yamcs.protobuf.pvalue.ParameterValuesApi.ListParameterGroups',
+    index=6,
+    containing_service=None,
+    input_type=_LISTPARAMETERGROUPSREQUEST,
+    output_type=_LISTPARAMETERGROUPSRESPONSE,
+    serialized_options=b'\212\222\003*\n(/api/archive/{instance}/parameter-groups',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_PARAMETERVALUESAPI)

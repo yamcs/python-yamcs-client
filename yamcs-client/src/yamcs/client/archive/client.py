@@ -35,15 +35,11 @@ from yamcs.client.tmtc.model import (
     ParameterValue,
 )
 from yamcs.protobuf.alarms import alarms_pb2, alarms_service_pb2
-from yamcs.protobuf.archive import (
-    archive_pb2,
-    index_service_pb2,
-    parameter_archive_service_pb2,
-)
+from yamcs.protobuf.archive import index_service_pb2, parameter_archive_service_pb2
 from yamcs.protobuf.commanding import commanding_pb2, commands_service_pb2
 from yamcs.protobuf.events import events_pb2, events_service_pb2
 from yamcs.protobuf.packets import packets_pb2, packets_service_pb2
-from yamcs.protobuf.pvalue import pvalue_pb2
+from yamcs.protobuf.pvalue import pvalue_pb2, pvalue_service_pb2
 from yamcs.protobuf.table import table_pb2
 
 __all__ = [
@@ -124,7 +120,7 @@ class ArchiveClient:
         # Return an iterator anyway for similarity with other API methods
         path = f"/archive/{self._instance}/parameter-groups"
         response = self.ctx.get_proto(path=path)
-        message = archive_pb2.ParameterGroupInfo()
+        message = pvalue_service_pb2.ListParameterGroupsResponse()
         message.ParseFromString(response.content)
         groups = getattr(message, "groups")
         return iter(groups)
@@ -980,7 +976,7 @@ class ArchiveClient:
             ctx=self.ctx,
             path=f"/archive/{self._instance}/parameters/{encoded_name}",
             params=params,
-            response_class=archive_pb2.ListParameterHistoryResponse,
+            response_class=pvalue_service_pb2.ListParameterHistoryResponse,
             items_key="parameter",
             item_mapper=ParameterValue,
         )
@@ -1013,7 +1009,7 @@ class ArchiveClient:
             .. versionadded:: 1.8.4
                Compatible with Yamcs 5.7.4 onwards
         """
-        options = archive_pb2.StreamParameterValuesRequest()
+        options = pvalue_service_pb2.StreamParameterValuesRequest()
         options.ids.extend(to_named_object_ids(parameters))
         if start is not None:
             options.start.MergeFrom(to_server_time(start))

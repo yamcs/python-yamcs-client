@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.archive',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\016DbServiceProtoP\001',
-  serialized_pb=b'\n.yamcs/protobuf/database/database_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"P\n\x15ListDatabasesResponse\x12\x37\n\tdatabases\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.archive.DatabaseInfo\"\"\n\x12GetDatabaseRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"_\n\x0c\x44\x61tabaseInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04path\x18\x02 \x01(\t\x12\x12\n\ntablespace\x18\x03 \x01(\t\x12\x0e\n\x06tables\x18\x04 \x03(\t\x12\x0f\n\x07streams\x18\x05 \x03(\t2\xf9\x01\n\x0b\x44\x61tabaseApi\x12l\n\rListDatabases\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.archive.ListDatabasesResponse\"\x14\x8a\x92\x03\x10\n\x0e/api/databases\x12|\n\x0bGetDatabase\x12*.yamcs.protobuf.archive.GetDatabaseRequest\x1a$.yamcs.protobuf.archive.DatabaseInfo\"\x1b\x8a\x92\x03\x17\n\x15/api/databases/{name}B&\n\x12org.yamcs.protobufB\x0e\x44\x62ServiceProtoP\x01'
+  serialized_pb=b'\n.yamcs/protobuf/database/database_service.proto\x12\x16yamcs.protobuf.archive\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\"P\n\x15ListDatabasesResponse\x12\x37\n\tdatabases\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.archive.DatabaseInfo\"\"\n\x12GetDatabaseRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\"_\n\x0c\x44\x61tabaseInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04path\x18\x02 \x01(\t\x12\x12\n\ntablespace\x18\x03 \x01(\t\x12\x0e\n\x06tables\x18\x04 \x03(\t\x12\x0f\n\x07streams\x18\x05 \x03(\t2\xff\x01\n\x0b\x44\x61tabaseApi\x12l\n\rListDatabases\x12\x16.google.protobuf.Empty\x1a-.yamcs.protobuf.archive.ListDatabasesResponse\"\x14\x8a\x92\x03\x10\n\x0e/api/databases\x12|\n\x0bGetDatabase\x12*.yamcs.protobuf.archive.GetDatabaseRequest\x1a$.yamcs.protobuf.archive.DatabaseInfo\"\x1b\x8a\x92\x03\x17\n\x15/api/databases/{name}\x1a\x04\xd0\x80\x01\x01\x42&\n\x12org.yamcs.protobufB\x0e\x44\x62ServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -182,9 +182,9 @@ _DATABASEAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.archive.DatabaseApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
+  serialized_options=b'\320\200\001\001',
   serialized_start=348,
-  serialized_end=597,
+  serialized_end=603,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListDatabases',

@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.services',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\024ServicesServiceProtoP\001',
-  serialized_pb=b'\n.yamcs/protobuf/services/services_service.proto\x12\x17yamcs.protobuf.services\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a&yamcs/protobuf/services/services.proto\"\'\n\x13ListServicesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"3\n\x11GetServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"5\n\x13StartServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"4\n\x12StopServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"N\n\x14ListServicesResponse\x12\x36\n\x08services\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.services.ServiceInfo2\xa7\x04\n\x0bServicesApi\x12\x8b\x01\n\x0cListServices\x12,.yamcs.protobuf.services.ListServicesRequest\x1a-.yamcs.protobuf.services.ListServicesResponse\"\x1e\x8a\x92\x03\x1a\n\x18/api/services/{instance}\x12\x85\x01\n\nGetService\x12*.yamcs.protobuf.services.GetServiceRequest\x1a$.yamcs.protobuf.services.ServiceInfo\"%\x8a\x92\x03!\n\x1f/api/services/{instance}/{name}\x12\x81\x01\n\x0cStartService\x12,.yamcs.protobuf.services.StartServiceRequest\x1a\x16.google.protobuf.Empty\"+\x8a\x92\x03\'\x1a%/api/services/{instance}/{name}:start\x12~\n\x0bStopService\x12+.yamcs.protobuf.services.StopServiceRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&\x1a$/api/services/{instance}/{name}:stopB,\n\x12org.yamcs.protobufB\x14ServicesServiceProtoP\x01'
+  serialized_pb=b'\n.yamcs/protobuf/services/services_service.proto\x12\x17yamcs.protobuf.services\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1byamcs/api/annotations.proto\x1a&yamcs/protobuf/services/services.proto\"\'\n\x13ListServicesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"3\n\x11GetServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"5\n\x13StartServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"4\n\x12StopServiceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"N\n\x14ListServicesResponse\x12\x36\n\x08services\x18\x01 \x03(\x0b\x32$.yamcs.protobuf.services.ServiceInfo2\xad\x04\n\x0bServicesApi\x12\x8b\x01\n\x0cListServices\x12,.yamcs.protobuf.services.ListServicesRequest\x1a-.yamcs.protobuf.services.ListServicesResponse\"\x1e\x8a\x92\x03\x1a\n\x18/api/services/{instance}\x12\x85\x01\n\nGetService\x12*.yamcs.protobuf.services.GetServiceRequest\x1a$.yamcs.protobuf.services.ServiceInfo\"%\x8a\x92\x03!\n\x1f/api/services/{instance}/{name}\x12\x81\x01\n\x0cStartService\x12,.yamcs.protobuf.services.StartServiceRequest\x1a\x16.google.protobuf.Empty\"+\x8a\x92\x03\'\x1a%/api/services/{instance}/{name}:start\x12~\n\x0bStopService\x12+.yamcs.protobuf.services.StopServiceRequest\x1a\x16.google.protobuf.Empty\"*\x8a\x92\x03&\x1a$/api/services/{instance}/{name}:stop\x1a\x04\xd0\x80\x01\x01\x42,\n\x12org.yamcs.protobufB\x14ServicesServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_services_dot_services__pb2.DESCRIPTOR,])
 
@@ -254,9 +254,9 @@ _SERVICESAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.services.ServicesApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
+  serialized_options=b'\320\200\001\001',
   serialized_start=457,
-  serialized_end=1008,
+  serialized_end=1014,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListServices',

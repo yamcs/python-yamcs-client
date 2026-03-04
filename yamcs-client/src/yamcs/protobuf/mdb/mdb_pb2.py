@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.mdb',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobuf',
-  serialized_pb=b'\n\x1cyamcs/protobuf/mdb/mdb.proto\x12\x12yamcs.protobuf.mdb\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xb7\x02\n\x0fMissionDatabase\x12\x12\n\nconfigName\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12<\n\x0bspaceSystem\x18\x04 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfoB\x02\x18\x01\x12\x39\n\x0cspaceSystems\x18\x0b \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x16\n\x0eparameterCount\x18\x06 \x01(\x05\x12\x16\n\x0e\x63ontainerCount\x18\x07 \x01(\x05\x12\x14\n\x0c\x63ommandCount\x18\x08 \x01(\x05\x12\x16\n\x0e\x61lgorithmCount\x18\t \x01(\x05\x12\x1a\n\x12parameterTypeCount\x18\n \x01(\x05\"M\n\x0bHistoryInfo\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x04 \x01(\t\"\x18\n\x08UnitInfo\x12\x0c\n\x04unit\x18\x01 \x01(\t\"\x97\x01\n\nAlarmRange\x12\x31\n\x05level\x18\x01 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\x12\x14\n\x0cminInclusive\x18\x02 \x01(\x01\x12\x14\n\x0cmaxInclusive\x18\x03 \x01(\x01\x12\x14\n\x0cminExclusive\x18\x04 \x01(\x01\x12\x14\n\x0cmaxExclusive\x18\x05 \x01(\x01\"T\n\x10\x45numerationAlarm\x12\x31\n\x05level\x18\x01 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\x12\r\n\x05label\x18\x03 \x01(\t\"\xda\x02\n\tAlarmInfo\x12\x15\n\rminViolations\x18\x01 \x01(\x05\x12<\n\x10staticAlarmRange\x18\x02 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRangeB\x02\x18\x01\x12\x39\n\x11staticAlarmRanges\x18\x04 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x42\n\x10\x65numerationAlarm\x18\x03 \x03(\x0b\x32$.yamcs.protobuf.mdb.EnumerationAlarmB\x02\x18\x01\x12?\n\x11\x65numerationAlarms\x18\x05 \x03(\x0b\x32$.yamcs.protobuf.mdb.EnumerationAlarm\x12\x38\n\x0c\x64\x65\x66\x61ultLevel\x18\x06 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\"\x8d\x01\n\x10\x43ontextAlarmInfo\x12:\n\ncomparison\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12,\n\x05\x61larm\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\"\x9c\x03\n\x10\x44\x61taEncodingInfo\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32).yamcs.protobuf.mdb.DataEncodingInfo.Type\x12\x14\n\x0clittleEndian\x18\x02 \x01(\x08\x12\x12\n\nsizeInBits\x18\x03 \x01(\x05\x12\x10\n\x08\x65ncoding\x18\x04 \x01(\t\x12=\n\x11\x64\x65\x66\x61ultCalibrator\x18\x06 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12H\n\x11\x63ontextCalibrator\x18\x07 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfoB\x02\x18\x01\x12\x45\n\x12\x63ontextCalibrators\x18\x08 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfo\"C\n\x04Type\x12\n\n\x06\x42INARY\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\t\n\x05\x46LOAT\x10\x02\x12\x0b\n\x07INTEGER\x10\x03\x12\n\n\x06STRING\x10\x04\"\x9c\x01\n\x15\x43ontextCalibratorInfo\x12:\n\ncomparison\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12\x36\n\ncalibrator\x18\x02 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\"\x87\x03\n\x0e\x43\x61libratorInfo\x12J\n\x14polynomialCalibrator\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.mdb.PolynomialCalibratorInfo\x12\x42\n\x10splineCalibrator\x18\x03 \x01(\x0b\x32(.yamcs.protobuf.mdb.SplineCalibratorInfo\x12R\n\x18javaExpressionCalibrator\x18\x04 \x01(\x0b\x32\x30.yamcs.protobuf.mdb.JavaExpressionCalibratorInfo\x12\x35\n\x04type\x18\x05 \x01(\x0e\x32\'.yamcs.protobuf.mdb.CalibratorInfo.Type\"Z\n\x04Type\x12\x0e\n\nPOLYNOMIAL\x10\x00\x12\n\n\x06SPLINE\x10\x01\x12\x12\n\x0eMATH_OPERATION\x10\x02\x12\x13\n\x0fJAVA_EXPRESSION\x10\x03\x12\r\n\tALGORITHM\x10\x04\"I\n\x18PolynomialCalibratorInfo\x12\x17\n\x0b\x63oefficient\x18\x01 \x03(\x01\x42\x02\x18\x01\x12\x14\n\x0c\x63oefficients\x18\x02 \x03(\x01\"\xe1\x01\n\x14SplineCalibratorInfo\x12K\n\x05point\x18\x01 \x03(\x0b\x32\x38.yamcs.protobuf.mdb.SplineCalibratorInfo.SplinePointInfoB\x02\x18\x01\x12H\n\x06points\x18\x02 \x03(\x0b\x32\x38.yamcs.protobuf.mdb.SplineCalibratorInfo.SplinePointInfo\x1a\x32\n\x0fSplinePointInfo\x12\x0b\n\x03raw\x18\x01 \x01(\x01\x12\x12\n\ncalibrated\x18\x02 \x01(\x01\"/\n\x1cJavaExpressionCalibratorInfo\x12\x0f\n\x07\x66ormula\x18\x01 \x01(\t\">\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x03\x12\r\n\x05label\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"u\n\tEnumRange\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\x12\x14\n\x0cminInclusive\x18\x03 \x01(\x08\x12\x14\n\x0cmaxInclusive\x18\x04 \x01(\x08\x12\r\n\x05label\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\"\xba\x08\n\x11ParameterTypeInfo\x12\x0c\n\x04name\x18\x10 \x01(\t\x12\x15\n\rqualifiedName\x18\x11 \x01(\t\x12\x18\n\x10shortDescription\x18\x12 \x01(\t\x12\x17\n\x0flongDescription\x18\x13 \x01(\t\x12,\n\x05\x61lias\x18\x14 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0f\n\x07\x65ngType\x18\x01 \x01(\t\x12:\n\x0c\x64\x61taEncoding\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.DataEncodingInfo\x12-\n\x07unitSet\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.mdb.UnitInfo\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\x04 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12\x34\n\tenumValue\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValueB\x02\x18\x01\x12\x31\n\nenumValues\x18\x16 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x31\n\nenumRanges\x18\x17 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumRange\x12>\n\x10\x61\x62soluteTimeInfo\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.AbsoluteTimeInfo\x12:\n\x0c\x63ontextAlarm\x18\x07 \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\x12.\n\x06member\x18\x08 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.MemberInfo\x12\x30\n\tarrayInfo\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.ArrayInfo\x12O\n\rancillaryData\x18\n \x03(\x0b\x32\x38.yamcs.protobuf.mdb.ParameterTypeInfo.AncillaryDataEntry\x12>\n\x0cnumberFormat\x18\x0b \x01(\x0b\x32(.yamcs.protobuf.mdb.NumberFormatTypeInfo\x12\x0e\n\x06signed\x18\x0c \x01(\x08\x12\x12\n\nsizeInBits\x18\x15 \x01(\x05\x12\x17\n\x0fzeroStringValue\x18\r \x01(\t\x12\x16\n\x0eoneStringValue\x18\x0e \x01(\t\x12\x31\n\x06usedBy\x18\x0f \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"\xb5\x02\n\x14NumberFormatTypeInfo\x12\x12\n\nnumberBase\x18\x01 \x01(\t\x12\x1d\n\x15minimumFractionDigits\x18\x02 \x01(\x05\x12\x1d\n\x15maximumFractionDigits\x18\x03 \x01(\x05\x12\x1c\n\x14minimumIntegerDigits\x18\x04 \x01(\x05\x12\x1c\n\x14maximumIntegerDigits\x18\x05 \x01(\x05\x12\x16\n\x0enegativeSuffix\x18\x06 \x01(\t\x12\x16\n\x0epositiveSuffix\x18\x07 \x01(\t\x12\x16\n\x0enegativePrefix\x18\x08 \x01(\t\x12\x16\n\x0epositivePrefix\x18\t \x01(\t\x12\x1d\n\x15showThousandsGrouping\x18\n \x01(\x08\x12\x10\n\x08notation\x18\x0b \x01(\t\"5\n\x13GetContainerRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"9\n\x17GetParameterTypeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x8d\x01\n\x10\x41\x62soluteTimeInfo\x12\x14\n\x0cinitialValue\x18\x01 \x01(\t\x12\r\n\x05scale\x18\x02 \x01(\x01\x12\x0e\n\x06offset\x18\x03 \x01(\x01\x12\x35\n\noffsetFrom\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\r\n\x05\x65poch\x18\x05 \x01(\t\"\xb0\x01\n\nMemberInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x33\n\x04type\x18\x06 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\"\xcd\x01\n\x12\x41rgumentMemberInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x32\n\x04type\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\x12\x14\n\x0cinitialValue\x18\x07 \x01(\t\"\x84\x01\n\x16ParameterDimensionInfo\x12\x12\n\nfixedValue\x18\x01 \x01(\x03\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\r\n\x05slope\x18\x03 \x01(\x03\x12\x11\n\tintercept\x18\x04 \x01(\x03\"\x80\x01\n\tArrayInfo\x12\x33\n\x04type\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12>\n\ndimensions\x18\x03 \x03(\x0b\x32*.yamcs.protobuf.mdb.ParameterDimensionInfo\"x\n\nUsedByInfo\x12\x34\n\talgorithm\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12\x34\n\tcontainer\x18\x02 \x03(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\"\xea\x03\n\rParameterInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x33\n\x04type\x18\x06 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12\x36\n\ndataSource\x18\x07 \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12.\n\x06usedBy\x18\x08 \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.UsedByInfo\x12K\n\rancillaryData\x18\t \x03(\x0b\x32\x34.yamcs.protobuf.mdb.ParameterInfo.AncillaryDataEntry\x12\x0c\n\x04path\x18\n \x03(\t\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"B\n\x11\x41ncillaryDataInfo\x12\r\n\x05value\x18\x01 \x01(\t\x12\x10\n\x08mimeType\x18\x02 \x01(\t\x12\x0c\n\x04href\x18\x03 \x01(\t\"\xad\x04\n\x10\x41rgumentTypeInfo\x12\x0f\n\x07\x65ngType\x18\x01 \x01(\t\x12:\n\x0c\x64\x61taEncoding\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.DataEncodingInfo\x12-\n\x07unitSet\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.mdb.UnitInfo\x12\x30\n\tenumValue\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x10\n\x08rangeMin\x18\x06 \x01(\x01\x12\x10\n\x08rangeMax\x18\x07 \x01(\x01\x12\x36\n\x06member\x18\x08 \x03(\x0b\x32&.yamcs.protobuf.mdb.ArgumentMemberInfo\x12\x17\n\x0fzeroStringValue\x18\t \x01(\t\x12\x16\n\x0eoneStringValue\x18\n \x01(\t\x12\x10\n\x08minChars\x18\x0b \x01(\x05\x12\x10\n\x08maxChars\x18\x0c \x01(\x05\x12\x0e\n\x06signed\x18\r \x01(\x08\x12\x10\n\x08minBytes\x18\x0e \x01(\x05\x12\x10\n\x08maxBytes\x18\x0f \x01(\x05\x12=\n\ndimensions\x18\x10 \x03(\x0b\x32).yamcs.protobuf.mdb.ArgumentDimensionInfo\x12\x39\n\x0b\x65lementType\x18\x11 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\x12\x0c\n\x04name\x18\x12 \x01(\t\"\x95\x01\n\x15\x41rgumentDimensionInfo\x12\x12\n\nfixedValue\x18\x01 \x01(\x03\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x10\n\x08\x61rgument\x18\x03 \x01(\t\x12\r\n\x05slope\x18\x04 \x01(\x03\x12\x11\n\tintercept\x18\x05 \x01(\x03\"{\n\x0c\x41rgumentInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0cinitialValue\x18\x04 \x01(\t\x12\x32\n\x04type\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\"5\n\x16\x41rgumentAssignmentInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xe5\x01\n\x10SignificanceInfo\x12T\n\x10\x63onsequenceLevel\x18\x01 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\x12\x18\n\x10reasonForWarning\x18\x02 \x01(\t\"a\n\x15SignificanceLevelType\x12\x08\n\x04NONE\x10\x01\x12\t\n\x05WATCH\x10\x02\x12\x0b\n\x07WARNING\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x04\x12\x0c\n\x08\x43RITICAL\x10\x05\x12\n\n\x06SEVERE\x10\x06\"\xdd\x02\n\x0e\x43omparisonInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x41\n\x08operator\x18\x02 \x01(\x0e\x32/.yamcs.protobuf.mdb.ComparisonInfo.OperatorType\x12\r\n\x05value\x18\x03 \x01(\t\x12\x32\n\x08\x61rgument\x18\x04 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\"\x8e\x01\n\x0cOperatorType\x12\x0c\n\x08\x45QUAL_TO\x10\x01\x12\x10\n\x0cNOT_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x04\x12\x10\n\x0cSMALLER_THAN\x10\x05\x12\x1c\n\x18SMALLER_THAN_OR_EQUAL_TO\x10\x06\"A\n\x1aTransmissionConstraintInfo\x12\x12\n\nexpression\x18\x03 \x01(\t\x12\x0f\n\x07timeout\x18\x02 \x01(\x03\"\xbc\x06\n\x0b\x43ommandInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x34\n\x0b\x62\x61seCommand\x18\x06 \x01(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfo\x12\x10\n\x08\x61\x62stract\x18\x07 \x01(\x08\x12\x32\n\x08\x61rgument\x18\x08 \x03(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\x12\x46\n\x12\x61rgumentAssignment\x18\t \x03(\x0b\x32*.yamcs.protobuf.mdb.ArgumentAssignmentInfo\x12:\n\x0csignificance\x18\n \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\x12\x42\n\nconstraint\x18\x0b \x03(\x0b\x32..yamcs.protobuf.mdb.TransmissionConstraintInfo\x12\x42\n\x10\x63ommandContainer\x18\r \x01(\x0b\x32(.yamcs.protobuf.mdb.CommandContainerInfo\x12\x32\n\x08verifier\x18\x0e \x03(\x0b\x32 .yamcs.protobuf.mdb.VerifierInfo\x12I\n\rancillaryData\x18\x0f \x03(\x0b\x32\x32.yamcs.protobuf.mdb.CommandInfo.AncillaryDataEntry\x12\x43\n\x15\x65\x66\x66\x65\x63tiveSignificance\x18\x10 \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"\xe5\x03\n\x0cVerifierInfo\x12\r\n\x05stage\x18\x01 \x01(\t\x12\x34\n\tcontainer\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x34\n\talgorithm\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12I\n\tonSuccess\x18\x04 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12\x46\n\x06onFail\x18\x05 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12I\n\tonTimeout\x18\x06 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12\x38\n\x0b\x63heckWindow\x18\x07 \x01(\x0b\x32#.yamcs.protobuf.mdb.CheckWindowInfo\x12\x12\n\nexpression\x18\x08 \x01(\t\".\n\x15TerminationActionType\x12\x0b\n\x07SUCCESS\x10\x01\x12\x08\n\x04\x46\x41IL\x10\x02\"^\n\x0f\x43heckWindowInfo\x12\x1b\n\x13timeToStartChecking\x18\x01 \x01(\x03\x12\x1a\n\x12timeToStopChecking\x18\x02 \x01(\x03\x12\x12\n\nrelativeTo\x18\x03 \x01(\t\"n\n\nRepeatInfo\x12\x12\n\nfixedCount\x18\x01 \x01(\x03\x12\x37\n\x0c\x64ynamicCount\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x13\n\x0b\x62itsBetween\x18\x03 \x01(\x05\"\x99\x04\n\x11SequenceEntryInfo\x12\x16\n\x0elocationInBits\x18\x01 \x01(\x05\x12V\n\x11referenceLocation\x18\x02 \x01(\x0e\x32;.yamcs.protobuf.mdb.SequenceEntryInfo.ReferenceLocationType\x12\x34\n\tcontainer\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x32\n\x08\x61rgument\x18\x06 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\x12\x36\n\nfixedValue\x18\x07 \x01(\x0b\x32\".yamcs.protobuf.mdb.FixedValueInfo\x12.\n\x06repeat\x18\x05 \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.RepeatInfo\x12J\n\x14indirectParameterRef\x18\x08 \x01(\x0b\x32,.yamcs.protobuf.mdb.IndirectParameterRefInfo\"@\n\x15ReferenceLocationType\x12\x13\n\x0f\x43ONTAINER_START\x10\x01\x12\x12\n\x0ePREVIOUS_ENTRY\x10\x02\"D\n\x0e\x46ixedValueInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08hexValue\x18\x02 \x01(\t\x12\x12\n\nsizeInBits\x18\x03 \x01(\x05\"\xa7\x02\n\x14\x43ommandContainerInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x12\n\nsizeInBits\x18\x06 \x01(\x05\x12?\n\rbaseContainer\x18\x07 \x01(\x0b\x32(.yamcs.protobuf.mdb.CommandContainerInfo\x12\x34\n\x05\x65ntry\x18\x08 \x03(\x0b\x32%.yamcs.protobuf.mdb.SequenceEntryInfo\"h\n\x18IndirectParameterRefInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x16\n\x0e\x61liasNamespace\x18\x02 \x01(\t\"\x8e\x05\n\rContainerInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x13\n\x0bmaxInterval\x18\x06 \x01(\x03\x12\x12\n\nsizeInBits\x18\x07 \x01(\x05\x12\x38\n\rbaseContainer\x18\x08 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x43\n\x13restrictionCriteria\x18\t \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12%\n\x1drestrictionCriteriaExpression\x18\r \x01(\t\x12\x34\n\x05\x65ntry\x18\n \x03(\x0b\x32%.yamcs.protobuf.mdb.SequenceEntryInfo\x12.\n\x06usedBy\x18\x0b \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.UsedByInfo\x12K\n\rancillaryData\x18\x0c \x03(\x0b\x32\x34.yamcs.protobuf.mdb.ContainerInfo.AncillaryDataEntry\x12\x18\n\x10\x61rchivePartition\x18\x0e \x01(\x08\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"\xbf\x01\n\x12InputParameterInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x11\n\tinputName\x18\x02 \x01(\t\x12\x19\n\x11parameterInstance\x18\x03 \x01(\x05\x12\x11\n\tmandatory\x18\x04 \x01(\x08\x12\x32\n\x08\x61rgument\x18\x05 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\"_\n\x13OutputParameterInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x12\n\noutputName\x18\x02 \x01(\t\"\x87\x02\n\x0bMathElement\x12\x32\n\x04type\x18\x01 \x01(\x0e\x32$.yamcs.protobuf.mdb.MathElement.Type\x12\x10\n\x08operator\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x01\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x19\n\x11parameterInstance\x18\x05 \x01(\x05\"R\n\x04Type\x12\x11\n\rVALUE_OPERAND\x10\x01\x12\x1a\n\x16THIS_PARAMETER_OPERAND\x10\x02\x12\x0c\n\x08OPERATOR\x10\x03\x12\r\n\tPARAMETER\x10\x04\"\x99\x05\n\rAlgorithmInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x36\n\x05scope\x18\x06 \x01(\x0e\x32\'.yamcs.protobuf.mdb.AlgorithmInfo.Scope\x12\x34\n\x04type\x18\r \x01(\x0e\x32&.yamcs.protobuf.mdb.AlgorithmInfo.Type\x12\x10\n\x08language\x18\x07 \x01(\t\x12\x0c\n\x04text\x18\x08 \x01(\t\x12>\n\x0einputParameter\x18\t \x03(\x0b\x32&.yamcs.protobuf.mdb.InputParameterInfo\x12@\n\x0foutputParameter\x18\n \x03(\x0b\x32\'.yamcs.protobuf.mdb.OutputParameterInfo\x12<\n\x11onParameterUpdate\x18\x0b \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x16\n\x0eonPeriodicRate\x18\x0c \x03(\x03\x12\x35\n\x0cmathElements\x18\x0e \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.MathElement\"\x1c\n\x04Type\x12\n\n\x06\x43USTOM\x10\x01\x12\x08\n\x04MATH\x10\x02\"G\n\x05Scope\x12\n\n\x06GLOBAL\x10\x00\x12\x18\n\x14\x43OMMAND_VERIFICATION\x10\x01\x12\x18\n\x14\x43ONTAINER_PROCESSING\x10\x02\"`\n\x17ListSpaceSystemsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"n\n\x15ListContainersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"r\n\x19ListParameterTypesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"\xa6\x01\n\x15ListAlgorithmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\x12\x36\n\x05scope\x18\x0b \x01(\x0e\x32\'.yamcs.protobuf.mdb.AlgorithmInfo.Scope\"\x91\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\x0b \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\x08\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\x12\x12\n\nnoAbstract\x18\n \x01(\x08\"5\n\x13GetParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xd8\x01\n\x15ListParametersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x15\n\rsearchMembers\x18\x0c \x01(\x08\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\x08\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\x32\n\x06source\x18\n \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12\x0e\n\x06system\x18\x0b \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"\xcd\x01\n\x16ListParametersResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\nparameters\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"X\n\x19\x42\x61tchGetParametersRequest\x12\x10\n\x08instance\x18\x02 \x01(\t\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\xec\x01\n\x1a\x42\x61tchGetParametersResponse\x12U\n\x08response\x18\x01 \x03(\x0b\x32\x43.yamcs.protobuf.mdb.BatchGetParametersResponse.GetParameterResponse\x1aw\n\x14GetParameterResponse\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\xcd\x01\n\x16ListContainersResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\ncontainers\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xd9\x01\n\x1aListParameterTypesResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12=\n\x0eparameterTypes\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xc7\x01\n\x14ListCommandsResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x31\n\x08\x63ommands\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xcd\x01\n\x16ListAlgorithmsResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\nalgorithms\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"5\n\x13GetAlgorithmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xb4\x02\n\x16\x43reateParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12H\n\x07\x61liases\x18\x05 \x03(\x0b\x32\x37.yamcs.protobuf.mdb.CreateParameterRequest.AliasesEntry\x12\x36\n\ndataSource\x18\x06 \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12\x15\n\rparameterType\x18\x07 \x01(\t\x1a.\n\x0c\x41liasesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xf9\x03\n\x1a\x43reateParameterTypeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12L\n\x07\x61liases\x18\x05 \x03(\x0b\x32;.yamcs.protobuf.mdb.CreateParameterTypeRequest.AliasesEntry\x12\x0f\n\x07\x65ngType\x18\x06 \x01(\t\x12\x0c\n\x04unit\x18\x07 \x01(\t\x12\x0e\n\x06signed\x18\x08 \x01(\x08\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12;\n\rcontextAlarms\x18\n \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\x12\x38\n\x11\x65numerationValues\x18\x0b \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x17\n\x0fzeroStringValue\x18\x0c \x01(\t\x12\x16\n\x0eoneStringValue\x18\r \x01(\t\x1a.\n\x0c\x41liasesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"-\n\x19GetMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"4\n ExportJavaMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xd6\x01\n\x1cStreamMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x1b\n\x13includeSpaceSystems\x18\x02 \x01(\x08\x12\x19\n\x11includeContainers\x18\x03 \x01(\x08\x12\x19\n\x11includeParameters\x18\x04 \x01(\x08\x12\x1d\n\x15includeParameterTypes\x18\x05 \x01(\x08\x12\x17\n\x0fincludeCommands\x18\x06 \x01(\x08\x12\x19\n\x11includeAlgorithms\x18\x07 \x01(\x08\"\xf5\x02\n\x13MissionDatabaseItem\x12:\n\x0bspaceSystem\x18\x01 \x01(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfoH\x00\x12\x36\n\tcontainer\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfoH\x00\x12\x36\n\tparameter\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfoH\x00\x12>\n\rparameterType\x18\x04 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfoH\x00\x12\x32\n\x07\x63ommand\x18\x05 \x01(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfoH\x00\x12\x36\n\talgorithm\x18\x06 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfoH\x00\x42\x06\n\x04item\"\x83\x01\n\x18ListSpaceSystemsResponse\x12\x39\n\x0cspaceSystems\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"7\n\x15GetSpaceSystemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"3\n\x11\x45xportXtceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"3\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xb8\x03\n\x0fSpaceSystemInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x10 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0f\n\x07version\x18\x05 \x01(\t\x12\x30\n\x07history\x18\x0e \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.HistoryInfo\x12\x30\n\x03sub\x18\x0f \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12M\n\rancillaryData\x18\x11 \x03(\x0b\x32\x36.yamcs.protobuf.mdb.SpaceSystemInfo.AncillaryDataEntry\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01*\xae\x01\n\x0e\x44\x61taSourceType\x12\x0f\n\x0bTELEMETERED\x10\x00\x12\x0b\n\x07\x44\x45RIVED\x10\x01\x12\x0c\n\x08\x43ONSTANT\x10\x02\x12\t\n\x05LOCAL\x10\x03\x12\n\n\x06SYSTEM\x10\x04\x12\x0b\n\x07\x43OMMAND\x10\x05\x12\x13\n\x0f\x43OMMAND_HISTORY\x10\x06\x12\r\n\tEXTERNAL1\x10\x07\x12\r\n\tEXTERNAL2\x10\x08\x12\r\n\tEXTERNAL3\x10\t\x12\n\n\x06GROUND\x10\n*\\\n\x0e\x41larmLevelType\x12\n\n\x06NORMAL\x10\x00\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x32\xc7\x16\n\x06MdbApi\x12\x83\x01\n\x12GetMissionDatabase\x12-.yamcs.protobuf.mdb.GetMissionDatabaseRequest\x1a#.yamcs.protobuf.mdb.MissionDatabase\"\x19\x8a\x92\x03\x15\n\x13/api/mdb/{instance}\x12\x8c\x01\n\x19\x45xportJavaMissionDatabase\x12\x34.yamcs.protobuf.mdb.ExportJavaMissionDatabaseRequest\x1a\x13.yamcs.api.HttpBody\"$\x8a\x92\x03 \n\x1e/api/mdb/{instance}:exportJava\x12\xa4\x01\n\x10ListSpaceSystems\x12+.yamcs.protobuf.mdb.ListSpaceSystemsRequest\x1a,.yamcs.protobuf.mdb.ListSpaceSystemsResponse\"5\x8a\x92\x03\x31\n!/api/mdb/{instance}/space-systemsR\x0cspaceSystems\x12\x91\x01\n\x0eGetSpaceSystem\x12).yamcs.protobuf.mdb.GetSpaceSystemRequest\x1a#.yamcs.protobuf.mdb.SpaceSystemInfo\"/\x8a\x92\x03+\n)/api/mdb/{instance}/space-systems/{name*}\x12\x91\x01\n\nExportXtce\x12%.yamcs.protobuf.mdb.ExportXtceRequest\x1a\x13.yamcs.api.HttpBody\"G\x8a\x92\x03\x43\n4/api/mdb/{instance}/space-systems/{name*}:exportXTCEj\x0b\x45xport XTCE\x12\xa7\x01\n\x15StreamMissionDatabase\x12\x30.yamcs.protobuf.mdb.StreamMissionDatabaseRequest\x1a\'.yamcs.protobuf.mdb.MissionDatabaseItem\"1\x8a\x92\x03-\n)/api/mdb/{instance}:streamMissionDatabaseH\x01\x30\x01\x12\x99\x01\n\x0eListParameters\x12).yamcs.protobuf.mdb.ListParametersRequest\x1a*.yamcs.protobuf.mdb.ListParametersResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/parametersR\nparameters\x12\x88\x01\n\x0cGetParameter\x12\'.yamcs.protobuf.mdb.GetParameterRequest\x1a!.yamcs.protobuf.mdb.ParameterInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/parameters/{name*}\x12\x89\x01\n\x0f\x43reateParameter\x12*.yamcs.protobuf.mdb.CreateParameterRequest\x1a!.yamcs.protobuf.mdb.ParameterInfo\"\'\x8a\x92\x03#\x1a\x1e/api/mdb/{instance}/parameters:\x01*\x12\xa5\x01\n\x12\x42\x61tchGetParameters\x12-.yamcs.protobuf.mdb.BatchGetParametersRequest\x1a..yamcs.protobuf.mdb.BatchGetParametersResponse\"0\x8a\x92\x03,\x1a\'/api/mdb/{instance}/parameters:batchGet:\x01*\x12\xae\x01\n\x12ListParameterTypes\x12-.yamcs.protobuf.mdb.ListParameterTypesRequest\x1a..yamcs.protobuf.mdb.ListParameterTypesResponse\"9\x8a\x92\x03\x35\n#/api/mdb/{instance}/parameter-typesR\x0eparameterTypes\x12\x99\x01\n\x10GetParameterType\x12+.yamcs.protobuf.mdb.GetParameterTypeRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\"1\x8a\x92\x03-\n+/api/mdb/{instance}/parameter-types/{name*}\x12\x9a\x01\n\x13\x43reateParameterType\x12..yamcs.protobuf.mdb.CreateParameterTypeRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\",\x8a\x92\x03(\x1a#/api/mdb/{instance}/parameter-types:\x01*\x12\x99\x01\n\x0eListContainers\x12).yamcs.protobuf.mdb.ListContainersRequest\x1a*.yamcs.protobuf.mdb.ListContainersResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/containersR\ncontainers\x12\x88\x01\n\x0cGetContainer\x12\'.yamcs.protobuf.mdb.GetContainerRequest\x1a!.yamcs.protobuf.mdb.ContainerInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/containers/{name*}\x12\x8f\x01\n\x0cListCommands\x12\'.yamcs.protobuf.mdb.ListCommandsRequest\x1a(.yamcs.protobuf.mdb.ListCommandsResponse\",\x8a\x92\x03(\n\x1c/api/mdb/{instance}/commandsR\x08\x63ommands\x12\x80\x01\n\nGetCommand\x12%.yamcs.protobuf.mdb.GetCommandRequest\x1a\x1f.yamcs.protobuf.mdb.CommandInfo\"*\x8a\x92\x03&\n$/api/mdb/{instance}/commands/{name*}\x12\x99\x01\n\x0eListAlgorithms\x12).yamcs.protobuf.mdb.ListAlgorithmsRequest\x1a*.yamcs.protobuf.mdb.ListAlgorithmsResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/algorithmsR\nalgorithms\x12\x88\x01\n\x0cGetAlgorithm\x12\'.yamcs.protobuf.mdb.GetAlgorithmRequest\x1a!.yamcs.protobuf.mdb.AlgorithmInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/algorithms/{name*}\x1a\x07\x82\x80\x01\x03MDBB\x14\n\x12org.yamcs.protobuf'
+  serialized_pb=b'\n\x1cyamcs/protobuf/mdb/mdb.proto\x12\x12yamcs.protobuf.mdb\x1a\x1byamcs/api/annotations.proto\x1a\x18yamcs/api/httpbody.proto\x1a\x1ayamcs/protobuf/yamcs.proto\"\xb7\x02\n\x0fMissionDatabase\x12\x12\n\nconfigName\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\x12<\n\x0bspaceSystem\x18\x04 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfoB\x02\x18\x01\x12\x39\n\x0cspaceSystems\x18\x0b \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x16\n\x0eparameterCount\x18\x06 \x01(\x05\x12\x16\n\x0e\x63ontainerCount\x18\x07 \x01(\x05\x12\x14\n\x0c\x63ommandCount\x18\x08 \x01(\x05\x12\x16\n\x0e\x61lgorithmCount\x18\t \x01(\x05\x12\x1a\n\x12parameterTypeCount\x18\n \x01(\x05\"M\n\x0bHistoryInfo\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x04 \x01(\t\"\x18\n\x08UnitInfo\x12\x0c\n\x04unit\x18\x01 \x01(\t\"\x97\x01\n\nAlarmRange\x12\x31\n\x05level\x18\x01 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\x12\x14\n\x0cminInclusive\x18\x02 \x01(\x01\x12\x14\n\x0cmaxInclusive\x18\x03 \x01(\x01\x12\x14\n\x0cminExclusive\x18\x04 \x01(\x01\x12\x14\n\x0cmaxExclusive\x18\x05 \x01(\x01\"T\n\x10\x45numerationAlarm\x12\x31\n\x05level\x18\x01 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\x12\r\n\x05label\x18\x03 \x01(\t\"\xda\x02\n\tAlarmInfo\x12\x15\n\rminViolations\x18\x01 \x01(\x05\x12<\n\x10staticAlarmRange\x18\x02 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRangeB\x02\x18\x01\x12\x39\n\x11staticAlarmRanges\x18\x04 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x42\n\x10\x65numerationAlarm\x18\x03 \x03(\x0b\x32$.yamcs.protobuf.mdb.EnumerationAlarmB\x02\x18\x01\x12?\n\x11\x65numerationAlarms\x18\x05 \x03(\x0b\x32$.yamcs.protobuf.mdb.EnumerationAlarm\x12\x38\n\x0c\x64\x65\x66\x61ultLevel\x18\x06 \x01(\x0e\x32\".yamcs.protobuf.mdb.AlarmLevelType\"\x8d\x01\n\x10\x43ontextAlarmInfo\x12:\n\ncomparison\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12,\n\x05\x61larm\x18\x02 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\"\x9c\x03\n\x10\x44\x61taEncodingInfo\x12\x37\n\x04type\x18\x01 \x01(\x0e\x32).yamcs.protobuf.mdb.DataEncodingInfo.Type\x12\x14\n\x0clittleEndian\x18\x02 \x01(\x08\x12\x12\n\nsizeInBits\x18\x03 \x01(\x05\x12\x10\n\x08\x65ncoding\x18\x04 \x01(\t\x12=\n\x11\x64\x65\x66\x61ultCalibrator\x18\x06 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12H\n\x11\x63ontextCalibrator\x18\x07 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfoB\x02\x18\x01\x12\x45\n\x12\x63ontextCalibrators\x18\x08 \x03(\x0b\x32).yamcs.protobuf.mdb.ContextCalibratorInfo\"C\n\x04Type\x12\n\n\x06\x42INARY\x10\x00\x12\x0b\n\x07\x42OOLEAN\x10\x01\x12\t\n\x05\x46LOAT\x10\x02\x12\x0b\n\x07INTEGER\x10\x03\x12\n\n\x06STRING\x10\x04\"\x9c\x01\n\x15\x43ontextCalibratorInfo\x12:\n\ncomparison\x18\x01 \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12\x36\n\ncalibrator\x18\x02 \x01(\x0b\x32\".yamcs.protobuf.mdb.CalibratorInfo\x12\x0f\n\x07\x63ontext\x18\x03 \x01(\t\"\x87\x03\n\x0e\x43\x61libratorInfo\x12J\n\x14polynomialCalibrator\x18\x02 \x01(\x0b\x32,.yamcs.protobuf.mdb.PolynomialCalibratorInfo\x12\x42\n\x10splineCalibrator\x18\x03 \x01(\x0b\x32(.yamcs.protobuf.mdb.SplineCalibratorInfo\x12R\n\x18javaExpressionCalibrator\x18\x04 \x01(\x0b\x32\x30.yamcs.protobuf.mdb.JavaExpressionCalibratorInfo\x12\x35\n\x04type\x18\x05 \x01(\x0e\x32\'.yamcs.protobuf.mdb.CalibratorInfo.Type\"Z\n\x04Type\x12\x0e\n\nPOLYNOMIAL\x10\x00\x12\n\n\x06SPLINE\x10\x01\x12\x12\n\x0eMATH_OPERATION\x10\x02\x12\x13\n\x0fJAVA_EXPRESSION\x10\x03\x12\r\n\tALGORITHM\x10\x04\"I\n\x18PolynomialCalibratorInfo\x12\x17\n\x0b\x63oefficient\x18\x01 \x03(\x01\x42\x02\x18\x01\x12\x14\n\x0c\x63oefficients\x18\x02 \x03(\x01\"\xe1\x01\n\x14SplineCalibratorInfo\x12K\n\x05point\x18\x01 \x03(\x0b\x32\x38.yamcs.protobuf.mdb.SplineCalibratorInfo.SplinePointInfoB\x02\x18\x01\x12H\n\x06points\x18\x02 \x03(\x0b\x32\x38.yamcs.protobuf.mdb.SplineCalibratorInfo.SplinePointInfo\x1a\x32\n\x0fSplinePointInfo\x12\x0b\n\x03raw\x18\x01 \x01(\x01\x12\x12\n\ncalibrated\x18\x02 \x01(\x01\"/\n\x1cJavaExpressionCalibratorInfo\x12\x0f\n\x07\x66ormula\x18\x01 \x01(\t\">\n\tEnumValue\x12\r\n\x05value\x18\x01 \x01(\x03\x12\r\n\x05label\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\"u\n\tEnumRange\x12\x0b\n\x03min\x18\x01 \x01(\x01\x12\x0b\n\x03max\x18\x02 \x01(\x01\x12\x14\n\x0cminInclusive\x18\x03 \x01(\x08\x12\x14\n\x0cmaxInclusive\x18\x04 \x01(\x08\x12\r\n\x05label\x18\x05 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x06 \x01(\t\"\xc6\t\n\x11ParameterTypeInfo\x12\x0c\n\x04name\x18\x10 \x01(\t\x12\x15\n\rqualifiedName\x18\x11 \x01(\t\x12\x18\n\x10shortDescription\x18\x12 \x01(\t\x12\x17\n\x0flongDescription\x18\x13 \x01(\t\x12,\n\x05\x61lias\x18\x14 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0f\n\x07\x65ngType\x18\x01 \x01(\t\x12:\n\x0c\x64\x61taEncoding\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.DataEncodingInfo\x12-\n\x07unitSet\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.mdb.UnitInfo\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\x04 \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12\x34\n\tenumValue\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValueB\x02\x18\x01\x12\x31\n\nenumValues\x18\x16 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x31\n\nenumRanges\x18\x17 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumRange\x12>\n\x10\x61\x62soluteTimeInfo\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.AbsoluteTimeInfo\x12:\n\x0c\x63ontextAlarm\x18\x07 \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\x12.\n\x06member\x18\x08 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.MemberInfo\x12\x30\n\tarrayInfo\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.ArrayInfo\x12O\n\rancillaryData\x18\n \x03(\x0b\x32\x38.yamcs.protobuf.mdb.ParameterTypeInfo.AncillaryDataEntry\x12>\n\x0cnumberFormat\x18\x0b \x01(\x0b\x32(.yamcs.protobuf.mdb.NumberFormatTypeInfo\x12\x0e\n\x06signed\x18\x0c \x01(\x08\x12\x12\n\nsizeInBits\x18\x15 \x01(\x05\x12\x17\n\x0fzeroStringValue\x18\r \x01(\t\x12\x16\n\x0eoneStringValue\x18\x0e \x01(\t\x12\x31\n\x06usedBy\x18\x0f \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x14\n\x0cinitialValue\x18\x18 \x01(\t\x12\x39\n\rrawValidRange\x18\x19 \x01(\x0b\x32\".yamcs.protobuf.mdb.ValidRangeInfo\x12\x39\n\rengValidRange\x18\x1a \x01(\x0b\x32\".yamcs.protobuf.mdb.ValidRangeInfo\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"f\n\x0eValidRangeInfo\x12\x0f\n\x07minimum\x18\x01 \x01(\x01\x12\x0f\n\x07maximum\x18\x02 \x01(\x01\x12\x18\n\x10minimumInclusive\x18\x03 \x01(\x08\x12\x18\n\x10maximumInclusive\x18\x04 \x01(\x08\"\xb5\x02\n\x14NumberFormatTypeInfo\x12\x12\n\nnumberBase\x18\x01 \x01(\t\x12\x1d\n\x15minimumFractionDigits\x18\x02 \x01(\x05\x12\x1d\n\x15maximumFractionDigits\x18\x03 \x01(\x05\x12\x1c\n\x14minimumIntegerDigits\x18\x04 \x01(\x05\x12\x1c\n\x14maximumIntegerDigits\x18\x05 \x01(\x05\x12\x16\n\x0enegativeSuffix\x18\x06 \x01(\t\x12\x16\n\x0epositiveSuffix\x18\x07 \x01(\t\x12\x16\n\x0enegativePrefix\x18\x08 \x01(\t\x12\x16\n\x0epositivePrefix\x18\t \x01(\t\x12\x1d\n\x15showThousandsGrouping\x18\n \x01(\x08\x12\x10\n\x08notation\x18\x0b \x01(\t\"5\n\x13GetContainerRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"9\n\x17GetParameterTypeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\x8d\x01\n\x10\x41\x62soluteTimeInfo\x12\x14\n\x0cinitialValue\x18\x01 \x01(\t\x12\r\n\x05scale\x18\x02 \x01(\x01\x12\x0e\n\x06offset\x18\x03 \x01(\x01\x12\x35\n\noffsetFrom\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\r\n\x05\x65poch\x18\x05 \x01(\t\"\xb0\x01\n\nMemberInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x33\n\x04type\x18\x06 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\"\xcd\x01\n\x12\x41rgumentMemberInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x32\n\x04type\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\x12\x14\n\x0cinitialValue\x18\x07 \x01(\t\"\x84\x01\n\x16ParameterDimensionInfo\x12\x12\n\nfixedValue\x18\x01 \x01(\x03\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\r\n\x05slope\x18\x03 \x01(\x03\x12\x11\n\tintercept\x18\x04 \x01(\x03\"\x80\x01\n\tArrayInfo\x12\x33\n\x04type\x18\x01 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12>\n\ndimensions\x18\x03 \x03(\x0b\x32*.yamcs.protobuf.mdb.ParameterDimensionInfo\"x\n\nUsedByInfo\x12\x34\n\talgorithm\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12\x34\n\tcontainer\x18\x02 \x03(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\"\xea\x03\n\rParameterInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x33\n\x04type\x18\x06 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12\x36\n\ndataSource\x18\x07 \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12.\n\x06usedBy\x18\x08 \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.UsedByInfo\x12K\n\rancillaryData\x18\t \x03(\x0b\x32\x34.yamcs.protobuf.mdb.ParameterInfo.AncillaryDataEntry\x12\x0c\n\x04path\x18\n \x03(\t\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"B\n\x11\x41ncillaryDataInfo\x12\r\n\x05value\x18\x01 \x01(\t\x12\x10\n\x08mimeType\x18\x02 \x01(\t\x12\x0c\n\x04href\x18\x03 \x01(\t\"\xc1\x04\n\x10\x41rgumentTypeInfo\x12\x0f\n\x07\x65ngType\x18\x01 \x01(\t\x12:\n\x0c\x64\x61taEncoding\x18\x02 \x01(\x0b\x32$.yamcs.protobuf.mdb.DataEncodingInfo\x12-\n\x07unitSet\x18\x03 \x03(\x0b\x32\x1c.yamcs.protobuf.mdb.UnitInfo\x12\x30\n\tenumValue\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x10\n\x08rangeMin\x18\x06 \x01(\x01\x12\x10\n\x08rangeMax\x18\x07 \x01(\x01\x12\x36\n\x06member\x18\x08 \x03(\x0b\x32&.yamcs.protobuf.mdb.ArgumentMemberInfo\x12\x17\n\x0fzeroStringValue\x18\t \x01(\t\x12\x16\n\x0eoneStringValue\x18\n \x01(\t\x12\x10\n\x08minChars\x18\x0b \x01(\x05\x12\x10\n\x08maxChars\x18\x0c \x01(\x05\x12\x0e\n\x06signed\x18\r \x01(\x08\x12\x10\n\x08minBytes\x18\x0e \x01(\x05\x12\x10\n\x08maxBytes\x18\x0f \x01(\x05\x12=\n\ndimensions\x18\x10 \x03(\x0b\x32).yamcs.protobuf.mdb.ArgumentDimensionInfo\x12\x39\n\x0b\x65lementType\x18\x11 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\x12\x0c\n\x04name\x18\x12 \x01(\t\x12\x12\n\nsizeInBits\x18\x13 \x01(\x05\"\x95\x01\n\x15\x41rgumentDimensionInfo\x12\x12\n\nfixedValue\x18\x01 \x01(\x03\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x10\n\x08\x61rgument\x18\x03 \x01(\t\x12\r\n\x05slope\x18\x04 \x01(\x03\x12\x11\n\tintercept\x18\x05 \x01(\x03\"{\n\x0c\x41rgumentInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x14\n\x0cinitialValue\x18\x04 \x01(\t\x12\x32\n\x04type\x18\x06 \x01(\x0b\x32$.yamcs.protobuf.mdb.ArgumentTypeInfo\"5\n\x16\x41rgumentAssignmentInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"\xe5\x01\n\x10SignificanceInfo\x12T\n\x10\x63onsequenceLevel\x18\x01 \x01(\x0e\x32:.yamcs.protobuf.mdb.SignificanceInfo.SignificanceLevelType\x12\x18\n\x10reasonForWarning\x18\x02 \x01(\t\"a\n\x15SignificanceLevelType\x12\x08\n\x04NONE\x10\x01\x12\t\n\x05WATCH\x10\x02\x12\x0b\n\x07WARNING\x10\x03\x12\x0c\n\x08\x44ISTRESS\x10\x04\x12\x0c\n\x08\x43RITICAL\x10\x05\x12\n\n\x06SEVERE\x10\x06\"\xdd\x02\n\x0e\x43omparisonInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x41\n\x08operator\x18\x02 \x01(\x0e\x32/.yamcs.protobuf.mdb.ComparisonInfo.OperatorType\x12\r\n\x05value\x18\x03 \x01(\t\x12\x32\n\x08\x61rgument\x18\x04 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\"\x8e\x01\n\x0cOperatorType\x12\x0c\n\x08\x45QUAL_TO\x10\x01\x12\x10\n\x0cNOT_EQUAL_TO\x10\x02\x12\x10\n\x0cGREATER_THAN\x10\x03\x12\x1c\n\x18GREATER_THAN_OR_EQUAL_TO\x10\x04\x12\x10\n\x0cSMALLER_THAN\x10\x05\x12\x1c\n\x18SMALLER_THAN_OR_EQUAL_TO\x10\x06\"A\n\x1aTransmissionConstraintInfo\x12\x12\n\nexpression\x18\x03 \x01(\t\x12\x0f\n\x07timeout\x18\x02 \x01(\x03\"\xbc\x06\n\x0b\x43ommandInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x34\n\x0b\x62\x61seCommand\x18\x06 \x01(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfo\x12\x10\n\x08\x61\x62stract\x18\x07 \x01(\x08\x12\x32\n\x08\x61rgument\x18\x08 \x03(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\x12\x46\n\x12\x61rgumentAssignment\x18\t \x03(\x0b\x32*.yamcs.protobuf.mdb.ArgumentAssignmentInfo\x12:\n\x0csignificance\x18\n \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\x12\x42\n\nconstraint\x18\x0b \x03(\x0b\x32..yamcs.protobuf.mdb.TransmissionConstraintInfo\x12\x42\n\x10\x63ommandContainer\x18\r \x01(\x0b\x32(.yamcs.protobuf.mdb.CommandContainerInfo\x12\x32\n\x08verifier\x18\x0e \x03(\x0b\x32 .yamcs.protobuf.mdb.VerifierInfo\x12I\n\rancillaryData\x18\x0f \x03(\x0b\x32\x32.yamcs.protobuf.mdb.CommandInfo.AncillaryDataEntry\x12\x43\n\x15\x65\x66\x66\x65\x63tiveSignificance\x18\x10 \x01(\x0b\x32$.yamcs.protobuf.mdb.SignificanceInfo\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"\xe5\x03\n\x0cVerifierInfo\x12\r\n\x05stage\x18\x01 \x01(\t\x12\x34\n\tcontainer\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x34\n\talgorithm\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12I\n\tonSuccess\x18\x04 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12\x46\n\x06onFail\x18\x05 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12I\n\tonTimeout\x18\x06 \x01(\x0e\x32\x36.yamcs.protobuf.mdb.VerifierInfo.TerminationActionType\x12\x38\n\x0b\x63heckWindow\x18\x07 \x01(\x0b\x32#.yamcs.protobuf.mdb.CheckWindowInfo\x12\x12\n\nexpression\x18\x08 \x01(\t\".\n\x15TerminationActionType\x12\x0b\n\x07SUCCESS\x10\x01\x12\x08\n\x04\x46\x41IL\x10\x02\"^\n\x0f\x43heckWindowInfo\x12\x1b\n\x13timeToStartChecking\x18\x01 \x01(\x03\x12\x1a\n\x12timeToStopChecking\x18\x02 \x01(\x03\x12\x12\n\nrelativeTo\x18\x03 \x01(\t\"n\n\nRepeatInfo\x12\x12\n\nfixedCount\x18\x01 \x01(\x03\x12\x37\n\x0c\x64ynamicCount\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x13\n\x0b\x62itsBetween\x18\x03 \x01(\x05\"\x99\x04\n\x11SequenceEntryInfo\x12\x16\n\x0elocationInBits\x18\x01 \x01(\x05\x12V\n\x11referenceLocation\x18\x02 \x01(\x0e\x32;.yamcs.protobuf.mdb.SequenceEntryInfo.ReferenceLocationType\x12\x34\n\tcontainer\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x32\n\x08\x61rgument\x18\x06 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\x12\x36\n\nfixedValue\x18\x07 \x01(\x0b\x32\".yamcs.protobuf.mdb.FixedValueInfo\x12.\n\x06repeat\x18\x05 \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.RepeatInfo\x12J\n\x14indirectParameterRef\x18\x08 \x01(\x0b\x32,.yamcs.protobuf.mdb.IndirectParameterRefInfo\"@\n\x15ReferenceLocationType\x12\x13\n\x0f\x43ONTAINER_START\x10\x01\x12\x12\n\x0ePREVIOUS_ENTRY\x10\x02\"D\n\x0e\x46ixedValueInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x10\n\x08hexValue\x18\x02 \x01(\t\x12\x12\n\nsizeInBits\x18\x03 \x01(\x05\"\xa7\x02\n\x14\x43ommandContainerInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x12\n\nsizeInBits\x18\x06 \x01(\x05\x12?\n\rbaseContainer\x18\x07 \x01(\x0b\x32(.yamcs.protobuf.mdb.CommandContainerInfo\x12\x34\n\x05\x65ntry\x18\x08 \x03(\x0b\x32%.yamcs.protobuf.mdb.SequenceEntryInfo\"h\n\x18IndirectParameterRefInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x16\n\x0e\x61liasNamespace\x18\x02 \x01(\t\"\x8e\x05\n\rContainerInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x13\n\x0bmaxInterval\x18\x06 \x01(\x03\x12\x12\n\nsizeInBits\x18\x07 \x01(\x05\x12\x38\n\rbaseContainer\x18\x08 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x43\n\x13restrictionCriteria\x18\t \x03(\x0b\x32\".yamcs.protobuf.mdb.ComparisonInfoB\x02\x18\x01\x12%\n\x1drestrictionCriteriaExpression\x18\r \x01(\t\x12\x34\n\x05\x65ntry\x18\n \x03(\x0b\x32%.yamcs.protobuf.mdb.SequenceEntryInfo\x12.\n\x06usedBy\x18\x0b \x01(\x0b\x32\x1e.yamcs.protobuf.mdb.UsedByInfo\x12K\n\rancillaryData\x18\x0c \x03(\x0b\x32\x34.yamcs.protobuf.mdb.ContainerInfo.AncillaryDataEntry\x12\x18\n\x10\x61rchivePartition\x18\x0e \x01(\x08\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01\"\xbf\x01\n\x12InputParameterInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x11\n\tinputName\x18\x02 \x01(\t\x12\x19\n\x11parameterInstance\x18\x03 \x01(\x05\x12\x11\n\tmandatory\x18\x04 \x01(\x08\x12\x32\n\x08\x61rgument\x18\x05 \x01(\x0b\x32 .yamcs.protobuf.mdb.ArgumentInfo\"_\n\x13OutputParameterInfo\x12\x34\n\tparameter\x18\x01 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x12\n\noutputName\x18\x02 \x01(\t\"\x87\x02\n\x0bMathElement\x12\x32\n\x04type\x18\x01 \x01(\x0e\x32$.yamcs.protobuf.mdb.MathElement.Type\x12\x10\n\x08operator\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\x01\x12\x34\n\tparameter\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x19\n\x11parameterInstance\x18\x05 \x01(\x05\"R\n\x04Type\x12\x11\n\rVALUE_OPERAND\x10\x01\x12\x1a\n\x16THIS_PARAMETER_OPERAND\x10\x02\x12\x0c\n\x08OPERATOR\x10\x03\x12\r\n\tPARAMETER\x10\x04\"\x99\x05\n\rAlgorithmInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x05 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x36\n\x05scope\x18\x06 \x01(\x0e\x32\'.yamcs.protobuf.mdb.AlgorithmInfo.Scope\x12\x34\n\x04type\x18\r \x01(\x0e\x32&.yamcs.protobuf.mdb.AlgorithmInfo.Type\x12\x10\n\x08language\x18\x07 \x01(\t\x12\x0c\n\x04text\x18\x08 \x01(\t\x12>\n\x0einputParameter\x18\t \x03(\x0b\x32&.yamcs.protobuf.mdb.InputParameterInfo\x12@\n\x0foutputParameter\x18\n \x03(\x0b\x32\'.yamcs.protobuf.mdb.OutputParameterInfo\x12<\n\x11onParameterUpdate\x18\x0b \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x16\n\x0eonPeriodicRate\x18\x0c \x03(\x03\x12\x35\n\x0cmathElements\x18\x0e \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.MathElement\"\x1c\n\x04Type\x12\n\n\x06\x43USTOM\x10\x01\x12\x08\n\x04MATH\x10\x02\"G\n\x05Scope\x12\n\n\x06GLOBAL\x10\x00\x12\x18\n\x14\x43OMMAND_VERIFICATION\x10\x01\x12\x18\n\x14\x43ONTAINER_PROCESSING\x10\x02\"`\n\x17ListSpaceSystemsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"n\n\x15ListContainersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"r\n\x19ListParameterTypesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"\xa6\x01\n\x15ListAlgorithmsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\n \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\x12\x36\n\x05scope\x18\x0b \x01(\x0e\x32\'.yamcs.protobuf.mdb.AlgorithmInfo.Scope\"\x91\x01\n\x13ListCommandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x0e\n\x06system\x18\x0b \x01(\t\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\x08\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\x12\x12\n\nnoAbstract\x18\n \x01(\x08\"5\n\x13GetParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xd8\x01\n\x15ListParametersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\t\n\x01q\x18\x02 \x01(\t\x12\x15\n\rsearchMembers\x18\x0c \x01(\x08\x12\x0f\n\x07\x64\x65tails\x18\x04 \x01(\x08\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\x32\n\x06source\x18\n \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12\x0e\n\x06system\x18\x0b \x01(\t\x12\x0c\n\x04next\x18\x07 \x01(\t\x12\x0b\n\x03pos\x18\x08 \x01(\x05\x12\r\n\x05limit\x18\t \x01(\x05\"\xcd\x01\n\x16ListParametersResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\nparameters\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"X\n\x19\x42\x61tchGetParametersRequest\x12\x10\n\x08instance\x18\x02 \x01(\t\x12)\n\x02id\x18\x01 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\"\xec\x01\n\x1a\x42\x61tchGetParametersResponse\x12U\n\x08response\x18\x01 \x03(\x0b\x32\x43.yamcs.protobuf.mdb.BatchGetParametersResponse.GetParameterResponse\x1aw\n\x14GetParameterResponse\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x34\n\tparameter\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfo\"\xcd\x01\n\x16ListContainersResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\ncontainers\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xd9\x01\n\x1aListParameterTypesResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12=\n\x0eparameterTypes\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xc7\x01\n\x14ListCommandsResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x31\n\x08\x63ommands\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"\xcd\x01\n\x16ListAlgorithmsResponse\x12\x34\n\x07systems\x18\x05 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x18\n\x0cspaceSystems\x18\x04 \x03(\tB\x02\x18\x01\x12\x35\n\nalgorithms\x18\x01 \x03(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"5\n\x13GetAlgorithmRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xb4\x02\n\x16\x43reateParameterRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12H\n\x07\x61liases\x18\x05 \x03(\x0b\x32\x37.yamcs.protobuf.mdb.CreateParameterRequest.AliasesEntry\x12\x36\n\ndataSource\x18\x06 \x01(\x0e\x32\".yamcs.protobuf.mdb.DataSourceType\x12\x15\n\rparameterType\x18\x07 \x01(\t\x1a.\n\x0c\x41liasesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xf9\x03\n\x1a\x43reateParameterTypeRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12L\n\x07\x61liases\x18\x05 \x03(\x0b\x32;.yamcs.protobuf.mdb.CreateParameterTypeRequest.AliasesEntry\x12\x0f\n\x07\x65ngType\x18\x06 \x01(\t\x12\x0c\n\x04unit\x18\x07 \x01(\t\x12\x0e\n\x06signed\x18\x08 \x01(\x08\x12\x33\n\x0c\x64\x65\x66\x61ultAlarm\x18\t \x01(\x0b\x32\x1d.yamcs.protobuf.mdb.AlarmInfo\x12;\n\rcontextAlarms\x18\n \x03(\x0b\x32$.yamcs.protobuf.mdb.ContextAlarmInfo\x12\x38\n\x11\x65numerationValues\x18\x0b \x03(\x0b\x32\x1d.yamcs.protobuf.mdb.EnumValue\x12\x17\n\x0fzeroStringValue\x18\x0c \x01(\t\x12\x16\n\x0eoneStringValue\x18\r \x01(\t\x1a.\n\x0c\x41liasesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"-\n\x19GetMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"4\n ExportJavaMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xd6\x01\n\x1cStreamMissionDatabaseRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x1b\n\x13includeSpaceSystems\x18\x02 \x01(\x08\x12\x19\n\x11includeContainers\x18\x03 \x01(\x08\x12\x19\n\x11includeParameters\x18\x04 \x01(\x08\x12\x1d\n\x15includeParameterTypes\x18\x05 \x01(\x08\x12\x17\n\x0fincludeCommands\x18\x06 \x01(\x08\x12\x19\n\x11includeAlgorithms\x18\x07 \x01(\x08\"\xf5\x02\n\x13MissionDatabaseItem\x12:\n\x0bspaceSystem\x18\x01 \x01(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfoH\x00\x12\x36\n\tcontainer\x18\x02 \x01(\x0b\x32!.yamcs.protobuf.mdb.ContainerInfoH\x00\x12\x36\n\tparameter\x18\x03 \x01(\x0b\x32!.yamcs.protobuf.mdb.ParameterInfoH\x00\x12>\n\rparameterType\x18\x04 \x01(\x0b\x32%.yamcs.protobuf.mdb.ParameterTypeInfoH\x00\x12\x32\n\x07\x63ommand\x18\x05 \x01(\x0b\x32\x1f.yamcs.protobuf.mdb.CommandInfoH\x00\x12\x36\n\talgorithm\x18\x06 \x01(\x0b\x32!.yamcs.protobuf.mdb.AlgorithmInfoH\x00\x42\x06\n\x04item\"\x83\x01\n\x18ListSpaceSystemsResponse\x12\x39\n\x0cspaceSystems\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\x12\x11\n\ttotalSize\x18\x03 \x01(\x05\"7\n\x15GetSpaceSystemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"D\n\x11\x45xportXtceRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07version\x18\x03 \x01(\t\"3\n\x11GetCommandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"\xb8\x03\n\x0fSpaceSystemInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x15\n\rqualifiedName\x18\x02 \x01(\t\x12\x18\n\x10shortDescription\x18\x03 \x01(\t\x12\x17\n\x0flongDescription\x18\x04 \x01(\t\x12,\n\x05\x61lias\x18\x10 \x03(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\x0f\n\x07version\x18\x05 \x01(\t\x12\x30\n\x07history\x18\x0e \x03(\x0b\x32\x1f.yamcs.protobuf.mdb.HistoryInfo\x12\x30\n\x03sub\x18\x0f \x03(\x0b\x32#.yamcs.protobuf.mdb.SpaceSystemInfo\x12M\n\rancillaryData\x18\x11 \x03(\x0b\x32\x36.yamcs.protobuf.mdb.SpaceSystemInfo.AncillaryDataEntry\x1a[\n\x12\x41ncillaryDataEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x34\n\x05value\x18\x02 \x01(\x0b\x32%.yamcs.protobuf.mdb.AncillaryDataInfo:\x02\x38\x01*\xae\x01\n\x0e\x44\x61taSourceType\x12\x0f\n\x0bTELEMETERED\x10\x00\x12\x0b\n\x07\x44\x45RIVED\x10\x01\x12\x0c\n\x08\x43ONSTANT\x10\x02\x12\t\n\x05LOCAL\x10\x03\x12\n\n\x06SYSTEM\x10\x04\x12\x0b\n\x07\x43OMMAND\x10\x05\x12\x13\n\x0f\x43OMMAND_HISTORY\x10\x06\x12\r\n\tEXTERNAL1\x10\x07\x12\r\n\tEXTERNAL2\x10\x08\x12\r\n\tEXTERNAL3\x10\t\x12\n\n\x06GROUND\x10\n*\\\n\x0e\x41larmLevelType\x12\n\n\x06NORMAL\x10\x00\x12\t\n\x05WATCH\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\x0c\n\x08\x44ISTRESS\x10\x03\x12\x0c\n\x08\x43RITICAL\x10\x04\x12\n\n\x06SEVERE\x10\x05\x32\xcb\x16\n\x06MdbApi\x12\x83\x01\n\x12GetMissionDatabase\x12-.yamcs.protobuf.mdb.GetMissionDatabaseRequest\x1a#.yamcs.protobuf.mdb.MissionDatabase\"\x19\x8a\x92\x03\x15\n\x13/api/mdb/{instance}\x12\x8c\x01\n\x19\x45xportJavaMissionDatabase\x12\x34.yamcs.protobuf.mdb.ExportJavaMissionDatabaseRequest\x1a\x13.yamcs.api.HttpBody\"$\x8a\x92\x03 \n\x1e/api/mdb/{instance}:exportJava\x12\xa4\x01\n\x10ListSpaceSystems\x12+.yamcs.protobuf.mdb.ListSpaceSystemsRequest\x1a,.yamcs.protobuf.mdb.ListSpaceSystemsResponse\"5\x8a\x92\x03\x31\n!/api/mdb/{instance}/space-systemsR\x0cspaceSystems\x12\x91\x01\n\x0eGetSpaceSystem\x12).yamcs.protobuf.mdb.GetSpaceSystemRequest\x1a#.yamcs.protobuf.mdb.SpaceSystemInfo\"/\x8a\x92\x03+\n)/api/mdb/{instance}/space-systems/{name*}\x12\x91\x01\n\nExportXtce\x12%.yamcs.protobuf.mdb.ExportXtceRequest\x1a\x13.yamcs.api.HttpBody\"G\x8a\x92\x03\x43\n4/api/mdb/{instance}/space-systems/{name*}:exportXTCEj\x0b\x45xport XTCE\x12\xa7\x01\n\x15StreamMissionDatabase\x12\x30.yamcs.protobuf.mdb.StreamMissionDatabaseRequest\x1a\'.yamcs.protobuf.mdb.MissionDatabaseItem\"1\x8a\x92\x03-\n)/api/mdb/{instance}:streamMissionDatabaseH\x01\x30\x01\x12\x99\x01\n\x0eListParameters\x12).yamcs.protobuf.mdb.ListParametersRequest\x1a*.yamcs.protobuf.mdb.ListParametersResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/parametersR\nparameters\x12\x88\x01\n\x0cGetParameter\x12\'.yamcs.protobuf.mdb.GetParameterRequest\x1a!.yamcs.protobuf.mdb.ParameterInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/parameters/{name*}\x12\x89\x01\n\x0f\x43reateParameter\x12*.yamcs.protobuf.mdb.CreateParameterRequest\x1a!.yamcs.protobuf.mdb.ParameterInfo\"\'\x8a\x92\x03#\x1a\x1e/api/mdb/{instance}/parameters:\x01*\x12\xa5\x01\n\x12\x42\x61tchGetParameters\x12-.yamcs.protobuf.mdb.BatchGetParametersRequest\x1a..yamcs.protobuf.mdb.BatchGetParametersResponse\"0\x8a\x92\x03,\x1a\'/api/mdb/{instance}/parameters:batchGet:\x01*\x12\xae\x01\n\x12ListParameterTypes\x12-.yamcs.protobuf.mdb.ListParameterTypesRequest\x1a..yamcs.protobuf.mdb.ListParameterTypesResponse\"9\x8a\x92\x03\x35\n#/api/mdb/{instance}/parameter-typesR\x0eparameterTypes\x12\x99\x01\n\x10GetParameterType\x12+.yamcs.protobuf.mdb.GetParameterTypeRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\"1\x8a\x92\x03-\n+/api/mdb/{instance}/parameter-types/{name*}\x12\x9a\x01\n\x13\x43reateParameterType\x12..yamcs.protobuf.mdb.CreateParameterTypeRequest\x1a%.yamcs.protobuf.mdb.ParameterTypeInfo\",\x8a\x92\x03(\x1a#/api/mdb/{instance}/parameter-types:\x01*\x12\x99\x01\n\x0eListContainers\x12).yamcs.protobuf.mdb.ListContainersRequest\x1a*.yamcs.protobuf.mdb.ListContainersResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/containersR\ncontainers\x12\x88\x01\n\x0cGetContainer\x12\'.yamcs.protobuf.mdb.GetContainerRequest\x1a!.yamcs.protobuf.mdb.ContainerInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/containers/{name*}\x12\x8f\x01\n\x0cListCommands\x12\'.yamcs.protobuf.mdb.ListCommandsRequest\x1a(.yamcs.protobuf.mdb.ListCommandsResponse\",\x8a\x92\x03(\n\x1c/api/mdb/{instance}/commandsR\x08\x63ommands\x12\x80\x01\n\nGetCommand\x12%.yamcs.protobuf.mdb.GetCommandRequest\x1a\x1f.yamcs.protobuf.mdb.CommandInfo\"*\x8a\x92\x03&\n$/api/mdb/{instance}/commands/{name*}\x12\x99\x01\n\x0eListAlgorithms\x12).yamcs.protobuf.mdb.ListAlgorithmsRequest\x1a*.yamcs.protobuf.mdb.ListAlgorithmsResponse\"0\x8a\x92\x03,\n\x1e/api/mdb/{instance}/algorithmsR\nalgorithms\x12\x88\x01\n\x0cGetAlgorithm\x12\'.yamcs.protobuf.mdb.GetAlgorithmRequest\x1a!.yamcs.protobuf.mdb.AlgorithmInfo\",\x8a\x92\x03(\n&/api/mdb/{instance}/algorithms/{name*}\x1a\x0b\x82\x80\x01\x03MDB\xd0\x80\x01\x01\x42\x14\n\x12org.yamcs.protobuf'
   ,
   dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_api_dot_httpbody__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_yamcs__pb2.DESCRIPTOR,])
 
@@ -79,8 +79,8 @@ _DATASOURCETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=16348,
-  serialized_end=16522,
+  serialized_start=16629,
+  serialized_end=16803,
 )
 _sym_db.RegisterEnumDescriptor(_DATASOURCETYPE)
 
@@ -118,8 +118,8 @@ _ALARMLEVELTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=16524,
-  serialized_end=16616,
+  serialized_start=16805,
+  serialized_end=16897,
 )
 _sym_db.RegisterEnumDescriptor(_ALARMLEVELTYPE)
 
@@ -244,8 +244,8 @@ _SIGNIFICANCEINFO_SIGNIFICANCELEVELTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=6806,
-  serialized_end=6903,
+  serialized_start=7070,
+  serialized_end=7167,
 )
 _sym_db.RegisterEnumDescriptor(_SIGNIFICANCEINFO_SIGNIFICANCELEVELTYPE)
 
@@ -282,8 +282,8 @@ _COMPARISONINFO_OPERATORTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=7113,
-  serialized_end=7255,
+  serialized_start=7377,
+  serialized_end=7519,
 )
 _sym_db.RegisterEnumDescriptor(_COMPARISONINFO_OPERATORTYPE)
 
@@ -304,8 +304,8 @@ _VERIFIERINFO_TERMINATIONACTIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=8595,
-  serialized_end=8641,
+  serialized_start=8859,
+  serialized_end=8905,
 )
 _sym_db.RegisterEnumDescriptor(_VERIFIERINFO_TERMINATIONACTIONTYPE)
 
@@ -326,8 +326,8 @@ _SEQUENCEENTRYINFO_REFERENCELOCATIONTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=9325,
-  serialized_end=9389,
+  serialized_start=9589,
+  serialized_end=9653,
 )
 _sym_db.RegisterEnumDescriptor(_SEQUENCEENTRYINFO_REFERENCELOCATIONTYPE)
 
@@ -356,8 +356,8 @@ _MATHELEMENT_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=10995,
-  serialized_end=11077,
+  serialized_start=11259,
+  serialized_end=11341,
 )
 _sym_db.RegisterEnumDescriptor(_MATHELEMENT_TYPE)
 
@@ -378,8 +378,8 @@ _ALGORITHMINFO_TYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=11644,
-  serialized_end=11672,
+  serialized_start=11908,
+  serialized_end=11936,
 )
 _sym_db.RegisterEnumDescriptor(_ALGORITHMINFO_TYPE)
 
@@ -404,8 +404,8 @@ _ALGORITHMINFO_SCOPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=11674,
-  serialized_end=11745,
+  serialized_start=11938,
+  serialized_end=12009,
 )
 _sym_db.RegisterEnumDescriptor(_ALGORITHMINFO_SCOPE)
 
@@ -1255,8 +1255,8 @@ _PARAMETERTYPEINFO_ANCILLARYDATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3782,
-  serialized_end=3873,
+  serialized_start=3922,
+  serialized_end=4013,
 )
 
 _PARAMETERTYPEINFO = _descriptor.Descriptor(
@@ -1427,6 +1427,27 @@ _PARAMETERTYPEINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='initialValue', full_name='yamcs.protobuf.mdb.ParameterTypeInfo.initialValue', index=23,
+      number=24, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='rawValidRange', full_name='yamcs.protobuf.mdb.ParameterTypeInfo.rawValidRange', index=24,
+      number=25, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='engValidRange', full_name='yamcs.protobuf.mdb.ParameterTypeInfo.engValidRange', index=25,
+      number=26, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -1440,7 +1461,59 @@ _PARAMETERTYPEINFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=2791,
-  serialized_end=3873,
+  serialized_end=4013,
+)
+
+
+_VALIDRANGEINFO = _descriptor.Descriptor(
+  name='ValidRangeInfo',
+  full_name='yamcs.protobuf.mdb.ValidRangeInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='minimum', full_name='yamcs.protobuf.mdb.ValidRangeInfo.minimum', index=0,
+      number=1, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maximum', full_name='yamcs.protobuf.mdb.ValidRangeInfo.maximum', index=1,
+      number=2, type=1, cpp_type=5, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='minimumInclusive', full_name='yamcs.protobuf.mdb.ValidRangeInfo.minimumInclusive', index=2,
+      number=3, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='maximumInclusive', full_name='yamcs.protobuf.mdb.ValidRangeInfo.maximumInclusive', index=3,
+      number=4, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=4015,
+  serialized_end=4117,
 )
 
 
@@ -1540,8 +1613,8 @@ _NUMBERFORMATTYPEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3876,
-  serialized_end=4185,
+  serialized_start=4120,
+  serialized_end=4429,
 )
 
 
@@ -1578,8 +1651,8 @@ _GETCONTAINERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4187,
-  serialized_end=4240,
+  serialized_start=4431,
+  serialized_end=4484,
 )
 
 
@@ -1616,8 +1689,8 @@ _GETPARAMETERTYPEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4242,
-  serialized_end=4299,
+  serialized_start=4486,
+  serialized_end=4543,
 )
 
 
@@ -1675,8 +1748,8 @@ _ABSOLUTETIMEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4302,
-  serialized_end=4443,
+  serialized_start=4546,
+  serialized_end=4687,
 )
 
 
@@ -1734,8 +1807,8 @@ _MEMBERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4446,
-  serialized_end=4622,
+  serialized_start=4690,
+  serialized_end=4866,
 )
 
 
@@ -1800,8 +1873,8 @@ _ARGUMENTMEMBERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4625,
-  serialized_end=4830,
+  serialized_start=4869,
+  serialized_end=5074,
 )
 
 
@@ -1852,8 +1925,8 @@ _PARAMETERDIMENSIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4833,
-  serialized_end=4965,
+  serialized_start=5077,
+  serialized_end=5209,
 )
 
 
@@ -1890,8 +1963,8 @@ _ARRAYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4968,
-  serialized_end=5096,
+  serialized_start=5212,
+  serialized_end=5340,
 )
 
 
@@ -1928,8 +2001,8 @@ _USEDBYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5098,
-  serialized_end=5218,
+  serialized_start=5342,
+  serialized_end=5462,
 )
 
 
@@ -1966,8 +2039,8 @@ _PARAMETERINFO_ANCILLARYDATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3782,
-  serialized_end=3873,
+  serialized_start=3922,
+  serialized_end=4013,
 )
 
 _PARAMETERINFO = _descriptor.Descriptor(
@@ -2059,8 +2132,8 @@ _PARAMETERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5221,
-  serialized_end=5711,
+  serialized_start=5465,
+  serialized_end=5955,
 )
 
 
@@ -2104,8 +2177,8 @@ _ANCILLARYDATAINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5713,
-  serialized_end=5779,
+  serialized_start=5957,
+  serialized_end=6023,
 )
 
 
@@ -2235,6 +2308,13 @@ _ARGUMENTTYPEINFO = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='sizeInBits', full_name='yamcs.protobuf.mdb.ArgumentTypeInfo.sizeInBits', index=17,
+      number=19, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -2247,8 +2327,8 @@ _ARGUMENTTYPEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5782,
-  serialized_end=6339,
+  serialized_start=6026,
+  serialized_end=6603,
 )
 
 
@@ -2306,8 +2386,8 @@ _ARGUMENTDIMENSIONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6342,
-  serialized_end=6491,
+  serialized_start=6606,
+  serialized_end=6755,
 )
 
 
@@ -2358,8 +2438,8 @@ _ARGUMENTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6493,
-  serialized_end=6616,
+  serialized_start=6757,
+  serialized_end=6880,
 )
 
 
@@ -2396,8 +2476,8 @@ _ARGUMENTASSIGNMENTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6618,
-  serialized_end=6671,
+  serialized_start=6882,
+  serialized_end=6935,
 )
 
 
@@ -2435,8 +2515,8 @@ _SIGNIFICANCEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6674,
-  serialized_end=6903,
+  serialized_start=6938,
+  serialized_end=7167,
 )
 
 
@@ -2488,8 +2568,8 @@ _COMPARISONINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=6906,
-  serialized_end=7255,
+  serialized_start=7170,
+  serialized_end=7519,
 )
 
 
@@ -2526,8 +2606,8 @@ _TRANSMISSIONCONSTRAINTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7257,
-  serialized_end=7322,
+  serialized_start=7521,
+  serialized_end=7586,
 )
 
 
@@ -2564,8 +2644,8 @@ _COMMANDINFO_ANCILLARYDATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3782,
-  serialized_end=3873,
+  serialized_start=3922,
+  serialized_end=4013,
 )
 
 _COMMANDINFO = _descriptor.Descriptor(
@@ -2692,8 +2772,8 @@ _COMMANDINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=7325,
-  serialized_end=8153,
+  serialized_start=7589,
+  serialized_end=8417,
 )
 
 
@@ -2773,8 +2853,8 @@ _VERIFIERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8156,
-  serialized_end=8641,
+  serialized_start=8420,
+  serialized_end=8905,
 )
 
 
@@ -2818,8 +2898,8 @@ _CHECKWINDOWINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8643,
-  serialized_end=8737,
+  serialized_start=8907,
+  serialized_end=9001,
 )
 
 
@@ -2863,8 +2943,8 @@ _REPEATINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8739,
-  serialized_end=8849,
+  serialized_start=9003,
+  serialized_end=9113,
 )
 
 
@@ -2944,8 +3024,8 @@ _SEQUENCEENTRYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=8852,
-  serialized_end=9389,
+  serialized_start=9116,
+  serialized_end=9653,
 )
 
 
@@ -2989,8 +3069,8 @@ _FIXEDVALUEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9391,
-  serialized_end=9459,
+  serialized_start=9655,
+  serialized_end=9723,
 )
 
 
@@ -3069,8 +3149,8 @@ _COMMANDCONTAINERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9462,
-  serialized_end=9757,
+  serialized_start=9726,
+  serialized_end=10021,
 )
 
 
@@ -3107,8 +3187,8 @@ _INDIRECTPARAMETERREFINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9759,
-  serialized_end=9863,
+  serialized_start=10023,
+  serialized_end=10127,
 )
 
 
@@ -3145,8 +3225,8 @@ _CONTAINERINFO_ANCILLARYDATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3782,
-  serialized_end=3873,
+  serialized_start=3922,
+  serialized_end=4013,
 )
 
 _CONTAINERINFO = _descriptor.Descriptor(
@@ -3266,8 +3346,8 @@ _CONTAINERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=9866,
-  serialized_end=10520,
+  serialized_start=10130,
+  serialized_end=10784,
 )
 
 
@@ -3325,8 +3405,8 @@ _INPUTPARAMETERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10523,
-  serialized_end=10714,
+  serialized_start=10787,
+  serialized_end=10978,
 )
 
 
@@ -3363,8 +3443,8 @@ _OUTPUTPARAMETERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10716,
-  serialized_end=10811,
+  serialized_start=10980,
+  serialized_end=11075,
 )
 
 
@@ -3423,8 +3503,8 @@ _MATHELEMENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=10814,
-  serialized_end=11077,
+  serialized_start=11078,
+  serialized_end=11341,
 )
 
 
@@ -3547,8 +3627,8 @@ _ALGORITHMINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11080,
-  serialized_end=11745,
+  serialized_start=11344,
+  serialized_end=12009,
 )
 
 
@@ -3606,8 +3686,8 @@ _LISTSPACESYSTEMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11747,
-  serialized_end=11843,
+  serialized_start=12011,
+  serialized_end=12107,
 )
 
 
@@ -3672,8 +3752,8 @@ _LISTCONTAINERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11845,
-  serialized_end=11955,
+  serialized_start=12109,
+  serialized_end=12219,
 )
 
 
@@ -3738,8 +3818,8 @@ _LISTPARAMETERTYPESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=11957,
-  serialized_end=12071,
+  serialized_start=12221,
+  serialized_end=12335,
 )
 
 
@@ -3811,8 +3891,8 @@ _LISTALGORITHMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12074,
-  serialized_end=12240,
+  serialized_start=12338,
+  serialized_end=12504,
 )
 
 
@@ -3891,8 +3971,8 @@ _LISTCOMMANDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12243,
-  serialized_end=12388,
+  serialized_start=12507,
+  serialized_end=12652,
 )
 
 
@@ -3929,8 +4009,8 @@ _GETPARAMETERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12390,
-  serialized_end=12443,
+  serialized_start=12654,
+  serialized_end=12707,
 )
 
 
@@ -4023,8 +4103,8 @@ _LISTPARAMETERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12446,
-  serialized_end=12662,
+  serialized_start=12710,
+  serialized_end=12926,
 )
 
 
@@ -4082,8 +4162,8 @@ _LISTPARAMETERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12665,
-  serialized_end=12870,
+  serialized_start=12929,
+  serialized_end=13134,
 )
 
 
@@ -4120,8 +4200,8 @@ _BATCHGETPARAMETERSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12872,
-  serialized_end=12960,
+  serialized_start=13136,
+  serialized_end=13224,
 )
 
 
@@ -4158,8 +4238,8 @@ _BATCHGETPARAMETERSRESPONSE_GETPARAMETERRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13080,
-  serialized_end=13199,
+  serialized_start=13344,
+  serialized_end=13463,
 )
 
 _BATCHGETPARAMETERSRESPONSE = _descriptor.Descriptor(
@@ -4188,8 +4268,8 @@ _BATCHGETPARAMETERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=12963,
-  serialized_end=13199,
+  serialized_start=13227,
+  serialized_end=13463,
 )
 
 
@@ -4247,8 +4327,8 @@ _LISTCONTAINERSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13202,
-  serialized_end=13407,
+  serialized_start=13466,
+  serialized_end=13671,
 )
 
 
@@ -4306,8 +4386,8 @@ _LISTPARAMETERTYPESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13410,
-  serialized_end=13627,
+  serialized_start=13674,
+  serialized_end=13891,
 )
 
 
@@ -4365,8 +4445,8 @@ _LISTCOMMANDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13630,
-  serialized_end=13829,
+  serialized_start=13894,
+  serialized_end=14093,
 )
 
 
@@ -4424,8 +4504,8 @@ _LISTALGORITHMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=13832,
-  serialized_end=14037,
+  serialized_start=14096,
+  serialized_end=14301,
 )
 
 
@@ -4462,8 +4542,8 @@ _GETALGORITHMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14039,
-  serialized_end=14092,
+  serialized_start=14303,
+  serialized_end=14356,
 )
 
 
@@ -4500,8 +4580,8 @@ _CREATEPARAMETERREQUEST_ALIASESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14357,
-  serialized_end=14403,
+  serialized_start=14621,
+  serialized_end=14667,
 )
 
 _CREATEPARAMETERREQUEST = _descriptor.Descriptor(
@@ -4572,8 +4652,8 @@ _CREATEPARAMETERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14095,
-  serialized_end=14403,
+  serialized_start=14359,
+  serialized_end=14667,
 )
 
 
@@ -4610,8 +4690,8 @@ _CREATEPARAMETERTYPEREQUEST_ALIASESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14357,
-  serialized_end=14403,
+  serialized_start=14621,
+  serialized_end=14667,
 )
 
 _CREATEPARAMETERTYPEREQUEST = _descriptor.Descriptor(
@@ -4724,8 +4804,8 @@ _CREATEPARAMETERTYPEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14406,
-  serialized_end=14911,
+  serialized_start=14670,
+  serialized_end=15175,
 )
 
 
@@ -4755,8 +4835,8 @@ _GETMISSIONDATABASEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14913,
-  serialized_end=14958,
+  serialized_start=15177,
+  serialized_end=15222,
 )
 
 
@@ -4786,8 +4866,8 @@ _EXPORTJAVAMISSIONDATABASEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=14960,
-  serialized_end=15012,
+  serialized_start=15224,
+  serialized_end=15276,
 )
 
 
@@ -4859,8 +4939,8 @@ _STREAMMISSIONDATABASEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15015,
-  serialized_end=15229,
+  serialized_start=15279,
+  serialized_end=15493,
 )
 
 
@@ -4928,8 +5008,8 @@ _MISSIONDATABASEITEM = _descriptor.Descriptor(
       name='item', full_name='yamcs.protobuf.mdb.MissionDatabaseItem.item',
       index=0, containing_type=None, fields=[]),
   ],
-  serialized_start=15232,
-  serialized_end=15605,
+  serialized_start=15496,
+  serialized_end=15869,
 )
 
 
@@ -4973,8 +5053,8 @@ _LISTSPACESYSTEMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15608,
-  serialized_end=15739,
+  serialized_start=15872,
+  serialized_end=16003,
 )
 
 
@@ -5011,8 +5091,8 @@ _GETSPACESYSTEMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15741,
-  serialized_end=15796,
+  serialized_start=16005,
+  serialized_end=16060,
 )
 
 
@@ -5037,6 +5117,13 @@ _EXPORTXTCEREQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='version', full_name='yamcs.protobuf.mdb.ExportXtceRequest.version', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -5049,8 +5136,8 @@ _EXPORTXTCEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15798,
-  serialized_end=15849,
+  serialized_start=16062,
+  serialized_end=16130,
 )
 
 
@@ -5087,8 +5174,8 @@ _GETCOMMANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15851,
-  serialized_end=15902,
+  serialized_start=16132,
+  serialized_end=16183,
 )
 
 
@@ -5125,8 +5212,8 @@ _SPACESYSTEMINFO_ANCILLARYDATAENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3782,
-  serialized_end=3873,
+  serialized_start=3922,
+  serialized_end=4013,
 )
 
 _SPACESYSTEMINFO = _descriptor.Descriptor(
@@ -5211,8 +5298,8 @@ _SPACESYSTEMINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=15905,
-  serialized_end=16345,
+  serialized_start=16186,
+  serialized_end=16626,
 )
 
 _MISSIONDATABASE.fields_by_name['spaceSystem'].message_type = _SPACESYSTEMINFO
@@ -5257,6 +5344,8 @@ _PARAMETERTYPEINFO.fields_by_name['arrayInfo'].message_type = _ARRAYINFO
 _PARAMETERTYPEINFO.fields_by_name['ancillaryData'].message_type = _PARAMETERTYPEINFO_ANCILLARYDATAENTRY
 _PARAMETERTYPEINFO.fields_by_name['numberFormat'].message_type = _NUMBERFORMATTYPEINFO
 _PARAMETERTYPEINFO.fields_by_name['usedBy'].message_type = _PARAMETERINFO
+_PARAMETERTYPEINFO.fields_by_name['rawValidRange'].message_type = _VALIDRANGEINFO
+_PARAMETERTYPEINFO.fields_by_name['engValidRange'].message_type = _VALIDRANGEINFO
 _ABSOLUTETIMEINFO.fields_by_name['offsetFrom'].message_type = _PARAMETERINFO
 _MEMBERINFO.fields_by_name['alias'].message_type = yamcs_dot_protobuf_dot_yamcs__pb2._NAMEDOBJECTID
 _MEMBERINFO.fields_by_name['type'].message_type = _PARAMETERTYPEINFO
@@ -5415,6 +5504,7 @@ DESCRIPTOR.message_types_by_name['JavaExpressionCalibratorInfo'] = _JAVAEXPRESSI
 DESCRIPTOR.message_types_by_name['EnumValue'] = _ENUMVALUE
 DESCRIPTOR.message_types_by_name['EnumRange'] = _ENUMRANGE
 DESCRIPTOR.message_types_by_name['ParameterTypeInfo'] = _PARAMETERTYPEINFO
+DESCRIPTOR.message_types_by_name['ValidRangeInfo'] = _VALIDRANGEINFO
 DESCRIPTOR.message_types_by_name['NumberFormatTypeInfo'] = _NUMBERFORMATTYPEINFO
 DESCRIPTOR.message_types_by_name['GetContainerRequest'] = _GETCONTAINERREQUEST
 DESCRIPTOR.message_types_by_name['GetParameterTypeRequest'] = _GETPARAMETERTYPEREQUEST
@@ -5603,6 +5693,13 @@ ParameterTypeInfo = _reflection.GeneratedProtocolMessageType('ParameterTypeInfo'
   })
 _sym_db.RegisterMessage(ParameterTypeInfo)
 _sym_db.RegisterMessage(ParameterTypeInfo.AncillaryDataEntry)
+
+ValidRangeInfo = _reflection.GeneratedProtocolMessageType('ValidRangeInfo', (_message.Message,), {
+  'DESCRIPTOR' : _VALIDRANGEINFO,
+  '__module__' : 'yamcs.protobuf.mdb.mdb_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.mdb.ValidRangeInfo)
+  })
+_sym_db.RegisterMessage(ValidRangeInfo)
 
 NumberFormatTypeInfo = _reflection.GeneratedProtocolMessageType('NumberFormatTypeInfo', (_message.Message,), {
   'DESCRIPTOR' : _NUMBERFORMATTYPEINFO,
@@ -6089,9 +6186,9 @@ _MDBAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.mdb.MdbApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=b'\202\200\001\003MDB',
-  serialized_start=16619,
-  serialized_end=19506,
+  serialized_options=b'\202\200\001\003MDB\320\200\001\001',
+  serialized_start=16900,
+  serialized_end=19791,
   methods=[
   _descriptor.MethodDescriptor(
     name='GetMissionDatabase',

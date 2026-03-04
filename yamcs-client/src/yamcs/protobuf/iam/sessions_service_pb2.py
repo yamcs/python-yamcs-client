@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.iam',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\024SessionsServiceProtoP\001',
-  serialized_pb=b'\n)yamcs/protobuf/iam/sessions_service.proto\x12\x12yamcs.protobuf.iam\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\"I\n\x14ListSessionsResponse\x12\x31\n\x08sessions\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.iam.SessionInfo\"\xf8\x01\n\x0bSessionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x11\n\tipAddress\x18\x03 \x01(\t\x12\x10\n\x08hostname\x18\x04 \x01(\t\x12-\n\tstartTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0elastAccessTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0e\x65xpirationTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07\x63lients\x18\x08 \x03(\t\"%\n\x10SessionEventInfo\x12\x11\n\tendReason\x18\x01 \x01(\t2\xd7\x01\n\x0bSessionsApi\x12\x65\n\x0cListSessions\x12\x16.google.protobuf.Empty\x1a(.yamcs.protobuf.iam.ListSessionsResponse\"\x13\x8a\x92\x03\x0f\n\r/api/sessions\x12\x61\n\x10SubscribeSession\x12\x16.google.protobuf.Empty\x1a$.yamcs.protobuf.iam.SessionEventInfo\"\r\xda\x92\x03\t\n\x07session0\x01\x42,\n\x12org.yamcs.protobufB\x14SessionsServiceProtoP\x01'
+  serialized_pb=b'\n)yamcs/protobuf/iam/sessions_service.proto\x12\x12yamcs.protobuf.iam\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\"I\n\x14ListSessionsResponse\x12\x31\n\x08sessions\x18\x01 \x03(\x0b\x32\x1f.yamcs.protobuf.iam.SessionInfo\"\xf8\x01\n\x0bSessionInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x10\n\x08username\x18\x02 \x01(\t\x12\x11\n\tipAddress\x18\x03 \x01(\t\x12\x10\n\x08hostname\x18\x04 \x01(\t\x12-\n\tstartTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0elastAccessTime\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0e\x65xpirationTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0f\n\x07\x63lients\x18\x08 \x03(\t\"%\n\x10SessionEventInfo\x12\x11\n\tendReason\x18\x01 \x01(\t2\xdd\x01\n\x0bSessionsApi\x12\x65\n\x0cListSessions\x12\x16.google.protobuf.Empty\x1a(.yamcs.protobuf.iam.ListSessionsResponse\"\x13\x8a\x92\x03\x0f\n\r/api/sessions\x12\x61\n\x10SubscribeSession\x12\x16.google.protobuf.Empty\x1a$.yamcs.protobuf.iam.SessionEventInfo\"\r\xda\x92\x03\t\n\x07session0\x01\x1a\x04\xd0\x80\x01\x01\x42,\n\x12org.yamcs.protobufB\x14SessionsServiceProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,])
 
@@ -207,9 +207,9 @@ _SESSIONSAPI = _descriptor.ServiceDescriptor(
   full_name='yamcs.protobuf.iam.SessionsApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
+  serialized_options=b'\320\200\001\001',
   serialized_start=522,
-  serialized_end=737,
+  serialized_end=743,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListSessions',
