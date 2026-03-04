@@ -1,7 +1,11 @@
-"""
-Old-style. For backwards compatibility.
-Avoid use.
-"""
+import warnings
+
+warnings.warn(
+    "The module 'yamcs.filetransfer.model' is deprecated. "
+    "Import classes from 'yamcs.client' instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 from yamcs.client.filetransfer.model import (  # noqa
     EntityInfo,

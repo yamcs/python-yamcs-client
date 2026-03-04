@@ -1,7 +1,11 @@
-"""
-Old-style. For backwards compatibility.
-Avoid use.
-"""
+import warnings
+
+warnings.warn(
+    "The module 'yamcs.model' is deprecated. "
+    "Import classes from 'yamcs.client' instead.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 from yamcs.client.model import (  # noqa
     AuthInfo,
