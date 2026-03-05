@@ -619,9 +619,6 @@ class YamcsClient:
             if every submitted event is unique.
         :param extra:
             Extra event properties.
-
-            .. versionadded:: 1.8.4
-               Compatible with Yamcs 5.7.3 onwards
         """
         req = events_service_pb2.CreateEventRequest()
         req.message = message

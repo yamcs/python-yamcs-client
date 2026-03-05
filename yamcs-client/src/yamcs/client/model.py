@@ -186,9 +186,6 @@ class Event:
     def extra(self) -> Dict[str, str]:
         """
         Dict with extra event properties.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.7.3 onwards
         """
         return {key: self._proto.extra[key] for key in self._proto.extra}
 

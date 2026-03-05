@@ -383,12 +383,7 @@ class IssuedCommand:
 
     @property
     def unprocessed_binary(self):
-        """
-        Binary representation before postprocessing.
-
-        .. versionadded:: 1.8.4
-           Compatible with Yamcs 5.7.0 onwards
-        """
+        """Binary representation before postprocessing."""
         if self._proto.HasField("unprocessedBinary"):
             return self._proto.unprocessedBinary
         return None
@@ -503,8 +498,6 @@ class MonitoredCommand(IssuedCommand):
 
         Use :meth:`await_complete` to wait until this information
         is available.
-
-        .. versionadded:: 1.8.6
         """
         ack = self._assemble_ack("CommandComplete")
         return (ack is not None) and ack.status == "NOK"

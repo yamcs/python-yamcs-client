@@ -1019,9 +1019,6 @@ class ArchiveClient:
         :param tm_links:
             If set, include only values that were received through
             a specific link.
-
-            .. versionadded:: 1.8.4
-               Compatible with Yamcs 5.7.4 onwards
         """
         options = pvalue_service_pb2.StreamParameterValuesRequest()
         options.ids.extend(to_named_object_ids(parameters))
