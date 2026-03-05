@@ -475,16 +475,16 @@ class ArchiveClient:
     def export_parameter_values(
         self,
         parameters: List[str],
+        *,
         namespace: Optional[str] = None,
         start: Optional[datetime] = None,
         stop: Optional[datetime] = None,
         interval: Optional[float] = None,
         chunk_size: int = 32 * 1024,
+        source: str = "ParameterArchive",
     ) -> Iterable:
         """
         Export parameter values in CSV format.
-
-        .. versionadded:: 1.9.1
 
         :param parameters:
             List of parameter names. These may be
@@ -499,10 +499,24 @@ class ArchiveClient:
         :param interval:
             If specified, only one value for each interval is returned. The interval is
             expressed in seconds.
+        :param source:
+            Specify how to retrieve parameter values. By
+            default this uses the ``ParameterArchive`` which
+            is optimized for parameter retrieval. For Yamcs
+            instances that do not enable the ``ParameterArchive``,
+            you can still get results by specifying ``replay`` as
+            the source. Replay requests take longer to return
+            because the packet data needs to be reprocessed.
+
+            .. versionadded:: 1.13.0
+               Compatible with Yamcs v5.12.6 onwards
         :return:
             An iterator over received chunks
         """
-        params: Dict[str, Any] = {"parameters": parameters}
+        params: Dict[str, Any] = {
+            "parameters": parameters,
+            "source": source,
+        }
         if namespace is not None:
             params["namespace"] = namespace
         if start is not None:
