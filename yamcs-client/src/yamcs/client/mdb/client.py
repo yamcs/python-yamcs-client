@@ -98,7 +98,7 @@ class MDBClient:
         message.ParseFromString(response.content)
         return SpaceSystem(message)
 
-    def export_space_system(self, name: str) -> str:
+    def export_space_system(self, name: str, *, version: str = "1.2") -> str:
         """
         Exports an XTCE description of a space system (XML format).
 
@@ -107,10 +107,17 @@ class MDBClient:
 
         :param name:
             A fully-qualified XTCE name. Use ``/`` for root.
+        :param version:
+            XTCE version. One of ``1.2`` or ``1.3``.
+
+            .. versionadded:: 1.13.0
+               Compatible with Yamcs 5.12.6 onwards
         """
+        params: Dict[str, Any] = {"version": version}
+
         encoded_name = urllib.parse.quote_plus(name)
         url = f"/mdb/{self._instance}/space-systems/{encoded_name}:exportXTCE"
-        response = self.ctx.get_proto(url)
+        response = self.ctx.get_proto(url, params=params)
         return response.text
 
     def list_parameters(
