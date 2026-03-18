@@ -19,6 +19,7 @@ from typing import (
 from google.protobuf import timestamp_pb2
 from yamcs.client.core.auth import APIKeyCredentials, Credentials
 from yamcs.client.core.context import Context
+from yamcs.client.core.exceptions import YamcsError
 from yamcs.client.core.futures import WebSocketSubscriptionFuture
 from yamcs.client.core.helpers import (
     delimit_protobuf,
@@ -273,9 +274,12 @@ class YamcsClient:
             self.ctx.auth_root,  # Full URL, so don't use get_proto
             headers={"Accept": "application/protobuf"},
         )
-        message = auth_pb2.AuthInfo()
-        message.ParseFromString(response.content)
-        return AuthInfo(message)
+        if 200 <= response.status_code < 300:
+            message = auth_pb2.AuthInfo()
+            message.ParseFromString(response.content)
+            return AuthInfo(message)
+        else:
+            raise YamcsError(f"{response.status_code} Server Error")
 
     def get_user_info(self) -> UserInfo:
         """
