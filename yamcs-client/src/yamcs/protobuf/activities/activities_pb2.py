@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.activities',
   syntax='proto2',
   serialized_options=b'\n\035org.yamcs.protobuf.activitiesB\017ActivitiesProtoP\001',
-  serialized_pb=b'\n*yamcs/protobuf/activities/activities.proto\x12\x19yamcs.protobuf.activities\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"^\n\x16\x41\x63tivityDefinitionInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12%\n\x04\x61rgs\x18\x02 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x0f\n\x07\x63omment\x18\x03 \x01(\t\"\xb9\x02\n\x0c\x41\x63tivityInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03seq\x18\x03 \x01(\r\x12\x39\n\x06status\x18\x04 \x01(\x0e\x32).yamcs.protobuf.activities.ActivityStatus\x12\x11\n\tstartedBy\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\x12%\n\x04\x61rgs\x18\x07 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\x0e\n\x06\x64\x65tail\x18\x08 \x01(\t\x12(\n\x04stop\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tstoppedBy\x18\n \x01(\t\x12\x15\n\rfailureReason\x18\x0b \x01(\t\"T\n\x0c\x45xecutorInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04icon\x18\x04 \x01(\t\"\x98\x01\n\x0f\x41\x63tivityLogInfo\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x02 \x01(\t\x12:\n\x05level\x18\x03 \x01(\x0e\x32+.yamcs.protobuf.activities.ActivityLogLevel\x12\x0f\n\x07message\x18\x04 \x01(\t*H\n\x0e\x41\x63tivityStatus\x12\x0b\n\x07RUNNING\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x0e\n\nSUCCESSFUL\x10\x03\x12\n\n\x06\x46\x41ILED\x10\x04*4\n\x10\x41\x63tivityLogLevel\x12\x08\n\x04INFO\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x42\x32\n\x1dorg.yamcs.protobuf.activitiesB\x0f\x41\x63tivitiesProtoP\x01'
+  serialized_pb=b'\n*yamcs/protobuf/activities/activities.proto\x12\x19yamcs.protobuf.activities\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"q\n\x16\x41\x63tivityDefinitionInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12%\n\x04\x61rgs\x18\x02 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\r\n\x05label\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"\xc8\x02\n\x0c\x41\x63tivityInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03seq\x18\x03 \x01(\r\x12\x39\n\x06status\x18\x04 \x01(\x0e\x32).yamcs.protobuf.activities.ActivityStatus\x12\x11\n\tstartedBy\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\x12%\n\x04\x61rgs\x18\x07 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\r\n\x05label\x18\x0c \x01(\t\x12\x0e\n\x06\x64\x65tail\x18\x08 \x01(\t\x12(\n\x04stop\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tstoppedBy\x18\n \x01(\t\x12\x15\n\rfailureReason\x18\x0b \x01(\t\"T\n\x0c\x45xecutorInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04icon\x18\x04 \x01(\t\"\x98\x01\n\x0f\x41\x63tivityLogInfo\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x02 \x01(\t\x12:\n\x05level\x18\x03 \x01(\x0e\x32+.yamcs.protobuf.activities.ActivityLogLevel\x12\x0f\n\x07message\x18\x04 \x01(\t*H\n\x0e\x41\x63tivityStatus\x12\x0b\n\x07RUNNING\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x0e\n\nSUCCESSFUL\x10\x03\x12\n\n\x06\x46\x41ILED\x10\x04*4\n\x10\x41\x63tivityLogLevel\x12\x08\n\x04INFO\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x42\x32\n\x1dorg.yamcs.protobuf.activitiesB\x0f\x41\x63tivitiesProtoP\x01'
   ,
   dependencies=[google_dot_protobuf_dot_struct__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -50,8 +50,8 @@ _ACTIVITYSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=789,
-  serialized_end=861,
+  serialized_start=823,
+  serialized_end=895,
 )
 _sym_db.RegisterEnumDescriptor(_ACTIVITYSTATUS)
 
@@ -77,8 +77,8 @@ _ACTIVITYLOGLEVEL = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=863,
-  serialized_end=915,
+  serialized_start=897,
+  serialized_end=949,
 )
 _sym_db.RegisterEnumDescriptor(_ACTIVITYLOGLEVEL)
 
@@ -115,8 +115,15 @@ _ACTIVITYDEFINITIONINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='comment', full_name='yamcs.protobuf.activities.ActivityDefinitionInfo.comment', index=2,
+      name='label', full_name='yamcs.protobuf.activities.ActivityDefinitionInfo.label', index=2,
       number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='yamcs.protobuf.activities.ActivityDefinitionInfo.description', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -134,7 +141,7 @@ _ACTIVITYDEFINITIONINFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=136,
-  serialized_end=230,
+  serialized_end=249,
 )
 
 
@@ -195,28 +202,35 @@ _ACTIVITYINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='detail', full_name='yamcs.protobuf.activities.ActivityInfo.detail', index=7,
+      name='label', full_name='yamcs.protobuf.activities.ActivityInfo.label', index=7,
+      number=12, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='detail', full_name='yamcs.protobuf.activities.ActivityInfo.detail', index=8,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='stop', full_name='yamcs.protobuf.activities.ActivityInfo.stop', index=8,
+      name='stop', full_name='yamcs.protobuf.activities.ActivityInfo.stop', index=9,
       number=9, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='stoppedBy', full_name='yamcs.protobuf.activities.ActivityInfo.stoppedBy', index=9,
+      name='stoppedBy', full_name='yamcs.protobuf.activities.ActivityInfo.stoppedBy', index=10,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='failureReason', full_name='yamcs.protobuf.activities.ActivityInfo.failureReason', index=10,
+      name='failureReason', full_name='yamcs.protobuf.activities.ActivityInfo.failureReason', index=11,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -234,8 +248,8 @@ _ACTIVITYINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=233,
-  serialized_end=546,
+  serialized_start=252,
+  serialized_end=580,
 )
 
 
@@ -286,8 +300,8 @@ _EXECUTORINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=548,
-  serialized_end=632,
+  serialized_start=582,
+  serialized_end=666,
 )
 
 
@@ -338,8 +352,8 @@ _ACTIVITYLOGINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=635,
-  serialized_end=787,
+  serialized_start=669,
+  serialized_end=821,
 )
 
 _ACTIVITYDEFINITIONINFO.fields_by_name['args'].message_type = google_dot_protobuf_dot_struct__pb2._STRUCT

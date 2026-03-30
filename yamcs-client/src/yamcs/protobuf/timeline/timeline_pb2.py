@@ -12,10 +12,11 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf.activities import activities_pb2 as yamcs_dot_protobuf_dot_activities_dot_activities__pb2
-from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
-from google.protobuf import duration_pb2 as google_dot_protobuf_dot_duration__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -23,9 +24,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.timeline',
   syntax='proto2',
   serialized_options=b'\n\022org.yamcs.protobufB\rTimelineProtoP\001',
-  serialized_pb=b'\n&yamcs/protobuf/timeline/timeline.proto\x12\x17yamcs.protobuf.timeline\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/activities/activities.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/duration.proto\"O\n\x0cRelativeTime\x12\r\n\x05relto\x18\x01 \x01(\t\x12\x30\n\rrelativeStart\x18\x02 \x01(\x0b\x32\x19.google.protobuf.Duration\"\xd6\x04\n\x0cTimelineItem\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x37\n\x04type\x18\x03 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineItemType\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x08\x64uration\x18\x05 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07groupId\x18\x07 \x01(\t\x12;\n\x0crelativeTime\x18\x08 \x01(\x0b\x32%.yamcs.protobuf.timeline.RelativeTime\x12\x13\n\x0b\x64\x65scription\x18\t \x01(\t\x12I\n\nproperties\x18\x0e \x03(\x0b\x32\x35.yamcs.protobuf.timeline.TimelineItem.PropertiesEntry\x12\x38\n\x06status\x18\n \x01(\x0e\x32(.yamcs.protobuf.timeline.ExecutionStatus\x12\x15\n\rfailureReason\x18\x0b \x01(\t\x12M\n\x12\x61\x63tivityDefinition\x18\r \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\x12\x0c\n\x04runs\x18\x0f \x03(\t\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x08LogEntry\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0b\n\x03msg\x18\x04 \x01(\t\"Q\n\x0fTimelineItemLog\x12\n\n\x02id\x18\x01 \x01(\t\x12\x32\n\x07\x65ntries\x18\x02 \x03(\x0b\x32!.yamcs.protobuf.timeline.LogEntry\"\x80\x03\n\x0cTimelineBand\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08username\x18\x04 \x01(\t\x12\x0e\n\x06shared\x18\x05 \x01(\x08\x12\x0e\n\x06source\x18\x06 \x01(\t\x12\x10\n\x04tags\x18\x07 \x03(\tB\x02\x18\x01\x12\x34\n\x07\x66ilters\x18\x08 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x12\x37\n\x04type\x18\t \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineBandType\x12\x13\n\x0b\x64\x65scription\x18\n \x01(\t\x12I\n\nproperties\x18\x0b \x03(\x0b\x32\x35.yamcs.protobuf.timeline.TimelineBand.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x85\x01\n\x0cTimelineView\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x34\n\x05\x62\x61nds\x18\x05 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineBand\"\xa3\x04\n\x11\x43reateItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\r \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x37\n\x04type\x18\x04 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineItemType\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x08\x64uration\x18\x06 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x0f\n\x07groupId\x18\x08 \x01(\t\x12;\n\x0crelativeTime\x18\t \x01(\x0b\x32%.yamcs.protobuf.timeline.RelativeTime\x12\x13\n\x0b\x64\x65scription\x18\n \x01(\t\x12N\n\nproperties\x18\x0b \x03(\x0b\x32:.yamcs.protobuf.timeline.CreateItemRequest.PropertiesEntry\x12M\n\x12\x61\x63tivityDefinition\x18\x0c \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\">\n\x0eGetItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"\x83\x04\n\x11UpdateItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\x12\x0c\n\x04name\x18\x04 \x01(\t\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x08\x64uration\x18\x06 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x11\n\tclearTags\x18\x08 \x01(\x08\x12\x0f\n\x07groupId\x18\t \x01(\t\x12;\n\x0crelativeTime\x18\n \x01(\x0b\x32%.yamcs.protobuf.timeline.RelativeTime\x12\x38\n\x06status\x18\x0b \x01(\x0e\x32(.yamcs.protobuf.timeline.ExecutionStatus\x12\x15\n\rfailureReason\x18\x0c \x01(\t\x12N\n\nproperties\x18\r \x03(\x0b\x32:.yamcs.protobuf.timeline.UpdateItemRequest.PropertiesEntry\x12\x17\n\x0f\x63learProperties\x18\x0e \x01(\x08\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xfb\x01\n\x10ListItemsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x0c\n\x04next\x18\x04 \x01(\t\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04\x62\x61nd\x18\x07 \x01(\t\x12\x34\n\x07\x66ilters\x18\x08 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x12\x0f\n\x07\x64\x65tails\x18\t \x01(\x08\"A\n\x11\x44\x65leteItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"A\n\x11GetItemLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"s\n\x11\x41\x64\x64ItemLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\x12\x30\n\x05\x65ntry\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.timeline.LogEntry\"J\n\x1a\x44\x65leteTimelineGroupRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"t\n\x11ListItemsResponse\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x34\n\x05items\x18\x02 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineItem\x12\x19\n\x11\x63ontinuationToken\x18\x03 \x01(\t\"\x9e\x01\n\x1aTimelineSourceCapabilities\x12\x10\n\x08readOnly\x18\x01 \x01(\x08\x12\x1b\n\x13hasManualActivities\x18\x02 \x01(\x08\x12\x1e\n\x16hasAutomatedActivities\x18\x03 \x01(\x08\x12\x16\n\x0ehasEventGroups\x18\x04 \x01(\x08\x12\x19\n\x11hasActivityGroups\x18\x05 \x01(\x08\"&\n\x12ListSourcesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xc6\x01\n\x13ListSourcesResponse\x12J\n\x07sources\x18\x01 \x03(\x0b\x32\x39.yamcs.protobuf.timeline.ListSourcesResponse.SourcesEntry\x1a\x63\n\x0cSourcesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x42\n\x05value\x18\x02 \x01(\x0b\x32\x33.yamcs.protobuf.timeline.TimelineSourceCapabilities:\x02\x38\x01\";\n\x17ListTimelineTagsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\"(\n\x18ListTimelineTagsResponse\x12\x0c\n\x04tags\x18\x01 \x03(\t\"\xf2\x02\n\x0e\x41\x64\x64\x42\x61ndRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\n \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06shared\x18\x03 \x01(\x08\x12\x0e\n\x06source\x18\x04 \x01(\t\x12\x10\n\x04tags\x18\x05 \x03(\tB\x02\x18\x01\x12\x34\n\x07\x66ilters\x18\x06 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x12\x37\n\x04type\x18\x07 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineBandType\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12K\n\nproperties\x18\t \x03(\x0b\x32\x37.yamcs.protobuf.timeline.AddBandRequest.PropertiesEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\".\n\x0eGetBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"\xbb\x02\n\x11UpdateBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x0e\n\x06shared\x18\x05 \x01(\x08\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12N\n\nproperties\x18\x07 \x03(\x0b\x32:.yamcs.protobuf.timeline.UpdateBandRequest.PropertiesEntry\x12\x0e\n\x06source\x18\x08 \x01(\t\x12\x34\n\x07\x66ilters\x18\t \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"$\n\x10ListBandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"1\n\x11\x44\x65leteBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"I\n\x11ListBandsResponse\x12\x34\n\x05\x62\x61nds\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineBand\"`\n\x0e\x41\x64\x64ViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05\x62\x61nds\x18\x04 \x03(\t\".\n\x0eGetViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"$\n\x10ListViewsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"c\n\x11UpdateViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\r\n\x05\x62\x61nds\x18\x05 \x03(\t\"1\n\x11\x44\x65leteViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"I\n\x11ListViewsResponse\x12\x34\n\x05views\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineView\"\x82\x01\n\nItemFilter\x12\x45\n\x08\x63riteria\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.timeline.ItemFilter.FilterCriterion\x1a-\n\x0f\x46ilterCriterion\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t*O\n\x10TimelineItemType\x12\t\n\x05\x45VENT\x10\x01\x12\x0c\n\x08\x41\x43TIVITY\x10\x02\x12\x0e\n\nITEM_GROUP\x10\x04\x12\x12\n\x0e\x41\x43TIVITY_GROUP\x10\x05*W\n\x0f\x45xecutionStatus\x12\x0b\n\x07PLANNED\x10\x01\x12\x0f\n\x0bIN_PROGRESS\x10\x02\x12\r\n\tCOMPLETED\x10\x03\x12\x0b\n\x07\x41\x42ORTED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05*y\n\x10TimelineBandType\x12\x0e\n\nTIME_RULER\x10\x01\x12\r\n\tITEM_BAND\x10\x02\x12\n\n\x06SPACER\x10\x03\x12\x10\n\x0c\x43OMMAND_BAND\x10\x04\x12\x12\n\x0ePARAMETER_PLOT\x10\x05\x12\x14\n\x10PARAMETER_STATES\x10\x06\x32\x9a\x16\n\x0bTimelineApi\x12\x88\x01\n\nCreateItem\x12*.yamcs.protobuf.timeline.CreateItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\"\'\x8a\x92\x03#\x1a\x1e/api/timeline/{instance}/items:\x01*\x12\x84\x01\n\x07GetItem\x12\'.yamcs.protobuf.timeline.GetItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\")\x8a\x92\x03%\n#/api/timeline/{instance}/items/{id}\x12\x8d\x01\n\nUpdateItem\x12*.yamcs.protobuf.timeline.UpdateItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\",\x8a\x92\x03(\x12#/api/timeline/{instance}/items/{id}:\x01*\x12\x88\x01\n\tListItems\x12).yamcs.protobuf.timeline.ListItemsRequest\x1a*.yamcs.protobuf.timeline.ListItemsResponse\"$\x8a\x92\x03 \n\x1e/api/timeline/{instance}/items\x12\x8a\x01\n\nDeleteItem\x12*.yamcs.protobuf.timeline.DeleteItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\")\x8a\x92\x03%\"#/api/timeline/{instance}/items/{id}\x12\x91\x01\n\nGetItemLog\x12*.yamcs.protobuf.timeline.GetItemLogRequest\x1a(.yamcs.protobuf.timeline.TimelineItemLog\"-\x8a\x92\x03)\n\'/api/timeline/{instance}/items/{id}/log\x12\x8a\x01\n\nAddItemLog\x12*.yamcs.protobuf.timeline.AddItemLogRequest\x1a!.yamcs.protobuf.timeline.LogEntry\"-\x8a\x92\x03)\x1a\'/api/timeline/{instance}/items/{id}/log\x12\x9d\x01\n\x13\x44\x65leteTimelineGroup\x12\x33.yamcs.protobuf.timeline.DeleteTimelineGroupRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\"*\x8a\x92\x03&\"$/api/timeline/{instance}/groups/{id}\x12\x90\x01\n\x0bListSources\x12+.yamcs.protobuf.timeline.ListSourcesRequest\x1a,.yamcs.protobuf.timeline.ListSourcesResponse\"&\x8a\x92\x03\"\n /api/timeline/{instance}/sources\x12\x94\x01\n\x08ListTags\x12\x30.yamcs.protobuf.timeline.ListTimelineTagsRequest\x1a\x31.yamcs.protobuf.timeline.ListTimelineTagsResponse\"#\x8a\x92\x03\x1f\n\x1d/api/timeline/{instance}/tags\x12\x82\x01\n\x07\x41\x64\x64\x42\x61nd\x12\'.yamcs.protobuf.timeline.AddBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\"\'\x8a\x92\x03#\x1a\x1e/api/timeline/{instance}/bands:\x01*\x12\x84\x01\n\x07GetBand\x12\'.yamcs.protobuf.timeline.GetBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\")\x8a\x92\x03%\n#/api/timeline/{instance}/bands/{id}\x12\x88\x01\n\tListBands\x12).yamcs.protobuf.timeline.ListBandsRequest\x1a*.yamcs.protobuf.timeline.ListBandsResponse\"$\x8a\x92\x03 \n\x1e/api/timeline/{instance}/bands\x12\x8d\x01\n\nUpdateBand\x12*.yamcs.protobuf.timeline.UpdateBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\",\x8a\x92\x03(\x12#/api/timeline/{instance}/bands/{id}:\x01*\x12\x8a\x01\n\nDeleteBand\x12*.yamcs.protobuf.timeline.DeleteBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\")\x8a\x92\x03%\"#/api/timeline/{instance}/bands/{id}\x12\x82\x01\n\x07\x41\x64\x64View\x12\'.yamcs.protobuf.timeline.AddViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\"\'\x8a\x92\x03#\x1a\x1e/api/timeline/{instance}/views:\x01*\x12\x84\x01\n\x07GetView\x12\'.yamcs.protobuf.timeline.GetViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\")\x8a\x92\x03%\n#/api/timeline/{instance}/views/{id}\x12\x88\x01\n\tListViews\x12).yamcs.protobuf.timeline.ListViewsRequest\x1a*.yamcs.protobuf.timeline.ListViewsResponse\"$\x8a\x92\x03 \n\x1e/api/timeline/{instance}/views\x12\x8d\x01\n\nUpdateView\x12*.yamcs.protobuf.timeline.UpdateViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\",\x8a\x92\x03(\x12#/api/timeline/{instance}/views/{id}:\x01*\x12\x8a\x01\n\nDeleteView\x12*.yamcs.protobuf.timeline.DeleteViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\")\x8a\x92\x03%\"#/api/timeline/{instance}/views/{id}B%\n\x12org.yamcs.protobufB\rTimelineProtoP\x01'
+  serialized_pb=b'\n&yamcs/protobuf/timeline/timeline.proto\x12\x17yamcs.protobuf.timeline\x1a\x1egoogle/protobuf/duration.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/activities/activities.proto\"/\n\x1bSubscribeItemChangesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"O\n\x0cRelativeTime\x12\r\n\x05relto\x18\x01 \x01(\t\x12\x30\n\rrelativeStart\x18\x02 \x01(\x0b\x32\x19.google.protobuf.Duration\"\xd7\x06\n\x0cTimelineItem\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x37\n\x04type\x18\x03 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineItemType\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x08\x64uration\x18\x05 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07groupId\x18\x07 \x01(\t\x12;\n\x0crelativeTime\x18\x08 \x01(\x0b\x32%.yamcs.protobuf.timeline.RelativeTime\x12\x13\n\x0b\x64\x65scription\x18\t \x01(\t\x12I\n\nproperties\x18\x0e \x03(\x0b\x32\x35.yamcs.protobuf.timeline.TimelineItem.PropertiesEntry\x12?\n\x05\x65xtra\x18\x12 \x03(\x0b\x32\x30.yamcs.protobuf.timeline.TimelineItem.ExtraEntry\x12\x38\n\x06status\x18\n \x01(\x0e\x32(.yamcs.protobuf.timeline.ExecutionStatus\x12\x15\n\rfailureReason\x18\x0b \x01(\t\x12M\n\x12\x61\x63tivityDefinition\x18\r \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\x12\x0c\n\x04runs\x18\x0f \x03(\t\x12=\n\x0c\x61\x63tivityRuns\x18\x13 \x03(\x0b\x32\'.yamcs.protobuf.activities.ActivityInfo\x12>\n\x0cpredecessors\x18\x10 \x03(\x0b\x32(.yamcs.protobuf.timeline.PredecessorInfo\x12\x11\n\tautoStart\x18\x11 \x01(\x08\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"]\n\x08LogEntry\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04user\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\t\x12\x0b\n\x03msg\x18\x04 \x01(\t\"Q\n\x0fTimelineItemLog\x12\n\n\x02id\x18\x01 \x01(\t\x12\x32\n\x07\x65ntries\x18\x02 \x03(\x0b\x32!.yamcs.protobuf.timeline.LogEntry\"\xac\x01\n\x17\x42\x61tchDeleteItemsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x03(\t\x12)\n\x05start\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06\x66ilter\x18\x06 \x01(\t\"\xeb\x03\n\x0cTimelineBand\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x10\n\x08username\x18\x04 \x01(\t\x12\x0e\n\x06shared\x18\x05 \x01(\x08\x12\x0e\n\x06source\x18\x06 \x01(\t\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x34\n\x07\x66ilters\x18\x08 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x12\x37\n\x04type\x18\t \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineBandType\x12\x13\n\x0b\x64\x65scription\x18\n \x01(\t\x12I\n\nproperties\x18\x0b \x03(\x0b\x32\x35.yamcs.protobuf.timeline.TimelineBand.PropertiesEntry\x12?\n\x05\x65xtra\x18\x0c \x03(\x0b\x32\x30.yamcs.protobuf.timeline.TimelineBand.ExtraEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x85\x01\n\x0cTimelineView\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\x12\x34\n\x05\x62\x61nds\x18\x05 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineBand\"\xe4\x05\n\x0fSaveItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\r \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x37\n\x04type\x18\x04 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineItemType\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x08\x64uration\x18\x06 \x01(\x0b\x32\x19.google.protobuf.Duration\x12\x0c\n\x04tags\x18\x07 \x03(\t\x12\x0f\n\x07groupId\x18\x08 \x01(\t\x12;\n\x0crelativeTime\x18\t \x01(\x0b\x32%.yamcs.protobuf.timeline.RelativeTime\x12\x13\n\x0b\x64\x65scription\x18\n \x01(\t\x12L\n\nproperties\x18\x0b \x03(\x0b\x32\x38.yamcs.protobuf.timeline.SaveItemRequest.PropertiesEntry\x12\x42\n\x05\x65xtra\x18\x12 \x03(\x0b\x32\x33.yamcs.protobuf.timeline.SaveItemRequest.ExtraEntry\x12M\n\x12\x61\x63tivityDefinition\x18\x0c \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\x12>\n\x0cpredecessors\x18\x0e \x03(\x0b\x32(.yamcs.protobuf.timeline.PredecessorInfo\x12\x11\n\tautoStart\x18\x11 \x01(\x08\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"b\n\x0fPredecessorInfo\x12\x0e\n\x06itemId\x18\x01 \x01(\t\x12?\n\x0estartCondition\x18\x02 \x01(\x0e\x32\'.yamcs.protobuf.timeline.StartCondition\">\n\x0eGetItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"\x8f\x02\n\x10ListItemsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\x0c\n\x04next\x18\x04 \x01(\t\x12)\n\x05start\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0c\n\x04\x62\x61nd\x18\x07 \x01(\t\x12\x38\n\x07\x66ilters\x18\x08 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilterB\x02\x18\x01\x12\x0f\n\x07\x64\x65tails\x18\t \x01(\x08\x12\x0e\n\x06\x66ilter\x18\n \x01(\t\"A\n\x11\x44\x65leteItemRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"A\n\x11GetItemLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"s\n\x11\x41\x64\x64ItemLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\x12\x30\n\x05\x65ntry\x18\x04 \x01(\x0b\x32!.yamcs.protobuf.timeline.LogEntry\"J\n\x1a\x44\x65leteTimelineGroupRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"t\n\x11ListItemsResponse\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x34\n\x05items\x18\x02 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineItem\x12\x19\n\x11\x63ontinuationToken\x18\x03 \x01(\t\"\x9e\x01\n\x1aTimelineSourceCapabilities\x12\x10\n\x08readOnly\x18\x01 \x01(\x08\x12\x1b\n\x13hasManualActivities\x18\x02 \x01(\x08\x12\x1e\n\x16hasAutomatedActivities\x18\x03 \x01(\x08\x12\x16\n\x0ehasEventGroups\x18\x04 \x01(\x08\x12\x19\n\x11hasActivityGroups\x18\x05 \x01(\x08\"&\n\x12ListSourcesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"\xc6\x01\n\x13ListSourcesResponse\x12J\n\x07sources\x18\x01 \x03(\x0b\x32\x39.yamcs.protobuf.timeline.ListSourcesResponse.SourcesEntry\x1a\x63\n\x0cSourcesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\x42\n\x05value\x18\x02 \x01(\x0b\x32\x33.yamcs.protobuf.timeline.TimelineSourceCapabilities:\x02\x38\x01\";\n\x17ListTimelineTagsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06source\x18\x02 \x01(\t\"(\n\x18ListTimelineTagsResponse\x12\x0c\n\x04tags\x18\x01 \x03(\t\"\xe2\x03\n\x0fSaveBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\n \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06shared\x18\x03 \x01(\x08\x12\x0e\n\x06source\x18\x04 \x01(\t\x12\x0c\n\x04tags\x18\x05 \x03(\t\x12\x34\n\x07\x66ilters\x18\x06 \x03(\x0b\x32#.yamcs.protobuf.timeline.ItemFilter\x12\x37\n\x04type\x18\x07 \x01(\x0e\x32).yamcs.protobuf.timeline.TimelineBandType\x12\x13\n\x0b\x64\x65scription\x18\x08 \x01(\t\x12L\n\nproperties\x18\t \x03(\x0b\x32\x38.yamcs.protobuf.timeline.SaveBandRequest.PropertiesEntry\x12\x42\n\x05\x65xtra\x18\x0b \x03(\x0b\x32\x33.yamcs.protobuf.timeline.SaveBandRequest.ExtraEntry\x1a\x31\n\x0fPropertiesEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a,\n\nExtraEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\".\n\x0eGetBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"$\n\x10ListBandsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"1\n\x11\x44\x65leteBandRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"I\n\x11ListBandsResponse\x12\x34\n\x05\x62\x61nds\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineBand\"a\n\x0fSaveViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x05 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\r\n\x05\x62\x61nds\x18\x04 \x03(\t\".\n\x0eGetViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"$\n\x10ListViewsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"1\n\x11\x44\x65leteViewRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"I\n\x11ListViewsResponse\x12\x34\n\x05views\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.timeline.TimelineView\"\x82\x01\n\nItemFilter\x12\x45\n\x08\x63riteria\x18\x01 \x03(\x0b\x32\x33.yamcs.protobuf.timeline.ItemFilter.FilterCriterion\x1a-\n\x0f\x46ilterCriterion\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\"4\n\x14StartActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\n\n\x02id\x18\x03 \x01(\t\"P\n\x17\x43ompleteActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04item\x18\x03 \x01(\t\x12\x15\n\rfailureReason\x18\x04 \x01(\t\"7\n\x15\x43\x61ncelActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0c\n\x04item\x18\x03 \x01(\t*O\n\x10TimelineItemType\x12\t\n\x05\x45VENT\x10\x01\x12\x0c\n\x08\x41\x43TIVITY\x10\x02\x12\x0e\n\nITEM_GROUP\x10\x04\x12\x12\n\x0e\x41\x43TIVITY_GROUP\x10\x05*\xbb\x01\n\x0f\x45xecutionStatus\x12\x0b\n\x07PLANNED\x10\x01\x12\t\n\x05READY\x10\x07\x12\x19\n\x15WAITING_ON_DEPENDENCY\x10\x08\x12\x0f\n\x0bIN_PROGRESS\x10\x02\x12\r\n\tCOMPLETED\x10\x03\x12\x0b\n\x07\x41\x42ORTED\x10\x04\x12\n\n\x06\x46\x41ILED\x10\x05\x12\x0b\n\x07SKIPPED\x10\x06\x12\x0c\n\x08\x43\x41NCELED\x10\t\x12\n\n\x06PAUSED\x10\n\x12\x15\n\x11WAITING_FOR_INPUT\x10\x0b*\xaa\x01\n\x10TimelineBandType\x12\x0e\n\nTIME_RULER\x10\x01\x12\r\n\tITEM_BAND\x10\x02\x12\n\n\x06SPACER\x10\x03\x12\x10\n\x0c\x43OMMAND_BAND\x10\x04\x12\x12\n\x0ePARAMETER_PLOT\x10\x05\x12\x14\n\x10PARAMETER_STATES\x10\x06\x12\x17\n\x13\x45XECUTED_ACTIVITIES\x10\x07\x12\x16\n\x12PLANNED_ACTIVITIES\x10\x08*Q\n\x0eStartCondition\x12\x11\n\rON_COMPLETION\x10\x01\x12\x0e\n\nON_SUCCESS\x10\x02\x12\x0e\n\nON_FAILURE\x10\x03\x12\x0c\n\x08ON_START\x10\x04\x32\x8c\x1a\n\x0bTimelineApi\x12\xae\x01\n\x08SaveItem\x12(.yamcs.protobuf.timeline.SaveItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\"Q\x8a\x92\x03M\x1a\x1e/api/timeline/{instance}/items:\x01*Z(\x12#/api/timeline/{instance}/items/{id}:\x01*\x12\x84\x01\n\x07GetItem\x12\'.yamcs.protobuf.timeline.GetItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\")\x8a\x92\x03%\n#/api/timeline/{instance}/items/{id}\x12\xb2\x01\n\tListItems\x12).yamcs.protobuf.timeline.ListItemsRequest\x1a*.yamcs.protobuf.timeline.ListItemsResponse\"N\x8a\x92\x03J\n\x1e/api/timeline/{instance}/itemsZ(\x1a#/api/timeline/{instance}/items:list:\x01*\x12\x8a\x01\n\nDeleteItem\x12*.yamcs.protobuf.timeline.DeleteItemRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\")\x8a\x92\x03%\"#/api/timeline/{instance}/items/{id}\x12\x91\x01\n\x10\x42\x61tchDeleteItems\x12\x30.yamcs.protobuf.timeline.BatchDeleteItemsRequest\x1a\x16.google.protobuf.Empty\"3\x8a\x92\x03/\x1a*/api/timeline/{instance}/items:batchDelete:\x01*\x12\x91\x01\n\nGetItemLog\x12*.yamcs.protobuf.timeline.GetItemLogRequest\x1a(.yamcs.protobuf.timeline.TimelineItemLog\"-\x8a\x92\x03)\n\'/api/timeline/{instance}/items/{id}/log\x12\x8a\x01\n\nAddItemLog\x12*.yamcs.protobuf.timeline.AddItemLogRequest\x1a!.yamcs.protobuf.timeline.LogEntry\"-\x8a\x92\x03)\x1a\'/api/timeline/{instance}/items/{id}/log\x12\x9d\x01\n\x13\x44\x65leteTimelineGroup\x12\x33.yamcs.protobuf.timeline.DeleteTimelineGroupRequest\x1a%.yamcs.protobuf.timeline.TimelineItem\"*\x8a\x92\x03&\"$/api/timeline/{instance}/groups/{id}\x12\x90\x01\n\x0bListSources\x12+.yamcs.protobuf.timeline.ListSourcesRequest\x1a,.yamcs.protobuf.timeline.ListSourcesResponse\"&\x8a\x92\x03\"\n /api/timeline/{instance}/sources\x12\x94\x01\n\x08ListTags\x12\x30.yamcs.protobuf.timeline.ListTimelineTagsRequest\x1a\x31.yamcs.protobuf.timeline.ListTimelineTagsResponse\"#\x8a\x92\x03\x1f\n\x1d/api/timeline/{instance}/tags\x12\xae\x01\n\x08SaveBand\x12(.yamcs.protobuf.timeline.SaveBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\"Q\x8a\x92\x03M\x1a\x1e/api/timeline/{instance}/bands:\x01*Z(\x12#/api/timeline/{instance}/bands/{id}:\x01*\x12\x84\x01\n\x07GetBand\x12\'.yamcs.protobuf.timeline.GetBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\")\x8a\x92\x03%\n#/api/timeline/{instance}/bands/{id}\x12\x88\x01\n\tListBands\x12).yamcs.protobuf.timeline.ListBandsRequest\x1a*.yamcs.protobuf.timeline.ListBandsResponse\"$\x8a\x92\x03 \n\x1e/api/timeline/{instance}/bands\x12\x8a\x01\n\nDeleteBand\x12*.yamcs.protobuf.timeline.DeleteBandRequest\x1a%.yamcs.protobuf.timeline.TimelineBand\")\x8a\x92\x03%\"#/api/timeline/{instance}/bands/{id}\x12\xae\x01\n\x08SaveView\x12(.yamcs.protobuf.timeline.SaveViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\"Q\x8a\x92\x03M\x1a\x1e/api/timeline/{instance}/views:\x01*Z(\x12#/api/timeline/{instance}/views/{id}:\x01*\x12\x84\x01\n\x07GetView\x12\'.yamcs.protobuf.timeline.GetViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\")\x8a\x92\x03%\n#/api/timeline/{instance}/views/{id}\x12\x88\x01\n\tListViews\x12).yamcs.protobuf.timeline.ListViewsRequest\x1a*.yamcs.protobuf.timeline.ListViewsResponse\"$\x8a\x92\x03 \n\x1e/api/timeline/{instance}/views\x12\x8a\x01\n\nDeleteView\x12*.yamcs.protobuf.timeline.DeleteViewRequest\x1a%.yamcs.protobuf.timeline.TimelineView\")\x8a\x92\x03%\"#/api/timeline/{instance}/views/{id}\x12\xa0\x01\n\rStartActivity\x12-.yamcs.protobuf.timeline.StartActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"7\x8a\x92\x03\x33\x1a\x31/api/timeline/{instance}/items/{id}:startActivity\x12\x94\x01\n\x0e\x43\x61ncelActivity\x12..yamcs.protobuf.timeline.CancelActivityRequest\x1a\x16.google.protobuf.Empty\":\x8a\x92\x03\x36\x1a\x34/api/timeline/{instance}/items/{item}:cancelActivity\x12\x9d\x01\n\x10\x43ompleteActivity\x12\x30.yamcs.protobuf.timeline.CompleteActivityRequest\x1a\x16.google.protobuf.Empty\"?\x8a\x92\x03;\x1a\x36/api/timeline/{instance}/items/{item}:completeActivity:\x01*\x12\x83\x01\n\x14SubscribeItemChanges\x12\x34.yamcs.protobuf.timeline.SubscribeItemChangesRequest\x1a\x16.google.protobuf.Empty\"\x1b\xda\x92\x03\x17\n\x15timeline-item-changes0\x01\x1a\x04\xd0\x80\x01\x01\x42%\n\x12org.yamcs.protobufB\rTimelineProtoP\x01'
   ,
-  dependencies=[yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_activities_dot_activities__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_duration__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_activities_dot_activities__pb2.DESCRIPTOR,])
 
 _TIMELINEITEMTYPE = _descriptor.EnumDescriptor(
   name='TimelineItemType',
@@ -52,8 +53,8 @@ _TIMELINEITEMTYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=5371,
-  serialized_end=5450,
+  serialized_start=5670,
+  serialized_end=5749,
 )
 _sym_db.RegisterEnumDescriptor(_TIMELINEITEMTYPE)
 
@@ -69,26 +70,50 @@ _EXECUTIONSTATUS = _descriptor.EnumDescriptor(
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='IN_PROGRESS', index=1, number=2,
+      name='READY', index=1, number=7,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='COMPLETED', index=2, number=3,
+      name='WAITING_ON_DEPENDENCY', index=2, number=8,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='ABORTED', index=3, number=4,
+      name='IN_PROGRESS', index=3, number=2,
       serialized_options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
-      name='FAILED', index=4, number=5,
+      name='COMPLETED', index=4, number=3,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ABORTED', index=5, number=4,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='FAILED', index=6, number=5,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='SKIPPED', index=7, number=6,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='CANCELED', index=8, number=9,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PAUSED', index=9, number=10,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='WAITING_FOR_INPUT', index=10, number=11,
       serialized_options=None,
       type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=5452,
-  serialized_end=5539,
+  serialized_start=5752,
+  serialized_end=5939,
 )
 _sym_db.RegisterEnumDescriptor(_EXECUTIONSTATUS)
 
@@ -123,31 +148,113 @@ _TIMELINEBANDTYPE = _descriptor.EnumDescriptor(
       name='PARAMETER_STATES', index=5, number=6,
       serialized_options=None,
       type=None),
+    _descriptor.EnumValueDescriptor(
+      name='EXECUTED_ACTIVITIES', index=6, number=7,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='PLANNED_ACTIVITIES', index=7, number=8,
+      serialized_options=None,
+      type=None),
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=5541,
-  serialized_end=5662,
+  serialized_start=5942,
+  serialized_end=6112,
 )
 _sym_db.RegisterEnumDescriptor(_TIMELINEBANDTYPE)
 
 TimelineBandType = enum_type_wrapper.EnumTypeWrapper(_TIMELINEBANDTYPE)
+_STARTCONDITION = _descriptor.EnumDescriptor(
+  name='StartCondition',
+  full_name='yamcs.protobuf.timeline.StartCondition',
+  filename=None,
+  file=DESCRIPTOR,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='ON_COMPLETION', index=0, number=1,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ON_SUCCESS', index=1, number=2,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ON_FAILURE', index=2, number=3,
+      serialized_options=None,
+      type=None),
+    _descriptor.EnumValueDescriptor(
+      name='ON_START', index=3, number=4,
+      serialized_options=None,
+      type=None),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=6114,
+  serialized_end=6195,
+)
+_sym_db.RegisterEnumDescriptor(_STARTCONDITION)
+
+StartCondition = enum_type_wrapper.EnumTypeWrapper(_STARTCONDITION)
 EVENT = 1
 ACTIVITY = 2
 ITEM_GROUP = 4
 ACTIVITY_GROUP = 5
 PLANNED = 1
+READY = 7
+WAITING_ON_DEPENDENCY = 8
 IN_PROGRESS = 2
 COMPLETED = 3
 ABORTED = 4
 FAILED = 5
+SKIPPED = 6
+CANCELED = 9
+PAUSED = 10
+WAITING_FOR_INPUT = 11
 TIME_RULER = 1
 ITEM_BAND = 2
 SPACER = 3
 COMMAND_BAND = 4
 PARAMETER_PLOT = 5
 PARAMETER_STATES = 6
+EXECUTED_ACTIVITIES = 7
+PLANNED_ACTIVITIES = 8
+ON_COMPLETION = 1
+ON_SUCCESS = 2
+ON_FAILURE = 3
+ON_START = 4
 
+
+
+_SUBSCRIBEITEMCHANGESREQUEST = _descriptor.Descriptor(
+  name='SubscribeItemChangesRequest',
+  full_name='yamcs.protobuf.timeline.SubscribeItemChangesRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.SubscribeItemChangesRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=234,
+  serialized_end=281,
+)
 
 
 _RELATIVETIME = _descriptor.Descriptor(
@@ -183,8 +290,8 @@ _RELATIVETIME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=205,
-  serialized_end=284,
+  serialized_start=283,
+  serialized_end=362,
 )
 
 
@@ -221,8 +328,45 @@ _TIMELINEITEM_PROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=836,
-  serialized_end=885,
+  serialized_start=1125,
+  serialized_end=1174,
+)
+
+_TIMELINEITEM_EXTRAENTRY = _descriptor.Descriptor(
+  name='ExtraEntry',
+  full_name='yamcs.protobuf.timeline.TimelineItem.ExtraEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.protobuf.timeline.TimelineItem.ExtraEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.timeline.TimelineItem.ExtraEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1176,
+  serialized_end=1220,
 )
 
 _TIMELINEITEM = _descriptor.Descriptor(
@@ -303,37 +447,65 @@ _TIMELINEITEM = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='status', full_name='yamcs.protobuf.timeline.TimelineItem.status', index=10,
+      name='extra', full_name='yamcs.protobuf.timeline.TimelineItem.extra', index=10,
+      number=18, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='status', full_name='yamcs.protobuf.timeline.TimelineItem.status', index=11,
       number=10, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='failureReason', full_name='yamcs.protobuf.timeline.TimelineItem.failureReason', index=11,
+      name='failureReason', full_name='yamcs.protobuf.timeline.TimelineItem.failureReason', index=12,
       number=11, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='activityDefinition', full_name='yamcs.protobuf.timeline.TimelineItem.activityDefinition', index=12,
+      name='activityDefinition', full_name='yamcs.protobuf.timeline.TimelineItem.activityDefinition', index=13,
       number=13, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='runs', full_name='yamcs.protobuf.timeline.TimelineItem.runs', index=13,
+      name='runs', full_name='yamcs.protobuf.timeline.TimelineItem.runs', index=14,
       number=15, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='activityRuns', full_name='yamcs.protobuf.timeline.TimelineItem.activityRuns', index=15,
+      number=19, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='predecessors', full_name='yamcs.protobuf.timeline.TimelineItem.predecessors', index=16,
+      number=16, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='autoStart', full_name='yamcs.protobuf.timeline.TimelineItem.autoStart', index=17,
+      number=17, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[_TIMELINEITEM_PROPERTIESENTRY, ],
+  nested_types=[_TIMELINEITEM_PROPERTIESENTRY, _TIMELINEITEM_EXTRAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -342,8 +514,8 @@ _TIMELINEITEM = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=287,
-  serialized_end=885,
+  serialized_start=365,
+  serialized_end=1220,
 )
 
 
@@ -394,8 +566,8 @@ _LOGENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=887,
-  serialized_end=980,
+  serialized_start=1222,
+  serialized_end=1315,
 )
 
 
@@ -432,8 +604,74 @@ _TIMELINEITEMLOG = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=982,
-  serialized_end=1063,
+  serialized_start=1317,
+  serialized_end=1398,
+)
+
+
+_BATCHDELETEITEMSREQUEST = _descriptor.Descriptor(
+  name='BatchDeleteItemsRequest',
+  full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.source', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.id', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.start', index=3,
+      number=4, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='stop', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.stop', index=4,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='filter', full_name='yamcs.protobuf.timeline.BatchDeleteItemsRequest.filter', index=5,
+      number=6, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1401,
+  serialized_end=1573,
 )
 
 
@@ -470,8 +708,45 @@ _TIMELINEBAND_PROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=836,
-  serialized_end=885,
+  serialized_start=1125,
+  serialized_end=1174,
+)
+
+_TIMELINEBAND_EXTRAENTRY = _descriptor.Descriptor(
+  name='ExtraEntry',
+  full_name='yamcs.protobuf.timeline.TimelineBand.ExtraEntry',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='key', full_name='yamcs.protobuf.timeline.TimelineBand.ExtraEntry.key', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='value', full_name='yamcs.protobuf.timeline.TimelineBand.ExtraEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1176,
+  serialized_end=1220,
 )
 
 _TIMELINEBAND = _descriptor.Descriptor(
@@ -529,7 +804,7 @@ _TIMELINEBAND = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\030\001', file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='filters', full_name='yamcs.protobuf.timeline.TimelineBand.filters', index=7,
       number=8, type=11, cpp_type=10, label=3,
@@ -558,10 +833,17 @@ _TIMELINEBAND = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extra', full_name='yamcs.protobuf.timeline.TimelineBand.extra', index=11,
+      number=12, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[_TIMELINEBAND_PROPERTIESENTRY, ],
+  nested_types=[_TIMELINEBAND_PROPERTIESENTRY, _TIMELINEBAND_EXTRAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -570,8 +852,8 @@ _TIMELINEBAND = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1066,
-  serialized_end=1450,
+  serialized_start=1576,
+  serialized_end=2067,
 )
 
 
@@ -629,27 +911,27 @@ _TIMELINEVIEW = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1453,
-  serialized_end=1586,
+  serialized_start=2070,
+  serialized_end=2203,
 )
 
 
-_CREATEITEMREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
+_SAVEITEMREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
   name='PropertiesEntry',
-  full_name='yamcs.protobuf.timeline.CreateItemRequest.PropertiesEntry',
+  full_name='yamcs.protobuf.timeline.SaveItemRequest.PropertiesEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='yamcs.protobuf.timeline.CreateItemRequest.PropertiesEntry.key', index=0,
+      name='key', full_name='yamcs.protobuf.timeline.SaveItemRequest.PropertiesEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.timeline.CreateItemRequest.PropertiesEntry.value', index=1,
+      name='value', full_name='yamcs.protobuf.timeline.SaveItemRequest.PropertiesEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -667,112 +949,170 @@ _CREATEITEMREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=836,
-  serialized_end=885,
+  serialized_start=1125,
+  serialized_end=1174,
 )
 
-_CREATEITEMREQUEST = _descriptor.Descriptor(
-  name='CreateItemRequest',
-  full_name='yamcs.protobuf.timeline.CreateItemRequest',
+_SAVEITEMREQUEST_EXTRAENTRY = _descriptor.Descriptor(
+  name='ExtraEntry',
+  full_name='yamcs.protobuf.timeline.SaveItemRequest.ExtraEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.CreateItemRequest.instance', index=0,
+      name='key', full_name='yamcs.protobuf.timeline.SaveItemRequest.ExtraEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.timeline.CreateItemRequest.source', index=1,
+      name='value', full_name='yamcs.protobuf.timeline.SaveItemRequest.ExtraEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.CreateItemRequest.id', index=2,
-      number=13, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.CreateItemRequest.name', index=3,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.timeline.CreateItemRequest.type', index=4,
-      number=4, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.timeline.CreateItemRequest.start', index=5,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='duration', full_name='yamcs.protobuf.timeline.CreateItemRequest.duration', index=6,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tags', full_name='yamcs.protobuf.timeline.CreateItemRequest.tags', index=7,
-      number=7, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='groupId', full_name='yamcs.protobuf.timeline.CreateItemRequest.groupId', index=8,
-      number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='relativeTime', full_name='yamcs.protobuf.timeline.CreateItemRequest.relativeTime', index=9,
-      number=9, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.timeline.CreateItemRequest.description', index=10,
-      number=10, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='properties', full_name='yamcs.protobuf.timeline.CreateItemRequest.properties', index=11,
-      number=11, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='activityDefinition', full_name='yamcs.protobuf.timeline.CreateItemRequest.activityDefinition', index=12,
-      number=12, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
-  nested_types=[_CREATEITEMREQUEST_PROPERTIESENTRY, ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1176,
+  serialized_end=1220,
+)
+
+_SAVEITEMREQUEST = _descriptor.Descriptor(
+  name='SaveItemRequest',
+  full_name='yamcs.protobuf.timeline.SaveItemRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.SaveItemRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='source', full_name='yamcs.protobuf.timeline.SaveItemRequest.source', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.timeline.SaveItemRequest.id', index=2,
+      number=13, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.timeline.SaveItemRequest.name', index=3,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='type', full_name='yamcs.protobuf.timeline.SaveItemRequest.type', index=4,
+      number=4, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='start', full_name='yamcs.protobuf.timeline.SaveItemRequest.start', index=5,
+      number=5, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='duration', full_name='yamcs.protobuf.timeline.SaveItemRequest.duration', index=6,
+      number=6, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='yamcs.protobuf.timeline.SaveItemRequest.tags', index=7,
+      number=7, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='groupId', full_name='yamcs.protobuf.timeline.SaveItemRequest.groupId', index=8,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='relativeTime', full_name='yamcs.protobuf.timeline.SaveItemRequest.relativeTime', index=9,
+      number=9, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='description', full_name='yamcs.protobuf.timeline.SaveItemRequest.description', index=10,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='properties', full_name='yamcs.protobuf.timeline.SaveItemRequest.properties', index=11,
+      number=11, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extra', full_name='yamcs.protobuf.timeline.SaveItemRequest.extra', index=12,
+      number=18, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='activityDefinition', full_name='yamcs.protobuf.timeline.SaveItemRequest.activityDefinition', index=13,
+      number=12, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='predecessors', full_name='yamcs.protobuf.timeline.SaveItemRequest.predecessors', index=14,
+      number=14, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='autoStart', full_name='yamcs.protobuf.timeline.SaveItemRequest.autoStart', index=15,
+      number=17, type=8, cpp_type=7, label=1,
+      has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[_SAVEITEMREQUEST_PROPERTIESENTRY, _SAVEITEMREQUEST_EXTRAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -781,8 +1121,46 @@ _CREATEITEMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1589,
-  serialized_end=2136,
+  serialized_start=2206,
+  serialized_end=2946,
+)
+
+
+_PREDECESSORINFO = _descriptor.Descriptor(
+  name='PredecessorInfo',
+  full_name='yamcs.protobuf.timeline.PredecessorInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='itemId', full_name='yamcs.protobuf.timeline.PredecessorInfo.itemId', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='startCondition', full_name='yamcs.protobuf.timeline.PredecessorInfo.startCondition', index=1,
+      number=2, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=1,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=2948,
+  serialized_end=3046,
 )
 
 
@@ -826,167 +1204,8 @@ _GETITEMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2138,
-  serialized_end=2200,
-)
-
-
-_UPDATEITEMREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
-  name='PropertiesEntry',
-  full_name='yamcs.protobuf.timeline.UpdateItemRequest.PropertiesEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='yamcs.protobuf.timeline.UpdateItemRequest.PropertiesEntry.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.timeline.UpdateItemRequest.PropertiesEntry.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'8\001',
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=836,
-  serialized_end=885,
-)
-
-_UPDATEITEMREQUEST = _descriptor.Descriptor(
-  name='UpdateItemRequest',
-  full_name='yamcs.protobuf.timeline.UpdateItemRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.UpdateItemRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.timeline.UpdateItemRequest.source', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.UpdateItemRequest.id', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.UpdateItemRequest.name', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='start', full_name='yamcs.protobuf.timeline.UpdateItemRequest.start', index=4,
-      number=5, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='duration', full_name='yamcs.protobuf.timeline.UpdateItemRequest.duration', index=5,
-      number=6, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tags', full_name='yamcs.protobuf.timeline.UpdateItemRequest.tags', index=6,
-      number=7, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='clearTags', full_name='yamcs.protobuf.timeline.UpdateItemRequest.clearTags', index=7,
-      number=8, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='groupId', full_name='yamcs.protobuf.timeline.UpdateItemRequest.groupId', index=8,
-      number=9, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='relativeTime', full_name='yamcs.protobuf.timeline.UpdateItemRequest.relativeTime', index=9,
-      number=10, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='status', full_name='yamcs.protobuf.timeline.UpdateItemRequest.status', index=10,
-      number=11, type=14, cpp_type=8, label=1,
-      has_default_value=False, default_value=1,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='failureReason', full_name='yamcs.protobuf.timeline.UpdateItemRequest.failureReason', index=11,
-      number=12, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='properties', full_name='yamcs.protobuf.timeline.UpdateItemRequest.properties', index=12,
-      number=13, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='clearProperties', full_name='yamcs.protobuf.timeline.UpdateItemRequest.clearProperties', index=13,
-      number=14, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_UPDATEITEMREQUEST_PROPERTIESENTRY, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=2203,
-  serialized_end=2718,
+  serialized_start=3048,
+  serialized_end=3110,
 )
 
 
@@ -1052,11 +1271,18 @@ _LISTITEMSREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
+      serialized_options=b'\030\001', file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='details', full_name='yamcs.protobuf.timeline.ListItemsRequest.details', index=8,
       number=9, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='filter', full_name='yamcs.protobuf.timeline.ListItemsRequest.filter', index=9,
+      number=10, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
@@ -1072,8 +1298,8 @@ _LISTITEMSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2721,
-  serialized_end=2972,
+  serialized_start=3113,
+  serialized_end=3384,
 )
 
 
@@ -1117,8 +1343,8 @@ _DELETEITEMREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=2974,
-  serialized_end=3039,
+  serialized_start=3386,
+  serialized_end=3451,
 )
 
 
@@ -1162,8 +1388,8 @@ _GETITEMLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3041,
-  serialized_end=3106,
+  serialized_start=3453,
+  serialized_end=3518,
 )
 
 
@@ -1214,8 +1440,8 @@ _ADDITEMLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3108,
-  serialized_end=3223,
+  serialized_start=3520,
+  serialized_end=3635,
 )
 
 
@@ -1259,8 +1485,8 @@ _DELETETIMELINEGROUPREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3225,
-  serialized_end=3299,
+  serialized_start=3637,
+  serialized_end=3711,
 )
 
 
@@ -1304,8 +1530,8 @@ _LISTITEMSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3301,
-  serialized_end=3417,
+  serialized_start=3713,
+  serialized_end=3829,
 )
 
 
@@ -1363,8 +1589,8 @@ _TIMELINESOURCECAPABILITIES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3420,
-  serialized_end=3578,
+  serialized_start=3832,
+  serialized_end=3990,
 )
 
 
@@ -1394,8 +1620,8 @@ _LISTSOURCESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3580,
-  serialized_end=3618,
+  serialized_start=3992,
+  serialized_end=4030,
 )
 
 
@@ -1432,8 +1658,8 @@ _LISTSOURCESRESPONSE_SOURCESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3720,
-  serialized_end=3819,
+  serialized_start=4132,
+  serialized_end=4231,
 )
 
 _LISTSOURCESRESPONSE = _descriptor.Descriptor(
@@ -1462,8 +1688,8 @@ _LISTSOURCESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3621,
-  serialized_end=3819,
+  serialized_start=4033,
+  serialized_end=4231,
 )
 
 
@@ -1500,8 +1726,8 @@ _LISTTIMELINETAGSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3821,
-  serialized_end=3880,
+  serialized_start=4233,
+  serialized_end=4292,
 )
 
 
@@ -1531,27 +1757,27 @@ _LISTTIMELINETAGSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3882,
-  serialized_end=3922,
+  serialized_start=4294,
+  serialized_end=4334,
 )
 
 
-_ADDBANDREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
+_SAVEBANDREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
   name='PropertiesEntry',
-  full_name='yamcs.protobuf.timeline.AddBandRequest.PropertiesEntry',
+  full_name='yamcs.protobuf.timeline.SaveBandRequest.PropertiesEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='key', full_name='yamcs.protobuf.timeline.AddBandRequest.PropertiesEntry.key', index=0,
+      name='key', full_name='yamcs.protobuf.timeline.SaveBandRequest.PropertiesEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.timeline.AddBandRequest.PropertiesEntry.value', index=1,
+      name='value', full_name='yamcs.protobuf.timeline.SaveBandRequest.PropertiesEntry.value', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -1569,83 +1795,127 @@ _ADDBANDREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=836,
-  serialized_end=885,
+  serialized_start=1125,
+  serialized_end=1174,
 )
 
-_ADDBANDREQUEST = _descriptor.Descriptor(
-  name='AddBandRequest',
-  full_name='yamcs.protobuf.timeline.AddBandRequest',
+_SAVEBANDREQUEST_EXTRAENTRY = _descriptor.Descriptor(
+  name='ExtraEntry',
+  full_name='yamcs.protobuf.timeline.SaveBandRequest.ExtraEntry',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.AddBandRequest.instance', index=0,
+      name='key', full_name='yamcs.protobuf.timeline.SaveBandRequest.ExtraEntry.key', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.AddBandRequest.id', index=1,
+      name='value', full_name='yamcs.protobuf.timeline.SaveBandRequest.ExtraEntry.value', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=b'8\001',
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1176,
+  serialized_end=1220,
+)
+
+_SAVEBANDREQUEST = _descriptor.Descriptor(
+  name='SaveBandRequest',
+  full_name='yamcs.protobuf.timeline.SaveBandRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.SaveBandRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.timeline.SaveBandRequest.id', index=1,
       number=10, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.AddBandRequest.name', index=2,
+      name='name', full_name='yamcs.protobuf.timeline.SaveBandRequest.name', index=2,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='shared', full_name='yamcs.protobuf.timeline.AddBandRequest.shared', index=3,
+      name='shared', full_name='yamcs.protobuf.timeline.SaveBandRequest.shared', index=3,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.timeline.AddBandRequest.source', index=4,
+      name='source', full_name='yamcs.protobuf.timeline.SaveBandRequest.source', index=4,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='tags', full_name='yamcs.protobuf.timeline.AddBandRequest.tags', index=5,
+      name='tags', full_name='yamcs.protobuf.timeline.SaveBandRequest.tags', index=5,
       number=5, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      serialized_options=b'\030\001', file=DESCRIPTOR),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='filters', full_name='yamcs.protobuf.timeline.AddBandRequest.filters', index=6,
+      name='filters', full_name='yamcs.protobuf.timeline.SaveBandRequest.filters', index=6,
       number=6, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='type', full_name='yamcs.protobuf.timeline.AddBandRequest.type', index=7,
+      name='type', full_name='yamcs.protobuf.timeline.SaveBandRequest.type', index=7,
       number=7, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=1,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.timeline.AddBandRequest.description', index=8,
+      name='description', full_name='yamcs.protobuf.timeline.SaveBandRequest.description', index=8,
       number=8, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='properties', full_name='yamcs.protobuf.timeline.AddBandRequest.properties', index=9,
+      name='properties', full_name='yamcs.protobuf.timeline.SaveBandRequest.properties', index=9,
       number=9, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='extra', full_name='yamcs.protobuf.timeline.SaveBandRequest.extra', index=10,
+      number=11, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -1653,7 +1923,7 @@ _ADDBANDREQUEST = _descriptor.Descriptor(
   ],
   extensions=[
   ],
-  nested_types=[_ADDBANDREQUEST_PROPERTIESENTRY, ],
+  nested_types=[_SAVEBANDREQUEST_PROPERTIESENTRY, _SAVEBANDREQUEST_EXTRAENTRY, ],
   enum_types=[
   ],
   serialized_options=None,
@@ -1662,8 +1932,8 @@ _ADDBANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=3925,
-  serialized_end=4295,
+  serialized_start=4337,
+  serialized_end=4819,
 )
 
 
@@ -1700,132 +1970,8 @@ _GETBANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4297,
-  serialized_end=4343,
-)
-
-
-_UPDATEBANDREQUEST_PROPERTIESENTRY = _descriptor.Descriptor(
-  name='PropertiesEntry',
-  full_name='yamcs.protobuf.timeline.UpdateBandRequest.PropertiesEntry',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='yamcs.protobuf.timeline.UpdateBandRequest.PropertiesEntry.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='yamcs.protobuf.timeline.UpdateBandRequest.PropertiesEntry.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=b'8\001',
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=836,
-  serialized_end=885,
-)
-
-_UPDATEBANDREQUEST = _descriptor.Descriptor(
-  name='UpdateBandRequest',
-  full_name='yamcs.protobuf.timeline.UpdateBandRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.UpdateBandRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.UpdateBandRequest.id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.UpdateBandRequest.name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.timeline.UpdateBandRequest.description', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='shared', full_name='yamcs.protobuf.timeline.UpdateBandRequest.shared', index=4,
-      number=5, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='tags', full_name='yamcs.protobuf.timeline.UpdateBandRequest.tags', index=5,
-      number=6, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='properties', full_name='yamcs.protobuf.timeline.UpdateBandRequest.properties', index=6,
-      number=7, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='source', full_name='yamcs.protobuf.timeline.UpdateBandRequest.source', index=7,
-      number=8, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='filters', full_name='yamcs.protobuf.timeline.UpdateBandRequest.filters', index=8,
-      number=9, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[_UPDATEBANDREQUEST_PROPERTIESENTRY, ],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=4346,
-  serialized_end=4661,
+  serialized_start=4821,
+  serialized_end=4867,
 )
 
 
@@ -1855,8 +2001,8 @@ _LISTBANDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4663,
-  serialized_end=4699,
+  serialized_start=4869,
+  serialized_end=4905,
 )
 
 
@@ -1893,8 +2039,8 @@ _DELETEBANDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4701,
-  serialized_end=4750,
+  serialized_start=4907,
+  serialized_end=4956,
 )
 
 
@@ -1924,48 +2070,48 @@ _LISTBANDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4752,
-  serialized_end=4825,
+  serialized_start=4958,
+  serialized_end=5031,
 )
 
 
-_ADDVIEWREQUEST = _descriptor.Descriptor(
-  name='AddViewRequest',
-  full_name='yamcs.protobuf.timeline.AddViewRequest',
+_SAVEVIEWREQUEST = _descriptor.Descriptor(
+  name='SaveViewRequest',
+  full_name='yamcs.protobuf.timeline.SaveViewRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.AddViewRequest.instance', index=0,
+      name='instance', full_name='yamcs.protobuf.timeline.SaveViewRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.AddViewRequest.id', index=1,
+      name='id', full_name='yamcs.protobuf.timeline.SaveViewRequest.id', index=1,
       number=5, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.AddViewRequest.name', index=2,
+      name='name', full_name='yamcs.protobuf.timeline.SaveViewRequest.name', index=2,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.timeline.AddViewRequest.description', index=3,
+      name='description', full_name='yamcs.protobuf.timeline.SaveViewRequest.description', index=3,
       number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='bands', full_name='yamcs.protobuf.timeline.AddViewRequest.bands', index=4,
+      name='bands', full_name='yamcs.protobuf.timeline.SaveViewRequest.bands', index=4,
       number=4, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -1983,8 +2129,8 @@ _ADDVIEWREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4827,
-  serialized_end=4923,
+  serialized_start=5033,
+  serialized_end=5130,
 )
 
 
@@ -2021,8 +2167,8 @@ _GETVIEWREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4925,
-  serialized_end=4971,
+  serialized_start=5132,
+  serialized_end=5178,
 )
 
 
@@ -2052,67 +2198,8 @@ _LISTVIEWSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=4973,
-  serialized_end=5009,
-)
-
-
-_UPDATEVIEWREQUEST = _descriptor.Descriptor(
-  name='UpdateViewRequest',
-  full_name='yamcs.protobuf.timeline.UpdateViewRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.timeline.UpdateViewRequest.instance', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='id', full_name='yamcs.protobuf.timeline.UpdateViewRequest.id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='name', full_name='yamcs.protobuf.timeline.UpdateViewRequest.name', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='description', full_name='yamcs.protobuf.timeline.UpdateViewRequest.description', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='bands', full_name='yamcs.protobuf.timeline.UpdateViewRequest.bands', index=4,
-      number=5, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto2',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=5011,
-  serialized_end=5110,
+  serialized_start=5180,
+  serialized_end=5216,
 )
 
 
@@ -2149,8 +2236,8 @@ _DELETEVIEWREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5112,
-  serialized_end=5161,
+  serialized_start=5218,
+  serialized_end=5267,
 )
 
 
@@ -2180,8 +2267,8 @@ _LISTVIEWSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5163,
-  serialized_end=5236,
+  serialized_start=5269,
+  serialized_end=5342,
 )
 
 
@@ -2218,8 +2305,8 @@ _ITEMFILTER_FILTERCRITERION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5324,
-  serialized_end=5369,
+  serialized_start=5430,
+  serialized_end=5475,
 )
 
 _ITEMFILTER = _descriptor.Descriptor(
@@ -2248,39 +2335,166 @@ _ITEMFILTER = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=5239,
-  serialized_end=5369,
+  serialized_start=5345,
+  serialized_end=5475,
+)
+
+
+_STARTACTIVITYREQUEST = _descriptor.Descriptor(
+  name='StartActivityRequest',
+  full_name='yamcs.protobuf.timeline.StartActivityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.StartActivityRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='id', full_name='yamcs.protobuf.timeline.StartActivityRequest.id', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5477,
+  serialized_end=5529,
+)
+
+
+_COMPLETEACTIVITYREQUEST = _descriptor.Descriptor(
+  name='CompleteActivityRequest',
+  full_name='yamcs.protobuf.timeline.CompleteActivityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.CompleteActivityRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='item', full_name='yamcs.protobuf.timeline.CompleteActivityRequest.item', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='failureReason', full_name='yamcs.protobuf.timeline.CompleteActivityRequest.failureReason', index=2,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5531,
+  serialized_end=5611,
+)
+
+
+_CANCELACTIVITYREQUEST = _descriptor.Descriptor(
+  name='CancelActivityRequest',
+  full_name='yamcs.protobuf.timeline.CancelActivityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.timeline.CancelActivityRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='item', full_name='yamcs.protobuf.timeline.CancelActivityRequest.item', index=1,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=5613,
+  serialized_end=5668,
 )
 
 _RELATIVETIME.fields_by_name['relativeStart'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
 _TIMELINEITEM_PROPERTIESENTRY.containing_type = _TIMELINEITEM
+_TIMELINEITEM_EXTRAENTRY.containing_type = _TIMELINEITEM
 _TIMELINEITEM.fields_by_name['type'].enum_type = _TIMELINEITEMTYPE
 _TIMELINEITEM.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMELINEITEM.fields_by_name['duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
 _TIMELINEITEM.fields_by_name['relativeTime'].message_type = _RELATIVETIME
 _TIMELINEITEM.fields_by_name['properties'].message_type = _TIMELINEITEM_PROPERTIESENTRY
+_TIMELINEITEM.fields_by_name['extra'].message_type = _TIMELINEITEM_EXTRAENTRY
 _TIMELINEITEM.fields_by_name['status'].enum_type = _EXECUTIONSTATUS
 _TIMELINEITEM.fields_by_name['activityDefinition'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYDEFINITIONINFO
+_TIMELINEITEM.fields_by_name['activityRuns'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYINFO
+_TIMELINEITEM.fields_by_name['predecessors'].message_type = _PREDECESSORINFO
 _LOGENTRY.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMELINEITEMLOG.fields_by_name['entries'].message_type = _LOGENTRY
+_BATCHDELETEITEMSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_BATCHDELETEITEMSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _TIMELINEBAND_PROPERTIESENTRY.containing_type = _TIMELINEBAND
+_TIMELINEBAND_EXTRAENTRY.containing_type = _TIMELINEBAND
 _TIMELINEBAND.fields_by_name['filters'].message_type = _ITEMFILTER
 _TIMELINEBAND.fields_by_name['type'].enum_type = _TIMELINEBANDTYPE
 _TIMELINEBAND.fields_by_name['properties'].message_type = _TIMELINEBAND_PROPERTIESENTRY
+_TIMELINEBAND.fields_by_name['extra'].message_type = _TIMELINEBAND_EXTRAENTRY
 _TIMELINEVIEW.fields_by_name['bands'].message_type = _TIMELINEBAND
-_CREATEITEMREQUEST_PROPERTIESENTRY.containing_type = _CREATEITEMREQUEST
-_CREATEITEMREQUEST.fields_by_name['type'].enum_type = _TIMELINEITEMTYPE
-_CREATEITEMREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_CREATEITEMREQUEST.fields_by_name['duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
-_CREATEITEMREQUEST.fields_by_name['relativeTime'].message_type = _RELATIVETIME
-_CREATEITEMREQUEST.fields_by_name['properties'].message_type = _CREATEITEMREQUEST_PROPERTIESENTRY
-_CREATEITEMREQUEST.fields_by_name['activityDefinition'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYDEFINITIONINFO
-_UPDATEITEMREQUEST_PROPERTIESENTRY.containing_type = _UPDATEITEMREQUEST
-_UPDATEITEMREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_UPDATEITEMREQUEST.fields_by_name['duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
-_UPDATEITEMREQUEST.fields_by_name['relativeTime'].message_type = _RELATIVETIME
-_UPDATEITEMREQUEST.fields_by_name['status'].enum_type = _EXECUTIONSTATUS
-_UPDATEITEMREQUEST.fields_by_name['properties'].message_type = _UPDATEITEMREQUEST_PROPERTIESENTRY
+_SAVEITEMREQUEST_PROPERTIESENTRY.containing_type = _SAVEITEMREQUEST
+_SAVEITEMREQUEST_EXTRAENTRY.containing_type = _SAVEITEMREQUEST
+_SAVEITEMREQUEST.fields_by_name['type'].enum_type = _TIMELINEITEMTYPE
+_SAVEITEMREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_SAVEITEMREQUEST.fields_by_name['duration'].message_type = google_dot_protobuf_dot_duration__pb2._DURATION
+_SAVEITEMREQUEST.fields_by_name['relativeTime'].message_type = _RELATIVETIME
+_SAVEITEMREQUEST.fields_by_name['properties'].message_type = _SAVEITEMREQUEST_PROPERTIESENTRY
+_SAVEITEMREQUEST.fields_by_name['extra'].message_type = _SAVEITEMREQUEST_EXTRAENTRY
+_SAVEITEMREQUEST.fields_by_name['activityDefinition'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYDEFINITIONINFO
+_SAVEITEMREQUEST.fields_by_name['predecessors'].message_type = _PREDECESSORINFO
+_PREDECESSORINFO.fields_by_name['startCondition'].enum_type = _STARTCONDITION
 _LISTITEMSREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTITEMSREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _LISTITEMSREQUEST.fields_by_name['filters'].message_type = _ITEMFILTER
@@ -2289,26 +2503,27 @@ _LISTITEMSRESPONSE.fields_by_name['items'].message_type = _TIMELINEITEM
 _LISTSOURCESRESPONSE_SOURCESENTRY.fields_by_name['value'].message_type = _TIMELINESOURCECAPABILITIES
 _LISTSOURCESRESPONSE_SOURCESENTRY.containing_type = _LISTSOURCESRESPONSE
 _LISTSOURCESRESPONSE.fields_by_name['sources'].message_type = _LISTSOURCESRESPONSE_SOURCESENTRY
-_ADDBANDREQUEST_PROPERTIESENTRY.containing_type = _ADDBANDREQUEST
-_ADDBANDREQUEST.fields_by_name['filters'].message_type = _ITEMFILTER
-_ADDBANDREQUEST.fields_by_name['type'].enum_type = _TIMELINEBANDTYPE
-_ADDBANDREQUEST.fields_by_name['properties'].message_type = _ADDBANDREQUEST_PROPERTIESENTRY
-_UPDATEBANDREQUEST_PROPERTIESENTRY.containing_type = _UPDATEBANDREQUEST
-_UPDATEBANDREQUEST.fields_by_name['properties'].message_type = _UPDATEBANDREQUEST_PROPERTIESENTRY
-_UPDATEBANDREQUEST.fields_by_name['filters'].message_type = _ITEMFILTER
+_SAVEBANDREQUEST_PROPERTIESENTRY.containing_type = _SAVEBANDREQUEST
+_SAVEBANDREQUEST_EXTRAENTRY.containing_type = _SAVEBANDREQUEST
+_SAVEBANDREQUEST.fields_by_name['filters'].message_type = _ITEMFILTER
+_SAVEBANDREQUEST.fields_by_name['type'].enum_type = _TIMELINEBANDTYPE
+_SAVEBANDREQUEST.fields_by_name['properties'].message_type = _SAVEBANDREQUEST_PROPERTIESENTRY
+_SAVEBANDREQUEST.fields_by_name['extra'].message_type = _SAVEBANDREQUEST_EXTRAENTRY
 _LISTBANDSRESPONSE.fields_by_name['bands'].message_type = _TIMELINEBAND
 _LISTVIEWSRESPONSE.fields_by_name['views'].message_type = _TIMELINEVIEW
 _ITEMFILTER_FILTERCRITERION.containing_type = _ITEMFILTER
 _ITEMFILTER.fields_by_name['criteria'].message_type = _ITEMFILTER_FILTERCRITERION
+DESCRIPTOR.message_types_by_name['SubscribeItemChangesRequest'] = _SUBSCRIBEITEMCHANGESREQUEST
 DESCRIPTOR.message_types_by_name['RelativeTime'] = _RELATIVETIME
 DESCRIPTOR.message_types_by_name['TimelineItem'] = _TIMELINEITEM
 DESCRIPTOR.message_types_by_name['LogEntry'] = _LOGENTRY
 DESCRIPTOR.message_types_by_name['TimelineItemLog'] = _TIMELINEITEMLOG
+DESCRIPTOR.message_types_by_name['BatchDeleteItemsRequest'] = _BATCHDELETEITEMSREQUEST
 DESCRIPTOR.message_types_by_name['TimelineBand'] = _TIMELINEBAND
 DESCRIPTOR.message_types_by_name['TimelineView'] = _TIMELINEVIEW
-DESCRIPTOR.message_types_by_name['CreateItemRequest'] = _CREATEITEMREQUEST
+DESCRIPTOR.message_types_by_name['SaveItemRequest'] = _SAVEITEMREQUEST
+DESCRIPTOR.message_types_by_name['PredecessorInfo'] = _PREDECESSORINFO
 DESCRIPTOR.message_types_by_name['GetItemRequest'] = _GETITEMREQUEST
-DESCRIPTOR.message_types_by_name['UpdateItemRequest'] = _UPDATEITEMREQUEST
 DESCRIPTOR.message_types_by_name['ListItemsRequest'] = _LISTITEMSREQUEST
 DESCRIPTOR.message_types_by_name['DeleteItemRequest'] = _DELETEITEMREQUEST
 DESCRIPTOR.message_types_by_name['GetItemLogRequest'] = _GETITEMLOGREQUEST
@@ -2320,23 +2535,32 @@ DESCRIPTOR.message_types_by_name['ListSourcesRequest'] = _LISTSOURCESREQUEST
 DESCRIPTOR.message_types_by_name['ListSourcesResponse'] = _LISTSOURCESRESPONSE
 DESCRIPTOR.message_types_by_name['ListTimelineTagsRequest'] = _LISTTIMELINETAGSREQUEST
 DESCRIPTOR.message_types_by_name['ListTimelineTagsResponse'] = _LISTTIMELINETAGSRESPONSE
-DESCRIPTOR.message_types_by_name['AddBandRequest'] = _ADDBANDREQUEST
+DESCRIPTOR.message_types_by_name['SaveBandRequest'] = _SAVEBANDREQUEST
 DESCRIPTOR.message_types_by_name['GetBandRequest'] = _GETBANDREQUEST
-DESCRIPTOR.message_types_by_name['UpdateBandRequest'] = _UPDATEBANDREQUEST
 DESCRIPTOR.message_types_by_name['ListBandsRequest'] = _LISTBANDSREQUEST
 DESCRIPTOR.message_types_by_name['DeleteBandRequest'] = _DELETEBANDREQUEST
 DESCRIPTOR.message_types_by_name['ListBandsResponse'] = _LISTBANDSRESPONSE
-DESCRIPTOR.message_types_by_name['AddViewRequest'] = _ADDVIEWREQUEST
+DESCRIPTOR.message_types_by_name['SaveViewRequest'] = _SAVEVIEWREQUEST
 DESCRIPTOR.message_types_by_name['GetViewRequest'] = _GETVIEWREQUEST
 DESCRIPTOR.message_types_by_name['ListViewsRequest'] = _LISTVIEWSREQUEST
-DESCRIPTOR.message_types_by_name['UpdateViewRequest'] = _UPDATEVIEWREQUEST
 DESCRIPTOR.message_types_by_name['DeleteViewRequest'] = _DELETEVIEWREQUEST
 DESCRIPTOR.message_types_by_name['ListViewsResponse'] = _LISTVIEWSRESPONSE
 DESCRIPTOR.message_types_by_name['ItemFilter'] = _ITEMFILTER
+DESCRIPTOR.message_types_by_name['StartActivityRequest'] = _STARTACTIVITYREQUEST
+DESCRIPTOR.message_types_by_name['CompleteActivityRequest'] = _COMPLETEACTIVITYREQUEST
+DESCRIPTOR.message_types_by_name['CancelActivityRequest'] = _CANCELACTIVITYREQUEST
 DESCRIPTOR.enum_types_by_name['TimelineItemType'] = _TIMELINEITEMTYPE
 DESCRIPTOR.enum_types_by_name['ExecutionStatus'] = _EXECUTIONSTATUS
 DESCRIPTOR.enum_types_by_name['TimelineBandType'] = _TIMELINEBANDTYPE
+DESCRIPTOR.enum_types_by_name['StartCondition'] = _STARTCONDITION
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
+
+SubscribeItemChangesRequest = _reflection.GeneratedProtocolMessageType('SubscribeItemChangesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SUBSCRIBEITEMCHANGESREQUEST,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SubscribeItemChangesRequest)
+  })
+_sym_db.RegisterMessage(SubscribeItemChangesRequest)
 
 RelativeTime = _reflection.GeneratedProtocolMessageType('RelativeTime', (_message.Message,), {
   'DESCRIPTOR' : _RELATIVETIME,
@@ -2353,12 +2577,20 @@ TimelineItem = _reflection.GeneratedProtocolMessageType('TimelineItem', (_messag
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineItem.PropertiesEntry)
     })
   ,
+
+  'ExtraEntry' : _reflection.GeneratedProtocolMessageType('ExtraEntry', (_message.Message,), {
+    'DESCRIPTOR' : _TIMELINEITEM_EXTRAENTRY,
+    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineItem.ExtraEntry)
+    })
+  ,
   'DESCRIPTOR' : _TIMELINEITEM,
   '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineItem)
   })
 _sym_db.RegisterMessage(TimelineItem)
 _sym_db.RegisterMessage(TimelineItem.PropertiesEntry)
+_sym_db.RegisterMessage(TimelineItem.ExtraEntry)
 
 LogEntry = _reflection.GeneratedProtocolMessageType('LogEntry', (_message.Message,), {
   'DESCRIPTOR' : _LOGENTRY,
@@ -2374,6 +2606,13 @@ TimelineItemLog = _reflection.GeneratedProtocolMessageType('TimelineItemLog', (_
   })
 _sym_db.RegisterMessage(TimelineItemLog)
 
+BatchDeleteItemsRequest = _reflection.GeneratedProtocolMessageType('BatchDeleteItemsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _BATCHDELETEITEMSREQUEST,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.BatchDeleteItemsRequest)
+  })
+_sym_db.RegisterMessage(BatchDeleteItemsRequest)
+
 TimelineBand = _reflection.GeneratedProtocolMessageType('TimelineBand', (_message.Message,), {
 
   'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
@@ -2382,12 +2621,20 @@ TimelineBand = _reflection.GeneratedProtocolMessageType('TimelineBand', (_messag
     # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineBand.PropertiesEntry)
     })
   ,
+
+  'ExtraEntry' : _reflection.GeneratedProtocolMessageType('ExtraEntry', (_message.Message,), {
+    'DESCRIPTOR' : _TIMELINEBAND_EXTRAENTRY,
+    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineBand.ExtraEntry)
+    })
+  ,
   'DESCRIPTOR' : _TIMELINEBAND,
   '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.TimelineBand)
   })
 _sym_db.RegisterMessage(TimelineBand)
 _sym_db.RegisterMessage(TimelineBand.PropertiesEntry)
+_sym_db.RegisterMessage(TimelineBand.ExtraEntry)
 
 TimelineView = _reflection.GeneratedProtocolMessageType('TimelineView', (_message.Message,), {
   'DESCRIPTOR' : _TIMELINEVIEW,
@@ -2396,20 +2643,35 @@ TimelineView = _reflection.GeneratedProtocolMessageType('TimelineView', (_messag
   })
 _sym_db.RegisterMessage(TimelineView)
 
-CreateItemRequest = _reflection.GeneratedProtocolMessageType('CreateItemRequest', (_message.Message,), {
+SaveItemRequest = _reflection.GeneratedProtocolMessageType('SaveItemRequest', (_message.Message,), {
 
   'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
-    'DESCRIPTOR' : _CREATEITEMREQUEST_PROPERTIESENTRY,
+    'DESCRIPTOR' : _SAVEITEMREQUEST_PROPERTIESENTRY,
     '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.CreateItemRequest.PropertiesEntry)
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveItemRequest.PropertiesEntry)
     })
   ,
-  'DESCRIPTOR' : _CREATEITEMREQUEST,
+
+  'ExtraEntry' : _reflection.GeneratedProtocolMessageType('ExtraEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SAVEITEMREQUEST_EXTRAENTRY,
+    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveItemRequest.ExtraEntry)
+    })
+  ,
+  'DESCRIPTOR' : _SAVEITEMREQUEST,
   '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.CreateItemRequest)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveItemRequest)
   })
-_sym_db.RegisterMessage(CreateItemRequest)
-_sym_db.RegisterMessage(CreateItemRequest.PropertiesEntry)
+_sym_db.RegisterMessage(SaveItemRequest)
+_sym_db.RegisterMessage(SaveItemRequest.PropertiesEntry)
+_sym_db.RegisterMessage(SaveItemRequest.ExtraEntry)
+
+PredecessorInfo = _reflection.GeneratedProtocolMessageType('PredecessorInfo', (_message.Message,), {
+  'DESCRIPTOR' : _PREDECESSORINFO,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.PredecessorInfo)
+  })
+_sym_db.RegisterMessage(PredecessorInfo)
 
 GetItemRequest = _reflection.GeneratedProtocolMessageType('GetItemRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETITEMREQUEST,
@@ -2417,21 +2679,6 @@ GetItemRequest = _reflection.GeneratedProtocolMessageType('GetItemRequest', (_me
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.GetItemRequest)
   })
 _sym_db.RegisterMessage(GetItemRequest)
-
-UpdateItemRequest = _reflection.GeneratedProtocolMessageType('UpdateItemRequest', (_message.Message,), {
-
-  'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
-    'DESCRIPTOR' : _UPDATEITEMREQUEST_PROPERTIESENTRY,
-    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.UpdateItemRequest.PropertiesEntry)
-    })
-  ,
-  'DESCRIPTOR' : _UPDATEITEMREQUEST,
-  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.UpdateItemRequest)
-  })
-_sym_db.RegisterMessage(UpdateItemRequest)
-_sym_db.RegisterMessage(UpdateItemRequest.PropertiesEntry)
 
 ListItemsRequest = _reflection.GeneratedProtocolMessageType('ListItemsRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTITEMSREQUEST,
@@ -2518,20 +2765,28 @@ ListTimelineTagsResponse = _reflection.GeneratedProtocolMessageType('ListTimelin
   })
 _sym_db.RegisterMessage(ListTimelineTagsResponse)
 
-AddBandRequest = _reflection.GeneratedProtocolMessageType('AddBandRequest', (_message.Message,), {
+SaveBandRequest = _reflection.GeneratedProtocolMessageType('SaveBandRequest', (_message.Message,), {
 
   'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
-    'DESCRIPTOR' : _ADDBANDREQUEST_PROPERTIESENTRY,
+    'DESCRIPTOR' : _SAVEBANDREQUEST_PROPERTIESENTRY,
     '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.AddBandRequest.PropertiesEntry)
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveBandRequest.PropertiesEntry)
     })
   ,
-  'DESCRIPTOR' : _ADDBANDREQUEST,
+
+  'ExtraEntry' : _reflection.GeneratedProtocolMessageType('ExtraEntry', (_message.Message,), {
+    'DESCRIPTOR' : _SAVEBANDREQUEST_EXTRAENTRY,
+    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveBandRequest.ExtraEntry)
+    })
+  ,
+  'DESCRIPTOR' : _SAVEBANDREQUEST,
   '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.AddBandRequest)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveBandRequest)
   })
-_sym_db.RegisterMessage(AddBandRequest)
-_sym_db.RegisterMessage(AddBandRequest.PropertiesEntry)
+_sym_db.RegisterMessage(SaveBandRequest)
+_sym_db.RegisterMessage(SaveBandRequest.PropertiesEntry)
+_sym_db.RegisterMessage(SaveBandRequest.ExtraEntry)
 
 GetBandRequest = _reflection.GeneratedProtocolMessageType('GetBandRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETBANDREQUEST,
@@ -2539,21 +2794,6 @@ GetBandRequest = _reflection.GeneratedProtocolMessageType('GetBandRequest', (_me
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.GetBandRequest)
   })
 _sym_db.RegisterMessage(GetBandRequest)
-
-UpdateBandRequest = _reflection.GeneratedProtocolMessageType('UpdateBandRequest', (_message.Message,), {
-
-  'PropertiesEntry' : _reflection.GeneratedProtocolMessageType('PropertiesEntry', (_message.Message,), {
-    'DESCRIPTOR' : _UPDATEBANDREQUEST_PROPERTIESENTRY,
-    '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-    # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.UpdateBandRequest.PropertiesEntry)
-    })
-  ,
-  'DESCRIPTOR' : _UPDATEBANDREQUEST,
-  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.UpdateBandRequest)
-  })
-_sym_db.RegisterMessage(UpdateBandRequest)
-_sym_db.RegisterMessage(UpdateBandRequest.PropertiesEntry)
 
 ListBandsRequest = _reflection.GeneratedProtocolMessageType('ListBandsRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTBANDSREQUEST,
@@ -2576,12 +2816,12 @@ ListBandsResponse = _reflection.GeneratedProtocolMessageType('ListBandsResponse'
   })
 _sym_db.RegisterMessage(ListBandsResponse)
 
-AddViewRequest = _reflection.GeneratedProtocolMessageType('AddViewRequest', (_message.Message,), {
-  'DESCRIPTOR' : _ADDVIEWREQUEST,
+SaveViewRequest = _reflection.GeneratedProtocolMessageType('SaveViewRequest', (_message.Message,), {
+  'DESCRIPTOR' : _SAVEVIEWREQUEST,
   '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.AddViewRequest)
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.SaveViewRequest)
   })
-_sym_db.RegisterMessage(AddViewRequest)
+_sym_db.RegisterMessage(SaveViewRequest)
 
 GetViewRequest = _reflection.GeneratedProtocolMessageType('GetViewRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETVIEWREQUEST,
@@ -2596,13 +2836,6 @@ ListViewsRequest = _reflection.GeneratedProtocolMessageType('ListViewsRequest', 
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.ListViewsRequest)
   })
 _sym_db.RegisterMessage(ListViewsRequest)
-
-UpdateViewRequest = _reflection.GeneratedProtocolMessageType('UpdateViewRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEVIEWREQUEST,
-  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
-  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.UpdateViewRequest)
-  })
-_sym_db.RegisterMessage(UpdateViewRequest)
 
 DeleteViewRequest = _reflection.GeneratedProtocolMessageType('DeleteViewRequest', (_message.Message,), {
   'DESCRIPTOR' : _DELETEVIEWREQUEST,
@@ -2633,35 +2866,57 @@ ItemFilter = _reflection.GeneratedProtocolMessageType('ItemFilter', (_message.Me
 _sym_db.RegisterMessage(ItemFilter)
 _sym_db.RegisterMessage(ItemFilter.FilterCriterion)
 
+StartActivityRequest = _reflection.GeneratedProtocolMessageType('StartActivityRequest', (_message.Message,), {
+  'DESCRIPTOR' : _STARTACTIVITYREQUEST,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.StartActivityRequest)
+  })
+_sym_db.RegisterMessage(StartActivityRequest)
+
+CompleteActivityRequest = _reflection.GeneratedProtocolMessageType('CompleteActivityRequest', (_message.Message,), {
+  'DESCRIPTOR' : _COMPLETEACTIVITYREQUEST,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.CompleteActivityRequest)
+  })
+_sym_db.RegisterMessage(CompleteActivityRequest)
+
+CancelActivityRequest = _reflection.GeneratedProtocolMessageType('CancelActivityRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CANCELACTIVITYREQUEST,
+  '__module__' : 'yamcs.protobuf.timeline.timeline_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.timeline.CancelActivityRequest)
+  })
+_sym_db.RegisterMessage(CancelActivityRequest)
+
 
 DESCRIPTOR._options = None
 _TIMELINEITEM_PROPERTIESENTRY._options = None
+_TIMELINEITEM_EXTRAENTRY._options = None
 _TIMELINEBAND_PROPERTIESENTRY._options = None
-_TIMELINEBAND.fields_by_name['tags']._options = None
-_CREATEITEMREQUEST_PROPERTIESENTRY._options = None
-_UPDATEITEMREQUEST_PROPERTIESENTRY._options = None
+_TIMELINEBAND_EXTRAENTRY._options = None
+_SAVEITEMREQUEST_PROPERTIESENTRY._options = None
+_SAVEITEMREQUEST_EXTRAENTRY._options = None
+_LISTITEMSREQUEST.fields_by_name['filters']._options = None
 _LISTSOURCESRESPONSE_SOURCESENTRY._options = None
-_ADDBANDREQUEST_PROPERTIESENTRY._options = None
-_ADDBANDREQUEST.fields_by_name['tags']._options = None
-_UPDATEBANDREQUEST_PROPERTIESENTRY._options = None
+_SAVEBANDREQUEST_PROPERTIESENTRY._options = None
+_SAVEBANDREQUEST_EXTRAENTRY._options = None
 
 _TIMELINEAPI = _descriptor.ServiceDescriptor(
   name='TimelineApi',
   full_name='yamcs.protobuf.timeline.TimelineApi',
   file=DESCRIPTOR,
   index=0,
-  serialized_options=None,
-  serialized_start=5665,
-  serialized_end=8507,
+  serialized_options=b'\320\200\001\001',
+  serialized_start=6198,
+  serialized_end=9538,
   methods=[
   _descriptor.MethodDescriptor(
-    name='CreateItem',
-    full_name='yamcs.protobuf.timeline.TimelineApi.CreateItem',
+    name='SaveItem',
+    full_name='yamcs.protobuf.timeline.TimelineApi.SaveItem',
     index=0,
     containing_service=None,
-    input_type=_CREATEITEMREQUEST,
+    input_type=_SAVEITEMREQUEST,
     output_type=_TIMELINEITEM,
-    serialized_options=b'\212\222\003#\032\036/api/timeline/{instance}/items:\001*',
+    serialized_options=b'\212\222\003M\032\036/api/timeline/{instance}/items:\001*Z(\022#/api/timeline/{instance}/items/{id}:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='GetItem',
@@ -2673,31 +2928,31 @@ _TIMELINEAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\003%\n#/api/timeline/{instance}/items/{id}',
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateItem',
-    full_name='yamcs.protobuf.timeline.TimelineApi.UpdateItem',
-    index=2,
-    containing_service=None,
-    input_type=_UPDATEITEMREQUEST,
-    output_type=_TIMELINEITEM,
-    serialized_options=b'\212\222\003(\022#/api/timeline/{instance}/items/{id}:\001*',
-  ),
-  _descriptor.MethodDescriptor(
     name='ListItems',
     full_name='yamcs.protobuf.timeline.TimelineApi.ListItems',
-    index=3,
+    index=2,
     containing_service=None,
     input_type=_LISTITEMSREQUEST,
     output_type=_LISTITEMSRESPONSE,
-    serialized_options=b'\212\222\003 \n\036/api/timeline/{instance}/items',
+    serialized_options=b'\212\222\003J\n\036/api/timeline/{instance}/itemsZ(\032#/api/timeline/{instance}/items:list:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='DeleteItem',
     full_name='yamcs.protobuf.timeline.TimelineApi.DeleteItem',
-    index=4,
+    index=3,
     containing_service=None,
     input_type=_DELETEITEMREQUEST,
     output_type=_TIMELINEITEM,
     serialized_options=b'\212\222\003%\"#/api/timeline/{instance}/items/{id}',
+  ),
+  _descriptor.MethodDescriptor(
+    name='BatchDeleteItems',
+    full_name='yamcs.protobuf.timeline.TimelineApi.BatchDeleteItems',
+    index=4,
+    containing_service=None,
+    input_type=_BATCHDELETEITEMSREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=b'\212\222\003/\032*/api/timeline/{instance}/items:batchDelete:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='GetItemLog',
@@ -2745,13 +3000,13 @@ _TIMELINEAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\003\037\n\035/api/timeline/{instance}/tags',
   ),
   _descriptor.MethodDescriptor(
-    name='AddBand',
-    full_name='yamcs.protobuf.timeline.TimelineApi.AddBand',
+    name='SaveBand',
+    full_name='yamcs.protobuf.timeline.TimelineApi.SaveBand',
     index=10,
     containing_service=None,
-    input_type=_ADDBANDREQUEST,
+    input_type=_SAVEBANDREQUEST,
     output_type=_TIMELINEBAND,
-    serialized_options=b'\212\222\003#\032\036/api/timeline/{instance}/bands:\001*',
+    serialized_options=b'\212\222\003M\032\036/api/timeline/{instance}/bands:\001*Z(\022#/api/timeline/{instance}/bands/{id}:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='GetBand',
@@ -2772,36 +3027,27 @@ _TIMELINEAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\003 \n\036/api/timeline/{instance}/bands',
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateBand',
-    full_name='yamcs.protobuf.timeline.TimelineApi.UpdateBand',
-    index=13,
-    containing_service=None,
-    input_type=_UPDATEBANDREQUEST,
-    output_type=_TIMELINEBAND,
-    serialized_options=b'\212\222\003(\022#/api/timeline/{instance}/bands/{id}:\001*',
-  ),
-  _descriptor.MethodDescriptor(
     name='DeleteBand',
     full_name='yamcs.protobuf.timeline.TimelineApi.DeleteBand',
-    index=14,
+    index=13,
     containing_service=None,
     input_type=_DELETEBANDREQUEST,
     output_type=_TIMELINEBAND,
     serialized_options=b'\212\222\003%\"#/api/timeline/{instance}/bands/{id}',
   ),
   _descriptor.MethodDescriptor(
-    name='AddView',
-    full_name='yamcs.protobuf.timeline.TimelineApi.AddView',
-    index=15,
+    name='SaveView',
+    full_name='yamcs.protobuf.timeline.TimelineApi.SaveView',
+    index=14,
     containing_service=None,
-    input_type=_ADDVIEWREQUEST,
+    input_type=_SAVEVIEWREQUEST,
     output_type=_TIMELINEVIEW,
-    serialized_options=b'\212\222\003#\032\036/api/timeline/{instance}/views:\001*',
+    serialized_options=b'\212\222\003M\032\036/api/timeline/{instance}/views:\001*Z(\022#/api/timeline/{instance}/views/{id}:\001*',
   ),
   _descriptor.MethodDescriptor(
     name='GetView',
     full_name='yamcs.protobuf.timeline.TimelineApi.GetView',
-    index=16,
+    index=15,
     containing_service=None,
     input_type=_GETVIEWREQUEST,
     output_type=_TIMELINEVIEW,
@@ -2810,29 +3056,56 @@ _TIMELINEAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ListViews',
     full_name='yamcs.protobuf.timeline.TimelineApi.ListViews',
-    index=17,
+    index=16,
     containing_service=None,
     input_type=_LISTVIEWSREQUEST,
     output_type=_LISTVIEWSRESPONSE,
     serialized_options=b'\212\222\003 \n\036/api/timeline/{instance}/views',
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateView',
-    full_name='yamcs.protobuf.timeline.TimelineApi.UpdateView',
-    index=18,
-    containing_service=None,
-    input_type=_UPDATEVIEWREQUEST,
-    output_type=_TIMELINEVIEW,
-    serialized_options=b'\212\222\003(\022#/api/timeline/{instance}/views/{id}:\001*',
-  ),
-  _descriptor.MethodDescriptor(
     name='DeleteView',
     full_name='yamcs.protobuf.timeline.TimelineApi.DeleteView',
-    index=19,
+    index=17,
     containing_service=None,
     input_type=_DELETEVIEWREQUEST,
     output_type=_TIMELINEVIEW,
     serialized_options=b'\212\222\003%\"#/api/timeline/{instance}/views/{id}',
+  ),
+  _descriptor.MethodDescriptor(
+    name='StartActivity',
+    full_name='yamcs.protobuf.timeline.TimelineApi.StartActivity',
+    index=18,
+    containing_service=None,
+    input_type=_STARTACTIVITYREQUEST,
+    output_type=yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYINFO,
+    serialized_options=b'\212\222\0033\0321/api/timeline/{instance}/items/{id}:startActivity',
+  ),
+  _descriptor.MethodDescriptor(
+    name='CancelActivity',
+    full_name='yamcs.protobuf.timeline.TimelineApi.CancelActivity',
+    index=19,
+    containing_service=None,
+    input_type=_CANCELACTIVITYREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=b'\212\222\0036\0324/api/timeline/{instance}/items/{item}:cancelActivity',
+  ),
+  _descriptor.MethodDescriptor(
+    name='CompleteActivity',
+    full_name='yamcs.protobuf.timeline.TimelineApi.CompleteActivity',
+    index=20,
+    containing_service=None,
+    input_type=_COMPLETEACTIVITYREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=b'\212\222\003;\0326/api/timeline/{instance}/items/{item}:completeActivity:\001*',
+  ),
+  _descriptor.MethodDescriptor(
+    name='SubscribeItemChanges',
+    full_name='yamcs.protobuf.timeline.TimelineApi.SubscribeItemChanges',
+    index=21,
+    containing_service=None,
+    input_type=_SUBSCRIBEITEMCHANGESREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=b'\332\222\003\027\n\025timeline-item-changes',
   ),
 ])
 _sym_db.RegisterServiceDescriptor(_TIMELINEAPI)
