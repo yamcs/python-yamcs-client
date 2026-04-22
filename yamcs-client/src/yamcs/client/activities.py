@@ -1,5 +1,4 @@
 import abc
-import warnings
 from dataclasses import dataclass, field
 from importlib.metadata import entry_points
 from typing import Any, List, Mapping, Optional, Union
@@ -10,8 +9,6 @@ from yamcs.protobuf.activities import activities_pb2
 __all__ = [
     "Activity",
     "CommandActivity",
-    "CommandStackActivity",
-    "ManualActivity",
     "ScriptActivity",
     "StackActivity",
 ]
@@ -23,7 +20,6 @@ class Activity:
     Superclass for activities. Core implementations:
 
     * :class:`.CommandActivity`
-    * :class:`.ManualActivity`
     * :class:`.ScriptActivity`
     * :class:`.StackActivity`
     """
@@ -59,13 +55,6 @@ class Activity:
                     return activity_cls._from_proto(proto)
 
             raise ValueError(f"Unexpected activity type: {proto.type}")
-
-
-@dataclass
-class ManualActivity(Activity):
-    """
-    An activity whose execution status is managed outside of Yamcs
-    """
 
 
 @dataclass
@@ -216,16 +205,3 @@ class StackActivity(Activity):
         if self.processor:
             proto.args["processor"] = self.processor
         return proto
-
-
-class CommandStackActivity(StackActivity):
-    """Deprecated. Use StackActivity instead."""
-
-    def __init__(self, *args, **kwargs):
-        warnings.warn(
-            "CommandStackActivity is deprecated and will be removed in a "
-            "future release. Use StackActivity instead.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        super().__init__(*args, **kwargs)

@@ -179,7 +179,7 @@ def to_named_object_id(parameter: str) -> yamcs_pb2.NamedObjectId:
 
 
 def to_named_object_ids(
-    parameters: Union[str, List[str]]
+    parameters: Union[str, List[str]],
 ) -> List[yamcs_pb2.NamedObjectId]:
     """Builds a list of NamedObjectId."""
     if isinstance(parameters, str):

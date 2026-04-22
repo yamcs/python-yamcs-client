@@ -3,6 +3,7 @@ from typing import Iterable, Optional
 
 from yamcs.client.core import pagination
 from yamcs.client.core.context import Context
+from yamcs.client.core.exceptions import NotFound
 from yamcs.client.core.helpers import to_isostring
 from yamcs.client.timeline.model import Band, Item, View
 from yamcs.protobuf.timeline import timeline_pb2
@@ -53,21 +54,12 @@ class TimelineClient:
         :param view:
             View object
         """
-        if view.id:
-            url = f"/timeline/{self._instance}/views/{view.id}"
-            req = timeline_pb2.UpdateViewRequest()
-        else:
-            url = f"/timeline/{self._instance}/views"
-            req = timeline_pb2.AddViewRequest()
-
+        url = f"/timeline/{self._instance}/views/{view.id}"
+        req = timeline_pb2.SaveViewRequest()
         req.name = view._proto.name
         req.description = view._proto.description
         req.bands[:] = [band.id for band in view._proto.bands]
-
-        if view.id:
-            response = self.ctx.put_proto(url, data=req.SerializeToString())
-        else:
-            response = self.ctx.post_proto(url, data=req.SerializeToString())
+        response = self.ctx.put_proto(url, data=req.SerializeToString())
 
         message = timeline_pb2.TimelineView()
         message.ParseFromString(response.content)
@@ -114,15 +106,10 @@ class TimelineClient:
         :param band:
             Band object
         """
-        if band.id:
-            url = f"/timeline/{self._instance}/bands/{band.id}"
-            req = timeline_pb2.UpdateBandRequest()
-        else:
-            url = f"/timeline/{self._instance}/bands"
-            req = timeline_pb2.AddBandRequest()
-            req.source = "rdb"
-            req.type = band._proto.type
-
+        url = f"/timeline/{self._instance}/bands/{band.id}"
+        req = timeline_pb2.SaveBandRequest()
+        req.source = "rdb"
+        req.type = band._proto.type
         req.shared = True
         req.name = band._proto.name
         req.description = band._proto.description
@@ -130,11 +117,10 @@ class TimelineClient:
             req.tags.append(k)
         for k, v in band._as_properties().items():
             req.properties[k] = v
+        for k, v in band.extra.items():
+            req.extra[k] = v
 
-        if band.id:
-            response = self.ctx.put_proto(url, data=req.SerializeToString())
-        else:
-            response = self.ctx.post_proto(url, data=req.SerializeToString())
+        response = self.ctx.put_proto(url, data=req.SerializeToString())
 
         message = timeline_pb2.TimelineBand()
         message.ParseFromString(response.content)
@@ -186,7 +172,7 @@ class TimelineClient:
             params=params,
             response_class=timeline_pb2.ListItemsResponse,
             items_key="items",
-            item_mapper=Item,
+            item_mapper=Item._as_subclass,
         )
 
     def get_item(self, id: str) -> Item:
@@ -200,7 +186,7 @@ class TimelineClient:
         response = self.ctx.get_proto(url)
         message = timeline_pb2.TimelineItem()
         message.ParseFromString(response.content)
-        return Item(message)
+        return Item._from_proto(message)
 
     def save_item(self, item: Item):
         """
@@ -209,41 +195,36 @@ class TimelineClient:
         :param item:
             Item object
         """
-        if item.id:
-            url = f"/timeline/{self._instance}/items/{item.id}"
-            req = timeline_pb2.UpdateItemRequest()
-        else:
-            url = f"/timeline/{self._instance}/items"
-            req = timeline_pb2.CreateItemRequest()
-            req.type = item._proto.type
+        url = f"/timeline/{self._instance}/items/{item.id}"
+        req = timeline_pb2.SaveItemRequest()
 
-        if item._proto.HasField("name"):
-            req.name = item._proto.name
+        proto = item._to_proto()
+        req.type = proto.type
 
-        if item._proto.tags:
-            req.tags.MergeFrom(item._proto.tags)
-        elif item.id:
-            req.clearTags = True
+        req.autoStart = item.auto_start
+        req.name = item.name
 
-        if item._proto.properties:
-            req.properties.MergeFrom(item._proto.properties)
-        elif item.id:
-            req.clearProperties = True
+        if proto.tags:
+            req.tags.MergeFrom(proto.tags)
 
-        req.start.MergeFrom(item._proto.start)
-        if item._proto.HasField("duration"):
-            req.duration.MergeFrom(item._proto.duration)
-        if item._proto.HasField("activityDefinition"):
-            req.activityDefinition.MergeFrom(item._proto.activityDefinition)
+        if proto.properties:
+            req.properties.MergeFrom(proto.properties)
 
-        if item.id:
-            response = self.ctx.put_proto(url, data=req.SerializeToString())
-        else:
-            response = self.ctx.post_proto(url, data=req.SerializeToString())
+        if proto.extra:
+            req.extra.MergeFrom(proto.extra)
 
-        message = timeline_pb2.TimelineItem()
-        message.ParseFromString(response.content)
-        item._proto = message
+        if proto.HasField("start"):
+            req.start.MergeFrom(proto.start)
+
+        if proto.predecessors:
+            req.predecessors.MergeFrom(proto.predecessors)
+
+        if proto.HasField("duration"):
+            req.duration.MergeFrom(proto.duration)
+        if proto.HasField("activityDefinition"):
+            req.activityDefinition.MergeFrom(proto.activityDefinition)
+
+        self.ctx.put_proto(url, data=req.SerializeToString())
 
     def delete_item(self, item: str):
         """
