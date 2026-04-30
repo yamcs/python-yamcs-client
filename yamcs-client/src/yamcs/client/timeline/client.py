@@ -3,8 +3,7 @@ from typing import Iterable, Optional
 
 from yamcs.client.core import pagination
 from yamcs.client.core.context import Context
-from yamcs.client.core.exceptions import NotFound
-from yamcs.client.core.helpers import to_isostring
+from yamcs.client.core.helpers import to_isostring, to_server_time
 from yamcs.client.timeline.model import Band, Item, View
 from yamcs.protobuf.timeline import timeline_pb2
 
@@ -235,3 +234,30 @@ class TimelineClient:
         """
         url = f"/timeline/{self._instance}/items/{item}"
         self.ctx.delete_proto(url)
+
+    def delete_items(
+        self,
+        start: Optional[datetime.datetime] = None,
+        stop: Optional[datetime.datetime] = None,
+        filter: Optional[str] = None,
+    ):
+        """
+        Batch-delete items.
+
+        :param start:
+            Minimum stop time of the returned items (exclusive)
+        :param stop:
+            Maximum start time of the returned items (exclusive)
+        :param filter:
+            Filter string
+        """
+        req = timeline_pb2.BatchDeleteItemsRequest()
+        if start:
+            req.start.MergeFrom(to_server_time(start))
+        if stop:
+            req.stop.MergeFrom(to_server_time(stop))
+        if filter:
+            req.filter = filter
+
+        url = f"/timeline/{self._instance}/items:batchDelete"
+        self.ctx.post_proto(url, data=req.SerializeToString())

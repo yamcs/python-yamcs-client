@@ -214,7 +214,8 @@ class Item(abc.ABC):
         :param duration:
             Item duration
         :param id:
-            Item identifier. If empty, the client will automatically determine a random identifier.
+            Item identifier. If empty, the client will automatically determine a random
+            identifier.
         :param tags:
             Item tags. Used by bands to filter what is visible.
         :param auto_start:
@@ -253,7 +254,7 @@ class Item(abc.ABC):
         self._start_time: Optional[datetime.datetime] = None
         """
         Item start time.
-        
+
         This attribute is derived from the start conditions.
         """
 
@@ -279,7 +280,8 @@ class Item(abc.ABC):
         """
         **Readonly property**
 
-        Returns the predecessors for this item, derived from the item's start conditions.
+        Returns the predecessors for this item, derived from the item's start
+        conditions.
         """
         if isinstance(self.start, StartTrigger):
             return [self.start._to_predecessor()]
@@ -370,7 +372,8 @@ class TimelineEvent(Item):
         :param duration:
             Event duration. If emtpy, the event is considered to be a *milestone*.
         :param id:
-            Item identifier. If empty, the client will automatically determine a random identifier.
+            Item identifier. If empty, the client will automatically determine a random
+            identifier.
         :param tags:
             Item tags. Used by bands to filter what is visible.
         :param background_color:
