@@ -42,6 +42,8 @@ class Activity:
             return CommandActivity._from_proto(proto)
         elif proto.type == "COMMAND_STACK":
             return StackActivity._from_proto(proto)
+        elif proto.type == "STACK":
+            return StackActivity._from_proto(proto)
         elif proto.type == "SCRIPT":
             return ScriptActivity._from_proto(proto)
         else:
@@ -80,7 +82,7 @@ class ScriptActivity(Activity):
 
     processor: Optional[str] = None
     """
-    Optional processor name. If provided, this is provided to the
+    Optional processor name. If provided, this is forwarded to the
     script as the environment variable ``YAMCS_PROCESSOR``.
     """
 
