@@ -32,23 +32,25 @@ def create_items():
     """Snippet used in docs to create a few items."""
     from datetime import datetime, timedelta, timezone
 
-    from yamcs.client import Item
+    from yamcs.client import TimelineEvent
 
     now = datetime.now(tz=timezone.utc)
 
     for i in range(10):
-        item = Item()
-        item.name = f"A {i + 1}"
-        item.start = now + timedelta(seconds=i * 7200)
-        item.duration = timedelta(seconds=3600)
-        item.tags = ["group-a"]
+        item = TimelineEvent(
+            name=f"A {i + 1}",
+            start=now + timedelta(seconds=i * 7200),
+            duration=timedelta(seconds=3600),
+            tags=["group-a"],
+        )
         timeline.save_item(item)
 
-        item = Item()
-        item.name = f"B {i + 1}"
-        item.start = now + timedelta(seconds=3600 + (i * 7200))
-        item.duration = timedelta(seconds=3600)
-        item.tags = ["group-b"]
+        item = TimelineEvent(
+            name=f"B {i + 1}",
+            start=now + timedelta(seconds=3600 + (i * 7200)),
+            duration=timedelta(seconds=3600),
+            tags=["group-b"],
+        )
         timeline.save_item(item)
 
 

@@ -39,6 +39,7 @@ Get domain-specific clients:
 * :doc:`storage/index`
 * :doc:`filetransfer/index`
 * :doc:`tco/index`
+* :doc:`activities/index`
 * :doc:`timeline/index`
 
 
@@ -60,5 +61,6 @@ Get domain-specific clients:
     storage/index
     filetransfer/index
     tco/index
+    activities/index
     timeline/index
     examples/index
