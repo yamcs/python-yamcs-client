@@ -1183,8 +1183,8 @@ class ItemBand(Band):
         merged.properties["marginTop"] = "7"
         merged.properties["marginBottom"] = "7"
         merged.properties["multiline"] = "true"
-        merged.properties["spaceBetweenItems"] = "0"
-        merged.properties["spaceBetweenLines"] = "2"
+        merged.properties["spaceBetweenItems"] = "7"
+        merged.properties["spaceBetweenLines"] = "7"
         if proto:
             merged.MergeFrom(proto)
         super(ItemBand, self).__init__(merged)
