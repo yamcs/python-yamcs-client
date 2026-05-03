@@ -1,6 +1,8 @@
 {
     "ignore": [
-        "**/*_pb2.py"
+        "src/yamcs/api/*_pb2.py",
+        "src/yamcs/protobuf/_vendor",
+        "src/yamcs/protobuf/*_pb2.py"
     ],
     "reportAttributeAccessIssue": false,
     "reportInvalidTypeForm": "none"

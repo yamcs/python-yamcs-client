@@ -4,12 +4,12 @@ from urllib.parse import urlparse
 
 import requests
 import urllib3
-from google.protobuf.message import DecodeError
 from yamcs.api import exception_pb2
 from yamcs.client import clientversion
 from yamcs.client.core.auth import Credentials
 from yamcs.client.core.exceptions import NotFound, Unauthorized, YamcsError
 from yamcs.client.core.helpers import FixedDelay, do_request
+from yamcs.protobuf._vendor.google.protobuf.message import DecodeError
 
 __all__ = [
     "Context",

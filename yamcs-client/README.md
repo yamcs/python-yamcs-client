@@ -24,3 +24,10 @@ Install with pip
 ## License
 
 LGPL-3.0. See [LICENSE](https://github.com/yamcs/python-yamcs-client/blob/master/LICENSE)
+
+
+## Third-Party Software
+
+This project vendors the following third-party libraries:
+
+- **protobuf** (BSD-3-Clause) - Copyright 2008 Google Inc. Located in `src/yamcs/protobuf/_vendor`.

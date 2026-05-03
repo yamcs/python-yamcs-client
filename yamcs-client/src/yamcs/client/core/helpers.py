@@ -10,11 +10,11 @@ from urllib.parse import urlparse
 
 import requests
 import urllib3
-from google.protobuf import timestamp_pb2
-from google.protobuf.internal.decoder import _DecodeVarint32
-from google.protobuf.internal.encoder import _VarintBytes
 from yamcs.client.core.exceptions import ConnectionFailure, YamcsError
 from yamcs.protobuf import yamcs_pb2
+from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2
+from yamcs.protobuf._vendor.google.protobuf.internal.decoder import _DecodeVarint32
+from yamcs.protobuf._vendor.google.protobuf.internal.encoder import _VarintBytes
 
 __all__ = [
     "adapt_name_for_rest",

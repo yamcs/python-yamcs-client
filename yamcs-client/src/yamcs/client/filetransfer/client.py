@@ -2,7 +2,6 @@ import functools
 import json
 from typing import Any, Callable, Dict, Iterable, List, Mapping, Optional
 
-from google.protobuf import json_format, struct_pb2
 from yamcs.client.core.context import Context
 from yamcs.client.core.exceptions import NotFound
 from yamcs.client.core.futures import WebSocketSubscriptionFuture
@@ -12,6 +11,7 @@ from yamcs.client.filetransfer.model import (
     RemoteFileListing,
     Transfer,
 )
+from yamcs.protobuf._vendor.google.protobuf import json_format, struct_pb2
 from yamcs.protobuf.filetransfer import filetransfer_pb2
 
 __all__ = [

@@ -16,8 +16,6 @@ from typing import (
     Union,
 )
 
-from google.protobuf import timestamp_pb2
-from google.protobuf.message import DecodeError
 from yamcs.client.core.auth import APIKeyCredentials, Credentials
 from yamcs.client.core.context import Context
 from yamcs.client.core.exceptions import YamcsError
@@ -43,6 +41,8 @@ from yamcs.client.model import (
     UserInfo,
 )
 from yamcs.client.tmtc.client import _build_value_proto
+from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2
+from yamcs.protobuf._vendor.google.protobuf.message import DecodeError
 from yamcs.protobuf.archive import rocksdb_service_pb2
 from yamcs.protobuf.auth import auth_pb2
 from yamcs.protobuf.events import events_pb2, events_service_pb2

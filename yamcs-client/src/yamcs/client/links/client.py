@@ -1,12 +1,12 @@
 import functools
 from typing import Any, Callable, Dict, List, Mapping, Optional
 
-from google.protobuf import json_format, struct_pb2
 from yamcs.client.core.context import Context
 from yamcs.client.core.futures import WebSocketSubscriptionFuture
 from yamcs.client.core.subscriptions import WebSocketSubscriptionManager
 from yamcs.client.links.model import Cop1Config, Cop1Status
 from yamcs.client.model import Link
+from yamcs.protobuf._vendor.google.protobuf import json_format, struct_pb2
 from yamcs.protobuf.cop1 import cop1_pb2
 from yamcs.protobuf.links import links_pb2
 from yamcs.protobuf.sdls import sdls_pb2

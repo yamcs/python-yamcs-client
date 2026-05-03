@@ -1,12 +1,12 @@
 import datetime
 from typing import Any, List, Optional
 
-from google.protobuf.internal.decoder import _DecodeVarint32
 from yamcs.client.core.helpers import (
     parse_server_time,
     parse_server_timestring,
     parse_value,
 )
+from yamcs.protobuf._vendor.google.protobuf.internal.decoder import _DecodeVarint32
 from yamcs.protobuf.table import table_pb2
 
 __all__ = [
