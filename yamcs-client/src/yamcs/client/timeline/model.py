@@ -156,7 +156,7 @@ class OnStart:
         return Predecessor(self.item, start_condition=StartCondition.ON_START)
 
 
-StartTrigger = Union[OnSuccess | OnFailure | OnCompletion | OnStart]
+StartTrigger = Union[OnSuccess, OnFailure, OnCompletion, OnStart]
 """
 Expresses a dependency between an item and its predecessor.
 """
