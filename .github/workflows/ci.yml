@@ -42,7 +42,7 @@ jobs:
           pip install --upgrade pip
           pip install flake8
       - name: Lint with flake8
-        run: flake8 . --exclude '*pb2.py' --count --show-source --statistics
+        run: flake8 . --exclude '*pb2.py,_vendor' --count --show-source --statistics
 
   docs:
     name: Documentation
