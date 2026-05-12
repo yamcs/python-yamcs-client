@@ -200,7 +200,7 @@ class TimelineItem(abc.ABC):
     def __init__(
         self,
         *,
-        name: str,
+        name: Optional[str],
         start: Union[datetime.datetime, StartTrigger, List[StartTrigger]],
         duration: Optional[datetime.timedelta],
         id: Optional[str],
@@ -325,7 +325,8 @@ class TimelineItem(abc.ABC):
     def _to_proto(self) -> timeline_pb2.TimelineItem:
         proto = timeline_pb2.TimelineItem()
         proto.id = self.id
-        proto.name = self.name
+        if self.name:
+            proto.name = self.name
         proto.autoStart = self.auto_start
         proto.duration.FromTimedelta(self.duration)
         proto.tags[:] = self.tags
@@ -351,7 +352,7 @@ class TimelineEvent(TimelineItem):
 
     def __init__(
         self,
-        name: str,
+        name: Optional[str] = None,
         *,
         start: datetime.datetime,
         id: Optional[str] = None,
@@ -372,7 +373,7 @@ class TimelineEvent(TimelineItem):
         :param start:
             Event start
         :param duration:
-            Event duration. If emtpy, the event is considered to be a *milestone*.
+            Event duration. If empty, the event is considered to be a *milestone*.
         :param id:
             Item identifier. If empty, the client will automatically determine a random
             identifier.

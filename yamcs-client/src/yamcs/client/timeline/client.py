@@ -209,7 +209,9 @@ class TimelineClient:
         req.type = proto.type
 
         req.autoStart = item.auto_start
-        req.name = item.name
+
+        if item.name:
+            req.name = item.name
 
         if proto.tags:
             req.tags.MergeFrom(proto.tags)
