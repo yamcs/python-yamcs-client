@@ -1,11 +1,12 @@
 import abc
 import datetime
 import uuid
+import warnings
 from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Dict, List, Optional, Union, cast
 
-from yamcs.client.activities import Activity
+from yamcs.client.activities import Activity, ManualActivity
 from yamcs.client.core.helpers import ProtoList, parse_server_time, to_server_time
 from yamcs.protobuf.timeline import timeline_pb2
 
@@ -13,6 +14,7 @@ __all__ = [
     "Band",
     "CommandBand",
     "ItemBand",
+    "Item",
     "OnCompletion",
     "OnFailure",
     "OnStart",
@@ -1394,3 +1396,76 @@ class View:
 
     def __str__(self):
         return self.name
+
+
+class Item:
+    def __init__(self):
+        warnings.warn(
+            "Item is deprecated and will be removed in a future version. "
+            "Use TimelineEvent, TimelineActivity, or TimelineTask instead.",
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+
+        self.name: str = None
+        self.tags: List[str] = []
+        self.start: datetime.datetime = None
+        self.duration: datetime.timedelta = None
+        self.activity: Optional[Activity] = None
+        self.background_color: Optional[str] = None
+        self.border_color: Optional[str] = None
+        self.border_width: Optional[int] = None
+        self.corner_radius: Optional[int] = None
+        self.margin_left: Optional[int] = None
+        self.text_color: Optional[str] = None
+        self.text_size: Optional[int] = None
+
+    @property
+    def item_type(self) -> str:
+        """Type of item."""
+        return timeline_pb2.TimelineItemType.Name(self._proto.type)
+
+    def _to_timeline_item(self) -> TimelineItem:
+        if self.activity:
+            if isinstance(self.activity, ManualActivity):
+                return self._to_timeline_task()
+            else:
+                return self._to_timeline_activity()
+        else:
+            return self._to_timeline_event()
+
+    def _to_timeline_task(self) -> TimelineTask:
+        item = TimelineTask(
+            name=self.name,
+            start=self.start,
+            tags=self.tags,
+            duration=self.duration,
+        )
+        return item
+
+    def _to_timeline_activity(self) -> TimelineActivity:
+        assert self.activity is not None
+        item = TimelineActivity(
+            name=self.name,
+            start=self.start,
+            tags=self.tags,
+            duration=self.duration,
+            activity=self.activity,
+        )
+        return item
+
+    def _to_timeline_event(self) -> TimelineEvent:
+        item = TimelineEvent(
+            name=self.name,
+            start=self.start,
+            tags=self.tags,
+            duration=self.duration,
+            background_color=self.background_color,
+            border_color=self.border_color,
+            border_width=self.border_width,
+            corner_radius=self.corner_radius,
+            margin_left=self.margin_left,
+            text_color=self.text_color,
+            text_size=self.text_size,
+        )
+        return item

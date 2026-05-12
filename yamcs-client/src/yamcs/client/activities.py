@@ -2,6 +2,7 @@ import abc
 from dataclasses import dataclass, field
 from importlib.metadata import entry_points
 from typing import Any, List, Mapping, Optional, Union
+import warnings
 
 from yamcs.client.core.helpers import to_argument_value
 from yamcs.protobuf.activities import activities_pb2
@@ -9,6 +10,7 @@ from yamcs.protobuf.activities import activities_pb2
 __all__ = [
     "Activity",
     "CommandActivity",
+    "ManualActivity",
     "ScriptActivity",
     "StackActivity",
 ]
@@ -219,3 +221,15 @@ class StackActivity(Activity):
         if self.processor:
             proto.args["processor"] = self.processor
         return proto
+
+
+@dataclass
+class ManualActivity(Activity):
+    def __post_init__(self):
+        warnings.warn(
+            "ManualActivity is deprecated. Instead of using "
+            "Item(activity=ManualActivity()), use the TimelineTask "
+            "class.",
+            category=DeprecationWarning,
+            stacklevel=3,
+        )

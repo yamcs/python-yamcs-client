@@ -1,10 +1,10 @@
 import datetime
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Union
 
 from yamcs.client.core import pagination
 from yamcs.client.core.context import Context
 from yamcs.client.core.helpers import to_isostring, to_server_time
-from yamcs.client.timeline.model import Band, TimelineItem, View
+from yamcs.client.timeline.model import Band, Item, TimelineItem, View
 from yamcs.protobuf.timeline import timeline_pb2
 
 __all__ = [
@@ -187,13 +187,21 @@ class TimelineClient:
         message.ParseFromString(response.content)
         return TimelineItem._from_proto(message)
 
-    def save_item(self, item: TimelineItem):
+    def save_item(self, item: Union[TimelineItem, Item]):
         """
         Save or update an item.
 
-        :param item:
-            TimelineItem object
+        :param item: The item to persist.
+            Note: Support for the 'Item' type is deprecated and
+            maintained only for migration purposes. Transition
+            to one of the 'TimelineItem' subclasses
+            ('TimelineEvent', 'TimelineActivity', 'TimelineTask').
         """
+
+        # Temp backwards compatibility
+        if isinstance(item, Item):
+            item = item._to_timeline_item()
+
         url = f"/timeline/{self._instance}/items/{item.id}"
         req = timeline_pb2.SaveItemRequest()
 
