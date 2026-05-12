@@ -86,6 +86,12 @@ class ScriptActivity(Activity):
     script as the environment variable ``YAMCS_PROCESSOR``.
     """
 
+    runner: Optional[str] = None
+    """
+    Optional runner name. In case of multiple runners, use this
+    field to control which one is to run this particular script.
+    """
+
     @staticmethod
     def _from_proto(proto: activities_pb2.ActivityDefinitionInfo):
         activity = ScriptActivity(script=proto.args["script"])
@@ -95,6 +101,9 @@ class ScriptActivity(Activity):
 
         if "processor" in proto.args:
             activity.processor = proto.args["processor"]
+
+        if "runner" in proto.args:
+            activity.runner = proto.args["runner"]
 
         return activity
 
@@ -108,6 +117,9 @@ class ScriptActivity(Activity):
 
         if self.processor:
             proto.args["processor"] = self.processor
+
+        if self.runner:
+            proto.args["runner"] = self.runner
 
         return proto
 
