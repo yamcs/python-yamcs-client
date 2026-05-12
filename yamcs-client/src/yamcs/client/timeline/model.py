@@ -12,7 +12,6 @@ from yamcs.protobuf.timeline import timeline_pb2
 __all__ = [
     "Band",
     "CommandBand",
-    "Item",
     "ItemBand",
     "OnCompletion",
     "OnFailure",
@@ -26,6 +25,7 @@ __all__ = [
     "StartCondition",
     "TimelineActivity",
     "TimelineEvent",
+    "TimelineItem",
     "TimelineTask",
     "TimeRuler",
     "Trace",
@@ -84,13 +84,13 @@ class OnCompletion:
     success or failure).
     """
 
-    item: Union["Item", str]
+    item: Union["TimelineItem", str]
     """Predecessor item (or its identifier)"""
 
     @property
     def item_id(self) -> str:
         """Item identifier of the predecessor"""
-        if isinstance(self.item, Item):
+        if isinstance(self.item, TimelineItem):
             return self.item.id
         else:
             return self.item
@@ -103,13 +103,13 @@ class OnCompletion:
 class OnSuccess:
     """The item starts only if the predecessor has completed successfully."""
 
-    item: Union["Item", str]
+    item: Union["TimelineItem", str]
     """Predecessor item (or its identifier)"""
 
     @property
     def item_id(self) -> str:
         """Item identifier of the predecessor"""
-        if isinstance(self.item, Item):
+        if isinstance(self.item, TimelineItem):
             return self.item.id
         else:
             return self.item
@@ -122,13 +122,13 @@ class OnSuccess:
 class OnFailure:
     """The item starts only if the predecessor has failed."""
 
-    item: Union["Item", str]
+    item: Union["TimelineItem", str]
     """Predecessor item (or its identifier)"""
 
     @property
     def item_id(self) -> str:
         """Item identifier of the predecessor"""
-        if isinstance(self.item, Item):
+        if isinstance(self.item, TimelineItem):
             return self.item.id
         else:
             return self.item
@@ -141,13 +141,13 @@ class OnFailure:
 class OnStart:
     """The item starts as soon as the predecessor has started."""
 
-    item: Union["Item", str]
+    item: Union["TimelineItem", str]
     """Predecessor item (or its identifier)"""
 
     @property
     def item_id(self) -> str:
         """Item identifier of the predecessor"""
-        if isinstance(self.item, Item):
+        if isinstance(self.item, TimelineItem):
             return self.item.id
         else:
             return self.item
@@ -165,7 +165,7 @@ Expresses a dependency between an item and its predecessor.
 @dataclass
 class Predecessor:
 
-    item: Union[str, "Item"]
+    item: Union[str, "TimelineItem"]
     """Predecessor item (or its identifier)"""
 
     start_condition: StartCondition = StartCondition.ON_SUCCESS
@@ -174,7 +174,7 @@ class Predecessor:
     @property
     def item_id(self) -> str:
         """Item identifier of the predecessor"""
-        if isinstance(self.item, Item):
+        if isinstance(self.item, TimelineItem):
             return self.item.id
         else:
             return self.item
@@ -193,7 +193,7 @@ class Predecessor:
         return proto
 
 
-class Item(abc.ABC):
+class TimelineItem(abc.ABC):
 
     def __init__(
         self,
@@ -305,7 +305,7 @@ class Item(abc.ABC):
 
     @staticmethod
     @abc.abstractmethod
-    def _from_proto(proto: timeline_pb2.TimelineItem) -> "Item":
+    def _from_proto(proto: timeline_pb2.TimelineItem) -> "TimelineItem":
         pass
 
     @staticmethod
@@ -338,7 +338,7 @@ class Item(abc.ABC):
         return proto
 
 
-class TimelineEvent(Item):
+class TimelineEvent(TimelineItem):
     """
     An event on the timeline. This has a fixed start time, and an
     optional duration.
@@ -393,7 +393,7 @@ class TimelineEvent(Item):
         :param extra:
             Project-specific properties (ignored by Yamcs)
         """
-        Item.__init__(
+        TimelineItem.__init__(
             self,
             name=name,
             start=start,
@@ -471,7 +471,7 @@ class TimelineEvent(Item):
 
 
 @dataclass
-class TimelineActivity(Item):
+class TimelineActivity(TimelineItem):
     """
     An activity on the timeline. Activities can be scheduled at a fixed
     time, or they can be scheduled relative to predecessor items.
@@ -515,7 +515,7 @@ class TimelineActivity(Item):
         :param extra:
             Project-specific properties (ignored by Yamcs)
         """
-        Item.__init__(
+        TimelineItem.__init__(
             self,
             name=name,
             start=start,
@@ -538,9 +538,9 @@ class TimelineActivity(Item):
         if not predecessors:
             start = parse_server_time(proto.start)
         elif len(predecessors) == 1:
-            start = Item._to_start_trigger(predecessors[0])
+            start = TimelineItem._to_start_trigger(predecessors[0])
         else:
-            start = [Item._to_start_trigger(x) for x in predecessors]
+            start = [TimelineItem._to_start_trigger(x) for x in predecessors]
 
         item = TimelineActivity(
             id=proto.id,
@@ -571,7 +571,7 @@ class TimelineActivity(Item):
 
 
 @dataclass
-class TimelineTask(Item):
+class TimelineTask(TimelineItem):
     """
     A task on the timeline. Tasks are actions to be performed by the
     user. Tasks can be scheduled at a fixed time, or they can be
@@ -614,7 +614,7 @@ class TimelineTask(Item):
         :param extra:
             Project-specific properties (ignored by Yamcs)
         """
-        Item.__init__(
+        TimelineItem.__init__(
             self,
             name=name,
             start=start,
@@ -634,9 +634,9 @@ class TimelineTask(Item):
         if not predecessors:
             start = parse_server_time(proto.start)
         elif len(predecessors) == 1:
-            start = Item._to_start_trigger(predecessors[0])
+            start = TimelineItem._to_start_trigger(predecessors[0])
         else:
-            start = [Item._to_start_trigger(x) for x in predecessors]
+            start = [TimelineItem._to_start_trigger(x) for x in predecessors]
 
         item = TimelineTask(
             id=proto.id,

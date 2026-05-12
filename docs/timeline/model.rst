@@ -11,11 +11,6 @@ Model
     :undoc-members:
     :show-inheritance:
 
-.. autoclass:: yamcs.client.Item
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 .. autoclass:: yamcs.client.ItemBand
     :members:
     :undoc-members:
@@ -57,6 +52,11 @@ Model
     :show-inheritance:
 
 .. autoclass:: yamcs.client.Spacer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+.. autoclass:: yamcs.client.TimelineItem
     :members:
     :undoc-members:
     :show-inheritance:

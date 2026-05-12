@@ -4,7 +4,7 @@ from typing import Iterable, Optional
 from yamcs.client.core import pagination
 from yamcs.client.core.context import Context
 from yamcs.client.core.helpers import to_isostring, to_server_time
-from yamcs.client.timeline.model import Band, Item, View
+from yamcs.client.timeline.model import Band, TimelineItem, View
 from yamcs.protobuf.timeline import timeline_pb2
 
 __all__ = [
@@ -141,7 +141,7 @@ class TimelineClient:
         start: Optional[datetime.datetime] = None,
         stop: Optional[datetime.datetime] = None,
         page_size: int = 500,
-    ) -> Iterable[Item]:
+    ) -> Iterable[TimelineItem]:
         """
         List the items.
 
@@ -171,10 +171,10 @@ class TimelineClient:
             params=params,
             response_class=timeline_pb2.ListItemsResponse,
             items_key="items",
-            item_mapper=Item._as_subclass,
+            item_mapper=TimelineItem._as_subclass,
         )
 
-    def get_item(self, id: str) -> Item:
+    def get_item(self, id: str) -> TimelineItem:
         """
         Fetch an item by its identifier.
 
@@ -185,14 +185,14 @@ class TimelineClient:
         response = self.ctx.get_proto(url)
         message = timeline_pb2.TimelineItem()
         message.ParseFromString(response.content)
-        return Item._from_proto(message)
+        return TimelineItem._from_proto(message)
 
-    def save_item(self, item: Item):
+    def save_item(self, item: TimelineItem):
         """
         Save or update an item.
 
         :param item:
-            Item object
+            TimelineItem object
         """
         url = f"/timeline/{self._instance}/items/{item.id}"
         req = timeline_pb2.SaveItemRequest()
