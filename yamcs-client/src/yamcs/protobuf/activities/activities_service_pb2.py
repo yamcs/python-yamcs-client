@@ -11,6 +11,7 @@ from yamcs.protobuf._vendor.google.protobuf import symbol_database as _symbol_da
 _sym_db = _symbol_database.Default()
 
 
+from yamcs.protobuf._vendor.google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf.activities import activities_pb2 as yamcs_dot_protobuf_dot_activities_dot_activities__pb2
@@ -21,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='yamcs.protobuf.activities',
   syntax='proto2',
   serialized_options=b'\n\035org.yamcs.protobuf.activitiesB\026ActivitiesServiceProtoP\001',
-  serialized_pb=b'\n2yamcs/protobuf/activities/activities_service.proto\x12\x19yamcs.protobuf.activities\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/activities/activities.proto\"\xd3\x01\n\x15ListActivitiesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\r\n\x05order\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x03(\t\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\t\n\x01q\x18\t \x01(\t\"8\n\x12GetActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\";\n\x15GetActivityLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"R\n\x16GetActivityLogResponse\x12\x38\n\x04logs\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.activities.ActivityLogInfo\"p\n\x16ListActivitiesResponse\x12;\n\nactivities\x18\x01 \x03(\x0b\x32\'.yamcs.protobuf.activities.ActivityInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"(\n\x14ListExecutorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"S\n\x15ListExecutorsResponse\x12:\n\texecutors\x18\x01 \x03(\x0b\x32\'.yamcs.protobuf.activities.ExecutorInfo\"&\n\x12ListScriptsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"&\n\x13ListScriptsResponse\x12\x0f\n\x07scripts\x18\x01 \x03(\t\"w\n\x14StartActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12M\n\x12\x61\x63tivityDefinition\x18\x02 \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\";\n\x15\x43\x61ncelActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"Z\n\x1d\x43ompleteManualActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\x12\x15\n\rfailureReason\x18\x03 \x01(\t\".\n\x1aSubscribeActivitiesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"A\n\x1bSubscribeActivityLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"0\n\x1cSubscribeGlobalStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\",\n\x14GlobalActivityStatus\x12\x14\n\x0congoingCount\x18\x01 \x01(\x05\x32\xa7\x0e\n\rActivitiesApi\x12\xa2\x01\n\x0eListActivities\x12\x30.yamcs.protobuf.activities.ListActivitiesRequest\x1a\x31.yamcs.protobuf.activities.ListActivitiesResponse\"+\x8a\x92\x03\'\n%/api/activities/{instance}/activities\x12\x9d\x01\n\x0bGetActivity\x12-.yamcs.protobuf.activities.GetActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"6\x8a\x92\x03\x32\n0/api/activities/{instance}/activities/{activity}\x12\xb1\x01\n\x0eGetActivityLog\x12\x30.yamcs.protobuf.activities.GetActivityLogRequest\x1a\x31.yamcs.protobuf.activities.GetActivityLogResponse\":\x8a\x92\x03\x36\n4/api/activities/{instance}/activities/{activity}/log\x12\xaa\x01\n\rStartActivity\x12/.yamcs.protobuf.activities.StartActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"?\x8a\x92\x03;\x1a%/api/activities/{instance}/activities:\x12\x61\x63tivityDefinition\x12\xaa\x01\n\x0e\x43\x61ncelActivity\x12\x30.yamcs.protobuf.activities.CancelActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"=\x8a\x92\x03\x39\x1a\x37/api/activities/{instance}/activities/{activity}:cancel\x12\xbf\x01\n\x16\x43ompleteManualActivity\x12\x38.yamcs.protobuf.activities.CompleteManualActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"B\x8a\x92\x03>\x1a\x39/api/activities/{instance}/activities/{activity}:complete:\x01*\x12\xa1\x01\n\x15SubscribeGlobalStatus\x12\x37.yamcs.protobuf.activities.SubscribeGlobalStatusRequest\x1a/.yamcs.protobuf.activities.GlobalActivityStatus\"\x1c\xda\x92\x03\x18\n\x16global-activity-status0\x01\x12\x89\x01\n\x13SubscribeActivities\x12\x35.yamcs.protobuf.activities.SubscribeActivitiesRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"\x10\xda\x92\x03\x0c\n\nactivities0\x01\x12\x90\x01\n\x14SubscribeActivityLog\x12\x36.yamcs.protobuf.activities.SubscribeActivityLogRequest\x1a*.yamcs.protobuf.activities.ActivityLogInfo\"\x12\xda\x92\x03\x0e\n\x0c\x61\x63tivity-log0\x01\x12\x9e\x01\n\rListExecutors\x12/.yamcs.protobuf.activities.ListExecutorsRequest\x1a\x30.yamcs.protobuf.activities.ListExecutorsResponse\"*\x8a\x92\x03&\n$/api/activities/{instance}/executors\x12\x96\x01\n\x0bListScripts\x12-.yamcs.protobuf.activities.ListScriptsRequest\x1a..yamcs.protobuf.activities.ListScriptsResponse\"(\x8a\x92\x03$\n\"/api/activities/{instance}/scripts\x1a\x04\xd0\x80\x01\x01\x42\x39\n\x1dorg.yamcs.protobuf.activitiesB\x16\x41\x63tivitiesServiceProtoP\x01'
+  serialized_pb=b'\n2yamcs/protobuf/activities/activities_service.proto\x12\x19yamcs.protobuf.activities\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1byamcs/api/annotations.proto\x1a*yamcs/protobuf/activities/activities.proto\"\xd3\x01\n\x15ListActivitiesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\r\n\x05order\x18\x03 \x01(\t\x12\x0e\n\x06status\x18\x04 \x03(\t\x12\x0c\n\x04type\x18\x05 \x03(\t\x12\x0c\n\x04next\x18\x06 \x01(\t\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\t\n\x01q\x18\t \x01(\t\"8\n\x12GetActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\";\n\x15GetActivityLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"R\n\x16GetActivityLogResponse\x12\x38\n\x04logs\x18\x01 \x03(\x0b\x32*.yamcs.protobuf.activities.ActivityLogInfo\"p\n\x16ListActivitiesResponse\x12;\n\nactivities\x18\x01 \x03(\x0b\x32\'.yamcs.protobuf.activities.ActivityInfo\x12\x19\n\x11\x63ontinuationToken\x18\x02 \x01(\t\"(\n\x14ListExecutorsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"S\n\x15ListExecutorsResponse\x12:\n\texecutors\x18\x01 \x03(\x0b\x32\'.yamcs.protobuf.activities.ExecutorInfo\",\n\x18ListScriptRunnersRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"Y\n\x19ListScriptRunnersResponse\x12<\n\x07runners\x18\x01 \x03(\x0b\x32+.yamcs.protobuf.activities.ScriptRunnerInfo\" \n\x10ScriptRunnerInfo\x12\x0c\n\x04name\x18\x01 \x01(\t\"6\n\x12ListScriptsRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x0e\n\x06runner\x18\x02 \x01(\t\"&\n\x13ListScriptsResponse\x12\x0f\n\x07scripts\x18\x01 \x03(\t\"w\n\x14StartActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12M\n\x12\x61\x63tivityDefinition\x18\x02 \x01(\x0b\x32\x31.yamcs.protobuf.activities.ActivityDefinitionInfo\";\n\x15\x43\x61ncelActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"Z\n\x1d\x43ompleteManualActivityRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\x12\x15\n\rfailureReason\x18\x03 \x01(\t\"K\n\x14\x41\x64\x64LogMessageRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\x12\x0f\n\x07message\x18\x03 \x01(\t\".\n\x1aSubscribeActivitiesRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\"A\n\x1bSubscribeActivityLogRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\x12\x10\n\x08\x61\x63tivity\x18\x02 \x01(\t\"0\n\x1cSubscribeGlobalStatusRequest\x12\x10\n\x08instance\x18\x01 \x01(\t\",\n\x14GlobalActivityStatus\x12\x14\n\x0congoingCount\x18\x01 \x01(\x05\x32\xf3\x10\n\rActivitiesApi\x12\xa2\x01\n\x0eListActivities\x12\x30.yamcs.protobuf.activities.ListActivitiesRequest\x1a\x31.yamcs.protobuf.activities.ListActivitiesResponse\"+\x8a\x92\x03\'\n%/api/activities/{instance}/activities\x12\x9d\x01\n\x0bGetActivity\x12-.yamcs.protobuf.activities.GetActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"6\x8a\x92\x03\x32\n0/api/activities/{instance}/activities/{activity}\x12\xb1\x01\n\x0eGetActivityLog\x12\x30.yamcs.protobuf.activities.GetActivityLogRequest\x1a\x31.yamcs.protobuf.activities.GetActivityLogResponse\":\x8a\x92\x03\x36\n4/api/activities/{instance}/activities/{activity}/log\x12\xaa\x01\n\rStartActivity\x12/.yamcs.protobuf.activities.StartActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"?\x8a\x92\x03;\x1a%/api/activities/{instance}/activities:\x12\x61\x63tivityDefinition\x12\xaa\x01\n\x0e\x43\x61ncelActivity\x12\x30.yamcs.protobuf.activities.CancelActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"=\x8a\x92\x03\x39\x1a\x37/api/activities/{instance}/activities/{activity}:cancel\x12\xbf\x01\n\x16\x43ompleteManualActivity\x12\x38.yamcs.protobuf.activities.CompleteManualActivityRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"B\x8a\x92\x03>\x1a\x39/api/activities/{instance}/activities/{activity}:complete:\x01*\x12\x97\x01\n\rAddLogMessage\x12/.yamcs.protobuf.activities.AddLogMessageRequest\x1a\x16.google.protobuf.Empty\"=\x8a\x92\x03\x39\x1a\x34/api/activities/{instance}/activities/{activity}/log:\x01*\x12\xa1\x01\n\x15SubscribeGlobalStatus\x12\x37.yamcs.protobuf.activities.SubscribeGlobalStatusRequest\x1a/.yamcs.protobuf.activities.GlobalActivityStatus\"\x1c\xda\x92\x03\x18\n\x16global-activity-status0\x01\x12\x89\x01\n\x13SubscribeActivities\x12\x35.yamcs.protobuf.activities.SubscribeActivitiesRequest\x1a\'.yamcs.protobuf.activities.ActivityInfo\"\x10\xda\x92\x03\x0c\n\nactivities0\x01\x12\x90\x01\n\x14SubscribeActivityLog\x12\x36.yamcs.protobuf.activities.SubscribeActivityLogRequest\x1a*.yamcs.protobuf.activities.ActivityLogInfo\"\x12\xda\x92\x03\x0e\n\x0c\x61\x63tivity-log0\x01\x12\x9e\x01\n\rListExecutors\x12/.yamcs.protobuf.activities.ListExecutorsRequest\x1a\x30.yamcs.protobuf.activities.ListExecutorsResponse\"*\x8a\x92\x03&\n$/api/activities/{instance}/executors\x12\xaf\x01\n\x11ListScriptRunners\x12\x33.yamcs.protobuf.activities.ListScriptRunnersRequest\x1a\x34.yamcs.protobuf.activities.ListScriptRunnersResponse\"/\x8a\x92\x03+\n)/api/activities/{instance}/script-runners\x12\x96\x01\n\x0bListScripts\x12-.yamcs.protobuf.activities.ListScriptsRequest\x1a..yamcs.protobuf.activities.ListScriptsResponse\"(\x8a\x92\x03$\n\"/api/activities/{instance}/scripts\x1a\x04\xd0\x80\x01\x01\x42\x39\n\x1dorg.yamcs.protobuf.activitiesB\x16\x41\x63tivitiesServiceProtoP\x01'
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_activities_dot_activities__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,yamcs_dot_api_dot_annotations__pb2.DESCRIPTOR,yamcs_dot_protobuf_dot_activities_dot_activities__pb2.DESCRIPTOR,])
 
 
 
@@ -110,8 +111,8 @@ _LISTACTIVITIESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=188,
-  serialized_end=399,
+  serialized_start=217,
+  serialized_end=428,
 )
 
 
@@ -148,8 +149,8 @@ _GETACTIVITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=401,
-  serialized_end=457,
+  serialized_start=430,
+  serialized_end=486,
 )
 
 
@@ -186,8 +187,8 @@ _GETACTIVITYLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=459,
-  serialized_end=518,
+  serialized_start=488,
+  serialized_end=547,
 )
 
 
@@ -217,8 +218,8 @@ _GETACTIVITYLOGRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=520,
-  serialized_end=602,
+  serialized_start=549,
+  serialized_end=631,
 )
 
 
@@ -255,8 +256,8 @@ _LISTACTIVITIESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=604,
-  serialized_end=716,
+  serialized_start=633,
+  serialized_end=745,
 )
 
 
@@ -286,8 +287,8 @@ _LISTEXECUTORSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=718,
-  serialized_end=758,
+  serialized_start=747,
+  serialized_end=787,
 )
 
 
@@ -317,20 +318,20 @@ _LISTEXECUTORSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=760,
-  serialized_end=843,
+  serialized_start=789,
+  serialized_end=872,
 )
 
 
-_LISTSCRIPTSREQUEST = _descriptor.Descriptor(
-  name='ListScriptsRequest',
-  full_name='yamcs.protobuf.activities.ListScriptsRequest',
+_LISTSCRIPTRUNNERSREQUEST = _descriptor.Descriptor(
+  name='ListScriptRunnersRequest',
+  full_name='yamcs.protobuf.activities.ListScriptRunnersRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='instance', full_name='yamcs.protobuf.activities.ListScriptsRequest.instance', index=0,
+      name='instance', full_name='yamcs.protobuf.activities.ListScriptRunnersRequest.instance', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -348,8 +349,108 @@ _LISTSCRIPTSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=845,
-  serialized_end=883,
+  serialized_start=874,
+  serialized_end=918,
+)
+
+
+_LISTSCRIPTRUNNERSRESPONSE = _descriptor.Descriptor(
+  name='ListScriptRunnersResponse',
+  full_name='yamcs.protobuf.activities.ListScriptRunnersResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='runners', full_name='yamcs.protobuf.activities.ListScriptRunnersResponse.runners', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=920,
+  serialized_end=1009,
+)
+
+
+_SCRIPTRUNNERINFO = _descriptor.Descriptor(
+  name='ScriptRunnerInfo',
+  full_name='yamcs.protobuf.activities.ScriptRunnerInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='yamcs.protobuf.activities.ScriptRunnerInfo.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1011,
+  serialized_end=1043,
+)
+
+
+_LISTSCRIPTSREQUEST = _descriptor.Descriptor(
+  name='ListScriptsRequest',
+  full_name='yamcs.protobuf.activities.ListScriptsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.activities.ListScriptsRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='runner', full_name='yamcs.protobuf.activities.ListScriptsRequest.runner', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1045,
+  serialized_end=1099,
 )
 
 
@@ -379,8 +480,8 @@ _LISTSCRIPTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=885,
-  serialized_end=923,
+  serialized_start=1101,
+  serialized_end=1139,
 )
 
 
@@ -417,8 +518,8 @@ _STARTACTIVITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=925,
-  serialized_end=1044,
+  serialized_start=1141,
+  serialized_end=1260,
 )
 
 
@@ -455,8 +556,8 @@ _CANCELACTIVITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1046,
-  serialized_end=1105,
+  serialized_start=1262,
+  serialized_end=1321,
 )
 
 
@@ -500,8 +601,53 @@ _COMPLETEMANUALACTIVITYREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1107,
-  serialized_end=1197,
+  serialized_start=1323,
+  serialized_end=1413,
+)
+
+
+_ADDLOGMESSAGEREQUEST = _descriptor.Descriptor(
+  name='AddLogMessageRequest',
+  full_name='yamcs.protobuf.activities.AddLogMessageRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='instance', full_name='yamcs.protobuf.activities.AddLogMessageRequest.instance', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='activity', full_name='yamcs.protobuf.activities.AddLogMessageRequest.activity', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='message', full_name='yamcs.protobuf.activities.AddLogMessageRequest.message', index=2,
+      number=3, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto2',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1415,
+  serialized_end=1490,
 )
 
 
@@ -531,8 +677,8 @@ _SUBSCRIBEACTIVITIESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1199,
-  serialized_end=1245,
+  serialized_start=1492,
+  serialized_end=1538,
 )
 
 
@@ -569,8 +715,8 @@ _SUBSCRIBEACTIVITYLOGREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1247,
-  serialized_end=1312,
+  serialized_start=1540,
+  serialized_end=1605,
 )
 
 
@@ -600,8 +746,8 @@ _SUBSCRIBEGLOBALSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1314,
-  serialized_end=1362,
+  serialized_start=1607,
+  serialized_end=1655,
 )
 
 
@@ -631,8 +777,8 @@ _GLOBALACTIVITYSTATUS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1364,
-  serialized_end=1408,
+  serialized_start=1657,
+  serialized_end=1701,
 )
 
 _LISTACTIVITIESREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -640,6 +786,7 @@ _LISTACTIVITIESREQUEST.fields_by_name['stop'].message_type = google_dot_protobuf
 _GETACTIVITYLOGRESPONSE.fields_by_name['logs'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYLOGINFO
 _LISTACTIVITIESRESPONSE.fields_by_name['activities'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYINFO
 _LISTEXECUTORSRESPONSE.fields_by_name['executors'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._EXECUTORINFO
+_LISTSCRIPTRUNNERSRESPONSE.fields_by_name['runners'].message_type = _SCRIPTRUNNERINFO
 _STARTACTIVITYREQUEST.fields_by_name['activityDefinition'].message_type = yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYDEFINITIONINFO
 DESCRIPTOR.message_types_by_name['ListActivitiesRequest'] = _LISTACTIVITIESREQUEST
 DESCRIPTOR.message_types_by_name['GetActivityRequest'] = _GETACTIVITYREQUEST
@@ -648,11 +795,15 @@ DESCRIPTOR.message_types_by_name['GetActivityLogResponse'] = _GETACTIVITYLOGRESP
 DESCRIPTOR.message_types_by_name['ListActivitiesResponse'] = _LISTACTIVITIESRESPONSE
 DESCRIPTOR.message_types_by_name['ListExecutorsRequest'] = _LISTEXECUTORSREQUEST
 DESCRIPTOR.message_types_by_name['ListExecutorsResponse'] = _LISTEXECUTORSRESPONSE
+DESCRIPTOR.message_types_by_name['ListScriptRunnersRequest'] = _LISTSCRIPTRUNNERSREQUEST
+DESCRIPTOR.message_types_by_name['ListScriptRunnersResponse'] = _LISTSCRIPTRUNNERSRESPONSE
+DESCRIPTOR.message_types_by_name['ScriptRunnerInfo'] = _SCRIPTRUNNERINFO
 DESCRIPTOR.message_types_by_name['ListScriptsRequest'] = _LISTSCRIPTSREQUEST
 DESCRIPTOR.message_types_by_name['ListScriptsResponse'] = _LISTSCRIPTSRESPONSE
 DESCRIPTOR.message_types_by_name['StartActivityRequest'] = _STARTACTIVITYREQUEST
 DESCRIPTOR.message_types_by_name['CancelActivityRequest'] = _CANCELACTIVITYREQUEST
 DESCRIPTOR.message_types_by_name['CompleteManualActivityRequest'] = _COMPLETEMANUALACTIVITYREQUEST
+DESCRIPTOR.message_types_by_name['AddLogMessageRequest'] = _ADDLOGMESSAGEREQUEST
 DESCRIPTOR.message_types_by_name['SubscribeActivitiesRequest'] = _SUBSCRIBEACTIVITIESREQUEST
 DESCRIPTOR.message_types_by_name['SubscribeActivityLogRequest'] = _SUBSCRIBEACTIVITYLOGREQUEST
 DESCRIPTOR.message_types_by_name['SubscribeGlobalStatusRequest'] = _SUBSCRIBEGLOBALSTATUSREQUEST
@@ -708,6 +859,27 @@ ListExecutorsResponse = _reflection.GeneratedProtocolMessageType('ListExecutorsR
   })
 _sym_db.RegisterMessage(ListExecutorsResponse)
 
+ListScriptRunnersRequest = _reflection.GeneratedProtocolMessageType('ListScriptRunnersRequest', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSCRIPTRUNNERSREQUEST,
+  '__module__' : 'yamcs.protobuf.activities.activities_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.activities.ListScriptRunnersRequest)
+  })
+_sym_db.RegisterMessage(ListScriptRunnersRequest)
+
+ListScriptRunnersResponse = _reflection.GeneratedProtocolMessageType('ListScriptRunnersResponse', (_message.Message,), {
+  'DESCRIPTOR' : _LISTSCRIPTRUNNERSRESPONSE,
+  '__module__' : 'yamcs.protobuf.activities.activities_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.activities.ListScriptRunnersResponse)
+  })
+_sym_db.RegisterMessage(ListScriptRunnersResponse)
+
+ScriptRunnerInfo = _reflection.GeneratedProtocolMessageType('ScriptRunnerInfo', (_message.Message,), {
+  'DESCRIPTOR' : _SCRIPTRUNNERINFO,
+  '__module__' : 'yamcs.protobuf.activities.activities_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.activities.ScriptRunnerInfo)
+  })
+_sym_db.RegisterMessage(ScriptRunnerInfo)
+
 ListScriptsRequest = _reflection.GeneratedProtocolMessageType('ListScriptsRequest', (_message.Message,), {
   'DESCRIPTOR' : _LISTSCRIPTSREQUEST,
   '__module__' : 'yamcs.protobuf.activities.activities_service_pb2'
@@ -742,6 +914,13 @@ CompleteManualActivityRequest = _reflection.GeneratedProtocolMessageType('Comple
   # @@protoc_insertion_point(class_scope:yamcs.protobuf.activities.CompleteManualActivityRequest)
   })
 _sym_db.RegisterMessage(CompleteManualActivityRequest)
+
+AddLogMessageRequest = _reflection.GeneratedProtocolMessageType('AddLogMessageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _ADDLOGMESSAGEREQUEST,
+  '__module__' : 'yamcs.protobuf.activities.activities_service_pb2'
+  # @@protoc_insertion_point(class_scope:yamcs.protobuf.activities.AddLogMessageRequest)
+  })
+_sym_db.RegisterMessage(AddLogMessageRequest)
 
 SubscribeActivitiesRequest = _reflection.GeneratedProtocolMessageType('SubscribeActivitiesRequest', (_message.Message,), {
   'DESCRIPTOR' : _SUBSCRIBEACTIVITIESREQUEST,
@@ -780,8 +959,8 @@ _ACTIVITIESAPI = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=b'\320\200\001\001',
-  serialized_start=1411,
-  serialized_end=3242,
+  serialized_start=1704,
+  serialized_end=3867,
   methods=[
   _descriptor.MethodDescriptor(
     name='ListActivities',
@@ -838,9 +1017,18 @@ _ACTIVITIESAPI = _descriptor.ServiceDescriptor(
     serialized_options=b'\212\222\003>\0329/api/activities/{instance}/activities/{activity}:complete:\001*',
   ),
   _descriptor.MethodDescriptor(
+    name='AddLogMessage',
+    full_name='yamcs.protobuf.activities.ActivitiesApi.AddLogMessage',
+    index=6,
+    containing_service=None,
+    input_type=_ADDLOGMESSAGEREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+    serialized_options=b'\212\222\0039\0324/api/activities/{instance}/activities/{activity}/log:\001*',
+  ),
+  _descriptor.MethodDescriptor(
     name='SubscribeGlobalStatus',
     full_name='yamcs.protobuf.activities.ActivitiesApi.SubscribeGlobalStatus',
-    index=6,
+    index=7,
     containing_service=None,
     input_type=_SUBSCRIBEGLOBALSTATUSREQUEST,
     output_type=_GLOBALACTIVITYSTATUS,
@@ -849,7 +1037,7 @@ _ACTIVITIESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubscribeActivities',
     full_name='yamcs.protobuf.activities.ActivitiesApi.SubscribeActivities',
-    index=7,
+    index=8,
     containing_service=None,
     input_type=_SUBSCRIBEACTIVITIESREQUEST,
     output_type=yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYINFO,
@@ -858,7 +1046,7 @@ _ACTIVITIESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='SubscribeActivityLog',
     full_name='yamcs.protobuf.activities.ActivitiesApi.SubscribeActivityLog',
-    index=8,
+    index=9,
     containing_service=None,
     input_type=_SUBSCRIBEACTIVITYLOGREQUEST,
     output_type=yamcs_dot_protobuf_dot_activities_dot_activities__pb2._ACTIVITYLOGINFO,
@@ -867,16 +1055,25 @@ _ACTIVITIESAPI = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='ListExecutors',
     full_name='yamcs.protobuf.activities.ActivitiesApi.ListExecutors',
-    index=9,
+    index=10,
     containing_service=None,
     input_type=_LISTEXECUTORSREQUEST,
     output_type=_LISTEXECUTORSRESPONSE,
     serialized_options=b'\212\222\003&\n$/api/activities/{instance}/executors',
   ),
   _descriptor.MethodDescriptor(
+    name='ListScriptRunners',
+    full_name='yamcs.protobuf.activities.ActivitiesApi.ListScriptRunners',
+    index=11,
+    containing_service=None,
+    input_type=_LISTSCRIPTRUNNERSREQUEST,
+    output_type=_LISTSCRIPTRUNNERSRESPONSE,
+    serialized_options=b'\212\222\003+\n)/api/activities/{instance}/script-runners',
+  ),
+  _descriptor.MethodDescriptor(
     name='ListScripts',
     full_name='yamcs.protobuf.activities.ActivitiesApi.ListScripts',
-    index=10,
+    index=12,
     containing_service=None,
     input_type=_LISTSCRIPTSREQUEST,
     output_type=_LISTSCRIPTSRESPONSE,
