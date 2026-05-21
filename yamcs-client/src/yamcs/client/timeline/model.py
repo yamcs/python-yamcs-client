@@ -285,7 +285,7 @@ class TimelineItem(abc.ABC):
         Returns the predecessors for this item, derived from the item's start
         conditions.
         """
-        if isinstance(self.start, StartTrigger):
+        if isinstance(self.start, (OnSuccess, OnFailure, OnCompletion, OnStart)):
             return [self.start._to_predecessor()]
         elif isinstance(self.start, list):
             return [x._to_predecessor() for x in self.start]
