@@ -8,7 +8,6 @@ python archive_breakdown.py
 python archive_retrieval.py
 python ccsds_completeness.py
 python change_alarms.py
-python change_algorithm.py
 python change_calibration.py
 # python command_bench.py  # runs forever
 # python command_history.py  # runs forever
