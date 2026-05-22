@@ -306,8 +306,13 @@ def split_protobuf_stream(chunk_iterator, message_class):
 
         while len(buf):
             try:
+                res = _DecodeVarint32(buf, 0)
+
+                if res is None:
+                    break  # Need another chunk
+
                 # n is advanced beyond the varint
-                msg_len, n = _DecodeVarint32(buf, 0)
+                msg_len, n = res
             except IndexError:
                 break  # Need another chunk
 

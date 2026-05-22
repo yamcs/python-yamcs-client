@@ -9,7 +9,7 @@ cp -r ../../../yamcs/yamcs-api/src/main/proto/yamcs .
 cd ..; python-vendorize; cd src
 
 
-# Current code is generated with 3.11.4
+# Current code is generated with 35.0
 protoc --proto_path=. --python_out=. `find yamcs/protobuf -name '*.proto'` `find yamcs/api -name '*.proto'`
 
 
@@ -30,3 +30,6 @@ find yamcs/protobuf yamcs/api -name "*_pb2.py" -exec "${SED_CMD[@]}" \
 
 # Delete all .proto files, skipping the _vendor directory entirely
 find yamcs/protobuf yamcs/api -path "*/_vendor*" -prune -o -name "*.proto" -exec rm -f {} +
+
+# Delete platform-specific upb
+rm -rf yamcs/protobuf/_vendor/google/_upb/
