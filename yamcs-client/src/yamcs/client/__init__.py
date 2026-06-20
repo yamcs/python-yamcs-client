@@ -1,3 +1,7 @@
+# Suppress fallback-to-upb warning (expected due to vendorizing):
+import os
+os.environ.setdefault("PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION", "python")
+
 from yamcs.client import clientversion  # noqa
 from yamcs.client.activities import *  # noqa
 from yamcs.client.archive.client import *  # noqa
