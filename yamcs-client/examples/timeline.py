@@ -66,7 +66,6 @@ def create_view():
 
 def edit_band():
     """Snippet used in docs to edit a band."""
-    global group_a
     group_a.description = "A few random items"
     timeline.save_band(group_a)
 
