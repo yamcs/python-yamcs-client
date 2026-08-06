@@ -1293,8 +1293,9 @@ class ProcessorClient:
 
     def create_container_subscription(
         self,
-        containers: Union[str, List[str]],
+        containers: Optional[Union[str, List[str]]] = None,
         on_data: Optional[Callable[[ContainerData], None]] = None,
+        filter: Optional[str] = None,
         timeout: float = 60,
     ) -> ContainerSubscription:
         """
@@ -1304,6 +1305,10 @@ class ProcessorClient:
             Container names.
         :param on_data:
             Function that gets called with :class:`.ContainerData` updates.
+        :param filter:
+            Filter query applied to returned containers.
+
+            .. versionadded:: 2.1.0
         :param timeout:
             The amount of seconds to wait for the request to complete.
         :return:
@@ -1313,10 +1318,13 @@ class ProcessorClient:
         options = packets_service_pb2.SubscribeContainersRequest()
         options.instance = self._instance
         options.processor = self._processor
-        if isinstance(containers, str):
-            options.names.extend([containers])
-        else:
-            options.names.extend(containers)
+        if filter:
+            options.filter = filter
+        if containers:
+            if isinstance(containers, str):
+                options.names.extend([containers])
+            else:
+                options.names.extend(containers)
 
         manager = WebSocketSubscriptionManager(
             self.ctx, topic="containers", options=options
