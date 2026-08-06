@@ -1,2 +1,3 @@
 Sphinx
 sphinxcontrib-yamcs
+protobuf>=7.35.0
