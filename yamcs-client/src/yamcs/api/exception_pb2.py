@@ -4,11 +4,11 @@
 # source: yamcs/api/exception.proto
 # Protobuf Python Version: 7.35.0
 """Generated protocol buffer code."""
-from yamcs.protobuf._vendor.google.protobuf import descriptor as _descriptor
-from yamcs.protobuf._vendor.google.protobuf import descriptor_pool as _descriptor_pool
-from yamcs.protobuf._vendor.google.protobuf import runtime_version as _runtime_version
-from yamcs.protobuf._vendor.google.protobuf import symbol_database as _symbol_database
-from yamcs.protobuf._vendor.google.protobuf.internal import builder as _builder
+from yamcs.protobuf._runtime import descriptor as _descriptor
+from yamcs.protobuf._runtime import descriptor_pool as _descriptor_pool
+from yamcs.protobuf._runtime import runtime_version as _runtime_version
+from yamcs.protobuf._runtime import symbol_database as _symbol_database
+from yamcs.protobuf._runtime import builder as _builder
 _runtime_version.ValidateProtobufRuntimeVersion(
     _runtime_version.Domain.PUBLIC,
     7,
@@ -22,7 +22,7 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from yamcs.protobuf._vendor.google.protobuf import any_pb2 as google_dot_protobuf_dot_any__pb2
+from yamcs.protobuf._runtime import any_pb2 as google_dot_protobuf_dot_any__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19yamcs/api/exception.proto\x12\tyamcs.api\x1a\x19google/protobuf/any.proto\"a\n\x10\x45xceptionMessage\x12\x0c\n\x04\x63ode\x18\x01 \x01(\x05\x12\x0c\n\x04type\x18\x02 \x01(\t\x12\x0b\n\x03msg\x18\x03 \x01(\t\x12$\n\x06\x64\x65tail\x18\x04 \x01(\x0b\x32\x14.google.protobuf.Any\"c\n\x15\x46ilterSyntaxException\x12\x11\n\tbeginLine\x18\x01 \x01(\x05\x12\x13\n\x0b\x62\x65ginColumn\x18\x02 \x01(\x05\x12\x0f\n\x07\x65ndLine\x18\x03 \x01(\x05\x12\x11\n\tendColumn\x18\x04 \x01(\x05\x42!\n\rorg.yamcs.apiB\x0e\x45xceptionProtoP\x01\x62\x06proto3')

@@ -4,11 +4,11 @@
 # source: yamcs/protobuf/activities/activities.proto
 # Protobuf Python Version: 7.35.0
 """Generated protocol buffer code."""
-from yamcs.protobuf._vendor.google.protobuf import descriptor as _descriptor
-from yamcs.protobuf._vendor.google.protobuf import descriptor_pool as _descriptor_pool
-from yamcs.protobuf._vendor.google.protobuf import runtime_version as _runtime_version
-from yamcs.protobuf._vendor.google.protobuf import symbol_database as _symbol_database
-from yamcs.protobuf._vendor.google.protobuf.internal import builder as _builder
+from yamcs.protobuf._runtime import descriptor as _descriptor
+from yamcs.protobuf._runtime import descriptor_pool as _descriptor_pool
+from yamcs.protobuf._runtime import runtime_version as _runtime_version
+from yamcs.protobuf._runtime import symbol_database as _symbol_database
+from yamcs.protobuf._runtime import builder as _builder
 _runtime_version.ValidateProtobufRuntimeVersion(
     _runtime_version.Domain.PUBLIC,
     7,
@@ -22,8 +22,8 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from yamcs.protobuf._vendor.google.protobuf import struct_pb2 as google_dot_protobuf_dot_struct__pb2
-from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from yamcs.protobuf._runtime import struct_pb2 as google_dot_protobuf_dot_struct__pb2
+from yamcs.protobuf._runtime import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n*yamcs/protobuf/activities/activities.proto\x12\x19yamcs.protobuf.activities\x1a\x1cgoogle/protobuf/struct.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"q\n\x16\x41\x63tivityDefinitionInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12%\n\x04\x61rgs\x18\x02 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\r\n\x05label\x18\x03 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x04 \x01(\t\"\xc8\x02\n\x0c\x41\x63tivityInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03seq\x18\x03 \x01(\r\x12\x39\n\x06status\x18\x04 \x01(\x0e\x32).yamcs.protobuf.activities.ActivityStatus\x12\x11\n\tstartedBy\x18\x05 \x01(\t\x12\x0c\n\x04type\x18\x06 \x01(\t\x12%\n\x04\x61rgs\x18\x07 \x01(\x0b\x32\x17.google.protobuf.Struct\x12\r\n\x05label\x18\x0c \x01(\t\x12\x0e\n\x06\x64\x65tail\x18\x08 \x01(\t\x12(\n\x04stop\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tstoppedBy\x18\n \x01(\t\x12\x15\n\rfailureReason\x18\x0b \x01(\t\"T\n\x0c\x45xecutorInfo\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x13\n\x0b\x64isplayName\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x0c\n\x04icon\x18\x04 \x01(\t\"\x98\x01\n\x0f\x41\x63tivityLogInfo\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0e\n\x06source\x18\x02 \x01(\t\x12:\n\x05level\x18\x03 \x01(\x0e\x32+.yamcs.protobuf.activities.ActivityLogLevel\x12\x0f\n\x07message\x18\x04 \x01(\t*H\n\x0e\x41\x63tivityStatus\x12\x0b\n\x07RUNNING\x10\x01\x12\r\n\tCANCELLED\x10\x02\x12\x0e\n\nSUCCESSFUL\x10\x03\x12\n\n\x06\x46\x41ILED\x10\x04*4\n\x10\x41\x63tivityLogLevel\x12\x08\n\x04INFO\x10\x01\x12\x0b\n\x07WARNING\x10\x02\x12\t\n\x05\x45RROR\x10\x03\x42\x32\n\x1dorg.yamcs.protobuf.activitiesB\x0f\x41\x63tivitiesProtoP\x01')

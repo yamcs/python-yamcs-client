@@ -9,7 +9,7 @@ from yamcs.client import clientversion
 from yamcs.client.core.auth import Credentials
 from yamcs.client.core.exceptions import NotFound, Unauthorized, YamcsError
 from yamcs.client.core.helpers import FixedDelay, do_request
-from yamcs.protobuf._vendor.google.protobuf.message import DecodeError
+from yamcs.protobuf._runtime import DecodeError
 
 __all__ = [
     "Context",

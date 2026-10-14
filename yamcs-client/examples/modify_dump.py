@@ -1,7 +1,7 @@
 import struct
 
 from yamcs.client import split_protobuf_stream
-from yamcs.protobuf._vendor.google.protobuf.internal.encoder import _VarintBytes
+from yamcs.protobuf._runtime import _VarintBytes
 from yamcs.protobuf.table import table_pb2
 
 """

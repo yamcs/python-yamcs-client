@@ -1,3 +1,3 @@
 Sphinx
-sphinxcontrib-yamcs
+sphinxcontrib-yamcs>=1.5.0
 protobuf>=7.35.0

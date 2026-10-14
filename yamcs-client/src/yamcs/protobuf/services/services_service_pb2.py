@@ -4,11 +4,11 @@
 # source: yamcs/protobuf/services/services_service.proto
 # Protobuf Python Version: 7.35.0
 """Generated protocol buffer code."""
-from yamcs.protobuf._vendor.google.protobuf import descriptor as _descriptor
-from yamcs.protobuf._vendor.google.protobuf import descriptor_pool as _descriptor_pool
-from yamcs.protobuf._vendor.google.protobuf import runtime_version as _runtime_version
-from yamcs.protobuf._vendor.google.protobuf import symbol_database as _symbol_database
-from yamcs.protobuf._vendor.google.protobuf.internal import builder as _builder
+from yamcs.protobuf._runtime import descriptor as _descriptor
+from yamcs.protobuf._runtime import descriptor_pool as _descriptor_pool
+from yamcs.protobuf._runtime import runtime_version as _runtime_version
+from yamcs.protobuf._runtime import symbol_database as _symbol_database
+from yamcs.protobuf._runtime import builder as _builder
 _runtime_version.ValidateProtobufRuntimeVersion(
     _runtime_version.Domain.PUBLIC,
     7,
@@ -22,7 +22,7 @@ _runtime_version.ValidateProtobufRuntimeVersion(
 _sym_db = _symbol_database.Default()
 
 
-from yamcs.protobuf._vendor.google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
+from yamcs.protobuf._runtime import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from yamcs.api import annotations_pb2 as yamcs_dot_api_dot_annotations__pb2
 from yamcs.protobuf.services import services_pb2 as yamcs_dot_protobuf_dot_services_dot_services__pb2
 

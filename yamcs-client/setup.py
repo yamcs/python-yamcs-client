@@ -43,6 +43,11 @@ setuptools.setup(
         "setuptools",
         "websocket-client",
     ],
+    extras_require={
+        # Use the installed protobuf runtime (faster) instead of the vendored copy.
+        # Keep in sync with GENCODE_VERSION in yamcs/protobuf/_runtime.py
+        "protobuf": ["protobuf>=7.35.0; python_version >= '3.10'"],
+    },
     include_package_data=True,
     zip_safe=False,
 )

@@ -6,7 +6,7 @@ from yamcs.client.core.helpers import (
     parse_server_timestring,
     parse_value,
 )
-from yamcs.protobuf._vendor.google.protobuf.internal.decoder import _DecodeVarint32
+from yamcs.protobuf._runtime import _DecodeVarint32
 from yamcs.protobuf.table import table_pb2
 
 __all__ = [

@@ -12,9 +12,7 @@ import requests
 import urllib3
 from yamcs.client.core.exceptions import ConnectionFailure, YamcsError
 from yamcs.protobuf import yamcs_pb2
-from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2
-from yamcs.protobuf._vendor.google.protobuf.internal.decoder import _DecodeVarint32
-from yamcs.protobuf._vendor.google.protobuf.internal.encoder import _VarintBytes
+from yamcs.protobuf._runtime import _DecodeVarint32, _VarintBytes, timestamp_pb2
 
 __all__ = [
     "adapt_name_for_rest",

@@ -4,11 +4,11 @@
 # source: yamcs/protobuf/pvalue/pvalue.proto
 # Protobuf Python Version: 7.35.0
 """Generated protocol buffer code."""
-from yamcs.protobuf._vendor.google.protobuf import descriptor as _descriptor
-from yamcs.protobuf._vendor.google.protobuf import descriptor_pool as _descriptor_pool
-from yamcs.protobuf._vendor.google.protobuf import runtime_version as _runtime_version
-from yamcs.protobuf._vendor.google.protobuf import symbol_database as _symbol_database
-from yamcs.protobuf._vendor.google.protobuf.internal import builder as _builder
+from yamcs.protobuf._runtime import descriptor as _descriptor
+from yamcs.protobuf._runtime import descriptor_pool as _descriptor_pool
+from yamcs.protobuf._runtime import runtime_version as _runtime_version
+from yamcs.protobuf._runtime import symbol_database as _symbol_database
+from yamcs.protobuf._runtime import builder as _builder
 _runtime_version.ValidateProtobufRuntimeVersion(
     _runtime_version.Domain.PUBLIC,
     7,
@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 from yamcs.protobuf import yamcs_pb2 as yamcs_dot_protobuf_dot_yamcs__pb2
 from yamcs.protobuf.mdb import mdb_pb2 as yamcs_dot_protobuf_dot_mdb_dot_mdb__pb2
-from yamcs.protobuf._vendor.google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from yamcs.protobuf._runtime import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
 DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\"yamcs/protobuf/pvalue/pvalue.proto\x12\x15yamcs.protobuf.pvalue\x1a\x1ayamcs/protobuf/yamcs.proto\x1a\x1cyamcs/protobuf/mdb/mdb.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xb8\x04\n\x0eParameterValue\x12)\n\x02id\x18\x01 \x01(\x0b\x32\x1d.yamcs.protobuf.NamedObjectId\x12\'\n\x08rawValue\x18\x02 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\'\n\x08\x65ngValue\x18\x03 \x01(\x0b\x32\x15.yamcs.protobuf.Value\x12\x33\n\x0f\x61\x63quisitionTime\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x32\n\x0egenerationTime\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x43\n\x11\x61\x63quisitionStatus\x18\x06 \x01(\x0e\x32(.yamcs.protobuf.pvalue.AcquisitionStatus\x12\x1c\n\x10processingStatus\x18\x07 \x01(\x08\x42\x02\x18\x01\x12\x41\n\x10monitoringResult\x18\x08 \x01(\x0e\x32\'.yamcs.protobuf.pvalue.MonitoringResult\x12=\n\x0erangeCondition\x18\t \x01(\x0e\x32%.yamcs.protobuf.pvalue.RangeCondition\x12\x32\n\nalarmRange\x18\x19 \x03(\x0b\x32\x1e.yamcs.protobuf.mdb.AlarmRange\x12\x14\n\x0c\x65xpireMillis\x18\x1a \x01(\x03\x12\x11\n\tnumericId\x18\x1b \x01(\r\"\x98\x01\n\rParameterData\x12\x38\n\tparameter\x18\x01 \x03(\x0b\x32%.yamcs.protobuf.pvalue.ParameterValue\x12\r\n\x05group\x18\x02 \x01(\t\x12\x16\n\x0egenerationTime\x18\x03 \x01(\x03\x12\x0e\n\x06seqNum\x18\x04 \x01(\x05\x12\x16\n\x0esubscriptionId\x18\x05 \x01(\x05\"\xe4\x02\n\nTimeSeries\x12\x38\n\x06sample\x18\x01 \x03(\x0b\x32(.yamcs.protobuf.pvalue.TimeSeries.Sample\x1a\x9b\x02\n\x06Sample\x12(\n\x04time\x18\x06 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x0b\n\x03\x61vg\x18\x02 \x01(\x01\x12\x0b\n\x03min\x18\x03 \x01(\x01\x12\x0b\n\x03max\x18\x04 \x01(\x01\x12\t\n\x01n\x18\x05 \x01(\x05\x12+\n\x07minTime\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07maxTime\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12-\n\tfirstTime\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08lastTime\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xf8\x01\n\x06Ranges\x12\x32\n\x05range\x18\x01 \x03(\x0b\x32#.yamcs.protobuf.pvalue.Ranges.Range\x1a\xb9\x01\n\x05Range\x12)\n\x05start\x18\x07 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x04stop\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\x12(\n\tengValues\x18\x05 \x03(\x0b\x32\x15.yamcs.protobuf.Value\x12\x0e\n\x06\x63ounts\x18\x06 \x03(\x05\x12\x12\n\notherCount\x18\t \x01(\x05*M\n\x11\x41\x63quisitionStatus\x12\x0c\n\x08\x41\x43QUIRED\x10\x00\x12\x10\n\x0cNOT_RECEIVED\x10\x01\x12\x0b\n\x07INVALID\x10\x02\x12\x0b\n\x07\x45XPIRED\x10\x03*o\n\x10MonitoringResult\x12\x0c\n\x08\x44ISABLED\x10\x00\x12\r\n\tIN_LIMITS\x10\x01\x12\t\n\x05WATCH\x10\x07\x12\x0b\n\x07WARNING\x10\n\x12\x0c\n\x08\x44ISTRESS\x10\r\x12\x0c\n\x08\x43RITICAL\x10\x10\x12\n\n\x06SEVERE\x10\x13*#\n\x0eRangeCondition\x12\x07\n\x03LOW\x10\x00\x12\x08\n\x04HIGH\x10\x01\x42\x14\n\x12org.yamcs.protobuf')

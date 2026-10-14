@@ -9,6 +9,15 @@ Install ``yamcs-client`` from PyPI::
 
     pip install --upgrade yamcs-client
 
+For better performance when decoding large or frequent messages (for example
+high-rate parameter subscriptions), include the ``protobuf`` extra::
+
+    pip install --upgrade yamcs-client[protobuf]
+
+This installs the official ``protobuf`` runtime, which yamcs-client then uses
+instead of its bundled pure-Python copy. Any compatible ``protobuf`` package
+that is already installed is used automatically, even without this extra.
+
 
 .. rubric:: Usage
 
