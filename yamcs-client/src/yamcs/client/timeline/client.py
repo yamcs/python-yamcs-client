@@ -185,7 +185,7 @@ class TimelineClient:
         response = self.ctx.get_proto(url)
         message = timeline_pb2.TimelineItem()
         message.ParseFromString(response.content)
-        return TimelineItem._from_proto(message)
+        return TimelineItem._as_subclass(message)
 
     def save_item(self, item: Union[TimelineItem, Item]):
         """
