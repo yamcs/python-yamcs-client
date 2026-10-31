@@ -40,7 +40,7 @@ def _parse_alarm(proto):
 
 
 class Acknowledgment:
-    def __init__(self, name, time, status, message):
+    def __init__(self, name, time, status, message, return_value=None):
         self.name = name
         """Name of this acknowledgment."""
 
@@ -52,6 +52,14 @@ class Acknowledgment:
 
         self.message = message
         """Message of this acknowledgment."""
+
+        self.return_value = return_value
+        """
+        Return value of this acknowledgment. Only set when the
+        verifier defines a return parameter.
+
+        .. versionadded:: 2.2.0
+        """
 
     def is_terminated(self):
         return self.status and self.status != "SCHEDULED" and self.status != "PENDING"
@@ -211,6 +219,18 @@ class CommandHistory:
         return None
 
     @property
+    def return_value(self) -> Any:
+        """
+        Return value of the verifier that completed this command.
+
+        This is only set when the command was completed by a verifier
+        that defines a return parameter.
+
+        .. versionadded:: 2.2.0
+        """
+        return self.attributes.get("CommandComplete_Return")
+
+    @property
     def comment(self) -> Optional[str]:
         """Optional user comment attached when issuing the command."""
         return self.attributes.get("comment")
@@ -240,8 +260,9 @@ class CommandHistory:
         time = self.attributes.get(name + "_Time")
         status = self.attributes.get(name + "_Status")
         message = self.attributes.get(name + "_Message")
+        return_value = self.attributes.get(name + "_Return")
         if time and status:
-            return Acknowledgment(name, time, status, message)
+            return Acknowledgment(name, time, status, message, return_value)
         return None
 
     def _update(self, proto):
@@ -561,6 +582,18 @@ class MonitoredCommand(IssuedCommand):
         return None
 
     @property
+    def return_value(self) -> Any:
+        """
+        Return value of the verifier that completed this command.
+
+        This is only set when the command was completed by a verifier
+        that defines a return parameter.
+
+        .. versionadded:: 2.2.0
+        """
+        return self.attributes.get("CommandComplete_Return")
+
+    @property
     def comment(self) -> Optional[str]:
         """Optional user comment attached when issuing the command."""
         return self.attributes.get("comment")
@@ -590,8 +623,9 @@ class MonitoredCommand(IssuedCommand):
         time = self.attributes.get(name + "_Time")
         status = self.attributes.get(name + "_Status")
         message = self.attributes.get(name + "_Message")
+        return_value = self.attributes.get(name + "_Return")
         if time and status:
-            return Acknowledgment(name, time, status, message)
+            return Acknowledgment(name, time, status, message, return_value)
         return None
 
     def _update(self, proto):
